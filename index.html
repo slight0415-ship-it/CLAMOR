@@ -175,20 +175,21 @@
      잴 수 없는 것을 재는 척하지 않는다. 숫자를 묻지 않고 무엇이었는지만 받는다. */
   .passby{display:flex; flex-direction:column; gap:8px; padding-top:14px;
     border-top:1px solid var(--line)}
+  /* 지나가는 소음은 지도에서 파란 선으로 남는다. 그 색을 여기서부터 쓴다 */
   .pb-lead{font-size:0.875rem; font-weight:800; color:var(--text-dim);
     letter-spacing:-.02em; padding-bottom:2px; transition:color .3s}
-  .passby.urge .pb-lead{color:var(--c-noise)}
+  .passby.urge .pb-lead{color:#1F6FD0}
   .pb{display:flex; align-items:center; gap:11px; width:100%; cursor:pointer;
     font-family:inherit; text-align:left; padding:13px 14px; border-radius:13px;
-    background:var(--ink-2); border:1px solid var(--line);
-    transition:transform .08s ease, border-color .2s}
-  .passby.urge .pb{border-color:rgba(224,72,63,.45)}
+    background:var(--ink-2); border:1px solid rgba(31,111,208,.30);
+    transition:transform .08s ease, border-color .2s, background .2s}
+  .passby.urge .pb{border-color:rgba(31,111,208,.62); background:rgba(31,111,208,.05)}
   .pb:active{transform:scale(.985)}
-  .pb-ic{flex:0 0 26px; height:26px; color:var(--text)}
+  .pb-ic{flex:0 0 26px; height:26px; color:#1F6FD0}
   .pb-ic svg{width:26px; height:26px; display:block}
-  .pb-tx{flex:1; font-size:1rem; font-weight:800; color:var(--text);
+  .pb-tx{flex:1; font-size:1rem; font-weight:800; color:#1F6FD0;
     letter-spacing:-.02em}
-  .pb-go{font-size:1.125rem; font-weight:800; color:var(--text-mute)}
+  .pb-go{font-size:1.125rem; font-weight:800; color:#1F6FD0; opacity:.55}
   /* 3 — 안내. 면을 주지 않고 선 하나로 갈라 둔다 */
   #s-rec .rfoot .note{padding-top:15px; border-top:1px solid var(--line)}
   .note b{color:var(--text-dim)}
@@ -2222,7 +2223,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v186</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v187</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2375,7 +2376,7 @@
       <div class="mtitle">
         <h1>생활불편 리스크맵</h1>
         <div class="msub">소음 편 <span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v186</span></div>
+          <span class="ver" id="ver2">v187</span></div>
       </div>
       <div class="cats" id="cats2"></div>
     </div>
@@ -2398,7 +2399,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>생활불편 리스크맵</h1>
-        <div class="msub">소음 편 <span class="tierbadge" id="tierbadge">무료</span><span class="ver">v186</span></div>
+        <div class="msub">소음 편 <span class="tierbadge" id="tierbadge">무료</span><span class="ver">v187</span></div>
       </div>
       <div class="cats" id="cats"></div>
     </div>
