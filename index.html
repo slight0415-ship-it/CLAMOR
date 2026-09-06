@@ -2222,7 +2222,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v181</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v183</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2375,7 +2375,7 @@
       <div class="mtitle">
         <h1>생활불편 리스크맵</h1>
         <div class="msub">소음 편 <span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v181</span></div>
+          <span class="ver" id="ver2">v183</span></div>
       </div>
       <div class="cats" id="cats2"></div>
     </div>
@@ -2398,7 +2398,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>생활불편 리스크맵</h1>
-        <div class="msub">소음 편 <span class="tierbadge" id="tierbadge">무료</span><span class="ver">v181</span></div>
+        <div class="msub">소음 편 <span class="tierbadge" id="tierbadge">무료</span><span class="ver">v183</span></div>
       </div>
       <div class="cats" id="cats"></div>
     </div>
@@ -3056,7 +3056,7 @@ document.getElementById('sms-send').onclick=()=>{
 const SENT_KEY='clamor.lastSent';
 function saveSent(r){
   /* 지도 카드와 같은 이름이어야 한다. 문자 화면 주소가 아직 안 왔을 때
-     '논현동 일대'로 굳어 버리면, 지도에서는 은봉로 288인데 사본에는
+     '논현동 일대'로 굳어 버리면, 지도에서 나온 도로명과 사본에는
      다른 이름이 남는다. */
   const addr = (recPlace && recPlace.name) ? recPlace.name
     : ((document.getElementById('sms-addr')||{}).textContent
@@ -3087,7 +3087,11 @@ function renderSent(rec){
 }
 
 /* ══ 지도 ══ */
-const CENTER={lat:37.404112,lng:126.723739};
+/* 내가 선 자리. 녹음 화면 주소, 문자 신고문, 내 신고가 붙을 지점,
+   지도 첫 중심이 모두 여기서 나온다.
+   이동 소음 구간에서 250m 넘게 떨어진 자리로 잡았다 — 내 신고 마커는
+   크게 그려지므로 선 위에 얹히면 둘이 겹친 것이 오작동으로 읽힌다. */
+const CENTER={lat:37.403955,lng:126.726470};
 
 /* ══ 이동 소음 구간 ══
    멈춰 있는 소음은 점으로 남지만 지나가는 소음은 점으로 남지 않는다.
@@ -3878,7 +3882,7 @@ function markCard(){
   document.getElementById('cidx').textContent=cardIdx+1;
   cardList.forEach((s,i)=>{ if(s.el) s.el.classList.toggle('on', i===cardIdx) });
   /* 내 신고 배너는 내 지점을 보고 있을 때만 뜬다. 다른 지점을 보는데
-     은봉로 288 얘기가 떠 있으면 화면이 서로 다른 말을 한다. */
+     다른 지점 얘기가 떠 있으면 화면이 서로 다른 말을 한다. */
   const mine=document.getElementById('mine');
   if(mine) mine.hidden = !(cardList[cardIdx] && cardList[cardIdx].mine);
   /* 지금 보는 카드와 그 앞뒤 이름을 채운다. 처음에 앞쪽 몇 장만 물어보고
