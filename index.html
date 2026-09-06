@@ -170,6 +170,25 @@
 
   .note{font-size:0.8438rem; line-height:1.75; color:var(--text-mute);
     text-align:center}
+
+  /* ── 지나가는 소음 ──
+     잴 수 없는 것을 재는 척하지 않는다. 숫자를 묻지 않고 무엇이었는지만 받는다. */
+  .passby{display:flex; flex-direction:column; gap:8px; padding-top:14px;
+    border-top:1px solid var(--line)}
+  .pb-lead{font-size:0.875rem; font-weight:800; color:var(--text-dim);
+    letter-spacing:-.02em; padding-bottom:2px; transition:color .3s}
+  .passby.urge .pb-lead{color:var(--c-noise)}
+  .pb{display:flex; align-items:center; gap:11px; width:100%; cursor:pointer;
+    font-family:inherit; text-align:left; padding:13px 14px; border-radius:13px;
+    background:var(--ink-2); border:1px solid var(--line);
+    transition:transform .08s ease, border-color .2s}
+  .passby.urge .pb{border-color:rgba(224,72,63,.45)}
+  .pb:active{transform:scale(.985)}
+  .pb-ic{flex:0 0 26px; height:26px; color:var(--text)}
+  .pb-ic svg{width:26px; height:26px; display:block}
+  .pb-tx{flex:1; font-size:1rem; font-weight:800; color:var(--text);
+    letter-spacing:-.02em}
+  .pb-go{font-size:1.125rem; font-weight:800; color:var(--text-mute)}
   /* 3 — 안내. 면을 주지 않고 선 하나로 갈라 둔다 */
   #s-rec .rfoot .note{padding-top:15px; border-top:1px solid var(--line)}
   .note b{color:var(--text-dim)}
@@ -1696,6 +1715,7 @@
   #s-sent{overflow-y:auto}
   .sent-wrap{padding:30px 22px 26px; display:flex; flex-direction:column;
     align-items:center; min-height:100%}
+  .pb-mark{background:rgba(31,111,208,.10)}
   .sent-mark{width:60px; height:60px; border-radius:50%; flex:0 0 auto;
     background:rgba(31,111,208,.1); border:1px solid rgba(31,111,208,.3);
     display:grid; place-items:center; margin-bottom:15px}
@@ -1783,7 +1803,12 @@
     width:100%; height:23px; margin-top:8px;
     border-bottom:1px solid #C9D1DC; padding-bottom:2px}
   .lcard .lwave i{flex:1; min-height:2px; border-radius:1.5px 1.5px 0 0;
-    background:#CFD6E0}
+    background:#CFD6E0;
+    transform-origin:bottom; animation:lwrise .5s cubic-bezier(.2,.9,.25,1) backwards;
+    animation-delay:calc(var(--wd, 0ms) + var(--bd, 0ms))}
+  /* 목록이 그려질 때 막대가 바닥에서 솟는다. 카드마다 시차를 두어
+     한 장씩 살아나게 한다 — 정지 화면이 아니라 관측된 값으로 읽힌다 */
+  @keyframes lwrise{from{transform:scaleY(.06)} to{transform:scaleY(1)}}
   .lcard .lwave i.on{background:#E0483F}
   /* 밑줄과 눈금이 있어야 막대가 그래프로 읽힌다 */
   .lcard .wcap{display:flex; justify-content:space-between; margin-top:3px}
@@ -2061,9 +2086,39 @@
         </div>
       </div>
 
-      <div class="note"><b>AI가 분석하여 신고 여부를 판단합니다.</b><br>기준 미달이면 전송하지 않습니다.</div>
+      <div class="note"><b>AI가 분석하여 신고 여부를 판단합니다.</b></div>
       <!-- 기다리지 않고 넘어갈 수 있어야 한다. 촬영에서 10초는 큰 시간이다 -->
       <button class="btn primary" id="rec-now">지금 판정하기</button>
+
+      <!-- 지나가는 소음은 여기서 갈라진다.
+           폰을 집는 사이 이미 사라졌으므로 잴 것이 없다. 측정값을 묻지 않고
+           무엇이 지나갔는지만 받는다. -->
+      <div class="passby">
+        <div class="pb-lead" id="pb-lead">지나가는 소음이었나요?</div>
+        <button class="pb" data-passby="bike">
+          <span class="pb-ic" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="5.5" cy="17" r="3.2"/><circle cx="18.5" cy="17" r="3.2"/>
+              <path d="M5.5 17h5l4-7h-3"/><path d="M14 6h3l1.5 11"/>
+            </svg>
+          </span>
+          <span class="pb-tx">이륜차 소음인가요?</span>
+          <span class="pb-go">›</span>
+        </button>
+        <button class="pb" data-passby="car">
+          <span class="pb-ic" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 16v-3.2l2-4.3A2 2 0 0 1 6.8 7h10.4a2 2 0 0 1 1.8 1.5l2 4.3V16"/>
+              <path d="M3 16h18"/><circle cx="7.2" cy="17.6" r="1.7"/><circle cx="16.8" cy="17.6" r="1.7"/>
+            </svg>
+          </span>
+          <span class="pb-tx">차량 소음인가요?</span>
+          <span class="pb-go">›</span>
+        </button>
+      </div>
+
       <button class="btn ghost" data-go="splash">녹음 취소</button>
     </div>
   </section>
@@ -2159,7 +2214,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v174</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v179</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2266,6 +2321,42 @@
     </div>
   </section>
 
+  <!-- ══ 지나가는 소음 제보 확인 ══
+       112로 가지 않는다. 지속 요건을 채우지 못해 신고가 성립하지 않기 때문이다.
+       그래서 잰 값도 적지 않는다. 폰을 집는 사이 소리는 이미 지나갔다.
+       남는 것은 언제, 어디서, 무엇이 지나갔는가 셋뿐이다. -->
+  <section class="screen" id="s-passby" hidden>
+    <div class="sent-wrap">
+      <div class="sent-mark pb-mark">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M3 12h13M16 12l-4-4M16 12l-4 4" stroke="#1F6FD0" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M20 6v12" stroke="#1F6FD0" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h2 class="sent-t">구간 기록에 더했습니다</h2>
+      <div class="sent-when" id="pb-when">—</div>
+
+      <div class="sent-card">
+        <div class="sent-row"><span>위치</span><b id="pb-addr">—</b></div>
+        <div class="sent-row"><span>소리 유형</span><b id="pb-type">—</b></div>
+        <div class="sent-row"><span>남는 것</span><b>시각 · 위치 · 유형</b></div>
+      </div>
+
+      <div class="sent-next">
+        <b>지나가는 소음은 한 번으로 신고가 되지 않습니다</b>
+        같은 길에서 여러 사람의 기록이 모이면 구간이 됩니다.
+      </div>
+
+      <div class="sent-btns">
+        <button class="btn primary" data-go="list">확인</button>
+      </div>
+
+      <p class="sent-note">3초 만에 지나간 소음은 지속 요건을 채우지 못해
+        112 신고가 성립하지 않습니다. 클레머는 이 기록을 도로 구간 단위로 모읍니다.</p>
+    </div>
+  </section>
+
   <!-- ══ 목록 — 이 동네에 무엇이 있나 ══
        지금까지 클레머는 우리 시각으로 정보를 늘어놓았다. 사용자에게는
        숫자가 무엇을 뜻하는지 판단할 근거가 없었다.
@@ -2276,7 +2367,7 @@
       <div class="mtitle">
         <h1>생활불편 리스크맵</h1>
         <div class="msub">소음 편 <span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v174</span></div>
+          <span class="ver" id="ver2">v179</span></div>
       </div>
       <div class="cats" id="cats2"></div>
     </div>
@@ -2299,7 +2390,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>생활불편 리스크맵</h1>
-        <div class="msub">소음 편 <span class="tierbadge" id="tierbadge">무료</span><span class="ver">v174</span></div>
+        <div class="msub">소음 편 <span class="tierbadge" id="tierbadge">무료</span><span class="ver">v179</span></div>
       </div>
       <div class="cats" id="cats"></div>
     </div>
@@ -2499,9 +2590,11 @@ function waveHTML(hours){
   const vals=WHRS.map(h=>hours[h]);
   const mx=Math.max.apply(null,vals)||1;
   let h='';
-  vals.forEach(v=>{
+  vals.forEach((v,i)=>{
     const w=v/mx;
-    h+='<i class="'+(w>=0.7?'on':'')+'" style="height:'+Math.round(14+w*86)+'%"></i>';
+    /* 왼쪽부터 차례로 솟는다. 카드 사이 시차는 renderList에서 준다 */
+    h+='<i class="'+(w>=0.7?'on':'')+'" style="height:'+Math.round(14+w*86)+
+       '%;--bd:'+(i*22)+'ms"></i>';
   });
   return '<span class="lwave">'+h+'</span>'+
     '<span class="wcap"><b>18시</b><b>24</b><b>05시</b></span>';
@@ -2517,7 +2610,7 @@ function listCardHTML(s,i){
   return '<button class="lcard '+(s.mine?'mine':'')+'" data-li="'+i+'">'+
     '<span class="lv">'+
       '<span class="top"><span class="n">'+db+'</span><span class="u">dB</span>'+
-        '<span class="gap">기준 +'+gap+'</span></span>'+
+        '<span class="gap">기준보다 +'+gap+'</span></span>'+
       waveHTML(s.hours)+
     '</span>'+
     '<span class="li">'+
@@ -2569,6 +2662,11 @@ function renderList(){
   box.innerHTML = listRows.length
     ? listRows.map((s,i)=>s.isRoute?listRouteCardHTML(s,i):listCardHTML(s,i)).join('')
     : '<div class="lempty">이 화면 안에 신고 지점이 없습니다<br>지도를 움직여 보세요</div>';
+  /* 위 카드부터 차례로. 앞 8장까지만 시차를 주고 나머지는 바로 선다 —
+     아래로 내려갈수록 기다림이 길어지면 목록이 느려 보인다 */
+  box.querySelectorAll('.lcard').forEach((c,i)=>{
+    if(i<8) c.style.setProperty('--wd', (i*45)+'ms');
+  });
   box.querySelectorAll('.lcard').forEach(b=>{
     b.onclick=()=>{
       const s=listRows[+b.dataset.li]; if(!s) return;
@@ -2722,7 +2820,7 @@ document.body.classList.add('light');
 })();
 
 /* ══ 화면 전환 ══ */
-const SCREENS=['splash','rec','confirm','sms','sent','list','map','cast'];
+const SCREENS=['splash','rec','confirm','sms','sent','passby','list','map','cast'];
 let mapReady=false;
 function go(name){
   SCREENS.forEach(s=>document.getElementById('s-'+s).hidden=(s!==name));
@@ -2795,8 +2893,22 @@ const SEQ=['고성','고성','소란','고성','욕설'];
 function startRec(){
   if(recTimer) return;
   t0=Date.now(); overSec=0; streak=0; conf=6;
+  /* 지나가는 소음 안내는 처음엔 조용히 있다가, 잡히는 게 없으면 나선다 */
+  const pw=document.querySelector('.passby');
+  if(pw){ pw.classList.remove('urge');
+    document.getElementById('pb-lead').textContent='지나가는 소음이었나요?'; }
   recTimer=setInterval(()=>{
     const el=(Date.now()-t0)/1000;
+    /* 8초가 지나도록 기준을 넘긴 시간이 거의 없으면, 소리는 이미 지나간 것이다.
+       그때는 기다리라고 하는 대신 무엇이 지나갔는지를 묻는다. */
+    if(pw){
+      const quiet = el>8 && overSec<1.2;
+      pw.classList.toggle('urge', quiet);
+      const lead=document.getElementById('pb-lead');
+      if(lead) lead.textContent = quiet
+        ? '소리가 잡히지 않습니다. 이미 지나갔나요?'
+        : '지나가는 소음이었나요?';
+    }
     const base=40+Math.sin(el/1.6)*7;
     const burst=el>2.5 ? 16+Math.sin(el*2.3)*9 : 0;
     const db=Math.max(32, Math.round(base+burst+Math.random()*6));
@@ -2889,6 +3001,25 @@ document.getElementById('rec-now').onclick=()=>{
   if(!LAST) LAST={ t:0, db:Math.max(58,THR+6), dur:Math.max(3,Math.round(overSec)) };
   go('confirm');
 };
+
+/* 지나가는 소음 제보 — 재지 않고, 112로 보내지 않는다.
+   버튼을 누른 시각과 위치, 그리고 무엇이 지나갔는지만 남긴다. */
+document.querySelectorAll('[data-passby]').forEach(b=>{
+  b.onclick=()=>{
+    const kind = b.dataset.passby==='bike' ? '이륜차' : '차량';
+    const now=new Date();
+    const p=n=>String(n).padStart(2,'0');
+    document.getElementById('pb-when').textContent=
+      now.getFullYear()+'년 '+(now.getMonth()+1)+'월 '+now.getDate()+'일 '+
+      p(now.getHours())+':'+p(now.getMinutes());
+    const a=document.getElementById('rec-addr');
+    document.getElementById('pb-addr').textContent=
+      (a && a.textContent && !/확인 중/.test(a.textContent)) ? a.textContent : '인천 남동구 논현동 일대';
+    document.getElementById('pb-type').textContent=kind+' 소음';
+    stopRec();
+    go('passby');
+  };
+});
 document.getElementById('sms-send').onclick=()=>{
   myReport = LAST || {t:0, db:60, dur:4};   // 앱이 하는 일은 여기까지 — 전송은 사용자 몫
   saveSent(myReport);
@@ -3726,6 +3857,22 @@ function markCard(){
      은봉로 288 얘기가 떠 있으면 화면이 서로 다른 말을 한다. */
   const mine=document.getElementById('mine');
   if(mine) mine.hidden = !(cardList[cardIdx] && cardList[cardIdx].mine);
+  /* 지금 보는 카드와 그 앞뒤 이름을 채운다. 처음에 앞쪽 몇 장만 물어보고
+     넘길 때 다시 묻지 않으면, 아홉 번째 카드부터 '기타 구역'이 그대로 남는다. */
+  fillCardNames(cardIdx);
+}
+
+/* 보고 있는 자리 주변만 물어본다. 한 번에 다 던지면 조회가 막힌다 */
+function fillCardNames(center){
+  if(typeof ensureName!=='function') return;
+  const from=Math.max(0, center-2), to=Math.min(cardList.length, center+4);
+  for(let i=from;i<to;i++){
+    ensureName(cardList[i], sp=>{
+      const j=cardList.indexOf(sp); if(j<0) return;
+      const c=document.querySelector('.card[data-i="'+j+'"] .cname');
+      if(c) c.innerHTML=sp.name+(sp.mine?'<span class="cmine">내 신고</span>':'');
+    });
+  }
 }
 function flyTo(s){
   if(!map) return;
@@ -3974,9 +4121,11 @@ function tierBanner(){
     el.innerHTML=
       '<span class="tb-id back" title="무료로 돌아가기">무료로</span>'+
       '<span class="tb-txt">'+T.id+' 화면을 미리 보는 중입니다</span>'+
-      '<span class="tb-cta">4,900원으로 계속 보기</span>'+
+      '<span class="tb-cta">등급별로 열리는 정보</span>'+
       '<span class="tb-go">›</span>';
-    el.onclick=()=>go('cast');
+    /* 이 띠는 등급 사이를 오가는 자리다. 여기서 예보로 바로 뛰면
+       무료 → 비교표 → 유료 → 예보가 되어 되돌아올 길이 사라진다. */
+    el.onclick=()=>openTierSheet();
   }else{
     el.innerHTML=
       '<span class="tb-id back" title="무료로 돌아가기">무료로</span>'+
@@ -4174,11 +4323,8 @@ function refreshList(){
     cardIdx = i>=0 ? i : 0;
     rail.scrollLeft=cardIdx*rail.clientWidth;
     markCard();
-    /* 앞쪽 몇 장만 물어본다. 나머지는 넘겨볼 때 다시 이 함수가 돈다 */
-    cardList.slice(0,8).forEach(s=>ensureName(s, sp=>{
-      const c=document.querySelector('.card[data-i="'+cardList.indexOf(sp)+'"] .cname');
-      if(c) c.innerHTML=sp.name+(sp.mine?'<span class="cmine">내 신고</span>':'');
-    }));
+    /* 처음에는 보고 있는 자리 주변만. 넘기면 markCard가 이어서 채운다 */
+    fillCardNames(cardIdx);
   }
   /* 요약도 화면 기준으로 다시 센다 */
   document.getElementById('s-spots').textContent=vis.length;
@@ -4387,7 +4533,9 @@ function bootMapInner(){
     sectorOv.forEach(o=>o.setMap(cctvOn?map:null));
   };
   document.getElementById('paybtn').onclick=()=>{
-    if(paid){ alert('리포트 저장(데모)'); return }
+    /* 결제 뒤의 '리포트 저장'은 아직 기획되지 않았다. 눌러도 아무 일도
+       일어나지 않게 둔다. 팝업이 뜨면 촬영 화면을 가린다. */
+    if(paid) return;
     paid=true; credits=PLANS[planIdx].n-1;
     if(castSpot) renderCast(castSpot);   // 가려둔 시각도 함께 열린다
     document.querySelector('#wgrid').classList.add('unlocked');
