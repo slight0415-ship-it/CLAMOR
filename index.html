@@ -2203,9 +2203,9 @@
       <div class="cmsg">문자 신고 화면이 열립니다</div>
 
       <div class="sumcard">
-        <div class="srow"><span class="sl">소리 유형</span><span class="sv hot">고성 · 욕설</span></div>
-        <div class="srow"><span class="sl">최고 소음도</span><span class="sv">58 dB <em>(기준 52)</em></span></div>
-        <div class="srow"><span class="sl">지속시간</span><span class="sv">3분 12초</span></div>
+        <div class="srow"><span class="sl">소리 유형</span><span class="sv hot" id="cf-type">—</span></div>
+        <div class="srow"><span class="sl">최고 소음도</span><span class="sv"><b id="cf-db">—</b> dB <em>(기준 <span id="cf-thr">52</span>)</em></span></div>
+        <div class="srow"><span class="sl">지속시간</span><span class="sv" id="cf-dur">—</span></div>
         <div class="srow"><span class="sl">신뢰도</span><span class="sv">94%</span></div>
       </div>
 
@@ -2238,10 +2238,10 @@
         <div class="bl">소음 신고</div>
         <p><span id="sms-addr">인천 남동구 논현동 일대</span> 인근에서<br>
            심야 소음이 반복되고 있습니다.</p>
-        <p>발생 시각 : 02시 14분<br>
-           소리 유형 : 고성 · 욕설<br>
-           최고 소음도 : 58 dB (야간 기준 52 dB)<br>
-           지속 시간 : 3분 12초</p>
+        <p>발생 시각 : <span id="sms-time">—</span><br>
+           소리 유형 : <span id="sms-type">—</span><br>
+           최고 소음도 : <span id="sms-db">—</span> dB (야간 기준 <span id="sms-thr">52</span> dB)<br>
+           지속 시간 : <span id="sms-dur">—</span></p>
         <p>위치 : 위도 <span id="sms-lat">—</span> / 경도 <span id="sms-lng">—</span></p>
       </div>
       <div class="caret">작성 완료 — 전송만 누르면 됩니다</div>
@@ -2273,7 +2273,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v192</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v193</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2426,7 +2426,7 @@
       <div class="mtitle">
         <h1>생활불편 리스크맵</h1>
         <div class="msub">소음 편 <span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v192</span></div>
+          <span class="ver" id="ver2">v193</span></div>
       </div>
       <div class="cats" id="cats2"></div>
     </div>
@@ -2449,7 +2449,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>생활불편 리스크맵</h1>
-        <div class="msub">소음 편 <span class="tierbadge" id="tierbadge">무료</span><span class="ver">v192</span></div>
+        <div class="msub">소음 편 <span class="tierbadge" id="tierbadge">무료</span><span class="ver">v193</span></div>
       </div>
       <div class="cats" id="cats"></div>
     </div>
@@ -2903,11 +2903,12 @@ function go(name){
     b.classList.toggle('on', b.dataset.go===name));
   if(name==='rec') startRec(); else stopRec();
   if(name==='sent' && typeof renderSent==='function') renderSent(loadSent());
-  if(name==='confirm') startCountdown(); else stopCountdown();
+  if(name==='confirm'){ fillReport(); startCountdown(); } else stopCountdown();
   if(name==='cast' && !castSpot && typeof spots!=='undefined' && spots.length) renderCast(spots[0]);
   if(name==='rec') fillRecAddr();
   /* SDK가 늦게 오면 문자 화면에 자리표시 주소가 남는다. 열 때 한 번 더 맞춘다 */
   if(name==='sms'){
+    fillReport();
     recAddrDone=false; fillRecAddr();
     const r=document.getElementById('rec-addr'), s=document.getElementById('sms-addr');
     if(r && s && !/○○/.test(r.textContent)) s.textContent=r.textContent;
@@ -2968,6 +2969,23 @@ const bars=[...waveEl.children];
 let recTimer=null, t0=0, overSec=0, streak=0, conf=6;
 let LAST=null, myReport=null;   // 방금 보낸 신고
 const SEQ=['고성','고성','소란','고성','욕설'];
+
+/* 확인 화면과 문자 화면의 값을 판정 결과에서 채운다.
+   글자로 박아 두면 방금 고성으로 판정했는데 문자에는 다른 유형이 적히고,
+   화면마다 다른 말을 하게 된다. */
+function fillReport(){
+  const r = LAST || { t:0, db:Math.max(58,THR+6), dur:Math.max(3,Math.round(overSec)) };
+  const kind = (TYPES[r.t] && TYPES[r.t].k) || '고성';
+  const durTx = r.dur>=60
+    ? Math.floor(r.dur/60)+'분 '+(r.dur%60)+'초'
+    : r.dur+'분 12초';
+  const set=(id,v)=>{ const e=document.getElementById(id); if(e) e.textContent=v; };
+  set('cf-type', kind); set('cf-db', r.db); set('cf-thr', THR); set('cf-dur', durTx);
+  set('sms-type', kind); set('sms-db', r.db); set('sms-thr', THR); set('sms-dur', durTx);
+  /* 발생 시각은 지금 시각으로. 촬영이 새벽이면 화면도 새벽으로 나온다 */
+  const n=new Date(), p2=x=>String(x).padStart(2,'0');
+  set('sms-time', p2(n.getHours())+'시 '+p2(n.getMinutes())+'분');
+}
 
 function startRec(){
   if(recTimer) return;
@@ -3471,6 +3489,10 @@ function applyMine(){
   myReport.applied=true;
   cardIdx=0;                        // 내 신고가 첫 장이므로 위치도 처음으로
   best.mine=true; best.n+=1; best.cnt[myReport.t]+=1;
+  /* 카드가 보여주는 유형은 그 지점의 누적 최다 유형이다. 내 신고를 한 건
+     더해도 최다가 바뀌지 않으면, 방금 고성으로 신고했는데 카드에는
+     동물짖음이 뜬다. 방금 보낸 것과 화면이 어긋나면 같은 신고인지 알 수 없다. */
+  best.dom=myReport.t; best.lastTi=myReport.t;
   const mine=document.getElementById('mine');
   const paint=()=>{ document.getElementById('mine-s').innerHTML=
     '<b>'+best.name+'</b> · 이 지점 누적 <b>'+best.n+'건</b> · '+
