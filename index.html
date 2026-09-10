@@ -99,7 +99,9 @@
   @keyframes boot{to{width:100%}}
 
   /* ══ 2. 녹음 ══ */
-  #s-rec{padding:0}
+  /* 화면보다 내용이 길면 아래가 잘린다. 하단 버튼까지 손이 닿아야 한다. */
+  #s-rec{padding:0; overflow-y:auto; -webkit-overflow-scrolling:touch;
+    overscroll-behavior:contain}
   .rhead{padding:14px 18px 12px; border-bottom:1px solid var(--line);
     display:flex; align-items:center; gap:9px}
   .tag{font-family:var(--mono); font-size:0.875rem; letter-spacing:.06em; color:var(--text-dim);
@@ -120,7 +122,9 @@
   /* 실시간으로 움직이는 것들을 한 면 위에 올린다. 흰 카드 하나로 보이면
      숫자와 분석이 같은 일의 두 부분으로 읽힌다.
      위쪽 빈 공간의 가운데에 놓아야 화면이 휑해 보이지 않는다. */
-  .live-zone{margin:auto 18px; padding:2px 0 12px; flex:0 0 auto;
+  /* 내용이 화면보다 길어지면 세로 auto 여백이 계산을 흔든다.
+     margin-top:auto만 두면 짧을 때는 가운데, 길 때는 위에서부터 선다. */
+  .live-zone{margin:auto 18px 0; padding:2px 0 12px; flex:0 0 auto;
     background:var(--ink-2); border:1px solid var(--line); border-radius:16px;
     box-shadow:0 2px 8px rgba(20,26,38,.07)}
   .live-zone .detect{background:none; border:0; box-shadow:none;
@@ -147,7 +151,7 @@
   .wave i.hot{background:var(--c-noise)}
   .wave i.warm{background:#6E3733}
 
-  .rfoot{padding:0 18px 20px; display:flex; flex-direction:column; gap:11px}
+  .rfoot{padding:0 18px 20px; margin-top:auto; display:flex; flex-direction:column; gap:11px}
   /* 세 덩어리가 붙어 있으면 한 뭉치로 읽힌다. 몇 초 스쳐 보는 사람이
      'AI가 분석하는 곳 / 위치 정보 / 안내' 셋으로 인식하도록 갈라 둔다.
      간격을 벌리고, 라벨을 붙이고, 배경 성질을 다르게 준다. */
@@ -463,6 +467,50 @@
   /* 재료 두 줄과 결과 한 줄. 왼쪽이 무엇인지, 오른쪽이 값이다.
      기준값에 빨강을 쓰지 않는다 — 붉은 숫자는 '지금 벌어지는 일'로 읽혀
      고정된 규제 기준이 현재 측정값으로 오해된다. */
+  /* 목록은 신고를 보낸 뒤 처음 만나는 자리다. 툭 바뀌는 것보다
+     한 겹 올라오듯 들어오는 편이 '다음 단계'로 읽힌다. */
+  #s-list:not([hidden]){animation:listIn .34s cubic-bezier(.2,.9,.25,1)}
+  @keyframes listIn{
+    from{opacity:0; transform:translateY(10px)}
+    to{opacity:1; transform:translateY(0)}
+  }
+
+  /* ── 목록 진입 안내 ──
+     닫기 버튼을 두지 않는다. 스스로 사라지므로 사용자가 처리할 일이 없다. */
+  .lguide{position:absolute; top:0; left:0; right:0; z-index:60;
+    padding:10px 14px 12px; pointer-events:none;
+    background:linear-gradient(180deg, var(--ink) 72%, rgba(0,0,0,0));
+    transform:translateY(-100%); opacity:0;
+    transition:transform .42s cubic-bezier(.2,.9,.25,1), opacity .3s ease}
+  .lguide.show{transform:translateY(0); opacity:1}
+  .lg-in{display:flex; align-items:center; gap:11px;
+    padding:12px 14px; border-radius:14px;
+    background:var(--ink-2); border:1px solid rgba(224,72,63,.35);
+    box-shadow:0 6px 18px rgba(20,26,38,.13)}
+  .lg-ic{flex:0 0 24px; height:24px; color:var(--c-noise)}
+  .lg-ic svg{width:24px; height:24px; display:block}
+  .lg-tx{display:flex; flex-direction:column; gap:2px; min-width:0}
+  .lg-tx b{font-size:0.9375rem; font-weight:900; color:var(--text);
+    letter-spacing:-.02em}
+  .lg-tx{font-size:0.8125rem; font-weight:700; color:var(--text-dim);
+    letter-spacing:-.02em}
+
+  /* ── 방금 보낸 신고 ──
+     목록 첫 장에 서지만 배지 하나로는 눈에 안 든다. 잠시 맥박처럼
+     테두리가 번지게 해서 어디를 봐야 하는지 먼저 알려 준다. */
+  .lcard.mine.fresh{animation:mineBeat 1.5s ease-out 3}
+  @keyframes mineBeat{
+    0%{box-shadow:0 1px 3px rgba(20,26,38,.07), 0 0 0 0 rgba(224,72,63,.42)}
+    55%{box-shadow:0 1px 3px rgba(20,26,38,.07), 0 0 0 9px rgba(224,72,63,0)}
+    100%{box-shadow:0 1px 3px rgba(20,26,38,.07), 0 0 0 0 rgba(224,72,63,0)}
+  }
+  .lcard.mine.fresh .badge{animation:mineBadge 1.5s ease-in-out 3}
+  @keyframes mineBadge{0%,100%{transform:scale(1)} 50%{transform:scale(1.14)}}
+
+  /* 지도가 새 자리에서 크기를 잡는 동안 덮어 둔다 */
+  #map.settling{opacity:0}
+  #map{transition:opacity .22s ease}
+
   .zcalc{margin-top:11px; padding-top:9px; border-top:1px solid var(--line)}
   .zrow{display:flex; align-items:baseline; gap:10px; padding:5px 0}
   .zrow .zk{font-size:0.9375rem; color:var(--text-dim); letter-spacing:-.02em}
@@ -2043,6 +2091,7 @@
   <button data-go="list">6 목록</button>
   <button data-go="map">7 지도</button>
   <button data-go="cast">8 예보</button>
+  <button id="reclock">멈춤</button>
   <button id="tierdemo">등급</button>
   <button id="datamode">추정</button>
   <button onclick="geocodeApts()">단지</button>
@@ -2273,7 +2322,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v194</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v197</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2422,11 +2471,31 @@
        다방·배달앱이 사진과 가격으로 상품을 세우듯, 지점 하나하나를
        고를 수 있는 것으로 세운다. 고른 뒤에 상세로 들어간다. -->
   <section class="screen" id="s-list" hidden>
+    <!-- 신고를 보낸 직후 처음 만나는 화면이다. 무엇이 달라졌는지 한 번은
+         말해 줘야 한다. 팝업으로 띄우면 닫을 것이 하나 늘고, 사람들은
+         광고로 읽고 반사적으로 닫는다. 위에서 내려와 스스로 사라지는
+         띠로 둔다 — 없앨 일을 만들지 않으면 귀찮음도 생기지 않는다. -->
+    <div class="lguide" id="lguide" hidden>
+      <div class="lg-in">
+        <span class="lg-ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21s7-5.4 7-11a7 7 0 1 0-14 0c0 5.6 7 11 7 11z"/>
+            <circle cx="12" cy="10" r="2.4"/>
+          </svg>
+        </span>
+        <span class="lg-tx">
+          <b>보낸 신고가 지도에 더해졌습니다</b>
+          같은 동네에 쌓인 기록을 함께 보여드립니다
+        </span>
+      </div>
+    </div>
+
     <div class="mhead">
       <div class="mtitle">
         <h1>생활불편 리스크맵</h1>
         <div class="msub">소음 편 <span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v194</span></div>
+          <span class="ver" id="ver2">v197</span></div>
       </div>
       <div class="cats" id="cats2"></div>
     </div>
@@ -2449,7 +2518,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>생활불편 리스크맵</h1>
-        <div class="msub">소음 편 <span class="tierbadge" id="tierbadge">무료</span><span class="ver">v194</span></div>
+        <div class="msub">소음 편 <span class="tierbadge" id="tierbadge">무료</span><span class="ver">v197</span></div>
       </div>
       <div class="cats" id="cats"></div>
     </div>
@@ -2637,7 +2706,16 @@ function moveMapTo(hostId){
      필터·툴바·카드가 지도 위로 올라가고 배치가 통째로 무너진다. */
   if(host.firstChild) host.insertBefore(el, host.firstChild);
   else host.appendChild(el);
-  setTimeout(()=>{ if(map) map.relayout() },60);
+  /* 옮긴 직후에는 지도가 이전 크기로 한 번 그려졌다가 relayout으로 다시
+     그려진다. 그 사이가 화면에서 흔들림으로 보인다. 자리를 잡을 때까지
+     덮어 두고, 끝난 뒤 걷어낸다. */
+  el.classList.add('settling');
+  const settle=()=>{ if(map) map.relayout(); };
+  requestAnimationFrame(()=>{ settle();
+    requestAnimationFrame(()=>{ settle();
+      setTimeout(()=>{ settle(); el.classList.remove('settling') }, 90);
+    });
+  });
 }
 
 /* 화면에 들어온 카드만 움직인다. 목록이 수십 장이 되어도 실제로 도는 것은
@@ -2895,6 +2973,32 @@ document.body.classList.add('light');
 })();
 
 /* ══ 화면 전환 ══ */
+/* 신고를 보낸 직후 한 번만 목록 안내를 띄운다. 매번 뜨면 그때부터 광고다. */
+let guidePending=false;
+
+function showListGuide(){
+  const g=document.getElementById('lguide');
+  if(!g || !guidePending) return;
+  guidePending=false;
+  g.hidden=false;
+  requestAnimationFrame(()=>g.classList.add('show'));
+  setTimeout(()=>{
+    g.classList.remove('show');
+    setTimeout(()=>{ g.hidden=true }, 480);
+  }, 3600);
+}
+
+/* 방금 보낸 신고 카드를 잠시 박동시킨다. 배지 하나로는 눈에 안 든다. */
+function beatMine(){
+  const box=document.getElementById('lscroll');
+  if(!box) return;
+  const c=box.querySelector('.lcard.mine');
+  if(!c) return;
+  c.classList.remove('fresh');
+  void c.offsetWidth;              // 다시 재생시키려면 한 번 끊어야 한다
+  c.classList.add('fresh');
+}
+
 const SCREENS=['splash','rec','confirm','sms','sent','passby','list','map','cast'];
 let mapReady=false;
 function go(name){
@@ -2931,6 +3035,8 @@ function go(name){
       const c=m ? m.c : CENTER;
       map.setCenter(new kakao.maps.LatLng(c.lat,c.lng));
       renderList();
+      showListGuide();
+      setTimeout(beatMine, 260);
     },140);
   }
   if(name==='map'){
@@ -2967,6 +3073,25 @@ const waveEl=document.getElementById('wave');
 for(let i=0;i<WAVE_N;i++) waveEl.appendChild(document.createElement('i'));
 const bars=[...waveEl.children];
 let recTimer=null, t0=0, overSec=0, streak=0, conf=6;
+
+/* 화면을 만지는 동안 자동 전환을 멈춘다. 손을 뗀 뒤 잠시 더 기다렸다 넘어간다.
+   아래를 보려고 미는데 화면이 바뀌면 손이 닿지 않는 자리가 생긴다. */
+let holdRec=false, holdT=null, lockRec=false;
+document.addEventListener('DOMContentLoaded', ()=>{
+  /* 촬영에서 한 화면을 오래 보여줘야 할 때 자동 전환을 아예 잠근다 */
+  const lk=document.getElementById('reclock');
+  if(lk) lk.onclick=()=>{ lockRec=!lockRec; lk.classList.toggle('on', lockRec) };
+  const rec=document.getElementById('s-rec');
+  if(!rec) return;
+  const hold=()=>{ holdRec=true; clearTimeout(holdT) };
+  const release=()=>{ clearTimeout(holdT); holdT=setTimeout(()=>{holdRec=false}, 2500) };
+  ['touchstart','pointerdown','wheel'].forEach(ev=>
+    rec.addEventListener(ev, hold, {passive:true, capture:true}));
+  ['touchend','pointerup','pointercancel'].forEach(ev=>
+    rec.addEventListener(ev, release, {passive:true, capture:true}));
+  rec.addEventListener('wheel', release, {passive:true, capture:true});
+  rec.addEventListener('scroll', ()=>{ hold(); release() }, {passive:true, capture:true});
+});
 let LAST=null, myReport=null;   // 방금 보낸 신고
 const SEQ=['고성','고성','소란','고성','욕설'];
 
@@ -3111,14 +3236,16 @@ function startRec(){
     }
 
     /* 기준을 넘긴 시간이 충분히 쌓이면 스스로 확인 단계로 넘어간다.
-       개발 도구가 없는 실제 폰에서는 여기서 막히면 앞으로 갈 길이 없다. */
-    if(overSec>=4.5 && conf>=30 && !advancing){
+       개발 도구가 없는 실제 폰에서는 여기서 막히면 앞으로 갈 길이 없다.
+       다만 화면을 만지는 동안에는 넘어가지 않는다 — 아래를 보려고 미는데
+       화면이 바뀌면 손이 닿지 않는 자리가 생긴다. */
+    if(overSec>=4.5 && conf>=30 && !advancing && !holdRec && !lockRec){
       advancing=true;
       setTimeout(()=>{
         advancing=false;
         const rec=document.getElementById('s-rec');
-        if(rec && !rec.hidden) go('confirm');
-      }, 600);
+        if(rec && !rec.hidden && !holdRec && !lockRec) go('confirm');
+      }, 900);
     }
   },100);
 }
@@ -3185,6 +3312,7 @@ document.querySelectorAll('[data-passby]').forEach(b=>{
 });
 document.getElementById('sms-send').onclick=()=>{
   myReport = LAST || {t:0, db:60, dur:4};   // 앱이 하는 일은 여기까지 — 전송은 사용자 몫
+  guidePending=true;                       // 목록에 처음 닿을 때 한 번만 안내
   saveSent(myReport);
   go('sent');
 };
