@@ -1937,6 +1937,11 @@
   /* 목록으로 돌아가는 자리. 지도 도구와 반대쪽에 둔다 */
   .mtool.backlist{position:absolute; top:10px; left:10px; z-index:20}
   .stage.split .mtool.backlist{top:8px; left:8px}
+  /* 배지가 '목록' 버튼과 같은 자리에 있어 가려져 있었다.
+     읽는 것과 누르는 것은 겹칠 수 없으므로 버튼 아래 줄로 내린다.
+     버튼 높이(패딩 12 + 테두리 2 + 글자 1.2×0.8125rem)에 맞춰 계산한다. */
+  #sample-badge,
+  .stage.split #sample-badge{top:calc(28px + 1rem); left:10px; right:auto; bottom:auto}
 
   /* 최근 신고 기록 — 댓글처럼 한 줄씩 */
   #s-map .logs{display:flex; flex-direction:column; gap:0; margin-bottom:12px}
@@ -2331,7 +2336,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v198</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v199</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2504,7 +2509,7 @@
       <div class="mtitle">
         <h1>생활불편 리스크맵</h1>
         <div class="msub">소음 편 <span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v198</span></div>
+          <span class="ver" id="ver2">v199</span></div>
       </div>
       <div class="cats" id="cats2"></div>
     </div>
@@ -2527,7 +2532,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>생활불편 리스크맵</h1>
-        <div class="msub">소음 편 <span class="tierbadge" id="tierbadge">무료</span><span class="ver">v198</span></div>
+        <div class="msub">소음 편 <span class="tierbadge" id="tierbadge">무료</span><span class="ver">v199</span></div>
       </div>
       <div class="cats" id="cats"></div>
     </div>
@@ -3603,7 +3608,7 @@ function build(){
     b.onclick=()=>showDetail(s); list.appendChild(b);
   });
   const sb=document.getElementById('sample-badge');
-  sb.textContent=useEstimate?'추정 · 공공데이터 기반':'관측 · 직접 측정 표본';
+  sb.textContent=useEstimate?'추정 · 5개 기관 공공데이터 13종 기반':'관측 · 직접 측정 표본';
   sb.hidden=false;
   applyFilter(); resize(); buildCards();
   if(typeof applyHour==='function') applyHour();
