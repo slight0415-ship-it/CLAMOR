@@ -2347,7 +2347,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v200</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v201</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2520,7 +2520,7 @@
       <div class="mtitle">
         <h1>생활불편 리스크맵</h1>
         <div class="msub">소음 편 <span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v200</span></div>
+          <span class="ver" id="ver2">v201</span></div>
       </div>
       <div class="cats" id="cats2"></div>
     </div>
@@ -2543,7 +2543,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>생활불편 리스크맵</h1>
-        <div class="msub">소음 편 <span class="tierbadge" id="tierbadge">무료</span><span class="ver">v200</span></div>
+        <div class="msub">소음 편 <span class="tierbadge" id="tierbadge">무료</span><span class="ver">v201</span></div>
       </div>
       <div class="cats" id="cats"></div>
     </div>
@@ -3620,7 +3620,7 @@ function build(){
     b.onclick=()=>showDetail(s); list.appendChild(b);
   });
   const sb=document.getElementById('sample-badge');
-  sb.textContent=useEstimate?'추정 · 5개 기관 공공데이터 13종 기반':'관측 · 직접 측정 표본';
+  sb.textContent=useEstimate?'5개 기관 공공데이터 13종 기반':'관측 · 직접 측정 표본';
   sb.hidden=false;
   applyFilter(); resize(); buildCards();
   if(typeof applyHour==='function') applyHour();
