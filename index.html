@@ -2105,6 +2105,20 @@
   body.light #s-map #sample-badge{
     background:#F1F3F7; border-bottom-color:rgba(11,14,20,.10);
     color:#1A2030; text-shadow:none; padding:8px 18px}
+
+  /* ── 녹음 화면 네 덩어리 ──
+     1 측정 카드 / 2 적용 기준 / 3 판정 / 4 지나가는 소음.
+     간격이 9px이라 한 뭉치로 읽혔고, 경계선이 3·4에만 있어 구분이 들쭉날쭉했다.
+     간격을 직접 잡고 2·3·4 앞에 같은 선을 세운다. */
+  #s-rec .rfoot{gap:0}
+  #s-rec .rblock{padding-top:20px; margin-top:4px; border-top:1px solid var(--line)}
+  #s-rec .rfoot .note{padding-top:18px; margin-top:22px; border-top:1px solid var(--line)}
+  #s-rec #rec-now{margin-top:11px}
+  #s-rec .passby{padding-top:18px; margin-top:22px; border-top:1px solid var(--line)}
+
+  /* 판정 버튼이 화면에서 가장 큰 덩어리였다. 읽는 것은 위의 숫자이고
+     이 버튼은 기다림을 건너뛰는 장치다. 무게를 낮춘다. */
+  #s-rec #rec-now{font-size:1.125rem; padding:11px; border-radius:10px}
 </style>
 
 <div class="nav">
@@ -2347,7 +2361,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v201</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v202</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2520,7 +2534,7 @@
       <div class="mtitle">
         <h1>생활불편 리스크맵</h1>
         <div class="msub">소음 편 <span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v201</span></div>
+          <span class="ver" id="ver2">v202</span></div>
       </div>
       <div class="cats" id="cats2"></div>
     </div>
@@ -2543,7 +2557,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>생활불편 리스크맵</h1>
-        <div class="msub">소음 편 <span class="tierbadge" id="tierbadge">무료</span><span class="ver">v201</span></div>
+        <div class="msub">소음 편 <span class="tierbadge" id="tierbadge">무료</span><span class="ver">v202</span></div>
       </div>
       <div class="cats" id="cats"></div>
     </div>
