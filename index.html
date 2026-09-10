@@ -1937,11 +1937,6 @@
   /* 목록으로 돌아가는 자리. 지도 도구와 반대쪽에 둔다 */
   .mtool.backlist{position:absolute; top:10px; left:10px; z-index:20}
   .stage.split .mtool.backlist{top:8px; left:8px}
-  /* 배지가 '목록' 버튼과 같은 자리에 있어 가려져 있었다.
-     읽는 것과 누르는 것은 겹칠 수 없으므로 버튼 아래 줄로 내린다.
-     버튼 높이(패딩 12 + 테두리 2 + 글자 1.2×0.8125rem)에 맞춰 계산한다. */
-  #sample-badge,
-  .stage.split #sample-badge{top:calc(28px + 1rem); left:10px; right:auto; bottom:auto}
 
   /* 최근 신고 기록 — 댓글처럼 한 줄씩 */
   #s-map .logs{display:flex; flex-direction:column; gap:0; margin-bottom:12px}
@@ -2094,6 +2089,22 @@
     background:none; border:none; box-shadow:none;
     -webkit-backdrop-filter:none; backdrop-filter:none;
     padding:5px 2px; color:#2A3140; font-weight:700; letter-spacing:.01em}
+
+  /* 지도 위에서는 무엇을 해도 지형을 가린다. 헤더 아래 제 줄을 준다.
+     띠로 세우면 자리가 고정되고 배경이 생겨 어떤 지도 위에서도 읽힌다. */
+  #s-map #sample-badge{
+    position:static; display:block; z-index:auto; inset:auto;
+    margin:0; padding:8px 18px;
+    background:var(--ink-2); border:0; border-bottom:1px solid var(--line);
+    border-radius:0; box-shadow:none;
+    -webkit-backdrop-filter:none; backdrop-filter:none;
+    font-family:inherit; font-size:0.8125rem; font-weight:700;
+    color:var(--text); text-shadow:none; letter-spacing:0;
+    pointer-events:none; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  #s-map #sample-badge[hidden]{display:none}
+  body.light #s-map #sample-badge{
+    background:#F1F3F7; border-bottom-color:rgba(11,14,20,.10);
+    color:#1A2030; text-shadow:none; padding:8px 18px}
 </style>
 
 <div class="nav">
@@ -2336,7 +2347,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v199</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v200</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2509,7 +2520,7 @@
       <div class="mtitle">
         <h1>생활불편 리스크맵</h1>
         <div class="msub">소음 편 <span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v199</span></div>
+          <span class="ver" id="ver2">v200</span></div>
       </div>
       <div class="cats" id="cats2"></div>
     </div>
@@ -2532,13 +2543,14 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>생활불편 리스크맵</h1>
-        <div class="msub">소음 편 <span class="tierbadge" id="tierbadge">무료</span><span class="ver">v199</span></div>
+        <div class="msub">소음 편 <span class="tierbadge" id="tierbadge">무료</span><span class="ver">v200</span></div>
       </div>
       <div class="cats" id="cats"></div>
     </div>
+    <!-- 지도 위 배지는 어디에 놓아도 지도를 가린다. 읽는 것이므로 지도 밖으로 뺀다. -->
+    <div id="sample-badge" hidden>신고 데이터 표본</div>
     <div class="stage split" id="stage">
       <div id="map"></div>
-      <div id="sample-badge" hidden>신고 데이터 표본</div>
       <!-- 목록으로 돌아가는 길은 왼쪽 위. 지도 도구와 섞이면 성격이 다른
            버튼들이 한 줄에 놓여 무엇이 무엇인지 구분되지 않는다. -->
       <button class="mtool backlist" id="tolist">‹ 목록</button>
