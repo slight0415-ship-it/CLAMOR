@@ -483,29 +483,38 @@
     transform:translateY(-100%); opacity:0;
     transition:transform .42s cubic-bezier(.2,.9,.25,1), opacity .3s ease}
   .lguide.show{transform:translateY(0); opacity:1}
-  .lg-in{display:flex; align-items:center; gap:11px;
-    padding:12px 14px; border-radius:14px;
+  .lg-in{display:flex; align-items:center; gap:13px;
+    padding:16px 16px; border-radius:16px;
     background:var(--ink-2); border:1px solid rgba(224,72,63,.35);
     box-shadow:0 6px 18px rgba(20,26,38,.13)}
-  .lg-ic{flex:0 0 24px; height:24px; color:var(--c-noise)}
-  .lg-ic svg{width:24px; height:24px; display:block}
-  .lg-tx{display:flex; flex-direction:column; gap:2px; min-width:0}
-  .lg-tx b{font-size:0.9375rem; font-weight:900; color:var(--text);
-    letter-spacing:-.02em}
-  .lg-tx{font-size:0.8125rem; font-weight:700; color:var(--text-dim);
-    letter-spacing:-.02em}
+  .lg-ic{flex:0 0 30px; height:30px; color:var(--c-noise)}
+  .lg-ic svg{width:30px; height:30px; display:block}
+  /* 40대 이상이 읽을 시간이 있어야 한다. 작고 빨리 사라지면 없는 것과 같다 */
+  .lg-tx{display:flex; flex-direction:column; gap:4px; min-width:0;
+    font-size:0.9375rem; font-weight:700; color:var(--text-dim);
+    letter-spacing:-.02em; line-height:1.45}
+  .lg-tx b{font-size:1.125rem; font-weight:900; color:var(--text);
+    letter-spacing:-.02em; line-height:1.35}
 
   /* ── 방금 보낸 신고 ──
      목록 첫 장에 서지만 배지 하나로는 눈에 안 든다. 잠시 맥박처럼
      테두리가 번지게 해서 어디를 봐야 하는지 먼저 알려 준다. */
-  .lcard.mine.fresh{animation:mineBeat 1.5s ease-out 3}
-  @keyframes mineBeat{
-    0%{box-shadow:0 1px 3px rgba(20,26,38,.07), 0 0 0 0 rgba(224,72,63,.42)}
-    55%{box-shadow:0 1px 3px rgba(20,26,38,.07), 0 0 0 9px rgba(224,72,63,0)}
-    100%{box-shadow:0 1px 3px rgba(20,26,38,.07), 0 0 0 0 rgba(224,72,63,0)}
+  /* 색을 더하지 않는다. 화면이 이미 붉은데 붉은 테두리를 더 넣으면
+     묻힌다. 크기와 그림자만으로 번쩍이게 한다 — 움직임은 색과 달리
+     주변에 무엇이 있든 눈에 든다. */
+  .lcard.mine.fresh{animation:mineFlash 1.15s cubic-bezier(.25,.9,.3,1) 4}
+  @keyframes mineFlash{
+    0%{transform:scale(1);
+       box-shadow:0 1px 3px rgba(20,26,38,.07), 0 0 0 0 rgba(20,26,38,.30)}
+    16%{transform:scale(1.025);
+       box-shadow:0 8px 22px rgba(20,26,38,.22), 0 0 0 5px rgba(20,26,38,.24)}
+    52%{transform:scale(1);
+       box-shadow:0 2px 8px rgba(20,26,38,.10), 0 0 0 16px rgba(20,26,38,0)}
+    100%{transform:scale(1);
+       box-shadow:0 1px 3px rgba(20,26,38,.07), 0 0 0 0 rgba(20,26,38,0)}
   }
-  .lcard.mine.fresh .badge{animation:mineBadge 1.5s ease-in-out 3}
-  @keyframes mineBadge{0%,100%{transform:scale(1)} 50%{transform:scale(1.14)}}
+  .lcard.mine.fresh .badge{animation:mineBadge 1.15s ease-in-out 4}
+  @keyframes mineBadge{0%,100%{transform:scale(1)} 45%{transform:scale(1.2)}}
 
   /* 지도가 새 자리에서 크기를 잡는 동안 덮어 둔다 */
   #map.settling{opacity:0}
@@ -2322,7 +2331,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v197</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v198</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2495,7 +2504,7 @@
       <div class="mtitle">
         <h1>생활불편 리스크맵</h1>
         <div class="msub">소음 편 <span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v197</span></div>
+          <span class="ver" id="ver2">v198</span></div>
       </div>
       <div class="cats" id="cats2"></div>
     </div>
@@ -2518,7 +2527,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>생활불편 리스크맵</h1>
-        <div class="msub">소음 편 <span class="tierbadge" id="tierbadge">무료</span><span class="ver">v197</span></div>
+        <div class="msub">소음 편 <span class="tierbadge" id="tierbadge">무료</span><span class="ver">v198</span></div>
       </div>
       <div class="cats" id="cats"></div>
     </div>
@@ -2985,7 +2994,7 @@ function showListGuide(){
   setTimeout(()=>{
     g.classList.remove('show');
     setTimeout(()=>{ g.hidden=true }, 480);
-  }, 3600);
+  }, 6800);
 }
 
 /* 방금 보낸 신고 카드를 잠시 박동시킨다. 배지 하나로는 눈에 안 든다. */
