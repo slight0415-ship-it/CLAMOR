@@ -2381,7 +2381,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v202</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v203</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2584,7 +2584,7 @@
       <div class="mtitle">
         <h1>생활불편 리스크맵</h1>
         <div class="msub">소음 편 <span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v202</span></div>
+          <span class="ver" id="ver2">v203</span></div>
       </div>
       <div class="cats" id="cats2"></div>
     </div>
@@ -2607,7 +2607,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>생활불편 리스크맵</h1>
-        <div class="msub">소음 편 <span class="tierbadge" id="tierbadge">무료</span><span class="ver">v202</span></div>
+        <div class="msub">소음 편 <span class="tierbadge" id="tierbadge">무료</span><span class="ver">v203</span></div>
       </div>
       <div class="cats" id="cats"></div>
     </div>
@@ -3306,12 +3306,12 @@ function startRec(){
     d.classList.toggle('over', db>THR);
     /* '임계치'와 '초과'는 평소 쓰지 않는 말이다. 지금 값이 기준보다
        얼마나 높은지, 그게 몇 초째인지를 그대로 적는다. */
-    const diff=db-THR, sec=Math.floor(overSec);
+    const diff=db-THR, overWhole=Math.floor(overSec);
     /* 여기서 기준값 숫자를 다시 말하지 않는다. 같은 52가 두 곳에 있으면
        어느 쪽이 지금 값인지 헷갈린다. 여기는 거리만, 값은 아래 카드에서. */
     document.getElementById('thr').innerHTML = diff>0
       ? '신고 기준보다 <b>'+diff+'dB 높음</b>'+
-        (sec>0 ? ' · <b>'+sec+'초</b>째' : '')
+        (overWhole>0 ? ' · <b>'+overWhole+'초</b>째' : '')
       : '신고 기준까지 <b>'+(THR-db)+'dB</b> 남음';
     document.getElementById('elapsed').textContent=
       String(Math.floor(el/60)).padStart(2,'0')+':'+String(Math.floor(el%60)).padStart(2,'0');
