@@ -2381,7 +2381,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v203</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v204</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2584,7 +2584,7 @@
       <div class="mtitle">
         <h1>생활불편 리스크맵</h1>
         <div class="msub">소음 편 <span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v203</span></div>
+          <span class="ver" id="ver2">v204</span></div>
       </div>
       <div class="cats" id="cats2"></div>
     </div>
@@ -2607,7 +2607,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>생활불편 리스크맵</h1>
-        <div class="msub">소음 편 <span class="tierbadge" id="tierbadge">무료</span><span class="ver">v203</span></div>
+        <div class="msub">소음 편 <span class="tierbadge" id="tierbadge">무료</span><span class="ver">v204</span></div>
       </div>
       <div class="cats" id="cats"></div>
     </div>
@@ -2996,6 +2996,55 @@ if(document.fonts && document.fonts.ready){
 
 /* 녹음 화면의 위치 표시. 카카오 SDK가 준비되면 실주소로 바꾼다. */
 let recAddrDone=false, recPlace=null;
+
+/* ══ 실제 위치(GPS) ══
+   지도에 깔린 신고지점·이동소음 구간(POINTS·ROUTES)은 남동구 논현동
+   데모 좌표에 맞춰 만든 가짜 데이터라, CENTER 자체를 실제 GPS로
+   바꾸면 그 데이터셋 전체가 엉뚱한 곳에 뜬다. 그래서 주소 표시용
+   실제 위치(realLoc)를 CENTER와 분리해서 따로 둔다 — 화면에 뜨는
+   주소만 실제 위치를 따르고, 지도 배경 데이터는 그대로 둔다. */
+let realLoc=null, geoRequested=false;
+function requestRealLocation(){
+  if(geoRequested || !navigator.geolocation) return;
+  geoRequested=true;
+  navigator.geolocation.getCurrentPosition(pos=>{
+    realLoc={lat:pos.coords.latitude, lng:pos.coords.longitude};
+    recAddrDone=false; fillRecAddr();   // 이미 표시된 주소가 있으면 실제 위치로 다시 채운다
+  }, ()=>{ /* 거부·실패 — realLoc은 null로 남고 기존 데모 주소를 그대로 쓴다 */ },
+  {enableHighAccuracy:true, timeout:8000});
+}
+
+/* ══ 실제 마이크 ══
+   getUserMedia로 잡은 소리 크기(RMS)를 대략적인 dB로 옮긴다. 폰마다
+   마이크 감도가 달라 이 숫자는 참고용이다 — 정식 서비스로 갈 때는
+   기준 소음계로 MIC_DB_OFFSET을 기기별로 맞추는 절차가 별도로 필요하다.
+   지금은 '소리가 커지면 숫자도 커진다'는 반응 확인이 목적이라 고정값을 쓴다. */
+let micReady=false, micRequested=false, audioCtx=null, analyser=null, micBuf=null;
+const MIC_DB_OFFSET=100;
+function initMic(){
+  if(micRequested || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return;
+  micRequested=true;
+  navigator.mediaDevices.getUserMedia({
+    audio:{ echoCancellation:false, noiseSuppression:false, autoGainControl:false }
+  }).then(stream=>{
+    audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+    const src=audioCtx.createMediaStreamSource(stream);
+    analyser=audioCtx.createAnalyser();
+    analyser.fftSize=2048;
+    micBuf=new Float32Array(analyser.fftSize);
+    src.connect(analyser);
+    micReady=true;
+  }).catch(()=>{ micReady=false; });   // 권한 거부·미지원 — 기존 시뮬레이션으로 대체
+}
+function readMicDb(){
+  analyser.getFloatTimeDomainData(micBuf);
+  let sum=0;
+  for(let i=0;i<micBuf.length;i++) sum+=micBuf[i]*micBuf[i];
+  const rms=Math.sqrt(sum/micBuf.length) || 1e-8;
+  const dbfs=20*Math.log10(rms);
+  return Math.max(28, Math.min(100, Math.round(MIC_DB_OFFSET+dbfs)));
+}
+
 function fillRecAddr(){
   if(recAddrDone) return;
   const el=document.getElementById('rec-addr');
@@ -3005,7 +3054,8 @@ function fillRecAddr(){
   }
   recAddrDone=true;
   const gc=new kakao.maps.services.Geocoder();
-  gc.coord2Address(CENTER.lng, CENTER.lat, (res,st)=>{
+  const loc=realLoc||CENTER;
+  gc.coord2Address(loc.lng, loc.lat, (res,st)=>{
     if(st!==kakao.maps.services.Status.OK || !res[0]){ recAddrDone=false; return }
     const road=res[0].road_address, jib=res[0].address;
     const addr = road ? road.address_name : (jib ? jib.address_name : null);
@@ -3104,17 +3154,19 @@ function go(name){
   if(name==='sent' && typeof renderSent==='function') renderSent(loadSent());
   if(name==='confirm'){ fillReport(); startCountdown(); } else stopCountdown();
   if(name==='cast' && !castSpot && typeof spots!=='undefined' && spots.length) renderCast(spots[0]);
-  if(name==='rec') fillRecAddr();
+  if(name==='rec'){ fillRecAddr(); requestRealLocation(); initMic(); }
   /* SDK가 늦게 오면 문자 화면에 자리표시 주소가 남는다. 열 때 한 번 더 맞춘다 */
   if(name==='sms'){
     fillReport();
     recAddrDone=false; fillRecAddr();
     const r=document.getElementById('rec-addr'), s=document.getElementById('sms-addr');
     if(r && s && !/○○/.test(r.textContent)) s.textContent=r.textContent;
-    /* 좌표를 글자로 박아 두면 자리를 옮길 때마다 주소와 어긋난다 */
+    /* 좌표를 글자로 박아 두면 자리를 옮길 때마다 주소와 어긋난다.
+       실제 위치가 잡혔으면 그 좌표를, 아니면 데모 CENTER를 쓴다. */
     const la=document.getElementById('sms-lat'), ln=document.getElementById('sms-lng');
-    if(la) la.textContent=CENTER.lat.toFixed(6);
-    if(ln) ln.textContent=CENTER.lng.toFixed(6);
+    const loc=realLoc||CENTER;
+    if(la) la.textContent=loc.lat.toFixed(6);
+    if(ln) ln.textContent=loc.lng.toFixed(6);
   }
   if(name==='list'){
     initMapOnce();
@@ -3296,9 +3348,11 @@ function startRec(){
         ? '소리가 잡히지 않습니다. 이미 지나갔나요?'
         : '지나가는 소음이었나요?';
     }
-    const base=40+Math.sin(el/1.6)*7;
-    const burst=el>2.5 ? 16+Math.sin(el*2.3)*9 : 0;
-    const db=Math.max(32, Math.round(base+burst+Math.random()*6));
+    /* 실제 마이크가 잡히면 그 값을 쓰고, 권한이 없거나 지원 안 되면
+       기존 시뮬레이션(사인파+랜덤)으로 대체한다 — 데모 자체는 안 죽는다. */
+    const db = (micReady && analyser) ? readMicDb()
+      : Math.max(32, Math.round((40+Math.sin(el/1.6)*7)
+          +(el>2.5 ? 16+Math.sin(el*2.3)*9 : 0)+Math.random()*6));
     if(db>THR) overSec+=0.1;
 
     const d=document.getElementById('db');
