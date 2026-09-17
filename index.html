@@ -180,8 +180,9 @@
      아직 재지도 않았는데 유형·지속시간·신뢰도가 떠 있으면 거짓이 된다. */
   body.warming #s-rec .detect,
   body.warming #s-rec .note,
-  body.warming #s-rec #rec-now,
-  body.warming #s-rec .passby{opacity:0; pointer-events:none}
+  body.warming #s-rec #rec-now{opacity:0; pointer-events:none}
+  /* .passby는 준비구간(AI 인지 연출) 동안에도 숨기지 않는다. 이미 지나간
+     차량·바이크 굉음을 신고하러 온 시민은 판정을 기다릴 이유가 없다. */
   #s-rec .detect, #s-rec .note, #s-rec #rec-now,
   #s-rec .passby{transition:opacity .45s ease}
   /* 적용 기준은 한 줄씩 채워진다 */
@@ -217,6 +218,33 @@
   .pb-tx{flex:1; font-size:1rem; font-weight:800; color:#1F6FD0;
     letter-spacing:-.02em}
   .pb-go{font-size:1.125rem; font-weight:800; color:#1F6FD0; opacity:.55}
+
+  /* ── 카테고리 신고 화면 ──
+     112 문자처럼 한 줄씩 타이핑하지 않는다. 버튼 몇 번으로 끝난다. */
+  .pbform{display:flex; flex-direction:column; gap:18px; padding:18px; flex:1}
+  .pbmethods{display:flex; flex-direction:column; gap:10px}
+  .pb-q{font-size:1rem; font-weight:800; letter-spacing:-.02em; color:var(--text)}
+  .pbtoggle{display:flex; gap:10px}
+  .pbtg{flex:1; padding:16px; border-radius:12px; border:1px solid var(--line);
+    background:var(--ink-2); color:var(--text-dim); font-family:inherit;
+    font-size:1rem; font-weight:800; cursor:pointer; transition:.15s}
+  .pbtg.sel{border-color:#1F6FD0; background:rgba(31,111,208,.12); color:#1F6FD0}
+  .pbtags{display:flex; flex-direction:column; gap:9px}
+  /* 5개로 시작하지만 배열 하나에 항목을 추가하는 것만으로 늘어난다 */
+  .pbchk{display:flex; align-items:center; gap:11px; padding:13px 14px;
+    border-radius:12px; border:1px solid var(--line); background:var(--ink-2);
+    cursor:pointer; font-family:inherit; font-size:0.9375rem; text-align:left;
+    color:var(--text-dim); width:100%; transition:.15s}
+  .pbchk .chkbox{width:19px; height:19px; flex:0 0 auto; border-radius:6px;
+    border:1.5px solid var(--line); position:relative}
+  .pbchk.on{border-color:#1F6FD0; background:rgba(31,111,208,.08); color:var(--text)}
+  .pbchk.on .chkbox{background:#1F6FD0; border-color:#1F6FD0}
+  .pbchk.on .chkbox::after{content:''; position:absolute; left:5px; top:2px;
+    width:7px; height:11px; border-right:2px solid #fff; border-bottom:2px solid #fff;
+    transform:rotate(40deg)}
+  .notice.pb{background:rgba(31,111,208,.08); border-color:rgba(31,111,208,.22)}
+  .notice.pb .nt{color:#1F6FD0}
+
   /* 3 — 안내. 면을 주지 않고 선 하나로 갈라 둔다 */
   #s-rec .rfoot .note{padding-top:15px; border-top:1px solid var(--line)}
   .note b{color:var(--text-dim)}
@@ -2240,20 +2268,12 @@
       <!-- 지나가는 소음은 여기서 갈라진다.
            폰을 집는 사이 이미 사라졌으므로 잴 것이 없다. 측정값을 묻지 않고
            무엇이 지나갔는지만 받는다. -->
+      <!-- 이륜차·차량은 하나로 합쳐 묻는다. 스쳐 지나가는 순간에 어느 쪽인지
+           가려낼 여유가 시민에게 없다. 구분은 마음이 가라앉은 다음 신고
+           화면에서 받는다. -->
       <div class="passby">
         <div class="pb-lead" id="pb-lead">지나가는 소음이었나요?</div>
-        <button class="pb" data-passby="bike">
-          <span class="pb-ic" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
-                 stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="5.5" cy="17" r="3.2"/><circle cx="18.5" cy="17" r="3.2"/>
-              <path d="M5.5 17h5l4-7h-3"/><path d="M14 6h3l1.5 11"/>
-            </svg>
-          </span>
-          <span class="pb-tx">이륜차 소음인가요?</span>
-          <span class="pb-go">›</span>
-        </button>
-        <button class="pb" data-passby="car">
+        <button class="pb" id="passby-enter">
           <span class="pb-ic" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
                  stroke-linecap="round" stroke-linejoin="round">
@@ -2261,7 +2281,7 @@
               <path d="M3 16h18"/><circle cx="7.2" cy="17.6" r="1.7"/><circle cx="16.8" cy="17.6" r="1.7"/>
             </svg>
           </span>
-          <span class="pb-tx">차량 소음인가요?</span>
+          <span class="pb-tx">차량·바이크 굉음이었나요?</span>
           <span class="pb-go">›</span>
         </button>
       </div>
@@ -2468,39 +2488,69 @@
     </div>
   </section>
 
-  <!-- ══ 지나가는 소음 제보 확인 ══
-       112로 가지 않는다. 지속 요건을 채우지 못해 신고가 성립하지 않기 때문이다.
-       그래서 잰 값도 적지 않는다. 폰을 집는 사이 소리는 이미 지나갔다.
-       남는 것은 언제, 어디서, 무엇이 지나갔는가 셋뿐이다. -->
+  <!-- ══ 차량·바이크 굉음 신고 ══
+       112로 가지 않는다. 3초짜리 굉음은 지속 요건을 못 채워 신고가
+       성립하지 않는다. 잴 수 없는 값을 잴 수 있는 척하지 않고, 시민이
+       증언 가능한 것만 버튼 몇 번으로 받는다. -->
   <section class="screen" id="s-passby" hidden>
-    <div class="sent-wrap">
-      <div class="sent-mark pb-mark">
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M3 12h13M16 12l-4-4M16 12l-4 4" stroke="#1F6FD0" stroke-width="2.2"
-            stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M20 6v12" stroke="#1F6FD0" stroke-width="2.2" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <h2 class="sent-t">구간 기록에 더했습니다</h2>
-      <div class="sent-when" id="pb-when">—</div>
+    <div class="rhead">
+      <span class="tag">신고</span>
+      <span class="rtitle">차량·바이크 소음 신고</span>
+    </div>
 
-      <div class="sent-card">
-        <div class="sent-row"><span>위치</span><b id="pb-addr">—</b></div>
-        <div class="sent-row"><span>소리 유형</span><b id="pb-type">—</b></div>
-        <div class="sent-row"><span>남는 것</span><b>시각 · 위치 · 유형</b></div>
+    <div class="pbform">
+      <!-- 음성신고는 자리만 잡아둔다. 욕을 하고 싶은 시민은 말을 못
+           알아듣는 AI에게 음성으로 신고하고 싶어하지 않는다 — 추후 확장용 -->
+      <div class="pbmethods" id="pb-methods">
+        <button class="btn ghost" id="pb-voice" disabled>음성으로 신고하기</button>
+        <button class="btn primary" id="pb-cat">몇 가지만 선택해서 신고하기</button>
       </div>
 
-      <div class="sent-next">
-        <b>지나가는 소음은 한 번으로 신고가 되지 않습니다</b>
-        같은 길에서 여러 사람의 기록이 모이면 구간이 됩니다.
+      <div id="pb-step-type" hidden>
+        <div class="pb-q">차량인가요, 바이크인가요?</div>
+        <div class="pbtoggle">
+          <button class="pbtg" data-pbtype="car">차량</button>
+          <button class="pbtg" data-pbtype="bike">바이크</button>
+        </div>
       </div>
 
-      <div class="sent-btns">
-        <button class="btn primary" data-go="list">확인</button>
+      <div id="pb-step-tags" hidden>
+        <div class="pb-q">이 소리로 무슨 일이 있었나요?<br>(해당하는 것 모두 선택)</div>
+        <div class="pbtags" id="pb-tags"></div>
+        <button class="btn primary" id="pb-next">다음</button>
+      </div>
+    </div>
+
+    <button class="btn ghost" data-go="splash">취소</button>
+  </section>
+
+  <!-- ══ 신고 내용 확인 ══
+       112 확인화면(s-confirm)과 뼈대는 같게, 내용은 다르게. 카운트다운도
+       외부 문자 앱으로의 이동도 없다 — 클레머 안에서 끝나는 절차라
+       서두를 이유가 없다. -->
+  <section class="screen" id="s-passby-confirm" hidden>
+    <div class="rhead">
+      <span class="tag">신고</span>
+      <span class="rtitle">신고 내용을 확인하세요</span>
+    </div>
+
+    <div class="cwrap">
+      <div class="sumcard">
+        <div class="srow"><span class="sl">소리 유형</span><span class="sv" id="pbc-type">—</span></div>
+        <div class="srow"><span class="sl">발생 시각</span><span class="sv" id="pbc-when">—</span></div>
+        <div class="srow"><span class="sl">발생 위치</span><span class="sv" id="pbc-addr">—</span></div>
+        <div class="srow"><span class="sl">겪은 일</span><span class="sv" id="pbc-tags">—</span></div>
       </div>
 
-      <p class="sent-note">3초 만에 지나간 소음은 지속 요건을 채우지 못해
-        112 신고가 성립하지 않습니다. 클레머는 이 기록을 도로 구간 단위로 모읍니다.</p>
+      <div class="notice pb">
+        <div class="nt">이 신고는 112로 전송되지 않습니다</div>
+        <div class="nb">클레머 안에 기록되어 지도와 통계에 반영됩니다.</div>
+      </div>
+    </div>
+
+    <div class="rfoot">
+      <button class="btn primary" id="pbc-submit">신고 제출</button>
+      <button class="btn ghost" id="pbc-back">뒤로가기</button>
     </div>
   </section>
 
@@ -2818,14 +2868,15 @@ function listCardHTML(s,i){
    성립하지 않는다는 것, 그 한 줄이 이 카드의 전부다. */
 function listRouteCardHTML(rt,i){
   const hh=String(rt.peak).padStart(2,'0');
-  return '<button class="lcard route" data-li="'+i+'">'+
+  return '<button class="lcard route '+(rt.mine?'mine':'')+'" data-li="'+i+'">'+
     '<span class="lv">'+
       '<span class="top"><span class="n">'+rt.db+'</span><span class="u">dB</span>'+
         '<span class="gap">한 번 '+rt.sec+'초</span></span>'+
       waveHTML(rt.hours)+
     '</span>'+
     '<span class="li">'+
-      '<span class="nm">'+rt.name+'<em class="rbadge2">이동</em></span>'+
+      '<span class="nm">'+rt.name+'<em class="rbadge2">이동</em>'+
+        (rt.mine?'<em class="badge">내 신고</em>':'')+'</span>'+
       '<span class="when"><b>'+hh+'시경</b> 가장 잦음</span>'+
       '<span class="sub">구간 '+rt.len+'m · 한 번은 '+rt.sec+'초, 30일이면 '+rt.n+'번</span>'+
     '</span>'+
@@ -2847,6 +2898,10 @@ function renderList(){
      같은 잣대로 줄 세우면 둘 다 뜻을 잃는다. 내 신고 바로 뒤에 세워
      지도에서 파란 선을 본 사람이 곧바로 만나게 한다. */
   const rts=(typeof visibleRoutes==='function') ? visibleRoutes() : [];
+  /* 내 신고가 지점이 아니라 구간(차량·바이크)에 붙은 경우, 그 구간을
+     구간들 중 맨 앞으로 — 지점에 붙은 신고가 없다면 목록 맨 앞으로 */
+  const rmi=rts.findIndex(r=>r.mine);
+  if(rmi>0) rts.unshift(rts.splice(rmi,1)[0]);
   if(rts.length) listRows.splice(mine>=0?1:0, 0, ...rts);
   document.getElementById('lcount').textContent=vis.length+'곳';
   document.getElementById('llabel').textContent =
@@ -3039,7 +3094,7 @@ function beatMine(){
   c.classList.add('fresh');
 }
 
-const SCREENS=['splash','rec','confirm','sms','sent','passby','list','map','cast'];
+const SCREENS=['splash','rec','confirm','sms','sent','passby','passby-confirm','list','map','cast'];
 let mapReady=false;
 function go(name){
   SCREENS.forEach(s=>document.getElementById('s-'+s).hidden=(s!==name));
@@ -3066,12 +3121,21 @@ function go(name){
     moveMapTo('listmap');
     setTimeout(()=>{
       if(!map) return;
+      /* 차량·바이크 신고는 점이 아니라 구간에 속한다. 가장 가까운
+         이동 소음 구간에 이번 신고를 붙인다 — 여러 시민의 제보가
+         실제로 합쳐져 구간을 새로 형성하는 로직은 별도 과제다. */
+      if(myPassby && !myPassby.applied && ROUTES.length && ROUTES[0].c){
+        let best=null, bd=1e9;
+        ROUTES.forEach(rt=>{ const d=distM(rt.c,CENTER); if(d<bd){ bd=d; best=rt } });
+        if(best){ myPassby.applied=true; best.mine=true; best.n+=1;
+          if(typeof refreshList==='function') refreshList(); }
+      }
       const lim=TIERS[tier].maxLv || 3;
       if(map.getLevel()>lim) map.setLevel(lim);
       /* '내 위치 주변'이라고 적어 놓고 다른 동네를 보여주면 안 된다.
          화면 안에 있기만 하면 된다고 두면 내 신고가 구석에 걸리고
          지도 한가운데가 텅 빈다. 목록 첫 장의 자리를 중심에 놓는다. */
-      const m=spots.find(s=>s.mine);
+      const m=spots.find(s=>s.mine) || ROUTES.find(rt=>rt.mine);
       const c=m ? m.c : CENTER;
       map.setCenter(new kakao.maps.LatLng(c.lat,c.lng));
       renderList();
@@ -3089,6 +3153,15 @@ function go(name){
        그 경우에도 방금 보낸 신고는 반영돼야 한다. */
     if(map && spots.length && myReport && !myReport.applied){
       try{ applyMine(); buildCards() }catch(e){ console.warn('내 신고 반영 보류',e) }
+    }
+    /* 목록 화면을 거치지 않고 바로 지도로 열렸거나, 그때 ROUTES가
+       아직 준비되지 않았던 경우를 위한 재시도. 이동 소음 구간은
+       상세 카드 레일에는 나오지 않고 목록 화면에서만 보인다 —
+       기존 구조 그대로다. */
+    if(myPassby && !myPassby.applied && ROUTES.length && ROUTES[0].c){
+      let best=null, bd=1e9;
+      ROUTES.forEach(rt=>{ const d=distM(rt.c,CENTER); if(d<bd){ bd=d; best=rt } });
+      if(best){ myPassby.applied=true; best.mine=true; best.n+=1 }
     }
     setTimeout(()=>{
       if(!map) return;
@@ -3258,7 +3331,10 @@ function startRec(){
     const margin=(db-THR)/22;                        // 임계치 초과 폭
     const stable=Math.min(1, streak/6);             // 얼마나 오래 유지됐나
     const target=Math.max(4, Math.min(96, 100*(0.28*stable + 0.46*Math.max(0,margin) + 0.2*Math.min(1,overSec/14))));
-    conf += (target-conf)*0.22;                     // 목표값을 부드럽게 추종
+    /* 최고기록 보존 — 사람은 텐션을 몇십 분씩 유지 못 한다. 처음에 확실한
+       고성 한 번을 찍었으면 그 신뢰도는 이후 조용해져도 다시 깎이지 않는다.
+       오를 때만 목표를 향해 부드럽게 따라간다. */
+    if(target>conf) conf += (target-conf)*0.22;
 
     document.getElementById('pdur').style.width=dur+'%';
     document.getElementById('vdur').textContent=Math.round(dur)+'%';
@@ -3279,7 +3355,10 @@ function startRec(){
        개발 도구가 없는 실제 폰에서는 여기서 막히면 앞으로 갈 길이 없다.
        다만 화면을 만지는 동안에는 넘어가지 않는다 — 아래를 보려고 미는데
        화면이 바뀌면 손이 닿지 않는 자리가 생긴다. */
-    if(overSec>=4.5 && conf>=30 && !advancing && !holdRec && !lockRec){
+    /* 누적 초과시간 문턱 — 1초짜리 욕설고성이 2~3회 흩어져 나와도 합산되면
+       충분하다고 본다(2초). 반복 없이 애매하게 낮은 소리만 이어진 경우는
+       conf(신뢰도)가 30을 못 찍어 여기서 걸러진다. */
+    if(overSec>=2 && conf>=30 && !advancing && !holdRec && !lockRec){
       advancing=true;
       setTimeout(()=>{
         advancing=false;
@@ -3313,14 +3392,14 @@ function startCountdown(){
   let left=CD_SEC;
   const num=document.getElementById('cd'), fg=document.getElementById('ring-fg');
   num.textContent=left; fg.style.strokeDashoffset=0;
-  /* 실제 서비스는 1초에 한 칸이지만, 촬영에서 10초는 영상의 6분의 1이다.
-     보이는 숫자는 10부터 세되 전체를 4초에 끝낸다. */
+  /* 촬영용으로 4초(6분의 1 배속)로 줄여뒀던 것을 원상태로 되돌린다.
+     실제 서비스는 숫자 그대로 1초에 한 칸이다. */
   cdTimer=setInterval(()=>{
     left--;
     num.textContent=Math.max(0,left);
     fg.style.strokeDashoffset=RING_LEN*(1-left/CD_SEC);
     if(left<=0){ stopCountdown(); go('sms'); }   // 앱이 하는 일은 여기까지 — 전송은 사용자 몫
-  }, Math.round(4000/CD_SEC));
+  }, 1000);
 }
 function stopCountdown(){ clearInterval(cdTimer); cdTimer=null }
 document.getElementById('c-cancel').onclick=()=>{ stopCountdown(); go('rec') };
@@ -3332,24 +3411,93 @@ document.getElementById('rec-now').onclick=()=>{
   go('confirm');
 };
 
-/* 지나가는 소음 제보 — 재지 않고, 112로 보내지 않는다.
-   버튼을 누른 시각과 위치, 그리고 무엇이 지나갔는지만 남긴다. */
-document.querySelectorAll('[data-passby]').forEach(b=>{
+/* 차량·바이크 굉음 신고 — 재지 않고, 112로 보내지 않는다.
+   버튼을 누른 시각과 위치는 이 순간 확정한다(더 늦게 잡을수록 실제
+   지나간 시점과 멀어진다). 유형·겪은 일은 마음이 가라앉은 다음
+   확인화면 앞에서 차분히 고른다. 항목은 배열 하나라 나중에
+   PASSBY_TAGS에 줄만 추가하면 화면·저장 로직 손댈 필요 없이 늘어난다. */
+const PASSBY_TAGS=[
+  {id:'wake',   label:'깜짝 놀라 잠이 깼다'},
+  {id:'heart',  label:'가슴이 철렁했다'},
+  {id:'baby',   label:'아이가 깨서 울었다'},
+  {id:'elder',  label:'노약자가 놀란 상태이다'},
+  {id:'window', label:'창문이 흔들릴 정도였다'},
+];
+let pbWhen='—', pbAddr='—', pbType=null, pbSel=new Set(), myPassby=null;
+
+function renderPassbyTags(){
+  const box=document.getElementById('pb-tags'); if(!box) return;
+  box.innerHTML=PASSBY_TAGS.map(t=>
+    '<button class="pbchk" data-tag="'+t.id+'" type="button">'+
+      '<span class="chkbox"></span><span>'+t.label+'</span>'+
+    '</button>'
+  ).join('');
+  box.querySelectorAll('.pbchk').forEach(b=>{
+    b.onclick=()=>{
+      const id=b.dataset.tag;
+      if(pbSel.has(id)) pbSel.delete(id); else pbSel.add(id);
+      b.classList.toggle('on', pbSel.has(id));
+    };
+  });
+}
+renderPassbyTags();
+
+/* 매번 새로 신고를 시작할 때 이전 선택이 남아 있으면 안 된다 */
+function resetPassbyForm(){
+  pbType=null; pbSel=new Set();
+  document.getElementById('pb-methods').hidden=false;
+  document.getElementById('pb-step-type').hidden=true;
+  document.getElementById('pb-step-tags').hidden=true;
+  document.querySelectorAll('.pbtg').forEach(b=>b.classList.remove('sel'));
+  document.querySelectorAll('.pbchk').forEach(b=>b.classList.remove('on'));
+}
+
+document.getElementById('passby-enter').onclick=()=>{
+  const now=new Date();
+  const p=n=>String(n).padStart(2,'0');
+  pbWhen=now.getFullYear()+'년 '+(now.getMonth()+1)+'월 '+now.getDate()+'일 '+
+    p(now.getHours())+':'+p(now.getMinutes());
+  const a=document.getElementById('rec-addr');
+  pbAddr=(a && a.textContent && !/확인 중/.test(a.textContent)) ? a.textContent : '인천 남동구 논현동 일대';
+  stopRec();
+  resetPassbyForm();
+  go('passby');
+};
+
+/* 음성신고는 버튼만 — 지금은 미작동 */
+document.getElementById('pb-cat').onclick=()=>{
+  document.getElementById('pb-methods').hidden=true;
+  document.getElementById('pb-step-type').hidden=false;
+};
+
+document.querySelectorAll('.pbtg').forEach(b=>{
   b.onclick=()=>{
-    const kind = b.dataset.passby==='bike' ? '이륜차' : '차량';
-    const now=new Date();
-    const p=n=>String(n).padStart(2,'0');
-    document.getElementById('pb-when').textContent=
-      now.getFullYear()+'년 '+(now.getMonth()+1)+'월 '+now.getDate()+'일 '+
-      p(now.getHours())+':'+p(now.getMinutes());
-    const a=document.getElementById('rec-addr');
-    document.getElementById('pb-addr').textContent=
-      (a && a.textContent && !/확인 중/.test(a.textContent)) ? a.textContent : '인천 남동구 논현동 일대';
-    document.getElementById('pb-type').textContent=kind+' 소음';
-    stopRec();
-    go('passby');
+    pbType=b.dataset.pbtype;
+    document.querySelectorAll('.pbtg').forEach(x=>x.classList.toggle('sel', x===b));
+    document.getElementById('pb-step-tags').hidden=false;
   };
 });
+
+document.getElementById('pb-next').onclick=()=>{
+  if(!pbType) return;
+  document.getElementById('pbc-type').textContent = pbType==='car' ? '차량' : '바이크';
+  document.getElementById('pbc-when').textContent = pbWhen;
+  document.getElementById('pbc-addr').textContent = pbAddr;
+  const picked=PASSBY_TAGS.filter(t=>pbSel.has(t.id)).map(t=>t.label);
+  document.getElementById('pbc-tags').textContent = picked.length ? picked.join(' · ') : '선택 안 함';
+  go('passby-confirm');
+};
+
+document.getElementById('pbc-back').onclick=()=>{ go('passby') };
+
+document.getElementById('pbc-submit').onclick=()=>{
+  /* 위치·시간은 버튼 누른 순간 이미 확정됐다. 여기서는 이 신고를
+     가장 가까운 이동 소음 구간에 붙여 지도 중심과 목록에 반영한다.
+     실제 여러 시민의 제보가 합쳐져 구간이 형성되는 로직은 별도 과제로
+     남겨두고, 지금은 내 신고가 어느 구간에 속하는지만 표시한다. */
+  myPassby={ type:pbType, tags:[...pbSel], when:pbWhen, addr:pbAddr, applied:false };
+  go('list');
+};
 document.getElementById('sms-send').onclick=()=>{
   myReport = LAST || {t:0, db:60, dur:4};   // 앱이 하는 일은 여기까지 — 전송은 사용자 몫
   guidePending=true;                       // 목록에 처음 닿을 때 한 번만 안내
