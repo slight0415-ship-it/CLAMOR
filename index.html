@@ -2216,7 +2216,7 @@
       </div>
       <div class="detect">
           <div class="drow">
-            <span class="dl">소리 유형</span>
+            <span class="dl">소음 유형</span>
             <span class="dv on" id="dtype">분석 중…</span>
           </div>
           <div class="drow">
@@ -2328,7 +2328,7 @@
       <div class="cmsg">문자 신고 화면이 열립니다</div>
 
       <div class="sumcard">
-        <div class="srow"><span class="sl">소리 유형</span><span class="sv hot" id="cf-type">—</span></div>
+        <div class="srow"><span class="sl">소음 유형</span><span class="sv hot" id="cf-type">—</span></div>
         <div class="srow"><span class="sl">최고 소음도</span><span class="sv"><b id="cf-db">—</b> dB <em>(기준 <span id="cf-thr">52</span>)</em></span></div>
         <div class="srow"><span class="sl">지속시간</span><span class="sv" id="cf-dur">—</span></div>
         <div class="srow"><span class="sl">신뢰도</span><span class="sv">94%</span></div>
@@ -2369,7 +2369,7 @@
         <p><span id="sms-addr">인천 남동구 논현동 일대</span> 인근에서<br>
            심야 소음이 반복되고 있습니다.</p>
         <p>발생 시각 : <span id="sms-time">—</span><br>
-           소리 유형 : <span id="sms-type">—</span><br>
+           소음 유형 : <span id="sms-type">—</span><br>
            최고 소음도 : <span id="sms-db">—</span> dB (야간 기준 <span id="sms-thr">52</span> dB)<br>
            지속 시간 : <span id="sms-dur">—</span></p>
         <p>위치 : 위도 <span id="sms-lat">—</span> / 경도 <span id="sms-lng">—</span></p>
@@ -2403,7 +2403,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v210</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v212</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2489,7 +2489,7 @@
       <div class="sent-card">
         <div class="sent-row"><span>받는 곳</span><b>112</b></div>
         <div class="sent-row"><span>위치</span><b id="sent-addr">—</b></div>
-        <div class="sent-row"><span>소리 유형</span><b id="sent-type">—</b></div>
+        <div class="sent-row"><span>소음 유형</span><b id="sent-type">—</b></div>
         <div class="sent-row"><span>최고 소음도</span><b id="sent-db">—</b></div>
         <div class="sent-row"><span>지속 시간</span><b id="sent-dur">—</b></div>
       </div>
@@ -2558,7 +2558,7 @@
 
     <div class="cwrap">
       <div class="sumcard">
-        <div class="srow"><span class="sl">소리 유형</span><span class="sv" id="pbc-type">—</span></div>
+        <div class="srow"><span class="sl">소음 유형</span><span class="sv" id="pbc-type">—</span></div>
         <div class="srow"><span class="sl">발생 시각</span><span class="sv" id="pbc-when">—</span></div>
         <div class="srow"><span class="sl">발생 위치</span><span class="sv" id="pbc-addr">—</span></div>
         <div class="srow"><span class="sl">겪은 일</span><span class="sv" id="pbc-tags">—</span></div>
@@ -2608,7 +2608,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v210</span></div>
+          <span class="ver" id="ver2">v212</span></div>
       </div>
       <div class="cats" id="cats2"></div>
     </div>
@@ -2633,7 +2633,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v210</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v212</span></div>
       </div>
       <div class="cats" id="cats"></div>
     </div>
@@ -3030,14 +3030,24 @@ let recAddrDone=false, recPlace=null;
    실제 위치(realLoc)를 CENTER와 분리해서 따로 둔다 — 화면에 뜨는
    주소만 실제 위치를 따르고, 지도 배경 데이터는 그대로 둔다. */
 let realLoc=null, geoRequested=false;
+let geoGaveUp=false;   // 실제 위치를 포기하고 데모 주소로 대체해도 되는 시점
 function requestRealLocation(){
-  if(geoRequested || !navigator.geolocation) return;
+  if(geoRequested || !navigator.geolocation){ geoGaveUp=true; fillRecAddr(); return; }
   geoRequested=true;
+  let settled=false;
+  const giveUp=()=>{
+    if(settled) return; settled=true;
+    geoGaveUp=true; fillRecAddr();   // 실제 위치를 못 받으면 그제서야 데모 주소로 보여준다
+  };
   navigator.geolocation.getCurrentPosition(pos=>{
+    if(settled) return; settled=true;
     realLoc={lat:pos.coords.latitude, lng:pos.coords.longitude};
-    recAddrDone=false; fillRecAddr();   // 이미 표시된 주소가 있으면 실제 위치로 다시 채운다
-  }, ()=>{ /* 거부·실패 — realLoc은 null로 남고 기존 데모 주소를 그대로 쓴다 */ },
-  {enableHighAccuracy:true, timeout:8000});
+    recAddrDone=false; fillRecAddr();
+  }, giveUp, {enableHighAccuracy:true, timeout:8000});
+  /* 보안 컨텍스트가 아닌 주소(LAN IP 등)에서는 브라우저가 오류 콜백조차
+     안 부르고 그냥 조용히 무시하는 경우가 있다 — 그래서 별도로 한 번 더
+     포기 시점을 못박아 둔다. */
+  setTimeout(giveUp, 9000);
 }
 
 /* ══ 실제 마이크 ══
@@ -3046,6 +3056,7 @@ function requestRealLocation(){
    기준 소음계로 MIC_DB_OFFSET을 기기별로 맞추는 절차가 별도로 필요하다.
    지금은 '소리가 커지면 숫자도 커진다'는 반응 확인이 목적이라 고정값을 쓴다. */
 let micReady=false, micRequested=false, micPromise=null, audioCtx=null, analyser=null, micBuf=null, bgSamples=[];
+let freqBuf=null, sampleRate=44100;   // 소음 유형 판정(주파수 대역)용
 const MIC_DB_OFFSET=100;
 /* initMic()은 Promise를 돌려준다 — 허용/거부/미지원, 어느 쪽이든 '응답이
    끝났다'는 신호가 필요해서다. 녹음 화면은 이 응답을 실제로 기다린 뒤에야
@@ -3066,6 +3077,8 @@ function initMic(){
     analyser=audioCtx.createAnalyser();
     analyser.fftSize=2048;
     micBuf=new Float32Array(analyser.fftSize);
+    freqBuf=new Uint8Array(analyser.frequencyBinCount);
+    sampleRate=audioCtx.sampleRate||44100;
     src.connect(analyser);
     micReady=true;
   }).catch(()=>{ micReady=false; });   // 권한 거부·미지원 — 시뮬레이션으로 대체(투명하게 표시됨)
@@ -3084,8 +3097,18 @@ function fillRecAddr(){
   if(recAddrDone) return;
   const el=document.getElementById('rec-addr');
   if(!el) return;
+  /* 실제 위치를 아직 못 받았고 포기할 시점도 아니면, 데모 주소(CENTER)를
+     조회해 잠깐이라도 보여주지 않는다. 예전 v202 데모 주소가 실제 위치가
+     뜨기 전 한순간 노출됐다가 바뀌는 문제가 바로 이 지점이었다 — 실제 위치가
+     정해지거나(realLoc) GPS를 완전히 포기하기(geoGaveUp) 전까지는 중립 문구만 둔다. */
+  if(!realLoc && !geoGaveUp){
+    el.textContent='위치 확인 중…';
+    const s0=document.getElementById('sms-addr'); if(s0) s0.textContent='위치 확인 중…';
+    return;
+  }
   if(!(window.kakao && kakao.maps.services)){
-    el.textContent='인천 남동구 논현동 일대'; return;   // SDK 전 임시 표기
+    el.textContent = realLoc ? '위치 확인됨 · 주소 불러오는 중…' : '인천 남동구 논현동 일대';
+    return;   // SDK 전 임시 표기
   }
   recAddrDone=true;
   const gc=new kakao.maps.services.Geocoder();
@@ -3367,7 +3390,97 @@ document.addEventListener('DOMContentLoaded', ()=>{
   rec.addEventListener('scroll', ()=>{ hold(); release() }, {passive:true, capture:true});
 });
 let LAST=null, myReport=null;   // 방금 보낸 신고
-const SEQ=['고성','고성','소란','고성','욕설'];
+
+/* ══ 소음 유형 자동 판정 ══
+   예전에는 경과 시간에 따라 '고성→소란→욕설'을 그냥 순서대로 돌렸다 — 실제
+   소리를 전혀 보지 않는 촬영용 눈속임이었다. 사람 목소리 기반 유형(고성·소란)은
+   데시벨 절대값으로는 서로 구분되지 않는다 — 욕설이 고성에 포함되는 것도
+   결국 '내용'의 문제라 마이크 진폭만으로는 가려낼 수 없다. 대신 "강한 소리가
+   몇 초씩·몇 초 간격으로 반복되는지"와 "강한 소리와 그 사이 소리의 차이(진폭
+   편차)"는 실제로 잡힌다:
+     · 고성    — 짧게(1~3초) 확 튀었다가 다시 잦아들길 반복. 직전 소리와의
+                 차이(진폭 편차)가 크다 — 조용히 혼잣말하다 갑자기 욕설을
+                 내뱉는 주취자형 패턴. ("참을 만한 독백" → "으웩!" → 다시 독백)
+     · 소란    — 큰 소리가 10초 안팎 이어진다. 강한 소리(웃고 소리 지름)와
+                 그 사이 소리(그래도 큰 목소리 대화)의 차이가 작다 — 계속
+                 시끄러운 무리형 패턴.
+     · 동물짖음 — 15초 안팎 길게 이어진다. 짖는 소리는 주파수도 사람 저음
+                 대화보다 높은 대역에 몰린다.
+     · 차량·기계음 — 뚜렷하게 쉬는 구간 없이 길게 이어지고, 저음(50~300Hz)
+                 에너지가 사람 목소리 대역(500~3000Hz)보다 두드러진다.
+   판정 기준은 절대 데시벨이 아니라 지속시간·진폭편차·주파수의 조합이다.
+   자리마다 마이크 감도·거리가 달라 경계값(BURST_MARGIN 등)은 관찰 기반
+   초기값이며, 실측 신고가 쌓이면 보정이 필요하다. */
+let quietEma=46, inBurst=false, burstMs=0, burstPeakDb=0, burstBaseDb=46;
+let episodeLabel=null, aboveMs=0, belowMs=0;
+const BURST_MARGIN=7;      // 평상시(quietEma)보다 이만큼(dB) 높으면 '강한 소음'
+const BURST_ENTER_MS=300, BURST_EXIT_MS=500;   // 잠깐 튀는 잡음(문 닫는 소리 등) 무시용 debounce
+
+/* 저음(엔진·기계음 대역) 에너지가 사람 목소리 대역보다 얼마나 두드러지는지.
+   0~1, 클수록 저음 위주(차량·기계음 쪽). 마이크가 없거나 주파수 데이터가
+   아직 없으면 null — 그때는 지속시간만으로 판단한다. */
+function freqLowRatio(){
+  if(!analyser || !freqBuf) return null;
+  analyser.getByteFrequencyData(freqBuf);
+  const binHz=sampleRate/analyser.fftSize;
+  const lo1=Math.max(0,Math.round(50/binHz)), lo2=Math.round(300/binHz);
+  const mi1=Math.round(500/binHz), mi2=Math.min(freqBuf.length-1, Math.round(3000/binHz));
+  let low=0, mid=0;
+  for(let i=lo1;i<=lo2;i++) low+=freqBuf[i];
+  for(let i=mi1;i<=mi2;i++) mid+=freqBuf[i];
+  const lowN=low/Math.max(1,lo2-lo1+1), midN=mid/Math.max(1,mi2-mi1+1);
+  return lowN/(lowN+midN+1e-6);
+}
+
+/* durSec: 지금 이어지고 있는(혹은 방금 끝난) '강한 소음' 구간의 길이.
+   swing: 그 구간의 최고 dB와 직전 평상시(quietEma)의 차이.
+   판단이 아직 이르면 null을 돌려주고, 화면은 그동안 '분석 중…'을 유지한다. */
+function classifyEpisode(durSec, swing){
+  const fr=freqLowRatio();
+  if(durSec>=8 && fr!=null && fr>0.55) return '차량·기계음';  // 저음 위주로 길게, 쉬는 구간 없이
+  if(durSec>=13) return '동물짖음';                             // 15초 안팎 길게 반복
+  if(durSec<=3 && swing>=13) return '고성';                     // 짧고, 직전보다 확 튀는 소리
+  if(durSec>3) return '소란';                                   // 그 사이 — 계속 시끄러운 무리형
+  return null;                                                  // 1~3초인데 튀는 폭이 애매 — 더 지켜본다
+}
+
+/* 100ms 틱마다 호출. db: 지금 읽은 소음도, dtMs: 이번 틱 간격(보통 100).
+   화면에 쓸 라벨을 돌려준다 — 아직 판단할 근거가 없으면 '분석 중…'. */
+function feedClassifier(db, dtMs){
+  const loud = db > quietEma + BURST_MARGIN;
+  if(!loud){
+    quietEma += (db-quietEma)*0.03;     // 평상시 기준을 천천히 따라가게 한다
+    belowMs += dtMs; aboveMs=0;
+    if(inBurst && belowMs>=BURST_EXIT_MS){
+      inBurst=false;
+      const durSec=burstMs/1000;
+      const swing=burstPeakDb-burstBaseDb;
+      const done=classifyEpisode(durSec, swing);
+      if(done) episodeLabel=done;
+      burstMs=0;
+    }
+  } else {
+    aboveMs += dtMs; belowMs=0;
+    if(!inBurst){
+      if(aboveMs>=BURST_ENTER_MS){
+        inBurst=true;
+        burstMs=aboveMs;             // 진입 판정에 이미 쓰인 시간부터 셈한다
+        burstBaseDb=quietEma;
+        burstPeakDb=db;
+      }
+    } else {
+      burstMs += dtMs;
+      burstPeakDb=Math.max(burstPeakDb, db);
+    }
+    if(inBurst){
+      /* 소리가 계속 이어지는 동안에도 실시간으로 다시 판단한다 — 처음엔
+         짧은 고성처럼 보이다가 15초 넘게 이어지면 동물짖음으로 바뀌는 식. */
+      const live=classifyEpisode(burstMs/1000, burstPeakDb-burstBaseDb);
+      if(live) episodeLabel=live;
+    }
+  }
+  return episodeLabel || '분석 중…';
+}
 
 /* 확인 화면과 문자 화면의 값을 판정 결과에서 채운다.
    글자로 박아 두면 방금 고성으로 판정했는데 문자에는 다른 유형이 적히고,
@@ -3390,6 +3503,8 @@ function startRec(){
   if(recTimer) return;
   const myGen=++recGen;
   overSec=0; streak=0; conf=6; bgSamples=[];
+  quietEma=46; inBurst=false; burstMs=0; burstPeakDb=0; burstBaseDb=46;
+  episodeLabel=null; aboveMs=0; belowMs=0;
   /* 지나가는 소음 안내는 처음엔 조용히 있다가, 잡히는 게 없으면 나선다 */
   const pw=document.querySelector('.passby');
   if(pw){ pw.classList.remove('urge');
@@ -3544,13 +3659,18 @@ function startRec(){
     document.getElementById('vconf').textContent=Math.round(conf)+'%';
 
     const dt=document.getElementById('dtype');
+    /* 실제 소리 패턴(지속시간·진폭편차·주파수)으로 유형을 판정한다.
+       매 틱 호출해야 지속시간 누적·주파수 재확인이 살아있는 소음에 맞춰
+       계속 갱신된다. */
+    const label=feedClassifier(db, 100);
     if(el<1.4){ dt.textContent='분석 중…'; dt.classList.remove('on') }
-    else if(db<=THR && streak<0.5){ dt.textContent='배경음'; dt.classList.remove('on') }
+    else if(db<=THR && streak<0.5 && label==='분석 중…'){ dt.textContent='배경음'; dt.classList.remove('on') }
+    else if(label==='분석 중…'){ dt.textContent='분석 중…'; dt.classList.remove('on') }
     else {
-      const k=SEQ[Math.floor(el/2.6)%SEQ.length];
-      dt.textContent=k; dt.classList.add('on');
+      dt.textContent=label; dt.classList.add('on');
       /* 지도로 넘어갈 때 '내 신고'로 쓸 판정 결과 */
-      LAST={ t:TYPES.findIndex(x=>x.k===k), db, dur:Math.round(overSec) };
+      const ti=TYPES.findIndex(x=>x.k===label);
+      LAST={ t: ti>=0?ti:0, db, dur:Math.round(overSec) };
     }
 
     /* 기준을 넘긴 시간이 충분히 쌓이면 스스로 확인 단계로 넘어간다.
@@ -5151,6 +5271,14 @@ const ARTERIAL=[];
   });
 })();
 
+/* 데모 표본 반경 — 남동구 전역 실제 시설 데이터(APT/ANCHOR/ARTERIAL 등) 중
+   CENTER(논현동) 부근만 골라 쓴다. 원본 데이터가 만수동·간석동 등
+   남동구 전체에 흩어져 있어, 거르지 않으면 사용자가 다른 동네에서
+   실측 신고를 할 때 그쪽에서도 "데모 지점"이 튀어나와 버린다.
+   화면에는 항상 논현동 데모 + 사용자 본인의 실측 지점만 있어야 한다. */
+const DEMO_R=2000;
+const inDemo=(lat,lng)=>distM({lat,lng},CENTER)<=DEMO_R;
+
 function estimatePoints(){
   const r=mulberry32(88011);
   const pts=[];
@@ -5161,40 +5289,48 @@ function estimatePoints(){
               lng:+(lng+jit(jm)*M_LNG).toFixed(6), t:ty});
   };
 
+  const foodD=FOOD.filter(f=>inDemo(f.lat,f.lng));
+  const anchorD={}; Object.keys(ANCHOR).forEach(k=>{ anchorD[k]=ANCHOR[k].filter(a=>inDemo(a[0],a[1])) });
+  const placesD={ ply:PLACES.ply.filter(a=>inDemo(a[0],a[1])),
+                   prk:PLACES.prk.filter(a=>inDemo(a[0],a[1])),
+                   aca:PLACES.aca.filter(a=>inDemo(a[0],a[1])) };
+  const aptD=APT.filter(a=>inDemo(a[0],a[1]));
+  const arterialD=ARTERIAL.filter(a=>inDemo(a[0],a[1]));
+
   /* 고성 — 술집·노래방·당구장 위치. 밀집지일수록 많아진다.
      실제로 신고가 쌓이면 고성이 지도를 덮는 게 맞지만, 지금 값은 추정이다.
      추정 단계에서 한 유형이 화면을 독점하면 다른 유형이 안 보인다. */
-  FOOD.forEach(f=>{ if(f.w===3 && r()<0.065) push(f.lat,f.lng,0,40) });
-  ANCHOR.kar.forEach(a=>{ if(r()<0.28) push(a[0],a[1],0,35) });
-  ANCHOR.bil.forEach(a=>{ if(r()<0.20) push(a[0],a[1],0,35) });
-  ANCHOR.bar.forEach(a=>{ if(r()<0.20) push(a[0],a[1],0,35) });
+  foodD.forEach(f=>{ if(f.w===3 && r()<0.065) push(f.lat,f.lng,0,40) });
+  anchorD.kar.forEach(a=>{ if(r()<0.28) push(a[0],a[1],0,35) });
+  anchorD.bil.forEach(a=>{ if(r()<0.20) push(a[0],a[1],0,35) });
+  anchorD.bar.forEach(a=>{ if(r()<0.20) push(a[0],a[1],0,35) });
 
   /* 소란 — 편의점 앞·놀이터·공원·헬스장·PC방·학원가(밤 10시 하원) */
-  ANCHOR.cvs.forEach(a=>{ if(r()<0.26) push(a[0],a[1],1,30) });
-  ANCHOR.gym.forEach(a=>{ if(r()<0.30) push(a[0],a[1],1,35) });
-  ANCHOR.pc .forEach(a=>{ if(r()<0.28) push(a[0],a[1],1,35) });
-  ANCHOR.gam.forEach(a=>{ if(r()<0.30) push(a[0],a[1],1,35) });
-  PLACES.ply.concat(PLACES.prk).forEach(a=>{ if(r()<0.5) push(a[0],a[1],1,45) });
-  const aca=PLACES.aca;
+  anchorD.cvs.forEach(a=>{ if(r()<0.26) push(a[0],a[1],1,30) });
+  anchorD.gym.forEach(a=>{ if(r()<0.30) push(a[0],a[1],1,35) });
+  anchorD.pc .forEach(a=>{ if(r()<0.28) push(a[0],a[1],1,35) });
+  anchorD.gam.forEach(a=>{ if(r()<0.30) push(a[0],a[1],1,35) });
+  placesD.ply.concat(placesD.prk).forEach(a=>{ if(r()<0.5) push(a[0],a[1],1,45) });
+  const aca=placesD.aca;
   for(let i=0;i<aca.length;i+=4) push(aca[i][0],aca[i][1],1,50);
 
   /* 욕설 — 고성 발생지 일부. 술집 밀집 최상위에만 소수 */
-  FOOD.forEach(f=>{ if(f.w===3 && r()<0.035) push(f.lat,f.lng,2,35) });
+  foodD.forEach(f=>{ if(f.w===3 && r()<0.035) push(f.lat,f.lng,2,35) });
 
   /* 동물짖음 — 아파트 단지 안. 단지 규모(놀이터 수)에 비례 */
-  APT.forEach(a=>{
+  aptD.forEach(a=>{
     const n=Math.max(1, Math.round(a[2]*0.45));
     for(let i=0;i<n;i++) push(a[0],a[1],3,90);
   });
-  ANCHOR.pet.forEach(a=>{ if(r()<0.55) push(a[0],a[1],3,70) });
+  anchorD.pet.forEach(a=>{ if(r()<0.55) push(a[0],a[1],3,70) });
 
   /* 차량 굉음 — 대로에서만 */
-  ARTERIAL.forEach(a=>{ if(r()<0.22) push(a[0],a[1],4,30) });
+  arterialD.forEach(a=>{ if(r()<0.22) push(a[0],a[1],4,30) });
 
   /* 바이크 굉음 — 대로에서 90m 이상 떨어진 골목. 배달 바이크다 */
-  FOOD.forEach(f=>{
+  foodD.forEach(f=>{
     if(r()>=0.05) return;
-    const far=ARTERIAL.every(a=>distM(f,{lat:a[0],lng:a[1]})>90);
+    const far=arterialD.every(a=>distM(f,{lat:a[0],lng:a[1]})>90);
     if(far) push(f.lat,f.lng,4,40);
   });
 
