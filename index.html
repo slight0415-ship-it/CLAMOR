@@ -2238,7 +2238,7 @@
         <div class="zone">
           <div class="zloc zstep" data-step="1"><span class="gps"></span><b id="rec-addr">위치 확인 중…</b></div>
           <div class="z1 zstep" data-step="2">이 자리의 용도지역</div>
-          <div class="z2 zstep" data-step="2">일반주거지역 · 원룸·다세대</div>
+          <div class="z2 zstep" data-step="2" id="zone-name">확인 중…</div>
 
           <div class="zcalc zstep" data-step="3">
             <div class="zrow">
@@ -2246,12 +2246,18 @@
               <span class="zv">규제기준 <b id="thr-reg">45</b> dB</span>
             </div>
             <div class="zrow">
-              <span class="zk">이 자리에서 늘 나는 소리</span>
+              <span class="zk">이 자리에서 늘 나는 소리(참고)</span>
               <span class="zv">배경소음 <b id="thr-bg">46</b> dB</span>
             </div>
             <div class="zrow out">
               <span class="zk">이 자리의 신고 기준</span>
               <span class="zv"><b id="thr-out">52</b> dB</span>
+            </div>
+            <!-- 용도지역 조회가 안 되는 자리(데이터 밖 지역 등)에서는 추정치임을
+                 숨기지 않는다. 법정기준을 못 찾으면 데모 기본값으로 대체한다. -->
+            <div class="zrow sub" id="zone-src" hidden>
+              <span class="zk">기준 출처</span>
+              <span class="zv" id="zone-src-txt">—</span>
             </div>
             <div class="zrow sub">
               <span class="zk">이 기준을 넘긴 상태가</span>
@@ -2390,7 +2396,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v207</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v208</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2593,7 +2599,7 @@
       <div class="mtitle">
         <h1>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v207</span></div>
+          <span class="ver" id="ver2">v208</span></div>
       </div>
       <div class="cats" id="cats2"></div>
     </div>
@@ -2616,7 +2622,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v207</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v208</span></div>
       </div>
       <div class="cats" id="cats"></div>
     </div>
@@ -3089,7 +3095,73 @@ function fillRecAddr(){
       region: jib ? [jib.region_1depth_name, jib.region_2depth_name,
                      jib.region_3depth_name].filter(Boolean).join(' ') : ''
     };
+    /* 용도지역 대조에 쓸 키 — 카카오가 돌려주는 지번주소의 법정동코드(b_code)와
+       지번(본번-부번)을 그대로 저장해 둔다. 인천 용도지역 표의 키와 같은 규격이다. */
+    if(jib && jib.b_code){
+      recBcode = jib.b_code;
+      recJibun = jib.main_address_no
+        ? jib.main_address_no + (jib.sub_address_no && jib.sub_address_no!=='0' ? '-'+jib.sub_address_no : '')
+        : null;
+    } else { recBcode=null; recJibun=null; }
+    updateZoningUI();
   });
+}
+
+/* ══ 용도지역 → 법정 규제기준(소음ㆍ진동관리법 시행규칙 별표8) ══
+   지금은 인천(28)만 데이터를 갖고 있다. 다른 지역은 지역 파일이 없으므로
+   대조가 안 되고, 그 경우엔 화면에 '추정치'임을 밝히고 기존 기본값을 쓴다.
+   법정기준표: 주거ㆍ녹지지역 등은 아침저녁50/주간55/야간45,
+   그 외(상업ㆍ공업ㆍ그 밖의 지역)는 아침저녁60/주간65/야간55 — 두 구간뿐이다.
+   "체감상 시끄러운 동네"라고 야간 기준이 완화되지 않는다: 유흥가여도 그 옆
+   주거지 주민이 피해자이므로, 용도지역 자체의 법정기준만 본다. */
+let recBcode=null, recJibun=null, zoningData=null, zoningPromise=null;
+const ZONE_TIER_A=new Set(['UQA111','UQA112','UQA121','UQA122','UQA123','UQA130',
+  'UQA410','UQA420','UQA430']);   // 전용ㆍ일반ㆍ준주거 + 녹지지역
+function loadZoningData(){
+  if(zoningPromise) return zoningPromise;
+  zoningPromise=fetch('incheon_zoning_lookup.json').then(r=>r.json())
+    .then(d=>{ zoningData=d; return d; })
+    .catch(()=>{ zoningData=null; return null; });
+  return zoningPromise;
+}
+function legalLimitFor(tier){
+  const h=new Date().getHours();
+  const evening=(h>=5&&h<7)||(h>=18&&h<22);
+  const day=(h>=7&&h<18);
+  if(tier==='A') return evening?50:(day?55:45);
+  return evening?60:(day?65:55);
+}
+/* 조회 결과를 recZone에 담아 화면·THR 계산 둘 다에서 쓴다.
+   찾으면 found:true, 못 찾으면(지역 밖·데이터 공백) found:false로
+   화면에 '추정치'를 명시하고 기존 기본값(45)으로 대체한다. */
+let recZone={found:false, name:'', reg:45};
+function resolveZone(){
+  if(!zoningData || !recBcode || !recJibun){
+    recZone={found:false, name:'', reg:45}; return recZone;
+  }
+  const code=zoningData.parcels[recBcode+'|'+recJibun];
+  if(!code){ recZone={found:false, name:'', reg:45}; return recZone; }
+  const name=zoningData.codes[code]||code;
+  const tier=ZONE_TIER_A.has(code)?'A':'B';
+  recZone={found:true, name, reg:legalLimitFor(tier)};
+  return recZone;
+}
+function updateZoningUI(){
+  resolveZone();
+  const zn=document.getElementById('zone-name');
+  const reg=document.getElementById('thr-reg');
+  const src=document.getElementById('zone-src'), srcTxt=document.getElementById('zone-src-txt');
+  if(recZone.found){
+    if(zn) zn.textContent=recZone.name;
+    if(reg) reg.textContent=recZone.reg;
+    if(src){ src.hidden=false; }
+    if(srcTxt) srcTxt.textContent='국토교통부 용도지역지구 실측 데이터';
+  } else {
+    if(zn) zn.textContent='확인 불가 지역(추정 적용)';
+    if(reg) reg.textContent=recZone.reg;
+    if(src){ src.hidden=false; }
+    if(srcTxt) srcTxt.textContent='데이터 없음 — 기본값 적용';
+  }
 }
 
 /* ══ 개발 도구 숨김 — 촬영·시연용 ══
@@ -3261,11 +3333,11 @@ document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>go(b.dataset.go)
    들어간 뒤에야 물으면 실제 사용자는 답하는 동안 화면이 멈춘 것처럼 보인다.
    여기서 미리 응답을 받아두면 녹음 화면은 그 결과를 바로 쓸 수 있다. */
 initMic();
+loadZoningData();   // 인천 용도지역 표 — 녹음 화면 도달 전에 미리 받아둔다
 setTimeout(()=>{ if(!document.getElementById('s-splash').hidden) go('rec') },2100);
 
 /* ══ 녹음 화면 시뮬레이션 ══ */
-let THR=52;   // 규제기준 45 + 지역 배경소음 보정 — 마이크가 잡히면 매 녹음마다 다시 계산한다
-const BG_MARGIN=6;   // 45+46=52처럼 산수로 보이면 안 되지만, 보정폭 자체는 고정값이다
+let THR=45;   // 초기값(추정) — 워밍업이 끝나면 그 자리의 법정 규제기준으로 교체된다
 const WAVE_N=34;
 const waveEl=document.getElementById('wave');
 for(let i=0;i<WAVE_N;i++) waveEl.appendChild(document.createElement('i'));
@@ -3372,7 +3444,7 @@ function startRec(){
         step===0 ? '잠시만 기다려 주세요'
       : step===1 ? '용도지역에 따라 적용 기준이 달라집니다'
       : step===2 ? '이 자리에서 늘 들리는 소리를 먼저 잽니다'
-                 : '규제기준에 배경소음을 반영합니다';
+                 : '용도지역의 법정 기준을 적용합니다';
       /* '배경소음을 재는 중'이라고 써놓고 실제로는 안 재면 거짓말이다.
          마이크가 잡혀 있으면 이 구간에서 실제로 읽어 평균을 쌓는다. */
       if(step===2 && micReady && analyser) bgSamples.push(readMicDb());
@@ -3392,13 +3464,18 @@ function startRec(){
       zs.forEach(e=>e.classList.remove('pend'));
       if(rb) rb.classList.remove('pend');
       t0=Date.now();                 // 준비 시간은 녹음 시간에 넣지 않는다
-      /* 실제로 잰 배경소음이 있으면 그 값으로 판단선을 다시 계산한다.
-         마이크가 없었으면(권한 거부·미지원) 기존 데모값(46→52)을 그대로 쓴다.
-         폰마다 마이크 절대오차가 있어도, 배경과 지금 소리를 같은 마이크로
-         재기 때문에 초과 여부·초과폭 같은 상대비교는 흔들리지 않는다. */
+      /* 판단선은 이제 '배경소음+마진'이 아니라 그 자리의 법정 규제기준이다.
+         유흥가 옆이라고, 원래 시끄러운 대로변이라고 기준이 완화되지 않는다
+         — 피해를 입는 건 그 옆 주거지 주민이므로 용도지역 자체의 법정
+         기준만 본다(소음ㆍ진동관리법 시행규칙 별표8). 배경소음은 화면에
+         참고로만 보여주고 판단에는 관여하지 않는다.
+         용도지역 조회가 안 되는 자리(데이터 공백·인천 밖)에서는 추정
+         기본값(45)을 쓰고 화면에 '추정치'라고 밝힌다 — 근거 없이 확정된
+         숫자처럼 보이면 안 된다. */
       const bg = bgSamples.length
         ? Math.round(bgSamples.reduce((a,b)=>a+b,0)/bgSamples.length) : 46;
-      THR = bg + BG_MARGIN;
+      updateZoningUI();               // recZone을 최신 상태로(위치가 이제야 확정됐을 수 있음)
+      THR = recZone.reg;
       const bgEl=document.getElementById('thr-bg'), outEl=document.getElementById('thr-out');
       if(bgEl) bgEl.textContent=bg;
       if(outEl) outEl.textContent=THR;
