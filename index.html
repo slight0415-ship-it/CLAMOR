@@ -2396,7 +2396,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v208</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v209</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2599,7 +2599,7 @@
       <div class="mtitle">
         <h1>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v208</span></div>
+          <span class="ver" id="ver2">v209</span></div>
       </div>
       <div class="cats" id="cats2"></div>
     </div>
@@ -2622,7 +2622,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v208</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v209</span></div>
       </div>
       <div class="cats" id="cats"></div>
     </div>
@@ -3279,8 +3279,11 @@ function go(name){
       if(myPassby && !myPassby.applied && ROUTES.length && ROUTES[0].c){
         let best=null, bd=1e9;
         ROUTES.forEach(rt=>{ const d=distM(rt.c,CENTER); if(d<bd){ bd=d; best=rt } });
-        if(best){ myPassby.applied=true; best.mine=true; best.n+=1;
-          if(typeof refreshList==='function') refreshList(); }
+        if(best){
+          myPassby.applied=true; best.mine=true; best.n+=1;
+          applyMineToRoute(best);
+          if(typeof refreshList==='function') refreshList();
+        }
       }
       const lim=TIERS[tier].maxLv || 3;
       if(map.getLevel()>lim) map.setLevel(lim);
@@ -3313,7 +3316,7 @@ function go(name){
     if(myPassby && !myPassby.applied && ROUTES.length && ROUTES[0].c){
       let best=null, bd=1e9;
       ROUTES.forEach(rt=>{ const d=distM(rt.c,CENTER); if(d<bd){ bd=d; best=rt } });
-      if(best){ myPassby.applied=true; best.mine=true; best.n+=1 }
+      if(best){ myPassby.applied=true; best.mine=true; best.n+=1; applyMineToRoute(best); }
     }
     setTimeout(()=>{
       if(!map) return;
@@ -4005,6 +4008,21 @@ function endHour(s){
   }
   return (pk+12)%24;
 }
+/* 이동 소음(차량ㆍ바이크) 신고는 실제 도로 모양(path) 데이터가 없어서
+   지점(spot)처럼 완전히 옮기지는 못한다 — 그건 별도 과제로 남는다.
+   대신 이름ㆍ중심점ㆍ라벨은 실제 위치로 옮기고, 데모 도로에 남는
+   선(line/glow)은 감춰서 "라벨은 만수동인데 선은 논현동"처럼 둘이
+   따로 노는 것보다는 낫게 만든다. */
+function applyMineToRoute(rt){
+  if(recPlace && recPlace.name) rt.name=recPlace.name;
+  if(!realLoc) return;
+  rt.c={lat:realLoc.lat, lng:realLoc.lng};
+  if(rt.flow && rt.flow.setPosition){
+    rt.flow.setPosition(new kakao.maps.LatLng(realLoc.lat, realLoc.lng));
+  }
+  if(rt.line && rt.line.setMap) rt.line.setMap(null);
+  if(rt.glow && rt.glow.setMap) rt.glow.setMap(null);
+}
 function applyMine(){
   if(!myReport || !spots.length) return;
   let best=null, bd=1e9;
@@ -4014,6 +4032,16 @@ function applyMine(){
   myReport.applied=true;
   cardIdx=0;                        // 내 신고가 첫 장이므로 위치도 처음으로
   best.mine=true; best.n+=1; best.cnt[myReport.t]+=1;
+  /* 실제 GPS가 잡혀 있으면, 이름만 내 주소로 바꾸고 핀은 데모 좌표에 그대로
+     두는 게 아니라 핀 자체를 실제 위치로 옮긴다. 이름은 만수동인데 지도의
+     점은 논현동에 남아있으면 "실제로 작동하는 게 맞나"라는 의심을 산다.
+     주변에 다른 신고가 없어도 상관없다 — 내 위치가 정직하게 찍히는 게 먼저다. */
+  if(realLoc){
+    best.c = {lat:realLoc.lat, lng:realLoc.lng};
+    if(best.ov && best.ov.setPosition){
+      best.ov.setPosition(new kakao.maps.LatLng(realLoc.lat, realLoc.lng));
+    }
+  }
   /* 카드가 보여주는 유형은 그 지점의 누적 최다 유형이다. 내 신고를 한 건
      더해도 최다가 바뀌지 않으면, 방금 고성으로 신고했는데 카드에는
      동물짖음이 뜬다. 방금 보낸 것과 화면이 어긋나면 같은 신고인지 알 수 없다. */
