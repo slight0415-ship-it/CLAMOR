@@ -638,12 +638,14 @@
   /* ══ 리스크맵 헤더 ══ */
   .mhead{padding:14px 18px 12px; border-bottom:1px solid var(--line);
     display:flex; align-items:center; gap:12px; flex:0 0 auto; background:var(--ink)}
-  .mtitle{flex:1; min-width:0}
+  /* 제목과 부제(무료 배지·버전)를 한 줄에 나란히 둔다. 오른쪽에 공간이
+     남는데도 부제를 아래로 내려 두 줄을 쓰면 세로 공간만 낭비된다. */
+  .mtitle{flex:1; min-width:0; display:flex; align-items:baseline; gap:9px; flex-wrap:wrap}
   .mhead h1{font-size:1.5rem; font-weight:900;
     letter-spacing:-.02em; color:var(--text); white-space:nowrap; line-height:1.2;
     display:flex; align-items:center; gap:7px}
   .mhead h1 .pin{flex:0 0 auto; color:var(--c-noise)}
-  .msub{font-size:0.8125rem; font-weight:700; color:var(--text-mute); margin-top:3px}
+  .msub{font-size:0.8125rem; font-weight:700; color:var(--text-mute); white-space:nowrap}
   /* 버전 번호는 개발 확인용이지 사용자에게 중요한 정보가 아니다.
      제목보다 시선을 끌면 안 되므로 작고 옅게 둔다. */
   .msub .ver{font-family:var(--mono); color:var(--text-mute); font-weight:500;
