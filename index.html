@@ -2243,15 +2243,15 @@
           <div class="zcalc zstep" data-step="3">
             <div class="zrow">
               <span class="zk">법으로 정해진 값</span>
-              <span class="zv">규제기준 <b>45</b> dB</span>
+              <span class="zv">규제기준 <b id="thr-reg">45</b> dB</span>
             </div>
             <div class="zrow">
               <span class="zk">이 자리에서 늘 나는 소리</span>
-              <span class="zv">배경소음 <b>46</b> dB</span>
+              <span class="zv">배경소음 <b id="thr-bg">46</b> dB</span>
             </div>
             <div class="zrow out">
               <span class="zk">이 자리의 신고 기준</span>
-              <span class="zv"><b>52</b> dB</span>
+              <span class="zv"><b id="thr-out">52</b> dB</span>
             </div>
             <div class="zrow sub">
               <span class="zk">이 기준을 넘긴 상태가</span>
@@ -2381,7 +2381,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v204</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v206</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2582,9 +2582,9 @@
 
     <div class="mhead">
       <div class="mtitle">
-        <h1>생활불편 리스크맵</h1>
-        <div class="msub">소음 편 <span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v204</span></div>
+        <h1>우리 동네 소음 지도</h1>
+        <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
+          <span class="ver" id="ver2">v206</span></div>
       </div>
       <div class="cats" id="cats2"></div>
     </div>
@@ -2606,8 +2606,8 @@
   <section class="screen" id="s-map" hidden>
     <div class="mhead">
       <div class="mtitle">
-        <h1>생활불편 리스크맵</h1>
-        <div class="msub">소음 편 <span class="tierbadge" id="tierbadge">무료</span><span class="ver">v204</span></div>
+        <h1>우리 동네 소음 지도</h1>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v206</span></div>
       </div>
       <div class="cats" id="cats"></div>
     </div>
@@ -3019,12 +3019,20 @@ function requestRealLocation(){
    마이크 감도가 달라 이 숫자는 참고용이다 — 정식 서비스로 갈 때는
    기준 소음계로 MIC_DB_OFFSET을 기기별로 맞추는 절차가 별도로 필요하다.
    지금은 '소리가 커지면 숫자도 커진다'는 반응 확인이 목적이라 고정값을 쓴다. */
-let micReady=false, micRequested=false, audioCtx=null, analyser=null, micBuf=null;
+let micReady=false, micRequested=false, micPromise=null, audioCtx=null, analyser=null, micBuf=null, bgSamples=[];
 const MIC_DB_OFFSET=100;
+/* initMic()은 Promise를 돌려준다 — 허용/거부/미지원, 어느 쪽이든 '응답이
+   끝났다'는 신호가 필요해서다. 녹음 화면은 이 응답을 실제로 기다린 뒤에야
+   배경소음을 재기 시작한다(촬영용처럼 정해진 시간표대로 먼저 도는 게 아니라). */
 function initMic(){
-  if(micRequested || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return;
+  if(micRequested) return micPromise || Promise.resolve();
   micRequested=true;
-  navigator.mediaDevices.getUserMedia({
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+    micReady=false;
+    micPromise=Promise.resolve();
+    return micPromise;
+  }
+  micPromise=navigator.mediaDevices.getUserMedia({
     audio:{ echoCancellation:false, noiseSuppression:false, autoGainControl:false }
   }).then(stream=>{
     audioCtx=new (window.AudioContext||window.webkitAudioContext)();
@@ -3034,7 +3042,8 @@ function initMic(){
     micBuf=new Float32Array(analyser.fftSize);
     src.connect(analyser);
     micReady=true;
-  }).catch(()=>{ micReady=false; });   // 권한 거부·미지원 — 기존 시뮬레이션으로 대체
+  }).catch(()=>{ micReady=false; });   // 권한 거부·미지원 — 시뮬레이션으로 대체(투명하게 표시됨)
+  return micPromise;
 }
 function readMicDb(){
   analyser.getFloatTimeDomainData(micBuf);
@@ -3229,15 +3238,20 @@ document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>go(b.dataset.go)
 /* 실제 서비스라면 경찰이 다녀간 뒤 다시 열었을 때 보낸 내용부터 보여야
    한다. 다만 그 판단은 알림과 함께 설계해야 하고, 지금은 열 때마다
    접수증이 뜨면 앱을 다시 볼 수 없다. 평소 흐름으로 시작한다. */
+/* 스플래시가 떠 있는 동안 마이크 권한을 미리 물어본다 — 녹음 화면에
+   들어간 뒤에야 물으면 실제 사용자는 답하는 동안 화면이 멈춘 것처럼 보인다.
+   여기서 미리 응답을 받아두면 녹음 화면은 그 결과를 바로 쓸 수 있다. */
+initMic();
 setTimeout(()=>{ if(!document.getElementById('s-splash').hidden) go('rec') },2100);
 
 /* ══ 녹음 화면 시뮬레이션 ══ */
-const THR=52;   // 규제기준 45 + 지역 배경소음 보정
+let THR=52;   // 규제기준 45 + 지역 배경소음 보정 — 마이크가 잡히면 매 녹음마다 다시 계산한다
+const BG_MARGIN=6;   // 45+46=52처럼 산수로 보이면 안 되지만, 보정폭 자체는 고정값이다
 const WAVE_N=34;
 const waveEl=document.getElementById('wave');
 for(let i=0;i<WAVE_N;i++) waveEl.appendChild(document.createElement('i'));
 const bars=[...waveEl.children];
-let recTimer=null, t0=0, overSec=0, streak=0, conf=6;
+let recTimer=null, t0=0, overSec=0, streak=0, conf=6, recGen=0;
 
 /* 화면을 만지는 동안 자동 전환을 멈춘다. 손을 뗀 뒤 잠시 더 기다렸다 넘어간다.
    아래를 보려고 미는데 화면이 바뀌면 손이 닿지 않는 자리가 생긴다. */
@@ -3279,7 +3293,8 @@ function fillReport(){
 
 function startRec(){
   if(recTimer) return;
-  t0=Date.now(); overSec=0; streak=0; conf=6;
+  const myGen=++recGen;
+  overSec=0; streak=0; conf=6; bgSamples=[];
   /* 지나가는 소음 안내는 처음엔 조용히 있다가, 잡히는 게 없으면 나선다 */
   const pw=document.querySelector('.passby');
   if(pw){ pw.classList.remove('urge');
@@ -3298,7 +3313,27 @@ function startRec(){
   zs.forEach(e=>e.classList.add('pend'));
   if(rb) rb.classList.add('pend');
 
+  /* 촬영용으로는 화면이 뜨자마자 정해진 시간표대로 숫자가 흘러가면 됐지만,
+     실제 구동에서는 마이크 권한이 실제로 응답할 때까지 기다려야 한다.
+     허락을 기다리는 동안 '측정 중'인 척 진행 바가 도는 것은 거짓이므로,
+     권한 결과(허용/거부/미지원)가 나온 뒤에야 배경소음 재기를 시작한다.
+     사용자가 권한창을 계속 안 누르면(4초) 그때는 시뮬레이션으로라도 진행해
+     화면이 멈춰 있지 않게 한다. */
+  const d0=document.getElementById('db');
+  if(rt) rt.textContent='마이크 권한을 확인하는 중';
+  if(d0) d0.innerHTML='<small class="warmdots">···</small>';
 
+  let settled=false;
+  const begin=()=>{
+    if(settled || myGen!==recGen || recTimer) return;
+    settled=true;
+    t0=Date.now();               // 권한 대기 시간은 측정 시간에 넣지 않는다
+    runLoop();
+  };
+  initMic().then(begin).catch(begin);
+  setTimeout(begin, 4000);
+
+  function runLoop(){
   recTimer=setInterval(()=>{
     const raw=(Date.now()-t0)/1000;
 
@@ -3319,6 +3354,9 @@ function startRec(){
       : step===1 ? '용도지역에 따라 적용 기준이 달라집니다'
       : step===2 ? '이 자리에서 늘 들리는 소리를 먼저 잽니다'
                  : '규제기준에 배경소음을 반영합니다';
+      /* '배경소음을 재는 중'이라고 써놓고 실제로는 안 재면 거짓말이다.
+         마이크가 잡혀 있으면 이 구간에서 실제로 읽어 평균을 쌓는다. */
+      if(step===2 && micReady && analyser) bgSamples.push(readMicDb());
       /* 카드가 한 줄씩 채워진다 — 계산이 진행되는 것이 보여야 한다.
          data-step은 '몇 단계가 끝나야 보이는가'다. 위치는 1단계가
          끝나야 나오므로, 확인하는 중에 답이 먼저 떠 있지 않는다. */
@@ -3335,6 +3373,16 @@ function startRec(){
       zs.forEach(e=>e.classList.remove('pend'));
       if(rb) rb.classList.remove('pend');
       t0=Date.now();                 // 준비 시간은 녹음 시간에 넣지 않는다
+      /* 실제로 잰 배경소음이 있으면 그 값으로 판단선을 다시 계산한다.
+         마이크가 없었으면(권한 거부·미지원) 기존 데모값(46→52)을 그대로 쓴다.
+         폰마다 마이크 절대오차가 있어도, 배경과 지금 소리를 같은 마이크로
+         재기 때문에 초과 여부·초과폭 같은 상대비교는 흔들리지 않는다. */
+      const bg = bgSamples.length
+        ? Math.round(bgSamples.reduce((a,b)=>a+b,0)/bgSamples.length) : 46;
+      THR = bg + BG_MARGIN;
+      const bgEl=document.getElementById('thr-bg'), outEl=document.getElementById('thr-out');
+      if(bgEl) bgEl.textContent=bg;
+      if(outEl) outEl.textContent=THR;
     }
 
     const el=(Date.now()-t0)/1000;
@@ -3421,9 +3469,11 @@ function startRec(){
       }, 900);
     }
   },100);
+  }
 }
 let advancing=false;
 function stopRec(){
+  recGen++;                       // 대기 중이던(권한 응답 전) 시작 예약을 무효화
   clearInterval(recTimer); recTimer=null;
   document.querySelectorAll('#s-rec .zstep').forEach(e=>e.classList.remove('pend'));
   const rb=document.querySelector('#s-rec .rblock');
