@@ -2405,7 +2405,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v212</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v213</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2610,7 +2610,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v212</span></div>
+          <span class="ver" id="ver2">v213</span></div>
       </div>
       <div class="cats" id="cats2"></div>
     </div>
@@ -2635,7 +2635,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v212</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v213</span></div>
       </div>
       <div class="cats" id="cats"></div>
     </div>
@@ -3415,6 +3415,7 @@ let LAST=null, myReport=null;   // 방금 보낸 신고
    초기값이며, 실측 신고가 쌓이면 보정이 필요하다. */
 let quietEma=46, inBurst=false, burstMs=0, burstPeakDb=0, burstBaseDb=46;
 let episodeLabel=null, aboveMs=0, belowMs=0;
+let curDb=0, curMaxDb=0;   // 지금까지 실제로 읽힌 값 — '지금 판정하기'가 지어내지 않고 이 값을 쓴다
 const BURST_MARGIN=7;      // 평상시(quietEma)보다 이만큼(dB) 높으면 '강한 소음'
 const BURST_ENTER_MS=300, BURST_EXIT_MS=500;   // 잠깐 튀는 잡음(문 닫는 소리 등) 무시용 debounce
 
@@ -3484,15 +3485,26 @@ function feedClassifier(db, dtMs){
   return episodeLabel || '분석 중…';
 }
 
+/* LAST(자동 판정 결과)가 아직 없을 때 쓸 '실제로 지금까지 읽힌 값'.
+   58dB·고성처럼 지어낸 숫자를 쓰지 않기 위해 모든 임시 대체 지점이
+   이 함수 하나만 쓰게 한다. */
+function currentReading(){
+  return { db: Math.max(curMaxDb, THR), dur: Math.max(1, Math.round(overSec)) };
+}
+
 /* 확인 화면과 문자 화면의 값을 판정 결과에서 채운다.
    글자로 박아 두면 방금 고성으로 판정했는데 문자에는 다른 유형이 적히고,
    화면마다 다른 말을 하게 된다. */
 function fillReport(){
-  const r = LAST || { t:0, db:Math.max(58,THR+6), dur:Math.max(3,Math.round(overSec)) };
-  const kind = (TYPES[r.t] && TYPES[r.t].k) || '고성';
+  /* 예전엔 판정된 게 없으면 58dB·고성을 그냥 지어내 채워 넣었다 — 촬영용
+     눈속임이었다. 이제는 실제로 읽힌 값(curMaxDb)과 기준 초과 시간(overSec)
+     만 쓴다. 유형이 아직 확정되지 않았으면(자동 판정이 안 끝났으면) '소란'
+     처럼 강하게 단정하지 않고 '판정 보류'로 정직하게 표시한다. */
+  const r = LAST || { t:-1, ...currentReading() };
+  const kind = (r.t>=0 && TYPES[r.t]) ? TYPES[r.t].k : '판정 보류';
   const durTx = r.dur>=60
     ? Math.floor(r.dur/60)+'분 '+(r.dur%60)+'초'
-    : r.dur+'분 12초';
+    : r.dur+'초';
   const set=(id,v)=>{ const e=document.getElementById(id); if(e) e.textContent=v; };
   set('cf-type', kind); set('cf-db', r.db); set('cf-thr', THR); set('cf-dur', durTx);
   set('sms-type', kind); set('sms-db', r.db); set('sms-thr', THR); set('sms-dur', durTx);
@@ -3506,7 +3518,7 @@ function startRec(){
   const myGen=++recGen;
   overSec=0; streak=0; conf=6; bgSamples=[];
   quietEma=46; inBurst=false; burstMs=0; burstPeakDb=0; burstBaseDb=46;
-  episodeLabel=null; aboveMs=0; belowMs=0;
+  episodeLabel=null; aboveMs=0; belowMs=0; curDb=0; curMaxDb=0;
   /* 지나가는 소음 안내는 처음엔 조용히 있다가, 잡히는 게 없으면 나선다 */
   const pw=document.querySelector('.passby');
   if(pw){ pw.classList.remove('urge');
@@ -3618,6 +3630,7 @@ function startRec(){
     const db = (micReady && analyser) ? readMicDb()
       : Math.max(32, Math.round((40+Math.sin(el/1.6)*7)
           +(el>2.5 ? 16+Math.sin(el*2.3)*9 : 0)+Math.random()*6));
+    curDb=db; curMaxDb=Math.max(curMaxDb, db);   // '지금 판정하기'가 지어내지 않고 쓸 실측값
     if(db>THR) overSec+=0.1;
 
     const d=document.getElementById('db');
@@ -3733,7 +3746,20 @@ document.getElementById('sent-map').onclick=()=>go('list');
 document.getElementById('tolist').onclick=()=>go('list');
 /* 기준을 넘긴 상태라면 기다리지 않고 바로 판정으로 넘어간다 */
 document.getElementById('rec-now').onclick=()=>{
-  if(!LAST) LAST={ t:0, db:Math.max(58,THR+6), dur:Math.max(3,Math.round(overSec)) };
+  /* 예전엔 눌리기만 하면 58dB·고성을 지어내 확인 화면으로 넘겼다 — 조용히
+     재는 중이었는데 눌러도 '신고 기준 충족'이 뜨는 원인이 이것이었다.
+     지금은 실제로 기준(THR)을 넘긴 적이 있어야만(overSec>0.3초) 넘어가고,
+     넘긴 적이 없으면 넘어가지 않는다 — 조용하면 신고할 것도 없는 게 맞다. */
+  if(!LAST){
+    if(overSec<0.3 && curMaxDb<=THR){
+      alert('아직 신고 기준('+THR+'dB)을 넘긴 적이 없습니다.\n지금까지 최고 '+curMaxDb+'dB이었습니다.');
+      return;
+    }
+    /* 기준은 넘겼지만 유형 자동판정이 아직 안 끝난 경우 — 실측값은 쓰되
+       유형은 가장 무게가 약한 '소란'으로 잠정 표기한다(고성으로 단정하지 않는다) */
+    const ti=TYPES.findIndex(x=>x.k==='소란');
+    LAST={ t: ti>=0?ti:1, ...currentReading() };
+  }
   go('confirm');
 };
 
@@ -3831,7 +3857,9 @@ document.getElementById('sms-send').onclick=()=>{
      나중에 실제 발송 코드가 이 아래 붙더라도 이 스위치 없이는 못
      나가게 막아둔다. */
   if(!DISPATCH_TO_112){ /* 실제 발신 없이, 클레머 안의 기록으로만 진행 */ }
-  myReport = LAST || {t:0, db:60, dur:4};   // 앱이 하는 일은 여기까지 — 전송은 사용자 몫
+  /* 여기서도 지어낸 값(t:0 고성·60dB·4분)을 쓰지 않는다 — 실측값과, 유형이
+     불확실하면 가장 약한 '소란'으로 잠정 표기한다. */
+  myReport = LAST || { t:(TYPES.findIndex(x=>x.k==='소란')>=0?TYPES.findIndex(x=>x.k==='소란'):1), ...currentReading() };   // 앱이 하는 일은 여기까지 — 전송은 사용자 몫
   guidePending=true;                       // 목록에 처음 닿을 때 한 번만 안내
   saveSent(myReport);
   go('sent');
