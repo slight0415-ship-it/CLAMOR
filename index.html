@@ -717,6 +717,19 @@
     background:radial-gradient(circle, rgba(224,72,63,.85) 0%, rgba(224,72,63,.38) 42%, rgba(224,72,63,0) 72%);
     transition:opacity .45s, transform .45s}
 
+  /* 내 실제 위치 — 신고 지점(붉은 점)과 절대 헷갈리면 안 되므로
+     전혀 다른 색과 모양(파란 고리)으로 그린다. 신고지점이 아니다. */
+  .myloc-pin{position:relative; width:20px; height:20px; pointer-events:none}
+  .myloc-pin i{position:absolute; inset:0; border-radius:50%;
+    background:#1F6FD0; border:3px solid #fff;
+    box-shadow:0 0 0 5px rgba(31,111,208,.28), 0 2px 6px rgba(0,0,0,.35)}
+  .myloc-pin::after{content:''; position:absolute; left:50%; top:50%;
+    width:20px; height:20px; margin:-10px 0 0 -10px; border-radius:50%;
+    background:rgba(31,111,208,.35); animation:mylocPulse 1.8s ease-out infinite}
+  @keyframes mylocPulse{
+    0%{transform:scale(.6); opacity:.8}
+    100%{transform:scale(2.2); opacity:0}}
+
 
   /* 어중간하게 잘린 줄은 기술이 부족해 보인다.
      끊길 자리를 직접 정해두고, 값은 통째로 유지한다. */
@@ -751,19 +764,10 @@
     background:var(--c-noise); padding:2px 7px; border-radius:999px; margin-left:7px}
 
   /* ══ 제보 카드 — 조회 화면을 행동 화면으로 바꾸는 자리 ══ */
-  .cardnav{display:flex; align-items:center; gap:10px; margin-bottom:9px}
-  .cnav{width:34px; height:34px; flex:0 0 auto; border-radius:9px; cursor:pointer;
-    background:var(--ink-3); border:1px solid var(--line); color:var(--text-dim);
-    font-size:1.375rem; font-weight:900; line-height:1; padding:0}
-  .cnav:hover{color:var(--text); border-color:#4A5364}
-  .cpos{flex:1; text-align:center; font-family:var(--mono); font-size:0.9375rem;
-    color:var(--text-mute); font-weight:700}
-  .cpos b{color:var(--text); font-size:1.125rem}
-
-  .rail{display:flex; gap:10px; overflow-x:auto; scroll-snap-type:x mandatory;
+  .rail{display:flex; flex-direction:column; gap:10px; overflow-y:auto; overflow-x:hidden;
     scrollbar-width:none; margin:0 -15px; padding:0 15px 3px}
   .rail::-webkit-scrollbar{display:none}
-  .card{flex:0 0 100%; scroll-snap-align:center; background:var(--ink-2);
+  .card{width:100%; background:var(--ink-2);
     border:1px solid var(--line); border-radius:13px; padding:14px 15px}
   .card.urgent{border-color:rgba(224,72,63,.5); background:rgba(224,72,63,.07)}
 
@@ -831,7 +835,6 @@
   /* ── 스크롤바 숨김: 시트 내부와 카드 레일 모두 ── */
   .panel-inner{scrollbar-width:none; -ms-overflow-style:none}
   .panel-inner::-webkit-scrollbar{display:none; width:0; height:0}
-  .rail{overflow-y:hidden}
   .card{overflow:hidden}
   .stage *::-webkit-scrollbar{display:none; width:0; height:0}
   .stage *{scrollbar-width:none}
@@ -926,7 +929,10 @@
      부가 요소다. 그래서 겹치지 않는다 — 반투명도, 드래그도 필요 없다.
      ══════════════════════════════════════════════════════════ */
   .stage.split{display:flex; flex-direction:column; background:var(--ink)}
-  .stage.split #map{flex:0 0 34%; height:auto; min-height:0}
+  /* 지도를 담는 판. 지도 도구·표본배지·필터·시간축은 모두 이 판 위에
+     겹쳐 그린다 — 따로 줄을 차지하면 그만큼 카드 목록이 설 자리를 잃는다. */
+  .mapwrap{position:relative; flex:0 0 56%; min-height:0}
+  .mapwrap #map{width:100%; height:100%}
   .stage.split .panel{position:static; height:auto!important; border:0;
     border-top:1px solid var(--line); border-radius:0; background:var(--ink);
     backdrop-filter:none; padding:0; flex:1; min-height:0; display:flex;
@@ -934,16 +940,19 @@
   .stage.split .panel-inner{flex:1; max-height:none!important;
     padding:12px 15px 14px; min-height:0}
   .stage.split .grip{display:none}
-  .stage.split .timebar{position:static; margin:0; border:0;
-    border-top:1px solid var(--line); border-radius:0; background:var(--ink-2);
-    padding:10px 15px; flex:0 0 auto}
-  .stage.split #sample-badge{top:10px; bottom:auto; left:10px; right:auto}
+  .mapwrap .filterbar{position:absolute; left:9px; right:9px; bottom:78px; z-index:11;
+    margin:0; border:1px solid var(--line); border-radius:11px;
+    background:rgba(18,21,28,.92); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+    padding:7px 9px}
+  .mapwrap .timebar{position:absolute; left:9px; right:9px; bottom:9px; z-index:11;
+    margin:0; border:1px solid var(--line); border-radius:11px;
+    background:rgba(18,21,28,.92); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+    padding:10px 13px}
+  .mapwrap #sample-badge{top:10px; bottom:auto; left:10px; right:auto}
 
   /* 지도 전체화면 — 필요할 때만 */
-  .stage.split.big #map{flex:1}
+  .stage.split.big .mapwrap{flex:1}
   .stage.split.big .panel{display:none}
-  .stage.split.big .filterbar{border-top:0}
-  .stage.split.big .timebar{border-radius:0}
 
   .tierbadge{font-family:var(--mono); font-size:0.8125rem; font-weight:900;
     color:var(--stroke); background:var(--text); padding:2px 8px;
@@ -2127,7 +2136,6 @@
   body.light #s-map .chip[aria-pressed="false"]{background:transparent;
     box-shadow:none; border-color:#DCE2EA}
   body.light #s-map .chip:active{box-shadow:none}
-  body.light #s-map .cnav:hover,
   body.light #s-cast .plan:hover{background:var(--ink-3); border-color:#9AA4B4}
   body.light #s-map .log:hover{background:var(--ink-3)}
   body.light #s-map .log:active{background:#DCE2EA}
@@ -2183,21 +2191,6 @@
     -webkit-backdrop-filter:none; backdrop-filter:none;
     padding:5px 2px; color:#2A3140; font-weight:700; letter-spacing:.01em}
 
-  /* 지도 위에서는 무엇을 해도 지형을 가린다. 헤더 아래 제 줄을 준다.
-     띠로 세우면 자리가 고정되고 배경이 생겨 어떤 지도 위에서도 읽힌다. */
-  #s-map #sample-badge{
-    position:static; display:block; z-index:auto; inset:auto;
-    margin:0; padding:8px 18px;
-    background:var(--ink-2); border:0; border-bottom:1px solid var(--line);
-    border-radius:0; box-shadow:none;
-    -webkit-backdrop-filter:none; backdrop-filter:none;
-    font-family:inherit; font-size:0.8125rem; font-weight:700;
-    color:var(--text); text-shadow:none; letter-spacing:0;
-    pointer-events:none; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-  #s-map #sample-badge[hidden]{display:none}
-  body.light #s-map #sample-badge{
-    background:#F1F3F7; border-bottom-color:rgba(11,14,20,.10);
-    color:#1A2030; text-shadow:none; padding:8px 18px}
 
   /* ── 녹음 화면 네 덩어리 ──
      1 측정 카드 / 2 적용 기준 / 3 판정 / 4 지나가는 소음.
@@ -2472,7 +2465,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v217</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v218</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2727,7 +2720,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v217</span></div>
+          <span class="ver" id="ver2">v218</span></div>
       </div>
       <div class="cats" id="cats2"></div>
     </div>
@@ -2762,43 +2755,46 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v217</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v218</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
       <div class="cats" id="cats"></div>
     </div>
-    <!-- 지도 위 배지는 어디에 놓아도 지도를 가린다. 읽는 것이므로 지도 밖으로 뺀다. -->
-    <div id="sample-badge" hidden>신고 데이터 표본</div>
     <div class="stage split" id="stage">
-      <div id="map"></div>
-      <!-- 목록으로 돌아가는 길은 왼쪽 위. 지도 도구와 섞이면 성격이 다른
-           버튼들이 한 줄에 놓여 무엇이 무엇인지 구분되지 않는다. -->
-      <button class="mtool backlist" id="tolist">‹ 목록</button>
-      <div class="maptools">
-        <button class="mtool" id="cctvbtn">CCTV</button>
-        <button class="mtool" id="modebtn">전체 지도</button>
-      </div>
-      <div class="zoomlimit" id="zoomlimit" hidden></div>
-      <button class="tierbar" id="tierbar" hidden></button>
+      <!-- 지도 도구·표본배지·필터·시간축을 모두 이 판 위에 겹쳐 그린다.
+           따로 줄을 차지하면 그만큼 카드 목록이 설 자리를 잃는다. -->
+      <div class="mapwrap" id="mapwrap">
+        <div id="map"></div>
+        <!-- 목록으로 돌아가는 길은 왼쪽 위. 지도 도구와 섞이면 성격이 다른
+             버튼들이 한 줄에 놓여 무엇이 무엇인지 구분되지 않는다. -->
+        <button class="mtool backlist" id="tolist">‹ 목록</button>
+        <div class="maptools">
+          <button class="mtool" id="cctvbtn">CCTV</button>
+          <button class="mtool" id="modebtn">전체 지도</button>
+        </div>
+        <div id="sample-badge" hidden>신고 데이터 표본</div>
+        <div class="zoomlimit" id="zoomlimit" hidden></div>
+        <button class="tierbar" id="tierbar" hidden></button>
 
-      <div class="gate" id="gate">
-        <h2>카카오 JavaScript 키</h2>
-        <p><a href="https://developers.kakao.com/console/app" target="_blank" rel="noopener">내 애플리케이션</a>
-          → 앱 &gt; 플랫폼 키 → 가운데 <b>JavaScript 키</b>. 영문·숫자 32자.</p>
-        <input id="keyin" type="text" spellcheck="false" autocomplete="off" placeholder="붙여넣기 (Ctrl+V)">
-        <button id="go" disabled>지도 열기</button>
-        <div class="msg" id="msg"></div>
-      </div>
+        <div class="gate" id="gate">
+          <h2>카카오 JavaScript 키</h2>
+          <p><a href="https://developers.kakao.com/console/app" target="_blank" rel="noopener">내 애플리케이션</a>
+            → 앱 &gt; 플랫폼 키 → 가운데 <b>JavaScript 키</b>. 영문·숫자 32자.</p>
+          <input id="keyin" type="text" spellcheck="false" autocomplete="off" placeholder="붙여넣기 (Ctrl+V)">
+          <button id="go" disabled>지도 열기</button>
+          <div class="msg" id="msg"></div>
+        </div>
 
-      <div class="filterbar" id="filters"></div>
-      <div class="timebar" id="timebar" hidden>
-        <button class="tplay" id="tplay">▶</button>
-        <div class="tmid">
-          <div class="tcap">이 지역 예상 소음 분포 <i>최근 30일 기준</i></div>
-          <div class="tlabel"><span id="tdesc">최근 30일 신고 전체</span></div>
-          <div class="tslidewrap">
-            <input type="range" id="tslide" min="-1" max="23" value="-1">
-            <div class="tticks"><span>00</span><span>06</span><span>12</span><span>18</span><span>23</span></div>
+        <div class="filterbar" id="filters"></div>
+        <div class="timebar" id="timebar" hidden>
+          <button class="tplay" id="tplay">▶</button>
+          <div class="tmid">
+            <div class="tcap">이 지역 예상 소음 분포 <i>최근 30일 기준</i></div>
+            <div class="tlabel"><span id="tdesc">시간대를 골라야 그 시각 소음이 보입니다</span></div>
+            <div class="tslidewrap">
+              <input type="range" id="tslide" min="-1" max="23" value="-1">
+              <div class="tticks"><span>00</span><span>06</span><span>12</span><span>18</span><span>23</span></div>
+            </div>
           </div>
         </div>
       </div>
@@ -2809,11 +2805,6 @@
           <div class="mine" id="mine" hidden>
             <div class="mine-t">방금 보낸 신고가 이 지도에 더해졌습니다</div>
             <div class="mine-s" id="mine-s"></div>
-          </div>
-          <div class="cardnav">
-            <button class="cnav" id="cprev" aria-label="이전">‹</button>
-            <div class="cpos"><b id="cidx">1</b> / <span id="ctot">19</span></div>
-            <button class="cnav" id="cnext" aria-label="다음">›</button>
           </div>
           <div class="rail" id="rail"></div>
           <div class="listempty" id="listempty" hidden>이 화면 범위에는 신고 지점이 없습니다 — 지도를 옮겨보세요</div>
@@ -3116,9 +3107,7 @@ function renderList(){
           refreshList();
           const j=cardList.indexOf(s);
           if(j<0) return;
-          cardIdx=j; markCard();
-          const rail=document.getElementById('rail');
-          if(rail) rail.scrollLeft=j*rail.clientWidth;
+          cardIdx=j; syncCard(false);
           const pi=document.getElementById('panel-inner');
           if(pi) pi.scrollTop=0;
         }, 820);
@@ -3205,11 +3194,59 @@ function requestRealLocation(){
     if(settled) return; settled=true;
     realLoc={lat:pos.coords.latitude, lng:pos.coords.longitude};
     recAddrDone=false; fillRecAddr();
+    /* 신고 없이 그냥 들어온 시민은 여기서야 처음 실제 위치를 받는다.
+       그 사이 데모 좌표(CENTER)로 열려 있던 메인화면 지도를 실제
+       위치로 옮기고, 내 위치 표시도 새로 그린다. */
+    if(!myReport){
+      const ls=document.getElementById('s-list');
+      if(map && ls && !ls.hidden){
+        map.setCenter(new kakao.maps.LatLng(realLoc.lat, realLoc.lng));
+      }
+    }
+    if(typeof updateRealLocMarker==='function') updateRealLocMarker();
   }, giveUp, {enableHighAccuracy:true, timeout:8000});
   /* 보안 컨텍스트가 아닌 주소(LAN IP 등)에서는 브라우저가 오류 콜백조차
      안 부르고 그냥 조용히 무시하는 경우가 있다 — 그래서 별도로 한 번 더
      포기 시점을 못박아 둔다. */
   setTimeout(giveUp, 9000);
+}
+
+/* ══ 내 실제 위치 표시 ══
+   신고 지점과 헷갈리면 안 되므로 모양을 다르게 그린다. 내가 자신의
+   신고카드를 보는 화면(cardconfirm)에서는 신고 표시가 곧 내 위치이므로
+   따로 그리지 않는다. 또한 지금 보고 있는 자리가 실제 위치를 벗어난
+   다른 동네라면(검색·이동) 표시가 없는 것이 맞다 — 화면 범위 안에
+   있을 때만 그린다. */
+let realLocOv=null;
+function updateRealLocMarker(){
+  if(!map) return;
+  const cc=document.getElementById('s-cardconfirm');
+  const onCardConfirm=!!(cc && !cc.hidden);
+  if(onCardConfirm || !realLoc){
+    if(realLocOv) realLocOv.setMap(null);
+    return;
+  }
+  let inView=true;
+  try{
+    const b=map.getBounds();
+    if(b && typeof b.contain==='function'){
+      inView=b.contain(new kakao.maps.LatLng(realLoc.lat, realLoc.lng));
+    }
+  }catch(e){}
+  if(!inView){
+    if(realLocOv) realLocOv.setMap(null);
+    return;
+  }
+  if(!realLocOv){
+    const el=document.createElement('div'); el.className='myloc-pin';
+    el.innerHTML='<i></i>';
+    realLocOv=new kakao.maps.CustomOverlay({
+      position:new kakao.maps.LatLng(realLoc.lat, realLoc.lng),
+      content:el, yAnchor:0.5, xAnchor:0.5, zIndex:9});
+  }else{
+    realLocOv.setPosition(new kakao.maps.LatLng(realLoc.lat, realLoc.lng));
+  }
+  realLocOv.setMap(map);
 }
 
 /* ══ 실제 마이크 ══
@@ -3485,6 +3522,8 @@ function go(name){
       map.setCenter(new kakao.maps.LatLng(c.lat,c.lng));
       map.setLevel(4);
       if(typeof renderCardConfirm==='function') renderCardConfirm(c);
+      /* 여기서는 신고 표시 자체가 내 위치다 — 따로 그리지 않는다 */
+      if(typeof updateRealLocMarker==='function') updateRealLocMarker();
     },140);
   }
   if(name==='list'){
@@ -3494,6 +3533,10 @@ function go(name){
     /* 진짜 메인화면에 들어올 때마다 '아직 확인하지 않은 상태'로 되돌린다.
        신고 내역은 검색·확인을 눌러야만 다시 드러난다. */
     revealed=false;
+    /* 신고 없이 그냥 들어온 시민도 '실제 내 위치'를 기준으로 지도를
+       봐야 한다 — 지금까지는 신고 화면(rec)에서만 위치를 물어서,
+       흔들지 않고 들어온 사람은 계속 데모 좌표(논현동)를 보고 있었다. */
+    requestRealLocation();
     setTimeout(()=>{
       if(!map) return;
       /* 차량·바이크 신고는 실제 도로 데이터가 없어 구간(선)이 아니라
@@ -3513,6 +3556,7 @@ function go(name){
       if(typeof applyFilter==='function') applyFilter();
       renderList();
       showListGuide();
+      if(typeof updateRealLocMarker==='function') updateRealLocMarker();
       setTimeout(beatMine, 260);
     },140);
   }
@@ -3543,6 +3587,7 @@ function go(name){
          등급이 허락하는 거리까지 당겨 온다. */
       const lim=TIERS[tier].maxLv || 3;
       if(map.getLevel()>lim) map.setLevel(lim);
+      if(typeof updateRealLocMarker==='function') updateRealLocMarker();
     },60);
   }
 }
@@ -4792,7 +4837,7 @@ let hourSel=-1, playTimer=null, glowOv=[];
 /* 지도는 과거다. 축은 날짜가 아니라 '하루 중 어느 시각'이다.
    이 구분이 흐려지면 6번 예보 화면이 존재할 이유가 사라진다. */
 const HDESC=h=>{
-  if(h<0) return '최근 30일 신고 전체';
+  if(h<0) return '시간대를 골라야 그 시각 소음이 보입니다';
   if(h>=23||h<5) return '이 시각 평소 — 고성·소란 집중';
   if(h<9) return '이 시각 평소 — 대체로 조용';
   if(h<18) return '이 시각 평소 — 차량·기계음 위주';
@@ -4879,9 +4924,7 @@ function finishRoute(rt){
       if(i<0){ refreshList(); }
       const j=cardList.indexOf(rt);
       if(j<0) return;
-      cardIdx=j; markCard();
-      const rail=document.getElementById('rail');
-      if(rail) rail.scrollTo({left:j*rail.clientWidth, behavior:'smooth'});
+      cardIdx=j; syncCard(false);
     });
   });
   drawRoutes();
@@ -4946,7 +4989,9 @@ function drawRoutes(){
   const anchor = freeTier ? (freeAnchor || realLoc || CENTER) : null;
   ROUTES.forEach(rt=>{
     if(!rt.line) return;
-    const w = hourSel<0 ? 0.85 : sharp(rt.hours, hourSel);
+    /* 지점 핀과 같은 약속 — 시간축을 건드리기 전에는 이동 소음 선도
+       비어 있는 지도로 남는다. */
+    const w = hourSel<0 ? 0 : sharp(rt.hours, hourSel);
     const inFree = !anchor || (rt.c && distM(rt.c, anchor)<=FREE_RADIUS);
     const show = on && w>=0.18 && inFree;
     rt.showing=show;
@@ -5000,7 +5045,10 @@ function applyHour(){
   document.getElementById('tdesc').textContent=HDESC(hourSel);
   spots.forEach(s=>{
     if(!s.el) return;
-    if(hourSel<0){ s.el.style.opacity=1; s.el.style.transform=''; s.el.style.filter=''; return }
+    /* 시간축을 움직이기 전에는 아무것도 보여주지 않는다 — 이 bar는
+       '하루 24시간 내내'가 아니라 '그 시각'을 보여주는 예보다. 처음부터
+       다 보이면 시각을 골라야 할 이유가 사라진다. */
+    if(hourSel<0){ s.el.style.opacity=0; s.el.style.transform='scale(.25)'; s.el.style.filter=''; return }
     const w=sharp(s.hours, hourSel);
     if(w<0.20){                       // 그 시각엔 조용한 곳 — 아예 비운다
       s.el.style.opacity=0; s.el.style.transform='scale(.25)';
@@ -5223,16 +5271,10 @@ function buildCards(){
   const rail=document.getElementById('rail');
   cardList=mineFirst(spots.slice(0,24));
   rail.innerHTML=cardList.map(cardHTML).join('');
-  document.getElementById('ctot').textContent=cardList.length;
   cardIdx=0; syncCard(false);
   bindCards();
-  rail.onscroll=()=>{
-    const i=Math.round(rail.scrollLeft/rail.clientWidth);
-    if(i!==cardIdx && cardList[i]){ cardIdx=i; markCard(); flyTo(cardList[i]) }
-  };
 }
 function markCard(){
-  document.getElementById('cidx').textContent=cardIdx+1;
   cardList.forEach((s,i)=>{ if(s.el) s.el.classList.toggle('on', i===cardIdx) });
   /* 내 신고 배너는 내 지점을 보고 있을 때만 뜬다. 다른 지점을 보는데
      다른 지점 얘기가 떠 있으면 화면이 서로 다른 말을 한다. */
@@ -5261,14 +5303,14 @@ function flyTo(s){
   map.panTo(new kakao.maps.LatLng(s.c.lat,s.c.lng));
   clearTimeout(flyTo._t); flyTo._t=setTimeout(()=>{syncing=false},700);
 }
+/* 카드 목록은 이제 세로 스크롤뿐이다 — 좌우로 넘기던 시절의 자취.
+   화면 전환처럼 느껴지는 가로 넘김을 없애고, 고른 카드가 있으면
+   그 카드가 보이는 자리로 살짝 스크롤만 해 준다. */
 function syncCard(fly){
   const rail=document.getElementById('rail');
-  rail.scrollTo({left:cardIdx*rail.clientWidth, behavior:'smooth'});
+  const el=rail && rail.querySelector('.card[data-i="'+cardIdx+'"]');
+  if(el && typeof el.scrollIntoView==='function') el.scrollIntoView({block:'nearest', behavior:'smooth'});
   markCard(); if(fly && cardList[cardIdx]) flyTo(cardList[cardIdx]);
-}
-function stepCard(d){
-  cardIdx=Math.max(0, Math.min(cardList.length-1, cardIdx+d));
-  syncCard(true);
 }
 
 
@@ -5698,18 +5740,15 @@ function refreshList(){
   cardList = mineFirst(vis.slice(0,24));
   if(!cardList.length){
     rail.innerHTML=''; empty.hidden=false;
-    document.getElementById('ctot').textContent='0';
-    document.getElementById('cidx').textContent='0';
   }else{
     empty.hidden=true;
     rail.innerHTML=cardList.map(cardHTML).join('');
     bindCards();
-    document.getElementById('ctot').textContent=cardList.length;
     const i=cardList.indexOf(keep);
     cardIdx = i>=0 ? i : 0;
-    rail.scrollLeft=cardIdx*rail.clientWidth;
+    /* 세로 목록이 된 뒤로는 지도를 옮길 때마다 억지로 스크롤을 되돌리지
+       않는다 — 보던 자리 그대로 두고, 강조와 이름 채움만 다시 한다 */
     markCard();
-    /* 처음에는 보고 있는 자리 주변만. 넘기면 markCard가 이어서 채운다 */
     fillCardNames(cardIdx);
   }
   /* 요약도 화면 기준으로 다시 센다 */
@@ -5943,9 +5982,8 @@ function bootMapInner(){
     document.querySelector('#wgrid').classList.add('unlocked');
     document.querySelector('#alts').classList.add('unlocked');
   };
-  document.getElementById('cprev').onclick=()=>stepCard(-1);
-  document.getElementById('cnext').onclick=()=>stepCard(1);
   kakao.maps.event.addListener(map,'idle',()=>{
+    if(typeof updateRealLocMarker==='function') updateRealLocMarker();
     clearTimeout(moveTimer);
     moveTimer=setTimeout(()=>{
       refreshList();
