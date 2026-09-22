@@ -1962,6 +1962,16 @@
      차지해야 한다. */
   .lmap-wrap{position:relative; flex:0 0 auto; height:74%; min-height:320px}
   #listmap{width:100%; height:100%}
+  /* 실제 위치를 받기 전까지 지도 전체를 덮어 데모 좌표(논현동)가 순간이라도
+     비치지 않게 한다 */
+  .lmap-loading{position:absolute; inset:0; z-index:16; display:flex;
+    flex-direction:column; align-items:center; justify-content:center; gap:10px;
+    background:var(--ink-2); color:var(--text-dim);
+    font-size:0.875rem; font-weight:700}
+  .lml-spin{width:22px; height:22px; border-radius:999px;
+    border:3px solid var(--line); border-top-color:var(--c-noise);
+    animation:lmlspin .8s linear infinite}
+  @keyframes lmlspin{to{transform:rotate(360deg)}}
   .lmap-note{position:absolute; left:10px; bottom:10px; z-index:12;
     font-size:0.75rem; font-weight:800; color:#0B0E14;
     background:rgba(255,255,255,.86); padding:5px 10px; border-radius:999px;
@@ -1977,8 +1987,19 @@
 
   .lscroll{flex:1; overflow-y:auto; padding:11px 12px 20px;
     display:flex; flex-direction:column; gap:9px; background:var(--ink)}
-  .lempty{padding:40px 20px; text-align:center; font-size:0.875rem;
-    line-height:1.8; color:var(--text-mute); font-weight:700}
+  /* 안내 문구만 있을 때는 스크롤할 내용이 없는데도 살짝 끌리는 느낌이
+     들어 다른 기능이 있는 줄 착각하게 만든다 — 이럴 때는 스크롤 자체를
+     막아 완전히 고정된, 손대도 움직이지 않는 안내판으로 만든다. */
+  .lscroll.is-empty{overflow:hidden; justify-content:center; touch-action:none}
+  .lempty{display:flex; align-items:center; gap:11px; text-align:left;
+    padding:14px 15px; font-size:0.8125rem; line-height:1.5;
+    color:var(--text-dim); font-weight:700; background:var(--ink-2);
+    border:1px solid var(--line); border-left:3px solid var(--c-noise);
+    border-radius:11px}
+  .lempty .lei{flex:0 0 auto; width:34px; height:34px; border-radius:999px;
+    background:rgba(224,72,63,.14); color:var(--c-noise);
+    display:flex; align-items:center; justify-content:center}
+  .lempty b{color:var(--text)}
 
   .lcard{display:flex; gap:11px; width:100%; text-align:left; cursor:pointer;
     font-family:inherit; background:var(--ink-2); border:1px solid var(--line);
@@ -2471,7 +2492,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v227</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v228</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2726,7 +2747,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v227</span></div>
+          <span class="ver" id="ver2">v228</span></div>
       </div>
     </div>
 
@@ -2740,6 +2761,14 @@
 
     <div class="lmap-wrap">
       <div id="listmap"></div>
+      <!-- 실제 위치(GPS)가 잡히기 전까지는 데모 좌표(논현동)가 잠깐이라도
+           보이면 안 된다 — 실제 위치를 받거나(realLoc) 완전히 포기하기
+           (geoGaveUp) 전까지 이 판으로 지도를 가려 둔다. updateListLoading()
+           이 hidden을 관리한다. -->
+      <div class="lmap-loading" id="lmap-loading">
+        <span class="lml-spin"></span>
+        <span>내 위치를 확인하는 중…</span>
+      </div>
       <div class="lmap-note" id="lmap-note">궁금한 위치로 지도를 옮겨보세요</div>
       <div class="lreveal-hint" id="lreveal-hint">지도를 옮긴 뒤 "이 위치 확인"을 누르면
         등급을 선택해 이 지역의 신고 내역을 볼 수 있습니다</div>
@@ -2760,7 +2789,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v227</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v228</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -3077,14 +3106,23 @@ function listRouteCardHTML(rt,i){
   '</button>';
 }
 
+/* 목록이 비어 있을 때(아직 확인 전 / 이 화면에 지점 없음) 붙이는 안내
+   아이콘 — 버튼처럼 보이면 안 되니 손가락이 아니라 정보를 뜻하는 모양 */
+const PIN_SVG='<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">'+
+  '<circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/>'+
+  '<path d="M12 11v5.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>'+
+  '<circle cx="12" cy="7.6" r="1.15" fill="currentColor"/></svg>';
+
 let listRows=[], nameCursor=0;
 function renderList(){
   const box=document.getElementById('lscroll'); if(!box||!map) return;
   /* 이동만으로는 절대 드러나지 않는다 — '이 위치 확인'을 누르기 전에는
      카드 목록도 비어 있는 것이 맞다. */
   if(!revealed){
-    box.innerHTML='<div class="lempty">지도를 원하는 곳으로 옮긴 뒤<br>'+
-      '<b>이 위치 확인</b>을 누르면 등급을 선택할 수 있습니다</div>';
+    box.classList.add('is-empty');
+    box.innerHTML='<div class="lempty"><span class="lei">'+PIN_SVG+'</span>'+
+      '<span>지도를 원하는 곳으로 옮긴 뒤 <b>이 위치 확인</b>을 누르면<br>'+
+      '등급을 선택할 수 있습니다</span></div>';
     document.getElementById('lcount').textContent='0곳';
     document.getElementById('llabel').textContent='아직 확인 전';
     return;
@@ -3109,9 +3147,11 @@ function renderList(){
   document.getElementById('lcount').textContent=vis.length+'곳';
   document.getElementById('llabel').textContent =
     rts.length ? '신고 지점 · 이동 소음 '+rts.length+'구간' : '이 화면 안 신고 지점';
+  box.classList.toggle('is-empty', listRows.length===0);
   box.innerHTML = listRows.length
     ? listRows.map((s,i)=>s.isRoute?listRouteCardHTML(s,i):listCardHTML(s,i)).join('')
-    : '<div class="lempty">이 화면 안에 신고 지점이 없습니다<br>지도를 움직여 보세요</div>';
+    : '<div class="lempty"><span class="lei">'+PIN_SVG+'</span>'+
+      '<span>이 화면 안에 신고 지점이 없습니다<br>지도를 움직여 보세요</span></div>';
   /* 위 카드부터 차례로. 앞 8장까지만 시차를 주고 나머지는 바로 선다 —
      아래로 내려갈수록 기다림이 길어지면 목록이 느려 보인다 */
   box.querySelectorAll('.lcard').forEach((c,i)=>{
@@ -3206,13 +3246,21 @@ let recAddrDone=false, recPlace=null;
    주소만 실제 위치를 따르고, 지도 배경 데이터는 그대로 둔다. */
 let realLoc=null, geoRequested=false;
 let geoGaveUp=false;   // 실제 위치를 포기하고 데모 주소로 대체해도 되는 시점
+/* 목록 화면의 지도 로딩판 — 실제 위치를 받거나(realLoc) 완전히
+   포기하기(geoGaveUp) 전까지 지도를 가려 둔다. 그 전까지는 절대
+   데모 좌표(CENTER, 논현동)가 화면에 비쳐선 안 된다. */
+function updateListLoading(){
+  const el=document.getElementById('lmap-loading'); if(!el) return;
+  el.hidden = !!(realLoc || geoGaveUp);
+}
 function requestRealLocation(){
-  if(geoRequested || !navigator.geolocation){ geoGaveUp=true; fillRecAddr(); return; }
+  updateListLoading();
+  if(geoRequested || !navigator.geolocation){ geoGaveUp=true; fillRecAddr(); updateListLoading(); return; }
   geoRequested=true;
   let settled=false;
   const giveUp=()=>{
     if(settled) return; settled=true;
-    geoGaveUp=true; fillRecAddr();   // 실제 위치를 못 받으면 그제서야 데모 주소로 보여준다
+    geoGaveUp=true; fillRecAddr(); updateListLoading();   // 실제 위치를 못 받으면 그제서야 데모 주소로 보여준다
   };
   navigator.geolocation.getCurrentPosition(pos=>{
     if(settled) return; settled=true;
@@ -3227,6 +3275,7 @@ function requestRealLocation(){
         map.setCenter(new kakao.maps.LatLng(realLoc.lat, realLoc.lng));
       }
     }
+    updateListLoading();
     if(typeof updateRealLocMarker==='function') updateRealLocMarker();
   }, giveUp, {enableHighAccuracy:true, timeout:8000});
   /* 보안 컨텍스트가 아닌 주소(LAN IP 등)에서는 브라우저가 오류 콜백조차
@@ -3551,6 +3600,7 @@ function go(name){
     },140);
   }
   if(name==='list'){
+    updateListLoading();
     initMapOnce();
     moveMapTo('listmap');
     lockMap(false);
