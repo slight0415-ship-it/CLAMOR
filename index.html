@@ -844,7 +844,6 @@
   .stage.split{display:flex; flex-direction:column}
   .stage.split .panel-inner{flex:1; max-height:none!important}
   .stage.split .grip{display:none}
-  .stage.split .timebar{position:static; margin:0 0 8px; border-radius:11px}
   .stage.split .tiers{position:static; margin:10px 12px 0}
 
   .modebtn{position:absolute; top:12px; right:12px; z-index:20;
@@ -926,7 +925,7 @@
   .stage.split{display:flex; flex-direction:column; background:var(--ink)}
   /* 지도를 담는 판. 지도 도구·표본배지·필터·시간축은 모두 이 판 위에
      겹쳐 그린다 — 따로 줄을 차지하면 그만큼 카드 목록이 설 자리를 잃는다. */
-  .mapwrap{position:relative; flex:0 0 68%; min-height:0}
+  .mapwrap{position:relative; flex:0 0 50%; min-height:0}
   .mapwrap #map{width:100%; height:100%}
   .stage.split .panel{position:static; height:auto!important; border:0;
     border-top:1px solid var(--line); border-radius:0; background:var(--ink);
@@ -935,32 +934,26 @@
   .stage.split .panel-inner{flex:1; max-height:none!important;
     padding:12px 15px 14px; min-height:0}
   .stage.split .grip{display:none}
-  /* 필터·시간축을 한 판에 묶어 아래에서부터 쌓는다 — 서로의 높이를
-     미리 알 필요가 없어 둘 다 공간에 맞춰 저절로 붙는다. */
-  .mapoverlay-bottom{position:absolute; left:9px; right:9px; bottom:9px; z-index:11;
-    display:flex; flex-direction:column; gap:8px}
-  /* 전체지도 버튼은 더 이상 지도 오른쪽 위 구석이 아니라, 필터칩 줄 오른쪽
-     끝에 나란히 둔다 — 지도 위 버튼들이 여기저기 흩어지지 않게 한다. */
-  .filterrow{display:flex; align-items:center; gap:6px}
-  .filterrow .filterbar{flex:1; min-width:0}
-  .filterrow .mtool.icon{flex:0 0 auto; background:rgba(10,13,20,.24);
-    border-color:rgba(255,255,255,.12)}
-  .mapoverlay-bottom .filterbar{position:static; margin:0; border:1px solid rgba(255,255,255,.12);
-    border-radius:11px; background:rgba(10,13,20,.24);
+  /* 필터 칩 — 이제 지도 '위쪽'(도구 버튼 바로 아래)에 겹쳐 그리는 유리판.
+     지도 아래쪽은 더는 건드리지 않는다 — 그 공간을 시간축과 카드 목록에
+     돌려준다. */
+  .mapwrap .filterbar{position:absolute; left:9px; right:9px; top:48px; z-index:11;
+    margin:0; border:1px solid rgba(255,255,255,.12);
+    border-radius:11px; background:rgba(10,13,20,.4);
     -webkit-backdrop-filter:blur(7px) saturate(1.1); backdrop-filter:blur(7px) saturate(1.1); padding:7px 9px}
-  .mapoverlay-bottom .timebar{position:static; margin:0; border:1px solid rgba(255,255,255,.12);
-    border-radius:11px; background:rgba(10,13,20,.24);
-    -webkit-backdrop-filter:blur(7px) saturate(1.1); backdrop-filter:blur(7px) saturate(1.1); padding:5px 11px}
-  /* 유리판은 밝은 테마에서도 항상 어둡다 — 글자를 테마 변수에 맡기면
-     밝은 테마의 검정 글자가 이 어두운 유리 위에서 사라진다. 늘 밝게 고정한다. */
-  .mapoverlay-bottom .timebar .tplay{background:rgba(255,255,255,.16); color:#F2F4F7;
-    border-color:rgba(255,255,255,.28)}
-  .mapoverlay-bottom .timebar .tcap{color:#F2F4F7}
-  .mapoverlay-bottom .timebar .tcap i{color:rgba(242,244,247,.72)}
-  .mapoverlay-bottom .timebar .tticks{color:rgba(242,244,247,.62)}
-  .mapoverlay-bottom .timebar .tcat{color:rgba(242,244,247,.78);
-    background:rgba(255,255,255,.1); border-color:rgba(255,255,255,.2)}
-  .mapoverlay-bottom .timebar .tcat.on{color:#fff; background:var(--c-noise); border-color:transparent}
+  /* 시간축은 더 이상 지도 위에 겹치지 않는다 — 지도 판 밖에서 제 줄을
+     차지하는 평범한 막대다. 지도 높이가 그만큼 줄고, 그 줄어든 만큼
+     카드 목록이 넓어진다. */
+  .stage.split .timebar{position:static; margin:0; border:0; border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line); border-radius:0; background:var(--ink-2); padding:5px 14px}
+  .stage.split .timebar .tplay{background:rgba(255,255,255,.1); color:var(--text);
+    border-color:rgba(255,255,255,.18)}
+  .stage.split .timebar .tcap{color:var(--text)}
+  .stage.split .timebar .tcap i{color:var(--text-mute)}
+  .stage.split .timebar .tticks{color:var(--text-mute)}
+  .stage.split .timebar .tcat{color:var(--text-dim);
+    background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.14)}
+  .stage.split .timebar .tcat.on{color:#fff; background:var(--c-noise); border-color:transparent}
 
   /* 지도 전체화면 — 필요할 때만 */
   .stage.split.big .mapwrap{flex:1}
@@ -2472,7 +2465,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v224</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v225</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2727,7 +2720,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v224</span></div>
+          <span class="ver" id="ver2">v225</span></div>
       </div>
     </div>
 
@@ -2761,7 +2754,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v224</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v225</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -2772,7 +2765,9 @@
         <div id="map"></div>
         <!-- '‹ 목록' 화면 버튼은 없앤다 — 되돌아가기는 이제 폰(브라우저)
              자체의 뒤로가기로만 한다. go('map')에서 history를 한 칸 쌓고
-             popstate에서 go('list')로 받는다(아래 인라인 스크립트). -->
+             popstate에서 go('list')로 받는다(아래 인라인 스크립트). 왼쪽
+             위는 이제 비워 두고, 지도 도구(CCTV·전체지도)는 오른쪽 위에
+             모아 둔다. -->
         <div class="maptools">
           <button class="mtool icon" id="cctvbtn" title="CCTV" aria-label="CCTV">
             <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
@@ -2780,7 +2775,19 @@
               <path d="M14 10.5 20.5 7v10L14 13.5Z" fill="currentColor"/>
             </svg>
           </button>
+          <button class="mtool icon" id="modebtn" title="전체 지도" aria-label="전체 지도">
+            <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+              <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+                d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>
+            </svg>
+          </button>
         </div>
+        <!-- 필터 칩은 이제 지도 '위쪽'에 겹쳐 그린다 — 도구 버튼(CCTV·전체지도)
+             바로 아래 줄. 시간축(timebar)은 더 이상 지도 위에 겹치지 않고
+             지도 판 밖(아래)의 제 줄을 차지한다 — 그만큼 지도 자체 높이를
+             줄여서 카드 목록에 자리를 돌려준다. -->
+        <div class="filterbar" id="filters"></div>
+
         <div class="zoomlimit" id="zoomlimit" hidden></div>
 
         <div class="gate" id="gate">
@@ -2791,28 +2798,17 @@
           <button id="go" disabled>지도 열기</button>
           <div class="msg" id="msg"></div>
         </div>
+      </div>
 
-        <div class="mapoverlay-bottom" id="mapoverlay-bottom">
-          <div class="filterrow">
-            <div class="filterbar" id="filters"></div>
-            <button class="mtool icon" id="modebtn" title="전체 지도" aria-label="전체 지도">
-              <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
-                <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
-                  d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>
-              </svg>
-            </button>
-          </div>
-          <div class="timebar" id="timebar" hidden>
-            <button class="tplay" id="tplay">▶</button>
-            <div class="tmid">
-              <div class="tcap">24시 소음예측<span class="tcats" id="tcats">
-                <i class="tcat" data-cat="0">고성</i><i class="tcat" data-cat="1">소란</i><i class="tcat" data-cat="3">반려동물짖음</i><i class="tcat" data-cat="4">바이크굉음</i>
-              </span></div>
-              <div class="tslidewrap">
-                <input type="range" id="tslide" min="-1" max="23" value="-1">
-                <div class="tticks"><span>00</span><span>06</span><span>12</span><span>18</span><span>23</span></div>
-              </div>
-            </div>
+      <div class="timebar" id="timebar" hidden>
+        <button class="tplay" id="tplay">▶</button>
+        <div class="tmid">
+          <div class="tcap">24시 소음예측<span class="tcats" id="tcats">
+            <i class="tcat" data-cat="0">고성</i><i class="tcat" data-cat="1">소란</i><i class="tcat" data-cat="3">반려동물짖음</i><i class="tcat" data-cat="4">바이크굉음</i>
+          </span></div>
+          <div class="tslidewrap">
+            <input type="range" id="tslide" min="-1" max="23" value="-1">
+            <div class="tticks"><span>00</span><span>06</span><span>12</span><span>18</span><span>23</span></div>
           </div>
         </div>
       </div>
