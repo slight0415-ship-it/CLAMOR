@@ -2492,7 +2492,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v230</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v231</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2537,22 +2537,10 @@
     <div class="castfoot">
       <div id="payrow">
         <div class="paynote" id="paynote"></div>
-        <div class="plans" id="plans">
-          <button class="plan" data-plan="0">
-            <span class="pn">1회</span><span class="pp">4,900원</span>
-            <span class="pu">이 주소만</span>
-          </button>
-          <button class="plan best" data-plan="1">
-            <span class="ptag">이득</span>
-            <span class="pn">3회</span><span class="pp">9,900원</span>
-            <span class="pu">회당 3,300원</span>
-          </button>
-          <button class="plan" data-plan="2">
-            <span class="pn">10회</span><span class="pp">29,000원</span>
-            <span class="pu">회당 2,900원</span>
-          </button>
-        </div>
-        <button class="btn primary" id="paybtn">4,900원 결제하고 예보 열기</button>
+        <!-- 예보만 따로 결제하는 요금제(plans)는 없앴다 — 소음예보와
+             소음지도는 같은 상품이라, 여는 길은 지도 등급을 올리는
+             하나뿐이다. 이 버튼은 등급 시트(openTierSheet)를 연다. -->
+        <button class="btn primary" id="paybtn">유료로 업그레이드하고 예보 열기</button>
       </div>
       <div class="note" id="castnote">신고 기록의 반복 패턴에 인천교통공사 심야 이동량 통계를 반영합니다</div>
     </div>
@@ -2747,7 +2735,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v230</span></div>
+          <span class="ver" id="ver2">v231</span></div>
       </div>
     </div>
 
@@ -2789,7 +2777,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v230</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v231</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -2975,6 +2963,10 @@ function openTierSheet(){
       if(TIERS[i].locked) return;
       closeTierSheet();
       tier=i;
+      /* 소음예보(예보 화면)와 소음지도는 이제 같은 상품이다 — 등급이
+         바뀌면 예보의 잠금 상태(paid)도 함께 바뀐다. 따로 결제하는
+         것이 아니라 지도 등급을 올리면 예보도 같이 열린다. */
+      if(typeof syncPaidFromTier==='function') syncPaidFromTier();
       /* '진짜 메인화면'에서 위치를 확인하고 넘어온 경우 — 그 좌표를 들고
          등급 화면(비즈니스모델)을 그 자리에서 연다. 테스트 중이므로 결제
          없이 어떤 등급이든 '열기'만 누르면 바로 보인다. */
@@ -3004,6 +2996,10 @@ function openTierSheet(){
       if(typeof tierBanner==='function') tierBanner();
       const badge=document.getElementById('tierbadge');
       if(badge) badge.textContent=T.id;
+      /* 예보 화면(#s-cast)에 서 있는 채로 등급을 올린 경우 — 그 화면도
+         새 등급 기준으로 다시 그린다(잠긴 상세가 바로 풀려야 한다). */
+      const cs=document.getElementById('s-cast');
+      if(cs && !cs.hidden && castSpot && typeof renderCast==='function') renderCast(castSpot);
       if(typeof hitLimit==='function') setTimeout(hitLimit,380);
     };
   });
@@ -4192,10 +4188,30 @@ document.getElementById('lsearch-btn').onclick=()=>{
   const q=(document.getElementById('lsearch-input').value||'').trim();
   if(q && window.kakao && kakao.maps.services && map){
     geocoder = geocoder || new kakao.maps.services.Geocoder();
+    /* Geocoder.addressSearch는 '논현로 121', '인천 남동구 논현동'처럼
+       정식 지번·도로명 주소만 찾는다. '인천 논현사거리', '인천논현역'처럼
+       사람들이 실제로 치는 장소·지명은 못 찾고 그대로 실패한다 — 그러면
+       지도를 안 옮기고 조용히 넘어갔었다. 그래서 주소 검색이 실패하면
+       장소 키워드 검색(Places.keywordSearch)으로 한 번 더 찾는다. */
     geocoder.addressSearch(q, (res,status)=>{
       if(status===kakao.maps.services.Status.OK && res[0]){
         map.setCenter(new kakao.maps.LatLng(+res[0].y, +res[0].x));
+        confirmListLocation();
+        return;
       }
+      if(kakao.maps.services.Places){
+        const places=new kakao.maps.services.Places();
+        places.keywordSearch(q, (pres,pstatus)=>{
+          if(pstatus===kakao.maps.services.Status.OK && pres[0]){
+            map.setCenter(new kakao.maps.LatLng(+pres[0].y, +pres[0].x));
+          } else {
+            alert('"'+q+'"의 위치를 찾지 못했습니다. 다른 이름으로 검색해 보세요.');
+          }
+          confirmListLocation();
+        }, {location:map.getCenter()});
+        return;
+      }
+      alert('"'+q+'"의 위치를 찾지 못했습니다. 다른 이름으로 검색해 보세요.');
       confirmListLocation();
     });
   } else {
@@ -5470,9 +5486,15 @@ function bandOf(h){
        :         '밤';
 }
 
+/* 소음예보와 소음지도는 같은 상품이다 — 예보 화면의 잠금(paid)은 더는
+   따로 결제해서 푸는 것이 아니라, 지도 등급(tier)이 유료 이상이면
+   자동으로 풀린다. TIERS[i].hours가 그 등급부터 '시간대 분포'가
+   열린다는 뜻이라, 예보의 요일·시간대 상세도 같은 경계선을 쓴다. */
 let paid=false;
+function syncPaidFromTier(){ paid = !!(TIERS[tier] && TIERS[tier].hours); }
 
 function renderCast(s){
+  syncPaidFromTier();
   castSpot=s;
   const M=weekMatrix(s);
   const dayMax=M.map(r=>Math.max(...r));
@@ -5571,25 +5593,22 @@ function renderCast(s){
   applyPaid();
 }
 
-/* 가려진 것이 보여야 사고 싶어진다. 완전히 숨기면 궁금하지도 않다. */
+/* 가려진 것이 보여야 사고 싶어진다. 완전히 숨기면 궁금하지도 않다.
+   잠금을 푸는 길은 이제 하나뿐이다 — 지도 등급을 유료 이상으로 올리는 것.
+   그래서 버튼도 결제가 아니라 등급 시트를 여는 역할로 바뀐다. */
 function applyPaid(){
   ['lm1','lm2'].forEach(id=>document.getElementById(id).hidden=paid);
   ['blur1','blur2'].forEach(id=>document.getElementById(id).hidden=paid);
-  const row=document.getElementById('payrow');
   const note=document.getElementById('paynote');
   const btn=document.getElementById('paybtn');
-  const plans=document.getElementById('plans');
   if(paid){
-    plans.hidden=true;
-    note.innerHTML='<b>예보가 열렸습니다.</b> 이 주소는 30일간 다시 볼 수 있습니다.'+
-      (credits>0?'<div class="credits">남은 열람권 <b>'+credits+'회</b></div>':'');
+    note.innerHTML='<b>'+TIERS[tier].id+' 등급으로 예보가 열렸습니다.</b>';
     btn.textContent='리포트 저장하기';
     btn.classList.add('unlocked');
   }else{
-    plans.hidden=false;
-    note.innerHTML='요일·시간대별 상세와 <b>주변 조용한 구역</b>은 잠겨 있습니다.';
+    note.innerHTML='요일·시간대별 상세와 <b>주변 조용한 구역</b>은 무료 등급에서 잠겨 있습니다.';
     btn.classList.remove('unlocked');
-    btn.textContent=PLANS[planIdx].label+' 결제하고 예보 열기';
+    btn.textContent='유료로 업그레이드하고 예보 열기';
   }
 }
 
@@ -5601,6 +5620,7 @@ function initTierDemo(){
        숨겨진 지도만 바뀌어 아무 일도 안 일어난 것처럼 보인다. */
     go('map');
     tier=(tier+1)%TIERS.length; paint();
+    if(typeof syncPaidFromTier==='function') syncPaidFromTier();
     /* 등급의 차이는 점 개수가 아니라 얼마나 가까이 갈 수 있느냐다.
        권한이 커지면 카메라가 한 걸음 다가가고, 처음으로 돌아가면 물러선다.
        보고 있던 지점을 중심에 두어야 다가간 자리에 볼 것이 남는다. */
@@ -5861,23 +5881,8 @@ function refreshList(){
 }
 
 
-/* 요금제 — 남은 횟수가 재방문을 만든다. 구독의 반복 접속 효과를
-   가입 저항 없이 얻는 구조. */
-const PLANS=[
-  {n:1,  price:4900,  label:'4,900원'},
-  {n:3,  price:9900,  label:'9,900원'},
-  {n:10, price:29000, label:'29,000원'},
-];
-let planIdx=0, credits=0;
-function initPlans(){
-  const box=document.getElementById('plans'), btn=document.getElementById('paybtn');
-  const paint=()=>{
-    [...box.children].forEach((b,i)=>b.setAttribute('aria-pressed', i===planIdx));
-    btn.textContent=PLANS[planIdx].label+' 결제하고 예보 열기';
-  };
-  [...box.children].forEach((b,i)=>b.onclick=()=>{ planIdx=i; paint() });
-  paint();
-}
+/* 예보 전용 요금제(PLANS)는 없앴다 — 소음예보와 소음지도가 같은 상품으로
+   합쳐지면서, 여는 길은 지도 등급(TIERS) 하나뿐이다. */
 
 
 /* ══ 남동구 전체 시설 데이터 (인허가, 영업 중) ══
@@ -6076,13 +6081,13 @@ function bootMapInner(){
     sectorOv.forEach(o=>o.setMap(cctvOn?map:null));
   };
   document.getElementById('paybtn').onclick=()=>{
-    /* 결제 뒤의 '리포트 저장'은 아직 기획되지 않았다. 눌러도 아무 일도
-       일어나지 않게 둔다. 팝업이 뜨면 촬영 화면을 가린다. */
+    /* 예보만 따로 결제하던 방식은 없앴다 — 소음예보와 소음지도는 같은
+       상품이다. 이미 유료 이상이면(paid) '리포트 저장'은 아직 기획되지
+       않아 눌러도 아무 일도 안 일어나고, 무료 등급이면 등급 시트를 열어
+       거기서 등급을 올리게 한다. 등급을 올리면 openTierSheet의 버튼
+       핸들러가 이 화면을 알아서 다시 그린다. */
     if(paid) return;
-    paid=true; credits=PLANS[planIdx].n-1;
-    if(castSpot) renderCast(castSpot);   // 가려둔 시각도 함께 열린다
-    document.querySelector('#wgrid').classList.add('unlocked');
-    document.querySelector('#alts').classList.add('unlocked');
+    if(typeof openTierSheet==='function') openTierSheet();
   };
   kakao.maps.event.addListener(map,'idle',()=>{
     if(typeof updateRealLocMarker==='function') updateRealLocMarker();
@@ -6126,7 +6131,7 @@ function bootMapInner(){
   });
   document.getElementById('back').onclick=()=>{
     if(active) active.el.classList.remove('on'); active=null; view('main')};
-  initMode(); initTierDemo(); initPlans();
+  initMode(); initTierDemo();
   const dm=document.getElementById('datamode');
   dm.classList.add('on'); 
   dm.onclick=()=>{
