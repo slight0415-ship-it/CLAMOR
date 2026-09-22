@@ -652,18 +652,6 @@
   .msub .ver{font-family:var(--mono); color:var(--text-mute); font-weight:500;
     margin-left:5px; opacity:.65; font-size:.85em}
 
-  /* 4대 카테고리 — 소음 외에는 아직 비활성. 확장 계획이 화면에 드러난다 */
-  .cats{display:flex; gap:5px; flex:0 0 auto}
-  .cats button{width:38px; height:38px; border-radius:10px; background:var(--ink-2);
-    border:1px solid var(--line); cursor:pointer; display:grid; place-items:center;
-    padding:0; position:relative}
-  .cats button svg{width:20px; height:20px}
-  .cats button[aria-pressed="true"]{background:rgba(224,72,63,.14); border-color:var(--c-noise)}
-  .cats button[disabled]{opacity:.34; cursor:default}
-  .cats button[disabled]::after{content:''; position:absolute; right:-1px; bottom:-1px;
-    width:7px; height:7px; border-radius:50%; background:var(--text-mute)}
-
-
   /* ══ 시간축 — 소음은 위치가 아니라 시각의 문제다 ══ */
   .timebar{position:absolute; left:12px; right:12px; bottom:0; z-index:11;
     display:flex; align-items:center; gap:9px;
@@ -951,6 +939,12 @@
      미리 알 필요가 없어 둘 다 공간에 맞춰 저절로 붙는다. */
   .mapoverlay-bottom{position:absolute; left:9px; right:9px; bottom:9px; z-index:11;
     display:flex; flex-direction:column; gap:8px}
+  /* 전체지도 버튼은 더 이상 지도 오른쪽 위 구석이 아니라, 필터칩 줄 오른쪽
+     끝에 나란히 둔다 — 지도 위 버튼들이 여기저기 흩어지지 않게 한다. */
+  .filterrow{display:flex; align-items:center; gap:6px}
+  .filterrow .filterbar{flex:1; min-width:0}
+  .filterrow .mtool.icon{flex:0 0 auto; background:rgba(10,13,20,.24);
+    border-color:rgba(255,255,255,.12)}
   .mapoverlay-bottom .filterbar{position:static; margin:0; border:1px solid rgba(255,255,255,.12);
     border-radius:11px; background:rgba(10,13,20,.24);
     -webkit-backdrop-filter:blur(7px) saturate(1.1); backdrop-filter:blur(7px) saturate(1.1); padding:7px 9px}
@@ -2060,10 +2054,6 @@
     background:#1F6FD0; padding:2px 6px; border-radius:999px;
     font-style:normal; vertical-align:middle}
 
-  /* 목록으로 돌아가는 자리. 지도 도구와 반대쪽에 둔다 */
-  .mtool.backlist{position:absolute; top:10px; left:10px; z-index:20}
-  .stage.split .mtool.backlist{top:8px; left:8px}
-
   /* 최근 신고 기록 — 댓글처럼 한 줄씩 */
   #s-map .logs{display:flex; flex-direction:column; gap:0; margin-bottom:12px}
   #s-map .log{display:flex; align-items:baseline; gap:8px; flex-wrap:wrap;
@@ -2482,7 +2472,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v223</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v224</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2737,9 +2727,8 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v223</span></div>
+          <span class="ver" id="ver2">v224</span></div>
       </div>
-      <div class="cats" id="cats2"></div>
     </div>
 
     <!-- 이동만으로는 신고 내역이 절대 보이지 않는다. 궁금한 지역을
@@ -2772,30 +2761,23 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v223</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v224</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
-      <div class="cats" id="cats"></div>
     </div>
     <div class="stage split" id="stage">
       <!-- 지도 도구·표본배지·필터·시간축을 모두 이 판 위에 겹쳐 그린다.
            따로 줄을 차지하면 그만큼 카드 목록이 설 자리를 잃는다. -->
       <div class="mapwrap" id="mapwrap">
         <div id="map"></div>
-        <!-- 목록으로 돌아가는 길은 왼쪽 위. 지도 도구와 섞이면 성격이 다른
-             버튼들이 한 줄에 놓여 무엇이 무엇인지 구분되지 않는다. -->
-        <button class="mtool icon backlist" id="tolist" title="목록으로" aria-label="목록으로">‹</button>
+        <!-- '‹ 목록' 화면 버튼은 없앤다 — 되돌아가기는 이제 폰(브라우저)
+             자체의 뒤로가기로만 한다. go('map')에서 history를 한 칸 쌓고
+             popstate에서 go('list')로 받는다(아래 인라인 스크립트). -->
         <div class="maptools">
           <button class="mtool icon" id="cctvbtn" title="CCTV" aria-label="CCTV">
             <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
               <rect x="3" y="7" width="11" height="10" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
               <path d="M14 10.5 20.5 7v10L14 13.5Z" fill="currentColor"/>
-            </svg>
-          </button>
-          <button class="mtool icon" id="modebtn" title="전체 지도" aria-label="전체 지도">
-            <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
-              <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
-                d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>
             </svg>
           </button>
         </div>
@@ -2811,7 +2793,15 @@
         </div>
 
         <div class="mapoverlay-bottom" id="mapoverlay-bottom">
-          <div class="filterbar" id="filters"></div>
+          <div class="filterrow">
+            <div class="filterbar" id="filters"></div>
+            <button class="mtool icon" id="modebtn" title="전체 지도" aria-label="전체 지도">
+              <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+                <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+                  d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>
+              </svg>
+            </button>
+          </div>
           <div class="timebar" id="timebar" hidden>
             <button class="tplay" id="tplay">▶</button>
             <div class="tmid">
@@ -3594,6 +3584,13 @@ function go(name){
     },140);
   }
   if(name==='map'){
+    /* 화면 안 '‹ 목록' 버튼을 없앤 대신, 폰 자체 뒤로가기가 목록으로
+       돌아가는 유일한 길이다. history를 한 칸 쌓아 두고 popstate에서
+       받는다(위쪽 popstate 리스너). 이미 쌓아 둔 칸이면 또 쌓지 않는다 —
+       그러면 뒤로가기를 두 번 눌러야 실제로 나가게 된다. */
+    if(!(history.state && history.state.clamorScreen==='map')){
+      try{ history.pushState({clamorScreen:'map'}, '', ''); }catch(e){}
+    }
     initMapOnce();
     moveMapTo('mapwrap');
     lockMap(false);
@@ -4153,7 +4150,16 @@ document.getElementById('couponbtn').onclick=()=>{
   alert('유료 등급 화면으로 한 번 전환했습니다.');
 };
 updateCouponBadge();
-document.getElementById('tolist').onclick=()=>go('list');
+/* '‹ 목록' 화면 버튼은 삭제됐다 — 지도 화면에서 목록으로 돌아가는 건
+   이제 폰(브라우저) 자체의 뒤로가기뿐이다. go('map')에서 history를
+   한 칸 쌓아 두고, popstate가 오면 그 칸을 소비하며 go('list')로
+   받는다. 다른 이유로 쌓인 history(예: 또 뒤로가기를 더 누른 경우)까지
+   여기서 목록으로 되돌리면 안 되므로, 우리가 쌓은 칸인지 state로 표시해
+   구분한다. */
+window.addEventListener('popstate', ()=>{
+  const s=document.getElementById('s-map');
+  if(s && !s.hidden) go('list');
+});
 /* 기준을 넘긴 상태라면 기다리지 않고 바로 판정으로 넘어간다 */
 document.getElementById('rec-now').onclick=()=>{
   /* 예전엔 눌리기만 하면 58dB·고성을 지어내 확인 화면으로 넘겼다 — 조용히
@@ -4832,30 +4838,6 @@ function showDetail(s){
     '<div><b>'+(s.db+5)+'</b>최고 dB</div><div><b>'+s.dur+'분</b>평균 지속</div></div>';
   document.getElementById('d-body').innerHTML=h;
   view('detail');
-}
-
-
-/* 4대 생활불편 카테고리 — 소음만 구현, 나머지는 자리만 잡아둔다 */
-const CATS=[
-  {k:'소음', c:'var(--c-noise)', on:true,
-   g:'<path d="M4 9h3.5L13 5v14L7.5 15H4z" fill="currentColor"/><path d="M16.5 8.5a5 5 0 010 7" stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round"/>'},
-  {k:'악취·투기', c:'var(--c-odor)', on:false,
-   g:'<path d="M8 20V9a4 4 0 018 0v11z" fill="currentColor"/><path d="M9 6c0-1.5 1-2 1-3M13 6c0-1.5 1-2 1-3" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round"/>'},
-  {k:'빛공해', c:'var(--c-light)', on:false,
-   g:'<circle cx="12" cy="12" r="4" fill="currentColor"/><g stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M18.4 5.6L17 7M7 17l-1.4 1.4"/></g>'},
-  {k:'통행방해', c:'var(--c-block)', on:false,
-   g:'<path d="M4 8h16v3H4zM4 14h16v3H4z" fill="currentColor"/>'},
-];
-function buildCats(){
-  const box=document.getElementById('cats');
-  CATS.forEach((c,i)=>{
-    const b=document.createElement('button');
-    b.innerHTML='<svg viewBox="0 0 24 24" style="color:'+c.c+'">'+c.g+'</svg>';
-    b.title=c.on?c.k:c.k+' — 준비 중';
-    b.setAttribute('aria-pressed', c.on);
-    if(!c.on) b.disabled=true;
-    box.appendChild(b);
-  });
 }
 
 
@@ -6017,7 +5999,7 @@ function bootMapInner(){
   map=new kakao.maps.Map(document.getElementById('map'),
     {center:new kakao.maps.LatLng(CENTER.lat,CENTER.lng), level:4});
   map.addControl(new kakao.maps.ZoomControl(), kakao.maps.ControlPosition.RIGHT);
-  drawWash(); buildCats();
+  drawWash();
   document.getElementById('timebar').hidden=false;
   document.getElementById('tslide').oninput=()=>{
     if(playTimer){clearInterval(playTimer); playTimer=null;
