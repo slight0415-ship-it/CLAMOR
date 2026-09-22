@@ -89,6 +89,9 @@
     color:var(--text); line-height:1; margin-right:-.2em}
   .wordsub{margin-top:-4px; font-size:1.125rem; font-weight:800;
     color:var(--text-mute); letter-spacing:.01em}
+  .splash-hint{margin-top:16px; font-size:0.8125rem; font-weight:700;
+    color:var(--text-dim); text-align:center; line-height:1.6; max-width:260px}
+  .splash-hint b{color:var(--text)}
   .splash-t{font-family:var(--mono); font-size:0.875rem; letter-spacing:.16em;
     color:var(--text-dim); text-align:center}
   .splash-s{font-size:0.9375rem; color:var(--text-mute); text-align:center; line-height:1.7}
@@ -1910,17 +1913,21 @@
   .cc-fu-item .cc-fu-when{background:none; padding:0; font-size:0.75rem; color:var(--text-mute)}
   .cc-fu-item p{margin-top:5px; color:var(--text); font-weight:500; line-height:1.5}
   .cc-fu-empty{font-size:0.8125rem; color:var(--text-mute); font-weight:700}
-  .cc-forward{margin-top:26px; background:var(--c-pay); border-color:var(--c-pay)}
+  .cc-forward{margin-top:26px; background:var(--c-pay); border-color:var(--c-pay); color:#fff}
 
   /* ══ 진짜 메인화면 — 검색·확인 전에는 아무것도 보이지 않는다 ══ */
   .lsearch{display:flex; gap:8px; padding:12px 12px 0}
   .lsearch input{flex:1; min-width:0; font-family:inherit; font-size:0.875rem;
     color:var(--text); background:var(--ink-2); border:1px solid var(--line);
     border-radius:10px; padding:9px 12px}
+  /* 배경은 항상 어둡게 고정해 둔 상자다 — 글자색을 테마 변수(--text-dim)에
+     맡기면 밝은 테마(body.light)에서 그 변수가 검정에 가깝게 바뀌어 어두운
+     배경 위에서 글자가 사실상 안 보이게 된다. 그래서 글자색은 테마와
+     무관하게 항상 흰색으로 고정한다. */
   .lreveal-hint{position:absolute; left:10px; right:10px; top:10px; z-index:13;
-    background:rgba(18,22,30,.88); color:var(--text-dim); font-size:0.75rem;
+    background:rgba(10,13,20,.92); color:#F2F4F7; font-size:0.75rem;
     font-weight:700; line-height:1.5; padding:9px 11px; border-radius:10px; text-align:center}
-  #couponbtn{width:auto; margin:0 0 8px; background:var(--c-pay); border-color:var(--c-pay)}
+  #couponbtn{width:auto; margin:0 0 8px; background:var(--c-pay); border-color:var(--c-pay); color:#fff}
 
   /* ══ 목록 화면 ══
      지점 하나하나가 고를 수 있는 것으로 서야 한다. 왼쪽 숫자 블록이
@@ -2243,6 +2250,7 @@
       </div>
       <div class="wordmark">CLAMOR</div>
       <div class="wordsub">클레머 · 생활불편 리스크맵</div>
+      <div class="splash-hint">지금 소음이 있다면 <b>폰을 두 번 흔들어</b> 신고를 시작하세요</div>
     </div>
 
 
@@ -2464,7 +2472,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v215</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v217</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2719,7 +2727,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v215</span></div>
+          <span class="ver" id="ver2">v217</span></div>
       </div>
       <div class="cats" id="cats2"></div>
     </div>
@@ -2754,7 +2762,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v215</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v217</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
       <div class="cats" id="cats"></div>
@@ -2920,6 +2928,7 @@ function openTierSheet(){
          없이 어떤 등급이든 '열기'만 누르면 바로 보인다. */
       const target=pendingListCenter; pendingListCenter=null;
       if(target){
+        freeAnchor=target;   // 무료 등급 150m 제한의 기준점 — 확인한 그 위치
         go('map');
         setTimeout(()=>{
           if(!map) return;
@@ -2932,6 +2941,10 @@ function openTierSheet(){
           if(badge2) badge2.textContent=T2.id;
         },160);
         return;
+      }
+      if(!freeAnchor){
+        const m=spots.find(s=>s.mine);
+        freeAnchor = m ? m.c : (realLoc||CENTER);
       }
       const T=TIERS[tier];
       if(T.maxLv && map && map.getLevel()!==T.maxLv) map.setLevel(T.maxLv,{animate:true});
@@ -3542,7 +3555,51 @@ document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>go(b.dataset.go)
    여기서 미리 응답을 받아두면 녹음 화면은 그 결과를 바로 쓸 수 있다. */
 initMic();
 loadZoningData();   // 인천 용도지역 표 — 녹음 화면 도달 전에 미리 받아둔다
-setTimeout(()=>{ if(!document.getElementById('s-splash').hidden) go('rec') },2100);
+
+/* ══ 스플래시 — 흔들면 신고, 가만히 있으면 소음지도 ══
+   출시 뒤 "쓰는 법"을 따로 홍보할 것이므로, 스플래시 자체가 그 사용법을
+   가르친다. 폰을 두 번 흔들면(진짜 신고 상황) 녹음 화면으로, 흔들지
+   않으면(그냥 지도가 궁금해서 켠 경우) 신고 없이 바로 클레머 메인화면
+   (우리동네소음지도)으로 들어간다 — 신고 이력이 없는 시민의 진입로다. */
+(function shakeToReport(){
+  const DECIDE_MS=2600;          // 이 시간 안에 못 흔들면 메인화면으로
+  const SHAKE_ACC=16;            // m/s² — 흔든 것으로 볼 가속도 크기
+  const SHAKE_GAP_MS=250;        // 흔든 것으로 다시 셀 최소 간격(잔떨림 방지)
+  let shakeCount=0, lastShakeAt=0, decided=false;
+  function onMotion(e){
+    const a=e.accelerationIncludingGravity || e.acceleration;
+    if(!a) return;
+    const mag=Math.sqrt((a.x||0)**2+(a.y||0)**2+(a.z||0)**2);
+    const now=Date.now();
+    if(mag>SHAKE_ACC && now-lastShakeAt>SHAKE_GAP_MS){
+      lastShakeAt=now; shakeCount++;
+      if(shakeCount>=2) decide(true);
+    }
+  }
+  function decide(toReport){
+    if(decided) return; decided=true;
+    window.removeEventListener('devicemotion', onMotion);
+    if(!document.getElementById('s-splash').hidden) go(toReport?'rec':'list');
+  }
+  /* iOS는 사용자가 화면을 한 번 터치해야만 모션 권한을 물을 수 있다.
+     스플래시를 한 번 탭하면 그 김에 권한도 함께 요청한다 — 거부되거나
+     지원되지 않아도 무해하다(그냥 시간이 지나면 메인화면으로 간다). */
+  function requestMotion(){
+    if(typeof DeviceMotionEvent!=='undefined' && typeof DeviceMotionEvent.requestPermission==='function'){
+      DeviceMotionEvent.requestPermission().then(res=>{
+        if(res==='granted') window.addEventListener('devicemotion', onMotion);
+      }).catch(()=>{});
+    } else {
+      /* 권한을 물을 필요가 없는 기기(대부분의 안드로이드 등) — 리스너를
+         걸어 두는 것 자체는 이벤트가 한 번도 안 와도 해가 되지 않는다. */
+      window.addEventListener('devicemotion', onMotion);
+    }
+  }
+  requestMotion();
+  const sp=document.getElementById('s-splash');
+  if(sp) sp.addEventListener('click', requestMotion, {once:true});
+  setTimeout(()=>decide(false), DECIDE_MS);
+})();
 
 /* ══ 녹음 화면 시뮬레이션 ══ */
 let THR=45;   // 초기값(추정) — 워밍업이 끝나면 그 자리의 법정 규제기준으로 교체된다
@@ -4485,11 +4542,16 @@ function applyFilter(){
   if(typeof drawFreeBlur==='function') drawFreeBlur();
 }
 
-/* ══ 무료 등급 — 정확한 점 대신 50m 그라데이션 ══
-   무료 등급에서 신고 지점이 정확히 찍혀 있으면 사실상 유료와 다를 바 없다.
-   점을 없애고, 그 자리를 중심으로 옅어지는 원 세 겹(50/34/18m)을 겹쳐
-   '이 근처'만 알 수 있게 흐려 보여준다. CCTV 구역과 같은 방식(다각형 근사
-   원)을 쓴다 — 지도 확대·축소에 따라 실제 미터 단위로 스스로 늘고 준다. */
+/* ══ 무료 등급 — 정확한 점 대신 '균일한' 50m 원, 그리고 150m 반경 제한 ══
+   처음엔 안쪽이 더 진해지는 겹원(그라데이션)으로 만들었는데, 겹쳐 칠하면
+   가운데가 도드라져 결국 정확한 위치를 가리키는 것과 다를 게 없어진다.
+   그래서 원 하나, 안팎 농도가 같은 단일 톤으로 통일한다 — '이 원 안
+   어딘가'까지만 알 수 있고 중심을 짚어낼 수 없다.
+   또한 무료 등급은 확인한 위치에서 150m를 벗어나면 아무것도 보여주지
+   않는다 — 축소해서 동네 전체를 한눈에 보는 것 자체가 유료의 값어치이므로,
+   화면을 얼마나 축소하든 150m 밖은 그대로 빈 지도로 남는다. */
+const FREE_RADIUS=150;
+let freeAnchor=null;   // 무료 등급 150m 제한의 기준점 — 확인한 위치(또는 실제 위치)
 let freeBlurOv=[];
 function circlePath(c, r){
   const path=[];
@@ -4503,14 +4565,13 @@ function drawFreeBlur(){
   const ls=document.getElementById('s-list');
   const onListScreen = !!(ls && !ls.hidden);
   if(onListScreen || !TIERS[tier] || TIERS[tier].id!=='무료') return;
-  const RINGS=[[50,0.10],[34,0.16],[18,0.24]];
+  const anchor=freeAnchor || realLoc || CENTER;
   spots.forEach(s=>{
     if(s.vis===false) return;
-    RINGS.forEach(([r,op])=>{
-      const poly=new kakao.maps.Polygon({path:circlePath(s.c,r),
-        strokeWeight:0, fillColor:'#E0483F', fillOpacity:op});
-      poly.setMap(map); freeBlurOv.push(poly);
-    });
+    if(distM(s.c, anchor)>FREE_RADIUS) return;   // 150m 밖은 무료에서 아예 안 보인다
+    const poly=new kakao.maps.Polygon({path:circlePath(s.c,50),
+      strokeWeight:0, fillColor:'#E0483F', fillOpacity:0.22});
+    poly.setMap(map); freeBlurOv.push(poly);
   });
 }
 function view(v){['main','detail','locked'].forEach(k=>
@@ -4841,9 +4902,12 @@ function routeLen(path){
 /* 지금 화면에서 보이는 구간만 카드로 올린다 */
 function visibleRoutes(){
   if(!map || !routesOn()) return [];
+  const freeTier = !!(TIERS[tier] && TIERS[tier].id==='무료');
+  const anchor = freeTier ? (freeAnchor || realLoc || CENTER) : null;
   const b=map.getBounds();
   return ROUTES.filter(rt=>rt.showing && rt.c &&
-    b.contain(new kakao.maps.LatLng(rt.c.lat, rt.c.lng)));
+    b.contain(new kakao.maps.LatLng(rt.c.lat, rt.c.lng)) &&
+    (!anchor || distM(rt.c, anchor)<=FREE_RADIUS));
 }
 
 /* 경로를 따라 위치를 보간한다. 구간 길이를 무시하면 꺾이는 데서 튄다 */
@@ -4878,10 +4942,13 @@ function drawRoutes(){
   const ls=document.getElementById('s-list');
   const onListScreen = !!(ls && !ls.hidden);
   const on=routesOn() && !onListScreen;
+  const freeTier = !!(TIERS[tier] && TIERS[tier].id==='무료');
+  const anchor = freeTier ? (freeAnchor || realLoc || CENTER) : null;
   ROUTES.forEach(rt=>{
     if(!rt.line) return;
     const w = hourSel<0 ? 0.85 : sharp(rt.hours, hourSel);
-    const show = on && w>=0.18;
+    const inFree = !anchor || (rt.c && distM(rt.c, anchor)<=FREE_RADIUS);
+    const show = on && w>=0.18 && inFree;
     rt.showing=show;
     rt.line.setMap(show?map:null);
     rt.glow.setMap(show?map:null);
@@ -4910,9 +4977,12 @@ function drawRoutes(){
 function drawGlow(){
   if(!map||!spots.length) return;
   ensureGlow();
+  /* 무료 등급은 정확한 위치를 감춰야 하므로, 시간대 번짐 효과도 함께 끈다
+     — 번짐 크기·위치만으로도 결국 어디인지 짐작이 가능해지기 때문이다. */
+  const freeTier = !!(TIERS[tier] && TIERS[tier].id==='무료');
   const lv=map.getLevel(), pxPerM=Math.pow(2,3-lv)*2.4;
   glowOv.forEach(({el,s})=>{
-    if(hourSel<0 || s.vis===false){ el.style.opacity=0; el.style.width='0px'; el.style.height='0px'; return }
+    if(freeTier || hourSel<0 || s.vis===false){ el.style.opacity=0; el.style.width='0px'; el.style.height='0px'; return }
     const w=sharp(s.hours, hourSel);
     if(w<0.15){ el.style.opacity=0; return }
     const px=Math.max(26, Math.min(190, s.n*4.4*w*pxPerM));
@@ -5578,11 +5648,16 @@ function callTierBar(){
 let syncing=false, moveTimer=null;
 function visibleSpots(){
   /* 화면 안에 있고, 켜진 유형을 하나라도 가진 것만. 지도에서 사라진 점이
-     카드에는 남아 있으면 필터를 누른 뜻이 절반만 전달된다. */
-  if(!map) return spots.filter(s=>s.vis!==false);
+     카드에는 남아 있으면 필터를 누른 뜻이 절반만 전달된다.
+     무료 등급은 축소해서 넓은 동네를 카드 목록으로 훑어보는 것도 막는다
+     — 확인한 위치에서 150m 밖은 목록에도 올라오지 않는다. */
+  const freeTier = !!(TIERS[tier] && TIERS[tier].id==='무료');
+  const anchor = freeTier ? (freeAnchor || realLoc || CENTER) : null;
+  if(!map) return spots.filter(s=>s.vis!==false && (!anchor || distM(s.c,anchor)<=FREE_RADIUS));
   const b=map.getBounds();
   return spots.filter(s=>s.vis!==false &&
-    b.contain(new kakao.maps.LatLng(s.c.lat,s.c.lng)));
+    b.contain(new kakao.maps.LatLng(s.c.lat,s.c.lng)) &&
+    (!anchor || distM(s.c,anchor)<=FREE_RADIUS));
 }
 /* 이름 조회는 앞쪽 27곳만 미리 돈다. 995곳을 다 물어볼 수는 없기 때문이다.
    그런데 필터를 켜면 뒤쪽 지점이 카드로 올라오고, 그때 '기타 구역'이 보인다.
