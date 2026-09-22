@@ -1873,6 +1873,55 @@
   .sent-note{margin:16px 0 0; font-size:0.75rem; line-height:1.65;
     color:var(--text-mute); font-weight:700; text-align:center}
 
+  .btn.sm{width:auto; padding:9px 15px; font-size:0.8125rem}
+  #recur-box .nb{margin-bottom:10px}
+  #recur-toggle.on{background:var(--c-pay); border-color:var(--c-pay); color:#fff}
+  #sms-recur-line{color:#FFD9A6}
+
+  /* ══ 신고카드 확인 — 비즈니스모델(등급별 지도)과 다른 테마 ══
+     보상 화면이라는 성격을 색으로도 드러낸다 — 데이터 색(빨강)이 아니라
+     결제·보상에 쓰는 보라 계열을 쓴다. */
+  #s-cardconfirm{overflow-y:auto; background:linear-gradient(180deg,#171224,var(--ink) 220px)}
+  .cc-wrap{padding:24px 18px 26px}
+  .cc-head h2{margin:0; font-size:1.375rem; font-weight:900; color:var(--text)}
+  .cc-head p{margin-top:6px; font-size:0.8125rem; color:var(--text-dim); font-weight:700}
+  .cc-map-wrap{position:relative; margin-top:16px; height:26%; min-height:150px;
+    border-radius:14px; overflow:hidden; border:1px solid var(--line)}
+  #cardconfirmmap{width:100%; height:100%}
+  .cc-map-note{position:absolute; left:9px; bottom:9px; z-index:12;
+    background:rgba(20,14,36,.82); color:#E4D6FF; font-size:0.6875rem; font-weight:800;
+    padding:5px 9px; border-radius:999px}
+  .cc-section{margin-top:20px}
+  .cc-sh{font-size:0.9375rem; font-weight:900; color:var(--text); margin-bottom:8px}
+  .cc-empty{padding:22px 12px; text-align:center; font-size:0.875rem; line-height:1.6;
+    color:var(--text-mute); font-weight:700; background:var(--ink-2);
+    border:1px dashed var(--line); border-radius:12px}
+  .cc-fu-lead{font-size:0.8125rem; color:var(--text-dim); font-weight:700; line-height:1.6;
+    margin-bottom:10px}
+  .cc-fu-when{display:flex; flex-wrap:wrap; gap:7px; margin-bottom:10px}
+  .cc-fu-when .chip.on{border-color:var(--c-pay); color:#fff; background:var(--c-pay)}
+  #cc-fu-text{width:100%; resize:vertical; font-family:inherit; font-size:0.875rem;
+    color:var(--text); background:var(--ink-2); border:1px solid var(--line);
+    border-radius:10px; padding:10px 12px; margin-bottom:9px}
+  #cc-followups{margin-top:12px; display:flex; flex-direction:column; gap:8px}
+  .cc-fu-item{background:var(--ink-2); border:1px solid var(--line); border-radius:10px;
+    padding:10px 12px; font-size:0.8125rem; color:var(--text-dim); font-weight:700}
+  .cc-fu-item b{color:var(--text); margin-right:8px}
+  .cc-fu-item .cc-fu-when{background:none; padding:0; font-size:0.75rem; color:var(--text-mute)}
+  .cc-fu-item p{margin-top:5px; color:var(--text); font-weight:500; line-height:1.5}
+  .cc-fu-empty{font-size:0.8125rem; color:var(--text-mute); font-weight:700}
+  .cc-forward{margin-top:26px; background:var(--c-pay); border-color:var(--c-pay)}
+
+  /* ══ 진짜 메인화면 — 검색·확인 전에는 아무것도 보이지 않는다 ══ */
+  .lsearch{display:flex; gap:8px; padding:12px 12px 0}
+  .lsearch input{flex:1; min-width:0; font-family:inherit; font-size:0.875rem;
+    color:var(--text); background:var(--ink-2); border:1px solid var(--line);
+    border-radius:10px; padding:9px 12px}
+  .lreveal-hint{position:absolute; left:10px; right:10px; top:10px; z-index:13;
+    background:rgba(18,22,30,.88); color:var(--text-dim); font-size:0.75rem;
+    font-weight:700; line-height:1.5; padding:9px 11px; border-radius:10px; text-align:center}
+  #couponbtn{width:auto; margin:0 0 8px; background:var(--c-pay); border-color:var(--c-pay)}
+
   /* ══ 목록 화면 ══
      지점 하나하나가 고를 수 있는 것으로 서야 한다. 왼쪽 숫자 블록이
      다방의 사진 자리를 대신한다. 카드마다 숫자·색·막대 길이가 달라
@@ -2341,6 +2390,14 @@
         <div class="nb">신고 문자에는 <b>현재 위치</b>가 포함되어 112로 전송됩니다.
           위치는 신고 접수와 출동 판단에만 사용됩니다.</div>
       </div>
+
+      <!-- 경찰의 한 번 경고로 끝나지 않는 경우가 흔하다. 이전 신고 기록이
+           있을 때만 뜻이 있으므로, 없으면 이 상자 자체를 숨긴다. -->
+      <div class="notice" id="recur-box" hidden>
+        <div class="nt">이전에도 같은 곳에서 신고하셨나요?</div>
+        <div class="nb" id="recur-prev">—</div>
+        <button class="btn ghost sm" id="recur-toggle" type="button">재발로 표시</button>
+      </div>
     </div>
 
     <div class="rfoot">
@@ -2375,6 +2432,8 @@
            최고 소음도 : <span id="sms-db">—</span> dB (야간 기준 <span id="sms-thr">52</span> dB)<br>
            지속 시간 : <span id="sms-dur">—</span></p>
         <p>위치 : 위도 <span id="sms-lat">—</span> / 경도 <span id="sms-lng">—</span></p>
+        <p id="sms-recur-line" hidden><b>반복 신고입니다.</b> 이전 신고 —
+          <span id="sms-recur-summary">—</span></p>
       </div>
       <div class="caret">작성 완료 — 전송만 누르면 됩니다</div>
     </div>
@@ -2405,7 +2464,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v213</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v214</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2512,6 +2571,56 @@
     </div>
   </section>
 
+  <!-- ══ 신고카드 확인 — 비즈니스모델(등급별 지도)과는 다른 화면 ══
+       신고를 보낸 시민에게 주는 '무료 보상'이다. 맵은 잠겨 있고, 내 신고
+       지점에서 200m 안의 신고카드만 보인다 — 여기저기 옮겨 다니며 다른
+       동네 신고까지 다 보게 두면 등급별 지도(비즈니스모델)의 의미가
+       흐려지기 때문이다. -->
+  <section class="screen" id="s-cardconfirm" hidden>
+    <div class="cc-wrap">
+      <div class="cc-head">
+        <h2>신고카드 확인</h2>
+        <p>신고해 주셔서 감사합니다 — 이 자리 주변 200m의 기록을 보여드립니다</p>
+      </div>
+
+      <div class="cc-map-wrap">
+        <div id="cardconfirmmap"></div>
+        <div class="cc-map-note">맵은 고정되어 있습니다 · 반경 200m</div>
+      </div>
+
+      <div class="cc-section">
+        <div class="cc-sh">내 신고</div>
+        <div class="lscroll" id="cc-mine"></div>
+      </div>
+
+      <div class="cc-section">
+        <div class="cc-sh" id="cc-note">주변 신고카드</div>
+        <div class="lscroll" id="cc-list"></div>
+        <div class="cc-empty" id="cc-empty" hidden>이 지역은 신고 내역이 없습니다</div>
+      </div>
+
+      <!-- 사후 경과 기록 — 본인 신고카드에만, 여러 번에 걸쳐 -->
+      <div class="cc-section cc-followup">
+        <div class="cc-sh">그 뒤 어떻게 됐나요?</div>
+        <p class="cc-fu-lead">경찰 출동 이후의 경과를 남겨 두면, 나중에 같은 곳에서
+          다시 소란이 있었는지 스스로도 알 수 있습니다. 여러 번 남길 수 있습니다.</p>
+        <div class="cc-fu-when">
+          <button class="chip" data-fu="0">다음날</button>
+          <button class="chip" data-fu="1">다다음날</button>
+          <button class="chip" data-fu="2">일주일 후</button>
+          <button class="chip" data-fu="3">한달 후</button>
+          <button class="chip" data-fu="4">기타</button>
+        </div>
+        <textarea id="cc-fu-text" rows="2" placeholder="예) 그날 이후로 조용합니다 / 다시 시끄러워졌습니다"></textarea>
+        <button class="btn primary sm" id="cc-fu-add" type="button">경과 기록 추가</button>
+        <div id="cc-followups"></div>
+      </div>
+
+      <button class="btn primary cc-forward" id="cc-forward" type="button">
+        우리동네소음지도 보기 ›</button>
+    </div>
+  </section>
+
   <!-- ══ 차량·바이크 굉음 신고 ══
        112로 가지 않는다. 3초짜리 굉음은 지속 요건을 못 채워 신고가
        성립하지 않는다. 잴 수 없는 값을 잴 수 있는 척하지 않고, 시민이
@@ -2610,14 +2719,24 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v213</span></div>
+          <span class="ver" id="ver2">v214</span></div>
       </div>
       <div class="cats" id="cats2"></div>
+    </div>
+
+    <!-- 이동만으로는 신고 내역이 절대 보이지 않는다. 궁금한 지역을
+         검색하거나 지도를 옮긴 뒤, 이 버튼을 눌러야만 그 순간의 화면
+         범위만큼 드러난다. 다음 이동이 시작되면 다시 숨는다. -->
+    <div class="lsearch">
+      <input type="text" id="lsearch-input" placeholder="궁금한 지역 검색 (예: 논현동)">
+      <button class="btn primary sm" id="lsearch-btn" type="button">이 위치 확인</button>
     </div>
 
     <div class="lmap-wrap">
       <div id="listmap"></div>
       <div class="lmap-note" id="lmap-note">내 위치 주변 · 100m로 묶어 표시</div>
+      <div class="lreveal-hint" id="lreveal-hint">지도를 옮긴 뒤 "이 위치 확인"을 누르면
+        이 범위의 신고 내역이 보입니다</div>
     </div>
 
     <div class="lbar">
@@ -2635,8 +2754,9 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v213</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v214</span></div>
       </div>
+      <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
       <div class="cats" id="cats"></div>
     </div>
     <!-- 지도 위 배지는 어디에 놓아도 지도를 가린다. 읽는 것이므로 지도 밖으로 뺀다. -->
@@ -2914,6 +3034,15 @@ function listRouteCardHTML(rt,i){
 let listRows=[], nameCursor=0;
 function renderList(){
   const box=document.getElementById('lscroll'); if(!box||!map) return;
+  /* 이동만으로는 절대 드러나지 않는다 — '이 위치 확인'을 누르기 전에는
+     카드 목록도 비어 있는 것이 맞다. */
+  if(!revealed){
+    box.innerHTML='<div class="lempty">지도를 원하는 곳으로 옮긴 뒤<br>'+
+      '<b>이 위치 확인</b>을 눌러야 신고 내역이 보입니다</div>';
+    document.getElementById('lcount').textContent='0곳';
+    document.getElementById('llabel').textContent='아직 확인 전';
+    return;
+  }
   const vis=visibleSpots().filter(s=>!s.isRoute);
   /* 이 화면은 신고를 보낸 뒤 처음 만나는 자리다. 지도가 담은 것을 그대로
      세워 보여야 한다. 상한을 두면 화면에 점이 보이는데 카드는 없는 곳이
@@ -3278,7 +3407,7 @@ function beatMine(){
    기본값이 '발신 가능'이 되지 않도록 명시적인 스위치를 둔다.
    실제 112 연동을 붙이는 날, 이 값을 true로 바꾸기 전까지는 절대 나가지 않는다. */
 const DISPATCH_TO_112=false;
-const SCREENS=['splash','rec','confirm','sms','sent','passby','passby-confirm','list','map','cast'];
+const SCREENS=['splash','rec','confirm','sms','sent','cardconfirm','passby','passby-confirm','list','map','cast'];
 let mapReady=false;
 function go(name){
   SCREENS.forEach(s=>document.getElementById('s-'+s).hidden=(s!==name));
@@ -3286,7 +3415,14 @@ function go(name){
     b.classList.toggle('on', b.dataset.go===name));
   if(name==='rec') startRec(); else stopRec();
   if(name==='sent' && typeof renderSent==='function') renderSent(loadSent());
-  if(name==='confirm'){ fillReport(); startCountdown(); } else stopCountdown();
+  if(name==='confirm'){
+    /* 재발 신고 버튼은 '이전 신고 기록'이 있어야 뜻이 있다. 지금 신고를
+       저장하기(saveSent) 전에, 아직 남아 있는 지난 기록을 붙잡아 둔다 —
+       그래야 이번 신고가 그 기록을 덮어써도 '재발이었다'는 사실은 남는다. */
+    prevSent = loadSent(); markRecurrence=false;
+    if(typeof paintRecurUI==='function') paintRecurUI();
+    fillReport(); startCountdown();
+  } else stopCountdown();
   if(name==='cast' && !castSpot && typeof spots!=='undefined' && spots.length) renderCast(spots[0]);
   if(name==='rec'){ fillRecAddr(); requestRealLocation(); initMic(); }
   /* SDK가 늦게 오면 문자 화면에 자리표시 주소가 남는다. 열 때 한 번 더 맞춘다 */
@@ -3304,9 +3440,29 @@ function go(name){
     if(la) la.textContent=loc.lat.toFixed(6);
     if(ln) ln.textContent=loc.lng.toFixed(6);
   }
+  if(name==='cardconfirm'){
+    initMapOnce();
+    moveMapTo('cardconfirmmap');
+    setTimeout(()=>{
+      if(!map) return;
+      /* 이 화면의 맵은 비즈니스모델(전체 지도) 화면과 완전히 분리된
+         '리워드' 성격이다. 여기저기 옮겨 다니며 다른 동네 신고를 보게
+         두면 그 분리가 무의미해진다 — 움직이지 못하게 잠근다. */
+      lockMap(true);
+      const m=spots.find(s=>s.mine);
+      const c=m ? m.c : (realLoc||CENTER);
+      map.setCenter(new kakao.maps.LatLng(c.lat,c.lng));
+      map.setLevel(4);
+      if(typeof renderCardConfirm==='function') renderCardConfirm(c);
+    },140);
+  }
   if(name==='list'){
     initMapOnce();
     moveMapTo('listmap');
+    lockMap(false);
+    /* 진짜 메인화면에 들어올 때마다 '아직 확인하지 않은 상태'로 되돌린다.
+       신고 내역은 검색·확인을 눌러야만 다시 드러난다. */
+    revealed=false;
     setTimeout(()=>{
       if(!map) return;
       /* 차량·바이크 신고는 실제 도로 데이터가 없어 구간(선)이 아니라
@@ -3323,6 +3479,7 @@ function go(name){
       const m=spots.find(s=>s.mine);
       const c=m ? m.c : (realLoc||CENTER);
       map.setCenter(new kakao.maps.LatLng(c.lat,c.lng));
+      if(typeof applyFilter==='function') applyFilter();
       renderList();
       showListGuide();
       setTimeout(beatMine, 260);
@@ -3331,6 +3488,7 @@ function go(name){
   if(name==='map'){
     initMapOnce();
     moveMapTo('stage');
+    lockMap(false);
     /* 카드 윗부분이 잘려 있으면 어느 지점인지 알 수 없다 */
     const pi=document.getElementById('panel-inner');
     if(pi) pi.scrollTop=0;
@@ -3344,6 +3502,9 @@ function go(name){
       applyMinePassby();
       if(typeof buildCards==='function') buildCards();
     }
+    /* 목록(진짜 메인화면)에서 지도를 잠가 뒀을 수 있다. 여기는 등급별
+       비즈니스모델 화면이므로 필터가 정한 대로 다시 모두 보인다. */
+    if(map && typeof applyFilter==='function') applyFilter();
     setTimeout(()=>{
       if(!map) return;
       map.relayout();
@@ -3392,6 +3553,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   rec.addEventListener('scroll', ()=>{ hold(); release() }, {passive:true, capture:true});
 });
 let LAST=null, myReport=null;   // 방금 보낸 신고
+let prevSent=null, markRecurrence=false;   // 재발 신고 표시
 
 /* ══ 소음 유형 자동 판정 ══
    예전에는 경과 시간에 따라 '고성→소란→욕설'을 그냥 순서대로 돌렸다 — 실제
@@ -3511,6 +3673,44 @@ function fillReport(){
   /* 발생 시각은 지금 시각으로. 촬영이 새벽이면 화면도 새벽으로 나온다 */
   const n=new Date(), p2=x=>String(x).padStart(2,'0');
   set('sms-time', p2(n.getHours())+'시 '+p2(n.getMinutes())+'분');
+  /* 재발 신고 — 경찰의 한 번 경고로 끝나지 않는 경우가 흔하다. 사용자가
+     '재발로 표시'를 눌렀고 실제로 지난 신고 기록이 남아 있으면, 신고문에
+     그 요약을 한 줄 더 붙여 112가 반복성을 바로 알 수 있게 한다. */
+  const rl=document.getElementById('sms-recur-line');
+  if(rl){
+    const on = !!(markRecurrence && prevSent);
+    rl.hidden=!on;
+    if(on){
+      const s=document.getElementById('sms-recur-summary');
+      if(s) s.textContent=recurSummaryText(prevSent);
+    }
+  }
+}
+
+/* 이전 신고 한 건을 112가 알아볼 정도로만 요약한다. 전체를 다시 쓰면
+   문자만 길어지고, 요점(언제·무엇·얼마나)만 있으면 '재발이다'는 충분히
+   전달된다. */
+function recurSummaryText(rec){
+  if(!rec) return '';
+  const d=new Date(rec.at), p=x=>String(x).padStart(2,'0');
+  const when=(d.getMonth()+1)+'월 '+d.getDate()+'일 '+p(d.getHours())+':'+p(d.getMinutes());
+  const durTx = rec.dur>=60 ? Math.floor(rec.dur/60)+'분 '+(rec.dur%60)+'초' : rec.dur+'초';
+  return when+' · '+rec.type+' · '+rec.db+'dB · '+durTx;
+}
+
+/* 확인 화면의 '재발로 표시' 버튼 상태를 그린다. 이전 기록이 없으면
+   버튼 자체가 뜻이 없으므로 숨긴다. */
+function paintRecurUI(){
+  const box=document.getElementById('recur-box'), btn=document.getElementById('recur-toggle');
+  if(!box) return;
+  box.hidden = !prevSent;
+  if(!prevSent) return;
+  const prevEl=document.getElementById('recur-prev');
+  if(prevEl) prevEl.textContent=recurSummaryText(prevSent);
+  if(btn){
+    btn.textContent = markRecurrence ? '재발 표시함 ✓' : '재발로 표시';
+    btn.classList.toggle('on', markRecurrence);
+  }
 }
 
 function startRec(){
@@ -3742,7 +3942,54 @@ function startCountdown(){
 }
 function stopCountdown(){ clearInterval(cdTimer); cdTimer=null }
 document.getElementById('c-cancel').onclick=()=>{ stopCountdown(); go('rec') };
-document.getElementById('sent-map').onclick=()=>go('list');
+document.getElementById('sent-map').onclick=()=>go('cardconfirm');
+document.getElementById('recur-toggle').onclick=()=>{
+  if(!prevSent) return;
+  markRecurrence=!markRecurrence;
+  paintRecurUI();
+};
+
+/* 신고카드 확인 화면 — 사후 경과 기록 */
+let ccFuLabel=0;
+document.querySelectorAll('#s-cardconfirm .cc-fu-when .chip').forEach(b=>{
+  b.onclick=()=>{
+    ccFuLabel=+b.dataset.fu;
+    document.querySelectorAll('#s-cardconfirm .cc-fu-when .chip').forEach(x=>
+      x.classList.toggle('on', x===b));
+  };
+});
+document.querySelectorAll('#s-cardconfirm .cc-fu-when .chip')[0].classList.add('on');
+document.getElementById('cc-fu-add').onclick=()=>{
+  const ta=document.getElementById('cc-fu-text');
+  const ok=addFollowup(ccFuLabel, ta.value);
+  if(ok) ta.value='';
+  else alert('아직 보낸 신고 기록이 없습니다.');
+};
+document.getElementById('cc-forward').onclick=()=>go('list');
+
+/* 진짜 메인화면 — 검색 또는 '이 위치 확인'을 눌러야만 드러난다 */
+document.getElementById('lsearch-btn').onclick=()=>{
+  const q=(document.getElementById('lsearch-input').value||'').trim();
+  if(q && window.kakao && kakao.maps.services && map){
+    geocoder = geocoder || new kakao.maps.services.Geocoder();
+    geocoder.addressSearch(q, (res,status)=>{
+      if(status===kakao.maps.services.Status.OK && res[0]){
+        map.setCenter(new kakao.maps.LatLng(+res[0].y, +res[0].x));
+      }
+      revealHere();
+    });
+  } else {
+    revealHere();
+  }
+};
+document.getElementById('lsearch-input').addEventListener('keydown', e=>{
+  if(e.key==='Enter') document.getElementById('lsearch-btn').click();
+});
+document.getElementById('couponbtn').onclick=()=>{
+  if(!useCoupon()) return;
+  alert('유료 등급 화면으로 한 번 전환했습니다.');
+};
+updateCouponBadge();
 document.getElementById('tolist').onclick=()=>go('list');
 /* 기준을 넘긴 상태라면 기다리지 않고 바로 판정으로 넘어간다 */
 document.getElementById('rec-now').onclick=()=>{
@@ -3876,8 +4123,15 @@ function saveSent(r){
   const addr = (recPlace && recPlace.name) ? recPlace.name
     : ((document.getElementById('sms-addr')||{}).textContent
     || (document.getElementById('rec-addr')||{}).textContent || '');
+  const loc = realLoc || CENTER;
   const rec={ at:Date.now(), addr:addr.trim(),
-    type:(TYPES[r.t]||TYPES[0]).k, db:r.db, dur:r.dur };
+    type:(TYPES[r.t]||TYPES[0]).k, db:r.db, dur:r.dur,
+    lat:loc.lat, lng:loc.lng,
+    /* 재발로 표시했고 실제 지난 기록이 있었을 때만 남긴다 */
+    recurrence:(markRecurrence && prevSent) ? recurSummaryText(prevSent) : null,
+    /* 이 신고 하나에 붙는 사후 경과 기록 — 신규 신고이므로 항상 빈 배열로
+       시작한다(지난 신고의 기록을 새 신고가 물려받지 않는다) */
+    followups:[] };
   try{ localStorage.setItem(SENT_KEY, JSON.stringify(rec)) }catch(e){}
   renderSent(rec);
 }
@@ -3899,6 +4153,117 @@ function renderSent(rec){
   set('sent-dur', rec.dur>=60
     ? Math.floor(rec.dur/60)+'분 '+(rec.dur%60)+'초'
     : rec.dur+'분');
+}
+
+/* ══ 신고카드 확인 화면 — 비즈니스모델과 분리된 '리워드' 화면 ══
+   여기서는 맵을 고정해 둔 채, 내 신고 지점 반경 200m 안의 신고카드만
+   보여준다. 여기저기 옮겨 다니며 다른 동네 신고를 다 보게 두면 '등급별로
+   더 볼 수 있다'는 비즈니스모델 자체가 무의미해지기 때문이다. */
+function nearbySpots(center, radius){
+  if(!spots || !spots.length) return [];
+  return spots.filter(s=>!s.isRoute && distM(s.c, center)<=radius);
+}
+function applyCardConfirmPins(center){
+  spots.forEach(s=>{
+    if(!s.ov) return;
+    s.ov.setMap(distM(s.c, center)<=CC_RADIUS ? map : null);
+  });
+}
+function renderCardConfirm(center){
+  applyCardConfirmPins(center);
+  const mine=spots.find(s=>s.mine);
+  const mineBox=document.getElementById('cc-mine');
+  if(mineBox) mineBox.innerHTML = mine ? listCardHTML(mine, -1) : '';
+  const others=nearbySpots(center, CC_RADIUS).filter(s=>!s.mine);
+  const box=document.getElementById('cc-list'), empty=document.getElementById('cc-empty');
+  if(box){
+    if(!others.length){
+      box.innerHTML=''; if(empty) empty.hidden=false;
+    }else{
+      if(empty) empty.hidden=true;
+      box.innerHTML=others.map((s,i)=>listCardHTML(s,i)).join('');
+    }
+  }
+  const note=document.getElementById('cc-note');
+  if(note) note.textContent='내 신고 지점에서 반경 '+CC_RADIUS+'m 안의 신고카드만 보여드립니다';
+  renderMineFollowups();
+}
+
+/* ══ 사후 경과 기록(팔로우업) ══
+   112 출동 이후 실제로 어떻게 됐는지는 한 번에 끝나지 않는다 — 소란
+   행위자는 이사가지 않는 이상 언제든 재발할 수 있으므로, 신고자 본인만
+   자기 신고카드에 여러 번에 걸쳐 기록을 더할 수 있게 한다. */
+const FOLLOWUP_LABELS=['다음날','다다음날','일주일 후','한달 후','기타'];
+function addFollowup(labelIdx, text){
+  const rec=loadSent();
+  if(!rec) return false;
+  if(!Array.isArray(rec.followups)) rec.followups=[];
+  const isFirst = rec.followups.length===0;
+  rec.followups.push({ at:Date.now(),
+    label: FOLLOWUP_LABELS[labelIdx]||'기타',
+    text: String(text||'').trim() });
+  try{ localStorage.setItem(SENT_KEY, JSON.stringify(rec)) }catch(e){}
+  if(isFirst) grantCoupon();   // 사후 경과를 처음 남긴 시민에게 1회 보상
+  renderMineFollowups();
+  return true;
+}
+function renderMineFollowups(){
+  const box=document.getElementById('cc-followups'); if(!box) return;
+  const rec=loadSent();
+  const fu=(rec && Array.isArray(rec.followups)) ? rec.followups : [];
+  box.innerHTML = fu.length
+    ? fu.slice().reverse().map(f=>{
+        const d=new Date(f.at), p=n=>String(n).padStart(2,'0');
+        return '<div class="cc-fu-item"><b>'+f.label+'</b>'+
+          '<span class="cc-fu-when">'+(d.getMonth()+1)+'/'+d.getDate()+' '+
+          p(d.getHours())+':'+p(d.getMinutes())+'</span>'+
+          (f.text ? '<p>'+f.text.replace(/</g,'&lt;')+'</p>' : '')+
+          '</div>';
+      }).join('')
+    : '<div class="cc-fu-empty">아직 남긴 경과 기록이 없습니다</div>';
+}
+
+/* ══ 쿠폰(유료 등급 1회 열람권) ══
+   사후 경과를 남긴 시민에게만 지급되는 보상. 지도 화면에서 한 번 쓰면
+   그 자리에서 바로 '유료' 등급 시야로 한 번 전환해 준다. */
+const COUPON_KEY='clamor.coupon';
+function grantCoupon(){
+  try{ localStorage.setItem(COUPON_KEY,'1') }catch(e){}
+  updateCouponBadge();
+  alert('사후 경과를 남겨주셔서 감사합니다.\n유료 등급 1회 열람권이 지급되었습니다.\n지도 화면의 "쿠폰 사용" 버튼에서 바로 쓸 수 있습니다.');
+}
+function hasCoupon(){ try{ return localStorage.getItem(COUPON_KEY)==='1' }catch(e){ return false } }
+function updateCouponBadge(){
+  const b=document.getElementById('couponbtn');
+  if(b) b.hidden=!hasCoupon();
+}
+function useCoupon(){
+  if(!hasCoupon()) return false;
+  try{ localStorage.removeItem(COUPON_KEY) }catch(e){}
+  updateCouponBadge();
+  const pi=TIERS.findIndex(t=>t.id==='유료');
+  if(pi>=0){
+    tier=pi;
+    const T=TIERS[tier];
+    if(T.maxLv && map && map.getLevel()!==T.maxLv) map.setLevel(T.maxLv,{animate:true});
+    if(typeof build==='function') build();
+    const badge=document.getElementById('tierbadge'); if(badge) badge.textContent=T.id;
+    if(typeof tierBanner==='function') tierBanner();
+  }
+  return true;
+}
+
+/* ══ '진짜 메인화면' — 이동만으로는 절대 드러나지 않는다 ══ */
+function applyListReveal(){
+  if(typeof applyFilter==='function') applyFilter();
+  if(typeof renderList==='function') renderList();
+  const hint=document.getElementById('lreveal-hint');
+  if(hint) hint.hidden=revealed;
+}
+function revealHere(){ revealed=true; applyListReveal(); }
+function hideListPins(){
+  if(!revealed) return;         // 이미 숨겨져 있으면 다시 그릴 필요 없다
+  revealed=false; applyListReveal();
 }
 
 /* ══ 지도 ══ */
@@ -3998,6 +4363,18 @@ function dotSVG(color,px,prio,ti,glyph){
 
 let map, spots=[], overlays=[], sectorOv=[], wash=null, active=null,
     onTypes=TYPES.map(()=>true), fitted=false;
+/* '진짜 메인화면'(우리동네소음지도)에서는 지도를 움직이는 것만으로는
+   신고 내역이 절대 보이면 안 된다 — 검색·확인 버튼을 눌러야만 그 순간의
+   화면 범위만큼 드러난다. 다음 이동이 시작되면 즉시 다시 숨긴다. */
+let revealed=false;
+const CC_RADIUS=200;   // 신고카드 확인 화면 — 내 신고 지점 반경 200m만
+/* 카카오맵 SDK는 setDraggable/setZoomable을 제공하지만, 지도를 흉내만 낸
+   테스트용 mock에는 없을 수 있다. 없어도 앱이 죽지 않게 방어한다. */
+function lockMap(locked){
+  if(!map) return;
+  if(typeof map.setDraggable==='function') map.setDraggable(!locked);
+  if(typeof map.setZoomable==='function') map.setZoomable(!locked);
+}
 
 /* 지도 톤을 낮추는 반투명 막. 이전 0.05도는 약 5km라 축소하면
    네모난 경계가 그대로 드러나 '이건 뭐지'가 된다. 화면을 덮되 과하지 않게. */
@@ -4053,10 +4430,16 @@ function resize(){
   spots.forEach(s=>{ s.px=sizeFor(s); paint(s, s.lastTi!==undefined?s.lastTi:s.dom) });
 }
 function applyFilter(){
+  /* '진짜 메인화면'(s-list)에 있는 동안에는 검색·확인으로 드러내기 전까지
+     핀 자체가 지도에 없어야 한다 — 다른 화면(비즈니스모델 지도)의 표시
+     방식은 이 규칙과 무관하게 그대로 둔다. */
+  const ls=document.getElementById('s-list');
+  const onListScreen = !!(ls && !ls.hidden);
   spots.forEach(s=>{
     const on=TYPES.some((_,i)=>onTypes[i]&&s.cnt[i]>0);
     s.vis=on;                       // 번짐 표시가 같은 판정을 쓰도록 남긴다
-    s.ov.setMap(on?map:null);
+    const show = on && (!onListScreen || revealed);
+    s.ov.setMap(show?map:null);
     if(!on) return;
     /* 방금 보낸 신고는 그 판정 유형을 지킨다. 최다 건수로 다시 고르면
        고성으로 신고했는데 카드에는 그 지점의 누적 최다 유형이 뜬다. */
@@ -5425,7 +5808,8 @@ function bootMapInner(){
     clearTimeout(moveTimer);
     moveTimer=setTimeout(()=>{
       refreshList();
-      /* 목록 화면에서 지도를 움직이면 보이는 지점이 바뀐다 */
+      /* 목록 화면에서 지도를 움직이면 보이는 지점이 바뀐다 —
+         단, '진짜 메인화면'은 확인 전까지 카드도 비어 있어야 한다 */
       const ls=document.getElementById('s-list');
       if(ls && !ls.hidden && typeof renderList==='function') renderList();
     },180);
@@ -5433,8 +5817,16 @@ function bootMapInner(){
   kakao.maps.event.addListener(map,'zoom_changed',()=>{
     if(typeof resize==='function') resize();
     hitLimit();
+    /* 확대·축소도 '이동'이다 — 메인화면에서는 확인 전 상태로 되돌린다 */
+    if(typeof hideListPins==='function') hideListPins();
     const T=TIERS[tier]; if(!T||T.locked||!T.maxLv) return;
     if(map.getLevel()<T.maxLv) map.setLevel(T.maxLv);
+  });
+  /* 드래그를 시작하는 순간 바로 숨긴다 — idle까지 기다리면 이동 중에는
+     계속 보이다가 멈춘 뒤에야 사라지는 것으로 보여 '이동 중엔 안 보인다'는
+     말과 어긋난다. */
+  kakao.maps.event.addListener(map,'dragstart',()=>{
+    if(typeof hideListPins==='function') hideListPins();
   });
   const f=document.getElementById('filters');
   TYPES.forEach((t,i)=>{
