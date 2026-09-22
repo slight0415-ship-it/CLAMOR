@@ -848,8 +848,10 @@
   .stage.split .grip{display:none}
   .stage.split .timebar{position:static; margin:0 0 8px; border-radius:11px}
   .stage.split .tiers{position:static; margin:10px 12px 0}
-  /* 추정인지 관측인지는 어느 레이아웃에서도 보여야 한다 */
-  .stage.split #sample-badge{top:10px; left:10px; right:auto}
+  /* 추정인지 관측인지는 어느 레이아웃에서도 보여야 한다 — 단, '‹ 목록'
+     버튼과 같은 자리(top:10px/left:10px)를 다투면 글자가 버튼과 겹친다.
+     그래서 배지는 그 버튼 아래 한 줄로 내려서 겹치지 않게 한다. */
+  .stage.split #sample-badge{top:46px; left:10px; right:auto}
 
   .modebtn{position:absolute; top:12px; right:12px; z-index:20;
     font-family:var(--mono); font-size:0.8125rem; font-weight:800;
@@ -930,7 +932,7 @@
   .stage.split{display:flex; flex-direction:column; background:var(--ink)}
   /* 지도를 담는 판. 지도 도구·표본배지·필터·시간축은 모두 이 판 위에
      겹쳐 그린다 — 따로 줄을 차지하면 그만큼 카드 목록이 설 자리를 잃는다. */
-  .mapwrap{position:relative; flex:0 0 56%; min-height:0}
+  .mapwrap{position:relative; flex:0 0 68%; min-height:0}
   .mapwrap #map{width:100%; height:100%}
   .stage.split .panel{position:static; height:auto!important; border:0;
     border-top:1px solid var(--line); border-radius:0; background:var(--ink);
@@ -943,12 +945,20 @@
      미리 알 필요가 없어 둘 다 공간에 맞춰 저절로 붙는다. */
   .mapoverlay-bottom{position:absolute; left:9px; right:9px; bottom:9px; z-index:11;
     display:flex; flex-direction:column; gap:8px}
-  .mapoverlay-bottom .filterbar{position:static; margin:0; border:1px solid var(--line);
-    border-radius:11px; background:rgba(18,21,28,.92);
-    -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); padding:7px 9px}
-  .mapoverlay-bottom .timebar{position:static; margin:0; border:1px solid var(--line);
-    border-radius:11px; background:rgba(18,21,28,.92);
-    -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); padding:10px 13px}
+  .mapoverlay-bottom .filterbar{position:static; margin:0; border:1px solid rgba(255,255,255,.12);
+    border-radius:11px; background:rgba(10,13,20,.24);
+    -webkit-backdrop-filter:blur(7px) saturate(1.1); backdrop-filter:blur(7px) saturate(1.1); padding:7px 9px}
+  .mapoverlay-bottom .timebar{position:static; margin:0; border:1px solid rgba(255,255,255,.12);
+    border-radius:11px; background:rgba(10,13,20,.24);
+    -webkit-backdrop-filter:blur(7px) saturate(1.1); backdrop-filter:blur(7px) saturate(1.1); padding:7px 13px}
+  /* 유리판은 밝은 테마에서도 항상 어둡다 — 글자를 테마 변수에 맡기면
+     밝은 테마의 검정 글자가 이 어두운 유리 위에서 사라진다. 늘 밝게 고정한다. */
+  .mapoverlay-bottom .timebar .tplay{background:rgba(255,255,255,.16); color:#F2F4F7;
+    border-color:rgba(255,255,255,.28)}
+  .mapoverlay-bottom .timebar .tcap{color:#F2F4F7}
+  .mapoverlay-bottom .timebar .tcap i{color:rgba(242,244,247,.72)}
+  .mapoverlay-bottom .timebar .tlabel span{color:rgba(242,244,247,.86)}
+  .mapoverlay-bottom .timebar .tticks{color:rgba(242,244,247,.62)}
   .mapwrap #sample-badge{top:10px; bottom:auto; left:10px; right:auto}
 
   /* 지도 전체화면 — 필요할 때만 */
@@ -2466,7 +2476,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v220</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v222</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2721,7 +2731,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v220</span></div>
+          <span class="ver" id="ver2">v222</span></div>
       </div>
       <div class="cats" id="cats2"></div>
     </div>
@@ -2756,7 +2766,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v220</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v222</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
       <div class="cats" id="cats"></div>
@@ -2775,7 +2785,6 @@
         </div>
         <div id="sample-badge" hidden>신고 데이터 표본</div>
         <div class="zoomlimit" id="zoomlimit" hidden></div>
-        <button class="tierbar" id="tierbar" hidden></button>
 
         <div class="gate" id="gate">
           <h2>카카오 JavaScript 키</h2>
@@ -2791,7 +2800,7 @@
           <div class="timebar" id="timebar" hidden>
             <button class="tplay" id="tplay">▶</button>
             <div class="tmid">
-              <div class="tcap">이 지역 예상 소음 분포 <i>최근 30일 기준</i></div>
+              <div class="tcap">24시 소음 예측</div>
               <div class="tlabel"><span id="tdesc">시간대를 골라야 그 시각 소음이 보입니다</span></div>
               <div class="tslidewrap">
                 <input type="range" id="tslide" min="-1" max="23" value="-1">
@@ -2801,6 +2810,10 @@
           </div>
         </div>
       </div>
+      <!-- 등급 안내 바는 지도 판이 아니라 화면(stage) 전체 바닥에 떠야
+           스크롤되는 목록 위에서도 계속 보인다. mapwrap 안에 있으면
+           지도 높이만큼만 내려오다 목록 경계에서 멈춰버린다. -->
+      <button class="tierbar" id="tierbar" hidden></button>
       <div class="panel" id="panel" hidden>
         <button class="grip" id="grip"><i class="bar"></i><span class="lb" id="grip-lb">접기</span><i class="bar"></i></button>
         <div class="panel-inner" id="panel-inner">
