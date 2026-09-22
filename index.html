@@ -2492,7 +2492,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v231</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v232</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2735,7 +2735,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v231</span></div>
+          <span class="ver" id="ver2">v232</span></div>
       </div>
     </div>
 
@@ -2777,7 +2777,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v231</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v232</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -5616,25 +5616,13 @@ function initTierDemo(){
   const badge=document.getElementById('tierbadge'), btn=document.getElementById('tierdemo');
   const paint=()=>{ badge.textContent=TIERS[tier].id; };
   btn.onclick=()=>{
-    /* 등급은 지도 화면의 성질을 바꾼다. 예보 화면에 서 있으면
-       숨겨진 지도만 바뀌어 아무 일도 안 일어난 것처럼 보인다. */
-    go('map');
-    tier=(tier+1)%TIERS.length; paint();
-    if(typeof syncPaidFromTier==='function') syncPaidFromTier();
-    /* 등급의 차이는 점 개수가 아니라 얼마나 가까이 갈 수 있느냐다.
-       권한이 커지면 카메라가 한 걸음 다가가고, 처음으로 돌아가면 물러선다.
-       보고 있던 지점을 중심에 두어야 다가간 자리에 볼 것이 남는다. */
-    const T=TIERS[tier];
-    if(T.maxLv && map){
-      const focus=cardList && cardList[cardIdx];
-      if(focus) map.setCenter(new kakao.maps.LatLng(focus.c.lat, focus.c.lng));
-      if(map.getLevel()!==T.maxLv) map.setLevel(T.maxLv, {animate:true});
-    }
-    build();
-    tierBanner();
-    /* 어디까지 볼 수 있는 등급인지는 확대를 시도해봐야 알 수 있었다.
-       등급을 바꾼 직후에 한 번 알려주면 차이가 바로 읽힌다. */
-    if(typeof hitLimit==='function') setTimeout(hitLimit, 380);
+    /* 테스트 전용 통로. 실제 서비스에서는 유료 결제 후에 스스로 행정·대응
+       등급으로 넘어갈 수 없어야 한다(그 등급은 기관 계약으로만 연다) —
+       그래서 예보 화면의 paybtn은 paid===true면 아무 반응도 하지 않고,
+       지도의 tierbar도 만들다 만 채로 숨겨 두었다. 그 제한은 실서비스
+       동작이니 그대로 두고, 개발용 상단 네비게이션의 이 버튼만 그 제한과
+       상관없이 등급 비교 시트를 곧장 열어 아무 등급이나 확인하게 한다. */
+    openTierSheet();
   };
   paint(); tierBanner();
 }
