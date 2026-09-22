@@ -2396,7 +2396,7 @@
       <div class="notice" id="recur-box" hidden>
         <div class="nt">이전에도 같은 곳에서 신고하셨나요?</div>
         <div class="nb" id="recur-prev">—</div>
-        <button class="btn ghost sm" id="recur-toggle" type="button">재발로 표시</button>
+        <button class="btn ghost sm" id="recur-toggle" type="button">재발했어요</button>
       </div>
     </div>
 
@@ -2464,7 +2464,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v214</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v215</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2719,7 +2719,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v214</span></div>
+          <span class="ver" id="ver2">v215</span></div>
       </div>
       <div class="cats" id="cats2"></div>
     </div>
@@ -2734,9 +2734,9 @@
 
     <div class="lmap-wrap">
       <div id="listmap"></div>
-      <div class="lmap-note" id="lmap-note">내 위치 주변 · 100m로 묶어 표시</div>
+      <div class="lmap-note" id="lmap-note">궁금한 위치로 지도를 옮겨보세요</div>
       <div class="lreveal-hint" id="lreveal-hint">지도를 옮긴 뒤 "이 위치 확인"을 누르면
-        이 범위의 신고 내역이 보입니다</div>
+        등급을 선택해 이 지역의 신고 내역을 볼 수 있습니다</div>
     </div>
 
     <div class="lbar">
@@ -2754,7 +2754,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v214</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v215</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
       <div class="cats" id="cats"></div>
@@ -2915,6 +2915,24 @@ function openTierSheet(){
       if(TIERS[i].locked) return;
       closeTierSheet();
       tier=i;
+      /* '진짜 메인화면'에서 위치를 확인하고 넘어온 경우 — 그 좌표를 들고
+         등급 화면(비즈니스모델)을 그 자리에서 연다. 테스트 중이므로 결제
+         없이 어떤 등급이든 '열기'만 누르면 바로 보인다. */
+      const target=pendingListCenter; pendingListCenter=null;
+      if(target){
+        go('map');
+        setTimeout(()=>{
+          if(!map) return;
+          map.setCenter(new kakao.maps.LatLng(target.lat, target.lng));
+          const T2=TIERS[tier];
+          if(T2.maxLv) map.setLevel(T2.maxLv,{animate:true});
+          if(typeof build==='function') build();
+          if(typeof tierBanner==='function') tierBanner();
+          const badge2=document.getElementById('tierbadge');
+          if(badge2) badge2.textContent=T2.id;
+        },160);
+        return;
+      }
       const T=TIERS[tier];
       if(T.maxLv && map && map.getLevel()!==T.maxLv) map.setLevel(T.maxLv,{animate:true});
       if(typeof build==='function') build();
@@ -3038,7 +3056,7 @@ function renderList(){
      카드 목록도 비어 있는 것이 맞다. */
   if(!revealed){
     box.innerHTML='<div class="lempty">지도를 원하는 곳으로 옮긴 뒤<br>'+
-      '<b>이 위치 확인</b>을 눌러야 신고 내역이 보입니다</div>';
+      '<b>이 위치 확인</b>을 누르면 등급을 선택할 수 있습니다</div>';
     document.getElementById('lcount').textContent='0곳';
     document.getElementById('llabel').textContent='아직 확인 전';
     return;
@@ -3708,7 +3726,7 @@ function paintRecurUI(){
   const prevEl=document.getElementById('recur-prev');
   if(prevEl) prevEl.textContent=recurSummaryText(prevSent);
   if(btn){
-    btn.textContent = markRecurrence ? '재발 표시함 ✓' : '재발로 표시';
+    btn.textContent = markRecurrence ? '재발했어요 ✓' : '재발했어요';
     btn.classList.toggle('on', markRecurrence);
   }
 }
@@ -3968,6 +3986,16 @@ document.getElementById('cc-fu-add').onclick=()=>{
 document.getElementById('cc-forward').onclick=()=>go('list');
 
 /* 진짜 메인화면 — 검색 또는 '이 위치 확인'을 눌러야만 드러난다 */
+/* '이 위치 확인'을 누르면 그 자리에서 바로 신고 내역을 드러내지 않는다.
+   그 위치를 들고 비즈니스모델(등급) 선택 화면으로 넘어간다 — 등급을
+   골라야만(테스트 중에는 결제 없이 '열기'만 눌러도) 지도에서 내용이
+   보인다. 무료 등급을 고르면 정확한 점이 아니라 50m 그라데이션으로 보인다. */
+function confirmListLocation(){
+  if(!map) return;
+  const c=map.getCenter();
+  pendingListCenter = { lat:c.getLat(), lng:c.getLng() };
+  if(typeof openTierSheet==='function') openTierSheet();
+}
 document.getElementById('lsearch-btn').onclick=()=>{
   const q=(document.getElementById('lsearch-input').value||'').trim();
   if(q && window.kakao && kakao.maps.services && map){
@@ -3976,10 +4004,10 @@ document.getElementById('lsearch-btn').onclick=()=>{
       if(status===kakao.maps.services.Status.OK && res[0]){
         map.setCenter(new kakao.maps.LatLng(+res[0].y, +res[0].x));
       }
-      revealHere();
+      confirmListLocation();
     });
   } else {
-    revealHere();
+    confirmListLocation();
   }
 };
 document.getElementById('lsearch-input').addEventListener('keydown', e=>{
@@ -4288,8 +4316,8 @@ const ROUTES=[
 
 const TIERS=[
   {id:'무료', merge:100, maxLv:3, hours:false, metrics:false,
-   what:'100m로 묶어 대략의 위치만', log:false,
-   basis:'<b>무료</b> · 100m 단위로 묶어 표시 · 3건 이상만'},
+   what:'정확한 위치 없이 50m 그라데이션만', log:false,
+   basis:'<b>무료</b> · 정확한 지점 없음 · 50m 그라데이션으로만 표시'},
   {id:'유료', merge:30,  maxLv:2, hours:true,  metrics:false,
    what:'30m 단위 · 시간대 분포까지', log:false,
    basis:'<b>유료</b> · 30m 단위 · 시간대 분포 포함'},
@@ -4363,10 +4391,12 @@ function dotSVG(color,px,prio,ti,glyph){
 
 let map, spots=[], overlays=[], sectorOv=[], wash=null, active=null,
     onTypes=TYPES.map(()=>true), fitted=false;
-/* '진짜 메인화면'(우리동네소음지도)에서는 지도를 움직이는 것만으로는
-   신고 내역이 절대 보이면 안 된다 — 검색·확인 버튼을 눌러야만 그 순간의
-   화면 범위만큼 드러난다. 다음 이동이 시작되면 즉시 다시 숨긴다. */
+/* '진짜 메인화면'(우리동네소음지도)은 위치를 고르는 자리일 뿐, 그 자체로는
+   신고 내역을 절대 보여주지 않는다. "이 위치 확인"을 누르면 그 위치를 들고
+   비즈니스모델(등급) 선택 화면으로 넘어가고, 등급을 고른 뒤에야 지도 화면에서
+   내용이 드러난다. */
 let revealed=false;
+let pendingListCenter=null;   // "이 위치 확인" 시점의 좌표 — 등급 선택 후 그 자리를 그대로 연다
 const CC_RADIUS=200;   // 신고카드 확인 화면 — 내 신고 지점 반경 200m만
 /* 카카오맵 SDK는 setDraggable/setZoomable을 제공하지만, 지도를 흉내만 낸
    테스트용 mock에는 없을 수 있다. 없어도 앱이 죽지 않게 방어한다. */
@@ -4430,15 +4460,17 @@ function resize(){
   spots.forEach(s=>{ s.px=sizeFor(s); paint(s, s.lastTi!==undefined?s.lastTi:s.dom) });
 }
 function applyFilter(){
-  /* '진짜 메인화면'(s-list)에 있는 동안에는 검색·확인으로 드러내기 전까지
-     핀 자체가 지도에 없어야 한다 — 다른 화면(비즈니스모델 지도)의 표시
-     방식은 이 규칙과 무관하게 그대로 둔다. */
+  /* '진짜 메인화면'(s-list)은 위치를 고르는 자리일 뿐, 그 자체로는 핀이 전혀
+     없어야 한다 — 여기서는 등급 선택으로 넘어갈 뿐, 여기서 바로 드러나지
+     않는다. 등급 화면(s-map)에서도 '무료' 등급은 더 이상 정확한 점을 찍지
+     않는다 — 정확한 위치 대신 50m 그라데이션만 보여준다(아래 drawFreeBlur). */
   const ls=document.getElementById('s-list');
   const onListScreen = !!(ls && !ls.hidden);
+  const freeTier = !!(TIERS[tier] && TIERS[tier].id==='무료');
   spots.forEach(s=>{
     const on=TYPES.some((_,i)=>onTypes[i]&&s.cnt[i]>0);
     s.vis=on;                       // 번짐 표시가 같은 판정을 쓰도록 남긴다
-    const show = on && (!onListScreen || revealed);
+    const show = on && !onListScreen && !freeTier;
     s.ov.setMap(show?map:null);
     if(!on) return;
     /* 방금 보낸 신고는 그 판정 유형을 지킨다. 최다 건수로 다시 고르면
@@ -4450,6 +4482,36 @@ function applyFilter(){
   });
   if(typeof drawGlow==='function') drawGlow();   // 번짐도 필터를 따라간다
   if(typeof drawRoutes==='function') drawRoutes();
+  if(typeof drawFreeBlur==='function') drawFreeBlur();
+}
+
+/* ══ 무료 등급 — 정확한 점 대신 50m 그라데이션 ══
+   무료 등급에서 신고 지점이 정확히 찍혀 있으면 사실상 유료와 다를 바 없다.
+   점을 없애고, 그 자리를 중심으로 옅어지는 원 세 겹(50/34/18m)을 겹쳐
+   '이 근처'만 알 수 있게 흐려 보여준다. CCTV 구역과 같은 방식(다각형 근사
+   원)을 쓴다 — 지도 확대·축소에 따라 실제 미터 단위로 스스로 늘고 준다. */
+let freeBlurOv=[];
+function circlePath(c, r){
+  const path=[];
+  for(let i=0;i<=24;i++){ const th=i/24*2*Math.PI;
+    path.push(new kakao.maps.LatLng(c.lat+Math.cos(th)*r*M_LAT, c.lng+Math.sin(th)*r*M_LNG)); }
+  return path;
+}
+function drawFreeBlur(){
+  freeBlurOv.forEach(o=>o.setMap(null)); freeBlurOv=[];
+  if(!map) return;
+  const ls=document.getElementById('s-list');
+  const onListScreen = !!(ls && !ls.hidden);
+  if(onListScreen || !TIERS[tier] || TIERS[tier].id!=='무료') return;
+  const RINGS=[[50,0.10],[34,0.16],[18,0.24]];
+  spots.forEach(s=>{
+    if(s.vis===false) return;
+    RINGS.forEach(([r,op])=>{
+      const poly=new kakao.maps.Polygon({path:circlePath(s.c,r),
+        strokeWeight:0, fillColor:'#E0483F', fillOpacity:op});
+      poly.setMap(map); freeBlurOv.push(poly);
+    });
+  });
 }
 function view(v){['main','detail','locked'].forEach(k=>
   document.getElementById('v-'+k).hidden=(k!==v))}
@@ -4811,7 +4873,11 @@ function routesOn(){
 
 function drawRoutes(){
   if(!map) return;
-  const on=routesOn();
+  /* '진짜 메인화면'(s-list)은 이제 위치를 고르는 자리일 뿐, 그 자체로는
+     아무 신고 내역도 보여주지 않는다 — 이동 소음(파란 선)도 예외가 아니다. */
+  const ls=document.getElementById('s-list');
+  const onListScreen = !!(ls && !ls.hidden);
+  const on=routesOn() && !onListScreen;
   ROUTES.forEach(rt=>{
     if(!rt.line) return;
     const w = hourSel<0 ? 0.85 : sharp(rt.hours, hourSel);
