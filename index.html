@@ -2492,7 +2492,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v232</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v233</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2735,7 +2735,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v232</span></div>
+          <span class="ver" id="ver2">v233</span></div>
       </div>
     </div>
 
@@ -2777,7 +2777,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v232</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v233</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -2925,7 +2925,7 @@ const TFEAT=[
   {k:'조회 기록', v:['남지 않음','남지 않음','남음','남음','남음']},
 ];
 const TPRICE=['0원','4,900원~','기관 계약','기관 계약','열람 불가'];
-function openTierSheet(){
+function openTierSheet(force){
   const bg=document.getElementById('tiersheet'); if(!bg) return;
   /* 목록 화면에서 '이 위치 확인'으로 막 넘어온 경우(pendingListCenter가
      있는 경우)는 이 자리에 대해 아직 아무 등급도 연 적이 없다 — 그런데도
@@ -2935,6 +2935,11 @@ function openTierSheet(){
      네 등급 모두 동등하게 '열기'를 눌러야 하는 상태다. tierbar 등으로
      이미 지도를 보고 있는 상태에서 다시 연 경우에만 현재 등급을 강조한다. */
   const nowTier = pendingListCenter ? -1 : tier;
+  /* force===true는 개발용 통로(버전 번호 탭, 상단 개발 네비 "등급" 버튼)로
+     열었다는 뜻이다. 수사 등급은 '서비스 운영자도 열 수 없다'는 약속이라
+     실사용자 흐름(이 위치 확인/유료 업그레이드)에서는 절대 눌리면 안 되지만,
+     개발 중인 우리는 그 화면이 실제로 어떻게 보이는지 확인할 수 있어야
+     하므로 이 통로에 한해서만 잠금을 풀어 둔다. */
   const head='<div class="ts-row ts-head"><div class="ts-k"></div>'+
     TIERS.map((T,i)=>'<div class="ts-c'+(i===nowTier?' now':'')+
       (T.locked?' lock':'')+'">'+T.id+'</div>').join('')+'</div>';
@@ -2950,9 +2955,12 @@ function openTierSheet(){
       return '<div class="'+cls+' val">'+v+'</div>';
     }).join('')+'</div>').join('');
   const go_='<div class="ts-row ts-go"><div class="ts-k"></div>'+
-    TIERS.map((T,i)=>'<div class="ts-c"><button class="ts-btn'+
-      (T.locked?' lock':'')+(i===nowTier?' now':'')+'" data-tier="'+i+'">'+
-      (T.locked?'잠김':(i===nowTier?'보는 중':'열기'))+'</button></div>').join('')+
+    TIERS.map((T,i)=>{
+      const stillLocked=T.locked && !force;
+      return '<div class="ts-c"><button class="ts-btn'+
+      (stillLocked?' lock':'')+(i===nowTier?' now':'')+'" data-tier="'+i+'">'+
+      (stillLocked?'잠김':(i===nowTier?'보는 중':(T.locked?'테스트로 보기':'열기')))+'</button></div>';
+    }).join('')+
     '</div>';
 
   bg.querySelector('.ts-body').innerHTML=head+price+rows+go_;
@@ -2960,7 +2968,7 @@ function openTierSheet(){
     b.onclick=e=>{
       e.stopPropagation();
       const i=+b.dataset.tier;
-      if(TIERS[i].locked) return;
+      if(TIERS[i].locked && !force) return;
       closeTierSheet();
       tier=i;
       /* 소음예보(예보 화면)와 소음지도는 이제 같은 상품이다 — 등급이
@@ -5621,10 +5629,25 @@ function initTierDemo(){
        그래서 예보 화면의 paybtn은 paid===true면 아무 반응도 하지 않고,
        지도의 tierbar도 만들다 만 채로 숨겨 두었다. 그 제한은 실서비스
        동작이니 그대로 두고, 개발용 상단 네비게이션의 이 버튼만 그 제한과
-       상관없이 등급 비교 시트를 곧장 열어 아무 등급이나 확인하게 한다. */
-    openTierSheet();
+       상관없이 등급 비교 시트를 곧장 열어 아무 등급이나(수사 포함) 확인하게
+       한다. 이 상단 네비 자체는 폰 화면(≤560px)에서는 숨겨지므로, 실제
+       폰으로 테스트할 때는 버전 번호를 탭하는 통로를 대신 쓴다. */
+    openTierSheet(true);
   };
   paint(); tierBanner();
+}
+
+/* 개발용 상단 네비('등급' 버튼 포함)는 폰 폭(≤560px)에서 통째로 숨긴다 —
+   실제 폰으로 테스트할 때는 그 버튼 자체가 안 보인다. 그런데 등급을
+   자유롭게(수사 포함) 오가며 확인해야 하는 건 데스크톱에서든 폰에서든
+   똑같이 필요하다. 화면 어디서나 늘 떠 있는 버전 번호(v233 같은 표시)를
+   탭하는 것을 그 대체 통로로 쓴다 — 화면을 어지럽히는 새 버튼을 추가하지
+   않고도 폰에서 항상 접근할 수 있다. */
+function initVerTap(){
+  document.querySelectorAll('.ver').forEach(v=>{
+    v.style.cursor='pointer';
+    v.onclick=e=>{ e.stopPropagation(); openTierSheet(true); };
+  });
 }
 
 /* 등급이 바뀌면 무엇이 열리고 무엇이 닫히는지 지도 위에 적는다.
@@ -6119,7 +6142,7 @@ function bootMapInner(){
   });
   document.getElementById('back').onclick=()=>{
     if(active) active.el.classList.remove('on'); active=null; view('main')};
-  initMode(); initTierDemo();
+  initMode(); initTierDemo(); initVerTap();
   const dm=document.getElementById('datamode');
   dm.classList.add('on'); 
   dm.onclick=()=>{
