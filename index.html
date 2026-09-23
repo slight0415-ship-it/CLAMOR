@@ -2492,7 +2492,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v234</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v235</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2735,7 +2735,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v234</span></div>
+          <span class="ver" id="ver2">v235</span></div>
       </div>
     </div>
 
@@ -2777,7 +2777,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v234</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v235</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -5107,9 +5107,10 @@ function drawRoutes(){
   const anchor = freeTier ? (freeAnchor || realLoc || CENTER) : null;
   ROUTES.forEach(rt=>{
     if(!rt.line) return;
-    /* 지점 핀과 같은 약속 — 시간축을 건드리기 전에는 이동 소음 선도
-       비어 있는 지도로 남는다. */
-    const w = hourSel<0 ? 0 : sharp(rt.hours, hourSel);
+    /* 지점 핀과 같은 원칙 — 등급 화면이 뜨는 순간 이동 소음 선도 같이
+       보여야 한다(하루 전체 기준 굵기). 24시간 바를 움직이면 그때부터
+       시간대별 굵기·밝기로 바뀐다. */
+    const w = hourSel<0 ? 1 : sharp(rt.hours, hourSel);
     const inFree = !anchor || (rt.c && distM(rt.c, anchor)<=FREE_RADIUS);
     const show = on && w>=0.18 && inFree;
     rt.showing=show;
@@ -5162,10 +5163,16 @@ function applyHour(){
   hourSel=+sl.value;
   spots.forEach(s=>{
     if(!s.el) return;
-    /* 시간축을 움직이기 전에는 아무것도 보여주지 않는다 — 이 bar는
-       '하루 24시간 내내'가 아니라 '그 시각'을 보여주는 예보다. 처음부터
-       다 보이면 시각을 골라야 할 이유가 사라진다. */
-    if(hourSel<0){ s.el.style.opacity=0; s.el.style.transform='scale(.25)'; s.el.style.filter=''; return }
+    /* 등급(BM모델)을 선택한 순간은 '그 지점이 궁금해서 결제/확인한' 순간이다
+       — 그 화면이 뜨자마자 신고지점이 보여야 한다. 예전에는 시간축을
+       움직이기 전까지 전부 숨겨 두었지만(하루 중 언제 보느냐에 따라 아무것도
+       안 보일 수 있었다), 그러면 "확인하려고 등급을 열었는데 지도가
+       비어 있다"는 상황이 생긴다. 그래서 하루 전체(hourSel<0) 상태에서는
+       평소 밝기로 전부 보여주고, 24시간 바를 움직이면 그때부터 시간대별로
+       밝기가 갈리며 "이 시간대엔 여기가 심하다"를 보여주는 탐색 도구로
+       쓰인다 — 시간축은 보여줄지 말지를 정하는 문이 아니라, 이미 보이는
+       지도를 시간별로 더 읽는 도구다. */
+    if(hourSel<0){ s.el.style.opacity=1; s.el.style.transform='scale(1)'; s.el.style.filter=''; return }
     const w=sharp(s.hours, hourSel);
     if(w<0.20){                       // 그 시각엔 조용한 곳 — 아예 비운다
       s.el.style.opacity=0; s.el.style.transform='scale(.25)';
@@ -5648,7 +5655,7 @@ function initTierDemo(){
 /* 개발용 상단 네비('등급' 버튼 포함)는 폰 폭(≤560px)에서 통째로 숨긴다 —
    실제 폰으로 테스트할 때는 그 버튼 자체가 안 보인다. 그런데 등급을
    자유롭게(수사 포함) 오가며 확인해야 하는 건 데스크톱에서든 폰에서든
-   똑같이 필요하다. 화면 어디서나 늘 떠 있는 버전 번호(v234 같은 표시)를
+   똑같이 필요하다. 화면 어디서나 늘 떠 있는 버전 번호(v235 같은 표시)를
    탭하는 것을 그 대체 통로로 쓴다 — 화면을 어지럽히는 새 버튼을 추가하지
    않고도 폰에서 항상 접근할 수 있다. */
 function initVerTap(){
