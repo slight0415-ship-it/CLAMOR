@@ -2492,7 +2492,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v233</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v234</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2735,7 +2735,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v233</span></div>
+          <span class="ver" id="ver2">v234</span></div>
       </div>
     </div>
 
@@ -2777,7 +2777,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v233</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v234</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -2986,7 +2986,13 @@ function openTierSheet(force){
           if(!map) return;
           map.setCenter(new kakao.maps.LatLng(target.lat, target.lng));
           const T2=TIERS[tier];
-          if(T2.maxLv) map.setLevel(T2.maxLv,{animate:true});
+          /* 확대 애니메이션(animate:true) 도중에 build()가 핀을 찍으면,
+             카카오맵이 애니메이션 목표 좌표로 정확히 정렬되기 전이라 핀이
+             잘못된 자리에 그려지거나 애니메이션이 끝날 때까지 안 보인다.
+             확대 폭이 클수록(등급을 크게 건너뛸수록) 이 공백이 길게
+             체감된다 — 애니메이션 없이 즉시 옮겨 build()와 같은 틱에서
+             핀 위치가 맞아떨어지게 한다. */
+          if(T2.maxLv) map.setLevel(T2.maxLv);
           if(typeof build==='function') build();
           if(typeof tierBanner==='function') tierBanner();
           const badge2=document.getElementById('tierbadge');
@@ -2999,7 +3005,9 @@ function openTierSheet(force){
         freeAnchor = m ? m.c : (realLoc||CENTER);
       }
       const T=TIERS[tier];
-      if(T.maxLv && map && map.getLevel()!==T.maxLv) map.setLevel(T.maxLv,{animate:true});
+      /* 애니메이션 확대 도중 build()가 돌면 핀이 늦게(등급 간 확대 폭이
+         클수록 더 늦게) 나타나는 것처럼 보인다 — 즉시 이동시킨다. */
+      if(T.maxLv && map && map.getLevel()!==T.maxLv) map.setLevel(T.maxLv);
       if(typeof build==='function') build();
       if(typeof tierBanner==='function') tierBanner();
       const badge=document.getElementById('tierbadge');
@@ -4498,7 +4506,7 @@ function useCoupon(){
   if(pi>=0){
     tier=pi;
     const T=TIERS[tier];
-    if(T.maxLv && map && map.getLevel()!==T.maxLv) map.setLevel(T.maxLv,{animate:true});
+    if(T.maxLv && map && map.getLevel()!==T.maxLv) map.setLevel(T.maxLv);
     if(typeof build==='function') build();
     const badge=document.getElementById('tierbadge'); if(badge) badge.textContent=T.id;
     if(typeof tierBanner==='function') tierBanner();
@@ -5640,7 +5648,7 @@ function initTierDemo(){
 /* 개발용 상단 네비('등급' 버튼 포함)는 폰 폭(≤560px)에서 통째로 숨긴다 —
    실제 폰으로 테스트할 때는 그 버튼 자체가 안 보인다. 그런데 등급을
    자유롭게(수사 포함) 오가며 확인해야 하는 건 데스크톱에서든 폰에서든
-   똑같이 필요하다. 화면 어디서나 늘 떠 있는 버전 번호(v233 같은 표시)를
+   똑같이 필요하다. 화면 어디서나 늘 떠 있는 버전 번호(v234 같은 표시)를
    탭하는 것을 그 대체 통로로 쓴다 — 화면을 어지럽히는 새 버튼을 추가하지
    않고도 폰에서 항상 접근할 수 있다. */
 function initVerTap(){
@@ -5698,7 +5706,7 @@ function tierBanner(){
     e.stopPropagation();
     tier=0;
     const B=TIERS[0];
-    if(B.maxLv && map && map.getLevel()!==B.maxLv) map.setLevel(B.maxLv,{animate:true});
+    if(B.maxLv && map && map.getLevel()!==B.maxLv) map.setLevel(B.maxLv);
     if(typeof build==='function') build();
     const badge=document.getElementById('tierbadge');
     if(badge) badge.textContent=B.id;
