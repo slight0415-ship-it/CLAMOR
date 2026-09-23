@@ -2492,7 +2492,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v235</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v237</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2735,7 +2735,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v235</span></div>
+          <span class="ver" id="ver2">v237</span></div>
       </div>
     </div>
 
@@ -2777,7 +2777,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v235</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v237</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -2969,6 +2969,9 @@ function openTierSheet(force){
       e.stopPropagation();
       const i=+b.dataset.tier;
       if(TIERS[i].locked && !force) return;
+      /* 개발용 통로(버전 번호 탭)로 잠긴 등급을 실제로 선택했다면, 이
+         세션에서는 build()도 안내 문구 대신 실제 지도를 그리게 한다. */
+      if(force && TIERS[i].locked) devTierUnlock=true;
       closeTierSheet();
       tier=i;
       /* 소음예보(예보 화면)와 소음지도는 이제 같은 상품이다 — 등급이
@@ -4220,15 +4223,23 @@ document.getElementById('lsearch-btn').onclick=()=>{
         places.keywordSearch(q, (pres,pstatus)=>{
           if(pstatus===kakao.maps.services.Status.OK && pres[0]){
             map.setCenter(new kakao.maps.LatLng(+pres[0].y, +pres[0].x));
+            confirmListLocation();
           } else {
-            alert('"'+q+'"의 위치를 찾지 못했습니다. 다른 이름으로 검색해 보세요.');
+            /* 주소도 장소도 못 찾으면 지도를 옮기지 않은 채 조용히
+               '이 위치 확인'으로 넘어가면 안 된다 — 그러면 사용자가
+               실제로 보고 있는 위치(예: 데모 지역)와 무관하게, 검색을
+               시도하기 '전'의 지도 중심(예: 아직 안 옮겨진 실제 GPS
+               위치나 초기 위치)이 그대로 무료 등급 300m 반경의 기준점
+               (freeAnchor)이 되어버린다 — 화면에는 데모 지역이 보이는데
+               핀은 하나도 없는 상황이 이렇게 생긴다. 검색이 완전히
+               실패하면 여기서 멈추고, 사용자가 직접 지도를 옮기거나
+               다시 검색하게 한다. */
+            alert('"'+q+'"의 위치를 찾지 못했습니다. 지도를 직접 옮기거나 다른 이름으로 검색해 보세요.');
           }
-          confirmListLocation();
         }, {location:map.getCenter()});
         return;
       }
-      alert('"'+q+'"의 위치를 찾지 못했습니다. 다른 이름으로 검색해 보세요.');
-      confirmListLocation();
+      alert('"'+q+'"의 위치를 찾지 못했습니다. 지도를 직접 옮기거나 다른 이름으로 검색해 보세요.');
     });
   } else {
     confirmListLocation();
@@ -4560,11 +4571,20 @@ const TIERS=[
   {id:'대응', merge:0,   maxLv:1, hours:true,  metrics:true,
    what:'건물 단위 정밀 위치', log:true,
    basis:'<b>대응</b> · 건물 단위 정밀 위치'},
-  {id:'수사', locked:true,
+  {id:'수사', locked:true, merge:0, maxLv:1, hours:true, metrics:true,
    what:'원본 음원 · 영장 확인 후', log:true,
    basis:'<b>수사</b> · 원본 음원 · 영장 확인 후'},
 ];
 let tier=0;
+/* 개발 중에는 "수사"(잠긴 등급)도 실제로 핀이 찍힌 지도를 봐야 확인이
+   된다 — 안내 문구만 보고 넘어갈 수는 없다. 배포된 실서비스에서는 이
+   등급을 절대 아무도(운영자 포함) 열 수 없어야 하고, 그건 실사용자 통로
+   (이 위치 확인/예보 결제 버튼)에서 잠금 버튼 자체를 못 누르게 막는 걸로
+   이미 지켜지고 있다. 이 플래그는 그 실사용자 잠금과는 별개로, 개발용
+   통로(버전 번호 탭)로 한 번이라도 등급 시트를 연 세션에서만 켜져서,
+   build()가 수사 등급에서도 실제 지도를 그리게 해준다 — 배포 시 이
+   개발용 통로 자체를 지우면 이 플래그도 절대 켜지지 않는다. */
+let devTierUnlock=false;
 
 let POINTS=[{"lat":37.404234,"lng":126.726418,"t":0},{"lat":37.404323,"lng":126.726209,"t":0},{"lat":37.403409,"lng":126.724529,"t":0},{"lat":37.403738,"lng":126.724409,"t":0},{"lat":37.402625,"lng":126.724605,"t":0},{"lat":37.402022,"lng":126.724613,"t":0},{"lat":37.403505,"lng":126.723168,"t":0},{"lat":37.404632,"lng":126.723548,"t":0},{"lat":37.404736,"lng":126.721678,"t":0},{"lat":37.403875,"lng":126.721433,"t":0},{"lat":37.402609,"lng":126.721443,"t":0},{"lat":37.405459,"lng":126.720681,"t":0},{"lat":37.405403,"lng":126.720049,"t":0},{"lat":37.407332,"lng":126.721945,"t":0},{"lat":37.407674,"lng":126.721955,"t":0},{"lat":37.408463,"lng":126.722235,"t":0},{"lat":37.409067,"lng":126.724198,"t":0},{"lat":37.408039,"lng":126.723908,"t":0},{"lat":37.405688,"lng":126.726311,"t":0},{"lat":37.403156,"lng":126.724287,"t":1},{"lat":37.402801,"lng":126.722662,"t":1},{"lat":37.403821,"lng":126.721427,"t":1},{"lat":37.407302,"lng":126.722623,"t":1},{"lat":37.40813,"lng":126.722535,"t":1},{"lat":37.4073,"lng":126.723713,"t":1},{"lat":37.407347,"lng":126.724684,"t":1},{"lat":37.406243,"lng":126.727571,"t":1},{"lat":37.407315,"lng":126.722702,"t":2},{"lat":37.403482,"lng":126.723094,"t":2},{"lat":37.402654,"lng":126.72159,"t":2},{"lat":37.402113,"lng":126.720239,"t":3},{"lat":37.4041,"lng":126.721274,"t":3},{"lat":37.406178,"lng":126.722876,"t":3},{"lat":37.408149,"lng":126.722004,"t":3},{"lat":37.408785,"lng":126.724171,"t":3},{"lat":37.40637,"lng":126.723942,"t":3},{"lat":37.407806,"lng":126.724618,"t":4},{"lat":37.407461,"lng":126.723181,"t":4},{"lat":37.408716,"lng":126.722544,"t":4},{"lat":37.403274,"lng":126.721712,"t":4},{"lat":37.402487,"lng":126.720212,"t":1},{"lat":37.405132,"lng":126.726511,"t":1},{"lat":37.406156,"lng":126.725061,"t":1},{"lat":37.406522,"lng":126.721485,"t":1},{"lat":37.404821,"lng":126.720249,"t":1},{"lat":37.40513,"lng":126.721417,"t":4}];
 
@@ -4762,7 +4782,7 @@ function build(){
   spots=[]; active=null;
   const T=TIERS[tier];
   document.getElementById('basis').innerHTML=T.basis;
-  if(T.locked){
+  if(T.locked && !devTierUnlock){
     document.getElementById('locked-txt').innerHTML=
       '이 단계는 서비스 운영자가 열 수 없습니다. 원본 음원과 신고 원자료는 '+
       '<b>영장 또는 법령상 근거</b>가 확인된 경우에만 별도 절차로 제공됩니다.<br><br>'+
@@ -4771,8 +4791,12 @@ function build(){
     sectorOv.forEach(o=>o.setMap(null)); sectorOv=[];
     view('locked'); return;
   }
+  /* 수사 등급 자체에는(잠긴 등급이라) merge/maxLv를 정해 둔 적이 없다 —
+     개발 통로로 열었을 때는 가장 정밀한 대응 등급과 같은 방식(묶지 않고
+     건물 단위)으로 그려서, 최소한 지도에 뭐가 나오는지는 확인할 수 있게
+     한다. */
   const rnd=mulberry32(20260917);
-  const groups=cluster(T.merge);
+  const groups=cluster(T.merge!=null ? T.merge : 0);
   const centers=groups.map(g=>({
     lat:g.reduce((s,p)=>s+p.lat,0)/g.length, lng:g.reduce((s,p)=>s+p.lng,0)/g.length}));
   drawCCTV();
@@ -5655,7 +5679,7 @@ function initTierDemo(){
 /* 개발용 상단 네비('등급' 버튼 포함)는 폰 폭(≤560px)에서 통째로 숨긴다 —
    실제 폰으로 테스트할 때는 그 버튼 자체가 안 보인다. 그런데 등급을
    자유롭게(수사 포함) 오가며 확인해야 하는 건 데스크톱에서든 폰에서든
-   똑같이 필요하다. 화면 어디서나 늘 떠 있는 버전 번호(v235 같은 표시)를
+   똑같이 필요하다. 화면 어디서나 늘 떠 있는 버전 번호(v237 같은 표시)를
    탭하는 것을 그 대체 통로로 쓴다 — 화면을 어지럽히는 새 버튼을 추가하지
    않고도 폰에서 항상 접근할 수 있다. */
 function initVerTap(){
