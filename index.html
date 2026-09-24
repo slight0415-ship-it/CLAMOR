@@ -672,9 +672,9 @@
   /* 네 유형을 고정 자리로 나열 — 평소엔 옅게, 그 시각 실제로 보이는
      신고가 있는 유형만 반짝인다(사용자가 직접 문장을 읽지 않아도 된다) */
   .tcats{display:flex; gap:4px; margin-left:6px; flex-wrap:wrap}
-  .tcat{font-style:normal; font-size:0.6875rem; font-weight:800;
-    color:var(--text-mute); background:var(--ink-3); border:1px solid var(--line);
-    border-radius:999px; padding:2px 7px; white-space:nowrap}
+  .tcat{font-style:normal; font-size:0.75rem; font-weight:800;
+    color:var(--text-dim); background:var(--ink-3); border:1px solid var(--line);
+    border-radius:999px; padding:3px 8px; white-space:nowrap}
   .tcat.on{color:#fff; background:var(--c-noise); border-color:transparent;
     animation:tcatBlink 1.1s ease-in-out infinite}
   @keyframes tcatBlink{0%,100%{opacity:1}50%{opacity:.45}}
@@ -964,8 +964,11 @@
   .stage.split .timebar .tcap{color:var(--text)}
   .stage.split .timebar .tcap i{color:var(--text-mute)}
   .stage.split .timebar .tticks{color:var(--text-mute)}
+  /* 흰 배경 위에서 흰색 6%/14% 알파는 사실상 안 보인다 — 밝은 테마에서
+     이 줄의 다섯 유형이 테두리도 배경도 없이 밋밋한 글자로만 보이던
+     원인이 이것이다. 테마에 맞게 실제로 색이 있는 토큰을 쓴다. */
   .stage.split .timebar .tcat{color:var(--text-dim);
-    background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.14)}
+    background:var(--ink-3); border-color:var(--line); font-weight:800}
   .stage.split .timebar .tcat.on{color:#fff; background:var(--c-noise); border-color:transparent}
 
   /* 지도 전체화면 — 필요할 때만 */
@@ -2004,15 +2007,19 @@
      들어 다른 기능이 있는 줄 착각하게 만든다 — 이럴 때는 스크롤 자체를
      막아 완전히 고정된, 손대도 움직이지 않는 안내판으로 만든다. */
   .lscroll.is-empty{overflow:hidden; justify-content:center; touch-action:none}
-  .lempty{display:flex; align-items:center; gap:11px; text-align:left;
-    padding:14px 15px; font-size:0.8125rem; line-height:1.5;
-    color:var(--text-dim); font-weight:700; background:var(--ink-2);
-    border:1px solid var(--line); border-left:3px solid var(--c-noise);
-    border-radius:11px}
-  .lempty .lei{flex:0 0 auto; width:34px; height:34px; border-radius:999px;
-    background:rgba(224,72,63,.14); color:var(--c-noise);
+  /* 지도 위 안내 배너를 없앤 만큼, 안내는 이제 이 카드 하나뿐이다.
+     예전보다 눈에 더 잘 띄어야 같은 역할을 대신할 수 있어 글자를
+     키우고, 배경에 옅은 색을 깔고, 왼쪽 띠를 두껍게 했다. */
+  .lempty{display:flex; align-items:center; gap:13px; text-align:left;
+    padding:17px 16px; font-size:0.9375rem; line-height:1.5;
+    color:var(--text); font-weight:800; background:rgba(224,72,63,.07);
+    border:1px solid var(--line); border-left:4px solid var(--c-noise);
+    border-radius:12px}
+  .lempty .lei{flex:0 0 auto; width:40px; height:40px; border-radius:999px;
+    background:rgba(224,72,63,.16); color:var(--c-noise);
     display:flex; align-items:center; justify-content:center}
-  .lempty b{color:var(--text)}
+  .lempty .lei svg{width:19px; height:19px}
+  .lempty b{color:var(--c-noise)}
 
   .lcard{display:flex; gap:11px; width:100%; text-align:left; cursor:pointer;
     font-family:inherit; background:var(--ink-2); border:1px solid var(--line);
@@ -2515,7 +2522,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v239</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v240</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2758,7 +2765,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v239</span></div>
+          <span class="ver" id="ver2">v240</span></div>
       </div>
     </div>
 
@@ -2781,8 +2788,11 @@
         <span>내 위치를 확인하는 중…</span>
       </div>
       <div class="lmap-note" id="lmap-note">궁금한 위치로 지도를 옮겨보세요</div>
-      <div class="lreveal-hint" id="lreveal-hint">지도를 옮긴 뒤 "이 위치 확인"을 누르면
-        등급을 선택해 이 지역의 신고 내역을 볼 수 있습니다</div>
+      <!-- 지도 위를 덮던 안내 배너(lreveal-hint)는 없앴다 — 아래 목록 칸의
+           안내 카드(.lempty, renderList())와 문구가 완전히 같아서 같은
+           말을 두 번 하고 있었고, 그러면서 지도 위쪽을 가려 지도가 실제보다
+           좁아 보였다. 지도는 이제 안 가리고 온전히 보여주고, 안내는
+           아래 카드 한 곳에서만 더 또렷하게 한다. -->
     </div>
 
     <div class="lbar">
@@ -2800,7 +2810,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v239</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v240</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -2850,7 +2860,7 @@
         <button class="tplay" id="tplay">▶</button>
         <div class="tmid">
           <div class="tcap">24시 소음예측<span class="tcats" id="tcats">
-            <i class="tcat" data-cat="0">고성</i><i class="tcat" data-cat="1">소란</i><i class="tcat" data-cat="3">반려동물짖음</i><i class="tcat" data-cat="4">바이크굉음</i>
+            <i class="tcat" data-cat="0">고성</i><i class="tcat" data-cat="1">소란</i><i class="tcat" data-cat="2">욕설</i><i class="tcat" data-cat="3">반려동물짖음</i><i class="tcat" data-cat="4">바이크굉음</i>
           </span></div>
           <div class="tslidewrap">
             <input type="range" id="tslide" min="-1" max="23" value="-1">
@@ -4993,10 +5003,11 @@ let cctvOn=false;   // 기본 숨김 — 켜면 산만하고, 필요할 때만 �
 let hourSel=-1, playTimer=null, glowOv=[];
 /* 지도는 과거다. 축은 날짜가 아니라 '하루 중 어느 시각'이다.
    이 구분이 흐려지면 6번 예보 화면이 존재할 이유가 사라진다. */
-/* 제목 옆 네 유형(고성·소란·반려동물짖음·바이크굉음)은 자리를 고정해
-   두고, 그 시각 지도에 실제로 보이는 신고가 있는 유형만 반짝인다 —
-   문장으로 매번 설명하는 대신 눈에 바로 들어오게 한다. */
-const TCATS=[{i:0,l:'고성'},{i:1,l:'소란'},{i:3,l:'반려동물짖음'},{i:4,l:'바이크굉음'}];
+/* 제목 옆 다섯 유형(고성·소란·욕설·반려동물짖음·바이크굉음)은 자리를
+   고정해 두고, 그 시각 지도에 실제로 보이는 신고가 있는 유형만
+   반짝인다 — 문장으로 매번 설명하는 대신 눈에 바로 들어오게 한다.
+   (예전엔 욕설이 빠진 네 유형만 있었다 — 다섯 유형을 다 보여준다.) */
+const TCATS=[{i:0,l:'고성'},{i:1,l:'소란'},{i:2,l:'욕설'},{i:3,l:'반려동물짖음'},{i:4,l:'바이크굉음'}];
 function updateTcats(){
   const box=document.getElementById('tcats'); if(!box) return;
   const active=new Set();
@@ -5704,7 +5715,7 @@ function initTierDemo(){
 /* 개발용 상단 네비('등급' 버튼 포함)는 폰 폭(≤560px)에서 통째로 숨긴다 —
    실제 폰으로 테스트할 때는 그 버튼 자체가 안 보인다. 그런데 등급을
    자유롭게(수사 포함) 오가며 확인해야 하는 건 데스크톱에서든 폰에서든
-   똑같이 필요하다. 화면 어디서나 늘 떠 있는 버전 번호(v239 같은 표시)를
+   똑같이 필요하다. 화면 어디서나 늘 떠 있는 버전 번호(v240 같은 표시)를
    탭하는 것을 그 대체 통로로 쓴다 — 화면을 어지럽히는 새 버튼을 추가하지
    않고도 폰에서 항상 접근할 수 있다. */
 function initVerTap(){
@@ -6189,8 +6200,15 @@ function bootMapInner(){
   kakao.maps.event.addListener(map,'dragstart',()=>{
     if(typeof hideListPins==='function') hideListPins();
   });
+  /* 소음 유형별로 지도를 걸러보는 버튼(고성/소란/욕설/동물짖음/차량·기계음)은
+     무료 등급에서는 쓸모가 없다는 판단으로 뺀다 — 유형별로 나눠 보는 건
+     유료 이상에서 다룰 기능이다. 어떤 등급부터, 어떤 방식으로 다시 켤지는
+     아직 정하지 않았으므로 버튼을 만드는 코드는 지우지 않고 꺼만 둔다.
+     SHOW_TYPE_FILTER_CHIPS를 켜면 그대로 되살아난다. */
+  const SHOW_TYPE_FILTER_CHIPS=false;
   const f=document.getElementById('filters');
-  TYPES.forEach((t,i)=>{
+  if(f) f.hidden=!SHOW_TYPE_FILTER_CHIPS;
+  if(SHOW_TYPE_FILTER_CHIPS && f) TYPES.forEach((t,i)=>{
     const b=document.createElement('button'); b.className='chip';
     b.setAttribute('aria-pressed','true');
     /* 아이콘은 나중에 전체 교체 예정. 지금 것은 뜻이 안 읽히면서
