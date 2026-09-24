@@ -33,6 +33,14 @@
     --c-light:#E8A93C;    /* 빛공해 */
     --c-block:#4A76D4;    /* 통행방해 */
 
+    /* ── 시간축 전용 무채색 ──
+       24시간 바(진행 막대·재생 버튼)와 그 옆 유형 칩의 "지금 활성"
+       표시는 원래 --c-noise(빨강)를 썼다. 그런데 "내 신고"·소음분류
+       숫자처럼 진짜 강조가 필요한 곳도 전부 같은 빨강이라, 화면에서
+       뭐가 중요하고 뭐가 그냥 지금 시각을 가리키는 건지 구별이 안
+       됐다. 지도 위 소음 범위 원(짙은 남회색)과 같은 계열로 맞춘다. */
+    --c-time:#2B3340;
+
     /* ── 결제 색 ──
        빨강은 소음이라는 데이터를 뜻한다. 유료 안내에까지 빨강을 쓰면
        "이건 정보"와 "이건 상품"이 한 덩어리로 보인다. 결제는 데이터가
@@ -650,7 +658,7 @@
   .tplay{width:30px; height:30px; flex:0 0 auto; border-radius:9px; cursor:pointer;
     background:var(--ink-3); color:var(--text-dim); border:1px solid var(--line);
     font-size:0.8125rem; font-weight:900; line-height:1}
-  .tplay.on{background:var(--c-noise); color:#fff; border-color:transparent}
+  .tplay.on{background:var(--c-time); color:#fff; border-color:transparent}
   .tmid{flex:1; min-width:0}
   /* 무엇을 보고 있는지가 시각 숫자보다 먼저 읽혀야 한다 — 세로폭을 줄인
      만큼 글자도 함께 줄인다 */
@@ -663,10 +671,10 @@
   .tcat{font-style:normal; font-size:0.75rem; font-weight:800;
     color:var(--text-dim); background:var(--ink-3); border:1px solid var(--line);
     border-radius:999px; padding:3px 8px; white-space:nowrap}
-  .tcat.on{color:#fff; background:var(--c-noise); border-color:transparent;
+  .tcat.on{color:#fff; background:var(--c-time); border-color:transparent;
     animation:tcatBlink 1.1s ease-in-out infinite}
   @keyframes tcatBlink{0%,100%{opacity:1}50%{opacity:.45}}
-  #tslide{width:100%; margin:0; accent-color:var(--c-noise); height:14px}
+  #tslide{width:100%; margin:0; accent-color:var(--c-time); height:14px}
   .tticks{display:flex; justify-content:space-between; font-family:var(--mono);
     font-size:0.6875rem; color:var(--text-mute); margin-top:2px; line-height:1}
 
@@ -946,7 +954,7 @@
      원인이 이것이다. 테마에 맞게 실제로 색이 있는 토큰을 쓴다. */
   .stage.split .timebar .tcat{color:var(--text-dim);
     background:var(--ink-3); border-color:var(--line); font-weight:800}
-  .stage.split .timebar .tcat.on{color:#fff; background:var(--c-noise); border-color:transparent}
+  .stage.split .timebar .tcat.on{color:#fff; background:var(--c-time); border-color:transparent}
 
   /* 지도 전체화면 — 필요할 때만 */
   .stage.split.big .mapwrap{flex:1}
@@ -968,6 +976,12 @@
     filter:drop-shadow(0 1px 2px rgba(0,0,0,.5)); transition:opacity .3s, transform .3s}
   .marker svg{display:block; width:100%; height:100%; grid-area:1/1}
   .marker.on{transform:scale(1.5); z-index:9}
+
+  /* 수사 등급 전용 — 신고자 추정 위치. 소음 지점(원색 점)과 헷갈리지
+     않도록 색을 넣지 않고 테두리만 있는 다이아몬드로 표시한다. */
+  .reporter-pin{width:11px; height:11px; background:#fff; border:2px solid #2B3340;
+    border-radius:3px; transform:rotate(45deg);
+    box-shadow:0 1px 2px rgba(0,0,0,.4)}
 
 
   /* 카드: 한 줄 요약 + 근거 태그 + 다음 행동. 그 이상은 넣지 않는다 */
@@ -2450,7 +2464,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v244</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v246</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2693,7 +2707,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v244</span></div>
+          <span class="ver" id="ver2">v246</span></div>
       </div>
     </div>
 
@@ -2738,7 +2752,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v244</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v246</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -2869,11 +2883,12 @@ const chipIcon=i=>'<svg class="gi" viewBox="0 0 24 24">'+
    실물 사진이 없는 서비스다. 사진 대신 '무엇이 열리는가'를 나란히 놓아야
    무엇을 사는지 보인다. 항목 순서는 모든 등급에서 같아야 줄이 맞는다. */
 const TFEAT=[
-  {k:'위치 정밀도', v:['100m 묶음','30m 묶음','전 지점','건물 단위','—']},
+  {k:'위치 표시', v:['100m 범위','30m 범위','범위(정확한 지점 아님)','건물 단위(정확)','건물 단위(정확)']},
   {k:'시간대 분포', v:[false,true,true,true,false]},
   {k:'소음도·지속시간', v:[false,false,true,true,false]},
   {k:'요일별 예보', v:[false,true,true,true,false]},
   {k:'주변 조용한 구역', v:[false,true,true,true,false]},
+  {k:'신고자 위치', v:[false,false,false,false,'영장 필요']},
   {k:'원본 음원', v:[false,false,false,false,'영장 필요']},
   {k:'조회 기록', v:['남지 않음','남지 않음','남음','남음','남음']},
 ];
@@ -4511,22 +4526,28 @@ const ROUTES=[
     path:[[37.405438,126.724312],[37.406063,126.723687],[37.406937,126.723438]] },
 ];
 
+/* range:true인 등급은 지도에 정확한 점을 찍지 않고 흐린 원(범위)만 보여준다
+   (rangeR이 그 원의 반경). 무료·유료·행정 세 등급 모두 "정확한 위치를 알
+   필요가 없다"는 판단으로 여기 해당한다. 대응부터는 정확한 지점을 그대로
+   찍고, 수사는 거기에 더해 신고자의 추정 위치(reporterLoc)까지 지도에
+   별도로 표시한다 — 원본 음원과 함께 영장이 확인된 경우에만 열리는
+   내용이라 locked:true로 접근 자체를 막아 둔다. */
 const TIERS=[
-  {id:'무료', merge:100, maxLv:3, hours:false, metrics:false,
-   what:'정확한 위치 없이 50m 그라데이션만', log:false,
-   basis:'<b>무료</b> · 정확한 지점 없음 · 50m 그라데이션으로만 표시'},
-  {id:'유료', merge:30,  maxLv:2, hours:true,  metrics:false,
-   what:'30m 단위 · 시간대 분포까지', log:false,
-   basis:'<b>유료</b> · 30m 단위 · 시간대 분포 포함'},
-  {id:'행정', merge:0,   maxLv:1, hours:true,  metrics:true,
-   what:'묶지 않은 전 지점 · 소음도와 지속시간', log:true,
-   basis:'<b>행정</b> · 전 지점 · 소음도/지속시간 · 접근기록 남음'},
-  {id:'대응', merge:0,   maxLv:1, hours:true,  metrics:true,
+  {id:'무료', merge:100, maxLv:3, hours:false, metrics:false, range:true, rangeR:50,
+   what:'정확한 위치 없이 50m 범위로만', log:false,
+   basis:'<b>무료</b> · 정확한 지점 없음 · 50m 범위로만 표시'},
+  {id:'유료', merge:30,  maxLv:2, hours:true,  metrics:false, range:true, rangeR:25,
+   what:'30m 범위 · 시간대 분포까지', log:false,
+   basis:'<b>유료</b> · 30m 범위로 표시 · 시간대 분포 포함'},
+  {id:'행정', merge:0,   maxLv:1, hours:true,  metrics:true, range:true, rangeR:12,
+   what:'정확한 지점 대신 범위 · 소음도와 지속시간', log:true,
+   basis:'<b>행정</b> · 정확한 지점 대신 범위로 표시 · 소음도/지속시간 · 접근기록 남음'},
+  {id:'대응', merge:0,   maxLv:1, hours:true,  metrics:true, range:false,
    what:'건물 단위 정밀 위치', log:true,
    basis:'<b>대응</b> · 건물 단위 정밀 위치'},
-  {id:'수사', locked:true, merge:0, maxLv:1, hours:true, metrics:true,
-   what:'원본 음원 · 영장 확인 후', log:true,
-   basis:'<b>수사</b> · 원본 음원 · 영장 확인 후'},
+  {id:'수사', locked:true, merge:0, maxLv:1, hours:true, metrics:true, range:false, reporterLoc:true,
+   what:'원본 음원 · 신고자 위치 · 영장 확인 후', log:true,
+   basis:'<b>수사</b> · 원본 음원 · 신고자 위치 · 영장 확인 후'},
 ];
 let tier=0;
 /* 개발 중에는 "수사"(잠긴 등급)도 실제로 핀이 찍힌 지도를 봐야 확인이
@@ -4557,8 +4578,14 @@ function buildRaw(){
       let d=Math.abs(h-peak); d=Math.min(d,24-d);
       return Math.max(.03, Math.exp(-d*d/5)*(0.75+r()*0.5));
     });
+    /* 신고자 위치 — 소음이 발생한 지점과 신고자가 실제로 사는 곳은 보통
+       다르다(옆 건물, 맞은편 세대 등). 수사 등급에서, 영장이 확인된 뒤에만
+       열리는 값이라 여기서는 좌표를 미리 만들어만 두고 다른 등급에서는
+       읽지 않는다(reporterLoc은 T.reporterLoc일 때만 렌더링에 쓰인다). */
+    const bear=r()*2*Math.PI, dist=15+r()*35;
+    const reporterLoc={lat:p.lat+Math.cos(bear)*dist*M_LAT, lng:p.lng+Math.sin(bear)*dist*M_LNG};
     /* 심야 주택가 기준. 이전 62~88은 지하철 승강장급이라 과했다 */
-    return {...p, hours, db:Math.round(56+r()*20), dur:Math.round(3+r()*12)};
+    return {...p, hours, db:Math.round(56+r()*20), dur:Math.round(3+r()*12), reporterLoc};
   });
 }
 /* ══ 실측 공공데이터 ══════════════════════════════════════════
@@ -4672,11 +4699,11 @@ function applyFilter(){
      않는다 — 정확한 위치 대신 50m 그라데이션만 보여준다(아래 drawFreeBlur). */
   const ls=document.getElementById('s-list');
   const onListScreen = !!(ls && !ls.hidden);
-  const freeTier = !!(TIERS[tier] && TIERS[tier].id==='무료');
+  const rangeTier = !!(TIERS[tier] && TIERS[tier].range);
   spots.forEach(s=>{
     const on=TYPES.some((_,i)=>onTypes[i]&&s.cnt[i]>0);
     s.vis=on;                       // 번짐 표시가 같은 판정을 쓰도록 남긴다
-    const show = on && !onListScreen && !freeTier;
+    const show = on && !onListScreen && !rangeTier;
     s.ov.setMap(show?map:null);
     if(!on) return;
     /* 방금 보낸 신고는 그 판정 유형을 지킨다. 최다 건수로 다시 고르면
@@ -4689,19 +4716,20 @@ function applyFilter(){
   if(typeof drawGlow==='function') drawGlow();   // 번짐도 필터를 따라간다
   if(typeof drawRoutes==='function') drawRoutes();
   if(typeof drawFreeBlur==='function') drawFreeBlur();
+  if(typeof drawReporterMarkers==='function') drawReporterMarkers();
 }
 
-/* ══ 무료 등급 — 정확한 점 대신 '균일한' 50m 원, 그리고 300m 반경 제한 ══
+/* ══ 범위(range) 등급 — 정확한 점 대신 '균일한' 원, 그리고 무료만 300m 반경 제한 ══
    처음엔 안쪽이 더 진해지는 겹원(그라데이션)으로 만들었는데, 겹쳐 칠하면
    가운데가 도드라져 결국 정확한 위치를 가리키는 것과 다를 게 없어진다.
    그래서 원 하나, 안팎 농도가 같은 단일 톤으로 통일한다 — '이 원 안
    어딘가'까지만 알 수 있고 중심을 짚어낼 수 없다.
-   또한 무료 등급은 확인한 위치에서 300m를 벗어나면 아무것도 보여주지
-   않는다(원래 150m였다가 2배로 넓혔다 — 어디서든 대략적인 분위기 정도는
-   볼 수 있어야 유료로 넘어가고 싶은 마음이 생기지, 너무 좁으면 아예
-   써볼 이유가 없어진다) — 축소해서 동네 전체를 한눈에 보는 것 자체가
-   유료의 값어치이므로, 화면을 얼마나 축소하든 300m 밖은 그대로 빈 지도로
-   남는다. */
+   무료·유료·행정 세 등급 모두 이 방식을 쓰되, 등급이 오를수록 원 반경이
+   줄어든다(TIERS[].rangeR). 다만 300m 밖은 아예 안 보여주는 제한은
+   무료 등급만의 유료 전환 장치다(원래 150m였다가 2배로 넓혔다 — 어디서든
+   대략적인 분위기 정도는 볼 수 있어야 유료로 넘어가고 싶은 마음이 생기지,
+   너무 좁으면 아예 써볼 이유가 없어진다) — 유료·행정은 등급을 이미 산
+   것이므로 화면에 보이는 범위 전체를 그대로 보여준다. */
 const FREE_RADIUS=300;
 let freeAnchor=null;   // 무료 등급 300m 제한의 기준점 — 확인한 위치(또는 실제 위치)
 let freeBlurOv=[];
@@ -4716,16 +4744,17 @@ function drawFreeBlur(){
   if(!map) return;
   const ls=document.getElementById('s-list');
   const onListScreen = !!(ls && !ls.hidden);
-  if(onListScreen || !TIERS[tier] || TIERS[tier].id!=='무료') return;
-  const anchor=freeAnchor || realLoc || CENTER;
+  const T=TIERS[tier];
+  if(onListScreen || !T || !T.range) return;
+  const freeTier = T.id==='무료';
+  const anchor = freeTier ? (freeAnchor || realLoc || CENTER) : null;
+  const r = T.rangeR || 50;
   spots.forEach(s=>{
     if(s.vis===false) return;
-    if(distM(s.c, anchor)>FREE_RADIUS) return;   // 300m 밖은 무료에서 아예 안 보인다
+    if(anchor && distM(s.c, anchor)>FREE_RADIUS) return;   // 300m 밖은 무료에서만 안 보인다
     /* 유료 이상 등급은 24시간 바를 움직이면 그 시각에 맞춰 핀이 밝아지고
-       어두워진다(applyHour). 무료 등급의 흐린 원은 그동안 이 가중치를
-       전혀 안 받아서, 바를 움직여도 지도만 그대로였다 — 정확한 위치와
-       유형은 계속 감추되(무료의 약속), "이 시간대엔 여기가 심하다"는
-       농도 변화만큼은 무료에서도 똑같이 느껴져야 한다. */
+       어두워진다(applyHour). 범위 원도 이 가중치를 그대로 받아서, 바를
+       움직이면 "이 시간대엔 여기가 심하다"는 농도 변화가 똑같이 느껴진다. */
     let op=0.22;
     if(hourSel>=0){
       const w=sharp(s.hours, hourSel);
@@ -4738,9 +4767,37 @@ function drawFreeBlur(){
        표시일 뿐 위험·경고 신호가 아니므로, 빨강을 떼어 무채색 계열
        (짙은 남회색)로 바꾼다 — 빨강은 이제 진짜 강조가 필요한 곳에만
        남는다. */
-    const poly=new kakao.maps.Polygon({path:circlePath(s.c,50),
+    const poly=new kakao.maps.Polygon({path:circlePath(s.c,r),
       strokeWeight:0, fillColor:'#2B3340', fillOpacity:op});
     poly.setMap(map); freeBlurOv.push(poly);
+  });
+}
+/* ══ 수사 등급 — 신고자 추정 위치 ══
+   대응까지는 소음 발생 지점(정확한 점)만 보여준다. 수사는 거기에 더해
+   신고자가 실제로 있었을 위치(reporterLoc)를 지도 위에 별도 표시로
+   찍고, 둘을 점선으로 이어 "이 신고가 어디서 왔는가"까지 보여준다.
+   T.reporterLoc이 없는 등급에서는 이 함수가 아무것도 그리지 않는다. */
+let reporterOv=[];
+function drawReporterMarkers(){
+  reporterOv.forEach(o=>o.setMap(null)); reporterOv=[];
+  if(!map) return;
+  const ls=document.getElementById('s-list');
+  const onListScreen = !!(ls && !ls.hidden);
+  const T=TIERS[tier];
+  if(onListScreen || !T || !T.reporterLoc) return;
+  spots.forEach(s=>{
+    if(!s.reporterLoc || s.vis===false) return;
+    const line=new kakao.maps.Polyline({
+      path:[new kakao.maps.LatLng(s.c.lat,s.c.lng), new kakao.maps.LatLng(s.reporterLoc.lat,s.reporterLoc.lng)],
+      strokeWeight:1, strokeColor:'#2B3340', strokeOpacity:.5, strokeStyle:'shortdash'});
+    line.setMap(map); reporterOv.push(line);
+    const el=document.createElement('div');
+    el.className='reporter-pin';
+    el.title='신고자 위치(추정)';
+    const ov=new kakao.maps.CustomOverlay({
+      position:new kakao.maps.LatLng(s.reporterLoc.lat, s.reporterLoc.lng),
+      content:el, yAnchor:.5, xAnchor:.5, zIndex:3});
+    ov.setMap(map); reporterOv.push(ov);
   });
 }
 function view(v){['main','detail','locked'].forEach(k=>
@@ -4754,10 +4811,10 @@ function build(){
   document.getElementById('basis').innerHTML=T.basis;
   if(T.locked && !devTierUnlock){
     document.getElementById('locked-txt').innerHTML=
-      '이 단계는 서비스 운영자가 열 수 없습니다. 원본 음원과 신고 원자료는 '+
-      '<b>영장 또는 법령상 근거</b>가 확인된 경우에만 별도 절차로 제공됩니다.<br><br>'+
-      '신고자 신원은 어느 단계에도 없습니다. 문자는 이용자 단말에서 직접 발송되어 '+
-      '서버를 거치지 않으므로 애초에 보관하지 않습니다.';
+      '이 단계는 서비스 운영자가 열 수 없습니다. 원본 음원·신고 원자료와 '+
+      '<b>신고자 위치</b>는 <b>영장 또는 법령상 근거</b>가 확인된 경우에만 별도 절차로 제공됩니다.<br><br>'+
+      '신고자 위치는 이 등급에서만 존재하며, 그 확인 전까지는 서비스 운영자를 포함해 '+
+      '누구도 열람할 수 없도록 별도로 잠가 둡니다.';
     sectorOv.forEach(o=>o.setMap(null)); sectorOv=[];
     view('locked'); return;
   }
@@ -4778,10 +4835,14 @@ function build(){
     const cnt=TYPES.map((_,ti)=>g.filter(p=>p.t===ti).length);
     const mix=cnt.map(v=>(v+0.15)/(g.length+0.75));
     const hours=Array.from({length:24},(_,h)=>g.reduce((s,p)=>s+p.hours[h],0)/g.length);
+    /* 묶은 그룹이 원본 신고 하나뿐일 때만(=병합 반경 0, 행정/대응/수사)
+       그 하나의 신고자 위치를 그대로 쓴다 — 여러 신고를 하나로 묶은
+       그룹(무료·유료)은 신고자가 여럿이라 위치 하나로 대표할 수 없다. */
     spots.push({c,n,mix,cnt,hours,cov:covered(c),
       db:Math.round(g.reduce((s,p)=>s+p.db,0)/g.length),
       dur:Math.round(g.reduce((s,p)=>s+p.dur,0)/g.length),
       dom:cnt.indexOf(Math.max(...cnt)),
+      reporterLoc: g.length===1 ? g[0].reporterLoc : null,
       name:''});   // 아래에서 위치 기준 이름을 붙인다
   });
   spots.sort((a,b)=>b.n-a.n);
@@ -4849,6 +4910,9 @@ function addMySpot(typeIdx, dbVal, durVal){
     cov: covered(c), db: dbVal||60, dur: durVal||4,
     dom: typeIdx, lastTi: typeIdx, fixedTi: typeIdx,
     name, region: (recPlace && recPlace.region) || '',
+    /* 내 신고는 신고 당시 내 위치에서 직접 보낸 것이라 소음 발생 지점과
+       신고자 위치가 같다 — 데모 지점처럼 옆 건물로 떨어뜨릴 이유가 없다. */
+    reporterLoc: realLoc ? {lat:realLoc.lat, lng:realLoc.lng} : null,
     fixed:true, mine:true, big:true, vis:true
   };
   s.px = sizeFor(s);
@@ -4915,6 +4979,9 @@ function showDetail(s){
   }
   if(T.metrics) h+='<div class="metrics"><div><b>'+s.db+'</b>평균 dB</div>'+
     '<div><b>'+(s.db+5)+'</b>최고 dB</div><div><b>'+s.dur+'분</b>평균 지속</div></div>';
+  if(T.reporterLoc && s.reporterLoc) h+='<div class="sec"><div class="sec-h">신고자 위치</div>'+
+    '<div class="d-sum">지도 위 점선으로 이어진 별도 표시가 신고자의 추정 위치입니다. '+
+    '영장이 확인되기 전까지는 이 표시가 나타나지 않습니다.</div></div>';
   document.getElementById('d-body').innerHTML=h;
   view('detail');
 }
@@ -5131,12 +5198,13 @@ function drawRoutes(){
 function drawGlow(){
   if(!map||!spots.length) return;
   ensureGlow();
-  /* 무료 등급은 정확한 위치를 감춰야 하므로, 시간대 번짐 효과도 함께 끈다
-     — 번짐 크기·위치만으로도 결국 어디인지 짐작이 가능해지기 때문이다. */
-  const freeTier = !!(TIERS[tier] && TIERS[tier].id==='무료');
+  /* 범위(range) 등급은 정확한 위치를 감춰야 하므로, 시간대 번짐 효과도
+     함께 끈다 — 번짐 크기·위치만으로도 결국 어디인지 짐작이 가능해지기
+     때문이다(무료뿐 아니라 유료·행정도 이제 range 등급이다). */
+  const rangeTier = !!(TIERS[tier] && TIERS[tier].range);
   const lv=map.getLevel(), pxPerM=Math.pow(2,3-lv)*2.4;
   glowOv.forEach(({el,s})=>{
-    if(freeTier || hourSel<0 || s.vis===false){ el.style.opacity=0; el.style.width='0px'; el.style.height='0px'; return }
+    if(rangeTier || hourSel<0 || s.vis===false){ el.style.opacity=0; el.style.width='0px'; el.style.height='0px'; return }
     const w=sharp(s.hours, hourSel);
     if(w<0.15){ el.style.opacity=0; return }
     const px=Math.max(26, Math.min(190, s.n*4.4*w*pxPerM));
@@ -5647,7 +5715,7 @@ function initTierDemo(){
 /* 개발용 상단 네비('등급' 버튼 포함)는 폰 폭(≤560px)에서 통째로 숨긴다 —
    실제 폰으로 테스트할 때는 그 버튼 자체가 안 보인다. 그런데 등급을
    자유롭게(수사 포함) 오가며 확인해야 하는 건 데스크톱에서든 폰에서든
-   똑같이 필요하다. 화면 어디서나 늘 떠 있는 버전 번호(v244 같은 표시)를
+   똑같이 필요하다. 화면 어디서나 늘 떠 있는 버전 번호(v246 같은 표시)를
    탭하는 것을 그 대체 통로로 쓴다 — 화면을 어지럽히는 새 버튼을 추가하지
    않고도 폰에서 항상 접근할 수 있다. */
 function initVerTap(){
