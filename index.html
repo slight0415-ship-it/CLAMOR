@@ -287,14 +287,13 @@
   .tiers button[aria-pressed="true"]{background:var(--text); color:var(--stroke)}
   .tiers button.locked[aria-pressed="true"]{background:var(--ink-3); color:var(--text-dim)}
 
-  /* 핀: 색 = 카테고리, 아이콘 = 세부 유형. 우선구역은 색이 아니라 흰 링으로 승격 */
+  /* 핀: 색 = 카테고리, 아이콘 = 세부 유형 */
   .pin{position:relative; cursor:pointer; filter:drop-shadow(0 3px 5px rgba(0,0,0,.6))}
   .pin svg{display:block}
   .pin .badge{position:absolute; top:-3px; right:-5px; min-width:16px; height:16px; padding:0 4px;
     border-radius:8px; background:var(--stroke); color:#fff; font-family:var(--mono);
     font-size:0.8438rem; font-weight:min(900, calc(700 + var(--fw) * 0.5)); line-height:16px; text-align:center;
     border:1.5px solid rgba(255,255,255,.9)}
-  .pin.prio .badge{background:#fff; color:var(--stroke)}
   .pin.on{transform:scale(1.15); z-index:9}
   .dotpin{width:14px; height:14px; border-radius:50%; border:2.5px solid #fff;
     cursor:pointer; box-shadow:0 1px 2px rgba(0,0,0,.5)}
@@ -329,15 +328,6 @@
   .sec-h{font-size:0.875rem; color:var(--text-mute); margin-bottom:6px}
   .hint{font-size:0.8438rem; line-height:1.75; color:var(--text-dim)}
   .hint b{color:var(--text)}
-  .prio{display:flex; align-items:center; gap:10px; padding:7px 6px; margin:0 -6px;
-    border-radius:7px; cursor:pointer; background:none; border:0; width:calc(100% + 12px);
-    font-family:inherit; text-align:left; color:var(--text)}
-  .prio:hover{background:rgba(255,255,255,.05)}
-  .prio .no{font-family:var(--mono); font-size:0.8125rem; font-weight:min(900, calc(700 + var(--fw) * 0.5)); color:var(--stroke);
-    background:#fff; width:17px; height:17px; border-radius:50%; display:grid;
-    place-items:center; flex:0 0 auto}
-  .prio .nm{font-size:0.9062rem; flex:1; min-width:0; line-height:1.4}
-  .prio .ct{font-family:var(--mono); font-size:0.8438rem; color:var(--text-dim)}
   .row{display:flex; gap:5px; margin-top:10px; padding-top:10px;
     border-top:1px solid var(--line); flex-wrap:wrap}
   /* 칩은 눌러서 켜고 끄는 것이다. 바탕과 같은 높이에 있으면 나열된 항목으로
@@ -439,8 +429,6 @@
   /* 1급: 사용자가 실제로 '읽어야' 하는 것 */
   .btn{font-size:1.375rem; font-weight:800; padding:16px}
   .stat .n{font-size:1.75rem; font-weight:min(900, calc(800 + var(--fw) * 0.5))}
-  .prio .nm{font-size:1.0625rem; font-weight:min(900, calc(700 + var(--fw) * 0.5))}
-  .prio .ct{font-size:1rem; font-weight:min(900, calc(700 + var(--fw) * 0.5))}
   .d-hd .t{font-size:1.1875rem; font-weight:min(900, calc(800 + var(--fw) * 0.5))}
   .drow .dv{font-size:1.25rem; font-weight:min(900, calc(800 + var(--fw) * 0.5))}
   .zone .z2{font-size:1.0625rem; line-height:1.6}
@@ -763,17 +751,6 @@
   .rail::-webkit-scrollbar{display:none}
   .card{width:100%; background:var(--ink-2);
     border:1px solid var(--line); border-radius:13px; padding:14px 15px; cursor:pointer}
-  /* '우선구역'(CCTV 없는 소음구역 상위 랭크)은 '내 신고'(mine-card)와
-     전혀 다른 개념인데 둘 다 같은 빨강(224,72,63)을 썼다 — 신고자 본인은
-     자기가 신고한 카드인 줄 착각하게 된다. 신고 여부와 무관한 표시이므로
-     '내 신고' 빨강과 겹치지 않는 색(빛공해 앰버)으로 분리한다. */
-  .card.urgent{border-color:rgba(232,169,60,.55); background:rgba(232,169,60,.08)}
-  .card.urgent .cprio{display:inline-block; font-size:0.75rem; font-weight:900;
-    color:#12161E; background:#E8A93C; padding:2px 7px; border-radius:999px; margin-left:7px}
-  /* 내 신고이면서 동시에 우선구역인 경우 — 테두리는 '내 신고' 빨강이
-     우선한다(신고자 본인에게는 그게 더 중요한 정보다), 배경만 앰버로 남겨
-     우선구역이라는 것도 알 수 있게 한다. */
-  .card.mine-card.urgent{border-color:rgba(224,72,63,.55); background:rgba(232,169,60,.08)}
   /* 카드는 이제 요약(주소·건수·가장 심한 시각)만 보이고, 나머지 상세는
      터치해야 펼쳐진다 — 정보는 많은데 카드 자리는 좁기 때문이다. */
   .cmore{float:right; font-style:normal; font-size:0.8125rem; font-weight:800;
@@ -991,14 +968,6 @@
     filter:drop-shadow(0 1px 2px rgba(0,0,0,.5)); transition:opacity .3s, transform .3s}
   .marker svg{display:block; width:100%; height:100%; grid-area:1/1}
   .marker.on{transform:scale(1.5); z-index:9}
-  /* 맥동 링은 점과 같은 칸에 놓아 중심을 공유한다 — 별개의 표시가 아니다 */
-  .marker.prio::after{content:''; grid-area:1/1; width:100%; height:100%;
-    border-radius:50%; border:2px solid var(--c-noise);
-    animation:pulse 1.8s ease-out infinite; pointer-events:none}
-  @keyframes pulse{
-    0%{transform:scale(1); opacity:.9}
-    100%{transform:scale(2.6); opacity:0}
-  }
 
 
   /* 카드: 한 줄 요약 + 근거 태그 + 다음 행동. 그 이상은 넣지 않는다 */
@@ -1162,38 +1131,19 @@
   .summary .readout{padding-top:0; border-top:0}
 
 
-  /* 공간을 나눠 성격을 가른다: 카드=개별지점 / 요약=지도전체 / 우선구역=행동제안 */
+  /* 공간을 나눠 성격을 가른다: 카드=개별지점 / 요약=지도전체 */
   .basis{font-size:0.8125rem; line-height:1.5; color:var(--text-mute);
     margin-top:11px; padding-top:10px; border-top:1px solid var(--line);
     white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
   .basis b{color:var(--text-dim); font-weight:800}
 
-  .prioblock{margin:0 -15px; padding:15px 15px 14px;
-    background:rgba(224,72,63,.07); border-top:1px solid rgba(224,72,63,.28)}
-  .blockh{margin-bottom:11px}
-  .blockh .bt{font-size:1.0625rem; font-weight:min(900,calc(800 + var(--fw)*0.5));
-    color:var(--text); margin-bottom:4px}
-  .blockh .bd{font-size:0.875rem; line-height:1.6; color:var(--text-dim)}
-  .prioblock .prio:hover{background:rgba(255,255,255,.07)}
-
-
-  /* 요약과 우선구역은 보조 정보 — 자리를 최소로 */
+  /* 요약은 보조 정보 — 자리를 최소로 */
   .summary{margin:12px -15px 0; padding:10px 15px 11px;
     background:var(--ink-2); border-top:1px solid var(--line)}
   .sumline{font-size:0.9375rem; line-height:1.5; color:var(--text-mute); font-weight:700}
   .sumline b{font-family:var(--mono); font-size:1.0625rem; color:var(--text); font-weight:900}
   .sumline b.alert{color:var(--c-noise)}
   .basis{font-size:0.8125rem; margin-top:7px; padding-top:7px}
-
-  .prioblock{margin:0 -15px; padding:11px 15px 12px}
-  .blockh{margin-bottom:7px}
-  .blockh .bt{font-size:0.9375rem; margin-bottom:0; display:flex; flex-wrap:wrap;
-    align-items:baseline; gap:7px}
-  .blockh .bd{font-size:0.8125rem; font-weight:700; color:var(--text-mute); line-height:1.4}
-  .prioblock .prio{padding:5px 6px}
-  .prioblock .nm{font-size:0.9375rem}
-  .prioblock .ct{font-size:0.875rem}
-  .prioblock .no{width:15px; height:15px; font-size:0.75rem}
 
 
   /* ══ 신고 기록 — 통계가 아니라 사건으로 읽히게 ══ */
@@ -1514,38 +1464,19 @@
   .summary .readout{padding-top:0; border-top:0}
 
 
-  /* 공간을 나눠 성격을 가른다: 카드=개별지점 / 요약=지도전체 / 우선구역=행동제안 */
+  /* 공간을 나눠 성격을 가른다: 카드=개별지점 / 요약=지도전체 */
   .basis{font-size:0.8125rem; line-height:1.5; color:var(--text-mute);
     margin-top:11px; padding-top:10px; border-top:1px solid var(--line);
     white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
   .basis b{color:var(--text-dim); font-weight:800}
 
-  .prioblock{margin:0 -15px; padding:15px 15px 14px;
-    background:rgba(224,72,63,.07); border-top:1px solid rgba(224,72,63,.28)}
-  .blockh{margin-bottom:11px}
-  .blockh .bt{font-size:1.0625rem; font-weight:min(900,calc(800 + var(--fw)*0.5));
-    color:var(--text); margin-bottom:4px}
-  .blockh .bd{font-size:0.875rem; line-height:1.6; color:var(--text-dim)}
-  .prioblock .prio:hover{background:rgba(255,255,255,.07)}
-
-
-  /* 요약과 우선구역은 보조 정보 — 자리를 최소로 */
+  /* 요약은 보조 정보 — 자리를 최소로 */
   .summary{margin:12px -15px 0; padding:10px 15px 11px;
     background:var(--ink-2); border-top:1px solid var(--line)}
   .sumline{font-size:0.9375rem; line-height:1.5; color:var(--text-mute); font-weight:700}
   .sumline b{font-family:var(--mono); font-size:1.0625rem; color:var(--text); font-weight:900}
   .sumline b.alert{color:var(--c-noise)}
   .basis{font-size:0.8125rem; margin-top:7px; padding-top:7px}
-
-  .prioblock{margin:0 -15px; padding:11px 15px 12px}
-  .blockh{margin-bottom:7px}
-  .blockh .bt{font-size:0.9375rem; margin-bottom:0; display:flex; flex-wrap:wrap;
-    align-items:baseline; gap:7px}
-  .blockh .bd{font-size:0.8125rem; font-weight:700; color:var(--text-mute); line-height:1.4}
-  .prioblock .prio{padding:5px 6px}
-  .prioblock .nm{font-size:0.9375rem}
-  .prioblock .ct{font-size:0.875rem}
-  .prioblock .no{width:15px; height:15px; font-size:0.75rem}
 
 
   /* ══ 신고 기록 — 통계가 아니라 사건으로 읽히게 ══ */
@@ -2174,15 +2105,12 @@
   body.light #s-map .d-cov.no{color:var(--c-noise)}
 
   /* ── 어두운 칩·배지: 바탕과 글자를 뒤집는다 ── */
-  body.light #s-map .prio .no,
   body.light #s-map .crank{background:#12161E; color:#fff}
   /* 목록 화면에도 같은 배지가 선다. 화면별로 규칙을 걸어 두면
      새 화면이 생길 때마다 글자가 바탕에 묻힌다. */
   body.light .tierbadge{background:#12161E; color:#fff}
 
   /* ── 흰색 반투명 덧칠은 밝은 바탕에서 사라진다: 검정으로 뒤집는다 ── */
-  body.light #s-map .prio:hover,
-  body.light #s-map .prioblock .prio:hover,
   body.light #s-map .verdict.calm{background:rgba(0,0,0,.045)}
   body.light #s-map .bar2 .tr{background:rgba(0,0,0,.09)}
   /* 밝은 바탕에서는 반대로 진할수록 심한 것으로 읽힌다 */
@@ -2522,7 +2450,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v240</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v243</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2765,7 +2693,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v240</span></div>
+          <span class="ver" id="ver2">v243</span></div>
       </div>
     </div>
 
@@ -2810,7 +2738,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v240</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v243</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -2884,17 +2812,9 @@
           <div class="listempty" id="listempty" hidden>이 화면 범위에는 신고 지점이 없습니다 — 지도를 옮겨보세요</div>
           <div class="summary">
             <div class="sumline">
-              화면 내 <b id="s-spots">–</b>곳 · 신고 <b id="s-reports">–</b>건 ·
-              우선구역 <b class="alert" id="s-prio">–</b>곳
+              화면 내 <b id="s-spots">–</b>곳 · 신고 <b id="s-reports">–</b>건
             </div>
             <div class="basis" id="basis"></div>
-          </div>
-
-          <div class="prioblock">
-            <div class="blockh">
-              <div class="bt">CCTV 없는 소음 구역 <span class="bd">신고는 많은데 CCTV가 없어 우선 설치가 필요</span></div>
-            </div>
-            <div id="prio-list"></div>
           </div>
 
         </div>
@@ -4621,7 +4541,7 @@ let devTierUnlock=false;
 
 let POINTS=[{"lat":37.404234,"lng":126.726418,"t":0},{"lat":37.404323,"lng":126.726209,"t":0},{"lat":37.403409,"lng":126.724529,"t":0},{"lat":37.403738,"lng":126.724409,"t":0},{"lat":37.402625,"lng":126.724605,"t":0},{"lat":37.402022,"lng":126.724613,"t":0},{"lat":37.403505,"lng":126.723168,"t":0},{"lat":37.404632,"lng":126.723548,"t":0},{"lat":37.404736,"lng":126.721678,"t":0},{"lat":37.403875,"lng":126.721433,"t":0},{"lat":37.402609,"lng":126.721443,"t":0},{"lat":37.405459,"lng":126.720681,"t":0},{"lat":37.405403,"lng":126.720049,"t":0},{"lat":37.407332,"lng":126.721945,"t":0},{"lat":37.407674,"lng":126.721955,"t":0},{"lat":37.408463,"lng":126.722235,"t":0},{"lat":37.409067,"lng":126.724198,"t":0},{"lat":37.408039,"lng":126.723908,"t":0},{"lat":37.405688,"lng":126.726311,"t":0},{"lat":37.403156,"lng":126.724287,"t":1},{"lat":37.402801,"lng":126.722662,"t":1},{"lat":37.403821,"lng":126.721427,"t":1},{"lat":37.407302,"lng":126.722623,"t":1},{"lat":37.40813,"lng":126.722535,"t":1},{"lat":37.4073,"lng":126.723713,"t":1},{"lat":37.407347,"lng":126.724684,"t":1},{"lat":37.406243,"lng":126.727571,"t":1},{"lat":37.407315,"lng":126.722702,"t":2},{"lat":37.403482,"lng":126.723094,"t":2},{"lat":37.402654,"lng":126.72159,"t":2},{"lat":37.402113,"lng":126.720239,"t":3},{"lat":37.4041,"lng":126.721274,"t":3},{"lat":37.406178,"lng":126.722876,"t":3},{"lat":37.408149,"lng":126.722004,"t":3},{"lat":37.408785,"lng":126.724171,"t":3},{"lat":37.40637,"lng":126.723942,"t":3},{"lat":37.407806,"lng":126.724618,"t":4},{"lat":37.407461,"lng":126.723181,"t":4},{"lat":37.408716,"lng":126.722544,"t":4},{"lat":37.403274,"lng":126.721712,"t":4},{"lat":37.402487,"lng":126.720212,"t":1},{"lat":37.405132,"lng":126.726511,"t":1},{"lat":37.406156,"lng":126.725061,"t":1},{"lat":37.406522,"lng":126.721485,"t":1},{"lat":37.404821,"lng":126.720249,"t":1},{"lat":37.40513,"lng":126.721417,"t":4}];
 
-const TOP_PINS=10, TOP_PRIO=6;
+const TOP_PINS=10;
 const M_LAT=1/110574, M_LNG=1/(111320*Math.cos(CENTER.lat*Math.PI/180));
 function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
 const distM=(a,b)=>Math.hypot((a.lng-b.lng)/M_LNG,(a.lat-b.lat)/M_LAT);
@@ -4729,10 +4649,10 @@ function cluster(radius){
 }
 function paint(s,ti){
   const el=s.el, px=s.px||12;
-  el.className='marker'+(s.rank?' prio':'')+(active===s?' on':'');
+  el.className='marker'+(active===s?' on':'');
   el.style.width=px+'px'; el.style.height=px+'px';
   /* 16px 미만에서는 글리프가 뭉개져 오히려 지저분해진다 */
-  el.innerHTML=dotSVG(TYPES[ti].c,px,!!s.rank,ti,px>=16);
+  el.innerHTML=dotSVG(TYPES[ti].c,px,s.big,ti,px>=16);
 }
 /* 확대하면 갈라지고 축소하면 뭉친다 — 원 크기는 건수를 나른다 */
 function sizeFor(s){
@@ -4801,8 +4721,25 @@ function drawFreeBlur(){
   spots.forEach(s=>{
     if(s.vis===false) return;
     if(distM(s.c, anchor)>FREE_RADIUS) return;   // 300m 밖은 무료에서 아예 안 보인다
+    /* 유료 이상 등급은 24시간 바를 움직이면 그 시각에 맞춰 핀이 밝아지고
+       어두워진다(applyHour). 무료 등급의 흐린 원은 그동안 이 가중치를
+       전혀 안 받아서, 바를 움직여도 지도만 그대로였다 — 정확한 위치와
+       유형은 계속 감추되(무료의 약속), "이 시간대엔 여기가 심하다"는
+       농도 변화만큼은 무료에서도 똑같이 느껴져야 한다. */
+    let op=0.22;
+    if(hourSel>=0){
+      const w=sharp(s.hours, hourSel);
+      if(w<0.20) return;                // 그 시각엔 조용한 곳 — 마커와 같은 기준으로 비운다
+      op=0.10+w*0.30;
+    }
+    /* 이 원 하나가 "빨강"이라는 색을 다 써버리면, 같은 화면 안의 24시간 바
+       유형칩·소음분류 글자·신고 건수까지 전부 빨강이라 뭐가 중요하고 뭐가
+       주의·경고인지 구별이 안 된다. 이 원은 "여기 신고가 있다"는 위치
+       표시일 뿐 위험·경고 신호가 아니므로, 빨강을 떼어 무채색 계열
+       (짙은 남회색)로 바꾼다 — 빨강은 이제 진짜 강조가 필요한 곳에만
+       남는다. */
     const poly=new kakao.maps.Polygon({path:circlePath(s.c,50),
-      strokeWeight:0, fillColor:'#E0483F', fillOpacity:0.22});
+      strokeWeight:0, fillColor:'#2B3340', fillOpacity:op});
     poly.setMap(map); freeBlurOv.push(poly);
   });
 }
@@ -4852,11 +4789,9 @@ function build(){
   const KO='가나다라마바사아자차카타파하거너더러머버서어저처커터퍼허';
   spots.forEach((s,i)=>{ s.name=(KO[i]||'기타')+' 구역'; });
   resolveNames();
-  const prio=spots.filter(s=>!s.cov).slice(0,TOP_PRIO);
-  prio.forEach((s,i)=>s.rank=i+1);
 
   spots.forEach((s,idx)=>{
-    s.big=!!s.rank||idx<TOP_PINS;
+    s.big=idx<TOP_PINS;
     const el=document.createElement('div');
     s.el=el; s.px=sizeFor(s); el.title=s.name+' · '+s.n+'건';
     el.onclick=()=>{
@@ -4865,7 +4800,7 @@ function build(){
     };
     paint(s,s.dom);
     s.ov=new kakao.maps.CustomOverlay({position:new kakao.maps.LatLng(s.c.lat,s.c.lng),
-      content:el, yAnchor:.5, xAnchor:.5, zIndex:s.rank?6:(s.big?4:2)});
+      content:el, yAnchor:.5, xAnchor:.5, zIndex:s.big?4:2});
     s.ov.setMap(map); overlays.push(s.ov);
   });
 
@@ -4875,14 +4810,6 @@ function build(){
 
   document.getElementById('s-spots').textContent=spots.length;
   document.getElementById('s-reports').textContent=spots.reduce((a,s)=>a+s.n,0).toLocaleString();
-  document.getElementById('s-prio').textContent=prio.length;
-  const list=document.getElementById('prio-list'); list.innerHTML='';
-  prio.slice(0,2).forEach(s=>{
-    const b=document.createElement('button'); b.className='prio';
-    b.innerHTML='<span class="no">'+s.rank+'</span><span class="nm" data-k="'+s.rank+'">'+
-      s.name+' · '+TYPES[s.dom].k+'</span><span class="ct">'+s.n+'건</span>';
-    b.onclick=()=>showDetail(s); list.appendChild(b);
-  });
   const sb=document.getElementById('sample-badge');
   sb.textContent=useEstimate?'5개 기관 공공데이터 13종 기반':'관측 · 직접 측정 표본';
   sb.hidden=false;
@@ -4922,7 +4849,7 @@ function addMySpot(typeIdx, dbVal, durVal){
     cov: covered(c), db: dbVal||60, dur: durVal||4,
     dom: typeIdx, lastTi: typeIdx, fixedTi: typeIdx,
     name, region: (recPlace && recPlace.region) || '',
-    fixed:true, mine:true, big:true, rank:0, vis:true
+    fixed:true, mine:true, big:true, vis:true
   };
   s.px = sizeFor(s);
   const el=document.createElement('div');
@@ -5242,6 +5169,7 @@ function applyHour(){
   });
   drawGlow();
   drawRoutes();
+  if(typeof drawFreeBlur==='function') drawFreeBlur();
   updateTcats();
   if(typeof renderList==='function' && !document.getElementById('s-list').hidden) renderList();
 }
@@ -5306,10 +5234,9 @@ function cardHTML(s,i){
       '<span class="mtag">평균 '+s.dur+'분</span>'
     : '<span class="mtag">'+loud+'</span>'+
       '<span class="mtag lockt">평균 지속 <i>🔒</i></span>';
-  return '<div class="card'+(s.rank?' urgent':'')+(s.mine?' mine-card':'')+'" data-i="'+i+'">'+
+  return '<div class="card'+(s.mine?' mine-card':'')+'" data-i="'+i+'">'+
     '<div class="chead">'+
       '<span class="cname">'+s.name+
-        (s.rank?'<span class="cprio">CCTV 없음 · 우선구역</span>':'')+
         (s.mine?'<span class="cmine">내 신고</span>':'')+'</span>'+
       '<span class="ccount">'+s.n+'건</span></div>'+
     '<div class="cline"><b>'+hh+'시경</b> 가장 심함, 소음분류는 <b>'+
@@ -5715,7 +5642,7 @@ function initTierDemo(){
 /* 개발용 상단 네비('등급' 버튼 포함)는 폰 폭(≤560px)에서 통째로 숨긴다 —
    실제 폰으로 테스트할 때는 그 버튼 자체가 안 보인다. 그런데 등급을
    자유롭게(수사 포함) 오가며 확인해야 하는 건 데스크톱에서든 폰에서든
-   똑같이 필요하다. 화면 어디서나 늘 떠 있는 버전 번호(v240 같은 표시)를
+   똑같이 필요하다. 화면 어디서나 늘 떠 있는 버전 번호(v243 같은 표시)를
    탭하는 것을 그 대체 통로로 쓴다 — 화면을 어지럽히는 새 버튼을 추가하지
    않고도 폰에서 항상 접근할 수 있다. */
 function initVerTap(){
@@ -5810,10 +5737,6 @@ function resolveNames(){
       const card = document.querySelector('.card[data-i="'+cardList.indexOf(s)+'"] .cname');
       if(card) card.textContent=s.name;
       if(s.el) s.el.title=s.name+' · '+s.n+'건';
-      const pl=document.getElementById('prio-list');
-      if(pl) pl.querySelectorAll('.nm').forEach(el=>{
-        if(el.dataset.k===String(s.rank)) el.textContent=s.name+' · '+TYPES[s.dom].k;
-      });
     });
   });
 }
@@ -5963,7 +5886,6 @@ function refreshList(){
   document.getElementById('s-spots').textContent=vis.length;
   document.getElementById('s-reports').textContent=
     vis.reduce((a,s)=>a+s.n,0).toLocaleString();
-  document.getElementById('s-prio').textContent=vis.filter(s=>s.rank).length;
 }
 
 
