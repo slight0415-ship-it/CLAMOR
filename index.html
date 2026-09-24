@@ -960,6 +960,14 @@
   .stage.split.big .mapwrap{flex:1}
   .stage.split.big .panel{display:none}
 
+  /* 상세(소음정보) 화면 — 지도는 위치를 확인할 때만 필요하고, 그 위치를
+     탭해서 들어온 다음부터는 정보만 남아야 한다("이미 지도로 확인했으니
+     여기서는 지도가 안 보인다"). 지도 판·시간축을 통째로 숨기면 panel이
+     이미 flex:1이라 화면 전체를 자연히 채운다. 되돌아가려면 상세 화면의
+     "← 지도로 돌아가기" 버튼(#back)으로만 나간다. */
+  .stage.split.detail .mapwrap{display:none}
+  .stage.split.detail .timebar{display:none}
+
   .tierbadge{font-family:var(--mono); font-size:0.8125rem; font-weight:900;
     color:var(--stroke); background:var(--text); padding:2px 8px;
     border-radius:5px; margin-right:7px}
@@ -2467,8 +2475,8 @@
   <section class="screen" id="s-cast" hidden>
     <div class="mhead">
       <div class="mtitle">
-        <h1>소음 예보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v248</span></div>
+        <h1>소음 정보</h1>
+        <div class="msub">계약 전 확인 <span class="ver">v251</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2478,6 +2486,12 @@
         <div class="a1" id="cast-region">인천 남동구 논현동</div>
         <div class="a2" id="cast-addr">—</div>
       </div>
+
+      <!-- 이 화면의 이름은 "소음 정보"이지 "예보"가 아니다 — 예보는 이
+           화면이 마지막에 보여주는 부가 내용이고, 먼저 나와야 하는 건
+           실제로 신고된 내용이다(이미 유료로 위치 범위를 확인한 사람이
+           보는 화면이므로). -->
+      <div class="block" id="cast-reports"></div>
 
       <!-- 손실의 크기: 보증금을 거는 사람에게 '월 며칠'은 무겁다 -->
       <div class="impact" id="impact"></div>
@@ -2711,7 +2725,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v248</span></div>
+          <span class="ver" id="ver2">v251</span></div>
       </div>
     </div>
 
@@ -2756,7 +2770,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v248</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v251</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -2841,7 +2855,7 @@
           <div class="hint" id="locked-txt"></div>
         </div>
         <div id="v-detail" hidden>
-          <button class="back" id="back">← 전체 보기</button>
+          <button class="back" id="back">← 지도로 돌아가기</button>
           <div class="d-hd"><span class="t" id="d-name"></span><span class="s" id="d-n"></span></div>
           <div class="d-cov" id="d-cov"></div>
           <div id="d-body"></div>
@@ -4774,6 +4788,16 @@ function drawFreeBlur(){
     const poly=new kakao.maps.Polygon({path:circlePath(s.c,r),
       strokeWeight:0, fillColor:'#2B3340', fillOpacity:op});
     poly.setMap(map); freeBlurOv.push(poly);
+    /* 범위 원은 지금까지 눌러도 아무 반응이 없었다 — 정확한 핀이 없는
+       등급(무료·유료·행정)에서는 이 원이 유일한 탭 지점이다. 원을
+       누르면 그 구역의 소음 정보(상세 화면)로 바로 들어간다. 정확한
+       핀이 있는 등급(대응·수사)의 마커 클릭과는 별개 경로다 — 거기는
+       목록 카드로 스크롤하는 쪽을 우선하지만, 원은 카드 목록 자체가
+       없는 것처럼 보이는 자리라 곧장 상세로 보내는 쪽이 맞다. */
+    if(typeof kakao!=='undefined' && kakao.maps && kakao.maps.event
+       && typeof kakao.maps.event.addListener==='function'){
+      kakao.maps.event.addListener(poly, 'click', ()=>{ showDetail(s); });
+    }
   });
 }
 /* ══ 수사 등급 — 신고자 추정 위치 ══
@@ -4804,8 +4828,17 @@ function drawReporterMarkers(){
     ov.setMap(map); reporterOv.push(ov);
   });
 }
+/* 상세(v-detail)로 들어가면 지도 판 자체를 숨기고 정보 패널이 화면
+   전체를 차지한다 — "이미 지도로 확인했으니 여기서는 지도가 안 보인다".
+   #back(← 지도로 돌아가기)을 누르면 main으로 돌아오면서 지도가 다시
+   나타난다. 지도 판이 나타나거나 사라질 때마다 카카오맵이 새 크기를
+   알아야 하므로 relayout을 한 박자 뒤에 호출한다. */
 function view(v){['main','detail','locked'].forEach(k=>
-  document.getElementById('v-'+k).hidden=(k!==v))}
+  document.getElementById('v-'+k).hidden=(k!==v));
+  const stage=document.getElementById('stage');
+  if(stage) stage.classList.toggle('detail', v==='detail');
+  if(map) setTimeout(()=>{ if(typeof map.relayout==='function') map.relayout() },140);
+}
 
 function build(){
   overlays.forEach(o=>o.setMap(null)); overlays=[];
@@ -5252,7 +5285,15 @@ function applyHour(){
 }
 function togglePlay(){
   const b=document.getElementById('tplay'), sl=document.getElementById('tslide');
-  if(playTimer){ clearInterval(playTimer); playTimer=null; b.textContent='▶'; b.classList.remove('on'); return }
+  if(playTimer){
+    clearInterval(playTimer); playTimer=null; b.textContent='▶'; b.classList.remove('on');
+    /* 재생을 멈추면 특정 시각에 멈춰 서 있지 않고 "하루 전체" 보기로
+       돌아간다 — 그래야 소음 범위 원이 다시 항상 보이는 기본 화면이
+       된다(특정 시각에 멈춘 채로 두면 그 시각에 조용한 곳은 계속 안
+       보이는 상태로 남는다). */
+    sl.value=-1; applyHour();
+    return;
+  }
   b.textContent='❚❚'; b.classList.add('on');
   if(+sl.value<0) sl.value=0;
   playTimer=setInterval(()=>{
@@ -5294,6 +5335,17 @@ function routeCardHTML(rt,i){
   '</div>';
 }
 
+/* 위치 정밀도 설명 — 카드와 "소음 정보"(예보) 화면이 같은 문구를 쓴다.
+   merge>0인 등급(무료·유료)은 실제로 여러 신고를 묶으니 "묶어 표시"가
+   맞고, 행정(merge:0)은 묶는 게 아니라 정확한 지점을 흐린 범위로만
+   보여주는 것뿐이라 표현을 다르게 한다. 대응·수사는 정확한 지점이므로
+   오히려 그 정확함 자체를 보여준다. */
+function precisionTextFor(T){
+  if(!T) return '';
+  if(T.merge>0) return '반경 '+T.merge+'m 범위';
+  if(T.range) return '정확한 지점 대신 '+(T.rangeR||0)+'m 범위로 표시';
+  return T.reporterLoc ? '건물 단위 정확한 위치 · 신고자 위치 표시됨' : '건물 단위 정확한 위치';
+}
 function cardHTML(s,i){
   if(s.isRoute) return routeCardHTML(s,i);
   const T=TIERS[tier];
@@ -5316,20 +5368,15 @@ function cardHTML(s,i){
      그런데 등급별로 실제 값을 사는 게 이 서비스의 핵심 차이인데, 그 차이를
      가장 안 보이는 곳에 숨겨 둔 셈이었다. 목록을 훑어보는 것만으로도
      등급 차이가 느껴지도록 카드를 펼치기 전(cline 바로 아래)에 항상
-     보이게 옮긴다. merge>0인 등급(무료·유료)은 실제로 여러 신고를
-     묶으니 "묶어 표시"가 맞고, 행정(merge:0)은 묶는 게 아니라 정확한
-     지점을 흐린 범위로만 보여주는 것뿐이라 표현을 다르게 한다.
-     대응·수사는 정확한 지점이므로 오히려 그 정확함 자체를 보여준다. */
-  const precisionText = !T ? '' :
-    T.merge>0 ? '반경 '+T.merge+'m 범위'
-    : T.range ? '정확한 지점 대신 '+(T.rangeR||0)+'m 범위로 표시'
-    : (T.reporterLoc ? '건물 단위 정확한 위치 · 신고자 위치 표시됨' : '건물 단위 정확한 위치');
+     보이게 옮긴다. 카드와 소음 정보(예보) 화면이 같은 문구를 써야 하므로
+     precisionTextFor()로 뽑아 둔다. */
+  const precisionText = precisionTextFor(T);
   const precisionLine = precisionText ? '<div class="cprec">'+precisionText+'</div>' : '';
   const mergeNote = (T && T.merge>0)
     ? '<span class="lhnote">이 점은 반경 '+T.merge+'m 안 <b>'+s.n+'건</b>을 하나로 묶은 것입니다</span>' : '';
   /* 시간대 미니 그래프 — 예전엔 지도 위 정확한 핀을 클릭해야 뜨는 별도
      팝업(showDetail)에만 있었다. 무료·유료·행정은 이제 정확한 핀 자체가
-     없어(v248 range 등급) 그 팝업에 도달할 방법이 없으므로, T.hours가
+     없어(v251 range 등급) 그 팝업에 도달할 방법이 없으므로, T.hours가
      켜진 등급(유료부터)은 카드 안에 바로 넣어 "유료를 사면 카드가 실제로
      더 상세해진다"는 약속을 지킨다. */
   const mx=Math.max(...s.hours);
@@ -5343,6 +5390,10 @@ function cardHTML(s,i){
     ? '<span class="mtag rtag">신고자 위치 지도에 표시됨</span>' : '';
   const logNote = (T && T.log)
     ? '<div class="caudit">이 등급은 조회 기록이 남습니다</div>' : '';
+  /* 이미 유료 이상인 사람에게 "내일 소음 수준은?"이라는 무료 등급용 미끼
+     문구를 그대로 보여줄 이유가 없다 — 이미 산 사람이라 바로 예보로
+     들어가면 된다(버튼 동작은 bindCards에서 분기). */
+  const isPaid = !!(T && T.hours);
   return '<div class="card'+(s.mine?' mine-card':'')+'" data-i="'+i+'">'+
     '<div class="chead">'+
       '<span class="cname">'+s.name+
@@ -5360,7 +5411,7 @@ function cardHTML(s,i){
       hoursMini+
       logNote+
       /* 전환 지점은 접힌 정보 뒤가 아니라 상세 안에서 바로 보여야 한다 */
-      '<button class="peek" data-peek="'+i+'">내일 소음 수준은?</button>'+
+      '<button class="peek" data-peek="'+i+'">'+(isPaid?'주간 소음 예보 보기':'내일 소음 수준은?')+'</button>'+
       '<div class="peekbox" id="peek'+i+'" hidden></div>'+
       '<div class="loghead">최근 신고 기록'+mergeNote+'</div>'+
       '<div class="logs">'+logHTML(s,i)+'</div>'+
@@ -5472,7 +5523,16 @@ function bindCards(){
   rail.querySelectorAll('[data-peek]').forEach(b=>{
     b.onclick=e=>{
       e.stopPropagation();
-      const i=+b.dataset.peek, box=document.getElementById('peek'+i);
+      const i=+b.dataset.peek;
+      /* 잠긴 미리보기("?" 표시 + "원하는 날짜와 시간대 예보 보기"를 또
+         눌러야 진짜 상세로 가는 두 단계 흐름)는 무료 등급을 유료로
+         유도하기 위한 미끼다. 이미 유료 이상(T.hours)인 사람에게 같은
+         미끼를 또 보여주면 이미 산 걸 다시 열어보는 데 세 번 탭해야
+         하는 셈이 된다 — 그 등급은 바로 실제 예보 화면으로 보낸다. */
+      if(typeof paid!=='undefined' && paid){
+        renderCast(cardList[i]); go('cast'); return;
+      }
+      const box=document.getElementById('peek'+i);
       const open=box.hidden;
       if(open && !box.innerHTML) box.innerHTML=peekHTML(cardList[i]);
       box.hidden=!open;
@@ -5630,6 +5690,29 @@ function renderCast(s){
     if(sp.region) document.getElementById('cast-region').textContent=sp.region;
   });
 
+  /* ── 신고된 내용이 먼저다 ──
+     이 화면 이름은 "소음 정보"이지 "예보"가 아니다. 이미 유료로 위치
+     범위까지 확인하고 들어온 사람에게는 그 범위에 실제로 신고된 내용
+     (건수·위치 정밀도·최근 신고 기록)이 먼저 보여야 하고, 예보는 그
+     아래에 이어지는 부가 내용이다. 카드(cardHTML)와 똑같은 재료를
+     쓴다 — 다른 화면이라고 다른 숫자를 보여주면 안 된다. */
+  const T=TIERS[tier];
+  const repMetrics = !!(T && T.metrics);
+  const repLoud = (s.db+5) >= 65 ? '평균 소음보다 심함'
+                : (s.db+5) >= 55 ? '평균 소음 수준'
+                :                  '조용한 편';
+  const repMeta = repMetrics
+    ? '<span class="mtag">최고 '+(s.db+5)+' dB</span><span class="mtag">평균 '+s.dur+'분</span>'
+    : '<span class="mtag">'+repLoud+'</span><span class="mtag lockt">평균 지속 <i>🔒</i></span>';
+  document.getElementById('cast-reports').innerHTML=
+    '<div class="bh">이 구역에 신고된 내용</div>'+
+    '<div class="cline"><b>'+s.n+'건</b> 신고됨'+
+      (s.cov?'':' · <span class="mtag blind">CCTV 사각</span>')+'</div>'+
+    '<div class="cprec">'+precisionTextFor(T)+'</div>'+
+    '<div class="cmeta">'+repMeta+'</div>'+
+    '<div class="loghead">최근 신고 기록</div>'+
+    '<div class="logs">'+logHTML(s, cardList.indexOf(s))+'</div>';
+
   /* ── 심각성은 열고, 시점은 막는다 ──
      다 가리면 뒤로 가기를 누른다. 값을 먼저 보여줘야 '언제인지'가 궁금해진다. */
   /* 요일 최대값 합계로 계산하면 상위 지점이 무조건 상한(28)에 붙는다.
@@ -5752,7 +5835,7 @@ function initTierDemo(){
 /* 개발용 상단 네비('등급' 버튼 포함)는 폰 폭(≤560px)에서 통째로 숨긴다 —
    실제 폰으로 테스트할 때는 그 버튼 자체가 안 보인다. 그런데 등급을
    자유롭게(수사 포함) 오가며 확인해야 하는 건 데스크톱에서든 폰에서든
-   똑같이 필요하다. 화면 어디서나 늘 떠 있는 버전 번호(v248 같은 표시)를
+   똑같이 필요하다. 화면 어디서나 늘 떠 있는 버전 번호(v251 같은 표시)를
    탭하는 것을 그 대체 통로로 쓴다 — 화면을 어지럽히는 새 버튼을 추가하지
    않고도 폰에서 항상 접근할 수 있다. */
 function initVerTap(){
@@ -5867,7 +5950,7 @@ function makeLogs(s){
   return Array.from({length:n},(_,i)=>{
     const ago=1+Math.floor(r()*26);
     const h=(pk+Math.round((r()-.5)*4)+24)%24;
-    const ti=r()<.68 ? s.dom : Math.floor(r()*TYPES.length);
+    const ti=(r()<.68 && s.dom!=null) ? s.dom : Math.floor(r()*TYPES.length);
     const db=s.db+Math.round(r()*10-2);
     const dur=Math.max(1, s.dur+Math.round(r()*8-4));
     return {ago, h, ti, db, dur};
@@ -6189,7 +6272,10 @@ function bootMapInner(){
   document.getElementById('panel').hidden=false;
   map=new kakao.maps.Map(document.getElementById('map'),
     {center:new kakao.maps.LatLng(CENTER.lat,CENTER.lng), level:4});
-  map.addControl(new kakao.maps.ZoomControl(), kakao.maps.ControlPosition.RIGHT);
+  /* 확대·축소 바가 오른쪽 위(RIGHT는 세로 중앙이지만 지도 높이가 짧을 땐
+     위쪽에 붙어서) 전체지도 버튼과 겹쳐 보였다 — 아예 오른쪽 아래로
+     내려서 상단 도구 버튼과 자리를 겹치지 않게 한다. */
+  map.addControl(new kakao.maps.ZoomControl(), kakao.maps.ControlPosition.BOTTOMRIGHT);
   drawWash();
   document.getElementById('timebar').hidden=false;
   document.getElementById('tslide').oninput=()=>{
