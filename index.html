@@ -878,25 +878,31 @@
   .block{margin-bottom:18px}
   .bh{font-size:0.9375rem; font-weight:800; color:var(--text-mute); margin-bottom:9px}
 
-  /* "신고된 내용" 박스(v253) — 테두리로 경계를 분명히 해서 예보(아래쪽,
+  /* "신고된 내용" 박스(v254) — 테두리로 경계를 분명히 해서 예보(아래쪽,
      테두리 없는 block)와 시각적으로 구분되게 한다. 신고 데이터는 "이미
      일어난 사실"이고 예보는 "앞으로의 추정"이라 성격이 다르므로 다른
-     그릇에 담는다. */
+     그릇에 담는다.
+     클래스 이름은 접근 등급 화면(.trow/.tierlist)이 이미 쓰고 있어서
+     .tyrow처럼 접두를 붙여 겹치지 않게 한다 — 처음엔 .trow를 그대로
+     썼다가 그 등급 화면 스타일(가로 배치 pill 버튼)에 그대로 깔려
+     시간대 그래프가 옆으로 눌려 안 보이는 버그가 났었다. */
   .repbox{border:1px solid var(--line); border-radius:14px; padding:14px 15px 15px;
     margin-bottom:18px; background:var(--ink-2)}
   .repbox .bh{margin-bottom:2px}
   .repn{font-size:0.875rem; color:var(--text-dim); margin-bottom:12px}
-  .typegrid{display:grid; gap:10px}
-  .trow{padding-top:9px; border-top:1px solid var(--line)}
-  .trow:first-child{padding-top:0; border-top:none}
-  .trow-h{display:flex; justify-content:space-between; align-items:baseline; font-size:0.8438rem}
-  .trow-h .tname{color:var(--text-dim); font-weight:600}
-  .trow-h .tcnt{font-family:var(--mono); font-weight:800; color:var(--text)}
-  .trow.zero .trow-h .tcnt{color:var(--text-mute); font-weight:600}
-  .tspark{display:flex; align-items:flex-end; gap:1.5px; height:20px; margin-top:5px}
-  .tspark i{flex:1; background:var(--ink-3); border-radius:1px; min-height:2px}
-  .trow.zero .tspark i{background:var(--ink-3); opacity:.45}
-  .tglab{margin-top:2px}
+  .typegrid{display:flex; flex-direction:column; gap:11px}
+  /* 유형명·시간대 그래프·건수를 한 줄에 — 그래프는 유형명 오른쪽에 온다 */
+  .tyrow{display:flex; align-items:center; gap:10px; padding-top:9px; border-top:1px solid var(--line)}
+  .tyrow:first-child{padding-top:0; border-top:none}
+  .tyname{flex:0 0 auto; width:80px; font-size:0.8125rem; font-weight:600;
+    color:var(--text-dim); line-height:1.3}
+  .tyspark{flex:1; display:flex; align-items:flex-end; gap:1.5px; height:22px}
+  .tyspark i{flex:1; background:var(--ink-3); border-radius:1px; min-height:2px}
+  .tyrow.zero .tyspark i{opacity:.4}
+  .tycnt{flex:0 0 auto; min-width:34px; text-align:right; font-family:var(--mono);
+    font-weight:800; color:var(--text); font-size:0.8438rem}
+  .tyrow.zero .tycnt{color:var(--text-mute); font-weight:600}
+  .tglab{margin-top:4px; padding-left:90px}
 
   /* 요일 × 시간 격자 — 반복성이 눈으로 증명되는 자리 */
   .grid{display:grid; grid-template-columns:34px repeat(12,1fr); gap:2.5px}
@@ -2496,7 +2502,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v253</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v254</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2745,7 +2751,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v253</span></div>
+          <span class="ver" id="ver2">v254</span></div>
       </div>
     </div>
 
@@ -2790,7 +2796,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v253</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v254</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -2893,7 +2899,7 @@
    악취·빛공해·통행방해가 추가돼도 색은 4개를 넘지 않는다.
    ══════════════════════════════════════════════════════════════ */
 const CAT={noise:'#E0483F', odor:'#7A9E3B', light:'#E8A93C', block:'#4A76D4'};
-/* v253: 소음 5종 → 6종. 그동안 '차량·기계음'으로 묶어뒀던 것을
+/* v254: 소음 5종 → 6종. 그동안 '차량·기계음'으로 묶어뒀던 것을
    '바이크'(지나가는 이동 소음)와 '기계음'(주거지 인접 소규모 공장·작업장의
    금속 가공·중량물 운반 등 정지형 기계 소음)으로 나눈다 — 실제로는 완전히
    다른 민원이라 하나로 묶으면 어느 쪽 문제인지 알 수 없었다. 라벨은 카드
@@ -2995,7 +3001,7 @@ function openTierSheet(force){
          바뀌면 예보의 잠금 상태(paid)도 함께 바뀐다. 따로 결제하는
          것이 아니라 지도 등급을 올리면 예보도 같이 열린다. */
       if(typeof syncPaidFromTier==='function') syncPaidFromTier();
-      /* 유료 이상으로 새로 진입하면 전체지도부터 보여준다(v253) — 사용자가
+      /* 유료 이상으로 새로 진입하면 전체지도부터 보여준다(v254) — 사용자가
          가장 궁금한 건 카드 목록이 아니라 "내 동네 소음이 지도 위 어디에
          몰려 있는가"라는 시각 정보다. 목록은 언제든 전체지도 버튼으로
          되돌릴 수 있으니 기본값만 바꾼다. */
@@ -4869,7 +4875,7 @@ function drawReporterMarkers(){
    #back(← 지도로 돌아가기)을 누르면 main으로 돌아오면서 지도가 다시
    나타난다. 지도 판이 나타나거나 사라질 때마다 카카오맵이 새 크기를
    알아야 하므로 relayout을 한 박자 뒤에 호출한다. */
-/* 전체지도(big) 모드는 .panel 전체를 display:none으로 지운다(v253).
+/* 전체지도(big) 모드는 .panel 전체를 display:none으로 지운다(v254).
    그런데 상세(#v-detail)·잠김(#v-locked) 화면도 그 .panel 안에 있어서,
    전체지도 상태에서 원을 눌러 상세로 들어가면 hidden 속성은 제대로
    바뀌어도 부모(.panel)가 여전히 안 보이는 상태라 화면이 통째로 먹통
@@ -4930,7 +4936,7 @@ function build(){
     const cnt=TYPES.map((_,ti)=>g.filter(p=>p.t===ti).length);
     const mix=cnt.map(v=>(v+0.15)/(g.length+0.75));
     const hours=Array.from({length:24},(_,h)=>g.reduce((s,p)=>s+p.hours[h],0)/g.length);
-    /* "신고된 내용" 화면(v253)에 유형별 시간대 분포를 따로 보여주려면
+    /* "신고된 내용" 화면(v254)에 유형별 시간대 분포를 따로 보여주려면
        유형별로 묶은 원본 신고들의 hours를 따로 평균 내야 한다. 그룹
        전체 평균(hours)만으로는 "고성은 새벽에, 기계음은 낮에"처럼
        유형마다 다른 주기를 구분할 수 없다. 그 유형의 신고가 하나도
@@ -5068,7 +5074,7 @@ function showDetail(s){
   document.getElementById('d-n').textContent=s.n+'건 / 30일';
   /* CCTV 시야 여부는 "행정" 등급부터(T.log)만 의미가 있다 — 그 아래
      등급은 범위가 넓어 CCTV가 여러 대일 수도, 한 대도 없을 수도 있고,
-     애초에 시민이 소음 정보를 볼 때 궁금한 것도 아니다(v253). */
+     애초에 시민이 소음 정보를 볼 때 궁금한 것도 아니다(v254). */
   const cov=document.getElementById('d-cov');
   if(T.log){
     cov.hidden=false;
@@ -5077,7 +5083,7 @@ function showDetail(s){
   } else {
     cov.hidden=true; cov.textContent=''; cov.className='d-cov';
   }
-  /* "신고된 내용"이 이 화면의 주인공이다(v253) — 예전엔 유형 비율을
+  /* "신고된 내용"이 이 화면의 주인공이다(v254) — 예전엔 유형 비율을
      막대 몇 개로만 보여주고 끝나 "종이에 텍스트 적다 만" 인상을 줬다.
      카드·소음 정보 화면과 같은 reportBreakdownHTML을 써서 6종 신고
      건수·유형별 시간대 분포를 항상 같은 모양으로 보여준다. */
@@ -5414,6 +5420,12 @@ function precisionTextFor(T){
   if(T.range) return '정확한 지점 대신 '+(T.rangeR||0)+'m 범위로 표시';
   return T.reporterLoc ? '건물 단위 정확한 위치 · 신고자 위치 표시됨' : '건물 단위 정확한 위치';
 }
+/* 24시 소음예측 바(#tcats)는 폭이 좁아 축약형(동물/바이크)을 쓰지만,
+   "신고된 내용" 박스는 화면 폭이 넉넉하고 여기서만 보이는 이름이라
+   풀어서 정확히 적는다 — 짧은 라벨은 처음 보는 사람에게 "동물이 뭘
+   말하는 거지?"라는 의문을 남긴다. TYPES.k(공용 축약형)는 그대로 두고
+   이 화면 전용 별칭만 따로 둔다. */
+const TYPE_LABEL_LONG={'동물':'반려동물 짖음','바이크':'차량·바이크 굉음'};
 /* "신고된 내용" 박스 — 지도 위 소음범위(원)를 눌러 들어가는 상세 화면
    (showDetail)과 카드의 "예보 보기"로 들어가는 소음 정보 화면(renderCast)
    양쪽에서 똑같이 쓴다. 예전엔 이 자리가 그냥 흰 배경에 텍스트 몇 줄만
@@ -5423,7 +5435,8 @@ function precisionTextFor(T){
    안 되기 때문). 유형별 건수는 원본 개수(cnt)가 아니라 mix 비율을 전체
    건수(n)에 곱한 값을 쓴다 — 병합 등급은 표시 건수(n)를 실제 원본 개수보다
    부풀려 두므로, 원본 개수를 그대로 쓰면 "6종 합계가 위 총 건수와 안 맞는"
-   모순이 생긴다. */
+   모순이 생긴다. 유형별 시간대 분포(스파크라인)는 유형명 오른쪽에 바로
+   붙여 "이 유형이 언제 몰리는지"를 한눈에 비교할 수 있게 한다. */
 function reportBreakdownHTML(s, T){
   const hasHours = !!(T && T.hours);
   const rows = TYPES.map((t,i)=>{
@@ -5431,11 +5444,12 @@ function reportBreakdownHTML(s, T){
     const hrs = (s.hoursByType && s.hoursByType[i]) || Array(24).fill(0);
     const mx = Math.max(...hrs, 0.0001);
     const spark = hasHours
-      ? '<div class="tspark">'+hrs.map(v=>'<i style="height:'+Math.max(4,Math.round(v/mx*100))+'%"></i>').join('')+'</div>'
-      : '';
-    return '<div class="trow'+(cnt?'':' zero')+'">'+
-      '<div class="trow-h"><span class="tname">'+t.k+'</span><span class="tcnt">'+cnt+'건</span></div>'+
+      ? '<div class="tyspark">'+hrs.map(v=>'<i style="height:'+Math.max(4,Math.round(v/mx*100))+'%"></i>').join('')+'</div>'
+      : '<div class="tyspark"></div>';
+    return '<div class="tyrow'+(cnt?'':' zero')+'">'+
+      '<span class="tyname">'+(TYPE_LABEL_LONG[t.k]||t.k)+'</span>'+
       spark+
+      '<span class="tycnt">'+cnt+'건</span>'+
     '</div>';
   }).join('');
   return '<div class="repbox">'+
@@ -5476,7 +5490,7 @@ function cardHTML(s,i){
     ? '<span class="lhnote">이 점은 반경 '+T.merge+'m 안 <b>'+s.n+'건</b>을 하나로 묶은 것입니다</span>' : '';
   /* 시간대 미니 그래프 — 예전엔 지도 위 정확한 핀을 클릭해야 뜨는 별도
      팝업(showDetail)에만 있었다. 무료·유료·행정은 이제 정확한 핀 자체가
-     없어(v253 range 등급) 그 팝업에 도달할 방법이 없으므로, T.hours가
+     없어(v254 range 등급) 그 팝업에 도달할 방법이 없으므로, T.hours가
      켜진 등급(유료부터)은 카드 안에 바로 넣어 "유료를 사면 카드가 실제로
      더 상세해진다"는 약속을 지킨다. */
   const mx=Math.max(...s.hours);
@@ -5951,7 +5965,7 @@ function initTierDemo(){
 /* 개발용 상단 네비('등급' 버튼 포함)는 폰 폭(≤560px)에서 통째로 숨긴다 —
    실제 폰으로 테스트할 때는 그 버튼 자체가 안 보인다. 그런데 등급을
    자유롭게(수사 포함) 오가며 확인해야 하는 건 데스크톱에서든 폰에서든
-   똑같이 필요하다. 화면 어디서나 늘 떠 있는 버전 번호(v253 같은 표시)를
+   똑같이 필요하다. 화면 어디서나 늘 떠 있는 버전 번호(v254 같은 표시)를
    탭하는 것을 그 대체 통로로 쓴다 — 화면을 어지럽히는 새 버튼을 추가하지
    않고도 폰에서 항상 접근할 수 있다. */
 function initVerTap(){
