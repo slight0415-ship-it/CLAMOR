@@ -375,6 +375,11 @@
     transform-origin:bottom; animation-name:eqpulse;
     animation-timing-function:ease-in-out; animation-iteration-count:infinite}
   .hours i.peak{background:var(--c-noise)}
+  /* v260 후속 — 신고내용 박스와 같은 이유로, 카드 미니 그래프도
+     회색 하나 대신 막대 높이에 따라 회색→주황→빨강으로 바뀐다. */
+  .hours i.lo{background:var(--ink-3)}
+  .hours i.mid{background:#E4893A}
+  .hours i.hi, .hours i.peak{background:var(--c-noise)}
   @media (prefers-reduced-motion: reduce){ .hours i{animation:none} }
   .hlab{display:flex; justify-content:space-between; font-family:var(--mono);
     font-size:0.7812rem; color:var(--text-mute); margin-top:3px}
@@ -914,6 +919,13 @@
   .tyrow.zero .tyspark i{opacity:.4}
   @keyframes eqpulse{0%,100%{transform:scaleY(1)} 50%{transform:scaleY(.72)}}
   @media (prefers-reduced-motion: reduce){ .tyspark i{animation:none} }
+  /* v260 후속 — 회색 하나로만 된 막대는 밋밋해 보인다는 지적. 막대
+     높이(그 시간대가 얼마나 심한지)에 따라 회색→주황→빨강 순으로
+     색이 바뀌게 해서, 색 자체가 "위험도"를 바로 말해주게 한다. */
+  .tyspark i.lo{background:var(--ink-3)}
+  .tyspark i.mid{background:#E4893A}
+  .tyspark i.hi{background:var(--c-noise)}
+  .tyrow.zero .tyspark i.mid, .tyrow.zero .tyspark i.hi{background:var(--ink-3)}
   .tycnt{flex:0 0 auto; min-width:34px; text-align:right; font-family:var(--mono);
     font-weight:800; color:var(--text); font-size:0.8438rem}
   .tyrow.zero .tycnt{color:var(--text-mute); font-weight:600}
@@ -921,13 +933,17 @@
 
   /* 요일 × 시간 격자 — 반복성이 눈으로 증명되는 자리.
      v259: 가로축=요일, 세로축=시간으로 바꿨다(시민 대부분이 달력·
-     캘린더처럼 요일이 가로로 놓인 표에 익숙하다는 지적 반영). */
-  .grid{display:grid; grid-template-columns:34px repeat(7,1fr); gap:2.5px}
-  .grid .gl{font-family:var(--mono); font-size:0.75rem; color:var(--text-mute);
+     캘린더처럼 요일이 가로로 놓인 표에 익숙하다는 지적 반영).
+     v260 후속: 칸이 화면 폭 전체로 늘어나 상세히 뜯어보는 표처럼
+     커져 있었다는 지적 — "한눈에 파악"이 목적이므로 칸 크기를 고정된
+     작은 정사각형으로 못박고, 표 전체를 가운데로 모은다. */
+  .grid{display:grid; grid-template-columns:26px repeat(7,20px); gap:2.5px;
+    justify-content:center}
+  .grid .gl{font-family:var(--mono); font-size:0.6875rem; color:var(--text-mute);
     display:flex; align-items:center; font-weight:700}
-  .grid .gt{font-family:var(--mono); font-size:0.6875rem; color:var(--text-mute);
+  .grid .gt{font-family:var(--mono); font-size:0.625rem; color:var(--text-mute);
     text-align:center}
-  .grid i{aspect-ratio:1; border-radius:3px; background:var(--ink-3)}
+  .grid i{width:20px; height:20px; border-radius:3px; background:var(--ink-3)}
   /* 예보 화면 히트그리드 전용. 범위를 안 묶으면 같은 이름을 쓰는
      다른 요소(주간 미리보기 등)까지 칠해 버린다.
      빨강 점이 촘촘히 박힌 격자는 보고 싶지 않은 그림이 된다. 지도의 붉은
@@ -1176,9 +1192,12 @@
     color:#6B7484; font-weight:700; border-top:1px solid #E2E7EF}
 
   @media (max-width:560px){
-    /* 이 화면들은 430px 폭 안에서 맞춰 놓은 크기다. 폰 화면은 그보다 넓어
-       같은 값이 훨씬 크게 보인다. 배율을 한 단계 내려 균형을 맞춘다. */
-    html{font-size:calc(14px * var(--fs))}
+    /* 예전엔 여기서 14px로 한 단계 더 줄였다 — 실제 폰 폭(360~430px)은
+       디자인 기준 폭(430px)과 비슷하거나 좁아서, 데스크톱 미리보기보다
+       오히려 더 작게 보이는 원인이 됐다(다방·직방·당근마켓 등과 비교해
+       글자가 너무 작다는 지적). 데스크톱과 같은 16px 기준으로 맞춘다 —
+       실제 크기는 --fs(위 t-fs 조정판, 기본 125%)가 최종 결정한다. */
+    html{font-size:calc(16px * var(--fs))}
     body{padding:0; display:block; min-height:0; background:var(--ink)}
     .phone, body.wide .phone{
       width:100%; height:100vh; height:100dvh; max-width:none; border-radius:0;
@@ -2353,7 +2372,12 @@
 <div class="devhint" id="devhint"></div>
 <button class="tune-toggle" id="tune-toggle">Aa</button>
 <div class="tune" id="tune" hidden>
-  <label>글자 <input type="range" id="t-fs" min="70" max="140" value="87"><b id="t-fsv">87%</b></label>
+  <!-- v260 후속 — 기본값이 87%로 남아 있어서, 실제 폰에서는 이 조정판
+       (.tune)이 화면엔 안 보여도 apply()가 페이지 로드 때마다 무조건
+       실행되어 모든 사용자의 글자가 87%로 줄어 있었다(당근마켓 등
+       참고 앱보다 훨씬 작다는 지적의 실제 원인). 기본값을 125%로
+       올린다 — 개발용 조정판일 뿐, 실제 기본 크기는 이 값이 된다. -->
+  <label>글자 <input type="range" id="t-fs" min="70" max="160" value="125"><b id="t-fsv">125%</b></label>
   <label>굵기 <input type="range" id="t-fw" min="0" max="200" step="50" value="100"><b id="t-fwv">+0</b></label>
   <button id="t-copy">값 복사</button>
 </div>
@@ -2591,7 +2615,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v260</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v261</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2837,7 +2861,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v260</span></div>
+          <span class="ver" id="ver2">v261</span></div>
       </div>
     </div>
 
@@ -2894,7 +2918,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v260</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v261</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -5572,7 +5596,11 @@ function reportBreakdownHTML(s, T){
       ? '<div class="tyspark">'+hrs.map((v,h)=>{
           const hp=Math.max(4,Math.round(v/mx*100));
           const dly=(h*173+i*91)%900, dur=820+((h*57+i*130)%460);
-          return '<i style="height:'+hp+'%; animation-delay:'+dly+'ms; animation-duration:'+dur+'ms"></i>';
+          /* 회색 하나로만 두지 않고, 그 시간대가 하루 중 얼마나
+             심한 편인지(hp, 그 유형 안에서의 상대 높이)에 따라
+             회색→주황→빨강으로 색을 바꾼다(v260 후속). */
+          const bucket = hp>=70?'hi':hp>=40?'mid':'lo';
+          return '<i class="'+bucket+'" style="height:'+hp+'%; animation-delay:'+dly+'ms; animation-duration:'+dur+'ms"></i>';
         }).join('')+'</div>'
       : '<div class="tyspark"></div>';
     return '<div class="tyrow'+(cnt?'':' zero')+'">'+
@@ -5627,8 +5655,10 @@ function cardHTML(s,i){
     ? '<div class="sec"><div class="sec-h">시간대 분포</div><div class="hours">'+
       s.hours.map((v,idx)=>{
         const dly=(idx*173)%900, dur=820+((idx*57)%460);
-        return '<i class="'+(idx===pk?'peak':'')+'" style="height:'+
-          (v/mx*100).toFixed(0)+'%; animation-delay:'+dly+'ms; animation-duration:'+dur+'ms"></i>';
+        const hp=v/mx*100;
+        const bucket = idx===pk ? 'peak' : (hp>=70?'hi':hp>=40?'mid':'lo');
+        return '<i class="'+bucket+'" style="height:'+
+          hp.toFixed(0)+'%; animation-delay:'+dly+'ms; animation-duration:'+dur+'ms"></i>';
       }).join('')+
       '</div><div class="hlab"><span>00</span><span>06</span><span>12</span><span>18</span><span>23</span></div></div>'
     : '';
