@@ -368,8 +368,14 @@
   .bar2 .fl{height:100%; border-radius:3px; background:var(--c-noise)}
   .bar2 .v{font-family:var(--mono); font-size:0.875rem; color:var(--text-dim); width:24px; text-align:right}
   .hours{display:flex; align-items:flex-end; gap:2px; height:34px; margin-top:3px}
-  .hours i{flex:1; background:var(--ink-3); border-radius:1.5px; min-height:2px}
+  /* 카드의 시간대 미니 그래프도 신고내용 박스와 같은 이유로 계속
+     들썩인다(v256 후속) — 제품·매물 사진이 없는 서비스라 이런 작은
+     동적 요소가 화면이 살아있다는 인상을 만드는 데 중요하다. */
+  .hours i{flex:1; background:var(--ink-3); border-radius:1.5px; min-height:2px;
+    transform-origin:bottom; animation-name:eqpulse;
+    animation-timing-function:ease-in-out; animation-iteration-count:infinite}
   .hours i.peak{background:var(--c-noise)}
+  @media (prefers-reduced-motion: reduce){ .hours i{animation:none} }
   .hlab{display:flex; justify-content:space-between; font-family:var(--mono);
     font-size:0.7812rem; color:var(--text-mute); margin-top:3px}
   .metrics{display:flex; gap:18px; flex-wrap:wrap; margin-top:9px; padding-top:9px; border-top:1px solid var(--line)}
@@ -897,15 +903,26 @@
   .tyname{flex:0 0 auto; width:80px; font-size:0.8125rem; font-weight:600;
     color:var(--text-dim); line-height:1.3}
   .tyspark{flex:1; display:flex; align-items:flex-end; gap:1.5px; height:22px}
-  .tyspark i{flex:1; background:var(--ink-3); border-radius:1px; min-height:2px}
+  /* 매물 사진·제품 사진이 없는 서비스라 정적인 화면이 되기 쉽다 —
+     막대 높이(데이터)는 그대로 두고, 그 위에 실시간 이퀄라이저처럼
+     보이도록 각 막대를 세로로 계속 들썩이게 한다(v256 후속). 막대마다
+     JS에서 넣어주는 animation-delay/duration이 서로 어긋나 있어
+     실제 오디오 미터처럼 제각각 움직인다. */
+  .tyspark i{flex:1; background:var(--ink-3); border-radius:1px; min-height:2px;
+    transform-origin:bottom; animation-name:eqpulse;
+    animation-timing-function:ease-in-out; animation-iteration-count:infinite}
   .tyrow.zero .tyspark i{opacity:.4}
+  @keyframes eqpulse{0%,100%{transform:scaleY(1)} 50%{transform:scaleY(.72)}}
+  @media (prefers-reduced-motion: reduce){ .tyspark i{animation:none} }
   .tycnt{flex:0 0 auto; min-width:34px; text-align:right; font-family:var(--mono);
     font-weight:800; color:var(--text); font-size:0.8438rem}
   .tyrow.zero .tycnt{color:var(--text-mute); font-weight:600}
   .tglab{margin-top:4px; padding-left:90px}
 
-  /* 요일 × 시간 격자 — 반복성이 눈으로 증명되는 자리 */
-  .grid{display:grid; grid-template-columns:34px repeat(12,1fr); gap:2.5px}
+  /* 요일 × 시간 격자 — 반복성이 눈으로 증명되는 자리.
+     v259: 가로축=요일, 세로축=시간으로 바꿨다(시민 대부분이 달력·
+     캘린더처럼 요일이 가로로 놓인 표에 익숙하다는 지적 반영). */
+  .grid{display:grid; grid-template-columns:34px repeat(7,1fr); gap:2.5px}
   .grid .gl{font-family:var(--mono); font-size:0.75rem; color:var(--text-mute);
     display:flex; align-items:center; font-weight:700}
   .grid .gt{font-family:var(--mono); font-size:0.6875rem; color:var(--text-mute);
@@ -928,6 +945,28 @@
   .evrow .el{font-size:1rem; color:var(--text-dim); flex:1}
   .evrow .er{font-family:var(--mono); font-size:1.125rem; font-weight:900; color:var(--text)}
   .evrow .er.hot{color:var(--c-noise)}
+
+  /* v259 후속 — "예측 근거"는 유료 등급만 보는 정보인데 주변 화면과
+     똑같은 흰 배경·텍스트라 존재감이 없다는 지적. 화이트 테마인
+     주변 화면과 상관없이 이 박스만 짙은 카드로 따로 띄워
+     "별도 리포트"처럼 보이게 하고, 이름도 데이터 기반 예측이라는
+     인상이 드는 "PREDICTION"으로 바꾼다(부제로 한글을 함께 둔다). */
+  .predcard{margin:14px 0 12px; border-radius:16px; overflow:hidden;
+    background:#12161E; border:1px solid rgba(255,255,255,.09);
+    box-shadow:0 10px 26px rgba(10,12,18,.28)}
+  .predhead{display:flex; align-items:baseline; gap:10px; padding:14px 16px 12px;
+    border-bottom:1px solid rgba(255,255,255,.1);
+    background:linear-gradient(135deg, rgba(224,72,63,.22), rgba(18,22,30,0) 70%)}
+  .predtag{font-family:var(--mono); font-size:0.75rem; font-weight:900;
+    letter-spacing:.14em; color:#FF8A7D; background:rgba(224,72,63,.18);
+    padding:3px 8px; border-radius:5px; flex:0 0 auto}
+  .predsub{font-size:0.875rem; font-weight:700; color:rgba(255,255,255,.7)}
+  .predbody{display:flex; flex-direction:column; padding:4px 16px 14px}
+  .predbody .evrow{padding:10px 0; border-top:1px solid rgba(255,255,255,.08)}
+  .predbody .evrow:first-child{border-top:none; padding-top:8px}
+  .predbody .el{color:rgba(255,255,255,.6)}
+  .predbody .er{color:#fff}
+  .predbody .er.hot{color:#FF8A7D}
 
   .alts{display:flex; flex-direction:column; gap:8px}
   .alt{display:flex; align-items:center; gap:11px; padding:11px 13px;
@@ -1339,7 +1378,7 @@
      한 줄에 여유 있게 들어간다. */
   .mtool.icon{width:32px; height:32px; padding:0;
     justify-content:center; font-size:1rem}
-  .stage.split.big .maptools{top:auto; bottom:14px}
+  .stage.split.big .maptools{top:auto; bottom:14px; right:auto; left:10px}
 
 
   /* ══ 예보: 잠긴 것이 보여야 사고 싶어진다 ══
@@ -1354,6 +1393,23 @@
   .impact .idesc{font-size:1.0625rem; line-height:1.6; color:var(--text-dim)}
   .impact .idesc b{color:var(--text); font-weight:900}
   .impact.calm .inum{color:#4FC3B8}
+  /* v257 후속 — 문장형 헤드라인 대신 "빈도·시각·강도" 3행 표로
+     바로 훑어보게 한다(스케치 반영). 라벨은 왼쪽에 고정, 값은
+     오른쪽 정렬로 눈이 값에서 값으로 바로 옮겨가게 한다. */
+  .im2{display:flex; flex-direction:column; gap:10px; margin-bottom:10px}
+  .im2-row{display:flex; align-items:baseline; justify-content:space-between;
+    gap:10px; padding-top:9px; border-top:1px solid var(--line)}
+  .im2-row:first-child{padding-top:0; border-top:none}
+  .im2-label{font-size:0.9375rem; font-weight:800; color:var(--text-dim); flex:0 0 auto}
+  .im2-value{font-family:var(--mono); font-size:1.375rem; font-weight:900;
+    color:var(--text); text-align:right}
+  .im2-value b{color:var(--c-noise); font-size:1.625rem}
+  .impact.calm .im2-value b{color:#4FC3B8}
+  .im2-sub{font-family:Pretendard,sans-serif; font-size:0.8125rem;
+    font-weight:700; color:var(--text-mute); margin-left:6px}
+  .im2-value .mask{display:inline-block; width:46px; height:19px; border-radius:5px;
+    background:var(--ink-3); vertical-align:middle}
+  .im2-value .lk{margin-left:4px; font-style:normal; font-size:0.875rem}
 
   .rank{display:flex; align-items:center; gap:12px; margin-bottom:16px;
     padding:12px 14px; background:var(--ink-2); border:1px solid var(--line);
@@ -1672,7 +1728,7 @@
      한 줄에 여유 있게 들어간다. */
   .mtool.icon{width:32px; height:32px; padding:0;
     justify-content:center; font-size:1rem}
-  .stage.split.big .maptools{top:auto; bottom:14px}
+  .stage.split.big .maptools{top:auto; bottom:14px; right:auto; left:10px}
 
 
   /* ══ 예보: 잠긴 것이 보여야 사고 싶어진다 ══
@@ -1687,6 +1743,23 @@
   .impact .idesc{font-size:1.0625rem; line-height:1.6; color:var(--text-dim)}
   .impact .idesc b{color:var(--text); font-weight:900}
   .impact.calm .inum{color:#4FC3B8}
+  /* v257 후속 — 문장형 헤드라인 대신 "빈도·시각·강도" 3행 표로
+     바로 훑어보게 한다(스케치 반영). 라벨은 왼쪽에 고정, 값은
+     오른쪽 정렬로 눈이 값에서 값으로 바로 옮겨가게 한다. */
+  .im2{display:flex; flex-direction:column; gap:10px; margin-bottom:10px}
+  .im2-row{display:flex; align-items:baseline; justify-content:space-between;
+    gap:10px; padding-top:9px; border-top:1px solid var(--line)}
+  .im2-row:first-child{padding-top:0; border-top:none}
+  .im2-label{font-size:0.9375rem; font-weight:800; color:var(--text-dim); flex:0 0 auto}
+  .im2-value{font-family:var(--mono); font-size:1.375rem; font-weight:900;
+    color:var(--text); text-align:right}
+  .im2-value b{color:var(--c-noise); font-size:1.625rem}
+  .impact.calm .im2-value b{color:#4FC3B8}
+  .im2-sub{font-family:Pretendard,sans-serif; font-size:0.8125rem;
+    font-weight:700; color:var(--text-mute); margin-left:6px}
+  .im2-value .mask{display:inline-block; width:46px; height:19px; border-radius:5px;
+    background:var(--ink-3); vertical-align:middle}
+  .im2-value .lk{margin-left:4px; font-style:normal; font-size:0.875rem}
 
   .rank{display:flex; align-items:center; gap:12px; margin-bottom:16px;
     padding:12px 14px; background:var(--ink-2); border:1px solid var(--line);
@@ -2518,7 +2591,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v256</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v260</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2552,9 +2625,10 @@
         </div>
       </div>
 
-      <div class="block">
-        <div class="bh">예측 근거</div>
-        <div class="ev" id="evidence"></div>
+      <div class="predcard">
+        <div class="predhead"><span class="predtag">PREDICTION</span>
+          <span class="predsub">데이터 기반 예측 근거</span></div>
+        <div class="ev predbody" id="evidence"></div>
       </div>
       <!-- v255: "반경 200m 조용한 곳" 목록을 없앴다 — 조용한 곳은
            지도(소음 범위 원이 없는 곳)로 확인하는 것이지 이름 없는
@@ -2763,7 +2837,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v256</span></div>
+          <span class="ver" id="ver2">v260</span></div>
       </div>
     </div>
 
@@ -2820,7 +2894,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v256</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v260</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -5490,8 +5564,16 @@ function reportBreakdownHTML(s, T){
     const cnt = Math.round((s.mix?s.mix[i]:0) * s.n);
     const hrs = (s.hoursByType && s.hoursByType[i]) || Array(24).fill(0);
     const mx = Math.max(...hrs, 0.0001);
+    /* 막대마다 지연·주기를 다르게 줘서(시간h·유형i로 결정적으로 계산)
+       진짜 오디오 이퀄라이저처럼 제각각 들썩이게 한다 — 전부 같은
+       박자로 움직이면 그냥 한 번에 깜빡이는 것으로 보여 '살아있는'
+       느낌이 안 난다(v256 후속, 동적 효과 요청). */
     const spark = hasHours
-      ? '<div class="tyspark">'+hrs.map(v=>'<i style="height:'+Math.max(4,Math.round(v/mx*100))+'%"></i>').join('')+'</div>'
+      ? '<div class="tyspark">'+hrs.map((v,h)=>{
+          const hp=Math.max(4,Math.round(v/mx*100));
+          const dly=(h*173+i*91)%900, dur=820+((h*57+i*130)%460);
+          return '<i style="height:'+hp+'%; animation-delay:'+dly+'ms; animation-duration:'+dur+'ms"></i>';
+        }).join('')+'</div>'
       : '<div class="tyspark"></div>';
     return '<div class="tyrow'+(cnt?'':' zero')+'">'+
       '<span class="tyname">'+(TYPE_LABEL_LONG[t.k]||t.k)+'</span>'+
@@ -5543,8 +5625,11 @@ function cardHTML(s,i){
   const mx=Math.max(...s.hours);
   const hoursMini = (T && T.hours)
     ? '<div class="sec"><div class="sec-h">시간대 분포</div><div class="hours">'+
-      s.hours.map((v,idx)=>'<i class="'+(idx===pk?'peak':'')+'" style="height:'+
-      (v/mx*100).toFixed(0)+'%"></i>').join('')+
+      s.hours.map((v,idx)=>{
+        const dly=(idx*173)%900, dur=820+((idx*57)%460);
+        return '<i class="'+(idx===pk?'peak':'')+'" style="height:'+
+          (v/mx*100).toFixed(0)+'%; animation-delay:'+dly+'ms; animation-duration:'+dur+'ms"></i>';
+      }).join('')+
       '</div><div class="hlab"><span>00</span><span>06</span><span>12</span><span>18</span><span>23</span></div></div>'
     : '';
   const reporterBadge = (T && T.reporterLoc && s.reporterLoc)
@@ -5827,6 +5912,82 @@ function bandOf(h){
        :         '밤';
 }
 
+/* v257 후속 — "이 구역 소음 예보" 머리글을 문장형("무려 6일이나 저녁
+   시간에 기준을 넘는 소음이…")에서 항목표(빈도·시각·강도) 형태로
+   바꿨다. 문장으로 읽게 하는 대신 값을 바로 훑어볼 수 있게 한다는
+   지시(스케치)를 반영한 것. 카드 "예보 보기"(renderCast)와 원 터치
+   상세(forecastHTML) 두 화면이 똑같은 계산(worst/peakH/nights/calm)을
+   각자 하고 있어, 값 자체는 그대로 두고 마크업만 이 함수로 공유한다. */
+function impactHTML(s, worst, peakH, nights, calm){
+  const hh=String(peakH).padStart(2,'0');
+  let rows='<div class="im2-row"><span class="im2-label">소음 발생 빈도</span>'+
+    '<span class="im2-value">30일 중 <b>'+nights+'일</b> '+(calm?'미만':'이상')+'</span></div>';
+  if(!calm){
+    rows+='<div class="im2-row"><span class="im2-label">소음 발생 시각</span>'+
+      '<span class="im2-value">'+bandOf(peakH)+' '+(paid
+        ? '<b>'+hh+'시</b><i class="im2-sub">('+DAYS[worst]+'요일 최다)</i>'
+        : '<span class="mask"></span>시<i class="lk">🔒</i>')+'</span></div>'+
+      '<div class="im2-row"><span class="im2-label">소음 강도 수준</span>'+
+      '<span class="im2-value"><b>'+(s.db+5)+'</b>dB<i class="im2-sub">('+dbFeel(s.db+5)+' 수준)</i></span></div>';
+  }
+  const note = calm
+    ? '기준을 넘는 소음이 관측됩니다. <b>대체로 조용한 편</b>입니다.'
+    : '야간 기준(45dB)보다 약 '+Math.round(Math.pow(2,(s.db+5-45)/10))+'배 크게 들려요.';
+  return '<div class="ihead">매달 <span class="idenom">(30일 동안)</span></div>'+
+    '<div class="im2">'+rows+'</div>'+
+    '<div class="idesc">'+note+'</div>';
+}
+
+/* v258 후속 — "이 일대 소음 신고 상위 61%"는 시민이 그 숫자가 뭘
+   뜻하는지 바로 이해하기 어렵다는 지적으로 없앴다. 같은 상대 위치
+   계산(pct)은 그대로 두고, 막대 시각은 유지하되 숫자 대신 "조용한
+   편/보통 수준/시끄러운 편" 같은 말로만 말한다 — 막대 자체는 눈으로
+   바로 읽히는 정보라 남겨 둔다. */
+function rankHTML(pct){
+  const word = pct<=33 ? '조용한 편' : pct<=66 ? '보통 수준' : '시끄러운 편';
+  return '<div class="rl">이 지역 소음 수준은 <b>'+word+'</b>입니다'+
+    '<div class="rankbar"><span class="rfill" style="width:'+(100-pct)+'%"></span>'+
+      '<i style="left:'+(100-pct)+'%"></i></div>'+
+    '<div class="rends"><span>조용한 편</span><span>시끄러운 편</span></div></div>';
+}
+
+/* v259 — "요일 · 시간대별 예측" 격자를 가로=시간·세로=요일에서
+   가로=요일·세로=시간으로 뒤집었다. 시민 대부분이 달력·근무표처럼
+   요일이 가로로 놓인 표에 익숙하다는 지적을 반영한 것. weekMatrix(s)가
+   주는 M[요일][시간] 구조 자체는 그대로 두고, 격자를 그릴 때만
+   행/열을 바꿔 읽는다. */
+function weekGridHTML(M){
+  let html='<div class="gl"></div>'+DAYS.map(d=>'<div class="gt">'+d+'</div>').join('');
+  HRS.forEach((h,hi)=>{
+    html+='<div class="gl">'+(h%3===0?String(h).padStart(2,'0'):'')+'</div>';
+    html+=M.map(row=>'<i class="g'+lv(row[hi])+'"></i>').join('');
+  });
+  return html;
+}
+
+/* "예측 근거"(관측 기간·요일 보정·반복 횟수 등)는 renderCast·
+   forecastHTML 양쪽에서 같은 계산으로 만든다 — 행 내용은 그대로 두고
+   마크업만 이 함수로 공유한다. 겉 카드(.predcard/PREDICTION 헤더)는
+   두 화면이 이미 다른 구조(정적 HTML vs 문자열 조립)라 각자 감싼다. */
+function evidenceHTML(s, worst, nights){
+  const weeks=12, hits=Math.max(3, Math.min(10, Math.round(nights*0.55)));
+  const q=noiseSources(s.c,200);
+  return '<div class="evrow"><span class="el">관측 기간</span><span class="er">최근 '+weeks+'주</span></div>'+
+    '<div class="evrow"><span class="el">요일 보정</span><span class="er">'+
+      DOW_FACTOR[worst].toFixed(2)+'배</span></div>'+
+    '<div class="evrow"><span class="el">같은 시간대 반복</span><span class="er hot">'+hits+'회 / '+weeks+'주</span></div>'+
+    '<div class="evrow"><span class="el">최고 소음도</span><span class="er">'+(s.db+5)+' dB</span></div>'+
+    '<div class="evrow"><span class="el">1회 평균 지속</span><span class="er">'+s.dur+'분</span></div>'+
+    '<div class="evrow"><span class="el">주변 방범 CCTV</span><span class="er'+(s.cov?'':' hot')+'">'+
+      (s.cov?'있음':'없음')+'</span></div>'+
+    '<div class="evrow"><span class="el">반경 200m 심야 음주업소</span>'+
+      '<span class="er'+(q.heavy>=6?' hot':'')+'">'+q.heavy+'곳</span></div>'+
+    '<div class="evrow"><span class="el">반경 200m 노래방·당구장·헬스장</span>'+
+      '<span class="er'+(q.youth>=5?' hot':'')+'">'+q.youth+'곳</span></div>'+
+    '<div class="evrow"><span class="el">반경 200m 음식점 전체</span>'+
+      '<span class="er">'+(q.heavy+q.mid)+'곳</span></div>';
+}
+
 /* 소음예보와 소음지도는 같은 상품이다 — 예보 화면의 잠금(paid)은 더는
    따로 결제해서 푸는 것이 아니라, 지도 등급(tier)이 유료 이상이면
    자동으로 풀린다. TIERS[i].hours가 그 등급부터 '시간대 분포'가
@@ -5899,68 +6060,19 @@ function renderCast(s){
   const calm=nights<=5;
   const imp=document.getElementById('impact');
   imp.className='impact'+(calm?' calm':'');
-  imp.innerHTML=
-    /* '28일'은 달력 날짜로 읽힌다. 분모(30일)를 함께 보여야 오해가 사라진다 */
-    '<div class="ihead">매달 <span class="idenom">(30일 동안)</span></div>'+
-    '<div class="ib"><span class="ipre">무려</span>'+
-      '<span class="inum">'+nights+'</span><span class="iunit">일이나</span>'+
-      '<span class="iwhenword">'+bandOf(peakH)+'</span>'+
-      '<span class="iunit">시간에</span></div>'+
-    '<div class="idesc">'+(calm
-      ? '기준을 넘는 소음이 관측됩니다. <b>대체로 조용한 편</b>입니다.'
-      : '기준을 넘는 소음이 관측됩니다.')+'</div>'+
-    (calm?'':
-      '<div class="iwhen'+(paid?' open':'')+'">'+
-        '<div class="dbrow">'+
-          '<span class="dbnum">'+(s.db+5)+'<em>dB</em></span>'+
-          '<span class="dbcmp">'+dbFeel(s.db+5)+' 수준<br>'+
-            '<b>야간 기준(45dB)보다 약 '+Math.round(Math.pow(2,(s.db+5-45)/10))+'배 크게 들림</b></span>'+
-        '</div>'+
-        /* 28일이면 거의 매일이라 요일을 가려도 감출 게 없다. 시각만 막는다 */
-        '<div class="iwl">가장 자주 발생하는 시각</div>'+
-        (paid
-          ? '<div class="iwv">'+bandOf(peakH)+' '+hh+'시 <span class="iwd">('+DAYS[worst]+'요일 최다)</span></div>'
-          : '<div class="iwv locked">'+bandOf(peakH)+' <span class="mask"></span>시<i class="lk">🔒</i></div>')+
-      '</div>');
+  imp.innerHTML=impactHTML(s, worst, peakH, nights, calm);
 
   /* ── 비교 대상 ── */
   const all=spots.map(o=>o.n).sort((a,b)=>b-a);
   const pos=all.indexOf(s.n);
   const pct=Math.max(3, Math.min(97, Math.round((pos+1)/all.length*100)));
-  document.getElementById('rankbox').innerHTML=
-    '<div class="rl">이 일대 소음 신고 <b>상위 '+pct+'%</b>'+
-    '<div class="rankbar"><span class="rfill" style="width:'+(100-pct)+'%"></span>'+
-      '<i style="left:'+(100-pct)+'%"></i></div>'+
-    '<div class="rends"><span>조용한 편</span><span>시끄러운 편</span></div></div>';
+  document.getElementById('rankbox').innerHTML=rankHTML(pct);
 
   /* ── 요일 격자 ── */
-  const g=document.getElementById('wgrid');
-  let html='<div class="gl"></div>'+HRS.map(h=>
-    '<div class="gt">'+(h%3===0?String(h).padStart(2,'0'):'')+'</div>').join('');
-  M.forEach((row,d)=>{
-    html+='<div class="gl">'+DAYS[d]+'</div>';
-    html+=row.map(x=>'<i class="g'+lv(x)+'"></i>').join('');
-  });
-  g.innerHTML=html;
+  document.getElementById('wgrid').innerHTML=weekGridHTML(M);
 
   /* ── 확신: 관측 규모를 숫자로 ── */
-  const weeks=12, hits=Math.max(3, Math.min(10, Math.round(nights*0.55)));
-  document.getElementById('evidence').innerHTML=
-    '<div class="evrow"><span class="el">관측 기간</span><span class="er">최근 '+weeks+'주</span></div>'+
-    '<div class="evrow"><span class="el">요일 보정</span><span class="er">'+
-      DOW_FACTOR[worst].toFixed(2)+'배</span></div>'+
-    '<div class="evrow"><span class="el">같은 시간대 반복</span><span class="er hot">'+hits+'회 / '+weeks+'주</span></div>'+
-    '<div class="evrow"><span class="el">최고 소음도</span><span class="er">'+(s.db+5)+' dB</span></div>'+
-    '<div class="evrow"><span class="el">1회 평균 지속</span><span class="er">'+s.dur+'분</span></div>'+
-    '<div class="evrow"><span class="el">주변 방범 CCTV</span><span class="er'+(s.cov?'':' hot')+'">'+
-      (s.cov?'있음':'없음')+'</span></div>'+
-    (function(){ const q=noiseSources(s.c,200);
-      return '<div class="evrow"><span class="el">반경 200m 심야 음주업소</span>'+
-        '<span class="er'+(q.heavy>=6?' hot':'')+'">'+q.heavy+'곳</span></div>'+
-        '<div class="evrow"><span class="el">반경 200m 노래방·당구장·헬스장</span>'+
-        '<span class="er'+(q.youth>=5?' hot':'')+'">'+q.youth+'곳</span></div>'+
-        '<div class="evrow"><span class="el">반경 200m 음식점 전체</span>'+
-        '<span class="er">'+(q.heavy+q.mid)+'곳</span></div>'; })();
+  document.getElementById('evidence').innerHTML=evidenceHTML(s, worst, nights);
 
   /* v255: "반경 200m 조용한 곳" 목록을 없앴다 — 시민이 조용한 곳을
      알고 싶으면 지도를 본다(소음 범위 원이 없는 곳이 조용한 곳이다).
@@ -6003,40 +6115,19 @@ function forecastHTML(s){
   const dayMax=M.map(r=>Math.max(...r));
   const worst=dayMax.indexOf(Math.max(...dayMax));
   const peakH=HRS[M[worst].indexOf(Math.max(...M[worst]))];
-  const hh=String(peakH).padStart(2,'0');
   const nights=Math.max(1, Math.min(22, Math.round(s.n/1.8)));
   const calm=nights<=5;
 
-  const impact=
-    '<div class="impact'+(calm?' calm':'')+'">'+
-      '<div class="ihead">매달 <span class="idenom">(30일 동안)</span></div>'+
-      '<div class="ib"><span class="ipre">무려</span>'+
-        '<span class="inum">'+nights+'</span><span class="iunit">일이나</span>'+
-        '<span class="iwhenword">'+bandOf(peakH)+'</span>'+
-        '<span class="iunit">시간에</span></div>'+
-      '<div class="idesc">'+(calm
-        ? '기준을 넘는 소음이 관측됩니다. <b>대체로 조용한 편</b>입니다.'
-        : '기준을 넘는 소음이 관측됩니다.')+'</div>'+
-      (calm?'':
-        '<div class="iwhen'+(paid?' open':'')+'">'+
-          '<div class="dbrow">'+
-            '<span class="dbnum">'+(s.db+5)+'<em>dB</em></span>'+
-            '<span class="dbcmp">'+dbFeel(s.db+5)+' 수준<br>'+
-              '<b>야간 기준(45dB)보다 약 '+Math.round(Math.pow(2,(s.db+5-45)/10))+'배 크게 들림</b></span>'+
-          '</div>'+
-          '<div class="iwl">가장 자주 발생하는 시각</div>'+
-          (paid
-            ? '<div class="iwv">'+bandOf(peakH)+' '+hh+'시 <span class="iwd">('+DAYS[worst]+'요일 최다)</span></div>'
-            : '<div class="iwv locked">'+bandOf(peakH)+' <span class="mask"></span>시<i class="lk">🔒</i></div>')+
-        '</div>');
+  const impact='<div class="impact'+(calm?' calm':'')+'">'+
+    impactHTML(s, worst, peakH, nights, calm)+'</div>';
 
   if(!paid){
-    /* 무료 등급 — 세부 격자·순위·대안까지 다 채워봐야 지도 등급표와
+    /* 무료 등급 — 세부 격자·순위·근거까지 다 채워봐야 지도 등급표와
        중복이고, 어차피 하나도 못 연다. 한 줄 안내만 남긴다. */
     return '<div class="sec forecast-sec">'+
       '<div class="sec-h">이 구역 소음 예보</div>'+
       impact+
-      '<div class="d-sum">요일·시간대별 상세와 반경 200m 비교는 '+
+      '<div class="d-sum">요일·시간대별 상세는 '+
       '<b>유료 등급</b>부터 볼 수 있습니다.</div>'+
     '</div>';
   }
@@ -6044,45 +6135,22 @@ function forecastHTML(s){
   const all=spots.map(o=>o.n).sort((a,b)=>b-a);
   const pos=all.indexOf(s.n);
   const pct=Math.max(3, Math.min(97, Math.round((pos+1)/all.length*100)));
-  const rank=
-    '<div class="rank"><div class="rl">이 일대 소음 신고 <b>상위 '+pct+'%</b>'+
-    '<div class="rankbar"><span class="rfill" style="width:'+(100-pct)+'%"></span>'+
-      '<i style="left:'+(100-pct)+'%"></i></div>'+
-    '<div class="rends"><span>조용한 편</span><span>시끄러운 편</span></div></div></div>';
+  const rank='<div class="rank">'+rankHTML(pct)+'</div>';
 
-  let gridInner='<div class="gl"></div>'+HRS.map(h=>
-    '<div class="gt">'+(h%3===0?String(h).padStart(2,'0'):'')+'</div>').join('');
-  M.forEach((row,d)=>{
-    gridInner+='<div class="gl">'+DAYS[d]+'</div>';
-    gridInner+=row.map(x=>'<i class="g'+lv(x)+'"></i>').join('');
-  });
   const grid=
     '<div class="block">'+
       '<div class="bh">요일 · 시간대별 예측</div>'+
-      '<div class="gridwrap"><div class="grid">'+gridInner+'</div></div>'+
+      '<div class="gridwrap"><div class="grid">'+weekGridHTML(M)+'</div></div>'+
       '<div class="glegend"><span>조용</span><i class="g0"></i><i class="g1"></i>'+
         '<i class="g2"></i><i class="g3"></i><span>심함</span></div>'+
     '</div>';
 
-  const weeks=12, hits=Math.max(3, Math.min(10, Math.round(nights*0.55)));
-  const q=noiseSources(s.c,200);
   const evidence=
-    '<div class="block"><div class="bh">예측 근거</div><div class="ev">'+
-      '<div class="evrow"><span class="el">관측 기간</span><span class="er">최근 '+weeks+'주</span></div>'+
-      '<div class="evrow"><span class="el">요일 보정</span><span class="er">'+
-        DOW_FACTOR[worst].toFixed(2)+'배</span></div>'+
-      '<div class="evrow"><span class="el">같은 시간대 반복</span><span class="er hot">'+hits+'회 / '+weeks+'주</span></div>'+
-      '<div class="evrow"><span class="el">최고 소음도</span><span class="er">'+(s.db+5)+' dB</span></div>'+
-      '<div class="evrow"><span class="el">1회 평균 지속</span><span class="er">'+s.dur+'분</span></div>'+
-      '<div class="evrow"><span class="el">주변 방범 CCTV</span><span class="er'+(s.cov?'':' hot')+'">'+
-        (s.cov?'있음':'없음')+'</span></div>'+
-      '<div class="evrow"><span class="el">반경 200m 심야 음주업소</span>'+
-        '<span class="er'+(q.heavy>=6?' hot':'')+'">'+q.heavy+'곳</span></div>'+
-      '<div class="evrow"><span class="el">반경 200m 노래방·당구장·헬스장</span>'+
-        '<span class="er'+(q.youth>=5?' hot':'')+'">'+q.youth+'곳</span></div>'+
-      '<div class="evrow"><span class="el">반경 200m 음식점 전체</span>'+
-        '<span class="er">'+(q.heavy+q.mid)+'곳</span></div>'+
-    '</div></div>';
+    '<div class="predcard">'+
+      '<div class="predhead"><span class="predtag">PREDICTION</span>'+
+        '<span class="predsub">데이터 기반 예측 근거</span></div>'+
+      '<div class="ev predbody">'+evidenceHTML(s, worst, nights)+'</div>'+
+    '</div>';
 
   /* v255: "반경 200m 조용한 곳" 비교 목록을 없앴다 — 조용한 곳은
      지도(소음 범위 원이 없는 곳)로 직접 확인하는 것이지 "기타 구역"
