@@ -371,15 +371,20 @@
   /* 카드의 시간대 미니 그래프도 신고내용 박스와 같은 이유로 계속
      들썩인다(v256 후속) — 제품·매물 사진이 없는 서비스라 이런 작은
      동적 요소가 화면이 살아있다는 인상을 만드는 데 중요하다. */
-  .hours i{flex:1; background:var(--ink-3); border-radius:1.5px; min-height:2px;
+  .hours i{flex:1; border-radius:1.5px; min-height:2px;
     transform-origin:bottom; animation-name:eqpulse;
-    animation-timing-function:ease-in-out; animation-iteration-count:infinite}
-  .hours i.peak{background:var(--c-noise)}
-  /* v260 후속 — 신고내용 박스와 같은 이유로, 카드 미니 그래프도
-     회색 하나 대신 막대 높이에 따라 회색→주황→빨강으로 바뀐다. */
-  .hours i.lo{background:var(--ink-3)}
-  .hours i.mid{background:#E4893A}
-  .hours i.hi, .hours i.peak{background:var(--c-noise)}
+    animation-timing-function:ease-in-out; animation-iteration-count:infinite;
+    /* v261 후속 — "막대마다 다른 색"이 아니라 "막대 1개 안에서 높이(임계치)에
+       따라 색이 바뀌는" 방식으로 교체. 배경을 막대 자신의 높이(%)가 아니라
+       칸 전체 높이(34px, .hours 고정 높이)에 고정해서 깔아 두고, 막대의
+       실제 높이만큼만 그 아래쪽을 "창"처럼 보여준다 — 그래서 낮은 막대는
+       회색만, 중간 막대는 회색+주황, 높은 막대는 회색+주황+빨강이 함께
+       보인다(마치 배터리 잔량계처럼). */
+    background-image:linear-gradient(to top,
+      var(--ink-3) 0%, var(--ink-3) 40%,
+      #E4893A 40%, #E4893A 70%,
+      var(--c-noise) 70%, var(--c-noise) 100%);
+    background-size:100% 34px; background-position:left bottom; background-repeat:no-repeat}
   @media (prefers-reduced-motion: reduce){ .hours i{animation:none} }
   .hlab{display:flex; justify-content:space-between; font-family:var(--mono);
     font-size:0.7812rem; color:var(--text-mute); margin-top:3px}
@@ -913,19 +918,21 @@
      보이도록 각 막대를 세로로 계속 들썩이게 한다(v256 후속). 막대마다
      JS에서 넣어주는 animation-delay/duration이 서로 어긋나 있어
      실제 오디오 미터처럼 제각각 움직인다. */
-  .tyspark i{flex:1; background:var(--ink-3); border-radius:1px; min-height:2px;
+  .tyspark i{flex:1; border-radius:1px; min-height:2px;
     transform-origin:bottom; animation-name:eqpulse;
-    animation-timing-function:ease-in-out; animation-iteration-count:infinite}
+    animation-timing-function:ease-in-out; animation-iteration-count:infinite;
+    /* v261 후속 — 막대마다 다른 색이 아니라, 막대 1개 안에서 임계치를
+       넘을 때만 위쪽이 주황·빨강으로 바뀌는 방식(위 .hours i와 동일한
+       배경-창 기법). 칸 전체 높이(22px, .tyspark 고정 높이)에 고정한
+       배경을 막대 자신의 실제 높이만큼만 보여준다. */
+    background-image:linear-gradient(to top,
+      var(--ink-3) 0%, var(--ink-3) 40%,
+      #E4893A 40%, #E4893A 70%,
+      var(--c-noise) 70%, var(--c-noise) 100%);
+    background-size:100% 22px; background-position:left bottom; background-repeat:no-repeat}
   .tyrow.zero .tyspark i{opacity:.4}
   @keyframes eqpulse{0%,100%{transform:scaleY(1)} 50%{transform:scaleY(.72)}}
   @media (prefers-reduced-motion: reduce){ .tyspark i{animation:none} }
-  /* v260 후속 — 회색 하나로만 된 막대는 밋밋해 보인다는 지적. 막대
-     높이(그 시간대가 얼마나 심한지)에 따라 회색→주황→빨강 순으로
-     색이 바뀌게 해서, 색 자체가 "위험도"를 바로 말해주게 한다. */
-  .tyspark i.lo{background:var(--ink-3)}
-  .tyspark i.mid{background:#E4893A}
-  .tyspark i.hi{background:var(--c-noise)}
-  .tyrow.zero .tyspark i.mid, .tyrow.zero .tyspark i.hi{background:var(--ink-3)}
   .tycnt{flex:0 0 auto; min-width:34px; text-align:right; font-family:var(--mono);
     font-weight:800; color:var(--text); font-size:0.8438rem}
   .tyrow.zero .tycnt{color:var(--text-mute); font-weight:600}
@@ -2615,7 +2622,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v261</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v262</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2861,7 +2868,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v261</span></div>
+          <span class="ver" id="ver2">v262</span></div>
       </div>
     </div>
 
@@ -2918,7 +2925,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v261</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v262</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -3122,11 +3129,13 @@ function openTierSheet(force){
          바뀌면 예보의 잠금 상태(paid)도 함께 바뀐다. 따로 결제하는
          것이 아니라 지도 등급을 올리면 예보도 같이 열린다. */
       if(typeof syncPaidFromTier==='function') syncPaidFromTier();
-      /* 유료 이상으로 새로 진입하면 전체지도부터 보여준다(v254) — 사용자가
+      /* 등급에 상관없이 전체지도부터 보여준다(v254, v261 후속) — 사용자가
          가장 궁금한 건 카드 목록이 아니라 "내 동네 소음이 지도 위 어디에
-         몰려 있는가"라는 시각 정보다. 목록은 언제든 전체지도 버튼으로
+         몰려 있는가"라는 시각 정보다. 예전엔 유료부터만 지도 기본값이었는데,
+         "무료 화면도 유료와 구성(맵 우선)이 같아야 한다"는 지적에 따라
+         무료도 똑같이 전체지도로 시작한다. 목록은 언제든 전체지도 버튼으로
          되돌릴 수 있으니 기본값만 바꾼다. */
-      pendingModeDefault = paid;
+      pendingModeDefault = true;
       /* '진짜 메인화면'에서 위치를 확인하고 넘어온 경우 — 그 좌표를 들고
          등급 화면(비즈니스모델)을 그 자리에서 연다. 테스트 중이므로 결제
          없이 어떤 등급이든 '열기'만 누르면 바로 보인다. */
@@ -5596,11 +5605,9 @@ function reportBreakdownHTML(s, T){
       ? '<div class="tyspark">'+hrs.map((v,h)=>{
           const hp=Math.max(4,Math.round(v/mx*100));
           const dly=(h*173+i*91)%900, dur=820+((h*57+i*130)%460);
-          /* 회색 하나로만 두지 않고, 그 시간대가 하루 중 얼마나
-             심한 편인지(hp, 그 유형 안에서의 상대 높이)에 따라
-             회색→주황→빨강으로 색을 바꾼다(v260 후속). */
-          const bucket = hp>=70?'hi':hp>=40?'mid':'lo';
-          return '<i class="'+bucket+'" style="height:'+hp+'%; animation-delay:'+dly+'ms; animation-duration:'+dur+'ms"></i>';
+          /* 막대 높이(hp)만 넘기면 색은 CSS의 고정 배경-창 기법이
+             임계치에 따라 알아서 회색→주황→빨강으로 보여준다(v261 후속). */
+          return '<i style="height:'+hp+'%; animation-delay:'+dly+'ms; animation-duration:'+dur+'ms"></i>';
         }).join('')+'</div>'
       : '<div class="tyspark"></div>';
     return '<div class="tyrow'+(cnt?'':' zero')+'">'+
@@ -5656,8 +5663,7 @@ function cardHTML(s,i){
       s.hours.map((v,idx)=>{
         const dly=(idx*173)%900, dur=820+((idx*57)%460);
         const hp=v/mx*100;
-        const bucket = idx===pk ? 'peak' : (hp>=70?'hi':hp>=40?'mid':'lo');
-        return '<i class="'+bucket+'" style="height:'+
+        return '<i style="height:'+
           hp.toFixed(0)+'%; animation-delay:'+dly+'ms; animation-duration:'+dur+'ms"></i>';
       }).join('')+
       '</div><div class="hlab"><span>00</span><span>06</span><span>12</span><span>18</span><span>23</span></div></div>'
@@ -5953,16 +5959,31 @@ function impactHTML(s, worst, peakH, nights, calm){
   let rows='<div class="im2-row"><span class="im2-label">소음 발생 빈도</span>'+
     '<span class="im2-value">30일 중 <b>'+nights+'일</b> '+(calm?'미만':'이상')+'</span></div>';
   if(!calm){
+    /* v261 후속 — 무료 등급에서 "새벽 (  )시"처럼 띠 이름(bandOf)과 마스킹을
+       같이 보여주면, 숫자만 가렸을 뿐 이미 "새벽"이라는 시간대 정보를 다
+       준 것이나 마찬가지라는 지적. 유료(실제 시각을 보여줄 때)만 띠 이름을
+       함께 쓰고, 무료(마스킹할 때)는 띠 이름 없이 빈칸만 보여준다. */
     rows+='<div class="im2-row"><span class="im2-label">소음 발생 시각</span>'+
-      '<span class="im2-value">'+bandOf(peakH)+' '+(paid
-        ? '<b>'+hh+'시</b><i class="im2-sub">('+DAYS[worst]+'요일 최다)</i>'
+      '<span class="im2-value">'+(paid
+        ? bandOf(peakH)+' <b>'+hh+'시</b><i class="im2-sub">('+DAYS[worst]+'요일 최다)</i>'
         : '<span class="mask"></span>시<i class="lk">🔒</i>')+'</span></div>'+
+      /* 소음 강도(dB) 역시 예전엔 등급과 상관없이 실제 수치를 그대로
+         보여주고 있었다 — 무료에서도 숫자가 새어나온 것. 시각 행과
+         똑같이 유료부터만 실제 값을 보여주도록 맞춘다. */
       '<div class="im2-row"><span class="im2-label">소음 강도 수준</span>'+
-      '<span class="im2-value"><b>'+(s.db+5)+'</b>dB<i class="im2-sub">('+dbFeel(s.db+5)+' 수준)</i></span></div>';
+      '<span class="im2-value">'+(paid
+        ? '<b>'+(s.db+5)+'</b>dB<i class="im2-sub">('+dbFeel(s.db+5)+' 수준)</i>'
+        : '<span class="mask"></span>dB<i class="lk">🔒</i>')+'</span></div>';
   }
+  /* v261 후속 — "6배 크게 들려요"는 무료에서 실제 dB를 가려버린 지금,
+     그 가려진 수치로 계산한 배수만 남겨두면 오히려 헷갈리고(45dB×6=270dB로
+     읽힐 수 있다는 지적) 숫자도 새어나오는 셈이 된다. 무료는 배수 없이
+     "기준보다 크다"는 사실만, 유료는 기존 배수 계산을 그대로 보여준다. */
   const note = calm
     ? '기준을 넘는 소음이 관측됩니다. <b>대체로 조용한 편</b>입니다.'
-    : '야간 기준(45dB)보다 약 '+Math.round(Math.pow(2,(s.db+5-45)/10))+'배 크게 들려요.';
+    : paid
+      ? '야간 기준(45dB)보다 약 '+Math.round(Math.pow(2,(s.db+5-45)/10))+'배 크게 들려요.'
+      : '야간 기준(45dB)보다 크게 들려요.';
   return '<div class="ihead">매달 <span class="idenom">(30일 동안)</span></div>'+
     '<div class="im2">'+rows+'</div>'+
     '<div class="idesc">'+note+'</div>';
