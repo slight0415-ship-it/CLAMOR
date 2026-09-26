@@ -988,19 +988,23 @@
      둘 다 같은 값을 보게 고친다. */
   .wfwrap{ --sev0:#3ECF8E; --sev1:#F5C242; --sev2:#FF5C5C}
   .wfwrap.cbmode{ --sev0:#7FB3E8; --sev1:#E8A33D; --sev2:#8B2E1F }
-  .wfgrid{display:flex; flex-direction:column; gap:3px}
-  .wfrow{display:flex; align-items:center; gap:3px}
-  .wfcorner{flex:0 0 34px; font-family:var(--mono); font-size:0.6875rem; font-weight:800;
+  /* v267 — 12행(저녁~새벽)에서 24행(하루 전체)으로 늘리면서, 칸이
+     정사각형(aspect-ratio:1)으로 가로폭을 따라가던 걸 그만두고 고정된
+     낮은 높이로 바꿨다 — 그래야 행이 늘어도 표 전체 세로 길이가
+     감당할 만하게 유지된다("세로 폭을 좀 줄여도 될거같다"). */
+  .wfgrid{display:flex; flex-direction:column; gap:2px}
+  .wfrow{display:flex; align-items:center; gap:2px}
+  .wfcorner{flex:0 0 28px; font-family:var(--mono); font-size:0.625rem; font-weight:800;
     color:rgba(255,255,255,.5); text-align:center}
-  .wfday{flex:1; text-align:center; font-family:var(--mono); font-size:0.875rem;
+  .wfday{flex:1; text-align:center; font-family:var(--mono); font-size:0.8125rem;
     font-weight:900; color:rgba(255,255,255,.88)}
-  .wfhour{flex:0 0 34px; font-family:var(--mono); font-size:0.6875rem; font-weight:700;
+  .wfhour{flex:0 0 28px; font-family:var(--mono); font-size:0.5625rem; font-weight:700;
     color:rgba(255,255,255,.6); text-align:center}
   /* 칸을 색으로 꽉 채우지 않는다 — 격자 칸(.wfcell)은 배경 없이 자리만
      잡고, 그 안의 작은 사각형(.wfdot)만 칠해서 촘촘한 표라도 눈이
      덜 피로하게 한다. */
-  .wfcell{flex:1; aspect-ratio:1; display:flex; align-items:center; justify-content:center}
-  .wfdot{width:60%; height:60%; border-radius:5px; background:var(--sev0)}
+  .wfcell{flex:1; height:19px; display:flex; align-items:center; justify-content:center}
+  .wfdot{width:62%; height:62%; border-radius:4px; background:var(--sev0)}
   .wfdot.sv1{background:var(--sev1)}
   .wfdot.sv2{background:var(--sev2); animation:wfpulse 1.6s ease-in-out infinite}
   @keyframes wfpulse{
@@ -2717,7 +2721,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v266</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v267</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2966,7 +2970,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v266</span></div>
+          <span class="ver" id="ver2">v267</span></div>
       </div>
     </div>
 
@@ -3023,7 +3027,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v266</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v267</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -5297,7 +5301,7 @@ function build(){
     s.el=el; s.px=sizeFor(s); el.title=s.name+' · '+s.n+'건';
     el.onclick=()=>{
       const i=cardList.indexOf(s);
-      if(i>=0){ cardIdx=i; syncCard(true) } else showDetail(s);
+      if(i>=0 && railVisible()){ cardIdx=i; syncCard(true) } else showDetail(s);
     };
     paint(s,s.dom);
     s.ov=new kakao.maps.CustomOverlay({position:new kakao.maps.LatLng(s.c.lat,s.c.lng),
@@ -5366,7 +5370,7 @@ function addMySpot(typeIdx, dbVal, durVal){
   s.px = sizeFor(s);
   const el=document.createElement('div');
   s.el=el; el.title=name+' · 1건';
-  el.onclick=()=>{ const i=cardList.indexOf(s); if(i>=0){ cardIdx=i; syncCard(true) } else showDetail(s); };
+  el.onclick=()=>{ const i=cardList.indexOf(s); if(i>=0 && railVisible()){ cardIdx=i; syncCard(true) } else showDetail(s); };
   paint(s, s.dom);
   s.ov=new kakao.maps.CustomOverlay({position:new kakao.maps.LatLng(c.lat,c.lng),
     content:el, yAnchor:.5, xAnchor:.5, zIndex:8});
@@ -5424,11 +5428,27 @@ function mineStatusHTML(s){
 }
 function showDetail(s){
   const T=TIERS[tier];
-  if(active) active.el.classList.remove('on');
-  active=s; s.el.classList.add('on');
+  /* v267 — 구간(이동 소음)은 점처럼 el(마커 div)이 없다(선·빛 효과만
+     있다). "먹통" 수정으로 이제 구간에서도 showDetail(rt)가 실제로
+     불리게 됐는데, 기존 코드는 s.el이 항상 있다고 가정해 여기서
+     TypeError로 죽었다 — el이 있을 때만 선택 표시를 건드리게 한다. */
+  if(active && active.el) active.el.classList.remove('on');
+  active=s; if(s.el) s.el.classList.add('on');
   map.panTo(new kakao.maps.LatLng(s.c.lat,s.c.lng));
   document.getElementById('d-name').textContent=s.name;
   document.getElementById('d-n').textContent=s.n+'건 / 30일';
+  /* v267 — 구간(이동 소음)은 지점과 데이터 모양이 달라(mix·hoursByType·
+     cov·dur가 없다) reportBreakdownHTML을 그대로 쓰면 "0건"·"undefined분"
+     같은 엉뚱한 값이 뜬다. 카드(routeCardHTML)와 같은 재료로, 구간에
+     맞는 내용만 따로 그린다. */
+  if(s.isRoute){
+    document.getElementById('d-cov').hidden=true;
+    let h=routeDetailHTML(s);
+    if(typeof forecastHTML==='function') h+=forecastHTML(s);
+    document.getElementById('d-body').innerHTML=h;
+    view('detail');
+    return;
+  }
   /* CCTV 시야 여부는 "행정" 등급부터(T.log)만 의미가 있다 — 그 아래
      등급은 범위가 넓어 CCTV가 여러 대일 수도, 한 대도 없을 수도 있고,
      애초에 시민이 소음 정보를 볼 때 궁금한 것도 아니다(v254). */
@@ -5568,13 +5588,16 @@ function finishRoute(rt){
   routeFlows.push({rt, t:Math.random()*0.6});
   /* 지도 위 무엇이든 누르면 그 정보가 뜬다. 선만 예외면 눌러 본 사람이
      아무 반응도 못 받는다. 카드로 옮겨 준다. */
+  /* v267 — 구간은 항상 cardList 안에 들어 있다(mineFirst가 visibleRoutes()를
+     내 신고 바로 뒤에 끼워 넣는다). 그래서 예전 코드는 "카드 목록에
+     있으면 그 카드로 스크롤"을 항상 타는데, 전체지도(big) 모드가 기본값인
+     지금은 카드 레일 자체가 안 보이니(.panel{display:none}) 그 스크롤이
+     화면에 아무 변화도 만들지 못했다 — "눌러도 먹통". railVisible()로
+     레일이 실제로 보일 때만 그쪽으로 보내고, 아니면 상세 화면을 연다. */
   [rt.line, rt.glow].forEach(ln=>{
     kakao.maps.event.addListener(ln,'click',()=>{
       const i=cardList.indexOf(rt);
-      if(i<0){ refreshList(); }
-      const j=cardList.indexOf(rt);
-      if(j<0) return;
-      cardIdx=j; syncCard(false);
+      if(i>=0 && railVisible()){ cardIdx=i; syncCard(true) } else showDetail(rt);
     });
   });
   drawRoutes();
@@ -5773,6 +5796,24 @@ function routeCardHTML(rt,i){
   '</div>';
 }
 
+/* v267 — showDetail(상세 화면)에서 구간(이동 소음)을 위해 쓰는 박스.
+   지점용 reportBreakdownHTML(6종 유형 그리드)은 구간에 안 맞는
+   데이터를 전제로 하므로 쓰지 않고, 카드(routeCardHTML)와 같은
+   재료로 이 화면에 맞는 박스를 새로 짠다. */
+function routeDetailHTML(rt){
+  const hh=String(rt.peak).padStart(2,'0');
+  return '<div class="repbox">'+
+    '<div class="bh">이동 소음(차량·바이크)</div>'+
+    '<div class="repn">30일간 <b>'+rt.n+'번</b> 지나감</div>'+
+    '<div class="cmerge">구간 길이 '+rt.len+'m · 지나가는 소음을 길 단위로 묶어 표시</div>'+
+    '<div class="cline">'+hh+'시경 가장 잦고, 순간 최고 <b>'+rt.db+' dB</b>입니다</div>'+
+    '<div class="rkey">한 번은 <b>'+rt.sec+'초</b>, 30일이면 <b>'+rt.n+'번</b></div>'+
+    '<div class="cmeta">'+
+      '<span class="mtag rtag">3초 미만 · 신고 기준 미달</span>'+
+      '<span class="mtag rtag">구간 기록으로 축적</span>'+
+    '</div>'+
+  '</div>';
+}
 /* 위치 정밀도 설명 — 카드와 "소음 정보"(예보) 화면이 같은 문구를 쓴다.
    merge>0인 등급(무료·유료)은 실제로 여러 신고를 묶으니 "묶어 표시"가
    맞고, 행정(merge:0)은 묶는 게 아니라 정확한 지점을 흐린 범위로만
@@ -6091,6 +6132,19 @@ function flyTo(s){
   map.panTo(new kakao.maps.LatLng(s.c.lat,s.c.lng));
   clearTimeout(flyTo._t); flyTo._t=setTimeout(()=>{syncing=false},700);
 }
+/* v267 — 지도 위 무언가(지점 핀·이동 소음 구간)를 눌렀을 때 카드
+   목록(rail)으로 스크롤할지, 상세 화면(showDetail)을 바로 열지를
+   가른다. 문제는 cardList 안에 있다는 것만으로 무조건 카드 목록
+   쪽을 택했었다는 점 — 그런데 전체지도(big) 모드는 이제 기본값이고,
+   이 모드에서는 .panel(카드 레일이 들어있는 영역) 자체가
+   display:none이라(".stage.split.big .panel{display:none}") 카드로
+   스크롤해봐야 아무 것도 안 보인다. 그 결과가 "눌러도 반응이 없다"는
+   먹통이다. 카드 목록이 실제로 화면에 있을 때만 그쪽으로 보내고,
+   아니면 무조건 상세 화면을 연다. */
+function railVisible(){
+  const stage=document.getElementById('stage');
+  return !!(stage && !stage.classList.contains('big'));
+}
 /* 카드 목록은 이제 세로 스크롤뿐이다 — 좌우로 넘기던 시절의 자취.
    화면 전환처럼 느껴지는 가로 넘김을 없애고, 고른 카드가 있으면
    그 카드가 보이는 자리로 살짝 스크롤만 해 준다. */
@@ -6127,7 +6181,12 @@ function initMode(){
    과거 기록이 그대로 예보가 된다. 시뮬레이션 없이 주기만 찾으면 된다.
    ══════════════════════════════════════════════════════════════ */
 const DAYS=['월','화','수','목','금','토','일'];
-const HRS=[18,19,20,21,22,23,0,1,2,3,4,5];     /* 저녁~새벽만 본다 */
+/* v267 — "밤부터 새벽까지만 보여준다"는 게 오히려 "일부만 보고 있었다"는
+   오해를 샀다("24시간 모두 넣어야해"). 저녁(18시)부터 시작해 자정을 지나
+   하루를 한 바퀴 도는 순서(18→23→0→...→17)는 그대로 두고, 12행이 아니라
+   24행 전부를 보여준다. 세로가 그만큼 길어지는 대신 칸 높이를 줄인다
+   (아래 .wfcell/.wfdot CSS, "세로 폭을 좀 줄여도 될거같다"). */
+const HRS=Array.from({length:24},(_,i)=>(18+i)%24);
 let castSpot=null;
 
 /* 요일 계수 — 인천교통공사 일별·역별·시간대별 이용인원(2025.1~2026.6)에서
@@ -6207,10 +6266,18 @@ function impactHTML(s, worst, peakH, nights, calm){
    편/보통 수준/시끄러운 편" 같은 말로만 말한다 — 막대 자체는 눈으로
    바로 읽히는 정보라 남겨 둔다. */
 function rankHTML(pct){
-  const word = pct<=33 ? '조용한 편' : pct<=66 ? '보통 수준' : '시끄러운 편';
+  /* v267 — pct는 "신고 건수 기준 위에서 몇 번째냐"라 숫자가 낮을수록
+     오히려 시끄러운 지점이다(1등이 제일 시끄러움). 그런데 막대는
+     이미 이를 뒤집어(100-pct) "시끄러울수록 꽉 찬다"로 그리고 있었는데,
+     문구(word)만 pct를 그대로 등급 매겨서 막대와 반대로 읽혔다
+     ("게이지는 높은데 보통수준", "게이지는 낮은데 시끄러움"). 막대가
+     쓰는 것과 같은 값(loud)으로 문구도 판정해 항상 같은 뜻을 가리키게
+     한다. */
+  const loud = 100-pct;
+  const word = loud<=33 ? '조용한 편' : loud<=66 ? '보통 수준' : '시끄러운 편';
   return '<div class="rl">이 지역 소음 수준은 <b>'+word+'</b>입니다'+
-    '<div class="rankbar"><span class="rfill" style="width:'+(100-pct)+'%"></span>'+
-      '<i style="left:'+(100-pct)+'%"></i></div>'+
+    '<div class="rankbar"><span class="rfill" style="width:'+loud+'%"></span>'+
+      '<i style="left:'+loud+'%"></i></div>'+
     '<div class="rends"><span>조용한 편</span><span>시끄러운 편</span></div></div>';
 }
 
