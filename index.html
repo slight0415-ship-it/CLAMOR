@@ -778,6 +778,22 @@
   .cmine{display:inline-block; font-size:0.75rem; font-weight:900; color:#fff;
     background:var(--c-noise); padding:2px 7px; border-radius:999px; margin-left:7px}
 
+  /* ══ v266 — 내 신고 조치/재발 상태 ══
+     상세 화면 맨 위, "신고된 내용"보다 먼저 보인다 — 지금 이 지점이
+     경찰 조치 대기 중인지, 조용해졌는지, 다시 심각해졌는지가 소음
+     분포표보다 급한 정보이기 때문이다. */
+  .mystatus{border-radius:11px; padding:11px 13px; margin-bottom:11px;
+    background:rgba(224,72,63,.08); border:1px solid rgba(224,72,63,.3)}
+  .mystatus.st-resolved{background:rgba(31,169,113,.09); border-color:rgba(31,169,113,.35)}
+  .mystatus.st-recurred{background:rgba(224,72,63,.13); border-color:rgba(224,72,63,.5)}
+  .mystatus-row{display:flex; align-items:center; justify-content:space-between;
+    gap:8px; flex-wrap:wrap}
+  .mystatus-label{font-size:0.9375rem; font-weight:800; color:var(--text)}
+  .mystatus-cnt{flex:0 0 auto; font-size:0.75rem; font-weight:900; color:#fff;
+    background:#161A22; padding:2px 8px; border-radius:999px}
+  .mystatus-action{margin-top:8px}
+  .mystatus-ok{font-size:0.875rem; font-weight:800; color:#1FA971}
+
   /* ══ 제보 카드 — 조회 화면을 행동 화면으로 바꾸는 자리 ══ */
   .rail{display:flex; flex-direction:column; gap:10px; overflow-y:auto; overflow-x:hidden;
     scrollbar-width:none; margin:0 -15px; padding:0 15px 3px}
@@ -964,14 +980,15 @@
   .wfaxis-day{display:flex; justify-content:flex-end; padding-right:2px;
     margin-bottom:4px; font-size:0.75rem; font-weight:800;
     color:rgba(255,255,255,.55); letter-spacing:.02em}
-  .wfgrid{display:flex; flex-direction:column; gap:3px;
-    /* 배색 두 벌을 CSS 변수로 갈아 끼운다 — 일반 시각(기본)은 초록
-       (조용)→노랑(약간)→빨강(심함)처럼 신호등·일기예보에 익숙한 배색,
-       .cbmode(색약 모드)는 색상만으로 구분하지 않고 밝기 자체가
-       조용→심함 순서로 어두워지는 파랑→주황→짙은 적갈색 배색이라
-       색을 아예 못 봐도(흑백으로 봐도) 밝기만으로 단계가 읽힌다. */
-    --sev0:#3ECF8E; --sev1:#F5C242; --sev2:#FF5C5C}
-  .wfgrid.cbmode{ --sev0:#7FB3E8; --sev1:#E8A33D; --sev2:#8B2E1F }
+  /* v266 — --sev0/1/2는 원래 .wfgrid에 선언돼 있었는데, 범례(.wflegend)는
+     격자의 자식이 아니라 형제(둘 다 .wfwrap의 자식)라 CSS 변수가 위에서
+     아래로만 상속되는 성질상 범례 쪽에서는 그 변수가 안 잡혀 색이 전혀
+     안 나오고 글자만 남는 문제가 있었다("색상도 넣어야지 텍스트만
+     존재한다"). 격자와 범례를 함께 감싸는 .wfwrap에 변수를 옮겨 선언해
+     둘 다 같은 값을 보게 고친다. */
+  .wfwrap{ --sev0:#3ECF8E; --sev1:#F5C242; --sev2:#FF5C5C}
+  .wfwrap.cbmode{ --sev0:#7FB3E8; --sev1:#E8A33D; --sev2:#8B2E1F }
+  .wfgrid{display:flex; flex-direction:column; gap:3px}
   .wfrow{display:flex; align-items:center; gap:3px}
   .wfcorner{flex:0 0 34px; font-family:var(--mono); font-size:0.6875rem; font-weight:800;
     color:rgba(255,255,255,.5); text-align:center}
@@ -990,7 +1007,7 @@
     0%,100%{box-shadow:0 0 0 rgba(255,92,92,0)}
     50%{box-shadow:0 0 7px rgba(255,92,92,.6)}
   }
-  .wfgrid.cbmode .wfdot.sv2{animation:wfpulse2 1.6s ease-in-out infinite}
+  .wfwrap.cbmode .wfdot.sv2{animation:wfpulse2 1.6s ease-in-out infinite}
   @keyframes wfpulse2{
     0%,100%{box-shadow:0 0 0 rgba(139,46,31,0)}
     50%{box-shadow:0 0 7px rgba(139,46,31,.6)}
@@ -1130,6 +1147,27 @@
     filter:drop-shadow(0 1px 2px rgba(0,0,0,.5)); transition:opacity .3s, transform .3s}
   .marker svg{display:block; width:100%; height:100%; grid-area:1/1}
   .marker.on{transform:scale(1.5); z-index:9}
+  /* v266 — "내 신고"가 재발 상태일 때 핀 둘레에 퍼지는 경고 파장.
+     색은 바꾸지 않고(재발 전 색을 그대로 유지) 움직임만 더해 시인성을
+     확보한다 — 정지된 색·아이콘 교체는 낮았다는 판단을 반영했다. */
+  .mine-ring{position:absolute; inset:-45%; border-radius:50%;
+    border:2px solid #FF5C5C; opacity:0; pointer-events:none; grid-area:1/1;
+    animation:mineRing 1.7s cubic-bezier(.2,.6,.35,1) infinite}
+  @keyframes mineRing{
+    0%{transform:scale(.55); opacity:.85}
+    100%{transform:scale(2.1); opacity:0}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .mine-ring{animation:none; opacity:.55; transform:scale(1.3)}
+  }
+  /* 재발 누적 횟수 배지 — 지금 조용해 보여도(resolved) 절대 사라지지
+     않는다. "소음 유발자는 이사가지 않는 이상 계속 재발한다"는 원칙을
+     지도 위에서 지우지 않기 위함이다. */
+  .mine-badge{position:absolute; top:-6px; right:-6px; min-width:16px; height:16px;
+    padding:0 4px; border-radius:9px; background:#161A22; color:#fff;
+    font-family:var(--mono); font-size:0.625rem; font-weight:900;
+    display:flex; align-items:center; justify-content:center;
+    border:1.5px solid #fff; box-shadow:0 1px 3px rgba(0,0,0,.35); z-index:2}
 
   /* 수사 등급 전용 — 신고자 추정 위치. 소음 지점(원색 점)과 헷갈리지
      않도록 색을 넣지 않고 테두리만 있는 다이아몬드로 표시한다. */
@@ -2679,7 +2717,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v265</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v266</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2712,8 +2750,10 @@
           <span class="lockmark" id="lm1" hidden>유료</span></div>
         <div class="predbody">
           <div class="wfsection-h">요일별 시간대 예보</div>
-          <div id="wgrid"></div>
-          <div id="wlegend"></div>
+          <div class="wfwrap" id="wfwrap">
+            <div id="wgrid"></div>
+            <div id="wlegend"></div>
+          </div>
           <div class="wfdivider"></div>
           <div class="ev" id="evidence"></div>
           <div class="blur" id="blur1" hidden></div>
@@ -2926,7 +2966,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v265</span></div>
+          <span class="ver" id="ver2">v266</span></div>
       </div>
     </div>
 
@@ -2983,7 +3023,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v265</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v266</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -3719,7 +3759,7 @@ document.addEventListener('click',e=>{
 });
 window.addEventListener('keydown',e=>{ if(e.key==='Escape') closeTierSheet() });
 
-/* v265 — "색약 모드" 토글. 요일·시간 예보 격자는 문자열로 통째로
+/* v266 — "색약 모드" 토글. 요일·시간 예보 격자는 문자열로 통째로
    다시 그려 넣는 경우(showDetail·renderCast)가 많아서, 버튼마다
    따로 리스너를 붙이는 대신 문서 전체에 위임 핸들러 하나만 둔다 —
    격자가 몇 번을 다시 그려져도 이 리스너는 그대로 유효하다. 두 화면
@@ -3730,11 +3770,20 @@ document.addEventListener('click',e=>{
   if(!btn) return;
   const next=!cbModeOn();
   try{ localStorage.setItem('clamor_cbmode', next?'1':'0') }catch(err){}
-  document.querySelectorAll('.wfgrid').forEach(g=>g.classList.toggle('cbmode', next));
+  document.querySelectorAll('.wfwrap').forEach(g=>g.classList.toggle('cbmode', next));
   document.querySelectorAll('.cbtoggle').forEach(b=>{
     b.classList.toggle('on', next);
     b.textContent = next ? '색약 모드 ON' : '색약 모드';
   });
+});
+
+/* v266 — "경찰 조치 후 조용해졌어요" 버튼. 상세 화면(showDetail)이
+   그때그때 새로 그린 HTML이라 위임 방식으로 한 번만 등록해 둔다. */
+document.addEventListener('click',e=>{
+  const btn=e.target.closest('[data-mark-resolved]');
+  if(!btn) return;
+  setMyStatus('resolved');
+  if(active && active.mine && typeof showDetail==='function') showDetail(active);
 });
 
 /* 홈 화면 아이콘에 크롬 배지가 붙는 것은 '바로가기'로 추가됐다는 뜻이다.
@@ -4633,20 +4682,58 @@ function saveSent(r){
     : ((document.getElementById('sms-addr')||{}).textContent
     || (document.getElementById('rec-addr')||{}).textContent || '');
   const loc = realLoc || CENTER;
+  /* v266 — 신고 결과(조치/재발) 상태.
+     '재발했어요'를 눌렀고 실제 지난 기록이 있으면, 지금 다시 신고를
+     보내는 행위 자체가 곧 재발 사건이므로 상태를 바로 '재발함'으로
+     연다(따로 재발 버튼을 또 만들 필요가 없다 — 사용자 말대로 "이미
+     신고에서 재발함을 눌렀을 것이다. 자동으로 재발로 표시되어야 한다").
+     recurCount는 지난 기록에서 이어받아 누적만 하고 절대 0으로 되돌리지
+     않는다 — "몇 번째 재발인지"가 지워지면 상습성이 화면에서 사라진다. */
+  const isRecur = !!(markRecurrence && prevSent);
   const rec={ at:Date.now(), addr:addr.trim(),
     type:(TYPES[r.t]||TYPES[0]).k, db:r.db, dur:r.dur,
     lat:loc.lat, lng:loc.lng,
     /* 재발로 표시했고 실제 지난 기록이 있었을 때만 남긴다 */
-    recurrence:(markRecurrence && prevSent) ? recurSummaryText(prevSent) : null,
+    recurrence: isRecur ? recurSummaryText(prevSent) : null,
+    status: isRecur ? 'recurred' : 'reported',
+    recurCount: isRecur ? ((prevSent.recurCount||0)+1) : 0,
     /* 이 신고 하나에 붙는 사후 경과 기록 — 신규 신고이므로 항상 빈 배열로
        시작한다(지난 신고의 기록을 새 신고가 물려받지 않는다) */
     followups:[] };
   try{ localStorage.setItem(SENT_KEY, JSON.stringify(rec)) }catch(e){}
+  /* 이미 지도에 "내 신고" 핀이 떠 있는 상태에서 재발 신고를 보내는
+     경우(같은 세션에서 지도를 보다가 다시 녹음→전송) 핀이 새로고침
+     전까지 낡은 상태로 남지 않도록 그 자리에서 바로 맞춰 둔다. */
+  if(typeof spots!=='undefined'){
+    const liveMine=spots.find(x=>x.mine);
+    if(liveMine){
+      liveMine.myStatus=rec.status;
+      liveMine.recurCount=rec.recurCount;
+      if(typeof paint==='function') paint(liveMine, liveMine.lastTi!==undefined?liveMine.lastTi:liveMine.dom);
+    }
+  }
   renderSent(rec);
 }
 function loadSent(){
   try{ const s=localStorage.getItem(SENT_KEY); return s?JSON.parse(s):null }
   catch(e){ return null }
+}
+/* v266 — "조치됨" 입력은 신고 직후 리워드 화면이 아니라, 경찰과 통화를
+   마치고 나서 며칠 뒤 평범하게 앱을 열어 자기 신고 지점(지도의 "내 신고"
+   핀)을 눌러 들어온 상세 화면에서 이뤄진다. 그래서 여기서는 화면 전환
+   없이 그 자리에서 상태만 바꾸고 지도 핀·상세 화면을 다시 그린다.
+   (보상 안내는 지금은 넣지 않는다 — 별도로 다룰 사안.) */
+function setMyStatus(status){
+  const rec=loadSent();
+  if(!rec) return false;
+  rec.status=status;
+  try{ localStorage.setItem(SENT_KEY, JSON.stringify(rec)) }catch(e){}
+  const s=spots.find(x=>x.mine);
+  if(s){
+    s.myStatus=status;
+    if(typeof paint==='function') paint(s, s.lastTi!==undefined?s.lastTi:s.dom);
+  }
+  return true;
 }
 function renderSent(rec){
   if(!rec) return;
@@ -4943,12 +5030,27 @@ function cluster(radius){
   });
   return g;
 }
+/* v266 — "내 신고" 핀의 조치/재발 상태를 지도에 얹는다.
+   · resolved(조치완료·조용함): 앱 전체에서 "조용함=녹색"으로 이미 쓰는
+     색(요일별 예보 격자의 --sev0과 같은 계열)으로 핀 색만 바꾼다.
+   · recurred(재발함): 색·아이콘 교체는 예전 프로토타입에서 시인성이
+     낮았다는 판단이 있었으므로, 핀 색은 그대로 두고 대신 핀 둘레에
+     레이더 파장처럼 반복해서 퍼지는 고리(.mine-ring)를 겹쳐 그린다 —
+     "이 자리, 지금 심각하다"는 신호를 정지된 색보다 움직임으로 전달한다.
+   · recurCount(재발 누적 횟수)는 상태가 resolved로 바뀌어도 절대
+     지우지 않는다 — 배지가 남아 있어야 "이 자리는 조용해 보여도 이미
+     N번 재발한 상습 지점"이라는 사실이 지도에서 사라지지 않는다. */
+const MINE_RESOLVED_COLOR='#1FA971';
 function paint(s,ti){
   const el=s.el, px=s.px||12;
   el.className='marker'+(active===s?' on':'');
   el.style.width=px+'px'; el.style.height=px+'px';
   /* 16px 미만에서는 글리프가 뭉개져 오히려 지저분해진다 */
-  el.innerHTML=dotSVG(TYPES[ti].c,px,s.big,ti,px>=16);
+  const color = (s.mine && s.myStatus==='resolved') ? MINE_RESOLVED_COLOR : TYPES[ti].c;
+  let html = dotSVG(color,px,s.big,ti,px>=16);
+  if(s.mine && s.myStatus==='recurred') html += '<div class="mine-ring" aria-hidden="true"></div>';
+  if(s.mine && s.recurCount>0) html += '<div class="mine-badge">'+s.recurCount+'회</div>';
+  el.innerHTML=html;
 }
 /* 확대하면 갈라지고 축소하면 뭉친다 — 원 크기는 건수를 나른다 */
 function sizeFor(s){
@@ -5255,6 +5357,12 @@ function addMySpot(typeIdx, dbVal, durVal){
     reporterLoc: realLoc ? {lat:realLoc.lat, lng:realLoc.lng} : null,
     fixed:true, mine:true, big:true, vis:true
   };
+  /* v266 — 이 스팟의 조치/재발 상태는 스팟 자체가 아니라 저장된 신고
+     기록(SENT_KEY, loadSent())이 정답이다. 지금은 "내 신고"가 한 건만
+     추적되는 구조라 이 스팟이 곧 그 기록과 1:1로 대응한다. */
+  const sent=loadSent();
+  s.myStatus=(sent && sent.status) || 'reported';
+  s.recurCount=(sent && sent.recurCount) || 0;
   s.px = sizeFor(s);
   const el=document.createElement('div');
   s.el=el; el.title=name+' · 1건';
@@ -5291,6 +5399,29 @@ function applyMinePassby(){
   if(typeof buildCards==='function') buildCards();
 }
 
+/* v266 — "내 신고" 지점의 조치/재발 상태를 문장으로 보여주고, 아직
+   조치완료가 아니면 그 자리에서 바로 표시할 수 있게 한다.
+   · 재발함(recurred)은 새 신고를 보낼 때 '재발했어요'를 누르면 자동으로
+     열리므로 여기엔 버튼이 없다 — 사용자가 이미 그 행동으로 표시했다.
+   · recurCount는 상태와 별개로, 0보다 크면 조치완료 상태에서도 계속
+     보여준다 — "한 번 조용해졌다고 상습 이력이 지워지지 않는다". */
+function mineStatusHTML(s){
+  if(!s.mine) return '';
+  const st=s.myStatus||'reported';
+  const label = st==='resolved' ? '조치완료 · 그 뒤로 조용합니다'
+             : st==='recurred' ? '재발함 — 아직 새 조치 전입니다'
+             :                   '신고됨 · 경찰 조치 결과를 기다리는 중';
+  const cnt=s.recurCount||0;
+  const badge = cnt>0 ? '<span class="mystatus-cnt">재발 '+cnt+'회째</span>' : '';
+  const action = st==='resolved'
+    ? '<span class="mystatus-ok">✓ 조치됨으로 표시했습니다</span>'
+    : '<button type="button" class="btn ghost sm" data-mark-resolved>'+
+        '경찰 조치 후 조용해졌어요</button>';
+  return '<div class="mystatus st-'+st+'">'+
+      '<div class="mystatus-row"><span class="mystatus-label">'+label+'</span>'+badge+'</div>'+
+      '<div class="mystatus-action">'+action+'</div>'+
+    '</div>';
+}
 function showDetail(s){
   const T=TIERS[tier];
   if(active) active.el.classList.remove('on');
@@ -5313,7 +5444,10 @@ function showDetail(s){
      막대 몇 개로만 보여주고 끝나 "종이에 텍스트 적다 만" 인상을 줬다.
      카드·소음 정보 화면과 같은 reportBreakdownHTML을 써서 6종 신고
      건수·유형별 시간대 분포를 항상 같은 모양으로 보여준다. */
-  let h=reportBreakdownHTML(s, T);
+  /* v266 — 이 스팟이 "내 신고"면, 경찰 조치 결과를 입력하는 자리를
+     맨 위에 둔다. 신고 직후 리워드 화면이 아니라, 나중에 평범하게
+     지도에서 자기 핀을 눌러 들어왔을 때 여기서 "조치됨"을 남긴다. */
+  let h=mineStatusHTML(s)+reportBreakdownHTML(s, T);
   if(T.metrics) h+='<div class="metrics"><div><b>'+s.db+'</b>평균 dB</div>'+
     '<div><b>'+(s.db+5)+'</b>최고 dB</div><div><b>'+s.dur+'분</b>평균 지속</div></div>';
   if(T.reporterLoc && s.reporterLoc) h+='<div class="sec"><div class="sec-h">신고자 위치</div>'+
@@ -6103,8 +6237,14 @@ function weekGridHTML(M){
     }).join('');
     return '<div class="wfrow"><div class="wfhour">'+String(h).padStart(2,'0')+'시</div>'+cells+'</div>';
   }).join('');
-  const cb=cbModeOn() ? ' cbmode' : '';
-  return '<div class="wfaxis-day">요일</div><div class="wfgrid'+cb+'">'+head+rows+'</div>';
+  /* cbmode 클래스는 격자 자신이 아니라 .wfwrap(격자+범례 공통 조상)에
+     붙는다 — 그래야 범례의 색상 변수도 같이 바뀐다. */
+  return '<div class="wfaxis-day">요일</div><div class="wfgrid">'+head+rows+'</div>';
+}
+/* 격자(weekGridHTML)와 범례(weekLegendHTML)를 함께 감싸 --sev0/1/2
+   변수와 cbmode 클래스를 공유하게 한다(위 CSS 주석 참고). */
+function wfWrapHTML(M){
+  return '<div class="wfwrap'+(cbModeOn()?' cbmode':'')+'">'+weekGridHTML(M)+weekLegendHTML()+'</div>';
 }
 /* 표 아래 범례 + 설명 + 색약 모드 토글. 색상 두 벌(일반/색약)은 CSS
    변수(--sev0/--sev1/--sev2)로 이미 정의돼 있고, 이 버튼은 .wfgrid에
@@ -6232,6 +6372,8 @@ function renderCast(s){
   /* ── 요일 격자 ── */
   document.getElementById('wgrid').innerHTML=weekGridHTML(M);
   document.getElementById('wlegend').innerHTML=weekLegendHTML();
+  const wfwrap=document.getElementById('wfwrap');
+  if(wfwrap) wfwrap.classList.toggle('cbmode', cbModeOn());
 
   /* ── 확신: 관측 규모를 숫자로 ── */
   document.getElementById('evidence').innerHTML=evidenceHTML(s, worst, nights);
@@ -6309,8 +6451,7 @@ function forecastHTML(s){
         '<span class="predsub">데이터 기반 소음 예측</span></div>'+
       '<div class="predbody">'+
         '<div class="wfsection-h">요일별 시간대 예보</div>'+
-        weekGridHTML(M)+
-        weekLegendHTML()+
+        wfWrapHTML(M)+
         '<div class="wfdivider"></div>'+
         '<div class="ev">'+evidenceHTML(s, worst, nights)+'</div>'+
       '</div>'+
