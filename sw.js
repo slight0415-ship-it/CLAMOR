@@ -1,4 +1,4 @@
-/* 클레머 서비스워커 — v267
+/* 클레머 서비스워커 — v269
    예전 방식(설치 시 파일을 캐시에 넣고 그 뒤로는 계속 그 캐시만 쓰는 방식)은
    깃허브에 새 버전을 올려도 폰에 설치된 앱이 계속 옛날 파일을 보여주는
    원인이 된다 — index.html을 v238으로 고쳐도 폰은 v212(혹은 그 전) 그대로
@@ -7,7 +7,7 @@
    그 응답을 캐시에 최신 것으로 덮어쓴다. 오프라인일 때만(요청이 실패할
    때만) 캐시에 있는 마지막 버전을 대신 보여준다 — "새 버전이 있는데 옛날
    걸 계속 보여주는" 문제가 구조적으로 없어진다. */
-const CACHE_NAME = 'clamor-cache-v267';
+const CACHE_NAME = 'clamor-cache-v269';
 const CORE_ASSETS = ['./', './index.html', './manifest.webmanifest'];
 
 self.addEventListener('install', (e) => {
