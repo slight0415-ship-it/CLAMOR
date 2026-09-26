@@ -949,30 +949,71 @@
   .tyrow.zero .tycnt{color:var(--text-mute); font-weight:600}
   .tglab{margin-top:4px; padding-left:90px}
 
-  /* 요일 × 시간 격자 — 반복성이 눈으로 증명되는 자리.
-     v259: 가로축=요일, 세로축=시간으로 바꿨다(시민 대부분이 달력·
-     캘린더처럼 요일이 가로로 놓인 표에 익숙하다는 지적 반영).
-     v260 후속: 칸이 화면 폭 전체로 늘어나 상세히 뜯어보는 표처럼
-     커져 있었다는 지적 — "한눈에 파악"이 목적이므로 칸 크기를 고정된
-     작은 정사각형으로 못박고, 표 전체를 가운데로 모은다. */
-  .grid{display:grid; grid-template-columns:26px repeat(7,20px); gap:2.5px;
-    justify-content:center}
-  .grid .gl{font-family:var(--mono); font-size:0.6875rem; color:var(--text-mute);
-    display:flex; align-items:center; font-weight:700}
-  .grid .gt{font-family:var(--mono); font-size:0.625rem; color:var(--text-mute);
+  /* 요일 × 시간 예보 — v265 전면 개편(v264를 다시 뒤엎음).
+     v264는 심각도를 "볼륨 아이콘" 모양으로 그렸는데, 사용자 판단은
+     달랐다 — 날씨 예보처럼 "언제가 심한지"를 한눈에 훑는 표라면 아이콘
+     보다 색이 더 직관적이고, 시간축도 저녁/밤 같은 구간이 아니라 실제
+     "몇 시"가 정확히 나와야 클레머의 차별점이 된다는 것. 대신 예전
+     그라데이션의 문제(칸을 색으로 꽉 채워서 시각적으로 무겁고, 색맹·
+     색약 사용자에게 불리)는 그대로 남는다 — 그래서: (1) 색은 3단계
+     (조용/약간/심함)로 줄이고, (2) 칸을 색으로 꽉 채우지 않고 칸 안에
+     작게 들어간 사각형만 칠하고, (3) 일반 시각용 배색과 색약·색맹용
+     배색 두 벌을 만들어 토글로 바꿔 볼 수 있게 한다. 세로축은 이 표가
+     다루는 저녁~새벽 12시간(HRS)을 그대로 1시간 단위 12행으로 쓴다
+     (밴드로 묶지 않는다 — 정확한 시간이 요구사항이었다). */
+  .wfaxis-day{display:flex; justify-content:flex-end; padding-right:2px;
+    margin-bottom:4px; font-size:0.75rem; font-weight:800;
+    color:rgba(255,255,255,.55); letter-spacing:.02em}
+  .wfgrid{display:flex; flex-direction:column; gap:3px;
+    /* 배색 두 벌을 CSS 변수로 갈아 끼운다 — 일반 시각(기본)은 초록
+       (조용)→노랑(약간)→빨강(심함)처럼 신호등·일기예보에 익숙한 배색,
+       .cbmode(색약 모드)는 색상만으로 구분하지 않고 밝기 자체가
+       조용→심함 순서로 어두워지는 파랑→주황→짙은 적갈색 배색이라
+       색을 아예 못 봐도(흑백으로 봐도) 밝기만으로 단계가 읽힌다. */
+    --sev0:#3ECF8E; --sev1:#F5C242; --sev2:#FF5C5C}
+  .wfgrid.cbmode{ --sev0:#7FB3E8; --sev1:#E8A33D; --sev2:#8B2E1F }
+  .wfrow{display:flex; align-items:center; gap:3px}
+  .wfcorner{flex:0 0 34px; font-family:var(--mono); font-size:0.6875rem; font-weight:800;
+    color:rgba(255,255,255,.5); text-align:center}
+  .wfday{flex:1; text-align:center; font-family:var(--mono); font-size:0.875rem;
+    font-weight:900; color:rgba(255,255,255,.88)}
+  .wfhour{flex:0 0 34px; font-family:var(--mono); font-size:0.6875rem; font-weight:700;
+    color:rgba(255,255,255,.6); text-align:center}
+  /* 칸을 색으로 꽉 채우지 않는다 — 격자 칸(.wfcell)은 배경 없이 자리만
+     잡고, 그 안의 작은 사각형(.wfdot)만 칠해서 촘촘한 표라도 눈이
+     덜 피로하게 한다. */
+  .wfcell{flex:1; aspect-ratio:1; display:flex; align-items:center; justify-content:center}
+  .wfdot{width:60%; height:60%; border-radius:5px; background:var(--sev0)}
+  .wfdot.sv1{background:var(--sev1)}
+  .wfdot.sv2{background:var(--sev2); animation:wfpulse 1.6s ease-in-out infinite}
+  @keyframes wfpulse{
+    0%,100%{box-shadow:0 0 0 rgba(255,92,92,0)}
+    50%{box-shadow:0 0 7px rgba(255,92,92,.6)}
+  }
+  .wfgrid.cbmode .wfdot.sv2{animation:wfpulse2 1.6s ease-in-out infinite}
+  @keyframes wfpulse2{
+    0%,100%{box-shadow:0 0 0 rgba(139,46,31,0)}
+    50%{box-shadow:0 0 7px rgba(139,46,31,.6)}
+  }
+  @media (prefers-reduced-motion: reduce){ .wfdot.sv2{animation:none} }
+  .wfsection-h{display:flex; align-items:center; justify-content:space-between;
+    gap:8px; font-size:0.8125rem; font-weight:800; color:rgba(255,255,255,.72);
+    margin-bottom:10px}
+  .cbtoggle{font-family:inherit; font-size:0.75rem; font-weight:700;
+    color:rgba(255,255,255,.7); background:rgba(255,255,255,.1);
+    border:1px solid rgba(255,255,255,.16); border-radius:20px;
+    padding:4px 10px; cursor:pointer; flex:0 0 auto}
+  .cbtoggle.on{background:rgba(79,195,247,.22); border-color:rgba(79,195,247,.4); color:#fff}
+  /* 범례 + 표 아래 설명 — 색이 몇 가지 뜻인지, 어느 쪽이 심한 건지를
+     글로도 한 번 더 확인시킨다("표 아래에 설명을 넣어달라"는 요청). */
+  .wflegend{display:flex; align-items:center; justify-content:center; gap:14px;
+    margin-top:12px; flex-wrap:wrap}
+  .wflegend .wfl-item{display:flex; align-items:center; gap:6px;
+    font-size:0.75rem; font-weight:700; color:rgba(255,255,255,.68)}
+  .wflegend .wfl-dot{width:13px; height:13px; border-radius:4px; display:inline-block}
+  .wfnote{margin-top:8px; font-size:0.75rem; line-height:1.5; color:rgba(255,255,255,.45);
     text-align:center}
-  .grid i{width:20px; height:20px; border-radius:3px; background:var(--ink-3)}
-  /* 예보 화면 히트그리드 전용. 범위를 안 묶으면 같은 이름을 쓰는
-     다른 요소(주간 미리보기 등)까지 칠해 버린다.
-     빨강 점이 촘촘히 박힌 격자는 보고 싶지 않은 그림이 된다. 지도의 붉은
-     점과도 뜻이 겹친다. 여기서는 진해질수록 심한 것으로 읽히게 한다. */
-  .grid .g0, .glegend .g0{background:var(--ink-3)!important}
-  .grid .g1, .glegend .g1{background:#3A4E74!important}
-  .grid .g2, .glegend .g2{background:#5C7CB8!important}
-  .grid .g3, .glegend .g3{background:#8FB0E8!important}
-  .glegend{display:flex; align-items:center; gap:5px; margin-top:9px;
-    font-size:0.8125rem; color:var(--text-mute); font-weight:700}
-  .glegend i{width:17px; height:11px; border-radius:3px}
+  .wfdivider{height:1px; background:rgba(255,255,255,.1); margin:14px 0 10px}
 
   .ev{display:flex; flex-direction:column; gap:9px}
   .evrow{display:flex; align-items:baseline; gap:11px}
@@ -995,7 +1036,13 @@
     letter-spacing:.14em; color:#FF8A7D; background:rgba(224,72,63,.18);
     padding:3px 8px; border-radius:5px; flex:0 0 auto}
   .predsub{font-size:0.875rem; font-weight:700; color:rgba(255,255,255,.7)}
-  .predbody{display:flex; flex-direction:column; padding:4px 16px 14px}
+  .predhead .lockmark{margin-left:auto}
+  /* v264 — 요일·시간대 격자를 이 카드 안으로 합쳤다("요일·시간대별
+     예측"과 "PREDICTION 근거"가 같은 질문(이 동네 소음이 언제 심한가)에
+     대한 답이라 따로 둘 이유가 없다는 지적). position:relative를 둬서
+     무료 등급의 잠금 블러(#blur1)가 격자뿐 아니라 이 카드 전체(격자+
+     범례+근거)를 한 번에 덮는다. */
+  .predbody{display:flex; flex-direction:column; padding:4px 16px 14px; position:relative}
   .predbody .evrow{padding:10px 0; border-top:1px solid rgba(255,255,255,.08)}
   .predbody .evrow:first-child{border-top:none; padding-top:8px}
   .predbody .el{color:rgba(255,255,255,.6)}
@@ -2291,10 +2338,9 @@
   /* ── 흰색 반투명 덧칠은 밝은 바탕에서 사라진다: 검정으로 뒤집는다 ── */
   body.light #s-map .verdict.calm{background:rgba(0,0,0,.045)}
   body.light #s-map .bar2 .tr{background:rgba(0,0,0,.09)}
-  /* 밝은 바탕에서는 반대로 진할수록 심한 것으로 읽힌다 */
-  body.light #s-cast .grid .g1, body.light #s-cast .glegend .g1{background:#C2CFE4!important}
-  body.light #s-cast .grid .g2, body.light #s-cast .glegend .g2{background:#7C95BF!important}
-  body.light #s-cast .grid .g3, body.light #s-cast .glegend .g3{background:#33507F!important}
+  /* v264 — 요일·시간대 예보 격자는 이제 PREDICTION 카드(항상 어두운
+     고정 배색) 안에서만 쓰여서, 밝은 테마에서도 색을 뒤집을 필요가
+     없어졌다(카드 자체가 테마와 무관하게 어둡게 고정돼 있다). */
   body.light #s-cast .pkc i.g1{background:rgba(0,0,0,.14)}
   body.light #s-cast .iwv .mask{
     background:linear-gradient(90deg,rgba(0,0,0,.06),rgba(0,0,0,.12))}
@@ -2633,7 +2679,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v263</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v265</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2656,21 +2702,22 @@
       <!-- 비교 대상: 절대값만으로는 판단이 서지 않는다 -->
       <div class="rank" id="rankbox"></div>
 
-      <div class="block">
-        <div class="bh">요일 · 시간대별 예측<span class="lockmark" id="lm1" hidden>유료</span></div>
-        <div class="gridwrap">
-          <div class="grid" id="wgrid"></div>
-          <div class="blur" id="blur1" hidden></div>
-        </div>
-        <div class="glegend">
-          <span>조용</span><i class="g0"></i><i class="g1"></i><i class="g2"></i><i class="g3"></i><span>심함</span>
-        </div>
-      </div>
-
+      <!-- v264 — "요일·시간대별 예측"(격자)과 "PREDICTION"(근거)을
+           한 카드로 합쳤다. 무료 등급의 잠금 블러(#blur1)도 격자만이
+           아니라 이 카드 전체(격자+범례+근거)를 덮도록 predbody
+           전체를 감싼다. -->
       <div class="predcard">
         <div class="predhead"><span class="predtag">PREDICTION</span>
-          <span class="predsub">데이터 기반 예측 근거</span></div>
-        <div class="ev predbody" id="evidence"></div>
+          <span class="predsub">데이터 기반 소음 예측</span>
+          <span class="lockmark" id="lm1" hidden>유료</span></div>
+        <div class="predbody">
+          <div class="wfsection-h">요일별 시간대 예보</div>
+          <div id="wgrid"></div>
+          <div id="wlegend"></div>
+          <div class="wfdivider"></div>
+          <div class="ev" id="evidence"></div>
+          <div class="blur" id="blur1" hidden></div>
+        </div>
       </div>
       <!-- v255: "반경 200m 조용한 곳" 목록을 없앴다 — 조용한 곳은
            지도(소음 범위 원이 없는 곳)로 확인하는 것이지 이름 없는
@@ -2879,7 +2926,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v263</span></div>
+          <span class="ver" id="ver2">v265</span></div>
       </div>
     </div>
 
@@ -2936,7 +2983,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v263</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v265</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -3671,6 +3718,24 @@ document.addEventListener('click',e=>{
   if(bg && !bg.hidden && e.target===bg) closeTierSheet();
 });
 window.addEventListener('keydown',e=>{ if(e.key==='Escape') closeTierSheet() });
+
+/* v265 — "색약 모드" 토글. 요일·시간 예보 격자는 문자열로 통째로
+   다시 그려 넣는 경우(showDetail·renderCast)가 많아서, 버튼마다
+   따로 리스너를 붙이는 대신 문서 전체에 위임 핸들러 하나만 둔다 —
+   격자가 몇 번을 다시 그려져도 이 리스너는 그대로 유효하다. 두 화면
+   중 어느 쪽에서 눌러도, 그 순간 화면에 있는 모든 격자·버튼에 함께
+   반영하고 localStorage에 저장해 다음에 열 때도 유지한다. */
+document.addEventListener('click',e=>{
+  const btn=e.target.closest('[data-cbtoggle]');
+  if(!btn) return;
+  const next=!cbModeOn();
+  try{ localStorage.setItem('clamor_cbmode', next?'1':'0') }catch(err){}
+  document.querySelectorAll('.wfgrid').forEach(g=>g.classList.toggle('cbmode', next));
+  document.querySelectorAll('.cbtoggle').forEach(b=>{
+    b.classList.toggle('on', next);
+    b.textContent = next ? '색약 모드 ON' : '색약 모드';
+  });
+});
 
 /* 홈 화면 아이콘에 크롬 배지가 붙는 것은 '바로가기'로 추가됐다는 뜻이다.
    진짜 앱으로 설치되려면 서비스워커가 등록되어 있어야 한다. */
@@ -6019,14 +6084,46 @@ function rankHTML(pct){
    가로=요일·세로=시간으로 뒤집었다. 시민 대부분이 달력·근무표처럼
    요일이 가로로 놓인 표에 익숙하다는 지적을 반영한 것. weekMatrix(s)가
    주는 M[요일][시간] 구조 자체는 그대로 두고, 격자를 그릴 때만
-   행/열을 바꿔 읽는다. */
+   행/열을 바꿔 읽는다.
+   v265 — v264(3시간 밴드 + 볼륨 아이콘)를 다시 뒤엎었다. 사용자 판단:
+   날씨 예보처럼 "언제를 피해야 하는지" 훑어보는 표라면 아이콘보다
+   색이 더 직관적이고, 시간축도 밴드가 아니라 "몇 시"가 정확히 나와야
+   클레머의 차별점이 된다(그렇다고 30분·10분 단위는 과하다 — 1시간
+   단위가 적당). 그래서 HRS(저녁~새벽 12시간)를 밴드로 묶지 않고 그대로
+   12행으로 쓰고, 칸에는 아이콘 대신 작은 색 사각형(sev3 3단계)을
+   넣는다. 색 자체는 sevColor()/sev3()가 결정한다. */
+function sev3(v){ return v<0.32 ? 0 : v<0.62 ? 1 : 2 }
 function weekGridHTML(M){
-  let html='<div class="gl"></div>'+DAYS.map(d=>'<div class="gt">'+d+'</div>').join('');
-  HRS.forEach((h,hi)=>{
-    html+='<div class="gl">'+(h%3===0?String(h).padStart(2,'0'):'')+'</div>';
-    html+=M.map(row=>'<i class="g'+lv(row[hi])+'"></i>').join('');
-  });
-  return html;
+  const head='<div class="wfrow wfrow-head"><div class="wfcorner">시간</div>'+
+    DAYS.map(d=>'<div class="wfday">'+d+'</div>').join('')+'</div>';
+  const rows=HRS.map((h,hi)=>{
+    const cells=M.map(row=>{
+      const sv=sev3(row[hi]);
+      return '<div class="wfcell"><span class="wfdot'+(sv?' sv'+sv:'')+'"></span></div>';
+    }).join('');
+    return '<div class="wfrow"><div class="wfhour">'+String(h).padStart(2,'0')+'시</div>'+cells+'</div>';
+  }).join('');
+  const cb=cbModeOn() ? ' cbmode' : '';
+  return '<div class="wfaxis-day">요일</div><div class="wfgrid'+cb+'">'+head+rows+'</div>';
+}
+/* 표 아래 범례 + 설명 + 색약 모드 토글. 색상 두 벌(일반/색약)은 CSS
+   변수(--sev0/--sev1/--sev2)로 이미 정의돼 있고, 이 버튼은 .wfgrid에
+   cbmode 클래스만 붙였다 뗐다 한다 — 다시 그릴 필요 없이 색만 바뀐다.
+   선택은 localStorage에 저장해 다음에 열 때도 유지한다. */
+function cbModeOn(){
+  try{ return localStorage.getItem('clamor_cbmode')==='1' }catch(e){ return false }
+}
+function weekLegendHTML(){
+  const on=cbModeOn();
+  return '<div class="wflegend">'+
+      '<span class="wfl-item"><i class="wfl-dot" style="background:var(--sev0)"></i>소음 거의 없음</span>'+
+      '<span class="wfl-item"><i class="wfl-dot" style="background:var(--sev1)"></i>소음 약간 있음</span>'+
+      '<span class="wfl-item"><i class="wfl-dot" style="background:var(--sev2)"></i>소음 심함(잠 깰 정도)</span>'+
+      '<button type="button" class="cbtoggle'+(on?' on':'')+'" data-cbtoggle>'+
+        (on?'색약 모드 ON':'색약 모드')+
+      '</button>'+
+    '</div>'+
+    '<div class="wfnote">사각형 색이 진해질수록(빨강 계열) 그 요일·시간에 소음이 심하다는 뜻입니다.</div>';
 }
 
 /* "예측 근거"(관측 기간·요일 보정·반복 횟수 등)는 renderCast·
@@ -6134,6 +6231,7 @@ function renderCast(s){
 
   /* ── 요일 격자 ── */
   document.getElementById('wgrid').innerHTML=weekGridHTML(M);
+  document.getElementById('wlegend').innerHTML=weekLegendHTML();
 
   /* ── 확신: 관측 규모를 숫자로 ── */
   document.getElementById('evidence').innerHTML=evidenceHTML(s, worst, nights);
@@ -6201,19 +6299,21 @@ function forecastHTML(s){
   const pct=Math.max(3, Math.min(97, Math.round((pos+1)/all.length*100)));
   const rank='<div class="rank">'+rankHTML(pct)+'</div>';
 
-  const grid=
-    '<div class="block">'+
-      '<div class="bh">요일 · 시간대별 예측</div>'+
-      '<div class="gridwrap"><div class="grid">'+weekGridHTML(M)+'</div></div>'+
-      '<div class="glegend"><span>조용</span><i class="g0"></i><i class="g1"></i>'+
-        '<i class="g2"></i><i class="g3"></i><span>심함</span></div>'+
-    '</div>';
-
-  const evidence=
+  /* v264 — "요일·시간대별 예측"(격자)과 "PREDICTION"(근거)은 같은
+     질문("이 동네 소음이 언제 심한가")에 대한 답이라 한 카드로 합친다.
+     위에는 한눈에 보는 격자(결론), 아래는 그 결론을 뒷받침하는 숫자
+     근거 — 순서로 이어 붙인다. */
+  const prediction=
     '<div class="predcard">'+
       '<div class="predhead"><span class="predtag">PREDICTION</span>'+
-        '<span class="predsub">데이터 기반 예측 근거</span></div>'+
-      '<div class="ev predbody">'+evidenceHTML(s, worst, nights)+'</div>'+
+        '<span class="predsub">데이터 기반 소음 예측</span></div>'+
+      '<div class="predbody">'+
+        '<div class="wfsection-h">요일별 시간대 예보</div>'+
+        weekGridHTML(M)+
+        weekLegendHTML()+
+        '<div class="wfdivider"></div>'+
+        '<div class="ev">'+evidenceHTML(s, worst, nights)+'</div>'+
+      '</div>'+
     '</div>';
 
   /* v255: "반경 200m 조용한 곳" 비교 목록을 없앴다 — 조용한 곳은
@@ -6221,7 +6321,7 @@ function forecastHTML(s){
      같은 이름 없는 텍스트 목록으로 읽는 게 아니다. */
   return '<div class="sec forecast-sec">'+
     '<div class="sec-h">이 구역 소음 예보</div>'+
-    impact + rank + grid + evidence +
+    impact + rank + prediction +
   '</div>';
 }
 
