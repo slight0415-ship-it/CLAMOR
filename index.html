@@ -3,6 +3,12 @@
 <title>CLAMOR 클레머 — 생활불편 리스크맵</title>
 <!-- 홈 화면에 추가하면 주소창과 하단 도구모음 없이 전체 화면으로 뜬다.
      브라우저 안에서 열리면 앱이 아니라 웹페이지로 읽힌다. -->
+<!-- v270: 폰이 시스템 다크 모드여도 이 페이지는 라이트 전용이라고 못박는다.
+     이게 없으면 theme-color/manifest 색이 다 맞아도, 브라우저(특히 삼성
+     기기)가 시스템이 다크라는 이유만으로 내비게이션 바 같은 브라우저 자체
+     UI를 검게 칠하는 경우가 있다 — "112신고·당근마켓은 흰데 클레머만
+     하단이 까맣다"는 증상의 실제 원인으로 추정. -->
+<meta name="color-scheme" content="light">
 <meta name="theme-color" content="#F2F4F7">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -57,7 +63,7 @@
      합성을 막으면 브라우저가 실재하는 가장 가까운 굵기를 그대로 쓴다. */
   *{font-synthesis-weight:none; -webkit-font-synthesis:none}
   [hidden]{display:none!important}
-  html{font-size:calc(16px * var(--fs))}
+  html{font-size:calc(16px * var(--fs)); color-scheme:light}
   body{font-family:'Pretendard Variable',Pretendard,'Noto Sans KR','Malgun Gothic',
     -apple-system,system-ui,sans-serif; background:#08090C;
     color:var(--text); min-height:100vh; display:grid; place-items:center;
@@ -214,21 +220,24 @@
      잴 수 없는 것을 재는 척하지 않는다. 숫자를 묻지 않고 무엇이었는지만 받는다. */
   .passby{display:flex; flex-direction:column; gap:8px; padding-top:14px;
     border-top:1px solid var(--line)}
-  /* 지나가는 소음은 지도에서 파란 선으로 남는다. 그 색을 여기서부터 쓴다 */
+  /* v271: 바이크 굉음은 소란·고성 같은 일반 소음과 다르다 — 112신고가
+     안 되고, 순간적으로 지나가 한 건으로는 위치조차 특정하기 어렵다.
+     그래서 처음부터 빨강(일반 소음)이 아니라 전용 검정으로 구분한다.
+     지도의 이동 경로·아이콘도 전부 이 색이다(예전엔 파랑이었다). */
   .pb-lead{font-size:0.875rem; font-weight:800; color:var(--text-dim);
     letter-spacing:-.02em; padding-bottom:2px; transition:color .3s}
-  .passby.urge .pb-lead{color:#1F6FD0}
+  .passby.urge .pb-lead{color:#12161E}
   .pb{display:flex; align-items:center; gap:11px; width:100%; cursor:pointer;
     font-family:inherit; text-align:left; padding:13px 14px; border-radius:13px;
-    background:var(--ink-2); border:1px solid rgba(31,111,208,.30);
+    background:var(--ink-2); border:1px solid rgba(18,22,30,.30);
     transition:transform .08s ease, border-color .2s, background .2s}
-  .passby.urge .pb{border-color:rgba(31,111,208,.62); background:rgba(31,111,208,.05)}
+  .passby.urge .pb{border-color:rgba(18,22,30,.62); background:rgba(18,22,30,.05)}
   .pb:active{transform:scale(.985)}
-  .pb-ic{flex:0 0 26px; height:26px; color:#1F6FD0}
+  .pb-ic{flex:0 0 26px; height:26px; color:#12161E}
   .pb-ic svg{width:26px; height:26px; display:block}
-  .pb-tx{flex:1; font-size:1rem; font-weight:800; color:#1F6FD0;
+  .pb-tx{flex:1; font-size:1rem; font-weight:800; color:#12161E;
     letter-spacing:-.02em}
-  .pb-go{font-size:1.125rem; font-weight:800; color:#1F6FD0; opacity:.55}
+  .pb-go{font-size:1.125rem; font-weight:800; color:#12161E; opacity:.55}
 
   /* ── 카테고리 신고 화면 ──
      112 문자처럼 한 줄씩 타이핑하지 않는다. 버튼 몇 번으로 끝난다. */
@@ -239,7 +248,7 @@
   .pbtg{flex:1; padding:16px; border-radius:12px; border:1px solid var(--line);
     background:var(--ink-2); color:var(--text-dim); font-family:inherit;
     font-size:1rem; font-weight:800; cursor:pointer; transition:.15s}
-  .pbtg.sel{border-color:#1F6FD0; background:rgba(31,111,208,.12); color:#1F6FD0}
+  .pbtg.sel{border-color:#12161E; background:rgba(18,22,30,.12); color:#12161E}
   .pbtags{display:flex; flex-direction:column; gap:9px}
   /* 5개로 시작하지만 배열 하나에 항목을 추가하는 것만으로 늘어난다 */
   .pbchk{display:flex; align-items:center; gap:11px; padding:13px 14px;
@@ -248,13 +257,13 @@
     color:var(--text-dim); width:100%; transition:.15s}
   .pbchk .chkbox{width:19px; height:19px; flex:0 0 auto; border-radius:6px;
     border:1.5px solid var(--line); position:relative}
-  .pbchk.on{border-color:#1F6FD0; background:rgba(31,111,208,.08); color:var(--text)}
-  .pbchk.on .chkbox{background:#1F6FD0; border-color:#1F6FD0}
+  .pbchk.on{border-color:#12161E; background:rgba(18,22,30,.08); color:var(--text)}
+  .pbchk.on .chkbox{background:#12161E; border-color:#12161E}
   .pbchk.on .chkbox::after{content:''; position:absolute; left:5px; top:2px;
     width:7px; height:11px; border-right:2px solid #fff; border-bottom:2px solid #fff;
     transform:rotate(40deg)}
-  .notice.pb{background:rgba(31,111,208,.08); border-color:rgba(31,111,208,.22)}
-  .notice.pb .nt{color:#1F6FD0}
+  .notice.pb{background:rgba(18,22,30,.08); border-color:rgba(18,22,30,.22)}
+  .notice.pb .nt{color:#12161E}
 
   /* 3 — 안내. 면을 주지 않고 선 하나로 갈라 둔다 */
   #s-rec .rfoot .note{padding-top:15px; border-top:1px solid var(--line)}
@@ -707,26 +716,26 @@
 
   /* 시간대별 세기 — 핀 대신 빛나는 원으로 번진다 */
   /* ══ 이동 소음 카드 ══
-     지도의 파란 선을 보고 내려온 사람이 같은 색을 만나야 이어진다.
-     빨강은 멈춘 소음, 파랑은 지나가는 소음이다. */
-  .routecard{border-color:rgba(31,111,208,.42);
-    background:linear-gradient(180deg, rgba(31,111,208,.06), transparent 62%)}
-  .routecard .ccount.rnum{color:#1F6FD0}
+     지도의 검은 선(v271 — 예전엔 파랑)을 보고 내려온 사람이 같은 색을
+     만나야 이어진다. 빨강은 멈춘 소음, 검정은 바이크(지나가는 소음)다. */
+  .routecard{border-color:rgba(18,22,30,.42);
+    background:linear-gradient(180deg, rgba(18,22,30,.06), transparent 62%)}
+  .routecard .ccount.rnum{color:#12161E}
   .rbadge{display:inline-block; margin-left:7px; vertical-align:middle;
-    font-size:0.6875rem; font-weight:900; color:#fff; background:#1F6FD0;
+    font-size:0.6875rem; font-weight:900; color:#fff; background:#12161E;
     padding:2px 7px; border-radius:999px; letter-spacing:.02em}
   /* 이 한 줄이 카드의 결론이다 — 한 번은 아무것도 아니지만 쌓이면 다르다 */
   .rkey{margin:2px 0 11px; padding:9px 11px; border-radius:9px;
-    background:rgba(31,111,208,.09); font-size:1rem; color:var(--text-dim);
+    background:rgba(18,22,30,.09); font-size:1rem; color:var(--text-dim);
     font-weight:700}
-  .rkey b{color:#1F6FD0; font-weight:900}
-  .mtag.rtag{background:none; color:#1F6FD0; font-weight:700;
-    border:1px solid rgba(31,111,208,.4); padding:4px 8px; font-family:inherit}
+  .rkey b{color:#12161E; font-weight:900}
+  .mtag.rtag{background:none; color:#12161E; font-weight:700;
+    border:1px solid rgba(18,22,30,.4); padding:4px 8px; font-family:inherit}
 
-  /* 선 위를 지나가는 빛. 점은 멈춘 소음, 이 움직임은 지나가는 소음이다 */
-  .routeflow{width:14px; height:14px; border-radius:50%; pointer-events:none;
-    background:radial-gradient(circle, #fff 0%, #8FC4F7 36%, rgba(31,111,208,0) 72%);
-    box-shadow:0 0 14px 5px rgba(31,111,208,.5)}
+  /* v271 — 예전엔 선 위를 반짝이는 파란 빛이 훑고 지나갔다. 지금은 이동경로
+     끝에 검정 바이크 아이콘(SVG, dotSVG로 그림)을 고정해 둔다 — 클릭을
+     막지만 않으면 되므로 이 클래스는 위치·클릭 통과만 담당한다. */
+  .routebike{pointer-events:none}
 
   .glow{border-radius:50%; pointer-events:none; will-change:opacity,width,height;
     background:radial-gradient(circle, rgba(224,72,63,.85) 0%, rgba(224,72,63,.38) 42%, rgba(224,72,63,0) 72%);
@@ -2063,9 +2072,9 @@
   #s-sent{overflow-y:auto}
   .sent-wrap{padding:30px 22px 26px; display:flex; flex-direction:column;
     align-items:center; min-height:100%}
-  .pb-mark{background:rgba(31,111,208,.10)}
+  .pb-mark{background:rgba(18,22,30,.10)}
   .sent-mark{width:60px; height:60px; border-radius:50%; flex:0 0 auto;
-    background:rgba(31,111,208,.1); border:1px solid rgba(31,111,208,.3);
+    background:rgba(18,22,30,.1); border:1px solid rgba(18,22,30,.3);
     display:grid; place-items:center; margin-bottom:15px}
   .sent-mark svg{width:32px; height:32px}
   .sent-t{margin:0; font-size:1.375rem; font-weight:900; color:var(--text);
@@ -2280,16 +2289,17 @@
     background:var(--c-noise); padding:2px 6px; border-radius:999px;
     font-style:normal; vertical-align:middle}
 
-  /* 이동 소음 목록 카드 — 지점 카드와 같은 뼈대에 색만 파랑으로 간다.
-     지도에서 파란 선을 본 사람이 목록에서 같은 파랑을 만나야 이어진다. */
-  .lcard.route{border-color:rgba(31,111,208,.42)}
+  /* 이동 소음 목록 카드 — 지점 카드와 같은 뼈대에 색만 검정(바이크 전용,
+     v271)으로 간다. 지도에서 검은 선을 본 사람이 목록에서도 같은 색을
+     만나야 이어진다. */
+  .lcard.route{border-color:rgba(18,22,30,.42)}
   .lcard.route .lv{background:#F5F9FD; border-color:#D3E2F4}
-  .lcard.route .lv .n{color:#1F6FD0}
-  .lcard.route .lwave i.on{background:#1F6FD0}
+  .lcard.route .lv .n{color:#12161E}
+  .lcard.route .lwave i.on{background:#12161E}
   /* 화면 밖 카드까지 돌릴 이유가 없다 */
   .lcard:not(.seen) .lwave i{animation-play-state:paused}
   .lcard .rbadge2{margin-left:6px; font-size:0.625rem; font-weight:900; color:#fff;
-    background:#1F6FD0; padding:2px 6px; border-radius:999px;
+    background:#12161E; padding:2px 6px; border-radius:999px;
     font-style:normal; vertical-align:middle}
 
   /* 최근 신고 기록 — 댓글처럼 한 줄씩 */
@@ -2344,8 +2354,8 @@
   body.light .phone{background:#F2F4F7}
   /* v269: 위 주석에서 .phone은 고쳤지만 .screen이 .phone 위를 absolute·inset:0으로
      완전히 덮어버려서(패딩 영역까지) 실제로 맨 아래에 보이는 색은 .screen의
-     어두운 --ink 그대로였다 — 112신고·당근마켓과 비교해 우리 앱만 화면 하단
-     (제스처 내비게이션 바 자리)이 까맣게 보인 진짜 원인. */
+     어두운 --ink 그대로였다 — 다만 이것만으로는 부족했고, 진짜 원인은 v270의
+     color-scheme 선언 누락이었다(아래 <head>의 v270 주석 참고). */
   body.light .screen{background:#F2F4F7}
 
   /* ── 앞쪽 네 화면 보정 ──
@@ -2726,7 +2736,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v269</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v271</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2975,7 +2985,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v269</span></div>
+          <span class="ver" id="ver2">v271</span></div>
       </div>
     </div>
 
@@ -3032,7 +3042,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v269</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v271</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -3142,6 +3152,13 @@ const CAT={noise:'#E0483F', odor:'#7A9E3B', light:'#E8A93C', block:'#4A76D4'};
    폭이 좁아 전부 축약형(사용자 지정)을 쓴다: 동물짖음→동물, 바이크굉음→바이크. */
 const TYPES=[{k:'고성'},{k:'소란'},{k:'욕설'},{k:'동물'},{k:'바이크'},{k:'기계음'}]
   .map(t=>({...t, c:CAT.noise}));
+/* v271 — 바이크 굉음은 나머지 다섯 유형(전부 빨강)과 다르게 취급한다.
+   112신고가 안 되고, 순간적으로 지나가 한 건만으로는 위치조차 특정하기
+   어려운 민원이라 클레머 의존도가 특히 높다. 그래서 무료 등급부터도
+   범위 원이 아니라 '지점 + 전용 색(검정)'으로 바로 보여준다 — 이동경로가
+   쌓이기 전부터 존재를 숨기지 않는다. */
+const BIKE_TI=TYPES.findIndex(t=>t.k==='바이크');
+const BIKE_COLOR='#12161E';
 
 /* 26px 안에서 읽히려면 획이 굵고 형태가 단순해야 한다.
    잔선이 많으면 축소 시 뭉개져 '대충 만든' 인상을 준다. */
@@ -5055,7 +5072,11 @@ function paint(s,ti){
   el.className='marker'+(active===s?' on':'');
   el.style.width=px+'px'; el.style.height=px+'px';
   /* 16px 미만에서는 글리프가 뭉개져 오히려 지저분해진다 */
-  const color = (s.mine && s.myStatus==='resolved') ? MINE_RESOLVED_COLOR : TYPES[ti].c;
+  /* v271 — 바이크 굉음은 나머지 소음(빨강)과 다른 전용 색(검정)을 쓴다.
+     내 신고가 조치완료면 그 색이 최우선이고(이미 조용해졌다는 뜻),
+     그 다음이 바이크 여부다. */
+  const color = (s.mine && s.myStatus==='resolved') ? MINE_RESOLVED_COLOR
+              : ti===BIKE_TI ? BIKE_COLOR : TYPES[ti].c;
   let html = dotSVG(color,px,s.big,ti,px>=16);
   if(s.mine && s.myStatus==='recurred') html += '<div class="mine-ring" aria-hidden="true"></div>';
   if(s.mine && s.recurCount>0) html += '<div class="mine-badge">'+s.recurCount+'회</div>';
@@ -5403,8 +5424,7 @@ function applyMinePassby(){
   if(!myPassby || myPassby.applied || !map) return;
   myPassby.applied=true;
   cardIdx=0;
-  const vIdx=TYPES.findIndex(t=>t.k==='바이크');
-  addMySpot(vIdx>=0?vIdx:4, 60, 4);
+  addMySpot(BIKE_TI>=0?BIKE_TI:4, 60, 4);
   if(typeof buildCards==='function') buildCards();
 }
 
@@ -5549,9 +5569,11 @@ function ensureGlow(){
 }
 /* ══ 이동 소음: 선으로 그린다 ══
    지도 위 표시는 늘 점이었다. 지나가는 소음은 점이 될 수 없으니 선으로 둔다.
-   색도 달리한다. 빨강은 멈춘 소음, 파랑은 지나가는 소음이다. */
-const ROUTE_C='#1F6FD0';
-let routeReady=false, routeFlows=[];
+   색도 달리한다. 빨강은 멈춘 소음, 검정(v271 — 예전엔 반짝이는 파랑)은
+   바이크(지나가는 소음)다. 맑고 투명한 파랑은 새벽에 굉음을 내고 달아나는
+   소음유발자의 이동 경로에 어울리는 색이 아니라는 지적을 반영했다. */
+const ROUTE_C=BIKE_COLOR;
+let routeReady=false;
 
 function resolveRoutes(){
   if(routeReady || !map) return;
@@ -5587,10 +5609,15 @@ function finishRoute(rt){
     strokeColor:ROUTE_C, strokeOpacity:0.12, strokeStyle:'solid'});
   rt.line=new kakao.maps.Polyline({path:pts, strokeWeight:3,
     strokeColor:ROUTE_C, strokeOpacity:0.9, strokeStyle:'solid'});
-  const el=document.createElement('div'); el.className='routeflow';
+  /* v271 — 예전엔 선 위를 반짝이는 파란 빛이 훑고 지나갔다("지나가는
+     소음"을 움직임으로 표현). 그러나 소음유발자의 이동을 반짝이는
+     연출로 보여줄 이유가 없다는 지적을 반영해, 움직이는 빛 대신
+     이동경로 끝(도착 쪽 끝점)에 검정 바이크 아이콘을 고정해 둔다 —
+     "이 선이 바이크다"를 굳이 애니메이션 없이도 한눈에 알린다. */
+  const el=document.createElement('div'); el.className='routebike';
+  el.innerHTML=dotSVG(BIKE_COLOR, 24, true, BIKE_TI, true);
   rt.flow=new kakao.maps.CustomOverlay({content:el, zIndex:7,
-    position:pts[0], yAnchor:0.5, xAnchor:0.5});
-  routeFlows.push({rt, t:Math.random()*0.6});
+    position:pts[pts.length-1], yAnchor:0.5, xAnchor:0.5});
   /* 지도 위 무엇이든 누르면 그 정보가 뜬다. 선만 예외면 눌러 본 사람이
      아무 반응도 못 받는다. 카드로 옮겨 준다. */
   /* v267 — 구간은 항상 cardList 안에 들어 있다(mineFirst가 visibleRoutes()를
@@ -5686,17 +5713,10 @@ function drawRoutes(){
   });
 }
 
-/* 빛이 경로를 훑고 지나간다. 굵기만으로는 '지나간다'가 전달되지 않는다 */
-(function flowLoop(){
-  routeFlows.forEach(f=>{
-    if(!f.rt.showing) return;
-    f.t+=0.0038; if(f.t>1) f.t=-0.25;   // 지나가고 나면 잠시 쉬었다 다시 온다
-    if(f.t<0) return;
-    const [la,ln]=alongPath(f.rt.path, f.t);
-    f.rt.flow.setPosition(new kakao.maps.LatLng(la,ln));
-  });
-  requestAnimationFrame(flowLoop);
-})();
+/* v271 — 예전엔 여기서 requestAnimationFrame으로 빛(routeFlows)을 경로
+   위에서 움직였다. 이제 바이크 아이콘은 끝점에 고정이라 이 루프가
+   필요 없다 — drawRoutes()의 rt.flow.setMap(...)만으로 보였다 감췄다가
+   전부 처리된다. */
 
 function drawGlow(){
   if(!map||!spots.length) return;
