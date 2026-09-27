@@ -2124,6 +2124,12 @@
   .cc-map-note{position:absolute; left:9px; top:9px; z-index:12;
     background:rgba(20,14,36,.82); color:#E4D6FF; font-size:0.6875rem; font-weight:800;
     padding:5px 9px; border-radius:999px}
+  /* v274 — 라벨(검정 배경)과 실제 지도 위 핀(초록/빨강)이 색이 전혀
+     달라 "이게 그 핀 얘기가 맞나" 헷갈렸다. 라벨 안에 핀과 같은 색의
+     작은 점을 넣어 둘이 같은 지점을 가리킨다는 걸 시각적으로 이어준다.
+     (paintMcAnswers가 배경색을 실시간으로 맞춘다) */
+  .cc-map-note-dot{display:inline-block; width:8px; height:8px; border-radius:50%;
+    margin-right:6px; vertical-align:middle; background:#8B93A6}
   .cc-section{margin-top:20px}
   .cc-sh{font-size:0.9375rem; font-weight:900; color:var(--text); margin-bottom:8px}
   .cc-empty{padding:22px 12px; text-align:center; font-size:0.875rem; line-height:1.6;
@@ -2146,6 +2152,24 @@
   .cc-forward{margin-top:26px; background:var(--c-pay); border-color:var(--c-pay); color:#fff}
 
   /* ══ 신고카드 — 조치 결과 입력 (v272) ══ */
+  /* v274 — "해결됨/미해결"을 예/아니오 버튼 색만으로 구분하기엔 눈에
+     잘 안 띄고, 질문 목록 오른쪽에 빈 공간이 많이 남았다. 그 자리에
+     지도 위 핀과 같은 색 규칙(초록=해결, 빨강=미해결)을 쓰는 큰 상태
+     배지를 둬서 "지금 이 신고가 어떤 상태인지" 한눈에 보이게 한다. */
+  .mc-status-row{display:flex; align-items:flex-start; justify-content:space-between;
+    gap:14px; margin-bottom:14px}
+  .mc-status-row .cc-sh{margin-bottom:0; padding-top:10px}
+  .mc-status-badge{display:flex; flex-direction:column; align-items:center; gap:6px;
+    flex:0 0 auto}
+  .mc-status-icon{width:46px; height:46px; border-radius:50%; display:flex;
+    align-items:center; justify-content:center; font-size:1.375rem; font-weight:900;
+    background:var(--ink-2); color:var(--text-mute); border:2px solid var(--line);
+    transition:background .25s, border-color .25s, color .25s}
+  .mc-status-icon.resolved{background:#1FA971; border-color:#1FA971; color:#fff}
+  .mc-status-icon.unresolved{background:#E0483F; border-color:#E0483F; color:#fff}
+  .mc-status-label{font-size:0.6875rem; font-weight:800; color:var(--text-mute); white-space:nowrap}
+  .mc-status-label.resolved{color:#1FA971}
+  .mc-status-label.unresolved{color:#E0483F}
   .mc-summary{background:var(--ink-2); border:1px solid var(--line); border-radius:12px;
     padding:14px}
   .mc-history{background:var(--ink-2); border:1px solid var(--line); border-radius:12px;
@@ -2759,7 +2783,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v273</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v274</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2924,7 +2948,7 @@
 
       <div class="cc-map-wrap">
         <div id="mycardmap"></div>
-        <div class="cc-map-note">내가 신고한 정확한 위치</div>
+        <div class="cc-map-note"><span class="cc-map-note-dot" id="mc-map-note-dot"></span>내가 신고한 정확한 위치</div>
       </div>
 
       <div class="cc-section">
@@ -2938,7 +2962,13 @@
       </div>
 
       <div class="cc-section">
-        <div class="cc-sh">조치 결과를 알려주세요</div>
+        <div class="mc-status-row">
+          <div class="cc-sh">조치 결과를 알려주세요</div>
+          <div class="mc-status-badge" id="mc-status-badge">
+            <div class="mc-status-icon" id="mc-status-icon">?</div>
+            <div class="mc-status-label" id="mc-status-label">답변 전</div>
+          </div>
+        </div>
         <div class="mc-q">
           <div class="mc-qt">소음이 해결되었나요?</div>
           <div class="mc-yn" data-mcq="resolved">
@@ -3094,7 +3124,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v273</span></div>
+          <span class="ver" id="ver2">v274</span></div>
       </div>
     </div>
 
@@ -3151,7 +3181,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v273</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v274</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -3727,7 +3757,7 @@ function updateRealLocMarker(){
   if(!realLocOv){
     const el=document.createElement('div'); el.className='myloc-pin';
     el.innerHTML='<i></i>';
-    /* v273 — 내 실제 위치(파란 점)와 내 신고 지점(빨간 핀)이 같은
+    /* v274 — 내 실제 위치(파란 점)와 내 신고 지점(빨간 핀)이 같은
        좌표에 거의 겹칠 수밖에 없는 사용자(자기 집에서 신고)에게는
        두 표시가 화면에서 완전히 포개져 어느 쪽을 눌러야 하는지
        구분이 안 됐다. anchor를 중앙(0.5,0.5)이 아니라 모서리
@@ -4048,6 +4078,10 @@ function go(name, opts){
       if(typeof renderCardConfirm==='function') renderCardConfirm(c);
       /* 여기서는 신고 표시 자체가 내 위치다 — 따로 그리지 않는다 */
       if(typeof updateRealLocMarker==='function') updateRealLocMarker();
+      /* v274 — 지도를 이 고정 미리보기 판(cardconfirmmap)으로 옮겼으니
+         내 신고 핀 크기도 이 자리에 맞게 다시 계산한다(터치용 확대 핀
+         → 원래 크기로). */
+      if(typeof resize==='function') resize();
     },140);
   }
   if(name==='mycard'){
@@ -4065,6 +4099,9 @@ function go(name, opts){
       map.setLevel(4);
       if(typeof renderMyCard==='function') renderMyCard(rec);
       if(typeof updateRealLocMarker==='function') updateRealLocMarker();
+      /* v274 — mycardmap으로 옮긴 뒤 핀 크기도 이 자리에 맞게 다시
+         계산한다(터치용 확대 핀 → 원래 크기로). */
+      if(typeof resize==='function') resize();
     },140);
   }
   if(name==='list'){
@@ -4188,6 +4225,9 @@ function go(name, opts){
       const lim=TIERS[tier].maxLv || 3;
       if(map.getLevel()>lim) map.setLevel(lim);
       if(typeof updateRealLocMarker==='function') updateRealLocMarker();
+      /* v274 — 고정 미리보기 판에서 이 화면(mapwrap)으로 돌아왔으면
+         내 신고 핀을 다시 터치용 큰 크기로 되돌린다. */
+      if(typeof resize==='function') resize();
     },60);
   }
 }
@@ -5113,6 +5153,31 @@ function paintMcAnswers(rec){
     const val=all[key];
     box.querySelectorAll('.chip').forEach(b=>b.classList.toggle('on', val!=null && b.dataset.val===val));
   });
+  /* v274 — "해결됨/미해결"을 색으로 한눈에 보여주는 상태 배지와, 지도
+     라벨 안의 색점을 지금 답변 상태에 맞춰 다시 칠한다. 지도 위 핀의
+     색 규칙(paint() 함수)과 반드시 같은 색을 써야 "저 배지·점·핀이
+     다 같은 신고 얘기"라는 게 시각적으로 이어진다. */
+  const icon=document.getElementById('mc-status-icon');
+  const label=document.getElementById('mc-status-label');
+  const dot=document.getElementById('mc-map-note-dot');
+  const ti=TYPES.findIndex(t=>t.k===rec.type);
+  const baseColor = (ti===BIKE_TI) ? BIKE_COLOR : (ti>=0 ? TYPES[ti].c : CAT.noise);
+  const resolved = ar.resolved==='yes';
+  const unresolved = ar.resolved==='no';
+  if(icon && label){
+    icon.classList.remove('resolved','unresolved');
+    label.classList.remove('resolved','unresolved');
+    if(resolved){
+      icon.classList.add('resolved'); icon.textContent='✓';
+      label.classList.add('resolved'); label.textContent='해결됨';
+    }else if(unresolved){
+      icon.classList.add('unresolved'); icon.textContent='!';
+      label.classList.add('unresolved'); label.textContent='미해결';
+    }else{
+      icon.textContent='?'; label.textContent='답변 전';
+    }
+  }
+  if(dot) dot.style.background = resolved ? MINE_RESOLVED_COLOR : baseColor;
 }
 
 document.querySelectorAll('#s-mycard .mc-yn').forEach(box=>{
@@ -5448,19 +5513,34 @@ function paint(s,ti){
   if(s.mine && s.recurCount>0) html += '<div class="mine-badge">'+s.recurCount+'회</div>';
   el.innerHTML=html;
 }
+/* v274 — 지도(#map) DOM 하나를 화면에 따라 여러 판(mapwrap/cardconfirmmap/
+   mycardmap)으로 옮겨 붙이는 구조라, 같은 핀(mine)이 손가락으로 직접
+   짚어야 하는 '지도 화면'과, 그냥 확인만 하는 '고정 미리보기 카드'
+   양쪽에 모두 등장한다. 두 자리는 요구되는 크기가 다르므로 지금 어느
+   판에 붙어 있는지로 구분한다. */
+function onFixedPreviewMap(){
+  const el=document.getElementById('map');
+  const host=el && el.parentNode;
+  return !!(host && (host.id==='cardconfirmmap' || host.id==='mycardmap'));
+}
 /* 확대하면 갈라지고 축소하면 뭉친다 — 원 크기는 건수를 나른다 */
 function sizeFor(s){
   const lv=map?map.getLevel():4;
   const zoom=Math.max(.7, Math.min(1.35, (7-lv)*0.32));
   const base=8+Math.sqrt(s.n)*1.6;      // 차등은 은은하게 — 위치가 주인공이다
   const px=base*zoom*(s.big?1.6:1);     // 상위 지점만 키워 아이콘이 읽히게 한다
-  /* v273 — 내 신고 핀(mine)은 화면에서 유일하게 손가락으로 직접 짚어야
-     하는 지점이다. 무료 등급은 확대(줌)를 못 쓰게 막아 두었기 때문에,
-     축소된 화면에서 원래 공식대로면 15px 안팎까지 작아질 수 있었다 —
-     실제 폰 화면에서는 그 정도 크기가 손가락 접촉면보다 작아 여러 번
-     눌러야 겨우 인식됐다. 그래서 mine만은 줌 레벨과 무관하게 36~44px
-     사이를 항상 보장한다(모바일 터치 타깃 권장 최소치 기준). */
-  if(s.mine) return Math.round(Math.max(36, Math.min(44, px*1.4)));
+  if(s.mine){
+    /* v274 — 손가락으로 직접 짚어야 하는 실제 지도 화면(mapwrap)에서만
+       36~44px 최소 크기를 보장한다. 무료 등급은 확대(줌)를 못 쓰게 막아
+       두었기 때문에, 축소된 화면에서 원래 공식대로면 15px 안팎까지
+       작아질 수 있었다 — 그 정도 크기는 손가락 접촉면보다 작아 여러
+       번 눌러야 겨우 인식됐다.
+       반면 신고카드/조치결과 화면 안의 '고정 미리보기' 지도는 그냥
+       눈으로 확인만 하는 자리라 같은 큰 아이콘이 오히려 과하게 커
+       보였다 — 원래 크기(공식 그대로, 살짝만 키움)를 유지한다. */
+    if(onFixedPreviewMap()) return Math.round(Math.max(16, Math.min(24, px*1.1)));
+    return Math.round(Math.max(36, Math.min(44, px*1.4)));
+  }
   return Math.round(Math.max(7, Math.min(s.big?30:19, px)));
 }
 function resize(){
@@ -5789,7 +5869,7 @@ function addMySpot(typeIdx, dbVal, durVal, locOverride, nameOverride){
      결과를 입력·확인하는 전용 신고카드 화면(go('mycard'))으로 간다. */
   el.onclick=()=>go('mycard');
   paint(s, s.dom);
-  /* v273 — zIndex를 10으로: 내 실제 위치 표시(realLocOv, zIndex 5)나
+  /* v274 — zIndex를 10으로: 내 실제 위치 표시(realLocOv, zIndex 5)나
      다른 어떤 표시보다도 항상 위에 그려야, 좌표가 겹쳐도 이 핀이
      시각적으로도 맨 위에 있고 손가락으로 짚을 대상이 명확하다. */
   s.ov=new kakao.maps.CustomOverlay({position:new kakao.maps.LatLng(c.lat,c.lng),
