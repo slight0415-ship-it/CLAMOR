@@ -5454,7 +5454,12 @@ function applyFilter(){
   spots.forEach(s=>{
     const on=TYPES.some((_,i)=>onTypes[i]&&s.cnt[i]>0);
     s.vis=on;                       // 번짐 표시가 같은 판정을 쓰도록 남긴다
-    const show = on && !onListScreen && !rangeTier;
+    /* v272 — "자신이 신고한 지점은 정확히 보이도록 해줘야 한다. 소음
+       범위는 다른 사람들의 신고 데이터이므로 범위로 흐려버릴 수 있지만
+       자신의 신고는 정확히 보여줘야 한다"(사용자 지시). 그래서 mine은
+       등급(rangeTier)과 무관하게 항상 정확한 핀으로 보인다 — 무료
+       등급이어도 예외를 둔다. */
+    const show = on && !onListScreen && (!rangeTier || s.mine);
     s.ov.setMap(show?map:null);
     if(!on) return;
     /* 방금 보낸 신고는 그 판정 유형을 지킨다. 최다 건수로 다시 고르면
@@ -5502,6 +5507,11 @@ function drawFreeBlur(){
   const r = T.rangeR || 50;
   spots.forEach(s=>{
     if(s.vis===false) return;
+    /* v272 — 내 신고는 흐리지 않는다(위 applyFilter의 mine 예외와 같은
+       원칙). 여기서 그냥 넘기면 정확한 핀(el.onclick→신고카드) 위에
+       흐린 원이 덮이지도, 원의 낡은 showDetail() 클릭이 핀을 가로채지도
+       않는다. */
+    if(s.mine) return;
     if(anchor && distM(s.c, anchor)>FREE_RADIUS) return;   // 300m 밖은 무료에서만 안 보인다
     /* 유료 이상 등급은 24시간 바를 움직이면 그 시각에 맞춰 핀이 밝아지고
        어두워진다(applyHour). 범위 원도 이 가중치를 그대로 받아서, 바를
