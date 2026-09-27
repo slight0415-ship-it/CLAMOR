@@ -2145,6 +2145,23 @@
   .cc-fu-empty{font-size:0.8125rem; color:var(--text-mute); font-weight:700}
   .cc-forward{margin-top:26px; background:var(--c-pay); border-color:var(--c-pay); color:#fff}
 
+  /* ══ 신고카드 — 조치 결과 입력 (v272) ══ */
+  .mc-summary{background:var(--ink-2); border:1px solid var(--line); border-radius:12px;
+    padding:14px}
+  .mc-history{background:var(--ink-2); border:1px solid var(--line); border-radius:12px;
+    padding:12px 14px; margin-bottom:8px}
+  .mc-q{margin-bottom:18px}
+  .mc-q:last-child{margin-bottom:0}
+  .mc-qt{font-size:0.9375rem; font-weight:800; color:var(--text); margin-bottom:9px; line-height:1.4}
+  .mc-yn{display:flex; gap:8px; flex-wrap:wrap}
+  .mc-yn .chip{flex:0 0 auto}
+  .mc-triple .chip{flex:1 1 auto; text-align:center}
+  .mc-yn .chip.on{border-color:var(--c-pay); color:#fff; background:var(--c-pay)}
+  .mc-gap{font-size:0.9375rem; font-weight:900; color:var(--text); margin-bottom:14px;
+    padding:10px 12px; background:rgba(232,80,80,.09); border:1px solid rgba(232,80,80,.3);
+    border-radius:10px}
+  .mc-note{margin-top:22px; font-size:0.75rem; color:var(--text-mute); font-weight:600; line-height:1.6}
+
   /* ══ 진짜 메인화면 — 검색·확인 전에는 아무것도 보이지 않는다 ══ */
   .lsearch{display:flex; gap:8px; padding:12px 12px 0}
   .lsearch input{flex:1; min-width:0; font-family:inherit; font-size:0.875rem;
@@ -2884,6 +2901,92 @@
 
       <button class="btn primary cc-forward" id="cc-forward" type="button">
         우리동네소음지도 보기 ›</button>
+    </div>
+  </section>
+
+  <!-- ══ 신고카드 — 내 신고를 관리하는 화면 (v272) ══
+       s-cast(소음 정보)와 완전히 다른 화면이다 — 저기는 "이 지점 소음이
+       어떤지" 남들이 보는 통계 화면이고, 여기는 "내가 보낸 그 신고가
+       어떻게 됐는지"를 나 자신이 확인·기록하는 화면이다. 지도 위 내 핀을
+       누르면 항상 여기로 온다(showDetail이 아니다). */ -->
+  <section class="screen" id="s-mycard" hidden>
+    <div class="cc-wrap">
+      <div class="cc-head">
+        <h2>내 신고카드</h2>
+        <p id="mc-sub">—</p>
+      </div>
+
+      <div class="cc-map-wrap">
+        <div id="mycardmap"></div>
+        <div class="cc-map-note">내가 신고한 정확한 위치</div>
+      </div>
+
+      <div class="cc-section">
+        <div class="cc-sh">신고 내용</div>
+        <div class="mc-summary" id="mc-summary"></div>
+      </div>
+
+      <div class="cc-section" id="mc-history-sec" hidden>
+        <div class="cc-sh">재발 이력</div>
+        <div id="mc-history"></div>
+      </div>
+
+      <div class="cc-section">
+        <div class="cc-sh">조치 결과를 알려주세요</div>
+        <div class="mc-q">
+          <div class="mc-qt">소음이 해결되었나요?</div>
+          <div class="mc-yn" data-mcq="resolved">
+            <button type="button" class="chip" data-val="yes">예</button>
+            <button type="button" class="chip" data-val="no">아니오</button>
+          </div>
+        </div>
+        <div class="mc-q">
+          <div class="mc-qt">경찰의 연락을 받으셨나요?</div>
+          <div class="mc-yn" data-mcq="policeContacted">
+            <button type="button" class="chip" data-val="yes">예</button>
+            <button type="button" class="chip" data-val="no">아니오</button>
+          </div>
+        </div>
+        <div class="mc-q">
+          <div class="mc-qt">이제 더 이상 소음이 들리지 않는거죠?</div>
+          <div class="mc-yn" data-mcq="noiseGone">
+            <button type="button" class="chip" data-val="yes">예</button>
+            <button type="button" class="chip" data-val="no">아니오</button>
+          </div>
+        </div>
+        <div class="mc-q">
+          <div class="mc-qt">경찰의 조치가 마음에 드시나요?</div>
+          <div class="mc-yn mc-triple" data-mcq="policeSatisfaction">
+            <button type="button" class="chip" data-val="trust">믿음직스러운 경찰. 감사합니다.</button>
+            <button type="button" class="chip" data-val="stronger">더 강한 조치가 필요해요.</button>
+            <button type="button" class="chip" data-val="wait">일단 지켜봐야 해요.</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 재발 신고일 때만(status==='recurred') 드러난다 -->
+      <div class="cc-section" id="mc-recur-sec" hidden>
+        <div class="cc-sh">재발에 대해 알려주세요</div>
+        <p class="mc-gap" id="mc-gap-text">—</p>
+        <div class="mc-q">
+          <div class="mc-qt">이전보다 소음 수준이 더 심한가요?</div>
+          <div class="mc-yn" data-mcq="worseThanBefore">
+            <button type="button" class="chip" data-val="yes">예</button>
+            <button type="button" class="chip" data-val="no">아니오</button>
+          </div>
+        </div>
+        <div class="mc-q">
+          <div class="mc-qt">강력한 조치가 필요할까요?</div>
+          <div class="mc-yn" data-mcq="needStrongerAction">
+            <button type="button" class="chip" data-val="yes">예</button>
+            <button type="button" class="chip" data-val="no">아니오</button>
+          </div>
+        </div>
+      </div>
+
+      <p class="mc-note">위 문구는 임시입니다 — 실제 서비스에서는 관계 기관과 협의해 확정합니다.</p>
+
+      <button class="btn ghost" id="mc-back" type="button">‹ 지도로</button>
     </div>
   </section>
 
@@ -3880,7 +3983,7 @@ function beatMine(){
    기본값이 '발신 가능'이 되지 않도록 명시적인 스위치를 둔다.
    실제 112 연동을 붙이는 날, 이 값을 true로 바꾸기 전까지는 절대 나가지 않는다. */
 const DISPATCH_TO_112=false;
-const SCREENS=['splash','rec','confirm','sms','sent','cardconfirm','passby','passby-confirm','list','map','cast'];
+const SCREENS=['splash','rec','confirm','sms','sent','cardconfirm','mycard','passby','passby-confirm','list','map','cast'];
 let mapReady=false;
 function go(name, opts){
   SCREENS.forEach(s=>document.getElementById('s-'+s).hidden=(s!==name));
@@ -3928,6 +4031,23 @@ function go(name, opts){
       map.setLevel(4);
       if(typeof renderCardConfirm==='function') renderCardConfirm(c);
       /* 여기서는 신고 표시 자체가 내 위치다 — 따로 그리지 않는다 */
+      if(typeof updateRealLocMarker==='function') updateRealLocMarker();
+    },140);
+  }
+  if(name==='mycard'){
+    /* v272 — 지도 위 내 핀을 누르면 항상 여기로 온다(showDetail이 아니다).
+       이 화면의 맵도 cardconfirm처럼 고정한다 — 여기는 "내 신고를
+       확인·관리"하는 자리지, 동네를 구경하는 자리가 아니다. */
+    initMapOnce();
+    moveMapTo('mycardmap');
+    setTimeout(()=>{
+      if(!map) return;
+      lockMap(true);
+      const rec=loadSent();
+      const c = rec && rec.lat!=null ? {lat:rec.lat,lng:rec.lng} : (realLoc||CENTER);
+      map.setCenter(new kakao.maps.LatLng(c.lat,c.lng));
+      map.setLevel(4);
+      if(typeof renderMyCard==='function') renderMyCard(rec);
       if(typeof updateRealLocMarker==='function') updateRealLocMarker();
     },140);
   }
@@ -4763,16 +4883,29 @@ function saveSent(r){
      recurCount는 지난 기록에서 이어받아 누적만 하고 절대 0으로 되돌리지
      않는다 — "몇 번째 재발인지"가 지워지면 상습성이 화면에서 사라진다. */
   const isRecur = !!(markRecurrence && prevSent);
-  const rec={ at:Date.now(), addr:addr.trim(),
+  const at = Date.now();
+  const rec={
+    /* v272 — id: 지금은 기기 하나에 신고 하나뿐이라 뜻이 없어 보이지만,
+       나중에 회원가입/로그인이 붙어 "이 계정의 여러 신고 중 하나"가
+       되는 순간 반드시 필요해진다. 그때 가서 기존 데이터를 만지지
+       않아도 되게 지금부터 붙여 둔다. */
+    id: at+'-'+Math.random().toString(36).slice(2,8),
+    at, addr:addr.trim(),
     type:(TYPES[r.t]||TYPES[0]).k, db:r.db, dur:r.dur,
     lat:loc.lat, lng:loc.lng,
     /* 재발로 표시했고 실제 지난 기록이 있었을 때만 남긴다 */
     recurrence: isRecur ? recurSummaryText(prevSent) : null,
+    /* 신고카드의 "동일 사건은 (   )만에 재발하였습니다"는 사용자에게
+       입력받지 않고 이 값(직전 신고~이번 신고 시간차)으로 보여준다. */
+    recurGapMs: isRecur ? (at - prevSent.at) : null,
     status: isRecur ? 'recurred' : 'reported',
     recurCount: isRecur ? ((prevSent.recurCount||0)+1) : 0,
     /* 이 신고 하나에 붙는 사후 경과 기록 — 신규 신고이므로 항상 빈 배열로
        시작한다(지난 신고의 기록을 새 신고가 물려받지 않는다) */
-    followups:[] };
+    followups:[],
+    /* v272 — 신고카드의 조치결과/재발의견 입력. 새 신고이므로 항상
+       비운 채로 시작한다. */
+    actionResult:{}, recurrenceFeedback:{} };
   try{ localStorage.setItem(SENT_KEY, JSON.stringify(rec)) }catch(e){}
   /* 이미 지도에 "내 신고" 핀이 떠 있는 상태에서 재발 신고를 보내는
      경우(같은 세션에서 지도를 보다가 다시 녹음→전송) 핀이 새로고침
@@ -4813,10 +4946,12 @@ function seedTestReport(opts){
   const d=new Date(); d.setHours(hour, opts.min||20, 0, 0);
   if(d.getTime() > Date.now()) d.setDate(d.getDate()-1); // 오늘 그 시각이 아직 안 지났으면 어제로
   const rec = {
+    id: d.getTime()+'-'+Math.random().toString(36).slice(2,8),
     at: d.getTime(), addr: opts.addr || '내 거주지(테스트)',
     type: opts.type || '소란', db: opts.db!=null?opts.db:58, dur: opts.dur!=null?opts.dur:6,
     lat: loc.lat, lng: loc.lng,
-    recurrence: null, status: 'reported', recurCount: 0, followups: []
+    recurrence: null, recurGapMs: null, status: 'reported', recurCount: 0, followups: [],
+    actionResult:{}, recurrenceFeedback:{}
   };
   try{ localStorage.setItem(SENT_KEY, JSON.stringify(rec)); }catch(e){ console.error(e); return null; }
   console.log('테스트 신고 기록 생성:', rec, '— 앱을 새로고침해서 확인하세요.');
@@ -4824,24 +4959,28 @@ function seedTestReport(opts){
 }
 /* 위 신고가 실제로 재발해 다시 112에 신고한 상황을 이어 붙인다.
    기존 재발 로직(saveSent의 isRecur 분기)과 같은 모양으로 만든다 —
-   recurCount는 누적, recurrence는 "얼마 만에" 자동 계산 문구. */
+   recurCount는 누적, recurrence는 "얼마 만에" 자동 계산 문구.
+   daysAgo는 "실제로 지금 딱 그만큼 지났다"를 흉내낸다 — at을
+   prev.at + daysAgo로 앞서 계산해서 만든다(실제 시계가 그만큼 지나길
+   기다릴 필요 없다). */
 function seedRecurrence(opts){
   opts = opts || {};
   const prev = loadSent();
   if(!prev){ console.warn('먼저 seedTestReport()로 최초 신고를 만들어 두세요.'); return null; }
   const daysAgo = opts.daysAgo!=null ? opts.daysAgo : 3.5;  // "3~4일만에 재발" 기본값
-  const at = Date.now();
-  const gapMs = at - prev.at;
+  const gapMs = Math.round(daysAgo*86400000);
+  const at = prev.at + gapMs;
   const rec = {
+    id: at+'-'+Math.random().toString(36).slice(2,8),
     at, addr: opts.addr || prev.addr,
     type: opts.type || prev.type, db: opts.db!=null?opts.db:(prev.db+3), dur: opts.dur!=null?opts.dur:prev.dur,
     lat: opts.lat!=null?opts.lat:prev.lat, lng: opts.lng!=null?opts.lng:prev.lng,
-    recurrence: recurSummaryText(prev), status: 'recurred',
-    recurCount: (prev.recurCount||0)+1, followups: []
+    recurrence: recurSummaryText(prev), recurGapMs: gapMs, status: 'recurred',
+    recurCount: (prev.recurCount||0)+1, followups: [],
+    actionResult:{}, recurrenceFeedback:{}
   };
   try{ localStorage.setItem(SENT_KEY, JSON.stringify(rec)); }catch(e){ console.error(e); return null; }
-  const gapH=(gapMs/36e5).toFixed(1);
-  console.log('재발 신고 기록 생성 (직전 신고로부터 '+gapH+'시간 만에):', rec, '— 앱을 새로고침해서 확인하세요.');
+  console.log('재발 신고 기록 생성 (직전 신고로부터 '+fmtGap(gapMs)+' 만에):', rec, '— 앱을 새로고침해서 확인하세요.');
   return rec;
 }
 /* v266 — "조치됨" 입력은 신고 직후 리워드 화면이 아니라, 경찰과 통화를
@@ -4876,6 +5015,114 @@ function renderSent(rec){
     ? Math.floor(rec.dur/60)+'분 '+(rec.dur%60)+'초'
     : rec.dur+'분');
 }
+
+/* ══ 신고카드(v272)의 유일한 쓰기 통로 ══
+   지금은 "이 기기의 localStorage에 있는 마지막 신고 하나"가 전부라
+   loadSent()+merge+setItem으로 충분하지만, 나중에 회원가입/로그인이
+   붙으면 "그 사용자 계정에 달린 그 신고 레코드"로 바뀐다. 그 전환이
+   이 함수 하나만 고치면 되게(호출부는 그대로) 하려고, 신고카드 화면의
+   모든 답변 저장은 반드시 이 함수를 거치게 한다 — 여기 말고 다른 곳에서
+   SENT_KEY에 직접 쓰지 않는다. */
+function updateMyReport(patch){
+  const cur=loadSent();
+  if(!cur) return null;
+  const merged=Object.assign({}, cur, patch);
+  try{ localStorage.setItem(SENT_KEY, JSON.stringify(merged)); }catch(e){ console.error(e); return null; }
+  return merged;
+}
+
+/* 재발까지 걸린 시간을 "일/시간" 정도로 사람이 읽게 만든다.
+   "3~4일만에 재발하는게 부지기수"라던 말대로, 며칠 단위가 흔한
+   값이라 분 단위까지는 내려가지 않는다. */
+function fmtGap(ms){
+  if(ms==null || ms<0) return '알 수 없음';
+  const h=ms/36e5;
+  if(h<1) return Math.round(ms/60000)+'분';
+  if(h<24) return Math.round(h)+'시간';
+  const d=Math.floor(h/24), rh=Math.round(h%24);
+  return rh>0 ? d+'일 '+rh+'시간' : d+'일';
+}
+
+let mcRec=null;   // 신고카드 화면이 지금 그리고 있는 신고 기록(loadSent()의 스냅샷)
+function renderMyCard(rec){
+  mcRec = rec;
+  const sub=document.getElementById('mc-sub');
+  const summary=document.getElementById('mc-summary');
+  const historySec=document.getElementById('mc-history-sec');
+  const history=document.getElementById('mc-history');
+  const recurSec=document.getElementById('mc-recur-sec');
+  const gapText=document.getElementById('mc-gap-text');
+  if(!rec){
+    if(sub) sub.textContent='아직 보낸 신고가 없습니다';
+    if(summary) summary.innerHTML='<div class="d-sum">신고 내역이 없습니다.</div>';
+    if(historySec) historySec.hidden=true;
+    if(recurSec) recurSec.hidden=true;
+    return;
+  }
+  const d=new Date(rec.at), p=n=>String(n).padStart(2,'0');
+  const when=(d.getMonth()+1)+'월 '+d.getDate()+'일 '+p(d.getHours())+':'+p(d.getMinutes());
+  const durTx = rec.dur>=60 ? Math.floor(rec.dur/60)+'분 '+(rec.dur%60)+'초' : rec.dur+'초';
+  if(sub) sub.textContent = rec.addr || '내 신고';
+  if(summary) summary.innerHTML =
+    '<div class="srow"><span class="sl">신고 시각</span><span class="sv">'+when+'</span></div>'+
+    '<div class="srow"><span class="sl">소음 유형</span><span class="sv">'+rec.type+'</span></div>'+
+    '<div class="srow"><span class="sl">측정치</span><span class="sv">'+rec.db+'dB · '+durTx+'</span></div>'+
+    '<div class="srow"><span class="sl">위치</span><span class="sv">'+(rec.addr||'—')+'</span></div>';
+
+  /* 재발 이력 — "기존 신고문 + 재발신고까지" 함께 정리해 보여준다.
+     recurrence(직전 기록 요약 문자열)가 있으면 재발 신고라는 뜻이다. */
+  const isRecur = rec.status==='recurred' && rec.recurrence;
+  if(historySec) historySec.hidden = !isRecur;
+  if(isRecur && history){
+    history.innerHTML = '<div class="mc-history"><b>이전 신고</b><br>'+rec.recurrence+'</div>'+
+      (rec.recurCount>1 ? '<div class="d-sum">지금까지 총 '+rec.recurCount+'회 재발했습니다.</div>' : '');
+  }
+  if(recurSec) recurSec.hidden = !isRecur;
+  if(isRecur && gapText){
+    const gap = rec.recurGapMs!=null ? fmtGap(rec.recurGapMs) : '알 수 없음';
+    gapText.textContent = '동일 사건은 '+gap+' 만에 재발하였습니다.';
+  }
+
+  paintMcAnswers(rec);
+}
+
+/* 저장된 답변으로 버튼들의 선택 상태(.on)를 되그린다 — 화면을 나갔다
+   들어와도 이전에 고른 답이 그대로 눌려 있어야 한다. */
+function paintMcAnswers(rec){
+  const ar = rec.actionResult || {};
+  const rf = rec.recurrenceFeedback || {};
+  const all = Object.assign({}, ar, rf);
+  document.querySelectorAll('#s-mycard .mc-yn').forEach(box=>{
+    const key=box.dataset.mcq;
+    const val=all[key];
+    box.querySelectorAll('.chip').forEach(b=>b.classList.toggle('on', val!=null && b.dataset.val===val));
+  });
+}
+
+document.querySelectorAll('#s-mycard .mc-yn').forEach(box=>{
+  const key=box.dataset.mcq;
+  const isRecurQ = !!box.closest('#mc-recur-sec');
+  box.querySelectorAll('.chip').forEach(btn=>{
+    btn.onclick=()=>{
+      const val=btn.dataset.val;
+      const field = isRecurQ ? 'recurrenceFeedback' : 'actionResult';
+      const cur = (mcRec && mcRec[field]) || {};
+      const nextField = Object.assign({}, cur, {[key]:val});
+      const updated = updateMyReport({[field]:nextField});
+      if(!updated) return;
+      mcRec = updated;
+      /* "소음이 해결되었나요?" 예 — 지도 핀 색·상태도 함께 맞춘다.
+         재발 상태(recurred)는 새 신고를 보내야 벗어나므로 여기서 건드리지
+         않는다 — 조치결과 입력만으로 재발 표시가 지워지면 상습성 기록이
+         스스로 지워지는 셈이 된다. */
+      if(!isRecurQ && key==='resolved' && val==='yes' && updated.status!=='recurred'){
+        if(typeof setMyStatus==='function') setMyStatus('resolved');
+      }
+      paintMcAnswers(updated);
+    };
+  });
+});
+document.getElementById('mc-back').onclick=()=>go('map');
 
 /* ══ 신고카드 확인 화면 — 비즈니스모델과 분리된 '리워드' 화면 ══
    여기서는 맵을 고정해 둔 채, 내 신고 지점 반경 200m 안의 신고카드만
@@ -5504,7 +5751,10 @@ function addMySpot(typeIdx, dbVal, durVal, locOverride, nameOverride){
   s.px = sizeFor(s);
   const el=document.createElement('div');
   s.el=el; el.title=name+' · 1건';
-  el.onclick=()=>{ const i=cardList.indexOf(s); if(i>=0 && railVisible()){ cardIdx=i; syncCard(true) } else showDetail(s); };
+  /* v272 — 이 함수(addMySpot)로 만들어지는 스팟은 항상 "내 신고"다.
+     내 신고는 남들이 보는 소음 정보 화면(showDetail)이 아니라, 조치
+     결과를 입력·확인하는 전용 신고카드 화면(go('mycard'))으로 간다. */
+  el.onclick=()=>go('mycard');
   paint(s, s.dom);
   s.ov=new kakao.maps.CustomOverlay({position:new kakao.maps.LatLng(c.lat,c.lng),
     content:el, yAnchor:.5, xAnchor:.5, zIndex:8});
