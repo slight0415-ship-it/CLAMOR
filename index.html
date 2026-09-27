@@ -2120,8 +2120,8 @@
   .cc-head p{margin-top:6px; font-size:0.8125rem; color:var(--text-dim); font-weight:700}
   .cc-map-wrap{position:relative; margin-top:16px; height:26%; min-height:150px;
     border-radius:14px; overflow:hidden; border:1px solid var(--line)}
-  #cardconfirmmap{width:100%; height:100%}
-  .cc-map-note{position:absolute; left:9px; bottom:9px; z-index:12;
+  #cardconfirmmap, #mycardmap{width:100%; height:100%}
+  .cc-map-note{position:absolute; left:9px; top:9px; z-index:12;
     background:rgba(20,14,36,.82); color:#E4D6FF; font-size:0.6875rem; font-weight:800;
     padding:5px 9px; border-radius:999px}
   .cc-section{margin-top:20px}
@@ -2346,7 +2346,13 @@
      ══════════════════════════════════════════════════════════ */
   body.light #s-splash, body.light #s-rec,
   body.light #s-confirm, body.light #s-sms,
-  body.light #s-sent, body.light #s-list, body.light #s-map, body.light #s-cast{
+  body.light #s-sent, body.light #s-list, body.light #s-map, body.light #s-cast,
+  /* v272 — 신고카드(cardconfirm)·내 신고카드(mycard)가 이 목록에서 빠져
+     있었다. 그러면 배경은 body.light가 강제로 밝게 칠하는데(.screen
+     규칙), 글자색은 :root의 어두운 배경용 값(--text:#EDEFF3, 거의 흰색)
+     그대로 남아 흰 바탕에 거의 흰 글자 — "화면이 거의 안 보이고 버튼이
+     눌리는지도 알 수 없는" 증상의 원인이 이것이었다. */
+  body.light #s-cardconfirm, body.light #s-mycard{
     --ink:#F2F4F7;        /* 화면 바탕 */
     --ink-2:#FFFFFF;      /* 카드·패널 */
     --ink-3:#E7EBF1;      /* 눌린 것·구분 배경 */
