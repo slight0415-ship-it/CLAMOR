@@ -2759,7 +2759,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v272</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v273</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -3094,7 +3094,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v272</span></div>
+          <span class="ver" id="ver2">v273</span></div>
       </div>
     </div>
 
@@ -3151,7 +3151,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v272</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v273</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -3727,9 +3727,19 @@ function updateRealLocMarker(){
   if(!realLocOv){
     const el=document.createElement('div'); el.className='myloc-pin';
     el.innerHTML='<i></i>';
+    /* v273 — 내 실제 위치(파란 점)와 내 신고 지점(빨간 핀)이 같은
+       좌표에 거의 겹칠 수밖에 없는 사용자(자기 집에서 신고)에게는
+       두 표시가 화면에서 완전히 포개져 어느 쪽을 눌러야 하는지
+       구분이 안 됐다. anchor를 중앙(0.5,0.5)이 아니라 모서리
+       (0,1)로 잡아 화면 픽셀 기준으로 항상 좌상단으로 살짝
+       밀어내고(줌 레벨과 무관하게 고정폭 오프셋), zIndex도 신고
+       핀(addMySpot, 10)보다 낮춰 겹칠 때 신고 핀이 항상 위로
+       오게 한다. 원래도 pointer-events:none이라 눌러도 이 점이
+       클릭을 가로채진 않았지만, 시각적으로도 확실히 떨어뜨려
+       "어디를 눌러야 할지" 헷갈리지 않게 한다. */
     realLocOv=new kakao.maps.CustomOverlay({
       position:new kakao.maps.LatLng(realLoc.lat, realLoc.lng),
-      content:el, yAnchor:0.5, xAnchor:0.5, zIndex:9});
+      content:el, yAnchor:1, xAnchor:0, zIndex:5});
   }else{
     realLocOv.setPosition(new kakao.maps.LatLng(realLoc.lat, realLoc.lng));
   }
@@ -5444,6 +5454,13 @@ function sizeFor(s){
   const zoom=Math.max(.7, Math.min(1.35, (7-lv)*0.32));
   const base=8+Math.sqrt(s.n)*1.6;      // 차등은 은은하게 — 위치가 주인공이다
   const px=base*zoom*(s.big?1.6:1);     // 상위 지점만 키워 아이콘이 읽히게 한다
+  /* v273 — 내 신고 핀(mine)은 화면에서 유일하게 손가락으로 직접 짚어야
+     하는 지점이다. 무료 등급은 확대(줌)를 못 쓰게 막아 두었기 때문에,
+     축소된 화면에서 원래 공식대로면 15px 안팎까지 작아질 수 있었다 —
+     실제 폰 화면에서는 그 정도 크기가 손가락 접촉면보다 작아 여러 번
+     눌러야 겨우 인식됐다. 그래서 mine만은 줌 레벨과 무관하게 36~44px
+     사이를 항상 보장한다(모바일 터치 타깃 권장 최소치 기준). */
+  if(s.mine) return Math.round(Math.max(36, Math.min(44, px*1.4)));
   return Math.round(Math.max(7, Math.min(s.big?30:19, px)));
 }
 function resize(){
@@ -5772,8 +5789,11 @@ function addMySpot(typeIdx, dbVal, durVal, locOverride, nameOverride){
      결과를 입력·확인하는 전용 신고카드 화면(go('mycard'))으로 간다. */
   el.onclick=()=>go('mycard');
   paint(s, s.dom);
+  /* v273 — zIndex를 10으로: 내 실제 위치 표시(realLocOv, zIndex 5)나
+     다른 어떤 표시보다도 항상 위에 그려야, 좌표가 겹쳐도 이 핀이
+     시각적으로도 맨 위에 있고 손가락으로 짚을 대상이 명확하다. */
   s.ov=new kakao.maps.CustomOverlay({position:new kakao.maps.LatLng(c.lat,c.lng),
-    content:el, yAnchor:.5, xAnchor:.5, zIndex:8});
+    content:el, yAnchor:.5, xAnchor:.5, zIndex:10});
   s.ov.setMap(map); overlays.push(s.ov);
   spots.push(s);
   return s;
