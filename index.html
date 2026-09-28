@@ -2115,7 +2115,7 @@
      보상 화면이라는 성격을 색으로도 드러낸다 — 데이터 색(빨강)이 아니라
      결제·보상에 쓰는 보라 계열을 쓴다. */
   #s-cardconfirm{overflow-y:auto; background:linear-gradient(180deg,#171224,var(--ink) 220px)}
-  /* v275 — #s-mycard에는 이 overflow-y:auto가 빠져 있었다. .screen은
+  /* v276 — #s-mycard에는 이 overflow-y:auto가 빠져 있었다. .screen은
      스스로 스크롤 규칙이 없고, 바깥 폰 프레임이 overflow:hidden이라
      내용이 화면 높이를 넘으면 그냥 잘려 나갔다 — 조치결과 질문이
      늘어나 있는 화면이라 실제로는 항상 넘쳤고, 그 결과 "스크롤이
@@ -2130,7 +2130,7 @@
   .cc-map-note{position:absolute; left:9px; top:9px; z-index:12;
     background:rgba(20,14,36,.82); color:#E4D6FF; font-size:0.6875rem; font-weight:800;
     padding:5px 9px; border-radius:999px}
-  /* v275 — 라벨(검정 배경)과 실제 지도 위 핀(초록/빨강)이 색이 전혀
+  /* v276 — 라벨(검정 배경)과 실제 지도 위 핀(초록/빨강)이 색이 전혀
      달라 "이게 그 핀 얘기가 맞나" 헷갈렸다. 라벨 안에 핀과 같은 색의
      작은 점을 넣어 둘이 같은 지점을 가리킨다는 걸 시각적으로 이어준다.
      (paintMcAnswers가 배경색을 실시간으로 맞춘다) */
@@ -2158,7 +2158,7 @@
   .cc-forward{margin-top:26px; background:var(--c-pay); border-color:var(--c-pay); color:#fff}
 
   /* ══ 신고카드 — 조치 결과 입력 (v272) ══ */
-  /* v275 — "해결됨/미해결"을 예/아니오 버튼 색만으로 구분하기엔 눈에
+  /* v276 — "해결됨/미해결"을 예/아니오 버튼 색만으로 구분하기엔 눈에
      잘 안 띄고, 질문 목록 오른쪽에 빈 공간이 많이 남았다. 그 자리에
      지도 위 핀과 같은 색 규칙(초록=해결, 빨강=미해결)을 쓰는 큰 상태
      배지를 둬서 "지금 이 신고가 어떤 상태인지" 한눈에 보이게 한다. */
@@ -2789,7 +2789,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v275</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v276</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -3130,7 +3130,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v275</span></div>
+          <span class="ver" id="ver2">v276</span></div>
       </div>
     </div>
 
@@ -3187,7 +3187,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v275</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v276</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -3763,7 +3763,7 @@ function updateRealLocMarker(){
   if(!realLocOv){
     const el=document.createElement('div'); el.className='myloc-pin';
     el.innerHTML='<i></i>';
-    /* v275 — 내 실제 위치(파란 점)와 내 신고 지점(빨간 핀)이 같은
+    /* v276 — 내 실제 위치(파란 점)와 내 신고 지점(빨간 핀)이 같은
        좌표에 거의 겹칠 수밖에 없는 사용자(자기 집에서 신고)에게는
        두 표시가 화면에서 완전히 포개져 어느 쪽을 눌러야 하는지
        구분이 안 됐다. anchor를 중앙(0.5,0.5)이 아니라 모서리
@@ -4084,7 +4084,7 @@ function go(name, opts){
       if(typeof renderCardConfirm==='function') renderCardConfirm(c);
       /* 여기서는 신고 표시 자체가 내 위치다 — 따로 그리지 않는다 */
       if(typeof updateRealLocMarker==='function') updateRealLocMarker();
-      /* v275 — 지도를 이 고정 미리보기 판(cardconfirmmap)으로 옮겼으니
+      /* v276 — 지도를 이 고정 미리보기 판(cardconfirmmap)으로 옮겼으니
          내 신고 핀 크기도 이 자리에 맞게 다시 계산한다(터치용 확대 핀
          → 원래 크기로). */
       if(typeof resize==='function') resize();
@@ -4105,7 +4105,7 @@ function go(name, opts){
       map.setLevel(4);
       if(typeof renderMyCard==='function') renderMyCard(rec);
       if(typeof updateRealLocMarker==='function') updateRealLocMarker();
-      /* v275 — mycardmap으로 옮긴 뒤 핀 크기도 이 자리에 맞게 다시
+      /* v276 — mycardmap으로 옮긴 뒤 핀 크기도 이 자리에 맞게 다시
          계산한다(터치용 확대 핀 → 원래 크기로). */
       if(typeof resize==='function') resize();
     },140);
@@ -4155,6 +4155,7 @@ function go(name, opts){
       }, 160);
       return;
     }
+    listEverShown=true;
     updateListLoading();
     initMapOnce();
     moveMapTo('listmap');
@@ -4198,7 +4199,7 @@ function go(name, opts){
        돌아가는 유일한 길이다. history를 한 칸 쌓아 두고 popstate에서
        받는다(위쪽 popstate 리스너). 이미 쌓아 둔 칸이면 또 쌓지 않는다 —
        그러면 뒤로가기를 두 번 눌러야 실제로 나가게 된다. */
-    if(!(history.state && history.state.clamorScreen==='map')){
+    if(listEverShown && !(history.state && history.state.clamorScreen==='map')){
       try{ history.pushState({clamorScreen:'map'}, '', ''); }catch(e){}
     }
     initMapOnce();
@@ -4226,12 +4227,31 @@ function go(name, opts){
     setTimeout(()=>{
       if(!map) return;
       map.relayout();
+      /* v276 — relayout()은 지도 컨테이너 크기가 바뀐 뒤(mycardmap의
+         작은 판 → mapwrap의 큰 판) 다시 그리기만 할 뿐, 중심 좌표를
+         그 크기에 맞게 다시 잡아 주지는 않는다. cardconfirm·mycard
+         화면은 옮긴 직후 매번 setCenter를 다시 불러서 괜찮았지만, 이
+         화면(map)은 "최초 진입" 때만 applyMine()이 센터를 잡아 주고
+         그 다음부터는(재방문마다) 아무도 다시 잡아 주지 않았다 — 그래서
+         신고카드에서 '‹ 지도로'를 눌러 돌아오면 지도가 엉뚱한 곳을
+         보여줬다(사용자 실기기 확인). 돌아올 때마다 내 신고 지점(없으면
+         freeAnchor·실제 위치)으로 다시 중심을 잡는다. */
+      const mineSp=spots.find(s=>s.mine);
+      const anchor=mineSp ? mineSp.c : (freeAnchor||realLoc||CENTER);
+      if(anchor) map.setCenter(new kakao.maps.LatLng(anchor.lat,anchor.lng));
       /* 너무 멀리서 열리면 붉은 점이 뒤덮여 데이터가 얼룩으로 보인다.
-         등급이 허락하는 거리까지 당겨 온다. */
+         등급이 허락하는 거리까지 당겨 온다. 이건 사용자가 손가락으로
+         한계까지 확대한 게 아니라 화면을 여는 코드가 스스로 맞추는
+         것이므로, 그 사이에는 "여기까지 열람 범위입니다" 안내가 뜨지
+         않게 억누른다(suppressHitLimit, 위 hitLimit() 주석 참고). */
       const lim=TIERS[tier].maxLv || 3;
-      if(map.getLevel()>lim) map.setLevel(lim);
+      if(map.getLevel()>lim){
+        suppressHitLimit=true;
+        map.setLevel(lim);
+        setTimeout(()=>{ suppressHitLimit=false; }, 80);
+      }
       if(typeof updateRealLocMarker==='function') updateRealLocMarker();
-      /* v275 — 고정 미리보기 판에서 이 화면(mapwrap)으로 돌아왔으면
+      /* v276 — 고정 미리보기 판에서 이 화면(mapwrap)으로 돌아왔으면
          내 신고 핀을 다시 터치용 큰 크기로 되돌린다. */
       if(typeof resize==='function') resize();
     },60);
@@ -4802,7 +4822,7 @@ updateCouponBadge();
    구분한다. */
 window.addEventListener('popstate', ()=>{
   const s=document.getElementById('s-map');
-  if(s && !s.hidden) go('list');
+  if(s && !s.hidden && listEverShown) go('list');
 });
 /* 기준을 넘긴 상태라면 기다리지 않고 바로 판정으로 넘어간다 */
 document.getElementById('rec-now').onclick=()=>{
@@ -5007,7 +5027,7 @@ function seedTestReport(opts){
   const hour = opts.hour!=null ? opts.hour : 3;         // 새벽 3시 기본값
   const d=new Date(); d.setHours(hour, opts.min||20, 0, 0);
   if(d.getTime() > Date.now()) d.setDate(d.getDate()-1); // 오늘 그 시각이 아직 안 지났으면 어제로
-  /* v275 — 실제 녹음 화면(rec)은 THR(그 자리 법정 규제기준)을 넘긴
+  /* v276 — 실제 녹음 화면(rec)은 THR(그 자리 법정 규제기준)을 넘긴
      적이 없으면 애초에 신고를 못 보내게 막고(아래 "신고 기준을 넘긴
      적이 없습니다" 경고), 저장되는 db도 항상 THR 이상이다(finishRec).
      그런데 이 테스트 시드 함수는 그 검증 없이 opts.db/dur을 그대로
@@ -5042,7 +5062,7 @@ function seedRecurrence(opts){
   const daysAgo = opts.daysAgo!=null ? opts.daysAgo : 3.5;  // "3~4일만에 재발" 기본값
   const gapMs = Math.round(daysAgo*86400000);
   const at = prev.at + gapMs;
-  /* v275 — seedTestReport와 같은 이유로, 재발 신고도 실제 신고 기준
+  /* v276 — seedTestReport와 같은 이유로, 재발 신고도 실제 신고 기준
      아래로는 내려가지 않게 한다. */
   const minDb = Math.max(THR + 5, 52);
   const db = Math.max(opts.db!=null ? opts.db : (prev.db+3), minDb);
@@ -5174,7 +5194,7 @@ function paintMcAnswers(rec){
     const val=all[key];
     box.querySelectorAll('.chip').forEach(b=>b.classList.toggle('on', val!=null && b.dataset.val===val));
   });
-  /* v275 — "해결됨/미해결"을 색으로 한눈에 보여주는 상태 배지와, 지도
+  /* v276 — "해결됨/미해결"을 색으로 한눈에 보여주는 상태 배지와, 지도
      라벨 안의 색점을 지금 답변 상태에 맞춰 다시 칠한다. 지도 위 핀의
      색 규칙(paint() 함수)과 반드시 같은 색을 써야 "저 배지·점·핀이
      다 같은 신고 얘기"라는 게 시각적으로 이어진다. */
@@ -5384,6 +5404,15 @@ let tier=0;
 /* v272 — 이미 신고를 보낸 시민을 자기 신고 위치로 곧장 데려가는 우회가
    이번 세션에서 한 번만 일어나게 막는 잠금(go('list') 참고). */
 let homeShortcutDone=false;
+/* v276 — 재접속 시민은 스플래시에서 곧장 지도(map)로 온다. '진짜
+   메인화면'(list, 위치 검색 화면)을 이번 세션에서 한 번도 실제로 본 적이
+   없으면, 지도 화면에서 폰 뒤로가기를 눌러도 그 화면으로 돌아갈 이유가
+   없다 — 오히려 신규 가입자용 위치검색 화면이 뜬금없이 튀어나와 "이
+   앱이 왜 여기로 가지" 하는 혼란만 준다(사용자 실기기 확인). 이 세션에서
+   list가 실제로 렌더된 적이 있을 때만 지도 화면이 history를 쌓고,
+   popstate도 그때만 list로 돌려보낸다 — 그 외에는 폰의 뒤로가기가
+   평소처럼(앱 종료 등) 동작하게 그대로 둔다. */
+let listEverShown=false;
 /* 개발 중에는 "수사"(잠긴 등급)도 실제로 핀이 찍힌 지도를 봐야 확인이
    된다 — 안내 문구만 보고 넘어갈 수는 없다. 배포된 실서비스에서는 이
    등급을 절대 아무도(운영자 포함) 열 수 없어야 하고, 그건 실사용자 통로
@@ -5455,7 +5484,7 @@ function dotSVG(color,px,prio,ti,glyph){
     (glyph ? '<g transform="translate(12 12) scale(.92) translate(-12 -12)">'+GLYPH[ti]+'</g>' : '')+
     '</svg>';
 }
-/* v275 — 내 실제 위치(둥근 파란 점, .myloc-pin)와 내 신고 지점을 색만이
+/* v276 — 내 실제 위치(둥근 파란 점, .myloc-pin)와 내 신고 지점을 색만이
    아니라 모양으로도 확실히 구분한다. 지도 앱들의 관행대로 "내 위치"는
    점, "특정 지점"은 끝이 뾰족한 핀으로 그린다 — 뾰족한 끝(tip)이 정확한
    좌표를 짚고, 몸통(원)은 그 위로 떠 있어서 정확한 지점을 손가락이나
@@ -5542,7 +5571,7 @@ function paint(s,ti){
   const color = (s.mine && s.myStatus==='resolved') ? MINE_RESOLVED_COLOR
               : ti===BIKE_TI ? BIKE_COLOR : TYPES[ti].c;
   if(s.mine){
-    /* v275 — 내 신고는 원이 아니라 끝이 뾰족한 핀으로 그린다(위
+    /* v276 — 내 신고는 원이 아니라 끝이 뾰족한 핀으로 그린다(위
        minePinSVG 주석 참고). 가로:세로 비율이 24:30이라 높이를
        너비의 1.25배로 따로 잡아야 찌그러지지 않는다. */
     const h=Math.round(px*1.25);
@@ -5556,7 +5585,7 @@ function paint(s,ti){
   el.style.width=px+'px'; el.style.height=px+'px';
   el.innerHTML = dotSVG(color,px,s.big,ti,px>=16);
 }
-/* v275 — 지도(#map) DOM 하나를 화면에 따라 여러 판(mapwrap/cardconfirmmap/
+/* v276 — 지도(#map) DOM 하나를 화면에 따라 여러 판(mapwrap/cardconfirmmap/
    mycardmap)으로 옮겨 붙이는 구조라, 같은 핀(mine)이 손가락으로 직접
    짚어야 하는 '지도 화면'과, 그냥 확인만 하는 '고정 미리보기 카드'
    양쪽에 모두 등장한다. 두 자리는 요구되는 크기가 다르므로 지금 어느
@@ -5573,7 +5602,7 @@ function sizeFor(s){
   const base=8+Math.sqrt(s.n)*1.6;      // 차등은 은은하게 — 위치가 주인공이다
   const px=base*zoom*(s.big?1.6:1);     // 상위 지점만 키워 아이콘이 읽히게 한다
   if(s.mine){
-    /* v275 — 손가락으로 직접 짚어야 하는 실제 지도 화면(mapwrap)에서는
+    /* v276 — 손가락으로 직접 짚어야 하는 실제 지도 화면(mapwrap)에서는
        36~44px까지 키워 봤지만, 이번엔 반대로 "아이콘이 지도 위치·주소
        글자를 가린다"는 지적이 있었다(사용자 실기기 확인). 지도를 덜
        가리면서도 원래 15px 안팎보다는 짚기 쉽게, 2/3 크기인 24~29px로
@@ -5915,7 +5944,7 @@ function addMySpot(typeIdx, dbVal, durVal, locOverride, nameOverride){
      결과를 입력·확인하는 전용 신고카드 화면(go('mycard'))으로 간다. */
   el.onclick=()=>go('mycard');
   paint(s, s.dom);
-  /* v275 — zIndex를 10으로: 내 실제 위치 표시(realLocOv, zIndex 5)나
+  /* v276 — zIndex를 10으로: 내 실제 위치 표시(realLocOv, zIndex 5)나
      다른 어떤 표시보다도 항상 위에 그려야, 좌표가 겹쳐도 이 핀이
      시각적으로도 맨 위에 있고 손가락으로 짚을 대상이 명확하다.
      yAnchor는 0.5(가운데)가 아니라 핀의 뾰족한 끝(minePinSVG의
@@ -7290,7 +7319,15 @@ function logHTML(s,i){
    벽만 있고 안내가 없으면 사용자는 고장인 줄 안다.
    왜 더 안 들어가는지, 들어가면 무엇이 보이는지를 알려준다. */
 let limitTimer=null;
+/* v276 — go('map')가 "너무 멀리 있으면 등급 한계까지 당겨 온다"고
+   스스로 map.setLevel()을 부를 때도 이 zoom_changed 핸들러가 걸려
+   hitLimit()이 불렸다. 사용자가 손가락으로 확대해서 진짜 한계에
+   부딪힌 게 아니라 화면을 열면서 코드가 알아서 맞춘 것뿐인데도 "여기
+   까지가 무료 열람 범위입니다" 안내가 떠서, 신고카드에서 돌아올 때마다
+   엉뚱하게 나타났다. 이 플래그가 켜져 있는 동안은 그 안내를 억누른다. */
+let suppressHitLimit=false;
 function hitLimit(){
+  if(suppressHitLimit) return;
   const T=TIERS[tier], box=document.getElementById('zoomlimit');
   if(!box||!T||T.locked||!T.maxLv) return;
   if(map.getLevel()>T.maxLv){ box.hidden=true; return }
