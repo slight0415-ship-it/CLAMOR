@@ -2789,7 +2789,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v276</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v277</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -3130,7 +3130,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v276</span></div>
+          <span class="ver" id="ver2">v277</span></div>
       </div>
     </div>
 
@@ -3187,7 +3187,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v276</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v277</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -5002,8 +5002,27 @@ function saveSent(r){
   }
   renderSent(rec);
 }
+/* v277 — 이미 기기에 저장된 신고 기록이 임계치 미만 값(예: 47dB·3초)을
+   들고 있는 경우를 스스로 고친다. seedTestReport/seedRecurrence에는
+   v275에서 최저값 보정을 넣었지만, 그건 "앞으로 새로 만드는" 기록에만
+   적용된다 — 사용자 폰에 이미 저장되어 있던 예전 기록은 그 보정을 한
+   번도 거치지 않은 채 그대로 남아 있다. 사용자가 브라우저 콘솔을 직접
+   열어 고치게 할 수 없으므로, 불러올 때마다 조용히 검사해서 필요하면
+   그 자리에서 최저값으로 올리고 다시 저장한다(실제 신고 흐름의
+   db=Math.max(curMaxDb,THR) 기준과 동일한 값). */
+function sanitizeSentRecord(rec){
+  if(!rec) return rec;
+  const minDb=Math.max(THR+5, 52);
+  let changed=false;
+  if(rec.db==null || rec.db<minDb){ rec.db=minDb; changed=true; }
+  if(rec.dur==null || rec.dur<4){ rec.dur=4; changed=true; }
+  if(changed){
+    try{ localStorage.setItem(SENT_KEY, JSON.stringify(rec)); }catch(e){}
+  }
+  return rec;
+}
 function loadSent(){
-  try{ const s=localStorage.getItem(SENT_KEY); return s?JSON.parse(s):null }
+  try{ const s=localStorage.getItem(SENT_KEY); return s?sanitizeSentRecord(JSON.parse(s)):null }
   catch(e){ return null }
 }
 /* v272 — 개발용 콘솔 도구. 논현동 데모 데이터는 그대로 두고, "이미 신고한
@@ -6544,9 +6563,11 @@ function cardHTML(s,i){
       '</div>'+
       hoursMini+
       logNote+
-      /* 전환 지점은 접힌 정보 뒤가 아니라 상세 안에서 바로 보여야 한다 */
+      /* 전환 지점은 접힌 정보 뒤가 아니라 상세 안에서 바로 보여야 한다.
+         v277: 지도 화면 위에 미리보기 박스를 펼치는 대신, 누르는 즉시
+         전체화면 소음 정보(#s-cast)로 넘어간다 — 이미 "우리 동네"라는
+         인식이 생긴 다음에는 지도를 더 보여주는 게 전환에 방해가 된다. */
       '<button class="peek" data-peek="'+i+'">'+(isPaid?'주간 소음 예보 보기':'내일 소음 수준은?')+'</button>'+
-      '<div class="peekbox" id="peek'+i+'" hidden></div>'+
       '<div class="loghead">최근 신고 기록'+mergeNote+'</div>'+
       '<div class="logs">'+logHTML(s,i)+'</div>'+
     '</div>'+
@@ -6658,24 +6679,13 @@ function bindCards(){
     b.onclick=e=>{
       e.stopPropagation();
       const i=+b.dataset.peek;
-      /* 잠긴 미리보기("?" 표시 + "원하는 날짜와 시간대 예보 보기"를 또
-         눌러야 진짜 상세로 가는 두 단계 흐름)는 무료 등급을 유료로
-         유도하기 위한 미끼다. 이미 유료 이상(T.hours)인 사람에게 같은
-         미끼를 또 보여주면 이미 산 걸 다시 열어보는 데 세 번 탭해야
-         하는 셈이 된다 — 그 등급은 바로 실제 예보 화면으로 보낸다. */
-      if(typeof paid!=='undefined' && paid){
-        renderCast(cardList[i]); go('cast'); return;
-      }
-      const box=document.getElementById('peek'+i);
-      const open=box.hidden;
-      if(open && !box.innerHTML) box.innerHTML=peekHTML(cardList[i]);
-      box.hidden=!open;
-      if(open) box.querySelectorAll('[data-cast]').forEach(c=>{
-        c.onclick=ev=>{ ev.stopPropagation();
-          renderCast(cardList[+c.dataset.cast]); go('cast') };
-      });
-      b.textContent=open?'접기':'내일 소음 수준은?';
-      b.classList.toggle('open',open);
+      /* v277: 지도/목록 화면 위에 박스를 펼치는 "미리보기 → 한 번 더
+         눌러야 진짜 상세" 두 단계 흐름을 없앴다. 이미 지도에서 "우리
+         동네"를 확인한 사용자에게 지도를 더 보여주는 것은 전환에
+         방해가 된다 — 누르는 즉시 전체화면 소음 정보(#s-cast)로
+         보낸다. 무료/유료 구분은 그 화면 안의 applyPaid()가 그대로
+         담당한다(잠금 오버레이 + "유료로 업그레이드하고 예보 열기"). */
+      renderCast(cardList[i]); go('cast');
     };
   });
 }
