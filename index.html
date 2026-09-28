@@ -944,9 +944,18 @@
   /* 유형명·시간대 그래프·건수를 한 줄에 — 그래프는 유형명 오른쪽에 온다 */
   .tyrow{display:flex; align-items:center; gap:10px; padding-top:9px; border-top:1px solid var(--line)}
   .tyrow:first-child{padding-top:0; border-top:none}
-  .tyname{flex:0 0 auto; width:80px; font-size:0.8125rem; font-weight:600;
+  .tyname{flex:0 0 auto; width:80px; font-size:0.875rem; font-weight:700;
     color:var(--text-dim); line-height:1.3}
   .tyspark{flex:1; display:flex; align-items:flex-end; gap:1.5px; height:22px}
+  /* 무료 등급용 비중 막대 — 시간대 그래프(.tyspark i, 위)와 같은 자리를
+     쓰지만 뜻이 다르다(시간이 아니라 "전체 신고 중 이 유형의 비중").
+     그래서 시간대 막대의 애니메이션·그라디언트를 이 안에서는 지우고
+     단색 막대 하나로 리셋한다. */
+  .tyspark.typct{align-items:center; height:8px; background:var(--ink-3); border-radius:4px; overflow:hidden}
+  .tyspark.typct i{flex:none; height:100%; border-radius:4px; min-height:0;
+    animation:none; background-image:none; background-color:var(--c-noise);
+    transition:width .4s ease}
+  .tyspark.typct.zero i{background-color:var(--text-mute); opacity:.35}
   /* 매물 사진·제품 사진이 없는 서비스라 정적인 화면이 되기 쉽다 —
      막대 높이(데이터)는 그대로 두고, 그 위에 실시간 이퀄라이저처럼
      보이도록 각 막대를 세로로 계속 들썩이게 한다(v256 후속). 막대마다
@@ -969,9 +978,12 @@
   .tyrow.zero .tyspark i{opacity:.4}
   @keyframes eqgrow2{ 0%,100%{height:calc(var(--h) * 0.6)} 50%{height:var(--h)} }
   @media (prefers-reduced-motion: reduce){ .tyspark i{animation:none; height:var(--h)} }
-  .tycnt{flex:0 0 auto; min-width:34px; text-align:right; font-family:var(--mono);
-    font-weight:800; color:var(--text); font-size:0.8438rem}
+  .tycnt{flex:0 0 auto; min-width:40px; text-align:right; font-family:var(--mono);
+    font-weight:800; color:var(--text); font-size:0.9375rem;
+    display:flex; flex-direction:column; align-items:flex-end; gap:1px}
   .tyrow.zero .tycnt{color:var(--text-mute); font-weight:600}
+  .typct-pct{font-family:var(--mono); font-style:normal; font-size:0.6875rem;
+    font-weight:700; color:var(--text-mute)}
   .tglab{margin-top:4px; padding-left:90px}
 
   /* 요일 × 시간 예보 — v265 전면 개편(v264를 다시 뒤엎음).
@@ -2349,20 +2361,26 @@
     background:#12161E; padding:2px 6px; border-radius:999px;
     font-style:normal; vertical-align:middle}
 
-  /* 최근 신고 기록 — 댓글처럼 한 줄씩 */
-  #s-map .logs{display:flex; flex-direction:column; gap:0; margin-bottom:12px}
-  #s-map .log{display:flex; align-items:baseline; gap:8px; flex-wrap:wrap;
+  /* 최근 신고 기록 — 댓글처럼 한 줄씩.
+     v277 — 이 스타일이 #s-map(카드 목록)에만 적용되도록 짜여 있었는데,
+     logHTML()은 똑같은 마크업을 #s-cast(소음 정보 전체화면)의
+     "최근 신고 기록"에도 그대로 재사용한다. #s-cast에서는 이 규칙이
+     하나도 걸리지 않아 .lgw/.lgd가 색을 전혀 못 받고 흐릿하게 보이는
+     버그가 있었다 — #s-cast를 선택자에 추가해 두 화면 모두 같은
+     스타일을 받게 한다. */
+  #s-map .logs, #s-cast .logs{display:flex; flex-direction:column; gap:0; margin-bottom:12px}
+  #s-map .log, #s-cast .log{display:flex; align-items:baseline; gap:8px; flex-wrap:wrap;
     background:none; border:0; border-bottom:1px solid var(--line);
     border-radius:0; padding:8px 2px; cursor:pointer}
-  #s-map .log:last-child{border-bottom:0}
-  #s-map .lgw{font-size:0.8125rem; font-weight:900; color:var(--text);
+  #s-map .log:last-child, #s-cast .log:last-child{border-bottom:0}
+  #s-map .lgw, #s-cast .lgw{font-size:0.8125rem; font-weight:900; color:var(--text);
     flex:0 0 auto}
-  #s-map .lgd{font-family:var(--mono); font-size:0.75rem; color:var(--text-mute);
+  #s-map .lgd, #s-cast .lgd{font-family:var(--mono); font-size:0.75rem; color:var(--text-mute);
     font-weight:700; flex:0 0 auto}
-  #s-map .lgtype{font-size:0.75rem; font-weight:800; color:var(--c-noise);
+  #s-map .lgtype, #s-cast .lgtype{font-size:0.75rem; font-weight:800; color:var(--c-noise);
     background:rgba(224,72,63,.1); padding:1px 7px; border-radius:999px;
     flex:0 0 auto}
-  #s-map .lgv{font-family:var(--mono); font-size:0.75rem; color:var(--text-dim);
+  #s-map .lgv, #s-cast .lgv{font-family:var(--mono); font-size:0.75rem; color:var(--text-dim);
     font-weight:700; margin-left:auto; flex:0 0 auto}
 
   @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
@@ -2789,7 +2807,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v277</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v278</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -3130,7 +3148,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v277</span></div>
+          <span class="ver" id="ver2">v278</span></div>
       </div>
     </div>
 
@@ -3187,7 +3205,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v277</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v278</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -6465,6 +6483,13 @@ function reportBreakdownHTML(s, T){
     const cnt = Math.round((s.mix?s.mix[i]:0) * s.n);
     const hrs = (s.hoursByType && s.hoursByType[i]) || Array(24).fill(0);
     const mx = Math.max(...hrs, 0.0001);
+    /* 무료 등급은 시간대별 그래프(hasHours)가 잠겨 있어 이 자리가 그냥
+       빈 칸이었다 — 옆에는 유형명, 오른쪽엔 건수뿐이라 "쓰다 만 화면"
+       처럼 허전해 보인다는 지적(v277). 시간대는 유료 전용이라 그대로
+       두되, 이미 공개된 값(건수)에서 바로 계산되는 "전체 대비 비중"을
+       막대+퍼센트로 채운다 — 새 잠긴 정보를 공짜로 푸는 게 아니라
+       이미 보여준 숫자를 다른 각도(비율)로 한 번 더 보여주는 것뿐이다. */
+    const pct = s.n>0 ? Math.round(cnt/s.n*100) : 0;
     /* 막대마다 지연·주기를 다르게 줘서(시간h·유형i로 결정적으로 계산)
        진짜 오디오 이퀄라이저처럼 제각각 들썩이게 한다 — 전부 같은
        박자로 움직이면 그냥 한 번에 깜빡이는 것으로 보여 '살아있는'
@@ -6480,11 +6505,13 @@ function reportBreakdownHTML(s, T){
              회색만 있다가 자라면서 진짜로 주황·빨강이 드러난다. */
           return '<i style="--h:'+hp+'%; height:'+hp+'%; animation-delay:'+dly+'ms; animation-duration:'+dur+'ms"></i>';
         }).join('')+'</div>'
-      : '<div class="tyspark"></div>';
+      : '<div class="tyspark typct'+(cnt?'':' zero')+'"><i style="width:'+(cnt?Math.max(4,pct):0)+'%"></i></div>';
     return '<div class="tyrow'+(cnt?'':' zero')+'">'+
       '<span class="tyname">'+(TYPE_LABEL_LONG[t.k]||t.k)+'</span>'+
       spark+
-      '<span class="tycnt">'+cnt+'건</span>'+
+      '<span class="tycnt">'+cnt+'건'+
+        (hasHours?'':'<i class="typct-pct">'+pct+'%</i>')+
+      '</span>'+
     '</div>';
   }).join('');
   return '<div class="repbox">'+
