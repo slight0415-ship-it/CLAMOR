@@ -2857,7 +2857,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v281</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v282</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -3228,7 +3228,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v281</span></div>
+          <span class="ver" id="ver2">v282</span></div>
       </div>
     </div>
 
@@ -3285,7 +3285,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v281</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v282</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -4381,24 +4381,55 @@ loadZoningData();   // 인천 용도지역 표 — 녹음 화면 도달 전에 �
    가르친다. 폰을 두 번 흔들면(진짜 신고 상황) 녹음 화면으로, 흔들지
    않으면(그냥 지도가 궁금해서 켠 경우) 신고 없이 바로 클레머 메인화면
    (우리동네소음지도)으로 들어간다 — 신고 이력이 없는 시민의 진입로다. */
+/* v281 — 예전엔 스플래시가 뜬 첫 2.6초 동안만 흔들림을 감지하고, 그
+   한 번의 판단(decide) 뒤에는 devicemotion 리스너 자체를 영구히
+   없앴다(removeEventListener). 폰에 "홈 화면에 추가"로 설치해 쓰는
+   경우, 아이콘을 다시 눌러도 브라우저가 페이지를 처음부터 새로
+   불러오지 않고 이미 떠 있던 페이지(스크립트가 그대로 살아있는 상태)를
+   그대로 다시 보여주는 경우가 흔하다(특히 안드로이드) — 그러면 이
+   IIFE는 앱을 설치한 뒤 정말 처음 켰을 때 딱 한 번만 실행되고, 그
+   뒤로 앱을 다시 열 때마다는 스크립트가 다시 실행되지 않으니 리스너도
+   다시 붙지 않는다. "깃허브에 올리고 처음 켰을 때는 흔들면 잘 됐는데
+   그 다음부터는 흔들어도 반응이 없고 그대로 메인화면"이라는 증상이
+   정확히 이 구조 때문이다(사용자 실기기 확인).
+   그래서 지금은 리스너를 앱이 켜져 있는 동안 계속 유지한다: 스플래시
+   화면에서의 최초 판단(흔들면 녹음/가만있으면 메인화면)은 그대로 두되,
+   그 뒤로도 목록·지도·소음정보·내 신고카드처럼 "새 신고를 시작해도
+   말이 되는" 화면에 있을 때는 언제든 두 번 흔들면 바로 녹음 화면으로
+   들어간다 — 스플래시 안내 문구("지금 소음이 있다면 폰을 두 번 흔들어
+   신고를 시작하세요")가 실제로 앱을 쓰는 내내 성립하게 된다. */
 (function shakeToReport(){
-  const DECIDE_MS=2600;          // 이 시간 안에 못 흔들면 메인화면으로
+  const DECIDE_MS=2600;          // 스플래시 화면— 이 시간 안에 못 흔들면 메인화면으로
   const SHAKE_ACC=16;            // m/s² — 흔든 것으로 볼 가속도 크기
   const SHAKE_GAP_MS=250;        // 흔든 것으로 다시 셀 최소 간격(잔떨림 방지)
-  let shakeCount=0, lastShakeAt=0, decided=false;
+  const SHAKE_WINDOW_MS=1500;    // 두 번째 흔듦이 이 시간 안에 와야 "두 번 흔들었다"로 본다
+  let shakeCount=0, lastShakeAt=0, splashDecided=false;
+  /* 이미 녹음·확인·전송 흐름 한복판에 있을 때 흔들림이 잡혀도 다시
+     녹음 화면으로 튕기면 안 된다 — 새 신고를 "시작"해도 되는 화면에서만
+     반응한다. */
+  const SHAKE_START_SCREENS=['splash','list','map','cast','mycard'];
+  function currentScreenName(){
+    for(const s of SCREENS){ const el=document.getElementById('s-'+s); if(el && !el.hidden) return s; }
+    return null;
+  }
   function onMotion(e){
     const a=e.accelerationIncludingGravity || e.acceleration;
     if(!a) return;
     const mag=Math.sqrt((a.x||0)**2+(a.y||0)**2+(a.z||0)**2);
     const now=Date.now();
     if(mag>SHAKE_ACC && now-lastShakeAt>SHAKE_GAP_MS){
+      if(now-lastShakeAt>SHAKE_WINDOW_MS) shakeCount=0;   // 너무 뜸하게 흔들렸으면 처음부터 다시 센다
       lastShakeAt=now; shakeCount++;
-      if(shakeCount>=2) decide(true);
+      if(shakeCount>=2){
+        shakeCount=0;
+        if(!splashDecided){ decideSplash(true); return; }
+        const cur=currentScreenName();
+        if(cur && SHAKE_START_SCREENS.includes(cur)) go('rec');
+      }
     }
   }
-  function decide(toReport){
-    if(decided) return; decided=true;
-    window.removeEventListener('devicemotion', onMotion);
+  function decideSplash(toReport){
+    if(splashDecided) return; splashDecided=true;
     if(!document.getElementById('s-splash').hidden) go(toReport?'rec':'list', {fromBoot:true});
   }
   /* iOS는 사용자가 화면을 한 번 터치해야만 모션 권한을 물을 수 있다.
@@ -4418,7 +4449,7 @@ loadZoningData();   // 인천 용도지역 표 — 녹음 화면 도달 전에 �
   requestMotion();
   const sp=document.getElementById('s-splash');
   if(sp) sp.addEventListener('click', requestMotion, {once:true});
-  setTimeout(()=>decide(false), DECIDE_MS);
+  setTimeout(()=>decideSplash(false), DECIDE_MS);
 })();
 
 /* ══ 녹음 화면 시뮬레이션 ══ */
