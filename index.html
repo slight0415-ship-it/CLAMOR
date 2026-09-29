@@ -2157,10 +2157,10 @@
     margin-bottom:10px}
   .cc-fu-when{display:flex; flex-wrap:wrap; gap:7px; margin-bottom:10px}
   .cc-fu-when .chip.on{border-color:var(--c-pay); color:#fff; background:var(--c-pay)}
-  #cc-fu-text{width:100%; resize:vertical; font-family:inherit; font-size:0.875rem;
+  #cc-fu-text, #mc-fu-text{width:100%; resize:vertical; font-family:inherit; font-size:0.875rem;
     color:var(--text); background:var(--ink-2); border:1px solid var(--line);
     border-radius:10px; padding:10px 12px; margin-bottom:9px}
-  #cc-followups{margin-top:12px; display:flex; flex-direction:column; gap:8px}
+  #cc-followups, #mc-followups{margin-top:12px; display:flex; flex-direction:column; gap:8px}
   .cc-fu-item{background:var(--ink-2); border:1px solid var(--line); border-radius:10px;
     padding:10px 12px; font-size:0.8125rem; color:var(--text-dim); font-weight:700}
   .cc-fu-item b{color:var(--text); margin-right:8px}
@@ -2807,7 +2807,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v278</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v279</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2936,23 +2936,14 @@
         <div class="cc-empty" id="cc-empty" hidden>이 지역은 신고 내역이 없습니다</div>
       </div>
 
-      <!-- 사후 경과 기록 — 본인 신고카드에만, 여러 번에 걸쳐 -->
-      <div class="cc-section cc-followup">
-        <div class="cc-sh">그 뒤 어떻게 됐나요?</div>
-        <p class="cc-fu-lead">경찰 출동 이후의 경과를 남겨 두면, 나중에 같은 곳에서
-          다시 소란이 있었는지 스스로도 알 수 있습니다. 여러 번 남길 수 있습니다.</p>
-        <div class="cc-fu-when">
-          <button class="chip" data-fu="0">다음날</button>
-          <button class="chip" data-fu="1">다다음날</button>
-          <button class="chip" data-fu="2">일주일 후</button>
-          <button class="chip" data-fu="3">한달 후</button>
-          <button class="chip" data-fu="4">기타</button>
-        </div>
-        <textarea id="cc-fu-text" rows="2" placeholder="예) 그날 이후로 조용합니다 / 다시 시끄러워졌습니다"></textarea>
-        <button class="btn primary sm" id="cc-fu-add" type="button">경과 기록 추가</button>
-        <div id="cc-followups"></div>
-      </div>
-
+      <!-- v279 — "그 뒤 어떻게 됐나요?"(경과 기록)는 이 화면(신고 직후
+           확인 화면)에 있으면 안 된다. 신고 결과가 어떻게 됐는지는
+           보통 신고 시점에는 알 수 없고, 그 사이 폰을 끄거나 클레머를
+           떠나 있을 수도 있다 — "여기서 답해야 한다"는 전제 자체가
+           맞지 않는다. 답은 시민이 클레머를 다시 열었을 때(내 신고카드,
+           #s-mycard)에서만 받는다. 이 화면은 "방금 보낸 신고가 잘
+           접수됐고, 주변에 이런 기록이 있다"만 보여주고 바로 다음으로
+           넘어가게 한다. -->
       <button class="btn primary cc-forward" id="cc-forward" type="button">
         우리동네소음지도 보기 ›</button>
     </div>
@@ -3042,6 +3033,30 @@
             <button type="button" class="chip" data-val="no">아니오</button>
           </div>
         </div>
+      </div>
+
+      <!-- v279 — "그 뒤 어떻게 됐나요?"(경과 기록)를 신고 직후 확인 화면
+           (#s-cardconfirm)에서 여기로 옮겼다. 신고 결과는 시간이 지나야
+           알 수 있으므로, 시민이 클레머를 다시 열어 자기 신고카드를 볼
+           때(바로 이 화면)에만 물어야 뜻이 통한다. 위 "조치 결과를
+           알려주세요"(예/아니오 몇 문항)와 성격은 비슷하지만 형식이
+           다르다 — 저건 정해진 질문에 예/아니오로 답하는 것이고, 이건
+           날짜 딱지 + 자유 문장으로 여러 번에 걸쳐 남기는 일지다. 그래서
+           같은 섹션에 합치지 않고 바로 아래에 별도 섹션으로 둔다. -->
+      <div class="cc-section cc-followup">
+        <div class="cc-sh">그 뒤 어떻게 됐나요?</div>
+        <p class="cc-fu-lead">경찰 출동 이후의 경과를 남겨 두면, 나중에 같은 곳에서
+          다시 소란이 있었는지 스스로도 알 수 있습니다. 여러 번 남길 수 있습니다.</p>
+        <div class="cc-fu-when">
+          <button class="chip" data-fu="0">다음날</button>
+          <button class="chip" data-fu="1">다다음날</button>
+          <button class="chip" data-fu="2">일주일 후</button>
+          <button class="chip" data-fu="3">한달 후</button>
+          <button class="chip" data-fu="4">기타</button>
+        </div>
+        <textarea id="mc-fu-text" rows="2" placeholder="예) 그날 이후로 조용합니다 / 다시 시끄러워졌습니다"></textarea>
+        <button class="btn primary sm" id="mc-fu-add" type="button">경과 기록 추가</button>
+        <div id="mc-followups"></div>
       </div>
 
       <p class="mc-note">위 문구는 임시입니다 — 실제 서비스에서는 관계 기관과 협의해 확정합니다.</p>
@@ -3148,7 +3163,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v278</span></div>
+          <span class="ver" id="ver2">v279</span></div>
       </div>
     </div>
 
@@ -3205,7 +3220,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v278</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v279</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -4753,19 +4768,21 @@ document.getElementById('recur-toggle').onclick=()=>{
   paintRecurUI();
 };
 
-/* 신고카드 확인 화면 — 사후 경과 기록 */
-let ccFuLabel=0;
-document.querySelectorAll('#s-cardconfirm .cc-fu-when .chip').forEach(b=>{
+/* v279 — 내 신고카드 화면(#s-mycard)의 사후 경과 기록.
+   신고 직후 확인 화면(#s-cardconfirm)에 있던 것을 여기로 옮겼다(신고
+   결과는 나중에 다시 열었을 때만 물을 수 있으므로). */
+let mcFuLabel=0;
+document.querySelectorAll('#s-mycard .cc-fu-when .chip').forEach(b=>{
   b.onclick=()=>{
-    ccFuLabel=+b.dataset.fu;
-    document.querySelectorAll('#s-cardconfirm .cc-fu-when .chip').forEach(x=>
+    mcFuLabel=+b.dataset.fu;
+    document.querySelectorAll('#s-mycard .cc-fu-when .chip').forEach(x=>
       x.classList.toggle('on', x===b));
   };
 });
-document.querySelectorAll('#s-cardconfirm .cc-fu-when .chip')[0].classList.add('on');
-document.getElementById('cc-fu-add').onclick=()=>{
-  const ta=document.getElementById('cc-fu-text');
-  const ok=addFollowup(ccFuLabel, ta.value);
+document.querySelectorAll('#s-mycard .cc-fu-when .chip')[0].classList.add('on');
+document.getElementById('mc-fu-add').onclick=()=>{
+  const ta=document.getElementById('mc-fu-text');
+  const ok=addFollowup(mcFuLabel, ta.value);
   if(ok) ta.value='';
   else alert('아직 보낸 신고 기록이 없습니다.');
 };
@@ -5218,6 +5235,11 @@ function renderMyCard(rec){
   }
 
   paintMcAnswers(rec);
+  /* v279 — 사후 경과 기록(followups)을 여기서 그린다. 예전엔 신고
+     직후 확인 화면(#s-cardconfirm)에서 그렸지만, 그 화면에서 "그 뒤
+     어떻게 됐나요"를 답하게 하는 건 앞뒤가 안 맞는다 — 답은 시간이
+     지나 다시 열었을 때만 나온다. */
+  renderMineFollowups();
 }
 
 /* 저장된 답변으로 버튼들의 선택 상태(.on)를 되그린다 — 화면을 나갔다
@@ -5314,7 +5336,8 @@ function renderCardConfirm(center){
   }
   const note=document.getElementById('cc-note');
   if(note) note.textContent='내 신고 지점에서 반경 '+CC_RADIUS+'m 안의 신고카드만 보여드립니다';
-  renderMineFollowups();
+  /* v279 — 사후 경과 기록(followups)은 이제 이 화면이 아니라 내
+     신고카드(#s-mycard, renderMyCard)에서만 보여준다. */
 }
 
 /* ══ 사후 경과 기록(팔로우업) ══
@@ -5336,7 +5359,7 @@ function addFollowup(labelIdx, text){
   return true;
 }
 function renderMineFollowups(){
-  const box=document.getElementById('cc-followups'); if(!box) return;
+  const box=document.getElementById('mc-followups'); if(!box) return;
   const rec=loadSent();
   const fu=(rec && Array.isArray(rec.followups)) ? rec.followups : [];
   box.innerHTML = fu.length
