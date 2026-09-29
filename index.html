@@ -2138,6 +2138,13 @@
   .cc-head p{margin-top:6px; font-size:0.8125rem; color:var(--text-dim); font-weight:700}
   .cc-map-wrap{position:relative; margin-top:16px; height:26%; min-height:150px;
     border-radius:14px; overflow:hidden; border:1px solid var(--line)}
+  /* v280 — 신고 직후 확인 화면(#s-cardconfirm)은 경과 기록 섹션을
+     #s-mycard로 옮기면서(v279) 화면 중하단부에 채울 내용이 줄어 휑해
+     보였다. 이 화면만 맵을 화면 높이의 절반까지 키운다(#s-mycard는
+     "조치 결과"·"경과 기록" 입력이 많아 내용이 이미 충분하므로 그대로
+     둔다) — "이 자리 근처에 이런 기록이 있다"는 지도 자체가 이 화면의
+     핵심 콘텐츠이지, 빈 여백으로 남겨둘 자리가 아니다. */
+  #s-cardconfirm .cc-map-wrap{height:50vh; min-height:260px}
   #cardconfirmmap, #mycardmap{width:100%; height:100%}
   .cc-map-note{position:absolute; left:9px; top:9px; z-index:12;
     background:rgba(20,14,36,.82); color:#E4D6FF; font-size:0.6875rem; font-weight:800;
@@ -2153,6 +2160,16 @@
   .cc-empty{padding:22px 12px; text-align:center; font-size:0.875rem; line-height:1.6;
     color:var(--text-mute); font-weight:700; background:var(--ink-2);
     border:1px dashed var(--line); border-radius:12px}
+  /* v280 — 임계치 미달 측정 기록. 112 신고 카드(.lcard 계열)와 겹쳐
+     보이면 안 되므로 일부러 더 수수한 색(회갈색 배지)을 쓰고, "미신고"를
+     항상 배지 맨 앞에 못박아 112 신고와 절대 헷갈리지 않게 한다. */
+  .ut-item{display:flex; align-items:center; gap:8px; padding:10px 12px;
+    background:var(--ink-2); border:1px dashed var(--line); border-radius:10px;
+    margin-top:8px; font-size:0.8125rem; font-weight:700; color:var(--text-dim)}
+  .ut-badge{background:rgba(139,147,166,.18); color:#B9C0CE; font-size:0.6875rem;
+    font-weight:800; padding:3px 8px; border-radius:999px; white-space:nowrap}
+  .ut-db{color:var(--text); font-weight:900}
+  .ut-when{margin-left:auto; color:var(--text-mute); font-weight:700; font-size:0.75rem}
   .cc-fu-lead{font-size:0.8125rem; color:var(--text-dim); font-weight:700; line-height:1.6;
     margin-bottom:10px}
   .cc-fu-when{display:flex; flex-wrap:wrap; gap:7px; margin-bottom:10px}
@@ -2701,6 +2718,39 @@
     </div>
   </section>
 
+  <!-- ══ 임계치 미달 안내 (v280) ══
+       참을성 없이 "지금 판정하기"를 눌렀는데 아직 신고 기준(dB·3분)을
+       넘긴 적이 없는 경우. 예전엔 alert() 한 줄 띄우고 녹음 화면에 그냥
+       머물게 했다 — 아무 데도 못 가고 막혀버리는 느낌이었다. 이제는
+       "112 신고로는 못 간다"를 분명히 알리고 메인화면으로 안내한다.
+       측정값 자체는 버리지 않는다 — 고성이 지르며 뛰어가거나, 택배차가
+       밤에 뭘 떨어뜨리는 것처럼 신고 기준엔 못 미쳐도 실제로 있었던
+       소음은 데이터로 남을 가치가 있다. 단, 이번 버전에서는 이 기록을
+       공개 지도(spots)에는 올리지 않고 내 신고카드 화면에서만 112
+       신고와 구분해서 보여준다(saveUnderThr/underThrListHTML 참고). -->
+  <section class="screen" id="s-underthr" hidden>
+    <div class="rhead">
+      <span class="tag">알림</span>
+      <span class="rtitle">112 신고로 진행할 수 없어요</span>
+    </div>
+    <div class="cwrap">
+      <div class="notice pb">
+        <div class="nt">측정한 소음이 신고 기준(<span id="ut-thr">45</span>dB · 3분)을 넘지 않았습니다</div>
+        <div class="nb">방금 최고 <b id="ut-db">-</b>dB · <span id="ut-dur">-</span> 동안 측정되었습니다.
+          이 상태로는 112 신고가 접수되지 않습니다.</div>
+      </div>
+      <div class="notice pb" style="margin-top:12px">
+        <div class="nt">측정 기록은 남겨둘게요</div>
+        <div class="nb">고성을 지르며 지나가거나 택배·수거 차량이 잠시 소리를 낸 경우처럼,
+          신고 기준엔 못 미쳐도 실제로 있었던 소음일 수 있습니다.
+          이 기록은 내 신고카드에서 확인할 수 있고, 112로 접수된 신고와는
+          구분해서 보여드립니다.</div>
+      </div>
+    </div>
+    <div class="rfoot">
+      <button class="btn primary" id="ut-main">클레머 메인화면으로</button>
+    </div>
+  </section>
 
   <!-- ══ 확인창 ══ -->
   <section class="screen" id="s-confirm" hidden>
@@ -2807,7 +2857,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v279</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v280</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -2936,6 +2986,14 @@
         <div class="cc-empty" id="cc-empty" hidden>이 지역은 신고 내역이 없습니다</div>
       </div>
 
+      <!-- v280 — 신고 기준엔 못 미쳤지만 실제로 있었던 소음(지나가는 소음)
+           측정 기록. 112 신고가 아니므로 위 "내 신고"·"주변 신고카드"와는
+           분명히 구분되게 별도 섹션·배지로 보여준다. -->
+      <div class="cc-section" id="cc-underthr-sec" hidden>
+        <div class="cc-sh">지나간 소음 기록 <small style="font-weight:700;color:var(--text-mute)">(112 신고 아님)</small></div>
+        <div id="cc-underthr"></div>
+      </div>
+
       <!-- v279 — "그 뒤 어떻게 됐나요?"(경과 기록)는 이 화면(신고 직후
            확인 화면)에 있으면 안 된다. 신고 결과가 어떻게 됐는지는
            보통 신고 시점에는 알 수 없고, 그 사이 폰을 끄거나 클레머를
@@ -2974,6 +3032,13 @@
       <div class="cc-section" id="mc-history-sec" hidden>
         <div class="cc-sh">재발 이력</div>
         <div id="mc-history"></div>
+      </div>
+
+      <!-- v280 — 임계치 미달 측정 기록(지나간 소음). 112 신고 내용과
+           섞이면 안 되므로 별도 섹션·배지로 분리해 보여준다. -->
+      <div class="cc-section" id="mc-underthr-sec" hidden>
+        <div class="cc-sh">지나간 소음 기록 <small style="font-weight:700;color:var(--text-mute)">(112 신고 아님)</small></div>
+        <div id="mc-underthr"></div>
       </div>
 
       <div class="cc-section">
@@ -3163,7 +3228,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v279</span></div>
+          <span class="ver" id="ver2">v280</span></div>
       </div>
     </div>
 
@@ -3220,7 +3285,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v279</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v280</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -4068,7 +4133,7 @@ function beatMine(){
    기본값이 '발신 가능'이 되지 않도록 명시적인 스위치를 둔다.
    실제 112 연동을 붙이는 날, 이 값을 true로 바꾸기 전까지는 절대 나가지 않는다. */
 const DISPATCH_TO_112=false;
-const SCREENS=['splash','rec','confirm','sms','sent','cardconfirm','mycard','passby','passby-confirm','list','map','cast'];
+const SCREENS=['splash','rec','underthr','confirm','sms','sent','cardconfirm','mycard','passby','passby-confirm','list','map','cast'];
 let mapReady=false;
 function go(name, opts){
   SCREENS.forEach(s=>document.getElementById('s-'+s).hidden=(s!==name));
@@ -4470,7 +4535,14 @@ function feedClassifier(db, dtMs){
    58dB·고성처럼 지어낸 숫자를 쓰지 않기 위해 모든 임시 대체 지점이
    이 함수 하나만 쓰게 한다. */
 function currentReading(){
-  return { db: Math.max(curMaxDb, THR), dur: Math.max(1, Math.round(overSec)) };
+  /* v280 — totalSec: 녹음을 시작한 뒤 지금까지 실제로 흐른 전체 시간.
+     dur(overSec)은 "기준을 넘긴 시간"만 누적한 값이라, 소음이 꽤
+     오래 이어졌어도 기준을 넘긴 순간만 짧으면 "3초"처럼 아주 작은
+     숫자로 보인다 — 확인·문자 화면에 이 값 하나만 "지속 시간"으로
+     보이면 "고작 3초로 신고하는 건가" 하는 오해를 산다. 두 값을 함께
+     보여주기 위해 총 경과 시간도 같이 넘긴다. */
+  return { db: Math.max(curMaxDb, THR), dur: Math.max(1, Math.round(overSec)),
+    totalSec: Math.max(1, Math.round((Date.now()-t0)/1000)) };
 }
 
 /* 확인 화면과 문자 화면의 값을 판정 결과에서 채운다.
@@ -4483,9 +4555,16 @@ function fillReport(){
      처럼 강하게 단정하지 않고 '판정 보류'로 정직하게 표시한다. */
   const r = LAST || { t:-1, ...currentReading() };
   const kind = (r.t>=0 && TYPES[r.t]) ? TYPES[r.t].k : '판정 보류';
-  const durTx = r.dur>=60
-    ? Math.floor(r.dur/60)+'분 '+(r.dur%60)+'초'
-    : r.dur+'초';
+  const fmtSec = s => s>=60 ? Math.floor(s/60)+'분 '+(s%60)+'초' : s+'초';
+  /* v280 — dur(overSec)은 "기준을 넘긴 시간"만 누적한 값이라, 소음이
+     꽤 오래 이어졌어도 그 값 하나만 "지속 시간"으로 보이면 실제보다
+     훨씬 짧게 신고한 것처럼 읽힌다(예: 3초). 경찰이 받는 112 문자와
+     그 직전 확인 화면 모두, "몇 초 동안 측정했는데 그중 몇 초가
+     기준을 넘겼는지"를 함께 보여줘 오해를 없앤다. */
+  const totalSec = r.totalSec!=null ? Math.max(r.totalSec, r.dur) : r.dur;
+  const durTx = totalSec>r.dur
+    ? fmtSec(r.dur)+' (측정 '+fmtSec(totalSec)+' 중)'
+    : fmtSec(r.dur);
   const set=(id,v)=>{ const e=document.getElementById(id); if(e) e.textContent=v; };
   set('cf-type', kind); set('cf-db', r.db); set('cf-thr', THR); set('cf-dur', durTx);
   set('sms-type', kind); set('sms-db', r.db); set('sms-thr', THR); set('sms-dur', durTx);
@@ -4704,7 +4783,7 @@ function startRec(){
       dt.textContent=label; dt.classList.add('on');
       /* 지도로 넘어갈 때 '내 신고'로 쓸 판정 결과 */
       const ti=TYPES.findIndex(x=>x.k===label);
-      LAST={ t: ti>=0?ti:0, db, dur:Math.round(overSec) };
+      LAST={ t: ti>=0?ti:0, db, dur:Math.round(overSec), totalSec:Math.round(el) };
     }
 
     /* 기준을 넘긴 시간이 충분히 쌓이면 스스로 확인 단계로 넘어간다.
@@ -4867,7 +4946,20 @@ document.getElementById('rec-now').onclick=()=>{
      넘긴 적이 없으면 넘어가지 않는다 — 조용하면 신고할 것도 없는 게 맞다. */
   if(!LAST){
     if(overSec<0.3 && curMaxDb<=THR){
-      alert('아직 신고 기준('+THR+'dB)을 넘긴 적이 없습니다.\n지금까지 최고 '+curMaxDb+'dB이었습니다.');
+      /* v280 — 예전엔 alert() 한 줄로 막고 녹음 화면에 그대로 뒀다. 지금은
+         "112 신고로는 못 간다"를 화면으로 분명히 보여주고 메인화면으로
+         안내한다. 측정값 자체(최고 dB·경과 시간)는 버리지 않고 112 신고와
+         분리된 별도 저장소(UNDERTHR_KEY)에 남긴다 — 신고 기준엔 못
+         미쳐도 실제로 있었던 소음(지나가는 소음)일 수 있기 때문이다. */
+      const totalSec=Math.max(1, Math.round((Date.now()-t0)/1000));
+      const loc=realLoc || freeAnchor || CENTER;
+      saveUnderThr({ db:curMaxDb, totalSec, at:Date.now(),
+        lat: loc && loc.lat!=null ? loc.lat : null,
+        lng: loc && loc.lng!=null ? loc.lng : null });
+      const dTx = totalSec>=60 ? Math.floor(totalSec/60)+'분 '+(totalSec%60)+'초' : totalSec+'초';
+      const setUt=(id,v)=>{ const e=document.getElementById(id); if(e) e.textContent=v; };
+      setUt('ut-thr', THR); setUt('ut-db', curMaxDb); setUt('ut-dur', dTx);
+      go('underthr');
       return;
     }
     /* 기준은 넘겼지만 유형 자동판정이 아직 안 끝난 경우 — 실측값은 쓰되
@@ -4877,6 +4969,9 @@ document.getElementById('rec-now').onclick=()=>{
   }
   go('confirm');
 };
+/* v280 — 임계치 미달 안내 화면의 "메인화면으로" 버튼. v279에서 확인된
+   대로 go('list')가 클레머의 진짜 메인화면(우리동네소음지도) 진입로다. */
+document.getElementById('ut-main').onclick=()=>{ go('list'); };
 
 /* 차량·바이크 굉음 신고 — 재지 않고, 112로 보내지 않는다.
    버튼을 누른 시각과 위치는 이 순간 확정한다(더 늦게 잡을수록 실제
@@ -5060,6 +5155,42 @@ function loadSent(){
   try{ const s=localStorage.getItem(SENT_KEY); return s?sanitizeSentRecord(JSON.parse(s)):null }
   catch(e){ return null }
 }
+
+/* ══ 임계치 미달 측정 기록 (v280) ══
+   "지금 판정하기"를 눌렀는데 아직 신고 기준을 못 넘긴 경우, 112 신고는
+   못 되지만 측정 자체는 실제로 있었던 일이다. 112 신고(SENT_KEY)와는
+   완전히 다른 저장소에 별도로 쌓는다 — 절대 섞이면 안 된다: 이 기록은
+   법적 신고가 아니므로 지도의 신고 지점(spots)에는 올리지 않고, 신고
+   카드 화면(#s-cardconfirm, #s-mycard)에서 112 신고와 구분되는 모습으로만
+   보여준다(underThrListHTML 참고). 최근 20건만 보관한다. */
+const UNDERTHR_KEY='clamor.underThreshold';
+function loadUnderThr(){
+  try{
+    const a=JSON.parse(localStorage.getItem(UNDERTHR_KEY)||'[]');
+    return Array.isArray(a) ? a : [];
+  }catch(e){ return []; }
+}
+function saveUnderThr(rec){
+  const list=loadUnderThr();
+  list.unshift(rec);
+  if(list.length>20) list.length=20;
+  try{ localStorage.setItem(UNDERTHR_KEY, JSON.stringify(list)); }catch(e){}
+  return rec;
+}
+/* 신고카드 화면들에 넣을 목록 HTML. 112 신고 카드(listCardHTML)와는
+   일부러 다른 배지·문구를 써서 한눈에 다른 종류임이 보이게 한다. */
+function underThrListHTML(){
+  const list=loadUnderThr();
+  if(!list.length) return '';
+  const p=n=>String(n).padStart(2,'0');
+  return list.slice(0,5).map(r=>{
+    const d=new Date(r.at);
+    const when=(d.getMonth()+1)+'/'+d.getDate()+' '+p(d.getHours())+':'+p(d.getMinutes());
+    return '<div class="ut-item"><span class="ut-badge">미신고·지나간 소음</span>'+
+      '<span class="ut-db">'+r.db+'dB</span>'+
+      '<span class="ut-when">'+when+'</span></div>';
+  }).join('');
+}
 /* v272 — 개발용 콘솔 도구. 논현동 데모 데이터는 그대로 두고, "이미 신고한
    시민" 시나리오(재접속 메인화면·신고카드·재발 흐름)를 실제 거주지에서
    반복 테스트하기 위한 지름길이다. 매번 녹음→기준초과→문자 전송을 손으로
@@ -5208,6 +5339,7 @@ function renderMyCard(rec){
     if(summary) summary.innerHTML='<div class="d-sum">신고 내역이 없습니다.</div>';
     if(historySec) historySec.hidden=true;
     if(recurSec) recurSec.hidden=true;
+    renderUnderThrOnMycard();
     return;
   }
   const d=new Date(rec.at), p=n=>String(n).padStart(2,'0');
@@ -5240,6 +5372,17 @@ function renderMyCard(rec){
      어떻게 됐나요"를 답하게 하는 건 앞뒤가 안 맞는다 — 답은 시간이
      지나 다시 열었을 때만 나온다. */
   renderMineFollowups();
+  renderUnderThrOnMycard();
+}
+/* v280 — 임계치 미달 측정 기록을 내 신고카드 화면에도 보여준다. rec가
+   없어도(아직 112 신고를 한 번도 안 보낸 시민이라도) 지나간 소음
+   기록만은 있을 수 있으므로 renderMyCard(null)일 때도 그려야 한다. */
+function renderUnderThrOnMycard(){
+  const sec=document.getElementById('mc-underthr-sec'), box=document.getElementById('mc-underthr');
+  if(!sec || !box) return;
+  const html=underThrListHTML();
+  box.innerHTML=html;
+  sec.hidden=!html;
 }
 
 /* 저장된 답변으로 버튼들의 선택 상태(.on)를 되그린다 — 화면을 나갔다
@@ -5338,6 +5481,12 @@ function renderCardConfirm(center){
   if(note) note.textContent='내 신고 지점에서 반경 '+CC_RADIUS+'m 안의 신고카드만 보여드립니다';
   /* v279 — 사후 경과 기록(followups)은 이제 이 화면이 아니라 내
      신고카드(#s-mycard, renderMyCard)에서만 보여준다. */
+  const utSec=document.getElementById('cc-underthr-sec'), utBox=document.getElementById('cc-underthr');
+  if(utSec && utBox){
+    const html=underThrListHTML();
+    utBox.innerHTML=html;
+    utSec.hidden=!html;
+  }
 }
 
 /* ══ 사후 경과 기록(팔로우업) ══
@@ -6035,11 +6184,31 @@ function applyMine(){
     myReport={ t:(ti>=0?ti:0), db:sent.db, dur:sent.dur };
     rehydrated=true;
   }
-  if(myReport.applied || !map) return;
+  if(!map) return;
+  /* v280 — build()는 등급을 바꿀 때마다("이 위치 확인" 후 등급 선택,
+     또는 지도 화면에서 등급을 다시 고를 때) spots·overlays를 통째로
+     비우고 처음부터 다시 그린다(overlays.forEach(setMap(null)) +
+     spots=[]). 예전엔 "한 번 적용했으면 끝"(myReport.applied)이라는
+     가드만 있어서, 등급을 한 번이라도 바꾸면 방금 찍힌 내 신고 핀이
+     이 초기화로 사라진 뒤 다시는 그려지지 않았다 — 신고 지점(핀·아이콘)을
+     터치해도 반응이 없던 원인이 이것이다. "이미 적용했는지"가 아니라
+     "지금 spots 배열 안에 내 신고가 실제로 있는지"로 다시 판단해야
+     build()가 다시 돌 때마다 확실히 되살아난다. */
+  if(myReport.applied && spots.some(s=>s.mine)) return;
   myReport.applied=true;
   cardIdx=0;
-  const loc = rehydrated ? {lat:loadSent().lat, lng:loadSent().lng} : null;
-  const nm = rehydrated ? (loadSent().addr || null) : null;
+  /* v280 — 위치·주소는 항상 저장된 신고 기록(loadSent)을 우선 쓴다.
+     신고는 saveSent()가 항상 먼저 좌표를 저장해 두므로 그게 정답이다.
+     예전엔 "방금 보낸 신고"(rehydrated===false)일 때 realLoc(지금 이
+     순간의 GPS)을 썼는데, 신고카드 확인 → 목록(list) 화면으로 오는
+     사이 목록 화면이 requestRealLocation()으로 GPS를 다시 읽어
+     realLoc이 살짝 달라져 있을 수 있다 — 그 결과 내 신고 핀이 실제
+     신고 좌표가 아니라 "그 사이 갱신된 지금 위치"에 찍히는 어긋남이
+     있었다(메인화면의 파란 점과 신고 지점 표시가 다르게 느껴지던
+     원인 중 하나). 저장된 좌표가 있으면 무조건 그걸 쓴다. */
+  const sent=loadSent();
+  const loc = (sent && sent.lat!=null && sent.lng!=null) ? {lat:sent.lat, lng:sent.lng} : null;
+  const nm = (sent && sent.addr) ? sent.addr : null;
   const s=addMySpot(myReport.t, myReport.db, myReport.dur, loc, nm);
   const mine=document.getElementById('mine');
   document.getElementById('mine-s').innerHTML = rehydrated
