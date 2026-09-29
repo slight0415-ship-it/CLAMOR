@@ -2857,7 +2857,7 @@
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v280</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v281</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -3228,7 +3228,7 @@
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v280</span></div>
+          <span class="ver" id="ver2">v281</span></div>
       </div>
     </div>
 
@@ -3285,7 +3285,7 @@
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v280</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v281</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -4289,6 +4289,17 @@ function go(name, opts){
       /* setCenter 직후엔 지도가 실제로 멈춰(idle) 이벤트가 오기 전까지
          핀 아래 안내가 정적 문구로 비어 있을 수 있다 — 바로 한 번 채운다. */
       if(typeof updateListCenterAddr==='function') updateListCenterAddr();
+      /* v280 — 신고카드 확인 화면(cardconfirmmap)·내 신고카드(mycardmap)는
+         지도를 고정 미리보기 판으로 옮기면서 내 신고 핀을 작은 크기로
+         바꿔 둔다(resize(), onFixedPreviewMap() 참고). 그 뒤 "우리동네
+         소음지도 보기"를 눌러 이 화면(진짜 메인화면)으로 돌아오면, 지도를
+         다시 이 화면의 판(listmap)으로 옮겼는데도 핀 크기는 리사이즈
+         되지 않은 채 그대로 남아 있었다 — 'map' 화면 진입 때는 resize()를
+         직접 부르는데 여기(list)는 안 불렀고, map.setLevel()이 실제로
+         레벨을 바꿀 때만 우연히 zoom_changed 이벤트로 resize()가 걸려서
+         "어떨 땐 크고 어떨 땐 작은" 것처럼 보였다(사용자 실기기 확인).
+         이제는 이 화면에 들어올 때마다 항상 명시적으로 다시 계산한다. */
+      if(typeof resize==='function') resize();
       setTimeout(beatMine, 260);
     },140);
   }
@@ -4545,6 +4556,19 @@ function currentReading(){
     totalSec: Math.max(1, Math.round((Date.now()-t0)/1000)) };
 }
 
+/* v280 — "지속 시간" 표시를 다루는 화면이 여럿(확인 화면·112 문자·전송
+   완료 화면·내 신고카드)인데, 각 화면이 저마다 따로 "N초/N분" 문자열을
+   만들다 보니 실제로 화면마다 다른 규칙(문자열)을 썼다 — 전송 완료
+   화면(renderSent)은 60초 미만일 때도 실수로 '분'이라고 찍는 버그가
+   있었다("4초"가 "4분"으로 보임). 이제 이 두 함수 하나로 모든 화면이
+   같은 규칙을 쓰게 한다: fmtSecDur는 "N초"/"N분 M초" 형식만 만들고,
+   fmtDurWithCtx는 거기에 "(측정 M초 중)" 맥락을 붙인다. */
+function fmtSecDur(s){ return s>=60 ? Math.floor(s/60)+'분 '+(s%60)+'초' : s+'초'; }
+function fmtDurWithCtx(dur, totalSec){
+  const t = totalSec!=null ? Math.max(totalSec, dur) : dur;
+  return t>dur ? fmtSecDur(dur)+' (측정 '+fmtSecDur(t)+' 중)' : fmtSecDur(dur);
+}
+
 /* 확인 화면과 문자 화면의 값을 판정 결과에서 채운다.
    글자로 박아 두면 방금 고성으로 판정했는데 문자에는 다른 유형이 적히고,
    화면마다 다른 말을 하게 된다. */
@@ -4555,16 +4579,12 @@ function fillReport(){
      처럼 강하게 단정하지 않고 '판정 보류'로 정직하게 표시한다. */
   const r = LAST || { t:-1, ...currentReading() };
   const kind = (r.t>=0 && TYPES[r.t]) ? TYPES[r.t].k : '판정 보류';
-  const fmtSec = s => s>=60 ? Math.floor(s/60)+'분 '+(s%60)+'초' : s+'초';
   /* v280 — dur(overSec)은 "기준을 넘긴 시간"만 누적한 값이라, 소음이
      꽤 오래 이어졌어도 그 값 하나만 "지속 시간"으로 보이면 실제보다
      훨씬 짧게 신고한 것처럼 읽힌다(예: 3초). 경찰이 받는 112 문자와
      그 직전 확인 화면 모두, "몇 초 동안 측정했는데 그중 몇 초가
      기준을 넘겼는지"를 함께 보여줘 오해를 없앤다. */
-  const totalSec = r.totalSec!=null ? Math.max(r.totalSec, r.dur) : r.dur;
-  const durTx = totalSec>r.dur
-    ? fmtSec(r.dur)+' (측정 '+fmtSec(totalSec)+' 중)'
-    : fmtSec(r.dur);
+  const durTx = fmtDurWithCtx(r.dur, r.totalSec);
   const set=(id,v)=>{ const e=document.getElementById(id); if(e) e.textContent=v; };
   set('cf-type', kind); set('cf-db', r.db); set('cf-thr', THR); set('cf-dur', durTx);
   set('sms-type', kind); set('sms-db', r.db); set('sms-thr', THR); set('sms-dur', durTx);
@@ -4592,7 +4612,9 @@ function recurSummaryText(rec){
   if(!rec) return '';
   const d=new Date(rec.at), p=x=>String(x).padStart(2,'0');
   const when=(d.getMonth()+1)+'월 '+d.getDate()+'일 '+p(d.getHours())+':'+p(d.getMinutes());
-  const durTx = rec.dur>=60 ? Math.floor(rec.dur/60)+'분 '+(rec.dur%60)+'초' : rec.dur+'초';
+  /* 재발 요약은 한 줄짜리 참고용 문구라 "(측정 M초 중)" 맥락까지 붙이면
+     오히려 지저분해진다 — 단위(초/분)만 fmtSecDur로 통일해서 맞춘다. */
+  const durTx = fmtSecDur(rec.dur);
   return when+' · '+rec.type+' · '+rec.db+'dB · '+durTx;
 }
 
@@ -5104,6 +5126,11 @@ function saveSent(r){
     id: at+'-'+Math.random().toString(36).slice(2,8),
     at, addr:addr.trim(),
     type:(TYPES[r.t]||TYPES[0]).k, db:r.db, dur:r.dur,
+    /* v280 — 총 측정 시간(totalSec)도 함께 저장해야 신고 문자 전송 완료
+       화면(renderSent)·내 신고카드(renderMyCard)에서도 확인·문자 화면과
+       똑같이 "N초 (측정 M초 중)" 맥락을 보여줄 수 있다. myReport(=LAST나
+       currentReading()의 결과)에 totalSec이 없으면(예전 경로) dur로 대체한다. */
+    totalSec: r.totalSec!=null ? r.totalSec : r.dur,
     lat:loc.lat, lng:loc.lng,
     /* 재발로 표시했고 실제 지난 기록이 있었을 때만 남긴다 */
     recurrence: isRecur ? recurSummaryText(prevSent) : null,
@@ -5146,6 +5173,10 @@ function sanitizeSentRecord(rec){
   let changed=false;
   if(rec.db==null || rec.db<minDb){ rec.db=minDb; changed=true; }
   if(rec.dur==null || rec.dur<4){ rec.dur=4; changed=true; }
+  /* v280 — 이 필드가 생기기 전(v279 이전)에 저장된 기록에는 totalSec이
+     없다. 없으면 dur과 같은 값으로 채운다(맥락 문구 없이 "N초"만 보임 —
+     실제 값을 모르니 지어내지 않는다). */
+  if(rec.totalSec==null || rec.totalSec<rec.dur){ rec.totalSec=rec.dur; changed=true; }
   if(changed){
     try{ localStorage.setItem(SENT_KEY, JSON.stringify(rec)); }catch(e){}
   }
@@ -5292,10 +5323,13 @@ function renderSent(rec){
   set('sent-addr', rec.addr || '인천 남동구 논현동 일대');
   set('sent-type', rec.type);
   set('sent-db', rec.db+' dB');
-  /* 초 단위로 두면 '4초 신고'로 읽혀 가볍게 보인다 */
-  set('sent-dur', rec.dur>=60
-    ? Math.floor(rec.dur/60)+'분 '+(rec.dur%60)+'초'
-    : rec.dur+'분');
+  /* v280 — 예전엔 "초 단위로 두면 '4초 신고'로 읽혀 가볍게 보인다"는
+     이유로 60초 미만이어도 무조건 '분' 단위로 찍었다 — 그 결과 실제로는
+     4초였던 지속시간이 "4분"으로 완전히 틀린 값을 보여주는 버그였다
+     (단위를 속여서 무겁게 보이려 한 셈이라 근본적으로 잘못된 접근이다).
+     지금은 확인 화면·112 문자와 똑같은 규칙(fmtDurWithCtx)을 써서
+     "3초 (측정 8초 중)"처럼 정확한 값 + 맥락으로 보여준다. */
+  set('sent-dur', fmtDurWithCtx(rec.dur, rec.totalSec));
 }
 
 /* ══ 신고카드(v272)의 유일한 쓰기 통로 ══
@@ -5344,7 +5378,9 @@ function renderMyCard(rec){
   }
   const d=new Date(rec.at), p=n=>String(n).padStart(2,'0');
   const when=(d.getMonth()+1)+'월 '+d.getDate()+'일 '+p(d.getHours())+':'+p(d.getMinutes());
-  const durTx = rec.dur>=60 ? Math.floor(rec.dur/60)+'분 '+(rec.dur%60)+'초' : rec.dur+'초';
+  /* v280 — 내 신고카드의 "측정치"도 확인 화면·112 문자·전송 완료 화면과
+     같은 규칙(fmtDurWithCtx)을 써서 "N초 (측정 M초 중)" 맥락을 보여준다. */
+  const durTx = fmtDurWithCtx(rec.dur, rec.totalSec);
   if(sub) sub.textContent = rec.addr || '내 신고';
   if(summary) summary.innerHTML =
     '<div class="srow"><span class="sl">신고 시각</span><span class="sv">'+when+'</span></div>'+
