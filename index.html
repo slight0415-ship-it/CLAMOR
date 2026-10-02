@@ -3794,6 +3794,7 @@ let recAddrDone=false, recPlace=null;
    주소만 실제 위치를 따르고, 지도 배경 데이터는 그대로 둔다. */
 let realLoc=null, geoRequested=false;
 let geoGaveUp=false;   // 실제 위치를 포기하고 데모 주소로 대체해도 되는 시점
+let geoFirstReceived=false;   // GPS를 처음 받았는지 여부 — 첫 번째만 자동 센터링
 /* 목록 화면의 지도 로딩판 — 실제 위치를 받거나(realLoc) 완전히
    포기하기(geoGaveUp) 전까지 지도를 가려 둔다. 그 전까지는 절대
    데모 좌표(CENTER, 논현동)가 화면에 비쳐선 안 된다. */
@@ -3816,12 +3817,18 @@ function requestRealLocation(){
     recAddrDone=false; fillRecAddr();
     /* 신고 없이 그냥 들어온 시민은 여기서야 처음 실제 위치를 받는다.
        그 사이 데모 좌표(CENTER)로 열려 있던 메인화면 지도를 실제
-       위치로 옮기고, 내 위치 표시도 새로 그린다. */
-    if(!myReport){
+       위치로 옮기고, 내 위치 표시도 새로 그린다.
+       단, 사용자가 이미 지도를 다른 곳으로 옮겨 놓은 경우
+       (geoFirstReceived=true)에는 자동으로 리센터링하지 않는다 — 
+       사용자의 의도한 위치 이동을 존중한다. */
+    if(!myReport && !geoFirstReceived){
       const ls=document.getElementById('s-list');
       if(map && ls && !ls.hidden){
         map.setCenter(new kakao.maps.LatLng(realLoc.lat, realLoc.lng));
       }
+      geoFirstReceived=true;
+    } else if(!myReport) {
+      geoFirstReceived=true;
     }
     updateListLoading();
     if(typeof updateRealLocMarker==='function') updateRealLocMarker();
