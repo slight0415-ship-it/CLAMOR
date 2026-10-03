@@ -2578,7 +2578,7 @@ launchFallback=setTimeout(()=>document.documentElement.classList.remove('launch-
      이 버튼은 기다림을 건너뛰는 장치다. 무게를 낮춘다. */
   #s-rec #rec-now{font-size:1.125rem; padding:11px; border-radius:10px}
 
-/* CLAMOR v292 — presentation redesign; v292 interaction preserved */
+/* CLAMOR v293 — presentation redesign; v293 interaction preserved */
 :root{--c-time:#143B55;--c-pay:#176C78;--c-pay-2:#115460}
 body.light .screen{--ink:#F4F7FA;--ink-2:#FFF;--ink-3:#EAF0F5;--line:#DFE7EF;--text:#153149;--text-dim:#516779;--text-mute:#65798B;--stroke:#153149;background:#F4F7FA;color:#153149}
 body{background:#E5EBF1}body.light .phone{background:#F4F7FA;box-shadow:0 20px 70px #15314924}
@@ -2648,7 +2648,7 @@ body.light .ts-note{color:#6A8091}.brand-symbol{width:100%;height:100%;object-fi
 @media(max-width:560px){body,body.nodev{padding:0!important;background:#F4F7FA}.phone{width:100%!important;height:100dvh!important;border-radius:0!important;box-shadow:none!important}.nav,#tune,#tune-toggle{display:none!important}}
 
 
-/* v292 — bright, high-contrast measurement surface */
+/* v293 — bright, high-contrast measurement surface */
 body.light #s-rec .live-zone{background:#FFF;color:#172B3D;border:1px solid #DDE5EC;box-shadow:0 8px 24px #172B3D08;padding:20px 18px 18px;border-radius:22px}
 body.light #s-rec .meter{padding:4px 0 16px}
 body.light #s-rec .db{color:#152B3D;font-size:5rem;font-weight:800;letter-spacing:-.06em}
@@ -2678,7 +2678,7 @@ body.warming #s-rec .soundviz{opacity:1}body.warming #s-rec .db small{color:#365
 body.light #s-confirm .cf-note,body.light #s-confirm #recur-box{background:#FFF;border-color:#DFE7ED;border-radius:18px}
 
 
-/* v292 readability contract: main text 17px+, secondary 14px+.
+/* v293 readability contract: main text 17px+, secondary 14px+.
    Wrap content or allow scrolling rather than shrinking typography. */
 body.light #s-rec{font-size:1.0625rem;line-height:1.55}
 body.light #s-rec .rhead{flex-wrap:wrap;gap:8px 10px;padding:18px}
@@ -2726,14 +2726,14 @@ body.light #s-rec .pb{padding:16px 12px;gap:10px}
 body.light #s-rec .btn.ghost{font-size:1.0625rem;min-height:52px;margin-top:16px}
 
 
-/* v292: launch copy and best-effort platform color alignment */
+/* v293: launch copy and best-effort platform color alignment */
 html,body,body.light,body.light .phone{background:#F4F7FA!important;color-scheme:only light}
 body.light #s-splash .wordsub{font-size:1.0625rem;font-weight:650;line-height:1.65;max-width:340px;letter-spacing:-.025em;margin-top:10px;color:#415E70;text-wrap:balance}
 body.light #s-splash .splash-hint{font-size:1.0625rem;line-height:1.65;max-width:340px;margin-top:26px}
 @media(max-width:560px){.phone>.screen{top:env(safe-area-inset-top,0px);bottom:env(safe-area-inset-bottom,0px)}}
 
 
-/* v292 — cohesive civic UI. Data category colors on map remain semantic. */
+/* v293 — cohesive civic UI. Data category colors on map remain semantic. */
 :root{--brand:#087E83;--brand-strong:#086B70;--brand-soft:#ECF6F5;--ui-heading:#172F43;--ui-border:#DEE7EC}
 body.light .btn.primary{background:var(--brand-strong);color:#FFF;box-shadow:0 5px 14px #086B7015}
 body.light .btn.primary:hover{background:#075A5E}
@@ -2772,7 +2772,7 @@ body.light .ts-head .ts-c.now{background:#DDEFEA;color:var(--brand-strong)}
 body.light .ts-c.yes{color:var(--brand-strong)}
 
 
-/* v292: post-report card and browsing chrome */
+/* v293: post-report card and browsing chrome */
 body.light #s-cardconfirm .cc-head h2,body.light #s-mycard h2{color:#172F43}
 body.light #s-cardconfirm .cc-head p{font-size:1.0625rem;line-height:1.6;color:#415E70}
 body.light #s-cardconfirm .cc-sh{font-size:1.0625rem;color:#172F43}
@@ -2834,8 +2834,53 @@ body.light #v-detail .predbody .evrow{border-color:#DEE7EC}
 body.light #v-detail .wfsection-h,body.light #v-detail .wfday{color:#172F43;font-size:.9375rem}
 body.light #v-detail .wfhour,body.light #v-detail .wfcorner{color:#536C7C;font-size:.875rem;flex-basis:42px}
 body.light #v-detail .wflegend,body.light #v-detail .wfnote{color:#415E70;font-size:.8755rem;line-height:1.6}
+
+/* 위치 선택 화면: 지도와 안내가 한 화면 안에서 온전히 보이도록 */
+body.light #s-list{overflow:hidden}
+body.light #s-list .mhead,body.light #s-list .lsearch{flex:0 0 auto}
+body.light #s-list .lmap-wrap{height:auto;min-height:0;flex:1 1 0;overflow:hidden}
+body.light #s-list .lscroll{flex:0 1 30%;min-height:0}
+body.light #s-list.location-picker .lbar{display:none}
+body.light #s-list.location-picker .lscroll{flex:0 0 auto;padding:14px 16px calc(14px + env(safe-area-inset-bottom,0px));overflow:visible}
+body.light #s-list.location-picker .lempty{border:0;padding:0;background:transparent;gap:12px;font-size:1rem;line-height:1.6}
+body.light #s-list.location-picker .lempty b{color:#086B70}
+body.light #s-list.location-picker .lei{color:#086B70;background:#E3F1EE}
+body.light #s-list .mtitle{flex-wrap:wrap;gap:8px}
+body.light #s-list .msub{flex:0 0 auto;overflow:visible;display:flex;align-items:center;gap:8px}
+body.light .app-info-btn{font:inherit;font-size:.875rem;min-height:40px;padding:7px 10px;border:1px solid #D6E4E7;border-radius:10px;background:#FFF;color:#415E70;cursor:pointer}
+body.light .launch-version{position:absolute;bottom:calc(28px + env(safe-area-inset-bottom,0px));font-size:.875rem;line-height:1.5;color:#536C7C}
+.app-info-dialog{margin:auto;width:min(380px,calc(100vw - 32px));padding:24px;border:1px solid #DEE7EC;border-radius:22px;background:#FFF;color:#172F43;box-shadow:0 20px 60px #172F4330}
+.app-info-dialog::backdrop{background:#172F4355}
+.app-info-dialog h2{font-size:1.375rem;line-height:1.5;margin-bottom:16px}
+.app-info-dialog p{font-size:1.125rem;line-height:1.6;margin-bottom:16px}
+.app-info-dialog .app-info-note{font-size:1rem;color:#415E70}
+.app-info-dialog .btn{width:100%;min-height:48px;margin-top:10px;font-size:1.0625rem}
+body.light #v-detail .distribution-label{margin-top:18px;font-size:.9375rem;color:#536C7C;font-weight:700}
+body.light #v-detail .typegrid.with-hours .tyrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;padding:16px 0}
+body.light #v-detail .typegrid.with-hours .tyname{width:auto;font-size:1.0625rem;white-space:normal;line-height:1.5}
+body.light #v-detail .typegrid.with-hours .tycnt{font-size:1.125rem;grid-column:2;grid-row:1}
+body.light #v-detail .hour-spectrum{grid-column:1/-1;width:100%;height:52px}
+body.light #v-detail .hour-spectrum svg{display:block;width:100%;height:100%;overflow:visible}
+body.light #v-detail .hour-spectrum rect{animation:history-glow 2.6s ease-in-out infinite}
+body.light #v-detail .tglab{padding-left:0;font-size:.9375rem;color:#536C7C}
+body.light #v-detail .impact .hot,body.light #v-detail .impact b.hot{color:#086B70}
+@keyframes history-glow{0%,100%{opacity:.78}50%{opacity:1}}
+@media(prefers-reduced-motion:reduce){body.light #v-detail .hour-spectrum rect{animation:none}}
+
+body.light #v-detail .impact .im2-value b{color:#086B70}
+body.light #v-detail .impact .im2-label{font-size:1rem;color:#24465B}
+body.light #v-detail .impact .im2-sub{font-size:.875rem;color:#536C7C}
+body.light #v-detail .impact .im2-row{flex-wrap:wrap;gap:8px}
+body.light #v-detail .impact .im2-value{margin-left:auto}
 </style>
 
+<dialog id="app-info-dialog" class="app-info-dialog" aria-labelledby="app-info-title">
+  <h2 id="app-info-title">CLAMOR 앱 정보</h2>
+  <p>현재 버전 <strong>v293</strong></p>
+  <p class="app-info-note">시연용 · 실제 신고 전송과 결제는 진행되지 않습니다.</p>
+  <button class="btn primary" id="app-info-tiers" type="button">시연용 등급 선택</button>
+  <button class="btn ghost" id="app-info-close" type="button">닫기</button>
+</dialog>
 <div class="nav">
   <button data-go="splash">1 시작</button>
   <button data-go="rec">2 녹음</button>
@@ -2879,6 +2924,7 @@ body.light #v-detail .wflegend,body.light #v-detail .wfnote{color:#415E70;font-s
 
 
     <div class="boot"><i></i></div>
+    <span class="launch-version">v293 · 시연용</span>
   </section>
   <!-- ══ 2 ══ -->
   <section class="screen" id="s-rec" hidden>
@@ -3135,7 +3181,7 @@ body.light #v-detail .wflegend,body.light #v-detail .wfnote{color:#415E70;font-s
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v292</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v293</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -3506,7 +3552,7 @@ body.light #v-detail .wflegend,body.light #v-detail .wfnote{color:#415E70;font-s
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <span class="ver" id="ver2">v292</span></div>
+          <button class="app-info-btn" id="app-info-btn" type="button" aria-label="앱 정보 및 버전 확인">앱 정보</button><span class="ver" id="ver2" hidden>v293</span></div>
       </div>
     </div>
 
@@ -3563,7 +3609,7 @@ body.light #v-detail .wflegend,body.light #v-detail .wfnote{color:#415E70;font-s
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg><span id="map-screen-title">우리 동네 소음 지도</span></h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v292</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v293</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -3731,6 +3777,12 @@ function openTierSheet(force){
      네 등급 모두 동등하게 '열기'를 눌러야 하는 상태다. tierbar 등으로
      이미 지도를 보고 있는 상태에서 다시 연 경우에만 현재 등급을 강조한다. */
   const nowTier = pendingListCenter ? -1 : tier;
+  const browseScreen=document.getElementById('s-map');
+  const browseCenter=map && browseScreen && !browseScreen.hidden ? map.getCenter() : null;
+  const tierViewTarget=pendingListCenter ? {...pendingListCenter} :
+    (browseCenter ? {lat:browseCenter.getLat(),lng:browseCenter.getLng()} : null);
+  const tierViewLevel=browseCenter ? map.getLevel() : null;
+
   /* force===true는 개발용 통로(버전 번호 탭, 상단 개발 네비 "등급" 버튼)로
      열었다는 뜻이다. 수사 등급은 '서비스 운영자도 열 수 없다'는 약속이라
      실사용자 흐름(이 위치 확인/유료 업그레이드)에서는 절대 눌리면 안 되지만,
@@ -3784,7 +3836,7 @@ function openTierSheet(force){
       /* '진짜 메인화면'에서 위치를 확인하고 넘어온 경우 — 그 좌표를 들고
          등급 화면(비즈니스모델)을 그 자리에서 연다. 테스트 중이므로 결제
          없이 어떤 등급이든 '열기'만 누르면 바로 보인다. */
-      const target=pendingListCenter; pendingListCenter=null;
+      const target=tierViewTarget; pendingListCenter=null;
       if(target){
         selectedViewCenter={lat:target.lat,lng:target.lng};
         freeAnchor={...selectedViewCenter};   // 무료 등급 300m 제한의 기준점 — 확인한 그 위치 ("이 위치 확인" 시에만)
@@ -3799,7 +3851,8 @@ function openTierSheet(force){
              확대 폭이 클수록(등급을 크게 건너뛸수록) 이 공백이 길게
              체감된다 — 애니메이션 없이 즉시 옮겨 build()와 같은 틱에서
              핀 위치가 맞아떨어지게 한다. */
-          if(T2.maxLv) map.setLevel(T2.maxLv);
+          if(tierViewLevel!=null) map.setLevel(Math.max(tierViewLevel,T2.maxLv||1));
+          else if(T2.maxLv) map.setLevel(T2.maxLv);
           if(typeof build==='function') build();
           if(typeof tierBanner==='function') tierBanner();
           const badge2=document.getElementById('tierbadge');
@@ -3943,13 +3996,13 @@ const PIN_SVG='<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true
 let listRows=[], nameCursor=0;
 function renderList(){
   const box=document.getElementById('lscroll'); if(!box||!map) return;
+  document.getElementById('s-list').classList.toggle('location-picker',!revealed);
   /* 이동만으로는 절대 드러나지 않는다 — '이 위치 확인'을 누르기 전에는
      카드 목록도 비어 있는 것이 맞다. */
   if(!revealed){
     box.classList.add('is-empty');
     box.innerHTML='<div class="lempty"><span class="lei">'+PIN_SVG+'</span>'+
-      '<span>지도를 원하는 곳으로 옮긴 뒤 <b>이 위치 확인</b>을 누르면<br>'+
-      '등급을 선택할 수 있습니다</span></div>';
+      '<span><b>이 위치 확인</b>을 누르면<br>등급별 소음 정보를 볼 수 있습니다.</span></div>';
     document.getElementById('lcount').textContent='0곳';
     document.getElementById('llabel').textContent='아직 확인 전';
     return;
@@ -5465,7 +5518,7 @@ document.getElementById('sms-send').onclick=()=>{
 /* ══ 보낸 기록 ══
    보낸 뒤 사용자는 앱을 놓는다. 다시 열었을 때 처음부터 시작하면 방금
    무엇을 보냈는지 알 수 없다. 폰에 사본을 남겨 둔다. */
-/* v292 test reports live only in this document instance.
+/* v293 test reports live only in this document instance.
    Public-data forecasts and curated demo points are untouched. */
 const testReportMemory=new Map();
 const testReportStorage={
@@ -6689,6 +6742,7 @@ function showDetail(s){
      TypeError로 죽었다 — el이 있을 때만 선택 표시를 건드리게 한다. */
   if(active && active.el) active.el.classList.remove('on');
   active=s; if(s.el) s.el.classList.add('on');
+  selectedViewCenter={lat:s.c.lat,lng:s.c.lng};
   map.panTo(new kakao.maps.LatLng(s.c.lat,s.c.lng));
   document.getElementById('d-name').textContent=s.name;
   document.getElementById('d-n').textContent=s.n+'건 / 30일';
@@ -7101,6 +7155,17 @@ const TYPE_LABEL_LONG={'동물':'반려동물 짖음','바이크':'차량·바�
    부풀려 두므로, 원본 개수를 그대로 쓰면 "6종 합계가 위 총 건수와 안 맞는"
    모순이 생긴다. 유형별 시간대 분포(스파크라인)는 유형명 오른쪽에 바로
    붙여 "이 유형이 언제 몰리는지"를 한눈에 비교할 수 있게 한다. */
+let hourlySpectrumSerial=0;
+function hourlySpectrumHTML(hours,typeIndex){
+  const peak=Math.max(...hours,0.0001),id='hour-spectrum-'+(++hourlySpectrumSerial);
+  const bars=hours.map((value,h)=>{
+    const height=Math.max(3,Math.round(value/peak*42));
+    return '<rect x="'+(h*12+1)+'" y="'+(48-height)+'" width="8" height="'+height+'" rx="3" fill="url(#'+id+')" style="animation-delay:'+((h*83+typeIndex*117)%1600)+'ms"/>';
+  }).join('');
+  return '<div class="hour-spectrum"><svg viewBox="0 0 288 52" preserveAspectRatio="none" role="img" aria-label="24시간 소음 분포">'+
+    '<defs><linearGradient id="'+id+'" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#075F79"/><stop offset=".55" stop-color="#087E83"/><stop offset="1" stop-color="#19A693"/></linearGradient></defs>'+
+    '<path d="M0 49H288 M0 26H288" stroke="#E4EEEF" stroke-width="1"/>'+bars+'</svg></div>';
+}
 function reportBreakdownHTML(s, T){
   const hasHours = !!(T && T.hours);
   const rows = TYPES.map((t,i)=>{
@@ -7119,16 +7184,7 @@ function reportBreakdownHTML(s, T){
        박자로 움직이면 그냥 한 번에 깜빡이는 것으로 보여 '살아있는'
        느낌이 안 난다(v256 후속, 동적 효과 요청). */
     const spark = hasHours
-      ? '<div class="tyspark">'+hrs.map((v,h)=>{
-          const hp=Math.max(4,Math.round(v/mx*100));
-          const dly=(h*173+i*91)%900, dur=820+((h*57+i*130)%460);
-          /* 막대 높이(hp)만 넘기면 색은 CSS의 고정 배경-창 기법이
-             임계치에 따라 알아서 회색→주황→빨강으로 보여준다(v261 후속).
-             --h에 이 막대의 목표 높이를 넣어두면(v262 후속), 애니메이션이
-             그 값을 기준으로 실제 height를 오르내리며 자라나므로, 낮을 땐
-             회색만 있다가 자라면서 진짜로 주황·빨강이 드러난다. */
-          return '<i style="--h:'+hp+'%; height:'+hp+'%; animation-delay:'+dly+'ms; animation-duration:'+dur+'ms"></i>';
-        }).join('')+'</div>'
+      ? hourlySpectrumHTML(hrs,i)
       : '<div class="tyspark typct'+(cnt?'':' zero')+'"><i style="width:'+(cnt?Math.max(4,pct):0)+'%"></i></div>';
     return '<div class="tyrow'+(cnt?'':' zero')+'">'+
       '<span class="tyname">'+(TYPE_LABEL_LONG[t.k]||t.k)+'</span>'+
@@ -7142,7 +7198,8 @@ function reportBreakdownHTML(s, T){
     '<div class="bh">이 구역에 신고된 내용</div>'+
     '<div class="repn">30일간 <b>'+s.n+'건</b>의 신고'+
       ((T && T.log && !s.cov)?' · <span class="mtag blind">CCTV 사각</span>':'')+'</div>'+
-    '<div class="typegrid">'+rows+'</div>'+
+    (hasHours?'<div class="distribution-label">24시간 소음 분포</div>':'')+
+    '<div class="typegrid'+(hasHours?' with-hours':'')+'">'+rows+'</div>'+
     (hasHours ? '<div class="hlab tglab"><span>00</span><span>06</span><span>12</span><span>18</span><span>23</span></div>' : '')+
   '</div>';
 }
@@ -7826,6 +7883,16 @@ function initTierDemo(){
    탭하는 것을 그 대체 통로로 쓴다 — 화면을 어지럽히는 새 버튼을 추가하지
    않고도 폰에서 항상 접근할 수 있다. */
 function initVerTap(){
+  const info=document.getElementById('app-info-dialog');
+  document.getElementById('app-info-btn').onclick=()=>info.showModal();
+  document.getElementById('app-info-close').onclick=()=>info.close();
+  document.getElementById('app-info-tiers').onclick=()=>{
+    info.close();
+    const list=document.getElementById('s-list');
+    if(map && list && !list.hidden){const c=map.getCenter();pendingListCenter={lat:c.getLat(),lng:c.getLng()};}
+    openTierSheet(true);
+  };
+
   document.querySelectorAll('.ver').forEach(v=>{
     v.style.cursor='pointer';
     v.onclick=e=>{ e.stopPropagation(); openTierSheet(true); };
