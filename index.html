@@ -12,7 +12,10 @@
 <style>
 html{color-scheme:only light;background:#F4F7FA}
 body{background:#F4F7FA!important}
-html.launch-pending #s-splash .splash-top,html.launch-pending #s-splash .boot{visibility:hidden}
+html.launch-pending .phone>.screen:not(#s-splash){visibility:hidden!important}
+html.launch-pending #s-splash{visibility:visible!important;background:#F4F7FA!important;z-index:100}
+html.launch-pending #s-splash>*{visibility:hidden}
+html.launch-pending::after{content:'';position:fixed;inset:0;background:#F4F7FA;z-index:9999;pointer-events:none}
 </style>
 <script>
 document.documentElement.classList.add('launch-pending');
@@ -2578,7 +2581,7 @@ launchFallback=setTimeout(()=>document.documentElement.classList.remove('launch-
      이 버튼은 기다림을 건너뛰는 장치다. 무게를 낮춘다. */
   #s-rec #rec-now{font-size:1.125rem; padding:11px; border-radius:10px}
 
-/* CLAMOR v293 — presentation redesign; v293 interaction preserved */
+/* CLAMOR v294 — presentation redesign; v294 interaction preserved */
 :root{--c-time:#143B55;--c-pay:#176C78;--c-pay-2:#115460}
 body.light .screen{--ink:#F4F7FA;--ink-2:#FFF;--ink-3:#EAF0F5;--line:#DFE7EF;--text:#153149;--text-dim:#516779;--text-mute:#65798B;--stroke:#153149;background:#F4F7FA;color:#153149}
 body{background:#E5EBF1}body.light .phone{background:#F4F7FA;box-shadow:0 20px 70px #15314924}
@@ -2648,7 +2651,7 @@ body.light .ts-note{color:#6A8091}.brand-symbol{width:100%;height:100%;object-fi
 @media(max-width:560px){body,body.nodev{padding:0!important;background:#F4F7FA}.phone{width:100%!important;height:100dvh!important;border-radius:0!important;box-shadow:none!important}.nav,#tune,#tune-toggle{display:none!important}}
 
 
-/* v293 — bright, high-contrast measurement surface */
+/* v294 — bright, high-contrast measurement surface */
 body.light #s-rec .live-zone{background:#FFF;color:#172B3D;border:1px solid #DDE5EC;box-shadow:0 8px 24px #172B3D08;padding:20px 18px 18px;border-radius:22px}
 body.light #s-rec .meter{padding:4px 0 16px}
 body.light #s-rec .db{color:#152B3D;font-size:5rem;font-weight:800;letter-spacing:-.06em}
@@ -2678,7 +2681,7 @@ body.warming #s-rec .soundviz{opacity:1}body.warming #s-rec .db small{color:#365
 body.light #s-confirm .cf-note,body.light #s-confirm #recur-box{background:#FFF;border-color:#DFE7ED;border-radius:18px}
 
 
-/* v293 readability contract: main text 17px+, secondary 14px+.
+/* v294 readability contract: main text 17px+, secondary 14px+.
    Wrap content or allow scrolling rather than shrinking typography. */
 body.light #s-rec{font-size:1.0625rem;line-height:1.55}
 body.light #s-rec .rhead{flex-wrap:wrap;gap:8px 10px;padding:18px}
@@ -2726,14 +2729,14 @@ body.light #s-rec .pb{padding:16px 12px;gap:10px}
 body.light #s-rec .btn.ghost{font-size:1.0625rem;min-height:52px;margin-top:16px}
 
 
-/* v293: launch copy and best-effort platform color alignment */
+/* v294: launch copy and best-effort platform color alignment */
 html,body,body.light,body.light .phone{background:#F4F7FA!important;color-scheme:only light}
 body.light #s-splash .wordsub{font-size:1.0625rem;font-weight:650;line-height:1.65;max-width:340px;letter-spacing:-.025em;margin-top:10px;color:#415E70;text-wrap:balance}
 body.light #s-splash .splash-hint{font-size:1.0625rem;line-height:1.65;max-width:340px;margin-top:26px}
 @media(max-width:560px){.phone>.screen{top:env(safe-area-inset-top,0px);bottom:env(safe-area-inset-bottom,0px)}}
 
 
-/* v293 — cohesive civic UI. Data category colors on map remain semantic. */
+/* v294 — cohesive civic UI. Data category colors on map remain semantic. */
 :root{--brand:#087E83;--brand-strong:#086B70;--brand-soft:#ECF6F5;--ui-heading:#172F43;--ui-border:#DEE7EC}
 body.light .btn.primary{background:var(--brand-strong);color:#FFF;box-shadow:0 5px 14px #086B7015}
 body.light .btn.primary:hover{background:#075A5E}
@@ -2772,7 +2775,7 @@ body.light .ts-head .ts-c.now{background:#DDEFEA;color:var(--brand-strong)}
 body.light .ts-c.yes{color:var(--brand-strong)}
 
 
-/* v293: post-report card and browsing chrome */
+/* v294: post-report card and browsing chrome */
 body.light #s-cardconfirm .cc-head h2,body.light #s-mycard h2{color:#172F43}
 body.light #s-cardconfirm .cc-head p{font-size:1.0625rem;line-height:1.6;color:#415E70}
 body.light #s-cardconfirm .cc-sh{font-size:1.0625rem;color:#172F43}
@@ -2872,11 +2875,23 @@ body.light #v-detail .impact .im2-label{font-size:1rem;color:#24465B}
 body.light #v-detail .impact .im2-sub{font-size:.875rem;color:#536C7C}
 body.light #v-detail .impact .im2-row{flex-wrap:wrap;gap:8px}
 body.light #v-detail .impact .im2-value{margin-left:auto}
+
+/* 초기화면의 모든 요소를 불투명한 한 화면 안에 배치 */
+body.light #s-splash{background:#F4F7FA;isolation:isolate;z-index:100;padding:28px 24px 130px;justify-content:center}
+body.light #s-splash .splash-top{transform:translateY(-24px);gap:16px;width:100%}
+body.light #s-splash .wordsub{font-size:1.125rem;line-height:1.6;font-weight:700;margin-top:4px;color:#415E70}
+body.light #s-splash .splash-hint{font-size:1.0625rem;line-height:1.65;margin-top:22px;text-wrap:balance}
+body.light #s-splash .boot{height:4px;width:110px;margin-top:10px;flex:0 0 auto}
+body.light #s-splash .boot i{animation-duration:3.6s}
+body.light #s-splash .launch-footer{position:absolute;left:20px;right:20px;bottom:calc(30px + env(safe-area-inset-bottom,0px));text-align:center;display:flex;flex-direction:column;gap:12px}
+body.light #s-splash .launch-partner{font-size:1rem;line-height:1.6;font-weight:700;color:#24465B;word-break:keep-all}
+body.light #s-splash .launch-version{position:static;font-size:.9375rem;line-height:1.5;font-weight:700;color:#415E70;display:block}
+@media(max-height:640px){body.light #s-splash{padding-bottom:110px}body.light #s-splash .mark{width:72px;height:72px}body.light #s-splash .wordmark{font-size:2.5rem}body.light #s-splash .splash-top{transform:translateY(-12px);gap:10px}body.light #s-splash .splash-hint{margin-top:12px}}
 </style>
 
 <dialog id="app-info-dialog" class="app-info-dialog" aria-labelledby="app-info-title">
   <h2 id="app-info-title">CLAMOR 앱 정보</h2>
-  <p>현재 버전 <strong>v293</strong></p>
+  <p>현재 버전 <strong>v294</strong></p>
   <p class="app-info-note">시연용 · 실제 신고 전송과 결제는 진행되지 않습니다.</p>
   <button class="btn primary" id="app-info-tiers" type="button">시연용 등급 선택</button>
   <button class="btn ghost" id="app-info-close" type="button">닫기</button>
@@ -2917,14 +2932,17 @@ body.light #v-detail .impact .im2-value{margin-left:auto}
       <div class="mark"><img class="brand-symbol" src="icon-512.png" alt="CLAMOR 로고">
       </div>
       <div class="wordmark">CLAMOR</div>
-      <div class="wordsub">AI 기반 생활 소음 실시간 분석 및 신고·예보 시스템</div>
+      <div class="wordsub">AI로 보는 우리 동네 소음</div>
       <div class="splash-hint">지금 소음이 있다면 <b>폰을 두 번 흔들어</b> 신고를 시작하세요</div>
     </div>
 
 
 
     <div class="boot"><i></i></div>
-    <span class="launch-version">v293 · 시연용</span>
+    <div class="launch-footer">
+      <p class="launch-partner">중소벤처기업진흥공단과 함께합니다.</p>
+      <span class="launch-version">v294 · 시연용</span>
+    </div>
   </section>
   <!-- ══ 2 ══ -->
   <section class="screen" id="s-rec" hidden>
@@ -3181,7 +3199,7 @@ body.light #v-detail .impact .im2-value{margin-left:auto}
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v293</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v294</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -3552,7 +3570,7 @@ body.light #v-detail .impact .im2-value{margin-left:auto}
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <button class="app-info-btn" id="app-info-btn" type="button" aria-label="앱 정보 및 버전 확인">앱 정보</button><span class="ver" id="ver2" hidden>v293</span></div>
+          <button class="app-info-btn" id="app-info-btn" type="button" aria-label="앱 정보 및 버전 확인">앱 정보</button><span class="ver" id="ver2" hidden>v294</span></div>
       </div>
     </div>
 
@@ -3609,7 +3627,7 @@ body.light #v-detail .impact .im2-value{margin-left:auto}
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg><span id="map-screen-title">우리 동네 소음 지도</span></h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v293</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v294</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -4747,7 +4765,7 @@ loadZoningData();   // 인천 용도지역 표 — 녹음 화면 도달 전에 �
    들어간다 — 스플래시 안내 문구("지금 소음이 있다면 폰을 두 번 흔들어
    신고를 시작하세요")가 실제로 앱을 쓰는 내내 성립하게 된다. */
 (function shakeToReport(){
-  const DECIDE_MS=2600;          // 스플래시 화면— 이 시간 안에 못 흔들면 메인화면으로
+  const DECIDE_MS=3600;          // 스플래시 화면— 이 시간 안에 못 흔들면 메인화면으로
   const SHAKE_ACC=16;            // m/s² — 흔든 것으로 볼 가속도 크기
   const SHAKE_GAP_MS=250;        // 흔든 것으로 다시 셀 최소 간격(잔떨림 방지)
   const SHAKE_WINDOW_MS=1500;    // 두 번째 흔듦이 이 시간 안에 와야 "두 번 흔들었다"로 본다
@@ -4797,7 +4815,13 @@ loadZoningData();   // 인천 용도지역 표 — 녹음 화면 도달 전에 �
   requestMotion();
   const sp=document.getElementById('s-splash');
   if(sp) sp.addEventListener('click', requestMotion, {once:true});
-  setTimeout(()=>decideSplash(false), DECIDE_MS);
+  let splashTimer;
+  function beginSplashDecision(){
+    clearTimeout(splashTimer);
+    splashTimer=setTimeout(()=>decideSplash(false),DECIDE_MS);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',beginSplashDecision,{once:true});
+  else beginSplashDecision();
 })();
 
 /* ══ 녹음 화면 시뮬레이션 ══ */
@@ -5518,7 +5542,7 @@ document.getElementById('sms-send').onclick=()=>{
 /* ══ 보낸 기록 ══
    보낸 뒤 사용자는 앱을 놓는다. 다시 열었을 때 처음부터 시작하면 방금
    무엇을 보냈는지 알 수 없다. 폰에 사본을 남겨 둔다. */
-/* v293 test reports live only in this document instance.
+/* v294 test reports live only in this document instance.
    Public-data forecasts and curated demo points are untouched. */
 const testReportMemory=new Map();
 const testReportStorage={
