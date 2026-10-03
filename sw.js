@@ -1,5 +1,5 @@
-/* CLAMOR v295: latest successful same-origin resources, offline fallback */
-const CACHE_NAME='clamor-cache-v295';
+/* CLAMOR v296: latest successful same-origin resources, offline fallback */
+const CACHE_NAME='clamor-cache-v296';
 const CORE=['./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png'];
 self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(CACHE_NAME).then(c=>Promise.allSettled(CORE.map(u=>c.add(u)))));});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k.startsWith('clamor-cache-')&&k!==CACHE_NAME).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
