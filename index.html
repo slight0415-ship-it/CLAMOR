@@ -35,6 +35,16 @@ body.light #v-detail .hour-color-key{display:flex;flex-wrap:wrap;gap:6px 12px;fo
 body.light #v-detail .hour-color-key span{display:inline-flex;align-items:center;gap:5px}
 body.light #v-detail .hour-color-key i{display:inline-block;width:9px;height:9px;border-radius:3px}
 .eq-green{background:#087E83}.eq-orange{background:#ED9429}.eq-red{background:#D94B48}
+
+#rankbox:empty{display:none!important}
+body.light .evidence-card{margin:20px 0 0;padding:18px 16px;border:1px solid #D9E6E9;border-radius:16px;background:#FFF;color:#24465B}
+body.light .evidence-card.public-evidence{background:#F0F7F6;border-color:#C7DFDB}
+body.light .evidence-card h3{margin:0;font-size:20px;line-height:1.5;color:#172F43}
+body.light .public-evidence h3{color:#086B70}
+body.light .evidence-caption{margin:6px 0 14px;font-size:14px;line-height:1.6;color:#536C7C}
+body.light .evidence-item{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:10px;padding:14px 0;border-top:1px solid #DEE8EB;font-size:17px;line-height:1.5}
+body.light .evidence-item strong{font-size:18px;color:#172F43;text-align:right;white-space:nowrap}
+body.light .evidence-footnote{font-size:14px;line-height:1.6;margin:12px 0 0;color:#536C7C}
 </style>
 <script>
 document.documentElement.classList.add('launch-pending');
@@ -2600,7 +2610,7 @@ launchFallback=setTimeout(()=>document.documentElement.classList.remove('launch-
      이 버튼은 기다림을 건너뛰는 장치다. 무게를 낮춘다. */
   #s-rec #rec-now{font-size:1.125rem; padding:11px; border-radius:10px}
 
-/* CLAMOR v300 — presentation redesign; v300 interaction preserved */
+/* CLAMOR v301 — presentation redesign; v301 interaction preserved */
 :root{--c-time:#143B55;--c-pay:#176C78;--c-pay-2:#115460}
 body.light .screen{--ink:#F4F7FA;--ink-2:#FFF;--ink-3:#EAF0F5;--line:#DFE7EF;--text:#153149;--text-dim:#516779;--text-mute:#65798B;--stroke:#153149;background:#F4F7FA;color:#153149}
 body{background:#E5EBF1}body.light .phone{background:#F4F7FA;box-shadow:0 20px 70px #15314924}
@@ -2670,7 +2680,7 @@ body.light .ts-note{color:#6A8091}.brand-symbol{width:100%;height:100%;object-fi
 @media(max-width:560px){body,body.nodev{padding:0!important;background:#F4F7FA}.phone{width:100%!important;height:100dvh!important;border-radius:0!important;box-shadow:none!important}.nav,#tune,#tune-toggle{display:none!important}}
 
 
-/* v300 — bright, high-contrast measurement surface */
+/* v301 — bright, high-contrast measurement surface */
 body.light #s-rec .live-zone{background:#FFF;color:#172B3D;border:1px solid #DDE5EC;box-shadow:0 8px 24px #172B3D08;padding:20px 18px 18px;border-radius:22px}
 body.light #s-rec .meter{padding:4px 0 16px}
 body.light #s-rec .db{color:#152B3D;font-size:5rem;font-weight:800;letter-spacing:-.06em}
@@ -2700,7 +2710,7 @@ body.warming #s-rec .soundviz{opacity:1}body.warming #s-rec .db small{color:#365
 body.light #s-confirm .cf-note,body.light #s-confirm #recur-box{background:#FFF;border-color:#DFE7ED;border-radius:18px}
 
 
-/* v300 readability contract: main text 17px+, secondary 14px+.
+/* v301 readability contract: main text 17px+, secondary 14px+.
    Wrap content or allow scrolling rather than shrinking typography. */
 body.light #s-rec{font-size:1.0625rem;line-height:1.55}
 body.light #s-rec .rhead{flex-wrap:wrap;gap:8px 10px;padding:18px}
@@ -2748,14 +2758,14 @@ body.light #s-rec .pb{padding:16px 12px;gap:10px}
 body.light #s-rec .btn.ghost{font-size:1.0625rem;min-height:52px;margin-top:16px}
 
 
-/* v300: launch copy and best-effort platform color alignment */
+/* v301: launch copy and best-effort platform color alignment */
 html,body,body.light,body.light .phone{background:#F4F7FA!important;color-scheme:only light}
 body.light #s-splash .wordsub{font-size:1.0625rem;font-weight:650;line-height:1.65;max-width:340px;letter-spacing:-.025em;margin-top:10px;color:#415E70;text-wrap:balance}
 body.light #s-splash .splash-hint{font-size:1.0625rem;line-height:1.65;max-width:340px;margin-top:26px}
 @media(max-width:560px){.phone>.screen{top:env(safe-area-inset-top,0px);bottom:env(safe-area-inset-bottom,0px)}}
 
 
-/* v300 — cohesive civic UI. Data category colors on map remain semantic. */
+/* v301 — cohesive civic UI. Data category colors on map remain semantic. */
 :root{--brand:#087E83;--brand-strong:#086B70;--brand-soft:#ECF6F5;--ui-heading:#172F43;--ui-border:#DEE7EC}
 body.light .btn.primary{background:var(--brand-strong);color:#FFF;box-shadow:0 5px 14px #086B7015}
 body.light .btn.primary:hover{background:#075A5E}
@@ -2794,7 +2804,7 @@ body.light .ts-head .ts-c.now{background:#DDEFEA;color:var(--brand-strong)}
 body.light .ts-c.yes{color:var(--brand-strong)}
 
 
-/* v300: post-report card and browsing chrome */
+/* v301: post-report card and browsing chrome */
 body.light #s-cardconfirm .cc-head h2,body.light #s-mycard h2{color:#172F43}
 body.light #s-cardconfirm .cc-head p{font-size:1.0625rem;line-height:1.6;color:#415E70}
 body.light #s-cardconfirm .cc-sh{font-size:1.0625rem;color:#172F43}
@@ -3041,7 +3051,7 @@ body.light .quiet-timeline>p{font-size:.875rem;line-height:1.7;color:#536C7C}
 </dialog>
 <dialog id="app-info-dialog" class="app-info-dialog" aria-labelledby="app-info-title">
   <h2 id="app-info-title">CLAMOR 앱 정보</h2>
-  <p>현재 버전 <strong>v300</strong></p>
+  <p>현재 버전 <strong>v301</strong></p>
   <p class="app-info-note">시연용 · 실제 신고 전송과 결제는 진행되지 않습니다.</p>
   <button class="btn primary" id="app-info-tiers" type="button">시연용 등급 선택</button>
   <button class="btn ghost" id="app-info-close" type="button">닫기</button>
@@ -3091,7 +3101,7 @@ body.light .quiet-timeline>p{font-size:.875rem;line-height:1.7;color:#536C7C}
     <div class="boot"><i></i></div>
     <div class="launch-footer">
       <p class="launch-partner">중소벤처기업진흥공단과 함께합니다.</p>
-      <span class="launch-version">v300 · 시연용</span>
+      <span class="launch-version">v301 · 시연용</span>
     </div>
   </section>
   <!-- ══ 2 ══ -->
@@ -3358,7 +3368,7 @@ body.light .quiet-timeline>p{font-size:.875rem;line-height:1.7;color:#536C7C}
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v300</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v301</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -3730,7 +3740,7 @@ body.light .quiet-timeline>p{font-size:.875rem;line-height:1.7;color:#536C7C}
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <button class="app-info-btn" id="app-info-btn" type="button" aria-label="앱 정보 및 버전 확인">앱 정보</button><span class="ver" id="ver2" hidden>v300</span></div>
+          <button class="app-info-btn" id="app-info-btn" type="button" aria-label="앱 정보 및 버전 확인">앱 정보</button><span class="ver" id="ver2" hidden>v301</span></div>
       </div>
     </div>
 
@@ -3787,7 +3797,7 @@ body.light .quiet-timeline>p{font-size:.875rem;line-height:1.7;color:#536C7C}
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg><span id="map-screen-title">우리 동네 소음 지도</span></h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v300</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v301</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -5719,7 +5729,7 @@ document.getElementById('sms-send').onclick=()=>{
 /* ══ 보낸 기록 ══
    보낸 뒤 사용자는 앱을 놓는다. 다시 열었을 때 처음부터 시작하면 방금
    무엇을 보냈는지 알 수 없다. 폰에 사본을 남겨 둔다. */
-/* v300 test reports live only in this document instance.
+/* v301 test reports live only in this document instance.
    Public-data forecasts and curated demo points are untouched. */
 const sessionReportHistory=[];
 const testReportMemory=new Map();
@@ -7858,37 +7868,11 @@ function bandOf(h){
    상세(forecastHTML) 두 화면이 똑같은 계산(worst/peakH/nights/calm)을
    각자 하고 있어, 값 자체는 그대로 두고 마크업만 이 함수로 공유한다. */
 function impactHTML(s, worst, peakH, nights, calm){
-  const hh=String(peakH).padStart(2,'0');
-  let rows='<div class="im2-row"><span class="im2-label">소음 발생 빈도</span>'+
-    '<span class="im2-value">30일 중 <b>'+nights+'일</b> '+(calm?'미만':'이상')+'</span></div>';
-  if(!calm){
-    /* v261 후속 — 무료 등급에서 "새벽 (  )시"처럼 띠 이름(bandOf)과 마스킹을
-       같이 보여주면, 숫자만 가렸을 뿐 이미 "새벽"이라는 시간대 정보를 다
-       준 것이나 마찬가지라는 지적. 유료(실제 시각을 보여줄 때)만 띠 이름을
-       함께 쓰고, 무료(마스킹할 때)는 띠 이름 없이 빈칸만 보여준다. */
-    rows+='<div class="im2-row"><span class="im2-label">소음 발생 시각</span>'+
-      '<span class="im2-value">'+(paid
-        ? bandOf(peakH)+' <b>'+hh+'시</b><i class="im2-sub">('+DAYS[worst]+'요일 최다)</i>'
-        : '<span class="mask"></span>시<i class="lk">🔒</i>')+'</span></div>'+
-      /* 소음 강도(dB) 역시 예전엔 등급과 상관없이 실제 수치를 그대로
-         보여주고 있었다 — 무료에서도 숫자가 새어나온 것. 시각 행과
-         똑같이 유료부터만 실제 값을 보여주도록 맞춘다. */
-      '<div class="im2-row"><span class="im2-label">소음 강도 수준</span>'+
-      '<span class="im2-value">'+(paid
-        ? '<b>'+(s.db+5)+'</b>dB<i class="im2-sub">('+dbFeel(s.db+5)+' 수준)</i>'
-        : '<span class="mask"></span>dB<i class="lk">🔒</i>')+'</span></div>';
-  }
-  /* v261에서 무료만 먼저 고쳤던 "OO배 크게 들려요" 문구 — v262 후속으로
-     유료도 같이 뗀다. "45dB보다 10배 크게 들려요"는 곧이곧대로 읽으면
-     450dB처럼 들리는, 뜻이 통하지 않는 문장이라는 지적("의미없는 문장").
-     제대로 된 체감 표현은 더 고민이 필요하니, 일단 등급 상관없이 배수
-     계산 없는 문장 하나로 통일해 둔다. */
-  const note = calm
-    ? '기준을 넘는 소음이 관측됩니다. <b>대체로 조용한 편</b>입니다.'
-    : '야간 기준(45dB)보다 크게 들려요.';
-  return '<div class="ihead">매달 <span class="idenom">(30일 동안)</span></div>'+
-    '<div class="im2">'+rows+'</div>'+
-    '<div class="idesc">'+note+'</div>';
+ const hh=String(peakH).padStart(2,'0');
+ return '<div class="ihead">최근 30일 신고 기록</div><div class="im2">'+
+ '<div class="im2-row"><span class="im2-label">소음 신고</span><span class="im2-value"><b>'+s.n+'건</b></span></div>'+
+ '<div class="im2-row"><span class="im2-label">소음 집중 시간</span><span class="im2-value">'+(paid?bandOf(peakH)+' <b>'+hh+'시</b>':'<span class="mask"></span>시<i class="lk">🔒</i>')+'</span></div></div>'+
+ '<div class="idesc">신고 기록이 적어도 소음이 없다는 뜻은 아닙니다.</div>';
 }
 
 /* v258 후속 — "이 일대 소음 신고 상위 61%"는 시민이 그 숫자가 뭘
@@ -7896,21 +7880,7 @@ function impactHTML(s, worst, peakH, nights, calm){
    계산(pct)은 그대로 두고, 막대 시각은 유지하되 숫자 대신 "조용한
    편/보통 수준/시끄러운 편" 같은 말로만 말한다 — 막대 자체는 눈으로
    바로 읽히는 정보라 남겨 둔다. */
-function rankHTML(pct){
-  /* v267 — pct는 "신고 건수 기준 위에서 몇 번째냐"라 숫자가 낮을수록
-     오히려 시끄러운 지점이다(1등이 제일 시끄러움). 그런데 막대는
-     이미 이를 뒤집어(100-pct) "시끄러울수록 꽉 찬다"로 그리고 있었는데,
-     문구(word)만 pct를 그대로 등급 매겨서 막대와 반대로 읽혔다
-     ("게이지는 높은데 보통수준", "게이지는 낮은데 시끄러움"). 막대가
-     쓰는 것과 같은 값(loud)으로 문구도 판정해 항상 같은 뜻을 가리키게
-     한다. */
-  const loud = 100-pct;
-  const word = loud<=33 ? '조용한 편' : loud<=66 ? '보통 수준' : '시끄러운 편';
-  return '<div class="rl">이 지역 소음 수준은 <b>'+word+'</b>입니다'+
-    '<div class="rankbar"><span class="rfill" style="width:'+loud+'%"></span>'+
-      '<i style="left:'+loud+'%"></i></div>'+
-    '<div class="rends"><span>조용한 편</span><span>시끄러운 편</span></div></div>';
-}
+function rankHTML(pct){return '';}
 
 /* v259 — "요일 · 시간대별 예측" 격자를 가로=시간·세로=요일에서
    가로=요일·세로=시간으로 뒤집었다. 시민 대부분이 달력·근무표처럼
@@ -7966,22 +7936,15 @@ function weekLegendHTML(){
    마크업만 이 함수로 공유한다. 겉 카드(.predcard/PREDICTION 헤더)는
    두 화면이 이미 다른 구조(정적 HTML vs 문자열 조립)라 각자 감싼다. */
 function evidenceHTML(s, worst, nights){
-  const weeks=12, hits=Math.max(3, Math.min(10, Math.round(nights*0.55)));
-  const q=noiseSources(s.c,200);
-  return '<div class="evrow"><span class="el">관측 기간</span><span class="er">최근 '+weeks+'주</span></div>'+
-    '<div class="evrow"><span class="el">요일 보정</span><span class="er">'+
-      DOW_FACTOR[worst].toFixed(2)+'배</span></div>'+
-    '<div class="evrow"><span class="el">같은 시간대 반복</span><span class="er hot">'+hits+'회 / '+weeks+'주</span></div>'+
-    '<div class="evrow"><span class="el">최고 소음도</span><span class="er">'+(s.db+5)+' dB</span></div>'+
-    '<div class="evrow"><span class="el">1회 평균 지속</span><span class="er">'+s.dur+'분</span></div>'+
-    '<div class="evrow"><span class="el">주변 방범 CCTV</span><span class="er'+(s.cov?'':' hot')+'">'+
-      (s.cov?'있음':'없음')+'</span></div>'+
-    '<div class="evrow"><span class="el">반경 200m 심야 음주업소</span>'+
-      '<span class="er'+(q.heavy>=6?' hot':'')+'">'+q.heavy+'곳</span></div>'+
-    '<div class="evrow"><span class="el">반경 200m 노래방·당구장·헬스장</span>'+
-      '<span class="er'+(q.youth>=5?' hot':'')+'">'+q.youth+'곳</span></div>'+
-    '<div class="evrow"><span class="el">반경 200m 음식점 전체</span>'+
-      '<span class="er">'+(q.heavy+q.mid)+'곳</span></div>';
+ const weeks=12,hits=Math.max(3,Math.min(10,Math.round(nights*0.55))),q=noiseSources(s.c,200);
+ const row=(label,value)=>'<div class="evidence-item"><span>'+label+'</span><strong>'+value+'</strong></div>';
+ return '<section class="evidence-card noise-evidence"><h3>소음 기록 요약</h3><p class="evidence-caption">시연 데이터 기반 기록</p><div class="evidence-list">'+
+ row('관측 기간','최근 '+weeks+'주')+row('같은 시간대 반복',hits+'회 / '+weeks+'주')+
+ row('최고 소음도',(s.db+5)+' dB')+row('1회 평균 지속',s.dur+'분')+'</div></section>'+
+ '<section class="evidence-card public-evidence"><h3>주변 공공데이터</h3><p class="evidence-caption">주변 시설 정보 · 업소는 반경 200m 기준</p><div class="evidence-list">'+
+ row('방범 CCTV',s.cov?'있음':'없음')+row('심야 음주업소',q.heavy+'곳')+
+ row('노래방·당구장·헬스장',q.youth+'곳')+row('음식점 전체',(q.heavy+q.mid)+'곳')+
+ '</div><p class="evidence-footnote">주변 시설의 존재가 소음 발생을 의미하지는 않습니다.</p></section>';
 }
 
 /* 소음예보와 소음지도는 같은 상품이다 — 예보 화면의 잠금(paid)은 더는
@@ -8063,7 +8026,8 @@ function renderCast(s){
   const all=spots.map(o=>o.n).sort((a,b)=>b-a);
   const pos=all.indexOf(s.n);
   const pct=Math.max(3, Math.min(97, Math.round((pos+1)/all.length*100)));
-  document.getElementById('rankbox').innerHTML=rankHTML(pct);
+  document.getElementById('rankbox').innerHTML='';
+  document.getElementById('rankbox').hidden=true;
 
   /* ── 요일 격자 ── */
   document.getElementById('wgrid').innerHTML=weekGridHTML(M);
@@ -8146,7 +8110,7 @@ function forecastHTML(s){
   const all=spots.map(o=>o.n).sort((a,b)=>b-a);
   const pos=all.indexOf(s.n);
   const pct=Math.max(3, Math.min(97, Math.round((pos+1)/all.length*100)));
-  const rank='<div class="rank">'+rankHTML(pct)+'</div>';
+  const rank='';
 
   /* v264 — "요일·시간대별 예측"(격자)과 "PREDICTION"(근거)은 같은
      질문("이 동네 소음이 언제 심한가")에 대한 답이라 한 카드로 합친다.
