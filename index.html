@@ -27,6 +27,14 @@ body.light #v-detail .hour-reading b{font-size:16px;line-height:1.5;color:#086B7
 body.light #v-detail .hour-reading span{font-size:14px;color:#536C7C}
 body.light #v-detail .hour-distribution .hour-spectrum{height:44px;margin:0;width:100%}
 body.light #v-detail .hour-axis{display:flex;justify-content:space-between;font-size:14px;line-height:1.5;font-weight:600;color:#415E70;margin-top:5px}
+
+body.light #v-detail .hour-distribution .hour-spectrum{height:76px;margin:6px 0 0}
+body.light #v-detail .hour-spectrum rect{animation:none!important}
+body.light #v-detail .hour-threshold-label{font-size:14px;line-height:1.5;color:#415E70;font-weight:600}
+body.light #v-detail .hour-color-key{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:14px;line-height:1.5;margin-top:8px;color:#415E70}
+body.light #v-detail .hour-color-key span{display:inline-flex;align-items:center;gap:5px}
+body.light #v-detail .hour-color-key i{display:inline-block;width:9px;height:9px;border-radius:3px}
+.eq-green{background:#087E83}.eq-orange{background:#ED9429}.eq-red{background:#D94B48}
 </style>
 <script>
 document.documentElement.classList.add('launch-pending');
@@ -2592,7 +2600,7 @@ launchFallback=setTimeout(()=>document.documentElement.classList.remove('launch-
      이 버튼은 기다림을 건너뛰는 장치다. 무게를 낮춘다. */
   #s-rec #rec-now{font-size:1.125rem; padding:11px; border-radius:10px}
 
-/* CLAMOR v299 — presentation redesign; v299 interaction preserved */
+/* CLAMOR v300 — presentation redesign; v300 interaction preserved */
 :root{--c-time:#143B55;--c-pay:#176C78;--c-pay-2:#115460}
 body.light .screen{--ink:#F4F7FA;--ink-2:#FFF;--ink-3:#EAF0F5;--line:#DFE7EF;--text:#153149;--text-dim:#516779;--text-mute:#65798B;--stroke:#153149;background:#F4F7FA;color:#153149}
 body{background:#E5EBF1}body.light .phone{background:#F4F7FA;box-shadow:0 20px 70px #15314924}
@@ -2662,7 +2670,7 @@ body.light .ts-note{color:#6A8091}.brand-symbol{width:100%;height:100%;object-fi
 @media(max-width:560px){body,body.nodev{padding:0!important;background:#F4F7FA}.phone{width:100%!important;height:100dvh!important;border-radius:0!important;box-shadow:none!important}.nav,#tune,#tune-toggle{display:none!important}}
 
 
-/* v299 — bright, high-contrast measurement surface */
+/* v300 — bright, high-contrast measurement surface */
 body.light #s-rec .live-zone{background:#FFF;color:#172B3D;border:1px solid #DDE5EC;box-shadow:0 8px 24px #172B3D08;padding:20px 18px 18px;border-radius:22px}
 body.light #s-rec .meter{padding:4px 0 16px}
 body.light #s-rec .db{color:#152B3D;font-size:5rem;font-weight:800;letter-spacing:-.06em}
@@ -2692,7 +2700,7 @@ body.warming #s-rec .soundviz{opacity:1}body.warming #s-rec .db small{color:#365
 body.light #s-confirm .cf-note,body.light #s-confirm #recur-box{background:#FFF;border-color:#DFE7ED;border-radius:18px}
 
 
-/* v299 readability contract: main text 17px+, secondary 14px+.
+/* v300 readability contract: main text 17px+, secondary 14px+.
    Wrap content or allow scrolling rather than shrinking typography. */
 body.light #s-rec{font-size:1.0625rem;line-height:1.55}
 body.light #s-rec .rhead{flex-wrap:wrap;gap:8px 10px;padding:18px}
@@ -2740,14 +2748,14 @@ body.light #s-rec .pb{padding:16px 12px;gap:10px}
 body.light #s-rec .btn.ghost{font-size:1.0625rem;min-height:52px;margin-top:16px}
 
 
-/* v299: launch copy and best-effort platform color alignment */
+/* v300: launch copy and best-effort platform color alignment */
 html,body,body.light,body.light .phone{background:#F4F7FA!important;color-scheme:only light}
 body.light #s-splash .wordsub{font-size:1.0625rem;font-weight:650;line-height:1.65;max-width:340px;letter-spacing:-.025em;margin-top:10px;color:#415E70;text-wrap:balance}
 body.light #s-splash .splash-hint{font-size:1.0625rem;line-height:1.65;max-width:340px;margin-top:26px}
 @media(max-width:560px){.phone>.screen{top:env(safe-area-inset-top,0px);bottom:env(safe-area-inset-bottom,0px)}}
 
 
-/* v299 — cohesive civic UI. Data category colors on map remain semantic. */
+/* v300 — cohesive civic UI. Data category colors on map remain semantic. */
 :root{--brand:#087E83;--brand-strong:#086B70;--brand-soft:#ECF6F5;--ui-heading:#172F43;--ui-border:#DEE7EC}
 body.light .btn.primary{background:var(--brand-strong);color:#FFF;box-shadow:0 5px 14px #086B7015}
 body.light .btn.primary:hover{background:#075A5E}
@@ -2786,7 +2794,7 @@ body.light .ts-head .ts-c.now{background:#DDEFEA;color:var(--brand-strong)}
 body.light .ts-c.yes{color:var(--brand-strong)}
 
 
-/* v299: post-report card and browsing chrome */
+/* v300: post-report card and browsing chrome */
 body.light #s-cardconfirm .cc-head h2,body.light #s-mycard h2{color:#172F43}
 body.light #s-cardconfirm .cc-head p{font-size:1.0625rem;line-height:1.6;color:#415E70}
 body.light #s-cardconfirm .cc-sh{font-size:1.0625rem;color:#172F43}
@@ -2879,7 +2887,7 @@ body.light #v-detail .hour-spectrum rect{animation:history-glow 2.6s ease-in-out
 body.light #v-detail .tglab{padding-left:0;font-size:.9375rem;color:#536C7C}
 body.light #v-detail .impact .hot,body.light #v-detail .impact b.hot{color:#086B70}
 @keyframes history-glow{0%,100%{opacity:.78}50%{opacity:1}}
-@media(prefers-reduced-motion:reduce){body.light #v-detail .hour-spectrum rect{animation:none}}
+@media(prefers-reduced-motion:reduce){body.light #v-detail .hour-spectrum rect{animation:none!important}}
 
 body.light #v-detail .impact .im2-value b{color:#086B70}
 body.light #v-detail .impact .im2-label{font-size:1rem;color:#24465B}
@@ -3033,7 +3041,7 @@ body.light .quiet-timeline>p{font-size:.875rem;line-height:1.7;color:#536C7C}
 </dialog>
 <dialog id="app-info-dialog" class="app-info-dialog" aria-labelledby="app-info-title">
   <h2 id="app-info-title">CLAMOR 앱 정보</h2>
-  <p>현재 버전 <strong>v299</strong></p>
+  <p>현재 버전 <strong>v300</strong></p>
   <p class="app-info-note">시연용 · 실제 신고 전송과 결제는 진행되지 않습니다.</p>
   <button class="btn primary" id="app-info-tiers" type="button">시연용 등급 선택</button>
   <button class="btn ghost" id="app-info-close" type="button">닫기</button>
@@ -3083,7 +3091,7 @@ body.light .quiet-timeline>p{font-size:.875rem;line-height:1.7;color:#536C7C}
     <div class="boot"><i></i></div>
     <div class="launch-footer">
       <p class="launch-partner">중소벤처기업진흥공단과 함께합니다.</p>
-      <span class="launch-version">v299 · 시연용</span>
+      <span class="launch-version">v300 · 시연용</span>
     </div>
   </section>
   <!-- ══ 2 ══ -->
@@ -3350,7 +3358,7 @@ body.light .quiet-timeline>p{font-size:.875rem;line-height:1.7;color:#536C7C}
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v299</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v300</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -3722,7 +3730,7 @@ body.light .quiet-timeline>p{font-size:.875rem;line-height:1.7;color:#536C7C}
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <button class="app-info-btn" id="app-info-btn" type="button" aria-label="앱 정보 및 버전 확인">앱 정보</button><span class="ver" id="ver2" hidden>v299</span></div>
+          <button class="app-info-btn" id="app-info-btn" type="button" aria-label="앱 정보 및 버전 확인">앱 정보</button><span class="ver" id="ver2" hidden>v300</span></div>
       </div>
     </div>
 
@@ -3779,7 +3787,7 @@ body.light .quiet-timeline>p{font-size:.875rem;line-height:1.7;color:#536C7C}
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg><span id="map-screen-title">우리 동네 소음 지도</span></h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v299</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v300</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -5711,7 +5719,7 @@ document.getElementById('sms-send').onclick=()=>{
 /* ══ 보낸 기록 ══
    보낸 뒤 사용자는 앱을 놓는다. 다시 열었을 때 처음부터 시작하면 방금
    무엇을 보냈는지 알 수 없다. 폰에 사본을 남겨 둔다. */
-/* v299 test reports live only in this document instance.
+/* v300 test reports live only in this document instance.
    Public-data forecasts and curated demo points are untouched. */
 const sessionReportHistory=[];
 const testReportMemory=new Map();
@@ -7452,19 +7460,25 @@ const TYPE_LABEL_LONG={'동물':'반려동물 짖음','바이크':'차량·바�
    붙여 "이 유형이 언제 몰리는지"를 한눈에 비교할 수 있게 한다. */
 let hourlySpectrumSerial=0;
 function hourlySpectrumHTML(hours,typeIndex){
-  const values=Array.from({length:24},(_,h)=>Math.max(0,Number(hours[h])||0));
-  const peak=Math.max(...values),id='hour-spectrum-'+(++hourlySpectrumSerial);
-  const peakHour=values.indexOf(peak);
-  const bars=values.map((value,h)=>{
-    const height=peak?Math.round(value/peak*42):0;
-    return '<rect x="'+(h*12+1)+'" y="'+(48-height)+'" width="8" height="'+height+'" rx="3" fill="url(#'+id+')" style="animation-delay:'+((h*83+typeIndex*117)%1600)+'ms"/>';
-  }).join('');
-  const time=String(peakHour).padStart(2,'0')+'–'+String(peakHour+1).padStart(2,'0')+'시';
-  return '<div class="hour-distribution"><div class="hour-reading"><b>'+(peak?'집중 시간 '+time:'시간대 정보 없음')+'</b><span>상대 집중도</span></div>'+
-    '<div class="hour-spectrum"><svg viewBox="0 0 288 52" preserveAspectRatio="none" role="img" aria-label="시간대별 상대 소음 집중도'+(peak?', 가장 높은 시간 '+time:'')+'">'+
-    '<defs><linearGradient id="'+id+'" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#075F79"/><stop offset=".55" stop-color="#087E83"/><stop offset="1" stop-color="#19A693"/></linearGradient></defs>'+
-    '<path d="M0 49H288" stroke="#BCCFD4" stroke-width="1"/>'+bars+'</svg></div>'+
-    '<div class="hour-axis"><span>00시</span><span>06시</span><span>12시</span><span>18시</span><span>24시</span></div></div>';
+ const values=Array.from({length:24},(_,h)=>Math.max(0,Number(hours[h])||0));
+ const peak=Math.max(...values),id='hour-spectrum-'+(++hourlySpectrumSerial);
+ const reduced=typeof matchMedia==='function'&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const bars=values.map((value,h)=>{
+   const height=peak?Math.round(value/peak*64):0;
+   const moving=typeIndex===4?[1,.85,.58,.28,.12,.35,1]:[.48,.76,1,.82,.42,.62,.48];
+   const heights=moving.map(f=>Math.round(height*f));
+   const duration=(typeIndex===4?3.2:4.2)+(h*7+typeIndex*3)%13/10;
+   const begin=-((h*17+typeIndex*11)%43)/10;
+   const animate=height&&!reduced?'<animate attributeName="height" values="'+heights.join(';')+'" dur="'+duration+'s" begin="'+begin+'s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.16;.33;.5;.66;.83;1" keySplines=".4 0 .6 1;.4 0 .6 1;.4 0 .6 1;.4 0 .6 1;.4 0 .6 1;.4 0 .6 1"/><animate attributeName="y" values="'+heights.map(v=>72-v).join(';')+'" dur="'+duration+'s" begin="'+begin+'s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.16;.33;.5;.66;.83;1" keySplines=".4 0 .6 1;.4 0 .6 1;.4 0 .6 1;.4 0 .6 1;.4 0 .6 1;.4 0 .6 1"/>':'';
+   return '<rect x="'+(h*12+1)+'" y="'+(72-height)+'" width="8" height="'+height+'" rx="2" fill="url(#'+id+')">'+animate+'</rect>';
+ }).join('');
+ const peakHour=values.indexOf(peak),time=String(peakHour).padStart(2,'0')+'–'+String(peakHour+1).padStart(2,'0')+'시';
+ return '<div class="hour-distribution"><div class="hour-reading"><b>'+(peak?'집중 시간 '+time:'시간대 정보 없음')+'</b><span>시연 애니메이션</span></div><div class="hour-threshold-label">점선 = 소음 집중 기준 · 상대값 50%</div>'+
+ '<div class="hour-spectrum"><svg viewBox="0 0 288 76" preserveAspectRatio="none" role="img" aria-label="시간대별 상대 소음 집중도, 중간 점선은 시연 기준 50%, 녹색에서 주황색과 빨강색으로 변화">'+
+ '<defs><linearGradient id="'+id+'" gradientUnits="userSpaceOnUse" x1="0" y1="72" x2="0" y2="8"><stop offset="0" stop-color="#087E83"/><stop offset=".5" stop-color="#19A693"/><stop offset=".5" stop-color="#ED9429"/><stop offset=".8" stop-color="#ED9429"/><stop offset=".8" stop-color="#D94B48"/><stop offset="1" stop-color="#D94B48"/></linearGradient></defs>'+bars+
+ '<path d="M0 40H288" stroke="#6C7985" stroke-width="1.2" stroke-dasharray="4 3"/><path d="M0 73H288" stroke="#BCCFD4" stroke-width="1"/></svg></div>'+
+ '<div class="hour-axis"><span>00시</span><span>06시</span><span>12시</span><span>18시</span><span>24시</span></div>'+
+ '<div class="hour-color-key"><span><i class="eq-green"></i>기준 이하</span><span><i class="eq-orange"></i>기준 초과</span><span><i class="eq-red"></i>높은 집중</span></div></div>';
 }
 
 function reportBreakdownHTML(s, T){
@@ -7499,7 +7513,7 @@ function reportBreakdownHTML(s, T){
     '<div class="bh">이 구역에 신고된 내용</div>'+
     '<div class="repn">30일간 <b>'+s.n+'건</b>의 신고'+
       ((T && T.log && !s.cov)?' · <span class="mtag blind">CCTV 사각</span>':'')+'</div>'+
-    (hasHours?'<div class="distribution-label">24시간 소음 분포 <span>시연 데이터</span></div><p class="distribution-guide">막대 1개는 1시간입니다. 높을수록 그 시간에 소음이 집중됩니다.</p><p class="distribution-note">각 유형의 가장 높은 시간을 기준으로 비교합니다. 데시벨이나 시간별 신고 건수가 아닙니다.</p>':'')+
+    (hasHours?'<div class="distribution-label">24시간 소음 분포 <span>시연 데이터</span></div><p class="distribution-guide">막대 1개는 1시간입니다. 소음이 집중되는 시간일수록 더 크게 움직입니다.</p><p class="distribution-note">시간대 분포를 바탕으로 움직임을 연출한 시연 화면입니다. 점선 50%·빨강 80%는 상대 집중도 표시 기준이며, 실제 데시벨·법적 기준이 아닙니다.</p>':'')+
     '<div class="typegrid'+(hasHours?' with-hours':'')+'">'+rows+'</div>'+
     ''+
   '</div>';
