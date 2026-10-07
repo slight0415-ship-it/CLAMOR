@@ -2581,7 +2581,7 @@ launchFallback=setTimeout(()=>document.documentElement.classList.remove('launch-
      이 버튼은 기다림을 건너뛰는 장치다. 무게를 낮춘다. */
   #s-rec #rec-now{font-size:1.125rem; padding:11px; border-radius:10px}
 
-/* CLAMOR v296 — presentation redesign; v296 interaction preserved */
+/* CLAMOR v297 — presentation redesign; v297 interaction preserved */
 :root{--c-time:#143B55;--c-pay:#176C78;--c-pay-2:#115460}
 body.light .screen{--ink:#F4F7FA;--ink-2:#FFF;--ink-3:#EAF0F5;--line:#DFE7EF;--text:#153149;--text-dim:#516779;--text-mute:#65798B;--stroke:#153149;background:#F4F7FA;color:#153149}
 body{background:#E5EBF1}body.light .phone{background:#F4F7FA;box-shadow:0 20px 70px #15314924}
@@ -2651,7 +2651,7 @@ body.light .ts-note{color:#6A8091}.brand-symbol{width:100%;height:100%;object-fi
 @media(max-width:560px){body,body.nodev{padding:0!important;background:#F4F7FA}.phone{width:100%!important;height:100dvh!important;border-radius:0!important;box-shadow:none!important}.nav,#tune,#tune-toggle{display:none!important}}
 
 
-/* v296 — bright, high-contrast measurement surface */
+/* v297 — bright, high-contrast measurement surface */
 body.light #s-rec .live-zone{background:#FFF;color:#172B3D;border:1px solid #DDE5EC;box-shadow:0 8px 24px #172B3D08;padding:20px 18px 18px;border-radius:22px}
 body.light #s-rec .meter{padding:4px 0 16px}
 body.light #s-rec .db{color:#152B3D;font-size:5rem;font-weight:800;letter-spacing:-.06em}
@@ -2681,7 +2681,7 @@ body.warming #s-rec .soundviz{opacity:1}body.warming #s-rec .db small{color:#365
 body.light #s-confirm .cf-note,body.light #s-confirm #recur-box{background:#FFF;border-color:#DFE7ED;border-radius:18px}
 
 
-/* v296 readability contract: main text 17px+, secondary 14px+.
+/* v297 readability contract: main text 17px+, secondary 14px+.
    Wrap content or allow scrolling rather than shrinking typography. */
 body.light #s-rec{font-size:1.0625rem;line-height:1.55}
 body.light #s-rec .rhead{flex-wrap:wrap;gap:8px 10px;padding:18px}
@@ -2729,14 +2729,14 @@ body.light #s-rec .pb{padding:16px 12px;gap:10px}
 body.light #s-rec .btn.ghost{font-size:1.0625rem;min-height:52px;margin-top:16px}
 
 
-/* v296: launch copy and best-effort platform color alignment */
+/* v297: launch copy and best-effort platform color alignment */
 html,body,body.light,body.light .phone{background:#F4F7FA!important;color-scheme:only light}
 body.light #s-splash .wordsub{font-size:1.0625rem;font-weight:650;line-height:1.65;max-width:340px;letter-spacing:-.025em;margin-top:10px;color:#415E70;text-wrap:balance}
 body.light #s-splash .splash-hint{font-size:1.0625rem;line-height:1.65;max-width:340px;margin-top:26px}
 @media(max-width:560px){.phone>.screen{top:env(safe-area-inset-top,0px);bottom:env(safe-area-inset-bottom,0px)}}
 
 
-/* v296 — cohesive civic UI. Data category colors on map remain semantic. */
+/* v297 — cohesive civic UI. Data category colors on map remain semantic. */
 :root{--brand:#087E83;--brand-strong:#086B70;--brand-soft:#ECF6F5;--ui-heading:#172F43;--ui-border:#DEE7EC}
 body.light .btn.primary{background:var(--brand-strong);color:#FFF;box-shadow:0 5px 14px #086B7015}
 body.light .btn.primary:hover{background:#075A5E}
@@ -2775,7 +2775,7 @@ body.light .ts-head .ts-c.now{background:#DDEFEA;color:var(--brand-strong)}
 body.light .ts-c.yes{color:var(--brand-strong)}
 
 
-/* v296: post-report card and browsing chrome */
+/* v297: post-report card and browsing chrome */
 body.light #s-cardconfirm .cc-head h2,body.light #s-mycard h2{color:#172F43}
 body.light #s-cardconfirm .cc-head p{font-size:1.0625rem;line-height:1.6;color:#415E70}
 body.light #s-cardconfirm .cc-sh{font-size:1.0625rem;color:#172F43}
@@ -2973,6 +2973,27 @@ body.light .recurrence-receipt h3{font-size:1.1875rem;line-height:1.6;margin-bot
 body.light .recurrence-receipt p{font-size:1rem;line-height:1.7;overflow-wrap:anywhere;color:#415E70}
 body.light .recurrence-receipt .recurrence-count{margin-top:12px;color:#086B70;font-weight:700}
 body.light #cf-location{font-size:1rem;max-width:72%;white-space:normal;overflow-wrap:anywhere;text-align:right;line-height:1.6}
+
+body.light .quiet-map-legend{position:absolute;top:12px;left:12px;right:12px;z-index:15;display:flex;flex-wrap:wrap;gap:8px 14px;padding:10px 12px;background:#FFFFFFF2;border:1px solid #D9E5E8;border-radius:12px;box-shadow:0 2px 10px #172F4310;pointer-events:none}
+body.light .quiet-map-legend span{display:flex;align-items:center;gap:6px;font-size:.875rem;line-height:1.5;color:#24465B;font-weight:700}
+body.light .quiet-map-legend i{width:18px;height:18px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:.875rem;flex-shrink:0}
+body.light .quiet-map-legend .record{background:#2B334050}
+body.light .quiet-map-legend .quiet{background:#E0F1EC;border:1px solid #087E83;color:#087E83}
+body.light .quiet-map-legend .again{background:#F4EBDC;border:1px dashed #AF741F;color:#AF741F}
+body.light .stage:not(.big) .quiet-map-legend{top:64px}
+body.light .stage.detail .quiet-map-legend{display:none}
+.quiet-map-badge{width:28px;height:28px;border-radius:50%;border:2px solid #087E83;background:#FFF;color:#087E83;font:800 18px/1 system-ui;box-shadow:0 2px 6px #172F4320;cursor:pointer}
+.quiet-map-badge.recurred{border-style:dashed;border-color:#AF741F;color:#AF741F;background:#FFF9F0}
+body.light .quiet-change{padding:20px 18px;margin:12px 0 20px;background:#FFF;border:1px solid #DEE7EC;border-radius:18px;color:#172F43}
+body.light .quiet-change.resolved{background:#EDF7F3;border:2px solid #8DBFB5}
+body.light .quiet-change.recurred{background:#FFF8EC;border:2px dashed #C8A267}
+body.light .quiet-kicker{font-size:.9375rem;font-weight:800;line-height:1.5;color:#086B70;display:block;margin-bottom:10px}
+body.light .quiet-change h2{font-size:1.1875rem;line-height:1.6;margin-bottom:12px}
+body.light .quiet-change p{font-size:1rem;line-height:1.7;color:#415E70;margin:10px 0}
+body.light .quiet-change .quiet-date{font-size:.9375rem;font-weight:700;color:#086B70}
+body.light .quiet-change .quiet-history-note{font-size:.875rem;color:#536C7C;border-top:1px solid #D7E6E2;padding-top:12px}
+body.light .quiet-demo summary{font-size:.9375rem;line-height:1.6;padding:10px 0;color:#536C7C;cursor:pointer}
+body.light .quiet-demo button{display:block;width:100%;font:inherit;font-size:1rem;min-height:46px;padding:10px 12px;margin:8px 0;border:1px solid #BED8D3;border-radius:10px;background:#FFF;color:#086B70}
 </style>
 
 <dialog id="recurrence-dialog" class="recurrence-dialog" aria-labelledby="recurrence-title">
@@ -2983,7 +3004,7 @@ body.light #cf-location{font-size:1rem;max-width:72%;white-space:normal;overflow
 </dialog>
 <dialog id="app-info-dialog" class="app-info-dialog" aria-labelledby="app-info-title">
   <h2 id="app-info-title">CLAMOR 앱 정보</h2>
-  <p>현재 버전 <strong>v296</strong></p>
+  <p>현재 버전 <strong>v297</strong></p>
   <p class="app-info-note">시연용 · 실제 신고 전송과 결제는 진행되지 않습니다.</p>
   <button class="btn primary" id="app-info-tiers" type="button">시연용 등급 선택</button>
   <button class="btn ghost" id="app-info-close" type="button">닫기</button>
@@ -3033,7 +3054,7 @@ body.light #cf-location{font-size:1rem;max-width:72%;white-space:normal;overflow
     <div class="boot"><i></i></div>
     <div class="launch-footer">
       <p class="launch-partner">중소벤처기업진흥공단과 함께합니다.</p>
-      <span class="launch-version">v296 · 시연용</span>
+      <span class="launch-version">v297 · 시연용</span>
     </div>
   </section>
   <!-- ══ 2 ══ -->
@@ -3300,7 +3321,7 @@ body.light #cf-location{font-size:1rem;max-width:72%;white-space:normal;overflow
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v296</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v297</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -3672,7 +3693,7 @@ body.light #cf-location{font-size:1rem;max-width:72%;white-space:normal;overflow
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <button class="app-info-btn" id="app-info-btn" type="button" aria-label="앱 정보 및 버전 확인">앱 정보</button><span class="ver" id="ver2" hidden>v296</span></div>
+          <button class="app-info-btn" id="app-info-btn" type="button" aria-label="앱 정보 및 버전 확인">앱 정보</button><span class="ver" id="ver2" hidden>v297</span></div>
       </div>
     </div>
 
@@ -3729,7 +3750,7 @@ body.light #cf-location{font-size:1rem;max-width:72%;white-space:normal;overflow
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg><span id="map-screen-title">우리 동네 소음 지도</span></h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v296</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v297</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -3738,6 +3759,7 @@ body.light #cf-location{font-size:1rem;max-width:72%;white-space:normal;overflow
            따로 줄을 차지하면 그만큼 카드 목록이 설 자리를 잃는다. -->
       <div class="mapwrap" id="mapwrap">
         <div id="map"></div>
+        <div class="quiet-map-legend" aria-label="지도 상태 설명"><span><i class="record"></i>소음 기록</span><span><i class="quiet">✓</i>조치 후 조용함</span><span><i class="again">↻</i>재발</span></div>
         <!-- '‹ 목록' 화면 버튼은 없앤다 — 되돌아가기는 이제 폰(브라우저)
              자체의 뒤로가기로만 한다. go('map')에서 history를 한 칸 쌓고
              popstate에서 go('list')로 받는다(아래 인라인 스크립트). 왼쪽
@@ -5660,7 +5682,7 @@ document.getElementById('sms-send').onclick=()=>{
 /* ══ 보낸 기록 ══
    보낸 뒤 사용자는 앱을 놓는다. 다시 열었을 때 처음부터 시작하면 방금
    무엇을 보냈는지 알 수 없다. 폰에 사본을 남겨 둔다. */
-/* v296 test reports live only in this document instance.
+/* v297 test reports live only in this document instance.
    Public-data forecasts and curated demo points are untouched. */
 const sessionReportHistory=[];
 const testReportMemory=new Map();
@@ -5879,13 +5901,15 @@ function seedRecurrence(opts){
 function setMyStatus(status){
   const rec=loadSent();
   if(!rec) return false;
-  rec.status=status;
+  rec.status=status;rec.statusUpdatedAt=Date.now();
+  rec.quietConfirmedAt=status==='resolved'?rec.statusUpdatedAt:null;
   try{ testReportStorage.setItem(SENT_KEY, JSON.stringify(rec)) }catch(e){}
   const s=spots.find(x=>x.mine);
   if(s){
     s.myStatus=status;
     if(typeof paint==='function') paint(s, s.lastTi!==undefined?s.lastTi:s.dom);
   }
+  if(typeof applyFilter==='function')applyFilter();
   return true;
 }
 function renderSent(rec){
@@ -6051,10 +6075,11 @@ document.querySelectorAll('#s-mycard .mc-yn').forEach(box=>{
          재발 상태(recurred)는 새 신고를 보내야 벗어나므로 여기서 건드리지
          않는다 — 조치결과 입력만으로 재발 표시가 지워지면 상습성 기록이
          스스로 지워지는 셈이 된다. */
-      if(!isRecurQ && key==='resolved' && val==='yes' && updated.status!=='recurred'){
+      if(!isRecurQ && key==='resolved' && val==='yes'){
         if(typeof setMyStatus==='function') setMyStatus('resolved');
       }
-      paintMcAnswers(updated);
+      if(!isRecurQ && key==='resolved' && val==='no')setMyStatus('reported');
+      paintMcAnswers(loadSent()||updated);
     };
   });
 });
@@ -6497,7 +6522,41 @@ function freeRangeAnchor(){
  return freeAnchor || realLoc || CENTER;
 }
 let freeAnchor=null;   // 무료 등급 300m 제한의 기준점 — 확인한 위치(또는 실제 위치)
-let freeBlurOv=[];
+
+const quietRangeFeedback=new Map();
+function quietSourceKey(p){return [p.lat,p.lng,p.t].join(':');}
+function spotChange(s){
+  if(s.mine){const rec=loadSent();return {status:s.myStatus||'reported',at:rec?rec.quietConfirmedAt||rec.statusUpdatedAt||rec.at:null,demo:false};}
+  const keys=s.sourceKeys||[],feedback=keys.map(k=>quietRangeFeedback.get(k));
+  if(feedback.some(v=>v&&v.status==='recurred'))return {status:'recurred',at:Math.max(...feedback.filter(Boolean).map(v=>v.at)),demo:true};
+  if(keys.length&&feedback.every(v=>v&&v.status==='resolved'))return {status:'resolved',at:Math.max(...feedback.map(v=>v.at)),demo:true};
+  return {status:'reported',at:null,demo:false};
+}
+function quietRangeStyle(state,opacity){
+  if(state.status==='resolved')return {strokeWeight:2,strokeColor:'#087E83',strokeOpacity:.85,strokeStyle:'solid',fillColor:'#83C5B8',fillOpacity:.26};
+  if(state.status==='recurred')return {strokeWeight:2,strokeColor:'#AF741F',strokeOpacity:.9,strokeStyle:'dash',fillColor:'#C79B50',fillOpacity:.20};
+  return {strokeWeight:0,fillColor:'#2B3340',fillOpacity:opacity};
+}
+function changeRangeDemo(s,status){
+  if(!s||s.mine||s.isRoute)return;
+  (s.sourceKeys||[]).forEach(key=>quietRangeFeedback.set(key,{status,at:Date.now()}));
+  applyFilter();showDetail(s);
+}
+function changeStatusHTML(s){
+  if(s.isRoute)return '';
+  const state=spotChange(s),resolved=state.status==='resolved',recurred=state.status==='recurred';
+  const title=resolved?'✓ 조치 후 조용해졌다는 확인이 있습니다':recurred?'↻ 조용해졌다가 다시 소음이 발생했습니다':'소음 기록이 있는 구역입니다';
+  const when=state.at?new Date(state.at).toLocaleString('ko-KR',{month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'}):'';
+  let html='<section class="quiet-change '+state.status+'"><span class="quiet-kicker">신고 이후의 변화</span><h2>'+title+'</h2>';
+  html+='<p>'+(resolved?'시민이 조치 후 조용해졌다고 확인한 상태입니다. 앞으로의 소음까지 보장하는 것은 아닙니다.':recurred?'이전 조치와 재발 이력을 함께 살펴보세요.':'신고 이력만으로 지금도 시끄럽다고 단정하지 않습니다. 조치 후 시민의 확인이 더해지면 지도에 표시됩니다.')+'</p>';
+  if(when)html+='<p class="quiet-date">'+(resolved?'조용함 확인':'재발 기록')+' · '+when+(state.demo?' · 시연 데이터':' · 시민 입력')+'</p>';
+  html+='<p class="quiet-history-note">아래 소음 정보는 조치 전 기록을 포함한 과거 이력입니다.</p>';
+  if(!s.mine)html+='<details class="quiet-demo"><summary>시연 · 조치 후 변화 적용</summary><p>이 구역의 변화 표시를 시험합니다. 실제 기관 조치 결과가 아닙니다.</p><button type="button" data-quiet-status="resolved">조치 후 조용함 표시</button><button type="button" data-quiet-status="recurred">재발 표시</button><button type="button" data-quiet-status="reported">기본 기록으로 되돌리기</button></details>';
+  return html+'</section>';
+}
+document.addEventListener('click',e=>{const button=e.target.closest('[data-quiet-status]');if(button&&active)changeRangeDemo(active,button.dataset.quietStatus);});
+
+let freeBlurOv=[],quietStatusOv=[];
 function circlePath(c, r){
   const path=[];
   for(let i=0;i<=24;i++){ const th=i/24*2*Math.PI;
@@ -6506,6 +6565,7 @@ function circlePath(c, r){
 }
 function drawFreeBlur(){
   freeBlurOv.forEach(o=>o.setMap(null)); freeBlurOv=[];
+  quietStatusOv.forEach(o=>o.setMap(null));quietStatusOv=[];
   if(!map) return;
   const ls=document.getElementById('s-list');
   const onListScreen = !!(ls && !ls.hidden);
@@ -6525,8 +6585,9 @@ function drawFreeBlur(){
     /* 유료 이상 등급은 24시간 바를 움직이면 그 시각에 맞춰 핀이 밝아지고
        어두워진다(applyHour). 범위 원도 이 가중치를 그대로 받아서, 바를
        움직이면 "이 시간대엔 여기가 심하다"는 농도 변화가 똑같이 느껴진다. */
+    const change=spotChange(s);
     let op=0.22;
-    if(hourSel>=0){
+    if(hourSel>=0 && change.status==='reported'){
       const w=sharp(s.hours, hourSel);
       if(w<0.20) return;                // 그 시각엔 조용한 곳 — 마커와 같은 기준으로 비운다
       op=0.10+w*0.30;
@@ -6537,9 +6598,16 @@ function drawFreeBlur(){
        표시일 뿐 위험·경고 신호가 아니므로, 빨강을 떼어 무채색 계열
        (짙은 남회색)로 바꾼다 — 빨강은 이제 진짜 강조가 필요한 곳에만
        남는다. */
-    const poly=new kakao.maps.Polygon({path:circlePath(s.c,r),
-      strokeWeight:0, fillColor:'#2B3340', fillOpacity:op});
+    const poly=new kakao.maps.Polygon({path:circlePath(s.c,r),...quietRangeStyle(change,op)});
     poly.setMap(map); freeBlurOv.push(poly);
+    if(change.status!=='reported'){
+      const badge=document.createElement('button');badge.type='button';badge.className='quiet-map-badge '+change.status;
+      badge.textContent=change.status==='resolved'?'✓':'↻';badge.setAttribute('aria-label',change.status==='resolved'?'조치 후 조용함 · 시민 확인':'재발 기록');
+      badge.onclick=e=>{e.stopPropagation();showDetail(s);};
+      const statusOv=new kakao.maps.CustomOverlay({position:new kakao.maps.LatLng(s.c.lat,s.c.lng),content:badge,xAnchor:.5,yAnchor:.5,zIndex:6});
+      statusOv.setMap(map);quietStatusOv.push(statusOv);
+    }
+
     /* 범위 원은 지금까지 눌러도 아무 반응이 없었다 — 정확한 핀이 없는
        등급(무료·유료·행정)에서는 이 원이 유일한 탭 지점이다. 원을
        누르면 그 구역의 소음 정보(상세 화면)로 바로 들어간다. 정확한
@@ -6681,7 +6749,7 @@ function build(){
     /* 묶은 그룹이 원본 신고 하나뿐일 때만(=병합 반경 0, 행정/대응/수사)
        그 하나의 신고자 위치를 그대로 쓴다 — 여러 신고를 하나로 묶은
        그룹(무료·유료)은 신고자가 여럿이라 위치 하나로 대표할 수 없다. */
-    spots.push({c,n,mix,cnt,hours,hoursByType,cov:covered(c),
+    spots.push({c,n,mix,cnt,hours,hoursByType,sourceKeys:g.map(quietSourceKey),cov:covered(c),
       db:Math.round(g.reduce((s,p)=>s+p.db,0)/g.length),
       dur:Math.round(g.reduce((s,p)=>s+p.dur,0)/g.length),
       dom:cnt.indexOf(Math.max(...cnt)),
@@ -6924,7 +6992,7 @@ function showDetail(s){
   /* v266 — 이 스팟이 "내 신고"면, 경찰 조치 결과를 입력하는 자리를
      맨 위에 둔다. 신고 직후 리워드 화면이 아니라, 나중에 평범하게
      지도에서 자기 핀을 눌러 들어왔을 때 여기서 "조치됨"을 남긴다. */
-  let h=mineStatusHTML(s)+reportBreakdownHTML(s, T);
+  let h=changeStatusHTML(s)+mineStatusHTML(s)+reportBreakdownHTML(s, T);
   if(T.metrics) h+='<div class="metrics"><div><b>'+s.db+'</b>평균 dB</div>'+
     '<div><b>'+(s.db+5)+'</b>최고 dB</div><div><b>'+s.dur+'분</b>평균 지속</div></div>';
   if(T.reporterLoc && s.reporterLoc) h+='<div class="sec"><div class="sec-h">신고자 위치</div>'+
