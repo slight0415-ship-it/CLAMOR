@@ -2581,7 +2581,7 @@ launchFallback=setTimeout(()=>document.documentElement.classList.remove('launch-
      이 버튼은 기다림을 건너뛰는 장치다. 무게를 낮춘다. */
   #s-rec #rec-now{font-size:1.125rem; padding:11px; border-radius:10px}
 
-/* CLAMOR v297 — presentation redesign; v297 interaction preserved */
+/* CLAMOR v298 — presentation redesign; v298 interaction preserved */
 :root{--c-time:#143B55;--c-pay:#176C78;--c-pay-2:#115460}
 body.light .screen{--ink:#F4F7FA;--ink-2:#FFF;--ink-3:#EAF0F5;--line:#DFE7EF;--text:#153149;--text-dim:#516779;--text-mute:#65798B;--stroke:#153149;background:#F4F7FA;color:#153149}
 body{background:#E5EBF1}body.light .phone{background:#F4F7FA;box-shadow:0 20px 70px #15314924}
@@ -2651,7 +2651,7 @@ body.light .ts-note{color:#6A8091}.brand-symbol{width:100%;height:100%;object-fi
 @media(max-width:560px){body,body.nodev{padding:0!important;background:#F4F7FA}.phone{width:100%!important;height:100dvh!important;border-radius:0!important;box-shadow:none!important}.nav,#tune,#tune-toggle{display:none!important}}
 
 
-/* v297 — bright, high-contrast measurement surface */
+/* v298 — bright, high-contrast measurement surface */
 body.light #s-rec .live-zone{background:#FFF;color:#172B3D;border:1px solid #DDE5EC;box-shadow:0 8px 24px #172B3D08;padding:20px 18px 18px;border-radius:22px}
 body.light #s-rec .meter{padding:4px 0 16px}
 body.light #s-rec .db{color:#152B3D;font-size:5rem;font-weight:800;letter-spacing:-.06em}
@@ -2681,7 +2681,7 @@ body.warming #s-rec .soundviz{opacity:1}body.warming #s-rec .db small{color:#365
 body.light #s-confirm .cf-note,body.light #s-confirm #recur-box{background:#FFF;border-color:#DFE7ED;border-radius:18px}
 
 
-/* v297 readability contract: main text 17px+, secondary 14px+.
+/* v298 readability contract: main text 17px+, secondary 14px+.
    Wrap content or allow scrolling rather than shrinking typography. */
 body.light #s-rec{font-size:1.0625rem;line-height:1.55}
 body.light #s-rec .rhead{flex-wrap:wrap;gap:8px 10px;padding:18px}
@@ -2729,14 +2729,14 @@ body.light #s-rec .pb{padding:16px 12px;gap:10px}
 body.light #s-rec .btn.ghost{font-size:1.0625rem;min-height:52px;margin-top:16px}
 
 
-/* v297: launch copy and best-effort platform color alignment */
+/* v298: launch copy and best-effort platform color alignment */
 html,body,body.light,body.light .phone{background:#F4F7FA!important;color-scheme:only light}
 body.light #s-splash .wordsub{font-size:1.0625rem;font-weight:650;line-height:1.65;max-width:340px;letter-spacing:-.025em;margin-top:10px;color:#415E70;text-wrap:balance}
 body.light #s-splash .splash-hint{font-size:1.0625rem;line-height:1.65;max-width:340px;margin-top:26px}
 @media(max-width:560px){.phone>.screen{top:env(safe-area-inset-top,0px);bottom:env(safe-area-inset-bottom,0px)}}
 
 
-/* v297 — cohesive civic UI. Data category colors on map remain semantic. */
+/* v298 — cohesive civic UI. Data category colors on map remain semantic. */
 :root{--brand:#087E83;--brand-strong:#086B70;--brand-soft:#ECF6F5;--ui-heading:#172F43;--ui-border:#DEE7EC}
 body.light .btn.primary{background:var(--brand-strong);color:#FFF;box-shadow:0 5px 14px #086B7015}
 body.light .btn.primary:hover{background:#075A5E}
@@ -2775,7 +2775,7 @@ body.light .ts-head .ts-c.now{background:#DDEFEA;color:var(--brand-strong)}
 body.light .ts-c.yes{color:var(--brand-strong)}
 
 
-/* v297: post-report card and browsing chrome */
+/* v298: post-report card and browsing chrome */
 body.light #s-cardconfirm .cc-head h2,body.light #s-mycard h2{color:#172F43}
 body.light #s-cardconfirm .cc-head p{font-size:1.0625rem;line-height:1.6;color:#415E70}
 body.light #s-cardconfirm .cc-sh{font-size:1.0625rem;color:#172F43}
@@ -2994,6 +2994,24 @@ body.light .quiet-change .quiet-date{font-size:.9375rem;font-weight:700;color:#0
 body.light .quiet-change .quiet-history-note{font-size:.875rem;color:#536C7C;border-top:1px solid #D7E6E2;padding-top:12px}
 body.light .quiet-demo summary{font-size:.9375rem;line-height:1.6;padding:10px 0;color:#536C7C;cursor:pointer}
 body.light .quiet-demo button{display:block;width:100%;font:inherit;font-size:1rem;min-height:46px;padding:10px 12px;margin:8px 0;border:1px solid #BED8D3;border-radius:10px;background:#FFF;color:#086B70}
+
+/* 도구는 축척·저작권 표기보다 충분히 위에 놓는다 */
+body.light #s-map .stage.split.big .maptools{bottom:64px;left:12px;right:auto;top:auto}
+body.light #s-map .stage.split .maptools{bottom:64px;left:12px;right:auto;top:auto}
+body.light #s-map .maptools .mtool.icon{width:40px;height:40px}
+.quiet-map-badge.demo-case{width:42px;border-radius:16px;font-size:16px}
+body.light .quiet-timeline{padding-top:18px;margin-top:18px;border-top:1px solid #D0E2DF}
+body.light .quiet-case-label{display:block;font-size:.875rem;line-height:1.6;font-weight:800;color:#536C7C;margin-bottom:8px}
+body.light .quiet-timeline h3{font-size:1.125rem;line-height:1.6;margin-bottom:16px;color:#172F43}
+body.light .quiet-timeline ol{list-style:none;margin:0;padding:0}
+body.light .quiet-timeline li{position:relative;margin-left:8px;padding:0 0 20px 24px;border-left:2px solid #CDDCDF;display:flex;flex-direction:column;gap:5px}
+body.light .quiet-timeline li:last-child{border-left-color:transparent;padding-bottom:8px}
+body.light .quiet-timeline li::before{content:'';position:absolute;left:-7px;top:5px;width:12px;height:12px;border-radius:50%;background:#53606D;border:2px solid #FFF}
+body.light .quiet-timeline li.resolved::before{background:#087E83}
+body.light .quiet-timeline li.recurred::before{background:#AF741F}
+body.light .quiet-timeline time{font-size:.9375rem;color:#536C7C;line-height:1.5}
+body.light .quiet-timeline li b{font-size:1rem;line-height:1.6;color:#24465B}
+body.light .quiet-timeline>p{font-size:.875rem;line-height:1.7;color:#536C7C}
 </style>
 
 <dialog id="recurrence-dialog" class="recurrence-dialog" aria-labelledby="recurrence-title">
@@ -3004,7 +3022,7 @@ body.light .quiet-demo button{display:block;width:100%;font:inherit;font-size:1r
 </dialog>
 <dialog id="app-info-dialog" class="app-info-dialog" aria-labelledby="app-info-title">
   <h2 id="app-info-title">CLAMOR 앱 정보</h2>
-  <p>현재 버전 <strong>v297</strong></p>
+  <p>현재 버전 <strong>v298</strong></p>
   <p class="app-info-note">시연용 · 실제 신고 전송과 결제는 진행되지 않습니다.</p>
   <button class="btn primary" id="app-info-tiers" type="button">시연용 등급 선택</button>
   <button class="btn ghost" id="app-info-close" type="button">닫기</button>
@@ -3054,7 +3072,7 @@ body.light .quiet-demo button{display:block;width:100%;font:inherit;font-size:1r
     <div class="boot"><i></i></div>
     <div class="launch-footer">
       <p class="launch-partner">중소벤처기업진흥공단과 함께합니다.</p>
-      <span class="launch-version">v297 · 시연용</span>
+      <span class="launch-version">v298 · 시연용</span>
     </div>
   </section>
   <!-- ══ 2 ══ -->
@@ -3321,7 +3339,7 @@ body.light .quiet-demo button{display:block;width:100%;font:inherit;font-size:1r
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v297</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v298</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -3693,7 +3711,7 @@ body.light .quiet-demo button{display:block;width:100%;font:inherit;font-size:1r
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <button class="app-info-btn" id="app-info-btn" type="button" aria-label="앱 정보 및 버전 확인">앱 정보</button><span class="ver" id="ver2" hidden>v297</span></div>
+          <button class="app-info-btn" id="app-info-btn" type="button" aria-label="앱 정보 및 버전 확인">앱 정보</button><span class="ver" id="ver2" hidden>v298</span></div>
       </div>
     </div>
 
@@ -3750,7 +3768,7 @@ body.light .quiet-demo button{display:block;width:100%;font:inherit;font-size:1r
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg><span id="map-screen-title">우리 동네 소음 지도</span></h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v297</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v298</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -5682,7 +5700,7 @@ document.getElementById('sms-send').onclick=()=>{
 /* ══ 보낸 기록 ══
    보낸 뒤 사용자는 앱을 놓는다. 다시 열었을 때 처음부터 시작하면 방금
    무엇을 보냈는지 알 수 없다. 폰에 사본을 남겨 둔다. */
-/* v297 test reports live only in this document instance.
+/* v298 test reports live only in this document instance.
    Public-data forecasts and curated demo points are untouched. */
 const sessionReportHistory=[];
 const testReportMemory=new Map();
@@ -6524,6 +6542,41 @@ function freeRangeAnchor(){
 let freeAnchor=null;   // 무료 등급 300m 제한의 기준점 — 확인한 위치(또는 실제 위치)
 
 const quietRangeFeedback=new Map();
+const quietDemoCases=[];
+let quietDemoSeeded=false;
+function ensureQuietDemoCases(){
+  if(quietDemoSeeded||!RAW.length)return;
+  const candidates=cluster(30).map(group=>({keys:group.map(quietSourceKey),c:{lat:group.reduce((sum,p)=>sum+p.lat,0)/group.length,lng:group.reduce((sum,p)=>sum+p.lng,0)/group.length}}));
+  if(candidates.length<2)return;
+  const anchors=[{lat:37.4061,lng:126.7220},{lat:37.4042,lng:126.7234}];
+  const picked=[];
+  anchors.forEach((anchor,i)=>{
+    const available=candidates.filter(g=>!picked.includes(g));
+    const group=available.sort((a,b)=>distM(a.c,anchor)-distM(b.c,anchor))[0];
+    picked.push(group);
+    const days=i?[14,12,8,6,2]:[10,8];
+    const statuses=i?['reported','resolved','recurred','resolved','recurred']:['reported','resolved'];
+    const labels={reported:'소음 신고 기록',resolved:'경찰 출동·주의 조치 후 시민이 조용함 확인',recurred:'같은 소음이 다시 발생해 재발 신고'};
+    const events=statuses.map((status,index)=>({status,label:labels[status],at:Date.now()-days[index]*86400000}));
+    const demo={id:'quiet-demo-'+(i+1),number:i+1,title:i?'조치와 재발이 반복된 사례':'조치 후 조용해진 사례',keys:group.keys,c:group.c,events};
+    quietDemoCases.push(demo);
+    const last=events[events.length-1];
+    group.keys.forEach(key=>quietRangeFeedback.set(key,{status:last.status,at:last.at,caseId:demo.id}));
+  });
+  quietDemoSeeded=true;
+}
+function quietCaseForSpot(s){
+  if(!s||s.mine)return null;
+  return quietDemoCases.find(demo=>(s.sourceKeys||[]).some(key=>demo.keys.includes(key)))||null;
+}
+function quietTimelineHTML(s){
+  const demo=quietCaseForSpot(s);if(!demo)return '';
+  return '<section class="quiet-timeline"><span class="quiet-case-label">시연 사례 '+demo.number+' · 가상 기록</span><h3>'+demo.title+'</h3><ol>'+demo.events.map(event=>{
+    const when=new Date(event.at).toLocaleDateString('ko-KR',{month:'long',day:'numeric'});
+    return '<li class="'+event.status+'"><time>'+when+'</time><b>'+event.label+'</b></li>';
+  }).join('')+'</ol><p>시연을 위해 구성한 신고·조치·재발 이력입니다. 실제 시민 신고나 경찰 출동 기록이 아닙니다.</p></section>';
+}
+
 function quietSourceKey(p){return [p.lat,p.lng,p.t].join(':');}
 function spotChange(s){
   if(s.mine){const rec=loadSent();return {status:s.myStatus||'reported',at:rec?rec.quietConfirmedAt||rec.statusUpdatedAt||rec.at:null,demo:false};}
@@ -6539,7 +6592,9 @@ function quietRangeStyle(state,opacity){
 }
 function changeRangeDemo(s,status){
   if(!s||s.mine||s.isRoute)return;
-  (s.sourceKeys||[]).forEach(key=>quietRangeFeedback.set(key,{status,at:Date.now()}));
+  const at=Date.now(),demo=quietCaseForSpot(s);
+  (s.sourceKeys||[]).forEach(key=>quietRangeFeedback.set(key,{status,at,caseId:demo?demo.id:null}));
+  if(demo){const labels={reported:'소음 신고 기록',resolved:'조치 후 시민이 다시 조용함 확인',recurred:'같은 소음이 다시 발생해 재발 신고'};demo.events.push({status,at,label:labels[status]||status});}
   applyFilter();showDetail(s);
 }
 function changeStatusHTML(s){
@@ -6550,6 +6605,7 @@ function changeStatusHTML(s){
   let html='<section class="quiet-change '+state.status+'"><span class="quiet-kicker">신고 이후의 변화</span><h2>'+title+'</h2>';
   html+='<p>'+(resolved?'시민이 조치 후 조용해졌다고 확인한 상태입니다. 앞으로의 소음까지 보장하는 것은 아닙니다.':recurred?'이전 조치와 재발 이력을 함께 살펴보세요.':'신고 이력만으로 지금도 시끄럽다고 단정하지 않습니다. 조치 후 시민의 확인이 더해지면 지도에 표시됩니다.')+'</p>';
   if(when)html+='<p class="quiet-date">'+(resolved?'조용함 확인':'재발 기록')+' · '+when+(state.demo?' · 시연 데이터':' · 시민 입력')+'</p>';
+  html+=quietTimelineHTML(s);
   html+='<p class="quiet-history-note">아래 소음 정보는 조치 전 기록을 포함한 과거 이력입니다.</p>';
   if(!s.mine)html+='<details class="quiet-demo"><summary>시연 · 조치 후 변화 적용</summary><p>이 구역의 변화 표시를 시험합니다. 실제 기관 조치 결과가 아닙니다.</p><button type="button" data-quiet-status="resolved">조치 후 조용함 표시</button><button type="button" data-quiet-status="recurred">재발 표시</button><button type="button" data-quiet-status="reported">기본 기록으로 되돌리기</button></details>';
   return html+'</section>';
@@ -6602,7 +6658,9 @@ function drawFreeBlur(){
     poly.setMap(map); freeBlurOv.push(poly);
     if(change.status!=='reported'){
       const badge=document.createElement('button');badge.type='button';badge.className='quiet-map-badge '+change.status;
-      badge.textContent=change.status==='resolved'?'✓':'↻';badge.setAttribute('aria-label',change.status==='resolved'?'조치 후 조용함 · 시민 확인':'재발 기록');
+      const demo=quietCaseForSpot(s);
+      badge.textContent=(change.status==='resolved'?'✓':'↻')+(demo?' '+demo.number:'');if(demo)badge.classList.add('demo-case');
+      badge.setAttribute('aria-label',change.status==='resolved'?'조치 후 조용함 · 시민 확인':'재발 기록');
       badge.onclick=e=>{e.stopPropagation();showDetail(s);};
       const statusOv=new kakao.maps.CustomOverlay({position:new kakao.maps.LatLng(s.c.lat,s.c.lng),content:badge,xAnchor:.5,yAnchor:.5,zIndex:6});
       statusOv.setMap(map);quietStatusOv.push(statusOv);
@@ -6706,6 +6764,7 @@ function build(){
      건물 단위)으로 그려서, 최소한 지도에 뭐가 나오는지는 확인할 수 있게
      한다. */
   const rnd=mulberry32(20260917);
+  ensureQuietDemoCases();
   const groups=cluster(T.merge!=null ? T.merge : 0);
   const centers=groups.map(g=>({
     lat:g.reduce((s,p)=>s+p.lat,0)/g.length, lng:g.reduce((s,p)=>s+p.lng,0)/g.length}));
