@@ -2660,7 +2660,7 @@ launchFallback=setTimeout(()=>document.documentElement.classList.remove('launch-
      이 버튼은 기다림을 건너뛰는 장치다. 무게를 낮춘다. */
   #s-rec #rec-now{font-size:1.125rem; padding:11px; border-radius:10px}
 
-/* CLAMOR v314 — presentation redesign; v314 interaction preserved */
+/* CLAMOR v315 — presentation redesign; v315 interaction preserved */
 :root{--c-time:#143B55;--c-pay:#176C78;--c-pay-2:#115460}
 body.light .screen{--ink:#F4F7FA;--ink-2:#FFF;--ink-3:#EAF0F5;--line:#DFE7EF;--text:#153149;--text-dim:#516779;--text-mute:#65798B;--stroke:#153149;background:#F4F7FA;color:#153149}
 body{background:#E5EBF1}body.light .phone{background:#F4F7FA;box-shadow:0 20px 70px #15314924}
@@ -2730,7 +2730,7 @@ body.light .ts-note{color:#6A8091}.brand-symbol{width:100%;height:100%;object-fi
 @media(max-width:560px){body,body.nodev{padding:0!important;background:#F4F7FA}.phone{width:100%!important;height:100dvh!important;border-radius:0!important;box-shadow:none!important}.nav,#tune,#tune-toggle{display:none!important}}
 
 
-/* v314 — bright, high-contrast measurement surface */
+/* v315 — bright, high-contrast measurement surface */
 body.light #s-rec .live-zone{background:#FFF;color:#172B3D;border:1px solid #DDE5EC;box-shadow:0 8px 24px #172B3D08;padding:20px 18px 18px;border-radius:22px}
 body.light #s-rec .meter{padding:4px 0 16px}
 body.light #s-rec .db{color:#152B3D;font-size:5rem;font-weight:800;letter-spacing:-.06em}
@@ -2760,7 +2760,7 @@ body.warming #s-rec .soundviz{opacity:1}body.warming #s-rec .db small{color:#365
 body.light #s-confirm .cf-note,body.light #s-confirm #recur-box{background:#FFF;border-color:#DFE7ED;border-radius:18px}
 
 
-/* v314 readability contract: main text 17px+, secondary 14px+.
+/* v315 readability contract: main text 17px+, secondary 14px+.
    Wrap content or allow scrolling rather than shrinking typography. */
 body.light #s-rec{font-size:1.0625rem;line-height:1.55}
 body.light #s-rec .rhead{flex-wrap:wrap;gap:8px 10px;padding:18px}
@@ -2808,14 +2808,14 @@ body.light #s-rec .pb{padding:16px 12px;gap:10px}
 body.light #s-rec .btn.ghost{font-size:1.0625rem;min-height:52px;margin-top:16px}
 
 
-/* v314: launch copy and best-effort platform color alignment */
+/* v315: launch copy and best-effort platform color alignment */
 html,body,body.light,body.light .phone{background:#F4F7FA!important;color-scheme:only light}
 body.light #s-splash .wordsub{font-size:1.0625rem;font-weight:650;line-height:1.65;max-width:340px;letter-spacing:-.025em;margin-top:10px;color:#415E70;text-wrap:balance}
 body.light #s-splash .splash-hint{font-size:1.0625rem;line-height:1.65;max-width:340px;margin-top:26px}
 @media(max-width:560px){.phone>.screen{top:env(safe-area-inset-top,0px);bottom:env(safe-area-inset-bottom,0px)}}
 
 
-/* v314 — cohesive civic UI. Data category colors on map remain semantic. */
+/* v315 — cohesive civic UI. Data category colors on map remain semantic. */
 :root{--brand:#087E83;--brand-strong:#086B70;--brand-soft:#ECF6F5;--ui-heading:#172F43;--ui-border:#DEE7EC}
 body.light .btn.primary{background:var(--brand-strong);color:#FFF;box-shadow:0 5px 14px #086B7015}
 body.light .btn.primary:hover{background:#075A5E}
@@ -2854,7 +2854,7 @@ body.light .ts-head .ts-c.now{background:#DDEFEA;color:var(--brand-strong)}
 body.light .ts-c.yes{color:var(--brand-strong)}
 
 
-/* v314: post-report card and browsing chrome */
+/* v315: post-report card and browsing chrome */
 body.light #s-cardconfirm .cc-head h2,body.light #s-mycard h2{color:#172F43}
 body.light #s-cardconfirm .cc-head p{font-size:1.0625rem;line-height:1.6;color:#415E70}
 body.light #s-cardconfirm .cc-sh{font-size:1.0625rem;color:#172F43}
@@ -3167,7 +3167,7 @@ body.light #s-sent #sent-map::after{content:'';position:absolute;inset:0;backgro
 @keyframes sent-map-shine{0%,50%{transform:translateX(-130%)}85%,100%{transform:translateX(130%)}}
 @media(prefers-reduced-motion:reduce){body.light #s-sent #sent-map,body.light #s-sent #sent-map i,body.light #s-sent #sent-map::after{animation:none}}
 
-/* v314: fixed report-location preview, readable address, no extra step */
+/* v315: fixed report-location preview, readable address, no extra step */
 body.light .report-location{width:100%;flex:0 0 auto;box-sizing:border-box;background:#FFF;border:1px solid #D9E5E9;border-radius:16px;overflow:hidden;text-align:left}
 body.light .report-location h3{margin:0;padding:16px 18px 12px;font-size:20px;line-height:1.4;color:#172F43}
 body.light .report-location-map{height:164px;background:#EDF3F3;position:relative;pointer-events:none;overflow:hidden}
@@ -3176,7 +3176,7 @@ body.light .report-location p{margin:0;padding:14px 18px 16px;font-size:18px;lin
 .report-location-pin{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#087E8328;border:1px solid #087E8340}
 .report-location-pin span{width:16px;height:16px;border-radius:50%;background:#087E83;border:3px solid #FFF;box-shadow:0 2px 6px #163E4350}
 
-/* v314: one radius explanation; compact, readable report sections */
+/* v315: one radius explanation; compact, readable report sections */
 body.light #s-cardconfirm .cc-section{margin-top:16px}
 body.light #s-cardconfirm .cc-sh{margin:0 0 12px;font-size:19px;line-height:1.45}
 body.light #s-cardconfirm .lscroll{padding:0;gap:12px;overflow:visible}
@@ -3188,7 +3188,7 @@ body.light #s-cardconfirm .cc-radius-note{margin:16px 0 0;padding:14px 16px;back
 @keyframes ccLivingWave{0%,100%{transform:scaleY(.25)}22%{transform:scaleY(.62)}48%{transform:scaleY(1)}73%{transform:scaleY(.46)}}
 @media(prefers-reduced-motion:reduce){#s-cardconfirm .lcard .lwave i{animation:none;transform:none}}
 
-/* v314: concise dismissible notice and compact map header */
+/* v315: concise dismissible notice and compact map header */
 body.light #s-list .mhead{padding:12px 16px 10px;min-height:0}
 body.light #s-list .mtitle{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:nowrap}
 body.light #s-list .mtitle h1{font-size:21px;line-height:1.4;margin:0;white-space:nowrap;letter-spacing:-.6px}
@@ -3204,6 +3204,9 @@ body.light #s-list .lg-tx b{font-size:18px;line-height:1.45;color:#FFF}
 body.light #s-list .lg-close{font-size:27px;line-height:1;margin-left:auto;color:#FFF}
 body.light #s-list .lguide:focus-visible{outline:3px solid #ED9429;outline-offset:3px}
 @media(max-width:370px){body.light #s-list .mtitle{flex-wrap:wrap}body.light #s-list .mtitle h1{font-size:20px}}
+
+body.light .report-period{font-size:16px;line-height:1.5;color:#526A72;margin:6px 0 12px}
+body.light .owner-reminder{width:100%;flex:0 0 auto;background:#086B70;color:#FFF;border:0;padding:14px 18px;font-size:18px;font-weight:800;text-align:left}
 </style>
 
 <dialog id="recurrence-dialog" class="recurrence-dialog" aria-labelledby="recurrence-title">
@@ -3214,7 +3217,7 @@ body.light #s-list .lguide:focus-visible{outline:3px solid #ED9429;outline-offse
 </dialog>
 <dialog id="app-info-dialog" class="app-info-dialog" aria-labelledby="app-info-title">
   <h2 id="app-info-title">CLAMOR 앱 정보</h2>
-  <p>현재 버전 <strong>v314</strong></p>
+  <p>현재 버전 <strong>v315</strong></p>
   
   <button class="btn primary" id="app-info-tiers" type="button">등급 선택</button>
   <button class="btn ghost" id="app-info-close" type="button">닫기</button>
@@ -3264,7 +3267,7 @@ body.light #s-list .lguide:focus-visible{outline:3px solid #ED9429;outline-offse
     <div class="boot"><i></i></div>
     <div class="launch-footer">
       <p class="launch-partner">중소벤처기업진흥공단과 함께합니다.</p>
-      <span class="launch-version">v314</span>
+      <span class="launch-version">v315</span>
     </div>
   </section>
   <!-- ══ 2 ══ -->
@@ -3526,7 +3529,7 @@ body.light #s-list .lguide:focus-visible{outline:3px solid #ED9429;outline-offse
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v314</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v315</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -3871,6 +3874,8 @@ body.light #s-list .lguide:focus-visible{outline:3px solid #ED9429;outline-offse
        다방·배달앱이 사진과 가격으로 상품을 세우듯, 지점 하나하나를
        고를 수 있는 것으로 세운다. 고른 뒤에 상세로 들어간다. -->
   <section class="screen" id="s-list" hidden>
+<button type="button" id="owner-action-reminder" class="owner-reminder" hidden onclick="go('mycard')">내 신고 · 조치 결과 입력하기 ›</button>
+
     <!-- 신고를 보낸 직후 처음 만나는 화면이다. 무엇이 달라졌는지 한 번은
          말해 줘야 한다. 팝업으로 띄우면 닫을 것이 하나 늘고, 사람들은
          광고로 읽고 반사적으로 닫는다. 위에서 내려와 스스로 사라지는
@@ -3896,7 +3901,7 @@ body.light #s-list .lguide:focus-visible{outline:3px solid #ED9429;outline-offse
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <button class="app-info-btn" id="app-info-btn" type="button" aria-label="앱 정보 및 버전 확인">앱 정보</button><span class="ver" id="ver2" hidden>v314</span></div>
+          <button class="app-info-btn" id="app-info-btn" type="button" aria-label="앱 정보 및 버전 확인">앱 정보</button><span class="ver" id="ver2" hidden>v315</span></div>
       </div>
     </div>
 
@@ -3953,7 +3958,7 @@ body.light #s-list .lguide:focus-visible{outline:3px solid #ED9429;outline-offse
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg><span id="map-screen-title">우리 동네 소음 지도</span></h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v314</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v315</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -4312,7 +4317,7 @@ function listCardHTML(s,i){
     '<span class="li">'+
       '<span class="nm">'+s.name+(s.mine?'<em class="badge">내 신고</em>':'')+'</span>'+
       '<span class="when"><b>'+hh+'시~'+eh+'시</b> 가장 심함</span>'+
-      '<span class="sub">'+TYPES[ti].k+' · 30일 '+s.n+'건 · '+(s.mine?1:Math.max(1,s.n-1))+'명이 신고</span>'+
+      '<span class="sub">'+TYPES[ti].k+' · 60일 '+s.n+'건 · '+(s.mine?1:(s.reporterCount||s.n))+'명이 신고</span>'+
     '</span>'+
   '</button>';
 }
@@ -4332,7 +4337,7 @@ function listRouteCardHTML(rt,i){
       '<span class="nm">'+rt.name+'<em class="rbadge2">이동</em>'+
         (rt.mine?'<em class="badge">내 신고</em>':'')+'</span>'+
       '<span class="when"><b>'+hh+'시경</b> 가장 잦음</span>'+
-      '<span class="sub">구간 '+rt.len+'m · 최근 30일 기록 '+rt.n+'건</span>'+
+      '<span class="sub">구간 '+rt.len+'m · 최근 60일 기록 '+rt.n+'건</span>'+
     '</span>'+
   '</button>';
 }
@@ -4912,6 +4917,7 @@ function go(name, opts){
     },140);
   }
   if(name==='list'){
+    refreshDailyReportWindow();showOwnerActionReminder();
     /* v272 — 이미 신고를 보낸 시민에게는 이 화면(위치를 고르는 자리)이
        "다시 접속했을 때" 만큼은 뜻이 없다. 자기 집 주변 소음을 보는데도
        매번 지도를 옮기고 '이 위치 확인'을 눌러 등급을 골라야 한다면,
@@ -5906,7 +5912,7 @@ document.getElementById('sms-send').onclick=()=>{
 /* ══ 보낸 기록 ══
    보낸 뒤 사용자는 앱을 놓는다. 다시 열었을 때 처음부터 시작하면 방금
    무엇을 보냈는지 알 수 없다. 폰에 사본을 남겨 둔다. */
-/* v314 test reports live only in this document instance.
+/* v315 test reports live only in this document instance.
    Public-data forecasts and curated demo points are untouched. */
 const sessionReportHistory=[];
 const testReportMemory=new Map();
@@ -5963,6 +5969,67 @@ function renderReportLocation(prefix,loc){
   reportPreviewTimers[prefix]=setTimeout(paint,80);
 }
 
+
+const REPORT_WINDOW_DAYS=60, REPORT_DAY_MS=86400000;
+const demoReportEpoch=Date.now();
+const datedDemoReportSources=new Map();
+function reportDayStart(now=Date.now()){
+ return Math.floor((now+9*3600000)/REPORT_DAY_MS)*REPORT_DAY_MS-9*3600000;
+}
+function reportWindowStart(now=Date.now()){return reportDayStart(now)-(REPORT_WINDOW_DAYS-1)*REPORT_DAY_MS;}
+function isRecentReport(rec,now=Date.now()){return !!rec && Number.isFinite(rec.at) && rec.at>=reportWindowStart(now) && rec.at<=now;}
+function reportWindowLabel(now=Date.now()){
+ const fmt=t=>new Date(t).toLocaleDateString('ko-KR',{timeZone:'Asia/Seoul',month:'numeric',day:'numeric'});
+ return fmt(reportWindowStart(now))+' ~ '+fmt(now);
+}
+function datedDemoReports(p,index,peak){
+ const key=[p.lat,p.lng,p.t,index].join(':');
+ if(!datedDemoReportSources.has(key)){
+  const seed=mulberry32(index*139+731),count=3+Math.floor(seed()*4);
+  const records=Array.from({length:count},(_,j)=>{
+   const age=Math.floor(seed()*60),hour=(peak+Math.floor(seed()*3)-1+24)%24;
+   let at=reportDayStart(demoReportEpoch)-age*REPORT_DAY_MS+hour*3600000+Math.floor(seed()*60)*60000;
+   if(at>demoReportEpoch)at-=REPORT_DAY_MS;
+   return {id:'point-'+index+'-'+j,at,ti:p.t,reporterId:'citizen-'+index+'-'+j,db:60+Math.floor(seed()*16),dur:3+Math.floor(seed()*12)};
+  });
+  datedDemoReportSources.set(key,records);
+ }
+ return datedDemoReportSources.get(key);
+}
+function activeRawReports(now=Date.now()){
+ return RAW.map(p=>({...p,reports:(p.reports||[]).filter(x=>isRecentReport(x,now))})).filter(p=>p.reports.length);
+}
+function refreshRouteWindow(rt){
+ const reports=(rt.reports||[]).filter(x=>isRecentReport(x));
+ rt.n=reports.length;rt.people=new Set(reports.map(x=>x.reporterId)).size;
+ rt.hours=Array(24).fill(0);reports.forEach(x=>rt.hours[new Date(x.at).getHours()]++);
+ rt.peak=rt.hours.indexOf(Math.max(...rt.hours));
+ return reports;
+}
+
+
+let reportWindowDay=reportDayStart();
+function refreshDailyReportWindow(){
+ const day=reportDayStart();if(day===reportWindowDay)return;
+ reportWindowDay=day;
+ if(!map || !RAW.length)return;
+ const center=map.getCenter(),previous=active;build();applyMine();buildCards();applyFilter();map.setCenter(center);
+ if(previous){
+  const replacement=previous.isRoute?(refreshRouteWindow(previous).length?previous:null):spots.find(s=>(s.sourceKeys||[]).some(k=>(previous.sourceKeys||[]).includes(k)));
+  if(replacement)showDetail(replacement);else view('main');
+ }
+ const cc=document.getElementById('s-cardconfirm');if(cc&&!cc.hidden)renderCardConfirm({lat:center.getLat(),lng:center.getLng()});
+ if(typeof renderList==='function')renderList();
+}
+function showOwnerActionReminder(){
+ const rec=loadSent(),el=document.getElementById('owner-action-reminder');if(!el)return;
+ const answered=rec && rec.actionResult && rec.actionResult.noiseGone;
+ el.hidden=!(rec && !answered && Date.now()>=(rec.actionReminderAt||rec.at+REPORT_DAY_MS));
+}
+window.addEventListener('focus',()=>{refreshDailyReportWindow();showOwnerActionReminder();});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden){refreshDailyReportWindow();showOwnerActionReminder();}});
+setInterval(()=>{refreshDailyReportWindow();showOwnerActionReminder();},30000);
+
 function saveSent(r){
   /* 지도 카드와 같은 이름이어야 한다. 문자 화면 주소가 아직 안 왔을 때
      '논현동 일대'로 굳어 버리면, 지도에서 나온 도로명과 사본에는
@@ -5993,6 +6060,7 @@ function saveSent(r){
        화면(renderSent)·내 신고카드(renderMyCard)에서도 확인·문자 화면과
        똑같이 "N초 (측정 M초 중)" 맥락을 보여줄 수 있다. myReport(=LAST나
        currentReading()의 결과)에 totalSec이 없으면(예전 경로) dur로 대체한다. */
+    actionReminderAt:at+REPORT_DAY_MS,
     totalSec: r.totalSec!=null ? r.totalSec : r.dur,
     lat:loc.lat, lng:loc.lng,
     /* 재발로 표시했고 실제 지난 기록이 있었을 때만 남긴다 */
@@ -6551,11 +6619,12 @@ const M_LAT=1/110574, M_LNG=1/(111320*Math.cos(CENTER.lat*Math.PI/180));
 function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
 const distM=(a,b)=>Math.hypot((a.lng-b.lng)/M_LNG,(a.lat-b.lat)/M_LAT);
 
+
 let RAW=[], useEstimate=true;   /* 기본은 규칙 기반 추정 */
 function activePoints(){ return useEstimate ? estimatePoints() : POINTS }
 function buildRaw(){
   const r=mulberry32(31337);
-  RAW=activePoints().map(p=>{
+  RAW=activePoints().map((p,index)=>{
     const night=r()<.72;
     const peak=night?(21+Math.floor(r()*7))%24:(12+Math.floor(r()*8));
     const hours=Array.from({length:24},(_,h)=>{
@@ -6569,7 +6638,7 @@ function buildRaw(){
     const bear=r()*2*Math.PI, dist=15+r()*35;
     const reporterLoc={lat:p.lat+Math.cos(bear)*dist*M_LAT, lng:p.lng+Math.sin(bear)*dist*M_LNG};
     /* 심야 주택가 기준. 이전 62~88은 지하철 승강장급이라 과했다 */
-    return {...p, hours, db:Math.round(56+r()*20), dur:Math.round(3+r()*12), reporterLoc};
+    return {...p, reports:datedDemoReports(p,index,peak), hours, db:Math.round(56+r()*20), dur:Math.round(3+r()*12), reporterLoc};
   });
 }
 /* ══ 실측 공공데이터 ══════════════════════════════════════════
@@ -6662,12 +6731,13 @@ function drawCCTV(){
   });
 }
 function cluster(radius){
-  if(radius<=0) return RAW.map(p=>[p]);
-  const used=RAW.map(()=>false), g=[];
-  RAW.forEach((p,i)=>{
+  const current=activeRawReports();
+  if(radius<=0) return current.map(p=>[p]);
+  const used=current.map(()=>false), g=[];
+  current.forEach((p,i)=>{
     if(used[i]) return; used[i]=true;
     const grp=[p];
-    RAW.forEach((q,j)=>{if(!used[j]&&distM(p,q)<=radius){used[j]=true; grp.push(q)}});
+    current.forEach((q,j)=>{if(!used[j]&&distM(p,q)<=radius){used[j]=true; grp.push(q)}});
     g.push(grp);
   });
   return g;
@@ -6752,7 +6822,7 @@ function applyFilter(){
   const onListScreen = !!(ls && !ls.hidden);
   const rangeTier = !!(TIERS[tier] && TIERS[tier].range);
   spots.forEach(s=>{
-    const on=TYPES.some((_,i)=>onTypes[i]&&s.cnt[i]>0);
+    const on=(!s.mine||isRecentReport({at:s.lastReportedAt})) && TYPES.some((_,i)=>onTypes[i]&&s.cnt[i]>0);
     s.vis=on;                       // 번짐 표시가 같은 판정을 쓰도록 남긴다
     /* v272 — "자신이 신고한 지점은 정확히 보이도록 해줘야 한다. 소음
        범위는 다른 사람들의 신고 데이터이므로 범위로 흐려버릴 수 있지만
@@ -6834,7 +6904,7 @@ function quietTimelineHTML(s){
 function quietSourceKey(p){return [p.lat,p.lng,p.t].join(':');}
 function spotChange(s){
   if(s.mine){const rec=loadSent();return {status:s.myStatus||'reported',at:rec?rec.quietConfirmedAt||rec.statusUpdatedAt||rec.at:null,demo:false};}
-  const keys=s.sourceKeys||[],feedback=keys.map(k=>quietRangeFeedback.get(k));
+  const keys=s.sourceKeys||[],feedback=keys.map(k=>quietRangeFeedback.get(k)).map(v=>v && isRecentReport(v)?v:null);
   if(feedback.some(v=>v&&v.status==='recurred'))return {status:'recurred',at:Math.max(...feedback.filter(Boolean).map(v=>v.at)),demo:true};
   if(keys.length&&feedback.every(v=>v&&v.status==='resolved'))return {status:'resolved',at:Math.max(...feedback.map(v=>v.at)),demo:true};
   return {status:'reported',at:null,demo:false};
@@ -6844,27 +6914,15 @@ function quietRangeStyle(state,opacity){
   if(state.status==='recurred')return {strokeWeight:2,strokeColor:'#AF741F',strokeOpacity:.9,strokeStyle:'dash',fillColor:'#C79B50',fillOpacity:.20};
   return {strokeWeight:0,fillColor:'#2B3340',fillOpacity:opacity};
 }
-function changeRangeDemo(s,status){
-  if(!s||s.mine||s.isRoute)return;
-  const at=Date.now(),demo=quietCaseForSpot(s);
-  (s.sourceKeys||[]).forEach(key=>quietRangeFeedback.set(key,{status,at,caseId:demo?demo.id:null}));
-  if(demo){const labels={reported:'소음 신고 기록',resolved:'조치 후 시민이 다시 조용함 확인',recurred:'같은 소음이 다시 발생해 재발 신고'};demo.events.push({status,at,label:labels[status]||status});}
-  applyFilter();showDetail(s);
-}
 function changeStatusHTML(s){
-  if(s.isRoute)return '';
-  const state=spotChange(s),resolved=state.status==='resolved',recurred=state.status==='recurred';
-  const title=resolved?'✓ 조치 후 조용해졌다는 확인이 있습니다':recurred?'↻ 조용해졌다가 다시 소음이 발생했습니다':'소음 기록이 있는 구역입니다';
-  const when=state.at?new Date(state.at).toLocaleString('ko-KR',{month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'}):'';
-  let html='<section class="quiet-change '+state.status+'"><span class="quiet-kicker">신고 이후의 변화</span><h2>'+title+'</h2>';
-  html+='<p>'+(resolved?'시민이 조치 후 조용해졌다고 확인한 상태입니다. 앞으로의 소음까지 보장하는 것은 아닙니다.':recurred?'이전 조치와 재발 이력을 함께 살펴보세요.':'신고 이력만으로 지금도 시끄럽다고 단정하지 않습니다. 조치 후 시민의 확인이 더해지면 지도에 표시됩니다.')+'</p>';
-  if(when)html+='<p class="quiet-date">'+(resolved?'조용함 확인':'재발 기록')+' · '+when+(state.demo?'':' · 시민 입력')+'</p>';
-  html+=quietTimelineHTML(s);
-  html+='<p class="quiet-history-note">아래 소음 정보는 조치 전 기록을 포함한 과거 이력입니다.</p>';
-  if(!s.mine)html+='<details class="quiet-demo"><summary>조치 후 변화 적용</summary><button type="button" data-quiet-status="resolved">조치 후 조용함 표시</button><button type="button" data-quiet-status="recurred">재발 표시</button><button type="button" data-quiet-status="reported">기본 기록으로 되돌리기</button></details>';
-  return html+'</section>';
+ if(s.isRoute)return '';
+ const state=spotChange(s);
+ if(state.status==='reported')return '';
+ const resolved=state.status==='resolved';
+ const title=resolved?'✓ 조치 후 조용함 확인':'↻ 소음 재발';
+ const when=state.at?new Date(state.at).toLocaleString('ko-KR',{month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'}):'';
+ return '<section class="quiet-change '+state.status+'"><h2>'+title+'</h2>'+(when?'<p class="quiet-date">'+when+'</p>':'')+quietTimelineHTML(s)+'</section>';
 }
-document.addEventListener('click',e=>{const button=e.target.closest('[data-quiet-status]');if(button&&active)changeRangeDemo(active,button.dataset.quietStatus);});
 
 let freeBlurOv=[],quietStatusOv=[];
 function circlePath(c, r){
@@ -7027,10 +7085,11 @@ function build(){
   groups.forEach((g,i)=>{
     const c=centers[i];
     const near=RAW.filter(p=>distM(p,c)<=250).length;
-    const n=Math.max(T.merge===0?1:3, Math.round(3+g.length*2.5+near*0.4+rnd()*4));
-    const cnt=TYPES.map((_,ti)=>g.filter(p=>p.t===ti).length);
-    const mix=cnt.map(v=>(v+0.15)/(g.length+0.75));
-    const hours=Array.from({length:24},(_,h)=>g.reduce((s,p)=>s+p.hours[h],0)/g.length);
+    const reports=g.flatMap(p=>p.reports).sort((a,b)=>b.at-a.at);
+    const n=reports.length;
+    const cnt=TYPES.map((_,ti)=>reports.filter(p=>p.ti===ti).length);
+    const mix=cnt.map(v=>n?v/n:0);
+    const hours=Array.from({length:24},(_,h)=>reports.filter(x=>new Date(x.at).getHours()===h).length);
     /* "신고된 내용" 화면(v254)에 유형별 시간대 분포를 따로 보여주려면
        유형별로 묶은 원본 신고들의 hours를 따로 평균 내야 한다. 그룹
        전체 평균(hours)만으로는 "고성은 새벽에, 기계음은 낮에"처럼
@@ -7047,22 +7106,11 @@ function build(){
        유형마다 다른 시각에 피크가 있는 합성 곡선을 만든다 — 같은 지점을
        다시 봐도 항상 같은 모양이 나오되(랜덤이 아니라 결정적), 유형마다
        서로 다른 모양이 되어 실제 이퀄라이저처럼 보인다. */
-    const hoursByType=TYPES.map((_,ti)=>{
-      const gt=g.filter(p=>p.t===ti);
-      if(gt.length) return Array.from({length:24},(_,h)=>gt.reduce((s,p)=>s+p.hours[h],0)/gt.length);
-      const hr=mulberry32(Math.round(c.lat*1e6)*13 + Math.round(c.lng*1e6)*7 + ti*131 + 1);
-      const peak=Math.floor(hr()*24), spread=2.5+hr()*3;
-      const base=Math.max(...hours, 0.0001);
-      return Array.from({length:24},(_,h)=>{
-        let d=Math.abs(h-peak); d=Math.min(d,24-d);
-        const bell=Math.exp(-(d*d)/(2*spread*spread));
-        return base*(0.12+0.88*bell)*(0.7+hr()*0.5);
-      });
-    });
+    const hoursByType=TYPES.map((_,ti)=>Array.from({length:24},(_,h)=>reports.filter(x=>x.ti===ti && new Date(x.at).getHours()===h).length));
     /* 묶은 그룹이 원본 신고 하나뿐일 때만(=병합 반경 0, 행정/대응/수사)
        그 하나의 신고자 위치를 그대로 쓴다 — 여러 신고를 하나로 묶은
        그룹(무료·유료)은 신고자가 여럿이라 위치 하나로 대표할 수 없다. */
-    spots.push({c,n,mix,cnt,hours,hoursByType,sourceKeys:g.map(quietSourceKey),cov:covered(c),
+    spots.push({c,n,mix,cnt,hours,hoursByType,reports,lastReportedAt:reports[0].at,reporterCount:new Set(reports.map(x=>x.reporterId)).size,sourceKeys:g.map(quietSourceKey),cov:covered(c),
       db:Math.round(g.reduce((s,p)=>s+p.db,0)/g.length),
       dur:Math.round(g.reduce((s,p)=>s+p.dur,0)/g.length),
       dom:cnt.indexOf(Math.max(...cnt)),
@@ -7150,6 +7198,7 @@ function addMySpot(typeIdx, dbVal, durVal, locOverride, nameOverride){
      기록(SENT_KEY, loadSent())이 정답이다. 지금은 "내 신고"가 한 건만
      추적되는 구조라 이 스팟이 곧 그 기록과 1:1로 대응한다. */
   const sent=loadSent();
+  s.lastReportedAt=sent?sent.at:Date.now();s.reports=sent?[{...sent,ti:typeIdx,reporterId:'self'}]:[];
   s.myStatus=(sent && sent.status) || 'reported';
   s.recurCount=(sent && sent.recurCount) || 0;
   s.px = sizeFor(s);
@@ -7181,6 +7230,7 @@ function addMySpot(typeIdx, dbVal, durVal, locOverride, nameOverride){
    신고(loadSent)로 한 번(mineRehydrated) 되살린다. */
 let mineRehydrated=false;
 function applyMine(){
+  const stored=loadSent();if(stored && !isRecentReport(stored))return;
   let rehydrated=false;
   if(!myReport){
     if(mineRehydrated || !map) return;
@@ -7273,7 +7323,7 @@ function showDetail(s){
   selectedViewCenter={lat:s.c.lat,lng:s.c.lng};
   map.panTo(new kakao.maps.LatLng(s.c.lat,s.c.lng));
   document.getElementById('d-name').textContent=s.name;
-  document.getElementById('d-n').textContent=s.n+'건 / 30일';
+  document.getElementById('d-n').textContent=s.n+'건 / 최근 60일';
   /* v267 — 구간(이동 소음)은 지점과 데이터 모양이 달라(mix·hoursByType·
      cov·dur가 없다) reportBreakdownHTML을 그대로 쓰면 "0건"·"undefined분"
      같은 엉뚱한 값이 뜬다. 카드(routeCardHTML)와 같은 재료로, 구간에
@@ -7516,7 +7566,7 @@ function drawRoutes(){
        시간대별 굵기·밝기로 바뀐다. */
     const w = hourSel<0 ? 1 : sharp(rt.hours, hourSel);
     const inFree = !anchor || (rt.c && distM(rt.c, anchor)<=FREE_RADIUS);
-    const show = on && w>=0.18 && inFree;
+    const show = on && refreshRouteWindow(rt).length>0 && w>=0.18 && inFree;
     rt.showing=show;
     rt.line.setMap(show?map:null);
     rt.glow.setMap(show?map:null);
@@ -7629,7 +7679,7 @@ function routeCardHTML(rt,i){
       '<i class="cmore" data-cmore="'+i+'">자세히 ›</i></div>'+
     '<div class="cdetail" id="cdetail'+i+'" hidden>'+
       '<div class="cmerge">구간 길이 '+rt.len+'m · 지나가는 소음을 길 단위로 묶어 표시</div>'+
-      '<div class="rkey">최근 30일 누적 기록 <b>'+rt.n+'건</b></div>'+
+      '<div class="rkey">최근 60일 누적 기록 <b>'+rt.n+'건</b></div>'+
       '<div class="cmeta">'+
         '<span class="mtag rtag">반복되는 이동 소음</span>'+
         '<span class="mtag rtag">구간 기록으로 축적</span>'+
@@ -7693,7 +7743,7 @@ function seedRouteReports(rt,index){
  const now=new Date();now.setHours(0,0,0,0);
  rt.vehicleType='bike';rt.demo=true;
  rt.reports=Array.from({length:count},(_,i)=>{
-   const at=new Date(now);at.setDate(at.getDate()-1-Math.floor(i*27/count));
+   const at=new Date(now);at.setDate(at.getDate()-1-Math.floor(i*58/count));
    at.setHours([0,1,23,22,2][(i+index)%5],(i*13+index*7)%60,0,0);
    return {id:rt.id+'-report-'+i,reporterId:rt.id+'-citizen-'+(i%people),type:'bike',at:at.getTime(),positionIndex:i%9+1,position:alongPath(rt.path,(i%9)/8),tags:i%3===0?['angry','wake']:i%3===1?['heart','angry']:['baby','elder']};
  }).sort((a,b)=>b.at-a.at);
@@ -7706,14 +7756,14 @@ function seedRouteReports(rt,index){
 function clamorBikeSVG(){return '<circle cx="17" cy="48" r="11" fill="#173844" stroke="none"/><circle cx="66" cy="48" r="11" fill="#173844" stroke="none"/><circle cx="17" cy="48" r="5" fill="#B8CAD0" stroke="none"/><circle cx="66" cy="48" r="5" fill="#B8CAD0" stroke="none"/><path d="M8 35L12 22L22 15L29 29L44 34L49 28L70 27L76 35L70 43H56L48 49H28L23 40H10Z" fill="#244653" stroke="#173844" stroke-width="2"/><path d="M13 22L17 5L23 3L25 15Z" fill="#A6C7D2" stroke="#536C7C" stroke-width="1.5"/><path d="M28 29L38 24L51 26L54 23L71 23L72 28L49 31L44 34Z" fill="#102F3C" stroke="none"/><path d="M34 37L46 42H61" stroke="#728F9B" stroke-width="2"/><path d="M51 44H73L76 41" stroke="#879BA5" stroke-width="5"/><path d="M19 15L28 13M17 30L23 31" stroke="#C2DCE3" stroke-width="2"/><path d="M72 30h4" stroke="#D94B48" stroke-width="3"/>';}
 function routeDetailHTML(rt){
  seedRouteReports(rt,rt.id==='r2'?1:0);
- const bike=rt.vehicleType!=='car',kind=bike?'바이크':'차량',reports=rt.reports;
+ const bike=rt.vehicleType!=='car',kind=bike?'바이크':'차량',reports=refreshRouteWindow(rt);
  const tags=PASSBY_TAGS.map(t=>({label:t.label,n:reports.filter(p=>p.tags.includes(t.id)).length})).filter(t=>t.n);
  const date=at=>new Date(at).toLocaleString('ko-KR',{month:'long',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:false});
  const symbol=bike?clamorBikeSVG() : '<path d="M9 44V30l11-15h39l12 15v14H9ZM9 30h62M25 15l-5 15M55 15l7 15"/><circle cx="24" cy="44" r="9"/><circle cx="57" cy="44" r="9"/>';
  const icon='<svg viewBox="0 0 82 62" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">'+symbol+'</svg>';
  const logs=reports.map((p,i)=>'<li><div><b>'+date(p.at)+'</b><span>시민 '+String(Number(p.reporterId.split('-').pop())+1).padStart(2,'0')+' · 구간 내 제보 위치 '+p.positionIndex+'</span></div><p>'+PASSBY_TAGS.filter(t=>p.tags.includes(t.id)).map(t=>t.label).join(' · ')+'</p></li>').join('');
  return '<section class="route-focus route-report-focus"><div class="route-kind">'+icon+'<div><span>시민 신고(제보)</span><h2>'+kind+' 굉음</h2></div></div>'+
- '<div class="route-stats"><div><span>신고(제보)한 시민</span><strong>'+rt.people+'<small>명</small></strong></div><div><span>최근 30일 신고(제보)</span><strong>'+rt.n+'<small>건</small></strong></div></div>'+
+ '<div class="route-stats"><div><span>신고(제보)한 시민</span><strong>'+rt.people+'<small>명</small></strong></div><div><span>최근 60일 신고(제보)</span><strong>'+rt.n+'<small>건</small></strong></div></div>'+
  '</section>'+
  routeConnectionHTML(rt)+'<section class="route-time-card"><h2>24시간 신고(제보) 분포</h2>'+hourlySpectrumHTML(rt.hours,4).replace('','')+'</section>'+
  '<section class="route-time-card route-reactions"><h2>시민이 직접 선택한 피해 반응</h2><div>'+tags.map(t=>'<div class="reaction-row"><span>'+t.label+'</span><b>'+t.n+'건</b></div>').join('')+'</div></section>'+
@@ -7775,7 +7825,7 @@ function hourlySpectrumHTML(hours,typeIndex){
 function reportBreakdownHTML(s, T){
   const hasHours = !!(T && T.hours);
   const rows = TYPES.map((t,i)=>{
-    const cnt = Math.round((s.mix?s.mix[i]:0) * s.n);
+    const cnt = s.cnt?s.cnt[i]:0;
     const hrs = (s.hoursByType && s.hoursByType[i]) || Array(24).fill(0);
     const mx = Math.max(...hrs, 0.0001);
     /* 무료 등급은 시간대별 그래프(hasHours)가 잠겨 있어 이 자리가 그냥
@@ -7802,7 +7852,7 @@ function reportBreakdownHTML(s, T){
   }).join('');
   return '<div class="repbox">'+
     '<div class="bh">이 구역에 신고된 내용</div>'+
-    '<div class="repn">30일간 <b>'+s.n+'건</b>의 신고'+
+    '<div class="repn">최근 60일 · <b>'+s.n+'건</b></div><div class="report-period">'+reportWindowLabel()+'</div><div>'+
       ((T && T.log && !s.cov)?' · <span class="mtag blind">CCTV 사각</span>':'')+'</div>'+
     (hasHours?'<div class="distribution-label">24시간 소음 분포</div><p class="distribution-guide">막대 1개는 1시간입니다. 소음이 집중되는 시간일수록 더 크게 움직입니다.</p><p class="distribution-note">점선 50%·빨강 80%는 상대 집중도 표시 기준이며, 실제 데시벨·법적 기준이 아닙니다.</p>':'')+
     '<div class="typegrid'+(hasHours?' with-hours':'')+'">'+rows+'</div>'+
@@ -8150,7 +8200,7 @@ function bandOf(h){
    각자 하고 있어, 값 자체는 그대로 두고 마크업만 이 함수로 공유한다. */
 function impactHTML(s, worst, peakH, nights, calm){
  const hh=String(peakH).padStart(2,'0');
- return '<div class="ihead">최근 30일 신고 기록</div><div class="im2">'+
+ return '<div class="ihead">최근 60일 신고 기록</div><div class="im2">'+
  '<div class="im2-row"><span class="im2-label">소음 신고</span><span class="im2-value"><b>'+s.n+'건</b></span></div>'+
  '<div class="im2-row"><span class="im2-label">소음 집중 시간</span><span class="im2-value">'+(paid?bandOf(peakH)+' <b>'+hh+'시</b>':'<span class="mask"></span>시<i class="lk">🔒</i>')+'</span></div></div>'+
  '<div class="idesc">신고 기록이 적어도 소음이 없다는 뜻은 아닙니다.</div>';
@@ -8581,7 +8631,7 @@ function resolveNames(){
    특정할 수 있게 만든다. 시간대까지만 뭉갠다.
    ══════════════════════════════════════════════════════════════ */
 const BAND=h=>h<3?'새벽':h<6?'이른 새벽':h<12?'오전':h<18?'오후':h<21?'저녁':'심야';
-function makeLogs(s){
+function syntheticLegacyLogs(s){
   const r=mulberry32(Math.round(s.c.lat*1e6)+Math.round(s.c.lng*1e6)+s.n);
   const pk=s.hours.indexOf(Math.max(...s.hours));
   const n=Math.min(5, Math.max(3, Math.round(s.n/6)));
@@ -8600,6 +8650,9 @@ function makeLogs(s){
    "🔒 평균 지속"으로 잠가놓은 게 무의미해졌다(무료·유료에서도 정확한
    숫자가 로그 목록으로 새어 나왔다) — metrics가 열린 등급(행정부터)에서만
    dB·분을 보여준다. */
+function makeLogs(s){
+ return (s.reports||[]).filter(x=>isRecentReport(x)).slice().sort((a,b)=>b.at-a.at).slice(0,5).map(x=>({ago:Math.floor((reportDayStart()-reportDayStart(x.at))/REPORT_DAY_MS),h:new Date(x.at).getHours(),ti:x.ti,db:x.db,dur:x.dur}));
+}
 function logHTML(s,i){
   const metrics = !!(TIERS[tier] && TIERS[tier].metrics);
   return makeLogs(s).map(l=>
