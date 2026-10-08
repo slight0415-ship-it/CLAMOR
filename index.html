@@ -2660,7 +2660,7 @@ launchFallback=setTimeout(()=>document.documentElement.classList.remove('launch-
      이 버튼은 기다림을 건너뛰는 장치다. 무게를 낮춘다. */
   #s-rec #rec-now{font-size:1.125rem; padding:11px; border-radius:10px}
 
-/* CLAMOR v312 — presentation redesign; v312 interaction preserved */
+/* CLAMOR v313 — presentation redesign; v313 interaction preserved */
 :root{--c-time:#143B55;--c-pay:#176C78;--c-pay-2:#115460}
 body.light .screen{--ink:#F4F7FA;--ink-2:#FFF;--ink-3:#EAF0F5;--line:#DFE7EF;--text:#153149;--text-dim:#516779;--text-mute:#65798B;--stroke:#153149;background:#F4F7FA;color:#153149}
 body{background:#E5EBF1}body.light .phone{background:#F4F7FA;box-shadow:0 20px 70px #15314924}
@@ -2730,7 +2730,7 @@ body.light .ts-note{color:#6A8091}.brand-symbol{width:100%;height:100%;object-fi
 @media(max-width:560px){body,body.nodev{padding:0!important;background:#F4F7FA}.phone{width:100%!important;height:100dvh!important;border-radius:0!important;box-shadow:none!important}.nav,#tune,#tune-toggle{display:none!important}}
 
 
-/* v312 — bright, high-contrast measurement surface */
+/* v313 — bright, high-contrast measurement surface */
 body.light #s-rec .live-zone{background:#FFF;color:#172B3D;border:1px solid #DDE5EC;box-shadow:0 8px 24px #172B3D08;padding:20px 18px 18px;border-radius:22px}
 body.light #s-rec .meter{padding:4px 0 16px}
 body.light #s-rec .db{color:#152B3D;font-size:5rem;font-weight:800;letter-spacing:-.06em}
@@ -2760,7 +2760,7 @@ body.warming #s-rec .soundviz{opacity:1}body.warming #s-rec .db small{color:#365
 body.light #s-confirm .cf-note,body.light #s-confirm #recur-box{background:#FFF;border-color:#DFE7ED;border-radius:18px}
 
 
-/* v312 readability contract: main text 17px+, secondary 14px+.
+/* v313 readability contract: main text 17px+, secondary 14px+.
    Wrap content or allow scrolling rather than shrinking typography. */
 body.light #s-rec{font-size:1.0625rem;line-height:1.55}
 body.light #s-rec .rhead{flex-wrap:wrap;gap:8px 10px;padding:18px}
@@ -2808,14 +2808,14 @@ body.light #s-rec .pb{padding:16px 12px;gap:10px}
 body.light #s-rec .btn.ghost{font-size:1.0625rem;min-height:52px;margin-top:16px}
 
 
-/* v312: launch copy and best-effort platform color alignment */
+/* v313: launch copy and best-effort platform color alignment */
 html,body,body.light,body.light .phone{background:#F4F7FA!important;color-scheme:only light}
 body.light #s-splash .wordsub{font-size:1.0625rem;font-weight:650;line-height:1.65;max-width:340px;letter-spacing:-.025em;margin-top:10px;color:#415E70;text-wrap:balance}
 body.light #s-splash .splash-hint{font-size:1.0625rem;line-height:1.65;max-width:340px;margin-top:26px}
 @media(max-width:560px){.phone>.screen{top:env(safe-area-inset-top,0px);bottom:env(safe-area-inset-bottom,0px)}}
 
 
-/* v312 — cohesive civic UI. Data category colors on map remain semantic. */
+/* v313 — cohesive civic UI. Data category colors on map remain semantic. */
 :root{--brand:#087E83;--brand-strong:#086B70;--brand-soft:#ECF6F5;--ui-heading:#172F43;--ui-border:#DEE7EC}
 body.light .btn.primary{background:var(--brand-strong);color:#FFF;box-shadow:0 5px 14px #086B7015}
 body.light .btn.primary:hover{background:#075A5E}
@@ -2854,7 +2854,7 @@ body.light .ts-head .ts-c.now{background:#DDEFEA;color:var(--brand-strong)}
 body.light .ts-c.yes{color:var(--brand-strong)}
 
 
-/* v312: post-report card and browsing chrome */
+/* v313: post-report card and browsing chrome */
 body.light #s-cardconfirm .cc-head h2,body.light #s-mycard h2{color:#172F43}
 body.light #s-cardconfirm .cc-head p{font-size:1.0625rem;line-height:1.6;color:#415E70}
 body.light #s-cardconfirm .cc-sh{font-size:1.0625rem;color:#172F43}
@@ -3167,7 +3167,7 @@ body.light #s-sent #sent-map::after{content:'';position:absolute;inset:0;backgro
 @keyframes sent-map-shine{0%,50%{transform:translateX(-130%)}85%,100%{transform:translateX(130%)}}
 @media(prefers-reduced-motion:reduce){body.light #s-sent #sent-map,body.light #s-sent #sent-map i,body.light #s-sent #sent-map::after{animation:none}}
 
-/* v312: fixed report-location preview, readable address, no extra step */
+/* v313: fixed report-location preview, readable address, no extra step */
 body.light .report-location{width:100%;flex:0 0 auto;box-sizing:border-box;background:#FFF;border:1px solid #D9E5E9;border-radius:16px;overflow:hidden;text-align:left}
 body.light .report-location h3{margin:0;padding:16px 18px 12px;font-size:20px;line-height:1.4;color:#172F43}
 body.light .report-location-map{height:164px;background:#EDF3F3;position:relative;pointer-events:none;overflow:hidden}
@@ -3175,6 +3175,18 @@ body.light .report-location-map>span{display:flex;height:100%;align-items:center
 body.light .report-location p{margin:0;padding:14px 18px 16px;font-size:18px;line-height:1.5;font-weight:700;color:#172F43;overflow-wrap:anywhere}
 .report-location-pin{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#087E8328;border:1px solid #087E8340}
 .report-location-pin span{width:16px;height:16px;border-radius:50%;background:#087E83;border:3px solid #FFF;box-shadow:0 2px 6px #163E4350}
+
+/* v313: one radius explanation; compact, readable report sections */
+body.light #s-cardconfirm .cc-section{margin-top:16px}
+body.light #s-cardconfirm .cc-sh{margin:0 0 12px;font-size:19px;line-height:1.45}
+body.light #s-cardconfirm .lscroll{padding:0;gap:12px;overflow:visible}
+body.light #s-cardconfirm .cc-empty{padding:18px;margin:0;font-size:17px;line-height:1.5}
+body.light #s-cardconfirm .cc-radius-note{margin:16px 0 0;padding:14px 16px;background:#EAF2F3;border-radius:12px;color:#415E70;font-size:16px;line-height:1.6}
+#s-cardconfirm .lcard .lwave i{animation-name:ccLivingWave;animation-duration:2.7s;animation-timing-function:ease-in-out;animation-iteration-count:infinite;animation-play-state:running}
+#s-cardconfirm .lcard .lwave i:nth-child(3n){animation-duration:3.4s}
+#s-cardconfirm .lcard .lwave i:nth-child(3n+1){animation-duration:2.3s}
+@keyframes ccLivingWave{0%,100%{transform:scaleY(.25)}22%{transform:scaleY(.62)}48%{transform:scaleY(1)}73%{transform:scaleY(.46)}}
+@media(prefers-reduced-motion:reduce){#s-cardconfirm .lcard .lwave i{animation:none;transform:none}}
 </style>
 
 <dialog id="recurrence-dialog" class="recurrence-dialog" aria-labelledby="recurrence-title">
@@ -3185,7 +3197,7 @@ body.light .report-location p{margin:0;padding:14px 18px 16px;font-size:18px;lin
 </dialog>
 <dialog id="app-info-dialog" class="app-info-dialog" aria-labelledby="app-info-title">
   <h2 id="app-info-title">CLAMOR 앱 정보</h2>
-  <p>현재 버전 <strong>v312</strong></p>
+  <p>현재 버전 <strong>v313</strong></p>
   
   <button class="btn primary" id="app-info-tiers" type="button">등급 선택</button>
   <button class="btn ghost" id="app-info-close" type="button">닫기</button>
@@ -3235,7 +3247,7 @@ body.light .report-location p{margin:0;padding:14px 18px 16px;font-size:18px;lin
     <div class="boot"><i></i></div>
     <div class="launch-footer">
       <p class="launch-partner">중소벤처기업진흥공단과 함께합니다.</p>
-      <span class="launch-version">v312</span>
+      <span class="launch-version">v313</span>
     </div>
   </section>
   <!-- ══ 2 ══ -->
@@ -3497,7 +3509,7 @@ body.light .report-location p{margin:0;padding:14px 18px 16px;font-size:18px;lin
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v312</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v313</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -3606,25 +3618,25 @@ body.light .report-location p{margin:0;padding:14px 18px 16px;font-size:18px;lin
   <section class="screen" id="s-cardconfirm" hidden>
     <div class="cc-wrap">
       <div class="cc-head">
-        <h2>신고카드 확인</h2>
-        <p>신고해 주셔서 감사합니다 — 이 자리 주변 200m의 기록을 보여드립니다</p>
+        <h2>나의 신고카드 확인</h2>
       </div>
 
       <div class="cc-map-wrap">
         <div id="cardconfirmmap"></div>
-        <div class="cc-map-note">맵은 고정되어 있습니다 · 반경 200m</div>
+        <div class="cc-map-note">맵은 고정되어있습니다.</div>
       </div>
 
       <div class="cc-section">
-        <div class="cc-sh">내 신고</div>
+        <div class="cc-sh">신고(제보) 카드</div>
         <div id="cc-recurrence" hidden></div><div class="lscroll" id="cc-mine"></div>
       </div>
 
       <div class="cc-section">
-        <div class="cc-sh" id="cc-note">주변 신고카드</div>
+        <div class="cc-sh" id="cc-note">이 지역 신고 내역</div>
         <div class="lscroll" id="cc-list"></div>
-        <div class="cc-empty" id="cc-empty" hidden>이 지역은 신고 내역이 없습니다</div>
+        <div class="cc-empty" id="cc-empty" hidden>주변에 다른 신고 내역이 없습니다</div>
       </div>
+      <p class="cc-radius-note">내 신고 지점에서 반경 200m 안의 신고(제보) 카드를 보여드립니다.</p>
 
       <!-- v280 — 신고 기준엔 못 미쳤지만 실제로 있었던 소음(지나가는 소음)
            측정 기록. 112 신고가 아니므로 위 "내 신고"·"주변 신고카드"와는
@@ -3868,7 +3880,7 @@ body.light .report-location p{margin:0;padding:14px 18px 16px;font-size:18px;lin
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <button class="app-info-btn" id="app-info-btn" type="button" aria-label="앱 정보 및 버전 확인">앱 정보</button><span class="ver" id="ver2" hidden>v312</span></div>
+          <button class="app-info-btn" id="app-info-btn" type="button" aria-label="앱 정보 및 버전 확인">앱 정보</button><span class="ver" id="ver2" hidden>v313</span></div>
       </div>
     </div>
 
@@ -3925,7 +3937,7 @@ body.light .report-location p{margin:0;padding:14px 18px 16px;font-size:18px;lin
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg><span id="map-screen-title">우리 동네 소음 지도</span></h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v312</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v313</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -4256,7 +4268,7 @@ function waveHTML(hours){
 /* 기준 대비 초과폭이 이 카드의 값이다. 숫자만으로는 심각한지 알 수 없고,
    기준과 견줘야 비로소 판단이 선다. */
 function listCardHTML(s,i){
-  const db=s.db+5, gap=db-THR;
+  const db=s.mine?s.db:s.db+5, gap=db-THR;
   const pk=s.hours.indexOf(Math.max(...s.hours));
   const hh=String(pk).padStart(2,'0'), eh=String(endHour(s)).padStart(2,'0');
   const ti=(s.lastTi!=null?s.lastTi:s.dom);
@@ -4269,7 +4281,7 @@ function listCardHTML(s,i){
     '<span class="li">'+
       '<span class="nm">'+s.name+(s.mine?'<em class="badge">내 신고</em>':'')+'</span>'+
       '<span class="when"><b>'+hh+'시~'+eh+'시</b> 가장 심함</span>'+
-      '<span class="sub">'+TYPES[ti].k+' · 30일 '+s.n+'건 · '+(s.n-1)+'명이 신고</span>'+
+      '<span class="sub">'+TYPES[ti].k+' · 30일 '+s.n+'건 · '+(s.mine?1:Math.max(1,s.n-1))+'명이 신고</span>'+
     '</span>'+
   '</button>';
 }
@@ -5861,7 +5873,7 @@ document.getElementById('sms-send').onclick=()=>{
 /* ══ 보낸 기록 ══
    보낸 뒤 사용자는 앱을 놓는다. 다시 열었을 때 처음부터 시작하면 방금
    무엇을 보냈는지 알 수 없다. 폰에 사본을 남겨 둔다. */
-/* v312 test reports live only in this document instance.
+/* v313 test reports live only in this document instance.
    Public-data forecasts and curated demo points are untouched. */
 const sessionReportHistory=[];
 const testReportMemory=new Map();
@@ -6341,7 +6353,9 @@ function renderCardConfirm(center){
     }
   }
   const note=document.getElementById('cc-note');
-  if(note) note.textContent='내 신고 지점에서 반경 '+CC_RADIUS+'m 안의 신고카드만 보여드립니다';
+  if(note) note.textContent='이 지역 신고 내역';
+  if(mineBox) mineBox.querySelectorAll('.lcard').forEach(b=>b.onclick=()=>go('mycard'));
+  if(box) box.querySelectorAll('.lcard').forEach((b,i)=>b.onclick=()=>showDetail(others[i]));
   /* v279 — 사후 경과 기록(followups)은 이제 이 화면이 아니라 내
      신고카드(#s-mycard, renderMyCard)에서만 보여준다. */
   const utSec=document.getElementById('cc-underthr-sec'), utBox=document.getElementById('cc-underthr');
