@@ -2660,7 +2660,7 @@ launchFallback=setTimeout(()=>document.documentElement.classList.remove('launch-
      이 버튼은 기다림을 건너뛰는 장치다. 무게를 낮춘다. */
   #s-rec #rec-now{font-size:1.125rem; padding:11px; border-radius:10px}
 
-/* CLAMOR v310 — presentation redesign; v310 interaction preserved */
+/* CLAMOR v311 — presentation redesign; v311 interaction preserved */
 :root{--c-time:#143B55;--c-pay:#176C78;--c-pay-2:#115460}
 body.light .screen{--ink:#F4F7FA;--ink-2:#FFF;--ink-3:#EAF0F5;--line:#DFE7EF;--text:#153149;--text-dim:#516779;--text-mute:#65798B;--stroke:#153149;background:#F4F7FA;color:#153149}
 body{background:#E5EBF1}body.light .phone{background:#F4F7FA;box-shadow:0 20px 70px #15314924}
@@ -2730,7 +2730,7 @@ body.light .ts-note{color:#6A8091}.brand-symbol{width:100%;height:100%;object-fi
 @media(max-width:560px){body,body.nodev{padding:0!important;background:#F4F7FA}.phone{width:100%!important;height:100dvh!important;border-radius:0!important;box-shadow:none!important}.nav,#tune,#tune-toggle{display:none!important}}
 
 
-/* v310 — bright, high-contrast measurement surface */
+/* v311 — bright, high-contrast measurement surface */
 body.light #s-rec .live-zone{background:#FFF;color:#172B3D;border:1px solid #DDE5EC;box-shadow:0 8px 24px #172B3D08;padding:20px 18px 18px;border-radius:22px}
 body.light #s-rec .meter{padding:4px 0 16px}
 body.light #s-rec .db{color:#152B3D;font-size:5rem;font-weight:800;letter-spacing:-.06em}
@@ -2760,7 +2760,7 @@ body.warming #s-rec .soundviz{opacity:1}body.warming #s-rec .db small{color:#365
 body.light #s-confirm .cf-note,body.light #s-confirm #recur-box{background:#FFF;border-color:#DFE7ED;border-radius:18px}
 
 
-/* v310 readability contract: main text 17px+, secondary 14px+.
+/* v311 readability contract: main text 17px+, secondary 14px+.
    Wrap content or allow scrolling rather than shrinking typography. */
 body.light #s-rec{font-size:1.0625rem;line-height:1.55}
 body.light #s-rec .rhead{flex-wrap:wrap;gap:8px 10px;padding:18px}
@@ -2808,14 +2808,14 @@ body.light #s-rec .pb{padding:16px 12px;gap:10px}
 body.light #s-rec .btn.ghost{font-size:1.0625rem;min-height:52px;margin-top:16px}
 
 
-/* v310: launch copy and best-effort platform color alignment */
+/* v311: launch copy and best-effort platform color alignment */
 html,body,body.light,body.light .phone{background:#F4F7FA!important;color-scheme:only light}
 body.light #s-splash .wordsub{font-size:1.0625rem;font-weight:650;line-height:1.65;max-width:340px;letter-spacing:-.025em;margin-top:10px;color:#415E70;text-wrap:balance}
 body.light #s-splash .splash-hint{font-size:1.0625rem;line-height:1.65;max-width:340px;margin-top:26px}
 @media(max-width:560px){.phone>.screen{top:env(safe-area-inset-top,0px);bottom:env(safe-area-inset-bottom,0px)}}
 
 
-/* v310 — cohesive civic UI. Data category colors on map remain semantic. */
+/* v311 — cohesive civic UI. Data category colors on map remain semantic. */
 :root{--brand:#087E83;--brand-strong:#086B70;--brand-soft:#ECF6F5;--ui-heading:#172F43;--ui-border:#DEE7EC}
 body.light .btn.primary{background:var(--brand-strong);color:#FFF;box-shadow:0 5px 14px #086B7015}
 body.light .btn.primary:hover{background:#075A5E}
@@ -2854,7 +2854,7 @@ body.light .ts-head .ts-c.now{background:#DDEFEA;color:var(--brand-strong)}
 body.light .ts-c.yes{color:var(--brand-strong)}
 
 
-/* v310: post-report card and browsing chrome */
+/* v311: post-report card and browsing chrome */
 body.light #s-cardconfirm .cc-head h2,body.light #s-mycard h2{color:#172F43}
 body.light #s-cardconfirm .cc-head p{font-size:1.0625rem;line-height:1.6;color:#415E70}
 body.light #s-cardconfirm .cc-sh{font-size:1.0625rem;color:#172F43}
@@ -3150,6 +3150,22 @@ body.light #s-sms .bubble{margin:0}
 #recurrence-list .recurrence-case span,#recurrence-list .recurrence-case small{font-size:16px;line-height:1.5}
 #recurrence-list .recurrence-card-action{align-self:flex-end;color:#A72F39;font-weight:700}
 #recurrence-check #recurrence-apply{background:#AD343D;color:#FFF;border:0;font-size:18px}
+
+body.light #s-sent .sent-wrap{padding:24px 18px;gap:12px}
+body.light #s-sent .sent-report-copy{width:100%;background:#FFF;border:1px solid #D9E5E9;border-radius:16px;padding:18px;box-sizing:border-box;margin:8px 0 0;text-align:left}
+body.light #s-sent .sent-copy-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px;border-bottom:1px solid #DDE7EB;padding-bottom:12px}
+body.light #s-sent .sent-copy-head h3{margin:0;font-size:21px;color:#172F43}
+body.light #s-sent .sent-copy-head span{font-size:16px;color:#536C7C}
+body.light #s-sent #sent-report-text{white-space:pre-line;font-size:18px;line-height:1.7;color:#24465B;margin:0;overflow-wrap:anywhere}
+body.light #s-sent .sent-card[hidden]{display:none!important}
+body.light #s-sent .sent-btns{margin-top:4px;gap:12px}
+body.light #s-sent #sent-map{position:relative;overflow:hidden;min-height:56px;gap:14px;animation:sent-map-halo 2.8s ease-in-out infinite}
+body.light #s-sent #sent-map i{font-size:24px;font-style:normal;animation:sent-map-arrow 1.8s ease-in-out infinite}
+body.light #s-sent #sent-map::after{content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,#FFFFFF25 50%,transparent 65%);transform:translateX(-130%);animation:sent-map-shine 4s ease-in-out infinite;pointer-events:none}
+@keyframes sent-map-halo{0%,100%{box-shadow:0 0 0 0 #087E8320}50%{box-shadow:0 0 0 6px #087E8312}}
+@keyframes sent-map-arrow{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
+@keyframes sent-map-shine{0%,50%{transform:translateX(-130%)}85%,100%{transform:translateX(130%)}}
+@media(prefers-reduced-motion:reduce){body.light #s-sent #sent-map,body.light #s-sent #sent-map i,body.light #s-sent #sent-map::after{animation:none}}
 </style>
 
 <dialog id="recurrence-dialog" class="recurrence-dialog" aria-labelledby="recurrence-title">
@@ -3160,7 +3176,7 @@ body.light #s-sms .bubble{margin:0}
 </dialog>
 <dialog id="app-info-dialog" class="app-info-dialog" aria-labelledby="app-info-title">
   <h2 id="app-info-title">CLAMOR 앱 정보</h2>
-  <p>현재 버전 <strong>v310</strong></p>
+  <p>현재 버전 <strong>v311</strong></p>
   
   <button class="btn primary" id="app-info-tiers" type="button">등급 선택</button>
   <button class="btn ghost" id="app-info-close" type="button">닫기</button>
@@ -3210,7 +3226,7 @@ body.light #s-sms .bubble{margin:0}
     <div class="boot"><i></i></div>
     <div class="launch-footer">
       <p class="launch-partner">중소벤처기업진흥공단과 함께합니다.</p>
-      <span class="launch-version">v310</span>
+      <span class="launch-version">v311</span>
     </div>
   </section>
   <!-- ══ 2 ══ -->
@@ -3471,7 +3487,7 @@ body.light #s-sms .bubble{margin:0}
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v310</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v311</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -3548,7 +3564,8 @@ body.light #s-sms .bubble{margin:0}
       <h2 class="sent-t">신고 문자를 보냈습니다</h2>
       <div class="sent-when" id="sent-when">—</div>
 
-      <div class="sent-card">
+      <section class="sent-report-copy"><div class="sent-copy-head"><h3>내 신고문</h3><span>받는 곳 112</span></div><p id="sent-report-text"></p></section>
+      <div class="sent-card" hidden>
         <div class="sent-row"><span>받는 곳</span><b>112</b></div>
         <div class="sent-row"><span>위치</span><b id="sent-addr">—</b></div>
         <div class="sent-row"><span>소음 유형</span><b id="sent-type">—</b></div>
@@ -3557,13 +3574,10 @@ body.light #s-sms .bubble{margin:0}
       </div>
 
       <div id="sent-recurrence" hidden></div>
-      <div class="sent-next">
-        <b>신고 기록이 생성되었습니다.</b>
-        실제 112 전송은 없습니다. 테스트 기록은 앱을 새로 실행하면 초기화됩니다.
-      </div>
+      
 
       <div class="sent-btns">
-        <button class="btn primary" id="sent-map">지도에서 확인하기</button>
+        <button class="btn primary" id="sent-map"><span>지도에서 확인하기</span><i aria-hidden="true">→</i></button>
         <a class="btn ghost" id="sent-portal"
            href="https://112.go.kr/" target="_blank" rel="noopener">112신고포털에서 조회</a>
       </div>
@@ -3843,7 +3857,7 @@ body.light #s-sms .bubble{margin:0}
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <button class="app-info-btn" id="app-info-btn" type="button" aria-label="앱 정보 및 버전 확인">앱 정보</button><span class="ver" id="ver2" hidden>v310</span></div>
+          <button class="app-info-btn" id="app-info-btn" type="button" aria-label="앱 정보 및 버전 확인">앱 정보</button><span class="ver" id="ver2" hidden>v311</span></div>
       </div>
     </div>
 
@@ -3900,7 +3914,7 @@ body.light #s-sms .bubble{margin:0}
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg><span id="map-screen-title">우리 동네 소음 지도</span></h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v310</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v311</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -5833,7 +5847,7 @@ document.getElementById('sms-send').onclick=()=>{
 /* ══ 보낸 기록 ══
    보낸 뒤 사용자는 앱을 놓는다. 다시 열었을 때 처음부터 시작하면 방금
    무엇을 보냈는지 알 수 없다. 폰에 사본을 남겨 둔다. */
-/* v310 test reports live only in this document instance.
+/* v311 test reports live only in this document instance.
    Public-data forecasts and curated demo points are untouched. */
 const sessionReportHistory=[];
 const testReportMemory=new Map();
@@ -5871,6 +5885,7 @@ function saveSent(r){
        않아도 되게 지금부터 붙여 둔다. */
     id: at+'-'+Math.random().toString(36).slice(2,8),
     at, addr:addr.trim(),
+    smsText:(document.querySelector('#s-sms .bubble')||{}).innerText||'',
     type:(TYPES[r.t]||TYPES[0]).k, db:r.db, dur:r.dur,
     /* v280 — 총 측정 시간(totalSec)도 함께 저장해야 신고 문자 전송 완료
        화면(renderSent)·내 신고카드(renderMyCard)에서도 확인·문자 화면과
@@ -6070,6 +6085,7 @@ function renderSent(rec){
   const set=(id,v)=>{ const el=document.getElementById(id); if(el) el.textContent=v };
   set('sent-when', d.getFullYear()+'년 '+(d.getMonth()+1)+'월 '+d.getDate()+'일 '+
     p(d.getHours())+':'+p(d.getMinutes())+' 전송');
+  set('sent-report-text',rec.smsText||((rec.addr||'')+' 인근에서 '+rec.type+' 소음이 발생했습니다.\n최고 소음도 '+rec.db+' dB\n지속 시간 '+fmtDurWithCtx(rec.dur,rec.totalSec)+(rec.recurrence?'\n재발 신고 · '+rec.recurrence:'')));
   set('sent-addr', rec.addr || '인천 남동구 논현동 일대');
   set('sent-type', rec.type);
   set('sent-db', rec.db+' dB');
