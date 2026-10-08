@@ -2660,7 +2660,7 @@ launchFallback=setTimeout(()=>document.documentElement.classList.remove('launch-
      이 버튼은 기다림을 건너뛰는 장치다. 무게를 낮춘다. */
   #s-rec #rec-now{font-size:1.125rem; padding:11px; border-radius:10px}
 
-/* CLAMOR v315 — presentation redesign; v315 interaction preserved */
+/* CLAMOR v316 — presentation redesign; v316 interaction preserved */
 :root{--c-time:#143B55;--c-pay:#176C78;--c-pay-2:#115460}
 body.light .screen{--ink:#F4F7FA;--ink-2:#FFF;--ink-3:#EAF0F5;--line:#DFE7EF;--text:#153149;--text-dim:#516779;--text-mute:#65798B;--stroke:#153149;background:#F4F7FA;color:#153149}
 body{background:#E5EBF1}body.light .phone{background:#F4F7FA;box-shadow:0 20px 70px #15314924}
@@ -2730,7 +2730,7 @@ body.light .ts-note{color:#6A8091}.brand-symbol{width:100%;height:100%;object-fi
 @media(max-width:560px){body,body.nodev{padding:0!important;background:#F4F7FA}.phone{width:100%!important;height:100dvh!important;border-radius:0!important;box-shadow:none!important}.nav,#tune,#tune-toggle{display:none!important}}
 
 
-/* v315 — bright, high-contrast measurement surface */
+/* v316 — bright, high-contrast measurement surface */
 body.light #s-rec .live-zone{background:#FFF;color:#172B3D;border:1px solid #DDE5EC;box-shadow:0 8px 24px #172B3D08;padding:20px 18px 18px;border-radius:22px}
 body.light #s-rec .meter{padding:4px 0 16px}
 body.light #s-rec .db{color:#152B3D;font-size:5rem;font-weight:800;letter-spacing:-.06em}
@@ -2760,7 +2760,7 @@ body.warming #s-rec .soundviz{opacity:1}body.warming #s-rec .db small{color:#365
 body.light #s-confirm .cf-note,body.light #s-confirm #recur-box{background:#FFF;border-color:#DFE7ED;border-radius:18px}
 
 
-/* v315 readability contract: main text 17px+, secondary 14px+.
+/* v316 readability contract: main text 17px+, secondary 14px+.
    Wrap content or allow scrolling rather than shrinking typography. */
 body.light #s-rec{font-size:1.0625rem;line-height:1.55}
 body.light #s-rec .rhead{flex-wrap:wrap;gap:8px 10px;padding:18px}
@@ -2808,14 +2808,14 @@ body.light #s-rec .pb{padding:16px 12px;gap:10px}
 body.light #s-rec .btn.ghost{font-size:1.0625rem;min-height:52px;margin-top:16px}
 
 
-/* v315: launch copy and best-effort platform color alignment */
+/* v316: launch copy and best-effort platform color alignment */
 html,body,body.light,body.light .phone{background:#F4F7FA!important;color-scheme:only light}
 body.light #s-splash .wordsub{font-size:1.0625rem;font-weight:650;line-height:1.65;max-width:340px;letter-spacing:-.025em;margin-top:10px;color:#415E70;text-wrap:balance}
 body.light #s-splash .splash-hint{font-size:1.0625rem;line-height:1.65;max-width:340px;margin-top:26px}
 @media(max-width:560px){.phone>.screen{top:env(safe-area-inset-top,0px);bottom:env(safe-area-inset-bottom,0px)}}
 
 
-/* v315 — cohesive civic UI. Data category colors on map remain semantic. */
+/* v316 — cohesive civic UI. Data category colors on map remain semantic. */
 :root{--brand:#087E83;--brand-strong:#086B70;--brand-soft:#ECF6F5;--ui-heading:#172F43;--ui-border:#DEE7EC}
 body.light .btn.primary{background:var(--brand-strong);color:#FFF;box-shadow:0 5px 14px #086B7015}
 body.light .btn.primary:hover{background:#075A5E}
@@ -2854,7 +2854,7 @@ body.light .ts-head .ts-c.now{background:#DDEFEA;color:var(--brand-strong)}
 body.light .ts-c.yes{color:var(--brand-strong)}
 
 
-/* v315: post-report card and browsing chrome */
+/* v316: post-report card and browsing chrome */
 body.light #s-cardconfirm .cc-head h2,body.light #s-mycard h2{color:#172F43}
 body.light #s-cardconfirm .cc-head p{font-size:1.0625rem;line-height:1.6;color:#415E70}
 body.light #s-cardconfirm .cc-sh{font-size:1.0625rem;color:#172F43}
@@ -3167,7 +3167,7 @@ body.light #s-sent #sent-map::after{content:'';position:absolute;inset:0;backgro
 @keyframes sent-map-shine{0%,50%{transform:translateX(-130%)}85%,100%{transform:translateX(130%)}}
 @media(prefers-reduced-motion:reduce){body.light #s-sent #sent-map,body.light #s-sent #sent-map i,body.light #s-sent #sent-map::after{animation:none}}
 
-/* v315: fixed report-location preview, readable address, no extra step */
+/* v316: fixed report-location preview, readable address, no extra step */
 body.light .report-location{width:100%;flex:0 0 auto;box-sizing:border-box;background:#FFF;border:1px solid #D9E5E9;border-radius:16px;overflow:hidden;text-align:left}
 body.light .report-location h3{margin:0;padding:16px 18px 12px;font-size:20px;line-height:1.4;color:#172F43}
 body.light .report-location-map{height:164px;background:#EDF3F3;position:relative;pointer-events:none;overflow:hidden}
@@ -3176,7 +3176,7 @@ body.light .report-location p{margin:0;padding:14px 18px 16px;font-size:18px;lin
 .report-location-pin{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#087E8328;border:1px solid #087E8340}
 .report-location-pin span{width:16px;height:16px;border-radius:50%;background:#087E83;border:3px solid #FFF;box-shadow:0 2px 6px #163E4350}
 
-/* v315: one radius explanation; compact, readable report sections */
+/* v316: one radius explanation; compact, readable report sections */
 body.light #s-cardconfirm .cc-section{margin-top:16px}
 body.light #s-cardconfirm .cc-sh{margin:0 0 12px;font-size:19px;line-height:1.45}
 body.light #s-cardconfirm .lscroll{padding:0;gap:12px;overflow:visible}
@@ -3188,7 +3188,7 @@ body.light #s-cardconfirm .cc-radius-note{margin:16px 0 0;padding:14px 16px;back
 @keyframes ccLivingWave{0%,100%{transform:scaleY(.25)}22%{transform:scaleY(.62)}48%{transform:scaleY(1)}73%{transform:scaleY(.46)}}
 @media(prefers-reduced-motion:reduce){#s-cardconfirm .lcard .lwave i{animation:none;transform:none}}
 
-/* v315: concise dismissible notice and compact map header */
+/* v316: concise dismissible notice and compact map header */
 body.light #s-list .mhead{padding:12px 16px 10px;min-height:0}
 body.light #s-list .mtitle{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:nowrap}
 body.light #s-list .mtitle h1{font-size:21px;line-height:1.4;margin:0;white-space:nowrap;letter-spacing:-.6px}
@@ -3207,6 +3207,16 @@ body.light #s-list .lguide:focus-visible{outline:3px solid #ED9429;outline-offse
 
 body.light .report-period{font-size:16px;line-height:1.5;color:#526A72;margin:6px 0 12px}
 body.light .owner-reminder{width:100%;flex:0 0 auto;background:#086B70;color:#FFF;border:0;padding:14px 18px;font-size:18px;font-weight:800;text-align:left}
+
+body.light .upgrade-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
+body.light .upgrade-heading h2{margin:0;font-size:22px;line-height:1.4;color:#172F43}
+body.light .upgrade-heading>span{font-size:16px;font-weight:800;color:#086B70;background:#D9ECE9;padding:6px 10px;border-radius:8px;white-space:nowrap}
+body.light .detail-upgrade{padding:18px}
+body.light .detail-upgrade ul{margin:0 0 16px}
+body.light .detail-upgrade li{padding:14px 0;font-size:18px;line-height:1.45}
+body.light .distribution-label{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:18px 0 12px;font-size:19px;line-height:1.5;color:#172F43}
+body.light .distribution-unit{font-size:15px;font-weight:600;color:#526A72;white-space:nowrap}
+body.light .hour-threshold-label{font-size:15px;line-height:1.5;margin:6px 0 10px}
 </style>
 
 <dialog id="recurrence-dialog" class="recurrence-dialog" aria-labelledby="recurrence-title">
@@ -3217,7 +3227,7 @@ body.light .owner-reminder{width:100%;flex:0 0 auto;background:#086B70;color:#FF
 </dialog>
 <dialog id="app-info-dialog" class="app-info-dialog" aria-labelledby="app-info-title">
   <h2 id="app-info-title">CLAMOR 앱 정보</h2>
-  <p>현재 버전 <strong>v315</strong></p>
+  <p>현재 버전 <strong>v316</strong></p>
   
   <button class="btn primary" id="app-info-tiers" type="button">등급 선택</button>
   <button class="btn ghost" id="app-info-close" type="button">닫기</button>
@@ -3267,7 +3277,7 @@ body.light .owner-reminder{width:100%;flex:0 0 auto;background:#086B70;color:#FF
     <div class="boot"><i></i></div>
     <div class="launch-footer">
       <p class="launch-partner">중소벤처기업진흥공단과 함께합니다.</p>
-      <span class="launch-version">v315</span>
+      <span class="launch-version">v316</span>
     </div>
   </section>
   <!-- ══ 2 ══ -->
@@ -3529,7 +3539,7 @@ body.light .owner-reminder{width:100%;flex:0 0 auto;background:#086B70;color:#FF
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v315</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v316</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -3901,7 +3911,7 @@ body.light .owner-reminder{width:100%;flex:0 0 auto;background:#086B70;color:#FF
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <button class="app-info-btn" id="app-info-btn" type="button" aria-label="앱 정보 및 버전 확인">앱 정보</button><span class="ver" id="ver2" hidden>v315</span></div>
+          <button class="app-info-btn" id="app-info-btn" type="button" aria-label="앱 정보 및 버전 확인">앱 정보</button><span class="ver" id="ver2" hidden>v316</span></div>
       </div>
     </div>
 
@@ -3958,7 +3968,7 @@ body.light .owner-reminder{width:100%;flex:0 0 auto;background:#086B70;color:#FF
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg><span id="map-screen-title">우리 동네 소음 지도</span></h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v315</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v316</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -5912,7 +5922,7 @@ document.getElementById('sms-send').onclick=()=>{
 /* ══ 보낸 기록 ══
    보낸 뒤 사용자는 앱을 놓는다. 다시 열었을 때 처음부터 시작하면 방금
    무엇을 보냈는지 알 수 없다. 폰에 사본을 남겨 둔다. */
-/* v315 test reports live only in this document instance.
+/* v316 test reports live only in this document instance.
    Public-data forecasts and curated demo points are untouched. */
 const sessionReportHistory=[];
 const testReportMemory=new Map();
@@ -6966,7 +6976,7 @@ function drawFreeBlur(){
        표시일 뿐 위험·경고 신호가 아니므로, 빨강을 떼어 무채색 계열
        (짙은 남회색)로 바꾼다 — 빨강은 이제 진짜 강조가 필요한 곳에만
        남는다. */
-    const poly=new kakao.maps.Polygon({path:circlePath(s.c,r),...quietRangeStyle(change,op)});
+    const poly=new kakao.maps.Circle({center:new kakao.maps.LatLng(s.c.lat,s.c.lng),radius:r,...quietRangeStyle(change,op)});
     poly.setMap(map); freeBlurOv.push(poly);
     if(change.status!=='reported'){
       const badge=document.createElement('button');badge.type='button';badge.className='quiet-map-badge '+change.status;
@@ -7120,7 +7130,7 @@ function build(){
   spots.sort((a,b)=>b.n-a.n);
   /* '지점 26'은 26건으로 읽힌다. 숫자와 혼동되지 않는 한글 순서로 부른다. */
   const KO='가나다라마바사아자차카타파하거너더러머버서어저처커터퍼허';
-  spots.forEach((s,i)=>{ s.name=(KO[i]||'기타')+' 구역'; });
+  spots.forEach(s=>{ s.name='선택한 소음 구역'; });
   resolveNames();
 
   spots.forEach((s,idx)=>{
@@ -7814,12 +7824,12 @@ function hourlySpectrumHTML(hours,typeIndex){
    return '<rect x="'+(h*12+1)+'" y="'+(72-height)+'" width="8" height="'+height+'" rx="2" fill="url(#'+id+')">'+animate+'</rect>';
  }).join('');
  const peakHour=values.indexOf(peak),time=String(peakHour).padStart(2,'0')+'–'+String(peakHour+1).padStart(2,'0')+'시';
- return '<div class="hour-distribution"><div class="hour-reading"><b>'+(peak?'집중 시간 '+time:'시간대 정보 없음')+'</b></div><div class="hour-threshold-label">점선 = 소음 집중 기준 · 상대값 50%</div>'+
+ return '<div class="hour-distribution"><div class="hour-reading"><b>'+(peak?'집중 시간 '+time:'시간대 정보 없음')+'</b></div><div class="hour-threshold-label">집중 기준선 · 50%</div>'+
  '<div class="hour-spectrum"><svg viewBox="0 0 288 76" preserveAspectRatio="none" role="img" aria-label="시간대별 상대 소음 집중도, 중간 점선은 상대 기준 50%, 녹색에서 주황색과 빨강색으로 변화">'+
  '<defs><linearGradient id="'+id+'" gradientUnits="userSpaceOnUse" x1="0" y1="72" x2="0" y2="8"><stop offset="0" stop-color="#087E83"/><stop offset=".5" stop-color="#19A693"/><stop offset=".5" stop-color="#ED9429"/><stop offset=".8" stop-color="#ED9429"/><stop offset=".8" stop-color="#D94B48"/><stop offset="1" stop-color="#D94B48"/></linearGradient></defs>'+bars+
  '<path d="M0 40H288" stroke="#6C7985" stroke-width="1.2" stroke-dasharray="4 3"/><path d="M0 73H288" stroke="#BCCFD4" stroke-width="1"/></svg></div>'+
  '<div class="hour-axis"><span>00시</span><span>06시</span><span>12시</span><span>18시</span><span>24시</span></div>'+
- '<div class="hour-color-key"><span><i class="eq-green"></i>기준 이하</span><span><i class="eq-orange"></i>기준 초과</span><span><i class="eq-red"></i>높은 집중</span></div></div>';
+ '<div class="hour-color-key"><span><i class="eq-green"></i>낮음</span><span><i class="eq-orange"></i>집중</span><span><i class="eq-red"></i>매우 집중</span></div></div>';
 }
 
 function reportBreakdownHTML(s, T){
@@ -7854,7 +7864,7 @@ function reportBreakdownHTML(s, T){
     '<div class="bh">이 구역에 신고된 내용</div>'+
     '<div class="repn">최근 60일 · <b>'+s.n+'건</b></div><div class="report-period">'+reportWindowLabel()+'</div><div>'+
       ((T && T.log && !s.cov)?' · <span class="mtag blind">CCTV 사각</span>':'')+'</div>'+
-    (hasHours?'<div class="distribution-label">24시간 소음 분포</div><p class="distribution-guide">막대 1개는 1시간입니다. 소음이 집중되는 시간일수록 더 크게 움직입니다.</p><p class="distribution-note">점선 50%·빨강 80%는 상대 집중도 표시 기준이며, 실제 데시벨·법적 기준이 아닙니다.</p>':'')+
+    (hasHours?'<div class="distribution-label">시간대별 신고 분포 <span class="distribution-unit">1시간 단위</span></div>':'')+
     '<div class="typegrid'+(hasHours?' with-hours':'')+'">'+rows+'</div>'+
     ''+
   '</div>';
@@ -8203,7 +8213,7 @@ function impactHTML(s, worst, peakH, nights, calm){
  return '<div class="ihead">최근 60일 신고 기록</div><div class="im2">'+
  '<div class="im2-row"><span class="im2-label">소음 신고</span><span class="im2-value"><b>'+s.n+'건</b></span></div>'+
  '<div class="im2-row"><span class="im2-label">소음 집중 시간</span><span class="im2-value">'+(paid?bandOf(peakH)+' <b>'+hh+'시</b>':'<span class="mask"></span>시<i class="lk">🔒</i>')+'</span></div></div>'+
- '<div class="idesc">신고 기록이 적어도 소음이 없다는 뜻은 아닙니다.</div>';
+ '';
 }
 
 /* v258 후속 — "이 일대 소음 신고 상위 61%"는 시민이 그 숫자가 뭘
@@ -8423,15 +8433,12 @@ function forecastHTML(s){
     return '<div class="sec forecast-sec">'+
       '<div class="sec-h">이 구역 소음 예보</div>'+
       impact+
-      '<div class="d-sum">요일·시간대별 상세는 '+
-      '<b>유료 등급</b>부터 볼 수 있습니다.</div>'+
+      
       '<div class="detail-upgrade">'+
-        '<div class="upgrade-label">상세 소음 예보</div>'+
-        '<h2>언제 시끄럽고, 언제 조용할까요?</h2>'+
-        '<p>유료 등급에서 이 구역의 소음 패턴을 더 자세히 확인하세요.</p>'+
-        '<ul><li><span>요일·시간대별 소음 예보</span><b>잠김</b></li>'+
-        '<li><span>주요 소음 발생 시각</span><b>잠김</b></li>'+
-        '<li><span>소음 강도와 예측 근거</span><b>잠김</b></li></ul>'+
+        '<div class="upgrade-heading"><h2>상세 소음 예보</h2><span>유료</span></div>'+
+        '<ul><li><span>요일·시간대별 소음 예보</span><b>🔒</b></li>'+
+        '<li><span>소음 집중 시간</span><b>🔒</b></li>'+
+        '<li><span>분석 근거</span><b>🔒</b></li></ul>'+
         '<button class="btn primary detail-upgrade-btn" type="button">등급별 기능 비교하기</button>'+
         ''+
       '</div>'+
