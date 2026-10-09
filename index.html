@@ -2715,7 +2715,7 @@ launchFallback=setTimeout(()=>document.documentElement.classList.remove('launch-
      이 버튼은 기다림을 건너뛰는 장치다. 무게를 낮춘다. */
   #s-rec #rec-now{font-size:1.125rem; padding:11px; border-radius:10px}
 
-/* CLAMOR v324 — presentation redesign; v324 interaction preserved */
+/* CLAMOR v325 — presentation redesign; v325 interaction preserved */
 :root{--c-time:#143B55;--c-pay:#176C78;--c-pay-2:#115460}
 body.light .screen{--ink:#F4F7FA;--ink-2:#FFF;--ink-3:#EAF0F5;--line:#DFE7EF;--text:#153149;--text-dim:#516779;--text-mute:#65798B;--stroke:#153149;background:#F4F7FA;color:#153149}
 body{background:#E5EBF1}body.light .phone{background:#F4F7FA;box-shadow:0 20px 70px #15314924}
@@ -2785,7 +2785,7 @@ body.light .ts-note{color:#6A8091}.brand-symbol{width:100%;height:100%;object-fi
 @media(max-width:560px){body,body.nodev{padding:0!important;background:#F4F7FA}.phone{width:100%!important;height:100dvh!important;border-radius:0!important;box-shadow:none!important}.nav,#tune,#tune-toggle{display:none!important}}
 
 
-/* v324 — bright, high-contrast measurement surface */
+/* v325 — bright, high-contrast measurement surface */
 body.light #s-rec .live-zone{background:#FFF;color:#172B3D;border:1px solid #DDE5EC;box-shadow:0 8px 24px #172B3D08;padding:20px 18px 18px;border-radius:22px}
 body.light #s-rec .meter{padding:4px 0 16px}
 body.light #s-rec .db{color:#152B3D;font-size:5rem;font-weight:800;letter-spacing:-.06em}
@@ -2815,7 +2815,7 @@ body.warming #s-rec .soundviz{opacity:1}body.warming #s-rec .db small{color:#365
 body.light #s-confirm .cf-note,body.light #s-confirm #recur-box{background:#FFF;border-color:#DFE7ED;border-radius:18px}
 
 
-/* v324 readability contract: main text 17px+, secondary 14px+.
+/* v325 readability contract: main text 17px+, secondary 14px+.
    Wrap content or allow scrolling rather than shrinking typography. */
 body.light #s-rec{font-size:1.0625rem;line-height:1.55}
 body.light #s-rec .rhead{flex-wrap:wrap;gap:8px 10px;padding:18px}
@@ -2863,14 +2863,14 @@ body.light #s-rec .pb{padding:16px 12px;gap:10px}
 body.light #s-rec .btn.ghost{font-size:1.0625rem;min-height:52px;margin-top:16px}
 
 
-/* v324: launch copy and best-effort platform color alignment */
+/* v325: launch copy and best-effort platform color alignment */
 html,body,body.light,body.light .phone{background:#F4F7FA!important;color-scheme:only light}
 body.light #s-splash .wordsub{font-size:1.0625rem;font-weight:650;line-height:1.65;max-width:340px;letter-spacing:-.025em;margin-top:10px;color:#415E70;text-wrap:balance}
 body.light #s-splash .splash-hint{font-size:1.0625rem;line-height:1.65;max-width:340px;margin-top:26px}
 @media(max-width:560px){.phone>.screen{top:env(safe-area-inset-top,0px);bottom:env(safe-area-inset-bottom,0px)}}
 
 
-/* v324 — cohesive civic UI. Data category colors on map remain semantic. */
+/* v325 — cohesive civic UI. Data category colors on map remain semantic. */
 :root{--brand:#087E83;--brand-strong:#086B70;--brand-soft:#ECF6F5;--ui-heading:#172F43;--ui-border:#DEE7EC}
 body.light .btn.primary{background:var(--brand-strong);color:#FFF;box-shadow:0 5px 14px #086B7015}
 body.light .btn.primary:hover{background:#075A5E}
@@ -2909,7 +2909,7 @@ body.light .ts-head .ts-c.now{background:#DDEFEA;color:var(--brand-strong)}
 body.light .ts-c.yes{color:var(--brand-strong)}
 
 
-/* v324: post-report card and browsing chrome */
+/* v325: post-report card and browsing chrome */
 body.light #s-cardconfirm .cc-head h2,body.light #s-mycard h2{color:#172F43}
 body.light #s-cardconfirm .cc-head p{font-size:1.0625rem;line-height:1.6;color:#415E70}
 body.light #s-cardconfirm .cc-sh{font-size:1.0625rem;color:#172F43}
@@ -3222,7 +3222,7 @@ body.light #s-sent #sent-map::after{content:'';position:absolute;inset:0;backgro
 @keyframes sent-map-shine{0%,50%{transform:translateX(-130%)}85%,100%{transform:translateX(130%)}}
 @media(prefers-reduced-motion:reduce){body.light #s-sent #sent-map,body.light #s-sent #sent-map i,body.light #s-sent #sent-map::after{animation:none}}
 
-/* v324: fixed report-location preview, readable address, no extra step */
+/* v325: fixed report-location preview, readable address, no extra step */
 body.light .report-location{width:100%;flex:0 0 auto;box-sizing:border-box;background:#FFF;border:1px solid #D9E5E9;border-radius:16px;overflow:hidden;text-align:left}
 body.light .report-location h3{margin:0;padding:16px 18px 12px;font-size:20px;line-height:1.4;color:#172F43}
 body.light .report-location-map{height:164px;background:#EDF3F3;position:relative;pointer-events:none;overflow:hidden}
@@ -3231,7 +3231,7 @@ body.light .report-location p{margin:0;padding:14px 18px 16px;font-size:18px;lin
 .report-location-pin{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#087E8328;border:1px solid #087E8340}
 .report-location-pin span{width:16px;height:16px;border-radius:50%;background:#087E83;border:3px solid #FFF;box-shadow:0 2px 6px #163E4350}
 
-/* v324: one radius explanation; compact, readable report sections */
+/* v325: one radius explanation; compact, readable report sections */
 body.light #s-cardconfirm .cc-section{margin-top:16px}
 body.light #s-cardconfirm .cc-sh{margin:0 0 12px;font-size:19px;line-height:1.45}
 body.light #s-cardconfirm .lscroll{padding:0;gap:12px;overflow:visible}
@@ -3243,7 +3243,7 @@ body.light #s-cardconfirm .cc-radius-note{margin:16px 0 0;padding:14px 16px;back
 @keyframes ccLivingWave{0%,100%{transform:scaleY(.25)}22%{transform:scaleY(.62)}48%{transform:scaleY(1)}73%{transform:scaleY(.46)}}
 @media(prefers-reduced-motion:reduce){#s-cardconfirm .lcard .lwave i{animation:none;transform:none}}
 
-/* v324: concise dismissible notice and compact map header */
+/* v325: concise dismissible notice and compact map header */
 body.light #s-list .mhead{padding:12px 16px 10px;min-height:0}
 body.light #s-list .mtitle{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:nowrap}
 body.light #s-list .mtitle h1{font-size:21px;line-height:1.4;margin:0;white-space:nowrap;letter-spacing:-.6px}
@@ -3273,7 +3273,7 @@ body.light .distribution-label{display:flex;align-items:center;justify-content:s
 body.light .distribution-unit{font-size:15px;font-weight:600;color:#526A72;white-space:nowrap}
 body.light .hour-threshold-label{font-size:15px;line-height:1.5;margin:6px 0 10px}
 
-/* v324: headings share the approved evidence-card hierarchy */
+/* v325: headings share the approved evidence-card hierarchy */
 body.light .evidence-card h3,body.light .predhead h3,body.light .noise-type-heading h3{margin:0;font-size:22px;line-height:1.45;font-weight:900;color:#172F43;letter-spacing:-.4px}
 body.light .public-evidence h3{color:#086B70}
 body.light .evidence-card h3{padding-bottom:12px}
@@ -3286,7 +3286,7 @@ body.light #v-detail .noise-type-card .hour-distribution{width:auto;margin:0 14p
 body.light #v-detail .noise-type-card.zero .noise-type-heading h3,body.light #v-detail .noise-type-card.zero .noise-type-heading strong{color:#536C7C}
 body.light #v-detail .repbox>.bh,body.light #v-detail .sec-h{font-size:22px;line-height:1.45;font-weight:900;color:#172F43;margin-bottom:14px}
 
-/* v324: only the address title waits; report content remains available */
+/* v325: only the address title waits; report content remains available */
 .area-title-loading{min-height:32px;display:block}
 .area-title-skeleton{display:block;width:min(220px,100%);height:28px;border-radius:7px;background:linear-gradient(100deg,#DCE9EA 20%,#F5FAFA 45%,#DCE9EA 70%);background-size:220% 100%;animation:areaAddressShimmer 1.5s linear infinite}
 @keyframes areaAddressShimmer{from{background-position:180% 0}to{background-position:-80% 0}}
@@ -3304,7 +3304,7 @@ body.light #v-detail .repbox>.bh,body.light #v-detail .sec-h{font-size:22px;line
 </dialog>
 <dialog id="app-info-dialog" class="app-info-dialog" aria-labelledby="app-info-title">
   <h2 id="app-info-title">CLAMOR 앱 정보</h2>
-  <p>현재 버전 <strong>v324</strong></p>
+  <p>현재 버전 <strong>v325</strong></p>
   
   <button class="btn primary" id="app-info-tiers" type="button">등급 선택</button>
   <button class="btn ghost" id="app-info-close" type="button">닫기</button>
@@ -3354,7 +3354,7 @@ body.light #v-detail .repbox>.bh,body.light #v-detail .sec-h{font-size:22px;line
     <div class="boot"><i></i></div>
     <div class="launch-footer">
       <p class="launch-partner">중소벤처기업진흥공단과 함께합니다.</p>
-      <span class="launch-version">v324</span>
+      <span class="launch-version">v325</span>
     </div>
   </section>
   <!-- ══ 2 ══ -->
@@ -3616,7 +3616,7 @@ body.light #v-detail .repbox>.bh,body.light #v-detail .sec-h{font-size:22px;line
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v324</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v325</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -3989,7 +3989,7 @@ body.light #v-detail .repbox>.bh,body.light #v-detail .sec-h{font-size:22px;line
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <button class="app-info-btn" id="app-info-btn" type="button" aria-label="앱 정보 및 버전 확인">앱 정보</button><span class="ver" id="ver2" hidden>v324</span></div>
+          <button class="app-info-btn" id="app-info-btn" type="button" aria-label="앱 정보 및 버전 확인">앱 정보</button><span class="ver" id="ver2" hidden>v325</span></div>
       </div>
     </div>
 
@@ -4046,7 +4046,7 @@ body.light #v-detail .repbox>.bh,body.light #v-detail .sec-h{font-size:22px;line
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg><span id="map-screen-title">우리 동네 소음 지도</span></h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v324</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v325</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -5180,23 +5180,9 @@ loadZoningData();   // 인천 용도지역 표 — 녹음 화면 도달 전에 �
    가르친다. 폰을 두 번 흔들면(진짜 신고 상황) 녹음 화면으로, 흔들지
    않으면(그냥 지도가 궁금해서 켠 경우) 신고 없이 바로 클레머 메인화면
    (우리동네소음지도)으로 들어간다 — 신고 이력이 없는 시민의 진입로다. */
-/* v281 — 예전엔 스플래시가 뜬 첫 2.6초 동안만 흔들림을 감지하고, 그
-   한 번의 판단(decide) 뒤에는 devicemotion 리스너 자체를 영구히
-   없앴다(removeEventListener). 폰에 "홈 화면에 추가"로 설치해 쓰는
-   경우, 아이콘을 다시 눌러도 브라우저가 페이지를 처음부터 새로
-   불러오지 않고 이미 떠 있던 페이지(스크립트가 그대로 살아있는 상태)를
-   그대로 다시 보여주는 경우가 흔하다(특히 안드로이드) — 그러면 이
-   IIFE는 앱을 설치한 뒤 정말 처음 켰을 때 딱 한 번만 실행되고, 그
-   뒤로 앱을 다시 열 때마다는 스크립트가 다시 실행되지 않으니 리스너도
-   다시 붙지 않는다. "깃허브에 올리고 처음 켰을 때는 흔들면 잘 됐는데
-   그 다음부터는 흔들어도 반응이 없고 그대로 메인화면"이라는 증상이
-   정확히 이 구조 때문이다(사용자 실기기 확인).
-   그래서 지금은 리스너를 앱이 켜져 있는 동안 계속 유지한다: 스플래시
-   화면에서의 최초 판단(흔들면 녹음/가만있으면 메인화면)은 그대로 두되,
-   그 뒤로도 목록·지도·소음정보·내 신고카드처럼 "새 신고를 시작해도
-   말이 되는" 화면에 있을 때는 언제든 두 번 흔들면 바로 녹음 화면으로
-   들어간다 — 스플래시 안내 문구("지금 소음이 있다면 폰을 두 번 흔들어
-   신고를 시작하세요")가 실제로 앱을 쓰는 내내 성립하게 된다. */
+/* v325 — 흔들기 자동 진입은 초기 화면에서만 허용한다.
+   지도·상세·댓글·신고카드를 보고 있을 때 발생하는 동작은 무시한다.
+   화면 밖에서 감지된 흔들림을 초기 화면으로 넘겨 합산하지 않는다. */
 (function shakeToReport(){
   const DECIDE_MS=3600;          // 스플래시 화면— 이 시간 안에 못 흔들면 메인화면으로
   const SHAKE_ACC=16;            // m/s² — 흔든 것으로 볼 가속도 크기
@@ -5206,12 +5192,13 @@ loadZoningData();   // 인천 용도지역 표 — 녹음 화면 도달 전에 �
   /* 이미 녹음·확인·전송 흐름 한복판에 있을 때 흔들림이 잡혀도 다시
      녹음 화면으로 튕기면 안 된다 — 새 신고를 "시작"해도 되는 화면에서만
      반응한다. */
-  const SHAKE_START_SCREENS=['splash','list','map','cast','mycard'];
   function currentScreenName(){
     for(const s of SCREENS){ const el=document.getElementById('s-'+s); if(el && !el.hidden) return s; }
     return null;
   }
   function onMotion(e){
+    const current=currentScreenName();
+    if(document.hidden||current!=='splash'||splashDecided){shakeCount=0;lastShakeAt=0;return;}
     const a=e.accelerationIncludingGravity || e.acceleration;
     if(!a) return;
     const mag=Math.sqrt((a.x||0)**2+(a.y||0)**2+(a.z||0)**2);
@@ -5222,8 +5209,7 @@ loadZoningData();   // 인천 용도지역 표 — 녹음 화면 도달 전에 �
       if(shakeCount>=2){
         shakeCount=0;
         if(!splashDecided){ decideSplash(true); return; }
-        const cur=currentScreenName();
-        if(cur && SHAKE_START_SCREENS.includes(cur)) go('rec');
+        // Browsing never enters recording through motion events.
       }
     }
   }
@@ -6062,7 +6048,7 @@ document.getElementById('sms-send').onclick=()=>{
 /* ══ 보낸 기록 ══
    보낸 뒤 사용자는 앱을 놓는다. 다시 열었을 때 처음부터 시작하면 방금
    무엇을 보냈는지 알 수 없다. 폰에 사본을 남겨 둔다. */
-/* v324 test reports live only in this document instance.
+/* v325 test reports live only in this document instance.
    Public-data forecasts and curated demo points are untouched. */
 const sessionReportHistory=[];
 const testReportMemory=new Map();
@@ -7738,14 +7724,14 @@ function finishRoute(rt){
      연출로 보여줄 이유가 없다는 지적을 반영해, 움직이는 빛 대신
      이동경로 끝(도착 쪽 끝점)에 검정 바이크 아이콘을 고정해 둔다 —
      "이 선이 바이크다"를 굳이 애니메이션 없이도 한눈에 알린다. */
-  const el=document.createElement('button');el.className='route-label routebike-button';
+  const el=document.createElement('button');el.className='routebike routebike-button';
   el.type='button';el.setAttribute('aria-label',(rt.vehicleType==='car'?'차량':'바이크')+' 이동루트 신고(제보) 정보 보기');
-  el.textContent=(rt.vehicleType==='car'?'차량':'바이크')+' 이동루트';
+  el.innerHTML='<svg viewBox="0 0 82 62" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">'+passbyVehicleSymbol(rt.vehicleType)+'</svg>';
   rt.iconEl=el;
   el.addEventListener('pointerdown',event=>{kakao.maps.event.preventMap();event.stopPropagation();});
   el.onclick=event=>{kakao.maps.event.preventMap();event.preventDefault();event.stopPropagation();showDetail(rt);};
   rt.flow=new kakao.maps.CustomOverlay({content:el, zIndex:7,
-    position:new kakao.maps.LatLng(rt.c.lat,rt.c.lng), yAnchor:0.5, xAnchor:0.5});
+    position:pts[pts.length-1], yAnchor:0.5, xAnchor:0.5});
   /* 지도 위 무엇이든 누르면 그 정보가 뜬다. 선만 예외면 눌러 본 사람이
      아무 반응도 못 받는다. 카드로 옮겨 준다. */
   /* v267 — 구간은 항상 cardList 안에 들어 있다(mineFirst가 visibleRoutes()를
