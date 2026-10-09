@@ -95,6 +95,24 @@ body.light #v-detail .agency-detail>summary{font-size:17px;color:#086B70;min-hei
 @keyframes route-connection-flow{to{stroke-dashoffset:-40}}
 @keyframes route-station-glow{0%,70%,100%{opacity:1}35%{opacity:.45}}
 @media(prefers-reduced-motion:reduce){body.light #v-detail .flow-stream,body.light #v-detail .flow-station{animation:none}}
+
+/* v320 — 신고(제보) 지점과 시민 경과 */
+body.light .passby-point{position:relative;width:48px;height:44px;border:0;background:transparent!important;padding:0;display:flex;align-items:center;justify-content:center;cursor:pointer;touch-action:manipulation;pointer-events:auto!important;overflow:visible;color:#173844}
+body.light .passby-point svg{width:var(--route-icon-size,29px);height:auto;pointer-events:none;filter:drop-shadow(0 1px 1px white)}
+body.light .passby-point.own svg{filter:drop-shadow(0 0 3px #087e83)}
+body.light .passby-point small{position:absolute;bottom:0;right:0;background:#086B70;color:white;border-radius:5px;padding:1px 4px;font-size:14px;font-weight:900;pointer-events:none}
+body.light .pb-progress h2,body.light .pb-followup h2{font-size:22px;font-weight:900;color:#153940;margin:0 0 14px}
+body.light .pb-change{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px;background:#eaf6f3;border-left:4px solid #087e83;font-size:18px}
+body.light .pb-change strong{font-size:28px;color:#086b70}body.light .pb-change small{font-size:16px}
+body.light .pb-followup{background:white;border:1px solid #d6e3e1;padding:18px;border-radius:16px;margin:16px 0}
+body.light .pb-followup label{display:block;font-size:18px;font-weight:800;margin:16px 0 8px}
+body.light .pb-followup select{width:100%;min-height:48px;font:inherit;font-size:18px;background:#f5f8f8;border:1px solid #b8ccca;border-radius:10px;padding:10px;color:#173844}
+body.light .pb-week{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+body.light .pb-followup button{width:100%;min-height:52px;border:0;border-radius:12px;background:#086b70;color:white;font-size:18px;font-weight:900;margin-top:20px}
+body.light .pb-report-meta{display:grid;gap:12px;font-size:18px;line-height:1.5;margin-top:18px}
+body.light .pb-report-meta b{display:block;font-size:15px;color:#597071}
+body.light .pb-status{font-size:18px;font-weight:800;color:#086b70;margin-top:12px}
+
 </style>
 <script>
 document.documentElement.classList.add('launch-pending');
@@ -2660,7 +2678,7 @@ launchFallback=setTimeout(()=>document.documentElement.classList.remove('launch-
      이 버튼은 기다림을 건너뛰는 장치다. 무게를 낮춘다. */
   #s-rec #rec-now{font-size:1.125rem; padding:11px; border-radius:10px}
 
-/* CLAMOR v320 — presentation redesign; v320 interaction preserved */
+/* CLAMOR v321 — presentation redesign; v321 interaction preserved */
 :root{--c-time:#143B55;--c-pay:#176C78;--c-pay-2:#115460}
 body.light .screen{--ink:#F4F7FA;--ink-2:#FFF;--ink-3:#EAF0F5;--line:#DFE7EF;--text:#153149;--text-dim:#516779;--text-mute:#65798B;--stroke:#153149;background:#F4F7FA;color:#153149}
 body{background:#E5EBF1}body.light .phone{background:#F4F7FA;box-shadow:0 20px 70px #15314924}
@@ -2730,7 +2748,7 @@ body.light .ts-note{color:#6A8091}.brand-symbol{width:100%;height:100%;object-fi
 @media(max-width:560px){body,body.nodev{padding:0!important;background:#F4F7FA}.phone{width:100%!important;height:100dvh!important;border-radius:0!important;box-shadow:none!important}.nav,#tune,#tune-toggle{display:none!important}}
 
 
-/* v320 — bright, high-contrast measurement surface */
+/* v321 — bright, high-contrast measurement surface */
 body.light #s-rec .live-zone{background:#FFF;color:#172B3D;border:1px solid #DDE5EC;box-shadow:0 8px 24px #172B3D08;padding:20px 18px 18px;border-radius:22px}
 body.light #s-rec .meter{padding:4px 0 16px}
 body.light #s-rec .db{color:#152B3D;font-size:5rem;font-weight:800;letter-spacing:-.06em}
@@ -2760,7 +2778,7 @@ body.warming #s-rec .soundviz{opacity:1}body.warming #s-rec .db small{color:#365
 body.light #s-confirm .cf-note,body.light #s-confirm #recur-box{background:#FFF;border-color:#DFE7ED;border-radius:18px}
 
 
-/* v320 readability contract: main text 17px+, secondary 14px+.
+/* v321 readability contract: main text 17px+, secondary 14px+.
    Wrap content or allow scrolling rather than shrinking typography. */
 body.light #s-rec{font-size:1.0625rem;line-height:1.55}
 body.light #s-rec .rhead{flex-wrap:wrap;gap:8px 10px;padding:18px}
@@ -2808,14 +2826,14 @@ body.light #s-rec .pb{padding:16px 12px;gap:10px}
 body.light #s-rec .btn.ghost{font-size:1.0625rem;min-height:52px;margin-top:16px}
 
 
-/* v320: launch copy and best-effort platform color alignment */
+/* v321: launch copy and best-effort platform color alignment */
 html,body,body.light,body.light .phone{background:#F4F7FA!important;color-scheme:only light}
 body.light #s-splash .wordsub{font-size:1.0625rem;font-weight:650;line-height:1.65;max-width:340px;letter-spacing:-.025em;margin-top:10px;color:#415E70;text-wrap:balance}
 body.light #s-splash .splash-hint{font-size:1.0625rem;line-height:1.65;max-width:340px;margin-top:26px}
 @media(max-width:560px){.phone>.screen{top:env(safe-area-inset-top,0px);bottom:env(safe-area-inset-bottom,0px)}}
 
 
-/* v320 — cohesive civic UI. Data category colors on map remain semantic. */
+/* v321 — cohesive civic UI. Data category colors on map remain semantic. */
 :root{--brand:#087E83;--brand-strong:#086B70;--brand-soft:#ECF6F5;--ui-heading:#172F43;--ui-border:#DEE7EC}
 body.light .btn.primary{background:var(--brand-strong);color:#FFF;box-shadow:0 5px 14px #086B7015}
 body.light .btn.primary:hover{background:#075A5E}
@@ -2854,7 +2872,7 @@ body.light .ts-head .ts-c.now{background:#DDEFEA;color:var(--brand-strong)}
 body.light .ts-c.yes{color:var(--brand-strong)}
 
 
-/* v320: post-report card and browsing chrome */
+/* v321: post-report card and browsing chrome */
 body.light #s-cardconfirm .cc-head h2,body.light #s-mycard h2{color:#172F43}
 body.light #s-cardconfirm .cc-head p{font-size:1.0625rem;line-height:1.6;color:#415E70}
 body.light #s-cardconfirm .cc-sh{font-size:1.0625rem;color:#172F43}
@@ -3167,7 +3185,7 @@ body.light #s-sent #sent-map::after{content:'';position:absolute;inset:0;backgro
 @keyframes sent-map-shine{0%,50%{transform:translateX(-130%)}85%,100%{transform:translateX(130%)}}
 @media(prefers-reduced-motion:reduce){body.light #s-sent #sent-map,body.light #s-sent #sent-map i,body.light #s-sent #sent-map::after{animation:none}}
 
-/* v320: fixed report-location preview, readable address, no extra step */
+/* v321: fixed report-location preview, readable address, no extra step */
 body.light .report-location{width:100%;flex:0 0 auto;box-sizing:border-box;background:#FFF;border:1px solid #D9E5E9;border-radius:16px;overflow:hidden;text-align:left}
 body.light .report-location h3{margin:0;padding:16px 18px 12px;font-size:20px;line-height:1.4;color:#172F43}
 body.light .report-location-map{height:164px;background:#EDF3F3;position:relative;pointer-events:none;overflow:hidden}
@@ -3176,7 +3194,7 @@ body.light .report-location p{margin:0;padding:14px 18px 16px;font-size:18px;lin
 .report-location-pin{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#087E8328;border:1px solid #087E8340}
 .report-location-pin span{width:16px;height:16px;border-radius:50%;background:#087E83;border:3px solid #FFF;box-shadow:0 2px 6px #163E4350}
 
-/* v320: one radius explanation; compact, readable report sections */
+/* v321: one radius explanation; compact, readable report sections */
 body.light #s-cardconfirm .cc-section{margin-top:16px}
 body.light #s-cardconfirm .cc-sh{margin:0 0 12px;font-size:19px;line-height:1.45}
 body.light #s-cardconfirm .lscroll{padding:0;gap:12px;overflow:visible}
@@ -3188,7 +3206,7 @@ body.light #s-cardconfirm .cc-radius-note{margin:16px 0 0;padding:14px 16px;back
 @keyframes ccLivingWave{0%,100%{transform:scaleY(.25)}22%{transform:scaleY(.62)}48%{transform:scaleY(1)}73%{transform:scaleY(.46)}}
 @media(prefers-reduced-motion:reduce){#s-cardconfirm .lcard .lwave i{animation:none;transform:none}}
 
-/* v320: concise dismissible notice and compact map header */
+/* v321: concise dismissible notice and compact map header */
 body.light #s-list .mhead{padding:12px 16px 10px;min-height:0}
 body.light #s-list .mtitle{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:nowrap}
 body.light #s-list .mtitle h1{font-size:21px;line-height:1.4;margin:0;white-space:nowrap;letter-spacing:-.6px}
@@ -3218,7 +3236,7 @@ body.light .distribution-label{display:flex;align-items:center;justify-content:s
 body.light .distribution-unit{font-size:15px;font-weight:600;color:#526A72;white-space:nowrap}
 body.light .hour-threshold-label{font-size:15px;line-height:1.5;margin:6px 0 10px}
 
-/* v320: headings share the approved evidence-card hierarchy */
+/* v321: headings share the approved evidence-card hierarchy */
 body.light .evidence-card h3,body.light .predhead h3,body.light .noise-type-heading h3{margin:0;font-size:22px;line-height:1.45;font-weight:900;color:#172F43;letter-spacing:-.4px}
 body.light .public-evidence h3{color:#086B70}
 body.light .evidence-card h3{padding-bottom:12px}
@@ -3231,7 +3249,7 @@ body.light #v-detail .noise-type-card .hour-distribution{width:auto;margin:0 14p
 body.light #v-detail .noise-type-card.zero .noise-type-heading h3,body.light #v-detail .noise-type-card.zero .noise-type-heading strong{color:#536C7C}
 body.light #v-detail .repbox>.bh,body.light #v-detail .sec-h{font-size:22px;line-height:1.45;font-weight:900;color:#172F43;margin-bottom:14px}
 
-/* v320: only the address title waits; report content remains available */
+/* v321: only the address title waits; report content remains available */
 .area-title-loading{min-height:32px;display:block}
 .area-title-skeleton{display:block;width:min(220px,100%);height:28px;border-radius:7px;background:linear-gradient(100deg,#DCE9EA 20%,#F5FAFA 45%,#DCE9EA 70%);background-size:220% 100%;animation:areaAddressShimmer 1.5s linear infinite}
 @keyframes areaAddressShimmer{from{background-position:180% 0}to{background-position:-80% 0}}
@@ -3249,7 +3267,7 @@ body.light #v-detail .repbox>.bh,body.light #v-detail .sec-h{font-size:22px;line
 </dialog>
 <dialog id="app-info-dialog" class="app-info-dialog" aria-labelledby="app-info-title">
   <h2 id="app-info-title">CLAMOR 앱 정보</h2>
-  <p>현재 버전 <strong>v320</strong></p>
+  <p>현재 버전 <strong>v321</strong></p>
   
   <button class="btn primary" id="app-info-tiers" type="button">등급 선택</button>
   <button class="btn ghost" id="app-info-close" type="button">닫기</button>
@@ -3299,7 +3317,7 @@ body.light #v-detail .repbox>.bh,body.light #v-detail .sec-h{font-size:22px;line
     <div class="boot"><i></i></div>
     <div class="launch-footer">
       <p class="launch-partner">중소벤처기업진흥공단과 함께합니다.</p>
-      <span class="launch-version">v320</span>
+      <span class="launch-version">v321</span>
     </div>
   </section>
   <!-- ══ 2 ══ -->
@@ -3561,7 +3579,7 @@ body.light #v-detail .repbox>.bh,body.light #v-detail .sec-h{font-size:22px;line
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v320</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v321</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -3894,6 +3912,7 @@ body.light #v-detail .repbox>.bh,body.light #v-detail .sec-h{font-size:22px;line
     </div>
 
     <div class="rfoot">
+      <div id="pbc-location-status" class="pb-status" role="status" hidden></div>
       <button class="btn primary" id="pbc-submit">신고 제출</button>
       <button class="btn ghost" id="pbc-back">뒤로가기</button>
     </div>
@@ -3932,7 +3951,7 @@ body.light #v-detail .repbox>.bh,body.light #v-detail .sec-h{font-size:22px;line
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <button class="app-info-btn" id="app-info-btn" type="button" aria-label="앱 정보 및 버전 확인">앱 정보</button><span class="ver" id="ver2" hidden>v320</span></div>
+          <button class="app-info-btn" id="app-info-btn" type="button" aria-label="앱 정보 및 버전 확인">앱 정보</button><span class="ver" id="ver2" hidden>v321</span></div>
       </div>
     </div>
 
@@ -3989,7 +4008,7 @@ body.light #v-detail .repbox>.bh,body.light #v-detail .sec-h{font-size:22px;line
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg><span id="map-screen-title">우리 동네 소음 지도</span></h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v320</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v321</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -5089,6 +5108,7 @@ function go(name, opts){
       const mineSp=spots.find(s=>s.mine);
       const anchor=selectedViewCenter || freeAnchor || (mineSp ? mineSp.c : (realLoc||CENTER));
       if(anchor) map.setCenter(new kakao.maps.LatLng(anchor.lat,anchor.lng));
+      drawPassbyReportPoints();
       /* 너무 멀리서 열리면 붉은 점이 뒤덮여 데이터가 얼룩으로 보인다.
          등급이 허락하는 거리까지 당겨 온다. 이건 사용자가 손가락으로
          한계까지 확대한 게 아니라 화면을 여는 코드가 스스로 맞추는
@@ -5873,6 +5893,7 @@ renderPassbyTags();
 
 /* 매번 새로 신고를 시작할 때 이전 선택이 남아 있으면 안 된다 */
 function resetPassbyForm(){
+  const locationStatus=document.getElementById('pbc-location-status');if(locationStatus)locationStatus.hidden=true;
   pbType=null; pbSel=new Set();
   document.getElementById('pb-methods').hidden=false;
   document.getElementById('pb-step-type').hidden=true;
@@ -5923,6 +5944,11 @@ document.getElementById('pbc-back').onclick=()=>{ go('passby') };
 
 document.getElementById('pbc-submit').onclick=()=>{
   if(!pbPoint&&realLoc)pbPoint={lat:realLoc.lat,lng:realLoc.lng};
+  if(!pbPoint||![pbPoint.lat,pbPoint.lng].every(Number.isFinite)){
+    const status=document.getElementById('pbc-location-status');status.hidden=false;status.textContent='위치를 확인해주세요';
+    geoRequested=false;requestRealLocation();return;
+  }
+  document.getElementById('pbc-location-status').hidden=true;
   myPassby={id:'own-passby-'+Date.now()+'-'+passbyHistory.length,type:pbType,tags:[...pbSel],when:pbWhen,addr:pbAddr,at:pbAt,position:pbPoint?[pbPoint.lat,pbPoint.lng]:null,reporterId:'self',applied:false};
   passbyHistory.push(myPassby);
   go('list');
@@ -5945,7 +5971,7 @@ document.getElementById('sms-send').onclick=()=>{
 /* ══ 보낸 기록 ══
    보낸 뒤 사용자는 앱을 놓는다. 다시 열었을 때 처음부터 시작하면 방금
    무엇을 보냈는지 알 수 없다. 폰에 사본을 남겨 둔다. */
-/* v320 test reports live only in this document instance.
+/* v321 test reports live only in this document instance.
    Public-data forecasts and curated demo points are untouched. */
 const sessionReportHistory=[];
 const testReportMemory=new Map();
@@ -7333,12 +7359,12 @@ function drawPassbyReportPoints(){
   if(!groups.has(key))groups.set(key,{p,rt,own,count:0});groups.get(key).count++;
  };
  if(routesOn())ROUTES.forEach(rt=>{if(rt.showing)refreshRouteWindow(rt).forEach(p=>add(p,rt));});
- if(routesOn())passbyHistory.forEach(p=>add(p,null));
+ passbyHistory.forEach(p=>add(p,null));
  groups.forEach(g=>{
   const el=document.createElement('button');el.type='button';el.className='passby-point'+(g.own?' own':'');
   el.setAttribute('aria-label',(g.p.type==='car'?'차량':'바이크')+' 신고(제보) '+(g.own?'내 제보':g.count+'건')+' 확인');
   el.style.setProperty('--route-icon-size',routeIconSize(map.getLevel())+'px');
-  el.innerHTML='<svg viewBox="0 0 82 62" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">'+passbyVehicleSymbol(g.p.type)+'</svg>'+(g.own&&g.p.progress&&g.p.progress.after<g.p.progress.before?'<small>✓</small>':g.count>1?'<small>'+g.count+'</small>':'');
+  el.innerHTML='<svg width="'+routeIconSize(map.getLevel())+'" height="'+Math.round(routeIconSize(map.getLevel())*62/82)+'" viewBox="0 0 82 62" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">'+passbyVehicleSymbol(g.p.type)+'</svg>'+(g.own&&g.p.progress&&g.p.progress.after<g.p.progress.before?'<small>✓</small>':g.count>1?'<small>'+g.count+'</small>':'');
   el.addEventListener('pointerdown',e=>{kakao.maps.event.preventMap();e.stopPropagation();});
   el.addEventListener('click',e=>{kakao.maps.event.preventMap();e.preventDefault();e.stopPropagation();if(g.own)showPassbyReport(g.p);else showDetail(g.rt);});
   const ov=new kakao.maps.CustomOverlay({position:new kakao.maps.LatLng(g.p.position[0],g.p.position[1]),content:el,xAnchor:.5,yAnchor:.5,zIndex:g.own?30:12});ov.setMap(map);
@@ -7638,7 +7664,7 @@ function routeIconSize(level){return Math.round(Math.max(18,Math.min(46,46*Math.
 function updateRouteIconSizes(){
  if(!map)return;
  const size=routeIconSize(map.getLevel());
- passbyPointOverlays.forEach(x=>x.el.style.setProperty('--route-icon-size',size+'px'));
+ passbyPointOverlays.forEach(x=>{x.el.style.setProperty('--route-icon-size',size+'px');const svg=x.el.querySelector('svg');if(svg){svg.setAttribute('width',size);svg.setAttribute('height',Math.round(size*62/82));}});
  ROUTES.forEach(rt=>{if(rt.iconEl)rt.iconEl.style.setProperty('--route-icon-size',size+'px');});
 }
 function drawRoutes(){
