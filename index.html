@@ -161,6 +161,17 @@ body.light .community-premium{background:#F0F8F6;border:1px solid #C8E2DC;border
 body.light .community-pass-open{width:100%;min-height:48px;border:0;border-radius:10px;background:#086b70;color:white;font-size:17px;font-weight:900;margin-top:14px;cursor:pointer}
 body.light .model-heading{flex-wrap:wrap}body.light .model-heading h3{line-height:1.35}.model-price{white-space:nowrap}
 
+
+body.light .community-map-bubble{width:42px;height:42px;border-radius:50%;border:2px solid #087e83;background:#f4fbf9;color:#086b70;display:grid;place-items:center;padding:0;cursor:pointer;pointer-events:auto!important;animation:community-pulse 3s ease-in-out infinite;touch-action:manipulation}
+.community-map-bubble svg{pointer-events:none}.community-legend-icon{color:#086b70;border:1px solid #087e83;background:#e5f5ef}
+@keyframes community-pulse{0%,100%{box-shadow:0 0 0 1px #087e8320}50%{box-shadow:0 0 0 5px #087e8325}}
+@media(prefers-reduced-motion:reduce){.community-map-bubble{animation:none!important}}
+body.light .community-explorer{position:fixed;inset:0;margin:0;width:100%;height:100%;max-width:none;max-height:none;box-sizing:border-box;border:0;padding:20px 18px;background:#f4f8f7;color:#173844;overflow:auto}
+.community-explorer::backdrop{background:#17384466}.community-explorer header{display:flex;justify-content:space-between;align-items:center;gap:12px}.community-explorer h2{font-size:24px;font-weight:900;margin:0}.community-explorer h3{font-size:21px;font-weight:900}.explorer-area{font-size:18px;font-weight:800;line-height:1.5}
+body.light .community-explorer button,body.light .open-community-explorer{min-height:48px;border:1px solid #bdd3cf;border-radius:10px;background:white;color:#086b70;font-size:17px;font-weight:800;padding:10px 14px;cursor:pointer}
+.community-explorer nav{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}body.light .community-explorer nav button[aria-pressed=true]{background:#086b70;color:white}.explorer-filters{display:grid;grid-template-columns:1fr 1fr;gap:12px}.explorer-filters label{font-size:17px;font-weight:800}.explorer-filters select{display:block;width:100%;margin-top:8px;padding:12px 6px;font-size:17px;border:1px solid #bdd3cf;border-radius:10px;background:white;color:#173844}
+.explorer-comment{padding:18px;background:white;border-radius:14px;border:1px solid #d6e4df;margin:14px 0}.explorer-comment span,.explorer-comment time{display:block;font-size:15px;margin-bottom:10px}.explorer-comment p{font-size:18px;line-height:1.6;overflow-wrap:anywhere}.community-explorer-actions{margin-bottom:16px}.open-community-explorer{width:100%}
+
 </style>
 <script>
 document.documentElement.classList.add('launch-pending');
@@ -2726,7 +2737,7 @@ launchFallback=setTimeout(()=>document.documentElement.classList.remove('launch-
      이 버튼은 기다림을 건너뛰는 장치다. 무게를 낮춘다. */
   #s-rec #rec-now{font-size:1.125rem; padding:11px; border-radius:10px}
 
-/* CLAMOR v326 — presentation redesign; v326 interaction preserved */
+/* CLAMOR v327 — presentation redesign; v327 interaction preserved */
 :root{--c-time:#143B55;--c-pay:#176C78;--c-pay-2:#115460}
 body.light .screen{--ink:#F4F7FA;--ink-2:#FFF;--ink-3:#EAF0F5;--line:#DFE7EF;--text:#153149;--text-dim:#516779;--text-mute:#65798B;--stroke:#153149;background:#F4F7FA;color:#153149}
 body{background:#E5EBF1}body.light .phone{background:#F4F7FA;box-shadow:0 20px 70px #15314924}
@@ -2796,7 +2807,7 @@ body.light .ts-note{color:#6A8091}.brand-symbol{width:100%;height:100%;object-fi
 @media(max-width:560px){body,body.nodev{padding:0!important;background:#F4F7FA}.phone{width:100%!important;height:100dvh!important;border-radius:0!important;box-shadow:none!important}.nav,#tune,#tune-toggle{display:none!important}}
 
 
-/* v326 — bright, high-contrast measurement surface */
+/* v327 — bright, high-contrast measurement surface */
 body.light #s-rec .live-zone{background:#FFF;color:#172B3D;border:1px solid #DDE5EC;box-shadow:0 8px 24px #172B3D08;padding:20px 18px 18px;border-radius:22px}
 body.light #s-rec .meter{padding:4px 0 16px}
 body.light #s-rec .db{color:#152B3D;font-size:5rem;font-weight:800;letter-spacing:-.06em}
@@ -2826,7 +2837,7 @@ body.warming #s-rec .soundviz{opacity:1}body.warming #s-rec .db small{color:#365
 body.light #s-confirm .cf-note,body.light #s-confirm #recur-box{background:#FFF;border-color:#DFE7ED;border-radius:18px}
 
 
-/* v326 readability contract: main text 17px+, secondary 14px+.
+/* v327 readability contract: main text 17px+, secondary 14px+.
    Wrap content or allow scrolling rather than shrinking typography. */
 body.light #s-rec{font-size:1.0625rem;line-height:1.55}
 body.light #s-rec .rhead{flex-wrap:wrap;gap:8px 10px;padding:18px}
@@ -2874,14 +2885,14 @@ body.light #s-rec .pb{padding:16px 12px;gap:10px}
 body.light #s-rec .btn.ghost{font-size:1.0625rem;min-height:52px;margin-top:16px}
 
 
-/* v326: launch copy and best-effort platform color alignment */
+/* v327: launch copy and best-effort platform color alignment */
 html,body,body.light,body.light .phone{background:#F4F7FA!important;color-scheme:only light}
 body.light #s-splash .wordsub{font-size:1.0625rem;font-weight:650;line-height:1.65;max-width:340px;letter-spacing:-.025em;margin-top:10px;color:#415E70;text-wrap:balance}
 body.light #s-splash .splash-hint{font-size:1.0625rem;line-height:1.65;max-width:340px;margin-top:26px}
 @media(max-width:560px){.phone>.screen{top:env(safe-area-inset-top,0px);bottom:env(safe-area-inset-bottom,0px)}}
 
 
-/* v326 — cohesive civic UI. Data category colors on map remain semantic. */
+/* v327 — cohesive civic UI. Data category colors on map remain semantic. */
 :root{--brand:#087E83;--brand-strong:#086B70;--brand-soft:#ECF6F5;--ui-heading:#172F43;--ui-border:#DEE7EC}
 body.light .btn.primary{background:var(--brand-strong);color:#FFF;box-shadow:0 5px 14px #086B7015}
 body.light .btn.primary:hover{background:#075A5E}
@@ -2920,7 +2931,7 @@ body.light .ts-head .ts-c.now{background:#DDEFEA;color:var(--brand-strong)}
 body.light .ts-c.yes{color:var(--brand-strong)}
 
 
-/* v326: post-report card and browsing chrome */
+/* v327: post-report card and browsing chrome */
 body.light #s-cardconfirm .cc-head h2,body.light #s-mycard h2{color:#172F43}
 body.light #s-cardconfirm .cc-head p{font-size:1.0625rem;line-height:1.6;color:#415E70}
 body.light #s-cardconfirm .cc-sh{font-size:1.0625rem;color:#172F43}
@@ -3233,7 +3244,7 @@ body.light #s-sent #sent-map::after{content:'';position:absolute;inset:0;backgro
 @keyframes sent-map-shine{0%,50%{transform:translateX(-130%)}85%,100%{transform:translateX(130%)}}
 @media(prefers-reduced-motion:reduce){body.light #s-sent #sent-map,body.light #s-sent #sent-map i,body.light #s-sent #sent-map::after{animation:none}}
 
-/* v326: fixed report-location preview, readable address, no extra step */
+/* v327: fixed report-location preview, readable address, no extra step */
 body.light .report-location{width:100%;flex:0 0 auto;box-sizing:border-box;background:#FFF;border:1px solid #D9E5E9;border-radius:16px;overflow:hidden;text-align:left}
 body.light .report-location h3{margin:0;padding:16px 18px 12px;font-size:20px;line-height:1.4;color:#172F43}
 body.light .report-location-map{height:164px;background:#EDF3F3;position:relative;pointer-events:none;overflow:hidden}
@@ -3242,7 +3253,7 @@ body.light .report-location p{margin:0;padding:14px 18px 16px;font-size:18px;lin
 .report-location-pin{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#087E8328;border:1px solid #087E8340}
 .report-location-pin span{width:16px;height:16px;border-radius:50%;background:#087E83;border:3px solid #FFF;box-shadow:0 2px 6px #163E4350}
 
-/* v326: one radius explanation; compact, readable report sections */
+/* v327: one radius explanation; compact, readable report sections */
 body.light #s-cardconfirm .cc-section{margin-top:16px}
 body.light #s-cardconfirm .cc-sh{margin:0 0 12px;font-size:19px;line-height:1.45}
 body.light #s-cardconfirm .lscroll{padding:0;gap:12px;overflow:visible}
@@ -3254,7 +3265,7 @@ body.light #s-cardconfirm .cc-radius-note{margin:16px 0 0;padding:14px 16px;back
 @keyframes ccLivingWave{0%,100%{transform:scaleY(.25)}22%{transform:scaleY(.62)}48%{transform:scaleY(1)}73%{transform:scaleY(.46)}}
 @media(prefers-reduced-motion:reduce){#s-cardconfirm .lcard .lwave i{animation:none;transform:none}}
 
-/* v326: concise dismissible notice and compact map header */
+/* v327: concise dismissible notice and compact map header */
 body.light #s-list .mhead{padding:12px 16px 10px;min-height:0}
 body.light #s-list .mtitle{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:nowrap}
 body.light #s-list .mtitle h1{font-size:21px;line-height:1.4;margin:0;white-space:nowrap;letter-spacing:-.6px}
@@ -3284,7 +3295,7 @@ body.light .distribution-label{display:flex;align-items:center;justify-content:s
 body.light .distribution-unit{font-size:15px;font-weight:600;color:#526A72;white-space:nowrap}
 body.light .hour-threshold-label{font-size:15px;line-height:1.5;margin:6px 0 10px}
 
-/* v326: headings share the approved evidence-card hierarchy */
+/* v327: headings share the approved evidence-card hierarchy */
 body.light .evidence-card h3,body.light .predhead h3,body.light .noise-type-heading h3{margin:0;font-size:22px;line-height:1.45;font-weight:900;color:#172F43;letter-spacing:-.4px}
 body.light .public-evidence h3{color:#086B70}
 body.light .evidence-card h3{padding-bottom:12px}
@@ -3297,7 +3308,7 @@ body.light #v-detail .noise-type-card .hour-distribution{width:auto;margin:0 14p
 body.light #v-detail .noise-type-card.zero .noise-type-heading h3,body.light #v-detail .noise-type-card.zero .noise-type-heading strong{color:#536C7C}
 body.light #v-detail .repbox>.bh,body.light #v-detail .sec-h{font-size:22px;line-height:1.45;font-weight:900;color:#172F43;margin-bottom:14px}
 
-/* v326: only the address title waits; report content remains available */
+/* v327: only the address title waits; report content remains available */
 .area-title-loading{min-height:32px;display:block}
 .area-title-skeleton{display:block;width:min(220px,100%);height:28px;border-radius:7px;background:linear-gradient(100deg,#DCE9EA 20%,#F5FAFA 45%,#DCE9EA 70%);background-size:220% 100%;animation:areaAddressShimmer 1.5s linear infinite}
 @keyframes areaAddressShimmer{from{background-position:180% 0}to{background-position:-80% 0}}
@@ -3315,7 +3326,7 @@ body.light #v-detail .repbox>.bh,body.light #v-detail .sec-h{font-size:22px;line
 </dialog>
 <dialog id="app-info-dialog" class="app-info-dialog" aria-labelledby="app-info-title">
   <h2 id="app-info-title">CLAMOR 앱 정보</h2>
-  <p>현재 버전 <strong>v326</strong></p>
+  <p>현재 버전 <strong>v327</strong></p>
   
   <button class="btn primary" id="app-info-tiers" type="button">등급 선택</button>
   <button class="btn ghost" id="app-info-close" type="button">닫기</button>
@@ -3365,7 +3376,7 @@ body.light #v-detail .repbox>.bh,body.light #v-detail .sec-h{font-size:22px;line
     <div class="boot"><i></i></div>
     <div class="launch-footer">
       <p class="launch-partner">중소벤처기업진흥공단과 함께합니다.</p>
-      <span class="launch-version">v326</span>
+      <span class="launch-version">v327</span>
     </div>
   </section>
   <!-- ══ 2 ══ -->
@@ -3627,7 +3638,7 @@ body.light #v-detail .repbox>.bh,body.light #v-detail .sec-h{font-size:22px;line
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v326</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v327</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -4000,7 +4011,7 @@ body.light #v-detail .repbox>.bh,body.light #v-detail .sec-h{font-size:22px;line
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <button class="app-info-btn" id="app-info-btn" type="button" aria-label="앱 정보 및 버전 확인">앱 정보</button><span class="ver" id="ver2" hidden>v326</span></div>
+          <button class="app-info-btn" id="app-info-btn" type="button" aria-label="앱 정보 및 버전 확인">앱 정보</button><span class="ver" id="ver2" hidden>v327</span></div>
       </div>
     </div>
 
@@ -4057,7 +4068,7 @@ body.light #v-detail .repbox>.bh,body.light #v-detail .sec-h{font-size:22px;line
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg><span id="map-screen-title">우리 동네 소음 지도</span></h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v326</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v327</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -4066,7 +4077,7 @@ body.light #v-detail .repbox>.bh,body.light #v-detail .sec-h{font-size:22px;line
            따로 줄을 차지하면 그만큼 카드 목록이 설 자리를 잃는다. -->
       <div class="mapwrap" id="mapwrap">
         <div id="map"></div>
-        <div class="quiet-map-legend" aria-label="지도 상태 설명"><span><i class="record"></i>소음 기록</span><span><i class="quiet">✓</i>조치 후 조용함</span><span><i class="again">↻</i>재발</span></div>
+        <div class="quiet-map-legend" aria-label="지도 상태 설명"><span><i class="record"></i>소음 기록</span><span><i class="quiet">✓</i>조치 후 조용함</span><span><i class="again">↻</i>재발</span><span id="community-map-legend" hidden><i class="community-legend-icon">▱</i>시민 참여</span></div>
         <!-- '‹ 목록' 화면 버튼은 없앤다 — 되돌아가기는 이제 폰(브라우저)
              자체의 뒤로가기로만 한다. go('map')에서 history를 한 칸 쌓고
              popstate에서 go('list')로 받는다(아래 인라인 스크립트). 왼쪽
@@ -5192,7 +5203,7 @@ loadZoningData();   // 인천 용도지역 표 — 녹음 화면 도달 전에 �
    가르친다. 폰을 두 번 흔들면(진짜 신고 상황) 녹음 화면으로, 흔들지
    않으면(그냥 지도가 궁금해서 켠 경우) 신고 없이 바로 클레머 메인화면
    (우리동네소음지도)으로 들어간다 — 신고 이력이 없는 시민의 진입로다. */
-/* v326 — 흔들기 자동 진입은 초기 화면에서만 허용한다.
+/* v327 — 흔들기 자동 진입은 초기 화면에서만 허용한다.
    지도·상세·댓글·신고카드를 보고 있을 때 발생하는 동작은 무시한다.
    화면 밖에서 감지된 흔들림을 초기 화면으로 넘겨 합산하지 않는다. */
 (function shakeToReport(){
@@ -6060,7 +6071,7 @@ document.getElementById('sms-send').onclick=()=>{
 /* ══ 보낸 기록 ══
    보낸 뒤 사용자는 앱을 놓는다. 다시 열었을 때 처음부터 시작하면 방금
    무엇을 보냈는지 알 수 없다. 폰에 사본을 남겨 둔다. */
-/* v326 test reports live only in this document instance.
+/* v327 test reports live only in this document instance.
    Public-data forecasts and curated demo points are untouched. */
 const sessionReportHistory=[];
 const testReportMemory=new Map();
@@ -6995,6 +7006,7 @@ function applyFilter(){
   if(typeof drawRoutes==='function') drawRoutes();
   if(typeof drawFreeBlur==='function') drawFreeBlur();
   if(typeof drawReporterMarkers==='function') drawReporterMarkers();
+  drawCommunityMarkers();
 }
 
 /* ══ 범위(range) 등급 — 정확한 점 대신 '균일한' 원, 그리고 무료만 300m 반경 제한 ══
@@ -7472,6 +7484,44 @@ function paidCommunityHTML(records){
  return '<section class="community-premium"><div class="community-premium-heading"><h3>기간별 참여 변화</h3><span>7일 상세 이용권</span></div>'+end+'<div class="community-period-caption">이전 7일 → 최근 7일</div><div class="community-period-counts">'+cell('신고(제보)',summary.previous.reports,summary.recent.reports)+cell('댓글',summary.previous.comments,summary.recent.comments)+'</div><div class="community-week-chart" role="img" aria-label="최근 7일 신고와 댓글 건수">'+summary.days.map(d=>'<div class="community-day"><span class="community-day-total">'+(d.reports+d.comments)+'</span><div class="community-day-bar"><i style="height:'+Math.round(d.comments/max*72)+'px;background:#9ED4C8"></i><i style="height:'+Math.round(d.reports/max*72)+'px;background:#086B70"></i></div><span>'+new Date(d.at).toLocaleDateString('ko-KR',{timeZone:'Asia/Seoul',month:'numeric',day:'numeric'})+'</span></div>').join('')+'</div><div class="community-chart-legend"><span>● 신고(제보)</span><span>● 댓글</span></div><h3>직접 경험 댓글 <b>'+direct.length+'</b></h3>'+(direct.length?'<div class="community-direct-list">'+direct.map(({report,comment})=>'<article><time>소음 발생 · '+communityDate(report.at)+'</time><p>'+communityEscape(comment.text)+'</p><span>'+communityCommentAuthor(comment)+' · 직접 경험 선택</span></article>').join('')+'</div>':'<div class="community-empty">직접 경험 댓글이 없습니다</div>')+'</section>';
 }
 
+let communityMapOverlays=[],communityExplorer=null;
+const COMMUNITY_BUBBLE_SVG='<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16v12H10l-6 4V4Z"/><path d="M8 8h8M8 12h5"/></svg>';
+function hasCommunityParticipation(records){return records.some(p=>{const d=communityCards.get(communityKey(p));return d&&(d.vote||d.comments.length);});}
+function drawCommunityMarkers(){
+ communityMapOverlays.forEach(o=>o.setMap(null));communityMapOverlays=[];
+ const legend=document.getElementById('community-map-legend');if(legend)legend.hidden=tier<1;
+ if(!map||tier<1||document.getElementById('s-map').hidden||document.getElementById('v-main').hidden)return;
+ const bounds=map.getBounds();
+ spots.forEach(s=>{
+  const records=(s.reports||[]).filter(p=>isRecentReport(p));
+  if(s.vis===false||!records.length||!bounds.contain(new kakao.maps.LatLng(s.c.lat,s.c.lng)))return;
+  prepareCommunityDemo(records);if(!hasCommunityParticipation(records))return;
+  const el=document.createElement('button');el.type='button';el.className='community-map-bubble';el.innerHTML=COMMUNITY_BUBBLE_SVG;el.setAttribute('aria-label','시민 참여 보기');
+  el.addEventListener('pointerdown',e=>{kakao.maps.event.preventMap();e.stopPropagation();});el.onclick=e=>{kakao.maps.event.preventMap();e.stopPropagation();openCommunityExplorer(records,s.name);};
+  const ov=new kakao.maps.CustomOverlay({position:new kakao.maps.LatLng(s.c.lat,s.c.lng),content:el,xAnchor:-.25,yAnchor:1.15,zIndex:20});ov.setMap(map);communityMapOverlays.push(ov);
+ });
+}
+function openCommunityExplorer(records,area){
+ if(tier<1){openTierSheet(true);return;}
+ prepareCommunityDemo(records);
+ if(!communityExplorer){
+  communityExplorer=document.createElement('dialog');communityExplorer.className='community-explorer';communityExplorer.setAttribute('aria-label','시민 경험과 참여 변화');document.body.appendChild(communityExplorer);
+  communityExplorer.addEventListener('cancel',e=>{e.preventDefault();showBrowseBack({label:'우리동네 소음지도',run:()=>communityExplorer.close()});});
+ }
+ let mode='experience',days=60,experience='direct';
+ function render(){
+  const start=reportDayStart(Date.now())-(days-1)*86400000,selected=records.filter(p=>p.at>=start&&p.at<=Date.now());
+  const comments=selected.flatMap(report=>(communityCards.get(communityKey(report))?.comments||[]).filter(comment=>experience==='all'||comment.experience==='direct').map(comment=>({report,comment}))).sort((a,b)=>b.comment.at-a.comment.at);
+  communityExplorer.innerHTML='<header><h2>'+(mode==='experience'?'시민 경험 모아보기':'우리동네 참여 변화')+'</h2><button type="button" class="explorer-close">닫기</button></header><p class="explorer-area">'+communityEscape(area||'선택한 구역')+'</p><nav><button type="button" data-mode="experience" aria-pressed="'+(mode==='experience')+'">시민 경험</button><button type="button" data-mode="trend" aria-pressed="'+(mode==='trend')+'">참여 변화</button></nav><div class="explorer-content">'+(mode==='experience'?'<div class="explorer-filters"><label>조회 기간<select class="explorer-days"><option value="7"'+(days===7?' selected':'')+'>최근 7일</option><option value="30"'+(days===30?' selected':'')+'>최근 30일</option><option value="60"'+(days===60?' selected':'')+'>최근 60일</option></select></label><label>경험 구분<select class="explorer-experience"><option value="direct"'+(experience==='direct'?' selected':'')+'>직접 경험</option><option value="all"'+(experience==='all'?' selected':'')+'>모든 댓글</option></select></label></div><h3>댓글 '+comments.length+'건</h3>'+(comments.length?comments.map(({report,comment},i)=>'<article class="explorer-comment"><span>'+communityCommentAuthor(comment)+' · '+(comment.experience==='direct'?'직접 겪었어요':'직접 겪지는 않았어요')+'</span><time>소음 발생 · '+communityDate(report.at)+'</time><p>'+communityEscape(comment.text)+'</p><button type="button" data-open-report="'+i+'">신고카드 보기</button></article>').join(''):'<div class="community-empty">해당 기간의 댓글이 없습니다</div>'):paidCommunityHTML(selected))+'</div>';
+  communityExplorer.querySelector('.explorer-close').onclick=()=>communityExplorer.close();
+  communityExplorer.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>{mode=b.dataset.mode;render();});
+  const period=communityExplorer.querySelector('.explorer-days');if(period)period.onchange=()=>{days=+period.value;render();};
+  const filter=communityExplorer.querySelector('.explorer-experience');if(filter)filter.onchange=()=>{experience=filter.value;render();};
+  communityExplorer.querySelectorAll('[data-open-report]').forEach(b=>b.onclick=()=>{const p=comments[+b.dataset.openReport].report;communityExplorer.close();showPassbyReport(p,area);});
+ }
+ render();if(!communityExplorer.open)communityExplorer.showModal();
+}
+
 function communityVote(item,value){item.vote=item.vote===value?null:value;}
 function refreshCommunityVotes(container,item){
  container.querySelectorAll('[data-vote]').forEach(button=>{button.setAttribute('aria-pressed',String(item.vote===button.dataset.vote));button.querySelector('b').textContent=item.vote===button.dataset.vote?'1':'0';});
@@ -7490,10 +7540,11 @@ function mountCommunity(host,records,area){
   const p=list[selected],key=communityKey(p);
   if(!communityCards.has(key))communityCards.set(key,{vote:null,comments:[]});
   const data=communityCards.get(key),position=p.addr||(area&&!/확인|기타/.test(area)?area:p.position?p.position[0].toFixed(5)+', '+p.position[1].toFixed(5):'신고 위치');
-  panel.innerHTML='<h2>시민 공감 · 댓글</h2>'+paidCommunityHTML(list)+(list.length>1?'<label class="community-select-label">참여할 신고카드<select class="community-select" aria-label="참여할 신고카드">'+list.map((r,i)=>'<option value="'+i+'"'+(i===selected?' selected':'')+'>'+communityDate(r.at)+' · '+(r.type==='car'?'차량':r.type==='bike'?'바이크':r.type||TYPES[r.ti||0].k)+'</option>').join('')+'</select></label>':'')+
+  panel.innerHTML='<h2>시민 공감 · 댓글</h2>'+(tier>=1?'<div class="community-explorer-actions"><button type="button" class="open-community-explorer">市民</button></div>'.replace('市民','시민 경험 · 참여 변화 보기'):'')+paidCommunityHTML(list)+(list.length>1?'<label class="community-select-label">참여할 신고카드<select class="community-select" aria-label="참여할 신고카드">'+list.map((r,i)=>'<option value="'+i+'"'+(i===selected?' selected':'')+'>'+communityDate(r.at)+' · '+(r.type==='car'?'차량':r.type==='bike'?'바이크':r.type||TYPES[r.ti||0].k)+'</option>').join('')+'</select></label>':'')+
   '<article class="community-report"><span>신고(제보) 카드</span><h3>'+communityEscape(p.type==='car'?'차량 굉음':p.type==='bike'?'바이크 굉음':p.type||(TYPES[p.ti||0].k+' 소음'))+'</h3><time>'+communityDate(p.at)+'</time><p>'+communityEscape(position)+'</p>'+communityVoteHTML(data)+'</article>'+
   '<div class="community-comments"><h3>댓글 <b>'+data.comments.length+'</b></h3>'+(data.comments.length?data.comments.map(comment=>'<article class="community-comment" data-comment="'+comment.id+'"><div class="community-comment-meta"><b>'+communityCommentAuthor(comment)+'</b><time>'+communityDate(comment.at)+'</time></div><span class="community-experience">'+(comment.experience==='direct'?'직접 겪었어요':'직접 겪지는 않았어요')+'</span><p>'+communityEscape(comment.text).replace(/\n/g,'<br>')+'</p>'+communityVoteHTML(comment)+'</article>').join(''):'<div class="community-empty">아직 댓글이 없습니다</div>')+'</div>'+
   '<form class="community-form"><fieldset><legend>이 소음을 직접 겪었나요?</legend><label><input type="radio" name="experience" value="direct" required>직접 겪었어요</label><label><input type="radio" name="experience" value="indirect" required>직접 겪지는 않았어요</label></fieldset><label class="community-text-label">댓글 작성<textarea name="comment" rows="3" maxlength="500" required placeholder="같은 시간·장소에서 겪은 일을 남겨주세요"></textarea></label><div class="community-form-footer"><span>최대 500자</span><button type="submit">댓글 등록</button></div><p class="community-status" role="status"></p></form>';
+  const explorerButton=panel.querySelector('.open-community-explorer');if(explorerButton)explorerButton.onclick=()=>openCommunityExplorer(list,area);
   const premiumButton=panel.querySelector('.community-pass-open');if(premiumButton)premiumButton.onclick=()=>openTierSheet(true);
   const select=panel.querySelector('select');if(select)select.onchange=()=>{selected=+select.value;render();};
   panel.querySelector('.community-report').querySelectorAll('[data-vote]').forEach(b=>b.onclick=()=>{communityVote(data,b.dataset.vote);refreshCommunityVotes(b.parentElement,data);});
@@ -7555,19 +7606,20 @@ function drawPassbyReportPoints(){
   passbyPointOverlays.push({el,ov});
  });
 }
-function showPassbyReport(p){
- const own=passbyHistory.includes(p),kind=p.type==='car'?'차량':'바이크';
+function showPassbyReport(p,area){
+ const own=passbyHistory.includes(p),kind=p.type==='car'?'차량':p.type==='bike'?'바이크':p.type||(TYPES[p.ti||0].k+' 소음');
+ const displayName=(p.type==='car'||p.type==='bike')?kind+' 굉음':kind;
  const c=p.position?{lat:p.position[0],lng:p.position[1]}:null;
- if(c){active={isPassbyPoint:true,report:p,c,name:kind+' 굉음 신고(제보)'};selectedViewCenter=c;}
+ if(c){active={isPassbyPoint:true,report:p,c,name:displayName+' 신고(제보)'};selectedViewCenter=c;}
  document.getElementById('d-name').classList.remove('area-title-loading');
  document.getElementById('d-name').setAttribute('aria-busy','false');
- document.getElementById('d-name').textContent=kind+' 굉음 신고(제보)';
+ document.getElementById('d-name').textContent=displayName+' 신고(제보)';
  document.getElementById('d-n').textContent=own?'나의 제보 · 1건':'신고(제보)';
  document.getElementById('d-cov').hidden=true;
- const tags=PASSBY_TAGS.filter(t=>p.tags.includes(t.id)).map(t=>t.label);
+ const tags=PASSBY_TAGS.filter(t=>(p.tags||[]).includes(t.id)).map(t=>t.label);
  const options=selected=>Array.from({length:8},(_,i)=>'<option value="'+i+'"'+(i===selected?' selected':'')+'>'+i+'일</option>').join('');
  const f=p.progress;
- document.getElementById('d-body').innerHTML='<section class="route-focus"><div class="route-kind"><svg viewBox="0 0 82 62" fill="none" stroke="currentColor" stroke-width="4">'+passbyVehicleSymbol(p.type)+'</svg><div><span>시민 신고(제보)</span><h2>'+kind+' 굉음</h2></div></div><div class="pb-report-meta"><div><b>제보 일시</b>'+escapePassbyText(p.when||new Date(p.at).toLocaleString('ko-KR',{month:'long',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:false}))+'</div><div><b>제보 위치</b>'+escapePassbyText(p.addr||(p.position?'제보 위치 · '+p.position[0].toFixed(5)+', '+p.position[1].toFixed(5):'주소 확인 중'))+'</div><div><b>피해 반응</b>'+tags.join('<br>')+'</div></div></section>'+passbyProgressHTML(f?[f]:[])+(own?'<form class="pb-followup" id="pb-followup"><h2>소음 변화 입력</h2><div class="pb-week"><div><label for="pb-before">제보 전 · 7일 중</label><select id="pb-before" required><option value="">발생일 선택</option>'+options(f?f.before:-1)+'</select></div><div><label for="pb-after">최근 · 7일 중</label><select id="pb-after" required><option value="">발생일 선택</option>'+options(f?f.after:-1)+'</select></div></div><label for="pb-enforcement">단속 여부</label><select id="pb-enforcement"><option>알 수 없음</option><option>확인함</option><option>확인하지 못함</option></select><button type="submit">'+(f?'경과 수정':'경과 저장')+'</button><div class="pb-status" role="status" id="pb-progress-status"></div></form>':'');
+ document.getElementById('d-body').innerHTML='<section class="route-focus"><div class="route-kind"><svg viewBox="0 0 82 62" fill="none" stroke="currentColor" stroke-width="4">'+((p.type==='car'||p.type==='bike')?passbyVehicleSymbol(p.type):'<path d="M8 30h8l8-20v42l10-38v34l10-20h12l8 14h12" stroke="#087e83"/>')+'</svg><div><span>시민 신고(제보)</span><h2>'+kind+' 굉음</h2></div></div><div class="pb-report-meta"><div><b>제보 일시</b>'+escapePassbyText(p.when||new Date(p.at).toLocaleString('ko-KR',{month:'long',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:false}))+'</div><div><b>제보 위치</b>'+escapePassbyText(p.addr||area||(p.position?'제보 위치 · '+p.position[0].toFixed(5)+', '+p.position[1].toFixed(5):'주소 확인 중'))+'</div><div><b>피해 반응</b>'+tags.join('<br>')+'</div></div></section>'+passbyProgressHTML(f?[f]:[])+(own?'<form class="pb-followup" id="pb-followup"><h2>소음 변화 입력</h2><div class="pb-week"><div><label for="pb-before">제보 전 · 7일 중</label><select id="pb-before" required><option value="">발생일 선택</option>'+options(f?f.before:-1)+'</select></div><div><label for="pb-after">최근 · 7일 중</label><select id="pb-after" required><option value="">발생일 선택</option>'+options(f?f.after:-1)+'</select></div></div><label for="pb-enforcement">단속 여부</label><select id="pb-enforcement"><option>알 수 없음</option><option>확인함</option><option>확인하지 못함</option></select><button type="submit">'+(f?'경과 수정':'경과 저장')+'</button><div class="pb-status" role="status" id="pb-progress-status"></div></form>':'');
  mountCommunity(document.getElementById('d-body'),[p],p.addr);
  if(own){
   const form=document.getElementById('pb-followup');if(f)document.getElementById('pb-enforcement').value=f.enforcement;
@@ -7940,6 +7992,7 @@ function applyHour(){
   });
   drawGlow();
   drawRoutes();
+  drawCommunityMarkers();
   if(typeof drawFreeBlur==='function') drawFreeBlur();
   updateTcats();
   if(typeof renderList==='function' && !document.getElementById('s-list').hidden) renderList();
