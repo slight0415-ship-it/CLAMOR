@@ -127,6 +127,29 @@ body.light .browse-back-dialog button{min-height:54px;border:0;border-radius:12p
 body.light .browse-back-dialog .stay{background:#EAF0F2;color:#173844}
 body.light .browse-back-dialog .leave{background:#086B70;color:white}
 
+
+body.light .community-panel{background:white;border:1px solid #d7e4e3;border-radius:18px;padding:18px;margin:18px 0;color:#173844}
+body.light .community-panel h2{font-size:23px;font-weight:900;margin:0 0 18px}
+body.light .community-panel h3{font-size:20px;font-weight:900;margin:0 0 12px}
+body.light .community-report{border-left:4px solid #087e83;background:#f0f8f7;padding:16px;border-radius:10px;margin-bottom:20px}
+body.light .community-report>span{font-size:15px;font-weight:800;color:#086b70;display:block;margin-bottom:8px}
+body.light .community-panel time{font-size:16px;color:#526b70}
+body.light .community-panel p{font-size:18px;line-height:1.55;overflow-wrap:anywhere;margin:10px 0}
+.community-votes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+body.light .community-votes button{font-size:18px;font-weight:800;min-height:48px;border:1px solid #b5cdca;border-radius:10px;background:white;color:#173844;cursor:pointer}
+body.light .community-votes button[aria-pressed=true]{color:white;background:#086b70;border-color:#086b70}
+body.light .community-votes button[data-vote=disagree][aria-pressed=true]{background:#324754;border-color:#324754}
+.community-comment{padding:16px 0;border-top:1px solid #dce7e6}.community-comment-meta{display:flex;justify-content:space-between;gap:8px;font-size:18px}
+body.light .community-experience{display:block;font-size:15px;font-weight:800;color:#086b70;margin-top:10px}
+.community-empty{min-height:68px;display:flex;align-items:center;font-size:17px;color:#526b70;border-top:1px solid #dce7e6}
+.community-form{margin-top:20px;border-top:2px solid #dce7e6;padding-top:18px}.community-form fieldset{padding:0;border:0;margin:0 0 16px}.community-form legend{font-size:18px;font-weight:900;margin-bottom:12px}
+.community-form fieldset label{display:flex;gap:10px;align-items:center;font-size:17px;font-weight:700;border:1px solid #cadbd8;border-radius:10px;padding:12px;margin-bottom:8px}
+.community-form fieldset label:has(input:checked){border-color:#087e83;background:#e9f6f3}.community-form input{width:20px;height:20px;accent-color:#087e83;flex-shrink:0}
+.community-text-label,.community-select-label{display:block;font-size:18px;font-weight:800}
+body.light .community-panel textarea,body.light .community-panel select{display:block;width:100%;box-sizing:border-box;font:inherit;font-size:17px;color:#173844;background:#f7faf9;border:1px solid #c5d8d4;border-radius:10px;padding:12px;margin-top:10px;min-height:48px}
+.community-select-label{margin-bottom:16px}.community-form-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px}.community-form-footer span{font-size:14px;color:#526b70}
+body.light .community-form-footer button{min-height:50px;padding:12px 20px;border:0;border-radius:10px;background:#086b70;color:white;font-size:18px;font-weight:900;cursor:pointer}.community-status:empty{display:none}
+
 </style>
 <script>
 document.documentElement.classList.add('launch-pending');
@@ -2692,7 +2715,7 @@ launchFallback=setTimeout(()=>document.documentElement.classList.remove('launch-
      이 버튼은 기다림을 건너뛰는 장치다. 무게를 낮춘다. */
   #s-rec #rec-now{font-size:1.125rem; padding:11px; border-radius:10px}
 
-/* CLAMOR v323 — presentation redesign; v323 interaction preserved */
+/* CLAMOR v324 — presentation redesign; v324 interaction preserved */
 :root{--c-time:#143B55;--c-pay:#176C78;--c-pay-2:#115460}
 body.light .screen{--ink:#F4F7FA;--ink-2:#FFF;--ink-3:#EAF0F5;--line:#DFE7EF;--text:#153149;--text-dim:#516779;--text-mute:#65798B;--stroke:#153149;background:#F4F7FA;color:#153149}
 body{background:#E5EBF1}body.light .phone{background:#F4F7FA;box-shadow:0 20px 70px #15314924}
@@ -2762,7 +2785,7 @@ body.light .ts-note{color:#6A8091}.brand-symbol{width:100%;height:100%;object-fi
 @media(max-width:560px){body,body.nodev{padding:0!important;background:#F4F7FA}.phone{width:100%!important;height:100dvh!important;border-radius:0!important;box-shadow:none!important}.nav,#tune,#tune-toggle{display:none!important}}
 
 
-/* v323 — bright, high-contrast measurement surface */
+/* v324 — bright, high-contrast measurement surface */
 body.light #s-rec .live-zone{background:#FFF;color:#172B3D;border:1px solid #DDE5EC;box-shadow:0 8px 24px #172B3D08;padding:20px 18px 18px;border-radius:22px}
 body.light #s-rec .meter{padding:4px 0 16px}
 body.light #s-rec .db{color:#152B3D;font-size:5rem;font-weight:800;letter-spacing:-.06em}
@@ -2792,7 +2815,7 @@ body.warming #s-rec .soundviz{opacity:1}body.warming #s-rec .db small{color:#365
 body.light #s-confirm .cf-note,body.light #s-confirm #recur-box{background:#FFF;border-color:#DFE7ED;border-radius:18px}
 
 
-/* v323 readability contract: main text 17px+, secondary 14px+.
+/* v324 readability contract: main text 17px+, secondary 14px+.
    Wrap content or allow scrolling rather than shrinking typography. */
 body.light #s-rec{font-size:1.0625rem;line-height:1.55}
 body.light #s-rec .rhead{flex-wrap:wrap;gap:8px 10px;padding:18px}
@@ -2840,14 +2863,14 @@ body.light #s-rec .pb{padding:16px 12px;gap:10px}
 body.light #s-rec .btn.ghost{font-size:1.0625rem;min-height:52px;margin-top:16px}
 
 
-/* v323: launch copy and best-effort platform color alignment */
+/* v324: launch copy and best-effort platform color alignment */
 html,body,body.light,body.light .phone{background:#F4F7FA!important;color-scheme:only light}
 body.light #s-splash .wordsub{font-size:1.0625rem;font-weight:650;line-height:1.65;max-width:340px;letter-spacing:-.025em;margin-top:10px;color:#415E70;text-wrap:balance}
 body.light #s-splash .splash-hint{font-size:1.0625rem;line-height:1.65;max-width:340px;margin-top:26px}
 @media(max-width:560px){.phone>.screen{top:env(safe-area-inset-top,0px);bottom:env(safe-area-inset-bottom,0px)}}
 
 
-/* v323 — cohesive civic UI. Data category colors on map remain semantic. */
+/* v324 — cohesive civic UI. Data category colors on map remain semantic. */
 :root{--brand:#087E83;--brand-strong:#086B70;--brand-soft:#ECF6F5;--ui-heading:#172F43;--ui-border:#DEE7EC}
 body.light .btn.primary{background:var(--brand-strong);color:#FFF;box-shadow:0 5px 14px #086B7015}
 body.light .btn.primary:hover{background:#075A5E}
@@ -2886,7 +2909,7 @@ body.light .ts-head .ts-c.now{background:#DDEFEA;color:var(--brand-strong)}
 body.light .ts-c.yes{color:var(--brand-strong)}
 
 
-/* v323: post-report card and browsing chrome */
+/* v324: post-report card and browsing chrome */
 body.light #s-cardconfirm .cc-head h2,body.light #s-mycard h2{color:#172F43}
 body.light #s-cardconfirm .cc-head p{font-size:1.0625rem;line-height:1.6;color:#415E70}
 body.light #s-cardconfirm .cc-sh{font-size:1.0625rem;color:#172F43}
@@ -3199,7 +3222,7 @@ body.light #s-sent #sent-map::after{content:'';position:absolute;inset:0;backgro
 @keyframes sent-map-shine{0%,50%{transform:translateX(-130%)}85%,100%{transform:translateX(130%)}}
 @media(prefers-reduced-motion:reduce){body.light #s-sent #sent-map,body.light #s-sent #sent-map i,body.light #s-sent #sent-map::after{animation:none}}
 
-/* v323: fixed report-location preview, readable address, no extra step */
+/* v324: fixed report-location preview, readable address, no extra step */
 body.light .report-location{width:100%;flex:0 0 auto;box-sizing:border-box;background:#FFF;border:1px solid #D9E5E9;border-radius:16px;overflow:hidden;text-align:left}
 body.light .report-location h3{margin:0;padding:16px 18px 12px;font-size:20px;line-height:1.4;color:#172F43}
 body.light .report-location-map{height:164px;background:#EDF3F3;position:relative;pointer-events:none;overflow:hidden}
@@ -3208,7 +3231,7 @@ body.light .report-location p{margin:0;padding:14px 18px 16px;font-size:18px;lin
 .report-location-pin{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#087E8328;border:1px solid #087E8340}
 .report-location-pin span{width:16px;height:16px;border-radius:50%;background:#087E83;border:3px solid #FFF;box-shadow:0 2px 6px #163E4350}
 
-/* v323: one radius explanation; compact, readable report sections */
+/* v324: one radius explanation; compact, readable report sections */
 body.light #s-cardconfirm .cc-section{margin-top:16px}
 body.light #s-cardconfirm .cc-sh{margin:0 0 12px;font-size:19px;line-height:1.45}
 body.light #s-cardconfirm .lscroll{padding:0;gap:12px;overflow:visible}
@@ -3220,7 +3243,7 @@ body.light #s-cardconfirm .cc-radius-note{margin:16px 0 0;padding:14px 16px;back
 @keyframes ccLivingWave{0%,100%{transform:scaleY(.25)}22%{transform:scaleY(.62)}48%{transform:scaleY(1)}73%{transform:scaleY(.46)}}
 @media(prefers-reduced-motion:reduce){#s-cardconfirm .lcard .lwave i{animation:none;transform:none}}
 
-/* v323: concise dismissible notice and compact map header */
+/* v324: concise dismissible notice and compact map header */
 body.light #s-list .mhead{padding:12px 16px 10px;min-height:0}
 body.light #s-list .mtitle{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:nowrap}
 body.light #s-list .mtitle h1{font-size:21px;line-height:1.4;margin:0;white-space:nowrap;letter-spacing:-.6px}
@@ -3250,7 +3273,7 @@ body.light .distribution-label{display:flex;align-items:center;justify-content:s
 body.light .distribution-unit{font-size:15px;font-weight:600;color:#526A72;white-space:nowrap}
 body.light .hour-threshold-label{font-size:15px;line-height:1.5;margin:6px 0 10px}
 
-/* v323: headings share the approved evidence-card hierarchy */
+/* v324: headings share the approved evidence-card hierarchy */
 body.light .evidence-card h3,body.light .predhead h3,body.light .noise-type-heading h3{margin:0;font-size:22px;line-height:1.45;font-weight:900;color:#172F43;letter-spacing:-.4px}
 body.light .public-evidence h3{color:#086B70}
 body.light .evidence-card h3{padding-bottom:12px}
@@ -3263,7 +3286,7 @@ body.light #v-detail .noise-type-card .hour-distribution{width:auto;margin:0 14p
 body.light #v-detail .noise-type-card.zero .noise-type-heading h3,body.light #v-detail .noise-type-card.zero .noise-type-heading strong{color:#536C7C}
 body.light #v-detail .repbox>.bh,body.light #v-detail .sec-h{font-size:22px;line-height:1.45;font-weight:900;color:#172F43;margin-bottom:14px}
 
-/* v323: only the address title waits; report content remains available */
+/* v324: only the address title waits; report content remains available */
 .area-title-loading{min-height:32px;display:block}
 .area-title-skeleton{display:block;width:min(220px,100%);height:28px;border-radius:7px;background:linear-gradient(100deg,#DCE9EA 20%,#F5FAFA 45%,#DCE9EA 70%);background-size:220% 100%;animation:areaAddressShimmer 1.5s linear infinite}
 @keyframes areaAddressShimmer{from{background-position:180% 0}to{background-position:-80% 0}}
@@ -3281,7 +3304,7 @@ body.light #v-detail .repbox>.bh,body.light #v-detail .sec-h{font-size:22px;line
 </dialog>
 <dialog id="app-info-dialog" class="app-info-dialog" aria-labelledby="app-info-title">
   <h2 id="app-info-title">CLAMOR 앱 정보</h2>
-  <p>현재 버전 <strong>v323</strong></p>
+  <p>현재 버전 <strong>v324</strong></p>
   
   <button class="btn primary" id="app-info-tiers" type="button">등급 선택</button>
   <button class="btn ghost" id="app-info-close" type="button">닫기</button>
@@ -3331,7 +3354,7 @@ body.light #v-detail .repbox>.bh,body.light #v-detail .sec-h{font-size:22px;line
     <div class="boot"><i></i></div>
     <div class="launch-footer">
       <p class="launch-partner">중소벤처기업진흥공단과 함께합니다.</p>
-      <span class="launch-version">v323</span>
+      <span class="launch-version">v324</span>
     </div>
   </section>
   <!-- ══ 2 ══ -->
@@ -3593,7 +3616,7 @@ body.light #v-detail .repbox>.bh,body.light #v-detail .sec-h{font-size:22px;line
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v323</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v324</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -3764,6 +3787,7 @@ body.light #v-detail .repbox>.bh,body.light #v-detail .sec-h{font-size:22px;line
         <div class="mc-summary" id="mc-summary"></div>
       </div>
 
+      <div id="mc-community"></div>
       <div class="cc-section" id="mc-history-sec" hidden>
         <div class="cc-sh">재발 이력</div>
         <div id="mc-history"></div>
@@ -3965,7 +3989,7 @@ body.light #v-detail .repbox>.bh,body.light #v-detail .sec-h{font-size:22px;line
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <button class="app-info-btn" id="app-info-btn" type="button" aria-label="앱 정보 및 버전 확인">앱 정보</button><span class="ver" id="ver2" hidden>v323</span></div>
+          <button class="app-info-btn" id="app-info-btn" type="button" aria-label="앱 정보 및 버전 확인">앱 정보</button><span class="ver" id="ver2" hidden>v324</span></div>
       </div>
     </div>
 
@@ -4022,7 +4046,7 @@ body.light #v-detail .repbox>.bh,body.light #v-detail .sec-h{font-size:22px;line
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg><span id="map-screen-title">우리 동네 소음 지도</span></h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v323</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v324</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -6038,7 +6062,7 @@ document.getElementById('sms-send').onclick=()=>{
 /* ══ 보낸 기록 ══
    보낸 뒤 사용자는 앱을 놓는다. 다시 열었을 때 처음부터 시작하면 방금
    무엇을 보냈는지 알 수 없다. 폰에 사본을 남겨 둔다. */
-/* v323 test reports live only in this document instance.
+/* v324 test reports live only in this document instance.
    Public-data forecasts and curated demo points are untouched. */
 const sessionReportHistory=[];
 const testReportMemory=new Map();
@@ -6426,6 +6450,7 @@ function fmtGap(ms){
 let mcRec=null;   // 신고카드 화면이 지금 그리고 있는 신고 기록(loadSent()의 스냅샷)
 function renderMyCard(rec){
   mcRec = rec;
+  const communityHost=document.getElementById('mc-community');if(communityHost){communityHost.innerHTML='';if(rec)mountCommunity(communityHost,[rec],rec.addr);}
   const sub=document.getElementById('mc-sub');
   const summary=document.getElementById('mc-summary');
   const historySec=document.getElementById('mc-history-sec');
@@ -7409,6 +7434,43 @@ function applyMine(){
 /* 차량ㆍ바이크(이동 소음) 신고는 실제 도로 모양(path) 데이터가 없어서
    구간(선)으로는 못 그린다 — 그건 별도 과제로 남긴다. 대신 정직하게
    점(스팟)으로 표시한다: 없는 도로 모양을 지어내는 것보다 낫다. */
+/* Community records are scoped to this document, like personal demo reports. */
+const communityCards=new Map();
+let communityCommentSequence=0;
+function communityKey(p){return p.id||'report-'+p.at+'-'+(p.reporterId||'self');}
+function communityVote(item,value){item.vote=item.vote===value?null:value;}
+function refreshCommunityVotes(container,item){
+ container.querySelectorAll('[data-vote]').forEach(button=>{button.setAttribute('aria-pressed',String(item.vote===button.dataset.vote));button.querySelector('b').textContent=item.vote===button.dataset.vote?'1':'0';});
+}
+function communityEscape(value){return String(value||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function communityDate(at){return new Date(at).toLocaleString('ko-KR',{timeZone:'Asia/Seoul',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:false});}
+function communityVoteHTML(item){return '<div class="community-votes"><button type="button" data-vote="agree" aria-pressed="'+(item.vote==='agree')+'">공감 <b>'+(item.vote==='agree'?1:0)+'</b></button><button type="button" data-vote="disagree" aria-pressed="'+(item.vote==='disagree')+'">비공감 <b>'+(item.vote==='disagree'?1:0)+'</b></button></div>';}
+function mountCommunity(host,records,area){
+ if(!host)return;
+ const list=records.filter(p=>Number.isFinite(p.at));if(!list.length)return;
+ let panel=host.querySelector('.community-panel');
+ if(!panel){panel=document.createElement('section');panel.className='community-panel';host.appendChild(panel);}
+ let selected=0;
+ function render(){
+  const p=list[selected],key=communityKey(p);
+  if(!communityCards.has(key))communityCards.set(key,{vote:null,comments:[]});
+  const data=communityCards.get(key),position=p.addr||(area&&!/확인|기타/.test(area)?area:p.position?p.position[0].toFixed(5)+', '+p.position[1].toFixed(5):'신고 위치');
+  panel.innerHTML='<h2>시민 공감 · 댓글</h2>'+(list.length>1?'<label class="community-select-label">참여할 신고카드<select class="community-select" aria-label="참여할 신고카드">'+list.map((r,i)=>'<option value="'+i+'"'+(i===selected?' selected':'')+'>'+communityDate(r.at)+' · '+(r.type==='car'?'차량':r.type==='bike'?'바이크':r.type||TYPES[r.ti||0].k)+'</option>').join('')+'</select></label>':'')+
+  '<article class="community-report"><span>신고(제보) 카드</span><h3>'+communityEscape(p.type==='car'?'차량 굉음':p.type==='bike'?'바이크 굉음':p.type||(TYPES[p.ti||0].k+' 소음'))+'</h3><time>'+communityDate(p.at)+'</time><p>'+communityEscape(position)+'</p>'+communityVoteHTML(data)+'</article>'+
+  '<div class="community-comments"><h3>댓글 <b>'+data.comments.length+'</b></h3>'+(data.comments.length?data.comments.map(comment=>'<article class="community-comment" data-comment="'+comment.id+'"><div class="community-comment-meta"><b>나</b><time>'+communityDate(comment.at)+'</time></div><span class="community-experience">'+(comment.experience==='direct'?'직접 겪었어요':'직접 겪지는 않았어요')+'</span><p>'+communityEscape(comment.text).replace(/\n/g,'<br>')+'</p>'+communityVoteHTML(comment)+'</article>').join(''):'<div class="community-empty">아직 댓글이 없습니다</div>')+'</div>'+
+  '<form class="community-form"><fieldset><legend>이 소음을 직접 겪었나요?</legend><label><input type="radio" name="experience" value="direct" required>직접 겪었어요</label><label><input type="radio" name="experience" value="indirect" required>직접 겪지는 않았어요</label></fieldset><label class="community-text-label">댓글 작성<textarea name="comment" rows="3" maxlength="500" required placeholder="같은 시간·장소에서 겪은 일을 남겨주세요"></textarea></label><div class="community-form-footer"><span>최대 500자</span><button type="submit">댓글 등록</button></div><p class="community-status" role="status"></p></form>';
+  const select=panel.querySelector('select');if(select)select.onchange=()=>{selected=+select.value;render();};
+  panel.querySelector('.community-report').querySelectorAll('[data-vote]').forEach(b=>b.onclick=()=>{communityVote(data,b.dataset.vote);refreshCommunityVotes(b.parentElement,data);});
+  panel.querySelectorAll('.community-comment').forEach(article=>{const comment=data.comments.find(x=>x.id===article.dataset.comment);article.querySelectorAll('[data-vote]').forEach(b=>b.onclick=()=>{communityVote(comment,b.dataset.vote);refreshCommunityVotes(b.parentElement,comment);});});
+  const form=panel.querySelector('form');form.onsubmit=e=>{
+   e.preventDefault();const experience=form.querySelector('input:checked'),text=form.querySelector('textarea').value.trim();
+   if(!experience||!['direct','indirect'].includes(experience.value)||!text||text.length>500)return;
+   data.comments.push({id:'comment-'+(++communityCommentSequence),author:'self',at:Date.now(),experience:experience.value,text,vote:null});render();panel.querySelector('.community-status').textContent='댓글이 등록되었습니다';
+  };
+ }
+ render();
+}
+
 function passbyVehicleSymbol(type){
  return type==='car'?'<path d="M9 44V30l11-15h39l12 15v14H9ZM9 30h62M25 15l-5 15M55 15l7 15"/><circle cx="24" cy="44" r="9"/><circle cx="57" cy="44" r="9"/>':clamorBikeSVG();
 }
@@ -7470,6 +7532,7 @@ function showPassbyReport(p){
  const options=selected=>Array.from({length:8},(_,i)=>'<option value="'+i+'"'+(i===selected?' selected':'')+'>'+i+'일</option>').join('');
  const f=p.progress;
  document.getElementById('d-body').innerHTML='<section class="route-focus"><div class="route-kind"><svg viewBox="0 0 82 62" fill="none" stroke="currentColor" stroke-width="4">'+passbyVehicleSymbol(p.type)+'</svg><div><span>시민 신고(제보)</span><h2>'+kind+' 굉음</h2></div></div><div class="pb-report-meta"><div><b>제보 일시</b>'+escapePassbyText(p.when||new Date(p.at).toLocaleString('ko-KR',{month:'long',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:false}))+'</div><div><b>제보 위치</b>'+escapePassbyText(p.addr||(p.position?'제보 위치 · '+p.position[0].toFixed(5)+', '+p.position[1].toFixed(5):'주소 확인 중'))+'</div><div><b>피해 반응</b>'+tags.join('<br>')+'</div></div></section>'+passbyProgressHTML(f?[f]:[])+(own?'<form class="pb-followup" id="pb-followup"><h2>소음 변화 입력</h2><div class="pb-week"><div><label for="pb-before">제보 전 · 7일 중</label><select id="pb-before" required><option value="">발생일 선택</option>'+options(f?f.before:-1)+'</select></div><div><label for="pb-after">최근 · 7일 중</label><select id="pb-after" required><option value="">발생일 선택</option>'+options(f?f.after:-1)+'</select></div></div><label for="pb-enforcement">단속 여부</label><select id="pb-enforcement"><option>알 수 없음</option><option>확인함</option><option>확인하지 못함</option></select><button type="submit">'+(f?'경과 수정':'경과 저장')+'</button><div class="pb-status" role="status" id="pb-progress-status"></div></form>':'');
+ mountCommunity(document.getElementById('d-body'),[p],p.addr);
  if(own){
   const form=document.getElementById('pb-followup');if(f)document.getElementById('pb-enforcement').value=f.enforcement;
   form.onsubmit=e=>{
@@ -7535,6 +7598,7 @@ function showDetail(s){
     document.getElementById('d-cov').hidden=true;
     let h=routeDetailHTML(s);
     document.getElementById('d-body').innerHTML=h;
+    mountCommunity(document.getElementById('d-body'),refreshRouteWindow(s),s.direction);
   const upgrade=document.querySelector('#d-body .detail-upgrade-btn');
   if(upgrade) upgrade.onclick=()=>openTierSheet(true);
     view('detail');
@@ -7569,6 +7633,7 @@ function showDetail(s){
      범위를 눌러 들어온 이 화면에도 이어붙인다. */
   if(typeof forecastHTML==='function') h+=forecastHTML(s);
   document.getElementById('d-body').innerHTML=h;
+  mountCommunity(document.getElementById('d-body'),s.reports||[],s.name);
   const upgrade=document.querySelector('#d-body .detail-upgrade-btn');
   if(upgrade) upgrade.onclick=()=>openTierSheet(true);
   view('detail');
