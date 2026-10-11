@@ -2737,7 +2737,7 @@ launchFallback=setTimeout(()=>document.documentElement.classList.remove('launch-
      이 버튼은 기다림을 건너뛰는 장치다. 무게를 낮춘다. */
   #s-rec #rec-now{font-size:1.125rem; padding:11px; border-radius:10px}
 
-/* CLAMOR v0.3.30 · 빌드 330 — presentation redesign; v0.3.30 · 빌드 330 interaction preserved */
+/* CLAMOR v0.3.31 · 빌드 331 — presentation redesign; v0.3.31 · 빌드 331 interaction preserved */
 :root{--c-time:#143B55;--c-pay:#176C78;--c-pay-2:#115460}
 body.light .screen{--ink:#F4F7FA;--ink-2:#FFF;--ink-3:#EAF0F5;--line:#DFE7EF;--text:#153149;--text-dim:#516779;--text-mute:#65798B;--stroke:#153149;background:#F4F7FA;color:#153149}
 body{background:#E5EBF1}body.light .phone{background:#F4F7FA;box-shadow:0 20px 70px #15314924}
@@ -2807,7 +2807,7 @@ body.light .ts-note{color:#6A8091}.brand-symbol{width:100%;height:100%;object-fi
 @media(max-width:560px){body,body.nodev{padding:0!important;background:#F4F7FA}.phone{width:100%!important;height:100dvh!important;border-radius:0!important;box-shadow:none!important}.nav,#tune,#tune-toggle{display:none!important}}
 
 
-/* v0.3.30 · 빌드 330 — bright, high-contrast measurement surface */
+/* v0.3.31 · 빌드 331 — bright, high-contrast measurement surface */
 body.light #s-rec .live-zone{background:#FFF;color:#172B3D;border:1px solid #DDE5EC;box-shadow:0 8px 24px #172B3D08;padding:20px 18px 18px;border-radius:22px}
 body.light #s-rec .meter{padding:4px 0 16px}
 body.light #s-rec .db{color:#152B3D;font-size:5rem;font-weight:800;letter-spacing:-.06em}
@@ -2837,7 +2837,7 @@ body.warming #s-rec .soundviz{opacity:1}body.warming #s-rec .db small{color:#365
 body.light #s-confirm .cf-note,body.light #s-confirm #recur-box{background:#FFF;border-color:#DFE7ED;border-radius:18px}
 
 
-/* v0.3.30 · 빌드 330 readability contract: main text 17px+, secondary 14px+.
+/* v0.3.31 · 빌드 331 readability contract: main text 17px+, secondary 14px+.
    Wrap content or allow scrolling rather than shrinking typography. */
 body.light #s-rec{font-size:1.0625rem;line-height:1.55}
 body.light #s-rec .rhead{flex-wrap:wrap;gap:8px 10px;padding:18px}
@@ -2885,14 +2885,14 @@ body.light #s-rec .pb{padding:16px 12px;gap:10px}
 body.light #s-rec .btn.ghost{font-size:1.0625rem;min-height:52px;margin-top:16px}
 
 
-/* v0.3.30 · 빌드 330: launch copy and best-effort platform color alignment */
+/* v0.3.31 · 빌드 331: launch copy and best-effort platform color alignment */
 html,body,body.light,body.light .phone{background:#F4F7FA!important;color-scheme:only light}
 body.light #s-splash .wordsub{font-size:1.0625rem;font-weight:650;line-height:1.65;max-width:340px;letter-spacing:-.025em;margin-top:10px;color:#415E70;text-wrap:balance}
 body.light #s-splash .splash-hint{font-size:1.0625rem;line-height:1.65;max-width:340px;margin-top:26px}
 @media(max-width:560px){.phone>.screen{top:env(safe-area-inset-top,0px);bottom:env(safe-area-inset-bottom,0px)}}
 
 
-/* v0.3.30 · 빌드 330 — cohesive civic UI. Data category colors on map remain semantic. */
+/* v0.3.31 · 빌드 331 — cohesive civic UI. Data category colors on map remain semantic. */
 :root{--brand:#087E83;--brand-strong:#086B70;--brand-soft:#ECF6F5;--ui-heading:#172F43;--ui-border:#DEE7EC}
 body.light .btn.primary{background:var(--brand-strong);color:#FFF;box-shadow:0 5px 14px #086B7015}
 body.light .btn.primary:hover{background:#075A5E}
@@ -2931,7 +2931,7 @@ body.light .ts-head .ts-c.now{background:#DDEFEA;color:var(--brand-strong)}
 body.light .ts-c.yes{color:var(--brand-strong)}
 
 
-/* v0.3.30 · 빌드 330: post-report card and browsing chrome */
+/* v0.3.31 · 빌드 331: post-report card and browsing chrome */
 body.light #s-cardconfirm .cc-head h2,body.light #s-mycard h2{color:#172F43}
 body.light #s-cardconfirm .cc-head p{font-size:1.0625rem;line-height:1.6;color:#415E70}
 body.light #s-cardconfirm .cc-sh{font-size:1.0625rem;color:#172F43}
@@ -3244,7 +3244,7 @@ body.light #s-sent #sent-map::after{content:'';position:absolute;inset:0;backgro
 @keyframes sent-map-shine{0%,50%{transform:translateX(-130%)}85%,100%{transform:translateX(130%)}}
 @media(prefers-reduced-motion:reduce){body.light #s-sent #sent-map,body.light #s-sent #sent-map i,body.light #s-sent #sent-map::after{animation:none}}
 
-/* v0.3.30 · 빌드 330: fixed report-location preview, readable address, no extra step */
+/* v0.3.31 · 빌드 331: fixed report-location preview, readable address, no extra step */
 body.light .report-location{width:100%;flex:0 0 auto;box-sizing:border-box;background:#FFF;border:1px solid #D9E5E9;border-radius:16px;overflow:hidden;text-align:left}
 body.light .report-location h3{margin:0;padding:16px 18px 12px;font-size:20px;line-height:1.4;color:#172F43}
 body.light .report-location-map{height:164px;background:#EDF3F3;position:relative;pointer-events:none;overflow:hidden}
@@ -3253,7 +3253,7 @@ body.light .report-location p{margin:0;padding:14px 18px 16px;font-size:18px;lin
 .report-location-pin{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#087E8328;border:1px solid #087E8340}
 .report-location-pin span{width:16px;height:16px;border-radius:50%;background:#087E83;border:3px solid #FFF;box-shadow:0 2px 6px #163E4350}
 
-/* v0.3.30 · 빌드 330: one radius explanation; compact, readable report sections */
+/* v0.3.31 · 빌드 331: one radius explanation; compact, readable report sections */
 body.light #s-cardconfirm .cc-section{margin-top:16px}
 body.light #s-cardconfirm .cc-sh{margin:0 0 12px;font-size:19px;line-height:1.45}
 body.light #s-cardconfirm .lscroll{padding:0;gap:12px;overflow:visible}
@@ -3265,7 +3265,7 @@ body.light #s-cardconfirm .cc-radius-note{margin:16px 0 0;padding:14px 16px;back
 @keyframes ccLivingWave{0%,100%{transform:scaleY(.25)}22%{transform:scaleY(.62)}48%{transform:scaleY(1)}73%{transform:scaleY(.46)}}
 @media(prefers-reduced-motion:reduce){#s-cardconfirm .lcard .lwave i{animation:none;transform:none}}
 
-/* v0.3.30 · 빌드 330: concise dismissible notice and compact map header */
+/* v0.3.31 · 빌드 331: concise dismissible notice and compact map header */
 body.light #s-list .mhead{padding:12px 16px 10px;min-height:0}
 body.light #s-list .mtitle{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:nowrap}
 body.light #s-list .mtitle h1{font-size:21px;line-height:1.4;margin:0;white-space:nowrap;letter-spacing:-.6px}
@@ -3295,7 +3295,7 @@ body.light .distribution-label{display:flex;align-items:center;justify-content:s
 body.light .distribution-unit{font-size:15px;font-weight:600;color:#526A72;white-space:nowrap}
 body.light .hour-threshold-label{font-size:15px;line-height:1.5;margin:6px 0 10px}
 
-/* v0.3.30 · 빌드 330: headings share the approved evidence-card hierarchy */
+/* v0.3.31 · 빌드 331: headings share the approved evidence-card hierarchy */
 body.light .evidence-card h3,body.light .predhead h3,body.light .noise-type-heading h3{margin:0;font-size:22px;line-height:1.45;font-weight:900;color:#172F43;letter-spacing:-.4px}
 body.light .public-evidence h3{color:#086B70}
 body.light .evidence-card h3{padding-bottom:12px}
@@ -3308,7 +3308,7 @@ body.light #v-detail .noise-type-card .hour-distribution{width:auto;margin:0 14p
 body.light #v-detail .noise-type-card.zero .noise-type-heading h3,body.light #v-detail .noise-type-card.zero .noise-type-heading strong{color:#536C7C}
 body.light #v-detail .repbox>.bh,body.light #v-detail .sec-h{font-size:22px;line-height:1.45;font-weight:900;color:#172F43;margin-bottom:14px}
 
-/* v0.3.30 · 빌드 330: only the address title waits; report content remains available */
+/* v0.3.31 · 빌드 331: only the address title waits; report content remains available */
 .area-title-loading{min-height:32px;display:block}
 .area-title-skeleton{display:block;width:min(220px,100%);height:28px;border-radius:7px;background:linear-gradient(100deg,#DCE9EA 20%,#F5FAFA 45%,#DCE9EA 70%);background-size:220% 100%;animation:areaAddressShimmer 1.5s linear infinite}
 @keyframes areaAddressShimmer{from{background-position:180% 0}to{background-position:-80% 0}}
@@ -3364,6 +3364,15 @@ body.light .agency-role-list div{padding:10px 0;border-bottom:1px solid #E5EDEF}
 .agency-block{background:white;border:1px solid #D9E5E8;border-radius:16px;padding:18px;margin-bottom:16px}.agency-block h2{font-size:22px;font-weight:900;margin:0 0 16px;line-height:1.5}
 .agency-record{display:grid;grid-template-columns:1fr auto;width:100%;text-align:left;background:transparent;color:#172F43;border:0;border-top:1px solid #E5EDEF;padding:14px 0;gap:6px 12px;font:inherit;cursor:pointer}.agency-record strong{font-size:18px;line-height:1.5;word-break:keep-all}.agency-record span{grid-column:1;font-size:17px;line-height:1.5;color:#415E70}.agency-record i{grid-column:2;grid-row:1/3;align-self:center;font-size:24px;font-style:normal;color:#086B70}
 .agency-empty{font-size:17px;padding:20px 0;color:#536C7C}.agency-materials{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 14px;font-size:17px}.agency-materials span{padding:14px 0;border-top:1px solid #E5EDEF;line-height:1.5;word-break:keep-all}
+
+/* Fixed real maps: only the comparison sheet scrolls. */
+body.light .tier-real-map{height:200px;width:100%;position:relative;overflow:hidden;background:#EFF4F3;pointer-events:none;user-select:none}
+body.light .tier-real-map *{pointer-events:none!important}
+body.light .tier-map-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#415E70;font-size:17px;font-weight:700}
+body.light .preview-location{font-size:20px;font-weight:900;color:#173844;line-height:1;text-shadow:0 1px 2px white,1px 0 2px white,-1px 0 2px white}
+body.light .preview-location.quiet{color:#086B70}
+body.light .preview-location.reporter{color:#A45B16;font-size:24px}
+body.light .tier-map-key i.reporter{border-radius:0;transform:rotate(45deg);background:#A45B16;width:10px;height:10px}
 </style>
 
 <dialog id="recurrence-dialog" class="recurrence-dialog" aria-labelledby="recurrence-title">
@@ -3374,7 +3383,7 @@ body.light .agency-role-list div{padding:10px 0;border-bottom:1px solid #E5EDEF}
 </dialog>
 <dialog id="app-info-dialog" class="app-info-dialog" aria-labelledby="app-info-title">
   <h2 id="app-info-title">CLAMOR 앱 정보</h2>
-  <p>현재 버전 <strong>v0.3.30 · 빌드 330</strong></p>
+  <p>현재 버전 <strong>v0.3.31 · 빌드 331</strong></p>
   
   <button class="btn primary" id="app-info-tiers" type="button">등급 선택</button>
   <button class="btn ghost" id="app-info-close" type="button">닫기</button>
@@ -3424,7 +3433,7 @@ body.light .agency-role-list div{padding:10px 0;border-bottom:1px solid #E5EDEF}
     <div class="boot"><i></i></div>
     <div class="launch-footer">
       <p class="launch-partner">중소벤처기업진흥공단과 함께합니다.</p>
-      <span class="launch-version">v0.3.30 · 빌드 330</span>
+      <span class="launch-version">v0.3.31 · 빌드 331</span>
     </div>
   </section>
   <!-- ══ 2 ══ -->
@@ -3686,7 +3695,7 @@ body.light .agency-role-list div{padding:10px 0;border-bottom:1px solid #E5EDEF}
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v0.3.30 · 빌드 330</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v0.3.31 · 빌드 331</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -4059,7 +4068,7 @@ body.light .agency-role-list div{padding:10px 0;border-bottom:1px solid #E5EDEF}
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <button class="app-info-btn" id="app-info-btn" type="button" aria-label="앱 정보 및 버전 확인">앱 정보</button><span class="ver" id="ver2" hidden>v0.3.30 · 빌드 330</span></div>
+          <button class="app-info-btn" id="app-info-btn" type="button" aria-label="앱 정보 및 버전 확인">앱 정보</button><span class="ver" id="ver2" hidden>v0.3.31 · 빌드 331</span></div>
       </div>
     </div>
 
@@ -4116,7 +4125,7 @@ body.light .agency-role-list div{padding:10px 0;border-bottom:1px solid #E5EDEF}
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg><span id="map-screen-title">우리 동네 소음 지도</span></h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v0.3.30 · 빌드 330</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v0.3.31 · 빌드 331</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button type="button" class="agency-entry" id="agency-entry" hidden>기관 화면</button><button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -4305,15 +4314,65 @@ function openAgencyOverview(){
  agencyOverview.querySelectorAll('[data-spot]').forEach(b=>b.onclick=()=>{const s=spots[+b.dataset.spot];agencyOverview.close();showDetail(s);});
  agencyOverview.showModal();
 }
+let tierPreviewObserver=null,tierPreviewTimer=null,tierPreviewMaps=[],tierPreviewAttempts=0;
+function clearTierMapPreviews(){
+ if(tierPreviewObserver)tierPreviewObserver.disconnect();tierPreviewObserver=null;
+ clearTimeout(tierPreviewTimer);tierPreviewTimer=null;tierPreviewAttempts=0;
+ tierPreviewMaps.forEach(item=>item.overlays.forEach(o=>o.setMap(null)));tierPreviewMaps=[];
+}
 function tierMapPreview(i){
-  const scale=[1,1.4,1.8,1.8,1.8][i], radius=[58,28,13,8,0][i];
-  const roads='<path d="M-100 110H430M105 -100V340M255 -100V340" stroke="#FFFFFF" stroke-width="24" fill="none"/>';
-  let buildings='';for(let x=20;x<320;x+=48)for(let y=24;y<220;y+=46)buildings+='<rect x="'+x+'" y="'+y+'" width="28" height="23" rx="3" fill="#CDD9DD"/>';
-  const point=(x,y,quiet)=>radius?'<circle cx="'+x+'" cy="'+y+'" r="'+radius+'" fill="'+(quiet?'#71BAA4':'#173844')+'" fill-opacity=".26" stroke="'+(quiet?'#087E83':'#173844')+'" stroke-width="2"/>':'<circle cx="'+x+'" cy="'+y+'" r="6" fill="'+(quiet?'#087E83':'#173844')+'" stroke="white" stroke-width="2"/>';
-  const title=['동네의 소음 구역','소음 위치를 더 자세히','더 세밀한 소음 구역','현장 확인을 위한 범위','소음 위치 · 신고자 위치'][i];
-  return '<figure class="tier-map-preview"><svg viewBox="0 0 330 220" role="img" aria-label="'+title+' · 등급별 지도 비교"><rect width="330" height="220" fill="#EFF4F3"/><g transform="translate(165 110) scale('+scale+') translate(-165 -110)">'+buildings+roads+'</g>'+point(94,108,false)+point(209,108,true)+point(270,157,true)+'<text x="209" y="114" text-anchor="middle" fill="#086B70" font-size="22" font-weight="900">✓</text></svg><figcaption>'+title+'</figcaption></figure><div class="tier-map-key"><span><i></i>신고 구역</span><span><i class="quiet"></i>조치 후 조용함</span></div>';
+ const title=['동네의 소음 구역','소음 위치를 더 자세히','더 세밀한 소음 구역','현장 확인을 위한 범위','소음 위치 · 신고자 위치'][i];
+ return '<figure class="tier-map-preview"><div class="tier-real-map" data-preview-tier="'+i+'" aria-label="논현동 · '+title+' · 고정 지도"><div class="tier-map-loading">지도를 불러오는 중…</div></div><figcaption>'+title+'</figcaption></figure><div class="tier-map-key"><span><i></i>신고 구역</span><span><i class="quiet"></i>조치 후 조용함</span>'+(i===4?'<span><i class="reporter"></i>신고자 위치</span>':'')+'</div>';
+}
+function tierPreviewRecords(){
+ ensureQuietDemoCases();
+ const quiet=quietDemoCases.find(d=>d.events[d.events.length-1].status==='resolved');
+ const center=quiet?quiet.c:{lat:37.4061,lng:126.7220};
+ const chosen=quiet?[{c:{...quiet.c},status:'resolved'}]:[];
+ const candidates=RAW.filter(p=>distM(p,center)<125).sort((a,b)=>distM(a,center)-distM(b,center));
+ candidates.forEach(p=>{
+  if(chosen.length>=6||chosen.some(q=>distM(q.c,p)<28))return;
+  const feedback=quietRangeFeedback.get(quietSourceKey(p));
+  chosen.push({c:{lat:p.lat,lng:p.lng},status:feedback&&isRecentReport(feedback)?feedback.status:'reported',reporterLoc:p.reporterLoc});
+ });
+ return {center,records:chosen};
+}
+function initializeTierMapPreviews(){
+ const bg=document.getElementById('tiersheet');if(!bg||bg.hidden)return;
+ if(typeof kakao==='undefined'||!kakao.maps||typeof kakao.maps.Map!=='function'){
+  if(++tierPreviewAttempts<16)tierPreviewTimer=setTimeout(initializeTierMapPreviews,500);else bg.querySelectorAll(".tier-map-loading").forEach(el=>el.textContent="지도 연결을 확인해주세요");return;
+ }
+ const data=tierPreviewRecords();
+ const draw=host=>{
+  if(host.dataset.ready||!host.clientWidth||!host.clientHeight)return;
+  const i=+host.dataset.previewTier,T=TIERS[i];
+  try{
+   host.innerHTML='';
+   const mini=new kakao.maps.Map(host,{center:new kakao.maps.LatLng(data.center.lat,data.center.lng),level:[3,2,1,1,1][i],draggable:false,scrollwheel:false,disableDoubleClick:true,disableDoubleClickZoom:true,keyboardShortcuts:false});
+   mini.setDraggable(false);mini.setZoomable(false);
+   const overlays=[],groups=[];
+   data.records.forEach(record=>{
+    const group=T.merge>0?groups.find(g=>g.status===record.status&&distM(g.c,record.c)<=T.merge):null;
+    if(group){const n=group.count;group.c={lat:(group.c.lat*n+record.c.lat)/(n+1),lng:(group.c.lng*n+record.c.lng)/(n+1)};group.count++;}
+    else groups.push({...record,c:{...record.c},count:1});
+   });
+   groups.forEach(record=>{
+    const position=new kakao.maps.LatLng(record.c.lat,record.c.lng),quiet=record.status==='resolved';
+    if(T.range){const circle=new kakao.maps.Circle({center:position,radius:T.rangeR,...quietRangeStyle({status:record.status},.26)});circle.setMap(mini);overlays.push(circle);}
+    if(quiet||!T.range){const el=document.createElement('div');el.className='preview-location '+(quiet?'quiet':'');el.textContent=quiet?'✓':'●';const o=new kakao.maps.CustomOverlay({map:mini,position,content:el,xAnchor:.5,yAnchor:.5,zIndex:5});overlays.push(o);}
+    if(i===4&&record.reporterLoc){const position2=new kakao.maps.LatLng(record.reporterLoc.lat,record.reporterLoc.lng),el=document.createElement('div');el.className='preview-location reporter';el.textContent='◇';overlays.push(new kakao.maps.CustomOverlay({map:mini,position:position2,content:el,xAnchor:.5,yAnchor:.5,zIndex:6}));}
+   });
+   host.dataset.ready='true';tierPreviewMaps.push({map:mini,overlays});
+  }catch(error){host.innerHTML='<div class="tier-map-loading">지도를 불러오지 못했습니다</div>';}
+ };
+ const hosts=bg.querySelectorAll('.tier-real-map');
+ if(typeof IntersectionObserver==='function'){
+  tierPreviewObserver=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)draw(e.target);}),{root:bg.querySelector('.ts-scroll'),rootMargin:'80px'});
+  hosts.forEach(host=>tierPreviewObserver.observe(host));
+ }else hosts.forEach(draw);
 }
 function openTierSheet(force){
+  clearTierMapPreviews();
   const bg=document.getElementById('tiersheet'); if(!bg) return;
   /* 목록 화면에서 '이 위치 확인'으로 막 넘어온 경우(pendingListCenter가
      있는 경우)는 이 자리에 대해 아직 아무 등급도 연 적이 없다 — 그런데도
@@ -4439,10 +4498,11 @@ function openTierSheet(force){
   });
   bg.querySelector('.ts-close').onclick=closeTierSheet;
   bg.hidden=false;
-  requestAnimationFrame(()=>bg.classList.add('on'));
+  requestAnimationFrame(()=>{bg.classList.add('on');initializeTierMapPreviews();});
 }
 
 function closeTierSheet(){
+  clearTierMapPreviews();
   const bg=document.getElementById('tiersheet'); if(!bg) return;
   bg.classList.remove('on');
   setTimeout(()=>{ if(!bg.classList.contains('on')) bg.hidden=true },260);
@@ -5310,7 +5370,7 @@ loadZoningData();   // 인천 용도지역 표 — 녹음 화면 도달 전에 �
    가르친다. 폰을 두 번 흔들면(진짜 신고 상황) 녹음 화면으로, 흔들지
    않으면(그냥 지도가 궁금해서 켠 경우) 신고 없이 바로 클레머 메인화면
    (우리동네소음지도)으로 들어간다 — 신고 이력이 없는 시민의 진입로다. */
-/* v0.3.30 · 빌드 330 — 흔들기 자동 진입은 초기 화면에서만 허용한다.
+/* v0.3.31 · 빌드 331 — 흔들기 자동 진입은 초기 화면에서만 허용한다.
    지도·상세·댓글·신고카드를 보고 있을 때 발생하는 동작은 무시한다.
    화면 밖에서 감지된 흔들림을 초기 화면으로 넘겨 합산하지 않는다. */
 (function shakeToReport(){
@@ -6179,7 +6239,7 @@ document.getElementById('sms-send').onclick=()=>{
 /* ══ 보낸 기록 ══
    보낸 뒤 사용자는 앱을 놓는다. 다시 열었을 때 처음부터 시작하면 방금
    무엇을 보냈는지 알 수 없다. 폰에 사본을 남겨 둔다. */
-/* v0.3.30 · 빌드 330 test reports live only in this document instance.
+/* v0.3.31 · 빌드 331 test reports live only in this document instance.
    Public-data forecasts and curated demo points are untouched. */
 const sessionReportHistory=[];
 const testReportMemory=new Map();
