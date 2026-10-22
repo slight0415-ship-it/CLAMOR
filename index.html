@@ -2737,7 +2737,7 @@ launchFallback=setTimeout(()=>document.documentElement.classList.remove('launch-
      이 버튼은 기다림을 건너뛰는 장치다. 무게를 낮춘다. */
   #s-rec #rec-now{font-size:1.125rem; padding:11px; border-radius:10px}
 
-/* CLAMOR v0.3.34 · 빌드 334 — presentation redesign; v0.3.34 · 빌드 334 interaction preserved */
+/* CLAMOR v0.3.35 · 빌드 335 — presentation redesign; v0.3.35 · 빌드 335 interaction preserved */
 :root{--c-time:#143B55;--c-pay:#176C78;--c-pay-2:#115460}
 body.light .screen{--ink:#F4F7FA;--ink-2:#FFF;--ink-3:#EAF0F5;--line:#DFE7EF;--text:#153149;--text-dim:#516779;--text-mute:#65798B;--stroke:#153149;background:#F4F7FA;color:#153149}
 body{background:#E5EBF1}body.light .phone{background:#F4F7FA;box-shadow:0 20px 70px #15314924}
@@ -2807,7 +2807,7 @@ body.light .ts-note{color:#6A8091}.brand-symbol{width:100%;height:100%;object-fi
 @media(max-width:560px){body,body.nodev{padding:0!important;background:#F4F7FA}.phone{width:100%!important;height:100dvh!important;border-radius:0!important;box-shadow:none!important}.nav,#tune,#tune-toggle{display:none!important}}
 
 
-/* v0.3.34 · 빌드 334 — bright, high-contrast measurement surface */
+/* v0.3.35 · 빌드 335 — bright, high-contrast measurement surface */
 body.light #s-rec .live-zone{background:#FFF;color:#172B3D;border:1px solid #DDE5EC;box-shadow:0 8px 24px #172B3D08;padding:20px 18px 18px;border-radius:22px}
 body.light #s-rec .meter{padding:4px 0 16px}
 body.light #s-rec .db{color:#152B3D;font-size:5rem;font-weight:800;letter-spacing:-.06em}
@@ -2837,7 +2837,7 @@ body.warming #s-rec .soundviz{opacity:1}body.warming #s-rec .db small{color:#365
 body.light #s-confirm .cf-note,body.light #s-confirm #recur-box{background:#FFF;border-color:#DFE7ED;border-radius:18px}
 
 
-/* v0.3.34 · 빌드 334 readability contract: main text 17px+, secondary 14px+.
+/* v0.3.35 · 빌드 335 readability contract: main text 17px+, secondary 14px+.
    Wrap content or allow scrolling rather than shrinking typography. */
 body.light #s-rec{font-size:1.0625rem;line-height:1.55}
 body.light #s-rec .rhead{flex-wrap:wrap;gap:8px 10px;padding:18px}
@@ -2885,14 +2885,14 @@ body.light #s-rec .pb{padding:16px 12px;gap:10px}
 body.light #s-rec .btn.ghost{font-size:1.0625rem;min-height:52px;margin-top:16px}
 
 
-/* v0.3.34 · 빌드 334: launch copy and best-effort platform color alignment */
+/* v0.3.35 · 빌드 335: launch copy and best-effort platform color alignment */
 html,body,body.light,body.light .phone{background:#F4F7FA!important;color-scheme:only light}
 body.light #s-splash .wordsub{font-size:1.0625rem;font-weight:650;line-height:1.65;max-width:340px;letter-spacing:-.025em;margin-top:10px;color:#415E70;text-wrap:balance}
 body.light #s-splash .splash-hint{font-size:1.0625rem;line-height:1.65;max-width:340px;margin-top:26px}
 @media(max-width:560px){.phone>.screen{top:env(safe-area-inset-top,0px);bottom:env(safe-area-inset-bottom,0px)}}
 
 
-/* v0.3.34 · 빌드 334 — cohesive civic UI. Data category colors on map remain semantic. */
+/* v0.3.35 · 빌드 335 — cohesive civic UI. Data category colors on map remain semantic. */
 :root{--brand:#087E83;--brand-strong:#086B70;--brand-soft:#ECF6F5;--ui-heading:#172F43;--ui-border:#DEE7EC}
 body.light .btn.primary{background:var(--brand-strong);color:#FFF;box-shadow:0 5px 14px #086B7015}
 body.light .btn.primary:hover{background:#075A5E}
@@ -2931,7 +2931,7 @@ body.light .ts-head .ts-c.now{background:#DDEFEA;color:var(--brand-strong)}
 body.light .ts-c.yes{color:var(--brand-strong)}
 
 
-/* v0.3.34 · 빌드 334: post-report card and browsing chrome */
+/* v0.3.35 · 빌드 335: post-report card and browsing chrome */
 body.light #s-cardconfirm .cc-head h2,body.light #s-mycard h2{color:#172F43}
 body.light #s-cardconfirm .cc-head p{font-size:1.0625rem;line-height:1.6;color:#415E70}
 body.light #s-cardconfirm .cc-sh{font-size:1.0625rem;color:#172F43}
@@ -3134,8 +3134,8 @@ body.light .quiet-map-legend{position:absolute;top:12px;left:12px;right:12px;z-i
 body.light .quiet-map-legend span{display:flex;align-items:center;gap:6px;font-size:.875rem;line-height:1.5;color:#24465B;font-weight:700}
 body.light .quiet-map-legend i{width:18px;height:18px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:.875rem;flex-shrink:0}
 body.light .quiet-map-legend .record{background:#2B334050}
-body.light .quiet-map-legend .quiet{background:#E0F1EC;border:1px solid #087E83;color:#087E83}
-body.light .quiet-map-legend .again{background:#F4EBDC;border:1px dashed #AF741F;color:#AF741F}
+body.light .quiet-map-legend .quiet{background:#72C6A047;border:2px solid #178663;color:#178663}
+body.light .quiet-map-legend .again{background:#F0AD5142;border:2px dashed #C6751B;color:#C6751B}
 body.light .stage:not(.big) .quiet-map-legend{top:64px}
 body.light .stage.detail .quiet-map-legend{display:none}
 .quiet-map-badge{width:28px;height:28px;border-radius:50%;border:2px solid #087E83;background:#FFF;color:#087E83;font:800 18px/1 system-ui;box-shadow:0 2px 6px #172F4320;cursor:pointer}
@@ -3244,7 +3244,7 @@ body.light #s-sent #sent-map::after{content:'';position:absolute;inset:0;backgro
 @keyframes sent-map-shine{0%,50%{transform:translateX(-130%)}85%,100%{transform:translateX(130%)}}
 @media(prefers-reduced-motion:reduce){body.light #s-sent #sent-map,body.light #s-sent #sent-map i,body.light #s-sent #sent-map::after{animation:none}}
 
-/* v0.3.34 · 빌드 334: fixed report-location preview, readable address, no extra step */
+/* v0.3.35 · 빌드 335: fixed report-location preview, readable address, no extra step */
 body.light .report-location{width:100%;flex:0 0 auto;box-sizing:border-box;background:#FFF;border:1px solid #D9E5E9;border-radius:16px;overflow:hidden;text-align:left}
 body.light .report-location h3{margin:0;padding:16px 18px 12px;font-size:20px;line-height:1.4;color:#172F43}
 body.light .report-location-map{height:164px;background:#EDF3F3;position:relative;pointer-events:none;overflow:hidden}
@@ -3253,7 +3253,7 @@ body.light .report-location p{margin:0;padding:14px 18px 16px;font-size:18px;lin
 .report-location-pin{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#087E8328;border:1px solid #087E8340}
 .report-location-pin span{width:16px;height:16px;border-radius:50%;background:#087E83;border:3px solid #FFF;box-shadow:0 2px 6px #163E4350}
 
-/* v0.3.34 · 빌드 334: one radius explanation; compact, readable report sections */
+/* v0.3.35 · 빌드 335: one radius explanation; compact, readable report sections */
 body.light #s-cardconfirm .cc-section{margin-top:16px}
 body.light #s-cardconfirm .cc-sh{margin:0 0 12px;font-size:19px;line-height:1.45}
 body.light #s-cardconfirm .lscroll{padding:0;gap:12px;overflow:visible}
@@ -3265,7 +3265,7 @@ body.light #s-cardconfirm .cc-radius-note{margin:16px 0 0;padding:14px 16px;back
 @keyframes ccLivingWave{0%,100%{transform:scaleY(.25)}22%{transform:scaleY(.62)}48%{transform:scaleY(1)}73%{transform:scaleY(.46)}}
 @media(prefers-reduced-motion:reduce){#s-cardconfirm .lcard .lwave i{animation:none;transform:none}}
 
-/* v0.3.34 · 빌드 334: concise dismissible notice and compact map header */
+/* v0.3.35 · 빌드 335: concise dismissible notice and compact map header */
 body.light #s-list .mhead{padding:12px 16px 10px;min-height:0}
 body.light #s-list .mtitle{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:nowrap}
 body.light #s-list .mtitle h1{font-size:21px;line-height:1.4;margin:0;white-space:nowrap;letter-spacing:-.6px}
@@ -3295,7 +3295,7 @@ body.light .distribution-label{display:flex;align-items:center;justify-content:s
 body.light .distribution-unit{font-size:15px;font-weight:600;color:#526A72;white-space:nowrap}
 body.light .hour-threshold-label{font-size:15px;line-height:1.5;margin:6px 0 10px}
 
-/* v0.3.34 · 빌드 334: headings share the approved evidence-card hierarchy */
+/* v0.3.35 · 빌드 335: headings share the approved evidence-card hierarchy */
 body.light .evidence-card h3,body.light .predhead h3,body.light .noise-type-heading h3{margin:0;font-size:22px;line-height:1.45;font-weight:900;color:#172F43;letter-spacing:-.4px}
 body.light .public-evidence h3{color:#086B70}
 body.light .evidence-card h3{padding-bottom:12px}
@@ -3308,7 +3308,7 @@ body.light #v-detail .noise-type-card .hour-distribution{width:auto;margin:0 14p
 body.light #v-detail .noise-type-card.zero .noise-type-heading h3,body.light #v-detail .noise-type-card.zero .noise-type-heading strong{color:#536C7C}
 body.light #v-detail .repbox>.bh,body.light #v-detail .sec-h{font-size:22px;line-height:1.45;font-weight:900;color:#172F43;margin-bottom:14px}
 
-/* v0.3.34 · 빌드 334: only the address title waits; report content remains available */
+/* v0.3.35 · 빌드 335: only the address title waits; report content remains available */
 .area-title-loading{min-height:32px;display:block}
 .area-title-skeleton{display:block;width:min(220px,100%);height:28px;border-radius:7px;background:linear-gradient(100deg,#DCE9EA 20%,#F5FAFA 45%,#DCE9EA 70%);background-size:220% 100%;animation:areaAddressShimmer 1.5s linear infinite}
 @keyframes areaAddressShimmer{from{background-position:180% 0}to{background-position:-80% 0}}
@@ -3411,7 +3411,7 @@ body.light .community-map-bubble svg{width:18px;height:18px;stroke-width:2;backg
 </dialog>
 <dialog id="app-info-dialog" class="app-info-dialog" aria-labelledby="app-info-title">
   <h2 id="app-info-title">CLAMOR 앱 정보</h2>
-  <p>현재 버전 <strong>v0.3.34 · 빌드 334</strong></p>
+  <p>현재 버전 <strong>v0.3.35 · 빌드 335</strong></p>
   
   <button class="btn primary" id="app-info-tiers" type="button">등급 선택</button>
   <button class="btn ghost" id="app-info-close" type="button">닫기</button>
@@ -3461,7 +3461,7 @@ body.light .community-map-bubble svg{width:18px;height:18px;stroke-width:2;backg
     <div class="boot"><i></i></div>
     <div class="launch-footer">
       <p class="launch-partner">중소벤처기업진흥공단과 함께합니다.</p>
-      <span class="launch-version">v0.3.34 · 빌드 334</span>
+      <span class="launch-version">v0.3.35 · 빌드 335</span>
     </div>
   </section>
   <!-- ══ 2 ══ -->
@@ -3723,7 +3723,7 @@ body.light .community-map-bubble svg{width:18px;height:18px;stroke-width:2;backg
     <div class="mhead">
       <div class="mtitle">
         <h1>소음 정보</h1>
-        <div class="msub">계약 전 확인 <span class="ver">v0.3.34 · 빌드 334</span></div>
+        <div class="msub">계약 전 확인 <span class="ver">v0.3.35 · 빌드 335</span></div>
       </div>
       <button class="castback" data-go="map">지도로</button>
     </div>
@@ -4096,7 +4096,7 @@ body.light .community-map-bubble svg{width:18px;height:18px;stroke-width:2;backg
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg>우리 동네 소음 지도</h1>
         <div class="msub"><span class="tierbadge" id="tierbadge2">무료</span>
-          <button class="app-info-btn" id="app-info-btn" type="button" aria-label="앱 정보 및 버전 확인">앱 정보</button><span class="ver" id="ver2" hidden>v0.3.34 · 빌드 334</span></div>
+          <button class="app-info-btn" id="app-info-btn" type="button" aria-label="앱 정보 및 버전 확인">앱 정보</button><span class="ver" id="ver2" hidden>v0.3.35 · 빌드 335</span></div>
       </div>
     </div>
 
@@ -4153,7 +4153,7 @@ body.light .community-map-bubble svg{width:18px;height:18px;stroke-width:2;backg
         <h1><svg class="pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
           <path fill="currentColor" d="M12 2C7.6 2 4 5.6 4 10c0 5.6 6.6 11.1 7.3 11.6a1.1 1.1 0 0 0 1.4 0C13.4 21.1 20 15.6 20 10c0-4.4-3.6-8-8-8Zm0 10.8A2.8 2.8 0 1 1 12 7.2a2.8 2.8 0 0 1 0 5.6Z"/>
         </svg><span id="map-screen-title">우리 동네 소음 지도</span></h1>
-        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v0.3.34 · 빌드 334</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
+        <div class="msub"><span class="tierbadge" id="tierbadge">무료</span><span class="ver">v0.3.35 · 빌드 335</span><span id="sample-badge" hidden>신고 데이터 표본</span></div>
       </div>
       <button type="button" class="agency-entry" id="agency-entry" hidden>기관 화면</button><button class="btn primary sm" id="couponbtn" type="button" hidden>쿠폰 사용 · 유료 1회 열람</button>
     </div>
@@ -4162,7 +4162,7 @@ body.light .community-map-bubble svg{width:18px;height:18px;stroke-width:2;backg
            따로 줄을 차지하면 그만큼 카드 목록이 설 자리를 잃는다. -->
       <div class="mapwrap" id="mapwrap">
         <div id="map"></div>
-        <div class="quiet-map-legend" aria-label="지도 상태 설명"><span><i class="record"></i>소음 기록</span><span><i class="quiet">✓</i>조치 후 조용함</span><span><i class="again">↻</i>재발</span><span id="community-map-legend" hidden><i class="community-legend-icon">▱</i>시민 참여</span></div>
+        <div class="quiet-map-legend" aria-label="지도 상태 설명"><span><i class="record"></i>소음 기록</span><span><i class="quiet"></i>조치 후 조용함</span><span><i class="again"></i>재발</span><span id="community-map-legend" hidden><i class="community-legend-icon">▱</i>시민 참여</span></div>
         <!-- '‹ 목록' 화면 버튼은 없앤다 — 되돌아가기는 이제 폰(브라우저)
              자체의 뒤로가기로만 한다. go('map')에서 history를 한 칸 쌓고
              popstate에서 go('list')로 받는다(아래 인라인 스크립트). 왼쪽
@@ -5400,7 +5400,7 @@ loadZoningData();   // 인천 용도지역 표 — 녹음 화면 도달 전에 �
    가르친다. 폰을 두 번 흔들면(진짜 신고 상황) 녹음 화면으로, 흔들지
    않으면(그냥 지도가 궁금해서 켠 경우) 신고 없이 바로 클레머 메인화면
    (우리동네소음지도)으로 들어간다 — 신고 이력이 없는 시민의 진입로다. */
-/* v0.3.34 · 빌드 334 — 흔들기 자동 진입은 초기 화면에서만 허용한다.
+/* v0.3.35 · 빌드 335 — 흔들기 자동 진입은 초기 화면에서만 허용한다.
    지도·상세·댓글·신고카드를 보고 있을 때 발생하는 동작은 무시한다.
    화면 밖에서 감지된 흔들림을 초기 화면으로 넘겨 합산하지 않는다. */
 (function shakeToReport(){
@@ -6289,7 +6289,7 @@ document.getElementById('sms-send').onclick=()=>{
 /* ══ 보낸 기록 ══
    보낸 뒤 사용자는 앱을 놓는다. 다시 열었을 때 처음부터 시작하면 방금
    무엇을 보냈는지 알 수 없다. 폰에 사본을 남겨 둔다. */
-/* v0.3.34 · 빌드 334 test reports live only in this document instance.
+/* v0.3.35 · 빌드 335 test reports live only in this document instance.
    Public-data forecasts and curated demo points are untouched. */
 const sessionReportHistory=[];
 const testReportMemory=new Map();
@@ -7355,15 +7355,7 @@ function drawFreeBlur(){
        남는다. */
     const poly=new kakao.maps.Circle({center:new kakao.maps.LatLng(s.c.lat,s.c.lng),radius:r,...quietRangeStyle(change,op)});
     poly.setMap(map); freeBlurOv.push(poly);
-    if(change.status!=='reported'){
-      const badge=document.createElement('button');badge.type='button';badge.className='quiet-map-badge '+change.status;
-      const demo=quietCaseForSpot(s);
-      badge.textContent=change.status==='resolved'?'✓':'↻';
-      badge.setAttribute('aria-label',change.status==='resolved'?'조치 후 조용함 · 시민 확인':'재발 기록');
-      badge.onclick=e=>{e.stopPropagation();showDetail(s);};
-      const statusOv=new kakao.maps.CustomOverlay({position:new kakao.maps.LatLng(s.c.lat,s.c.lng),content:badge,xAnchor:.5,yAnchor:.5,zIndex:6});
-      statusOv.setMap(map);quietStatusOv.push(statusOv);
-    }
+
 
     /* 범위 원은 지금까지 눌러도 아무 반응이 없었다 — 정확한 핀이 없는
        등급(무료·유료·행정)에서는 이 원이 유일한 탭 지점이다. 원을
