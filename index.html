@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨 (v1.0.5)</title>
+  <title>53데시벨 (v1.0.6)</title>
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Crect width='128' height='128' rx='28' fill='%231B4965'/%3E%3Ctext x='64' y='74' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='54' font-weight='900'%3E53%3C/text%3E%3Ctext x='64' y='102' text-anchor='middle' fill='%235EEAD4' font-family='sans-serif' font-size='22' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%231B4965'/%3E%3Ctext x='90' y='102' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='76' font-weight='900'%3E53%3C/text%3E%3Ctext x='90' y='142' text-anchor='middle' fill='%235EEAD4' font-family='sans-serif' font-size='30' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
@@ -125,7 +125,7 @@
     button:active { transform: scale(0.97); }
 
     /* ==========================================================================
-       [화면 1] 스플래시 ('53데시벨' 타이포 로고 + v1.0.5)
+       [화면 1] 스플래시 ('53데시벨' 타이포 로고 + v1.0.6)
        ========================================================================== */
     #screen-splash {
       z-index: 100;
@@ -322,7 +322,7 @@
     .btn-cta-primary { width: 100%; height: 56px; border-radius: 16px; background-color: var(--primary); color: #FFFFFF; font-size: 17px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
 
     /* ==========================================================================
-       [화면 3] 메인 홈 (고대비 카카오맵 핀 + 정돈된 3단 커뮤니티 피드)
+       [화면 3] 메인 홈 (시야 방해 0% 순수 맵 + 하단 통합 피드 헤더)
        ========================================================================== */
     #screen-home { z-index: 20; background-color: var(--bg-base); }
 
@@ -392,59 +392,10 @@
       z-index: 5;
     }
 
-    .map-floating-top {
-      position: absolute;
-      top: 10px;
-      left: 0;
-      right: 0;
-      z-index: 25;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      pointer-events: none;
-    }
-
-    .live-status-capsule {
-      margin: 0 14px;
-      padding: 8px 14px;
-      background-color: rgba(255, 255, 255, 0.97);
-      border-radius: 12px;
-      box-shadow: 0 3px 12px rgba(17, 24, 39, 0.12);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 12.5px;
-      font-weight: 700;
-      color: var(--text-main);
-      pointer-events: auto;
-    }
-
-    .live-dot { width: 7px; height: 7px; border-radius: 50%; background-color: var(--secondary); display: inline-block; margin-right: 6px; }
-
-    .floating-filter-scroll { display: flex; gap: 6px; padding: 0 14px; overflow-x: auto; scrollbar-width: none; pointer-events: auto; }
-    .floating-filter-scroll::-webkit-scrollbar { display: none; }
-
-    .map-chip {
-      height: 34px;
-      padding: 0 13px;
-      border-radius: 999px;
-      background-color: rgba(255, 255, 255, 0.97);
-      box-shadow: 0 2px 8px rgba(17, 24, 39, 0.12);
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-sub);
-      white-space: nowrap;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .map-chip.active { background-color: var(--primary); color: #FFFFFF; }
-
     .btn-floating-gps {
       position: absolute;
       right: 14px;
-      bottom: 14px;
+      bottom: 18px;
       z-index: 25;
       width: 40px;
       height: 40px;
@@ -456,9 +407,7 @@
       color: var(--primary);
     }
 
-    /* ==========================================================================
-       [개선] 카카오맵 붉은/노란 배경과 명확히 분리되는 고대비 핀
-       ========================================================================== */
+    /* 지도 핀 */
     .pin-outdoor {
       position: relative;
       display: inline-flex;
@@ -466,7 +415,7 @@
       gap: 6px;
       padding: 5px 10px 5px 6px;
       border-radius: 999px;
-      background-color: #111827; /* 카카오맵 노랑/주황 배경과 완벽 분리되는 다크 네이비 캡슐 */
+      background-color: #111827;
       color: #FFFFFF;
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
       cursor: pointer;
@@ -474,13 +423,7 @@
       border: 2px solid #FFFFFF;
     }
 
-    .pin-outdoor-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
+    .pin-outdoor-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
     .pin-outdoor.lv-1 .pin-outdoor-dot { background-color: #FACC15; }
     .pin-outdoor.lv-2 .pin-outdoor-dot { background-color: #FB923C; }
     .pin-outdoor.lv-3 .pin-outdoor-dot { background-color: #F43F5E; }
@@ -503,7 +446,6 @@
       white-space: nowrap;
     }
 
-    /* 고대비 건물 마커 (건축물대장 연동) */
     .pin-building {
       display: flex;
       flex-direction: column;
@@ -533,11 +475,7 @@
       color: #5EEAD4;
     }
 
-    .bldg-card-pin .bldg-name-txt {
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-    }
+    .bldg-card-pin .bldg-name-txt { font-size: 12px; font-weight: 800; letter-spacing: -0.02em; }
 
     .bldg-card-pin .bldg-cnt-badge {
       background-color: #FFFFFF;
@@ -548,15 +486,9 @@
       border-radius: 999px;
     }
 
-    .bldg-pin-stem {
-      width: 3px;
-      height: 8px;
-      background-color: var(--primary);
-    }
+    .bldg-pin-stem { width: 3px; height: 8px; background-color: var(--primary); }
 
-    /* ==========================================================================
-       [개선] 하단 커뮤니티 피드 ('이웃 소음 이야기' 3단 정돈 카드 UI)
-       ========================================================================== */
+    /* 하단 커뮤니티 시트 */
     .bottom-feed-sheet {
       flex: 1;
       background-color: var(--bg-base);
@@ -576,18 +508,61 @@
       border-radius: 0;
     }
 
-    .sheet-grabber-area {
+    .sheet-header-panel {
       background-color: var(--bg-surface);
-      padding: 10px 18px 12px;
+      padding: 10px 16px 12px;
       border-bottom: 1px solid var(--line-soft);
-      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
       flex-shrink: 0;
     }
 
-    .grabber-bar { width: 36px; height: 4px; border-radius: 999px; background-color: #CBD5E1; margin: 0 auto 10px; }
-    .sheet-header-row { display: flex; align-items: center; justify-content: space-between; }
-    .sheet-header-row h2 { font-size: 17px; font-weight: 800; letter-spacing: -0.03em; color: var(--text-main); }
-    .sheet-header-row span { font-size: 13px; font-weight: 700; color: var(--primary); }
+    .grabber-bar { width: 36px; height: 4px; border-radius: 999px; background-color: #CBD5E1; margin: 0 auto; }
+
+    .sheet-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    .sheet-title-left { display: flex; align-items: center; gap: 8px; }
+    .sheet-title-left h2 { font-size: 17px; font-weight: 800; letter-spacing: -0.03em; color: var(--text-main); }
+
+    .dong-summary-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background-color: var(--secondary-soft);
+      color: #0F766E;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 999px;
+    }
+
+    .live-dot { width: 6px; height: 6px; border-radius: 50%; background-color: var(--secondary); display: inline-block; }
+    .sheet-expand-btn { font-size: 12.5px; font-weight: 700; color: var(--primary); }
+
+    .feed-filter-scroll { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+    .feed-filter-scroll::-webkit-scrollbar { display: none; }
+
+    .map-chip {
+      height: 32px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background-color: var(--bg-base);
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-sub);
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .map-chip.active { background-color: var(--primary); color: #FFFFFF; }
 
     .native-feed-scroll {
       flex: 1;
@@ -598,7 +573,6 @@
       gap: 12px;
     }
 
-    /* 3단 구조의 깔끔한 커뮤니티 피드 카드 */
     .feed-card {
       background-color: var(--bg-surface);
       border-radius: 18px;
@@ -610,125 +584,24 @@
       cursor: pointer;
     }
 
-    /* 1단: 유형 배지 + 강도 + 신뢰도 (한 줄 고정, 줄바꿈 깨짐 방지) */
-    .fc-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
-    }
-
-    .fc-badges {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: nowrap;
-      overflow: hidden;
-    }
-
-    .fc-cat {
-      background-color: var(--bg-subtle);
-      color: var(--text-sub);
-      font-size: 12px;
-      font-weight: 800;
-      padding: 4px 8px;
-      border-radius: 6px;
-      white-space: nowrap;
-    }
-
-    .fc-who {
-      font-size: 12px;
-      font-weight: 800;
-      padding: 4px 8px;
-      border-radius: 6px;
-      white-space: nowrap;
-    }
-
+    .fc-top { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+    .fc-badges { display: flex; align-items: center; gap: 6px; flex-wrap: nowrap; overflow: hidden; }
+    .fc-cat { background-color: var(--bg-subtle); color: var(--text-sub); font-size: 12px; font-weight: 800; padding: 4px 8px; border-radius: 6px; white-space: nowrap; }
+    .fc-who { font-size: 12px; font-weight: 800; padding: 4px 8px; border-radius: 6px; white-space: nowrap; }
     .fc-who.lv-1 { background-color: var(--lv1-soft); color: var(--lv1-yellow); }
     .fc-who.lv-2 { background-color: var(--lv2-soft); color: var(--lv2-orange); }
     .fc-who.lv-3 { background-color: var(--lv3-soft); color: var(--lv3-red); }
-
-    .fc-cis {
-      font-size: 12px;
-      font-weight: 800;
-      color: var(--primary);
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    /* 2단: 도로/건물 위치 + 본문 */
-    .fc-loc {
-      font-size: 13.5px;
-      font-weight: 800;
-      color: var(--primary);
-      letter-spacing: -0.02em;
-    }
-
-    .fc-body {
-      font-size: 15px;
-      font-weight: 500;
-      line-height: 1.55;
-      color: var(--text-main);
-      letter-spacing: -0.015em;
-      word-break: keep-all;
-    }
-
-    /* 3단: 작성자 정보 줄 & 독립된 하단 공감/댓글 액션 바 (가림 현상 완전 해결) */
-    .fc-author-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12.5px;
-      font-weight: 600;
-      color: var(--text-muted);
-      padding-top: 2px;
-    }
-
+    .fc-cis { font-size: 12px; font-weight: 800; color: var(--primary); white-space: nowrap; flex-shrink: 0; }
+    .fc-loc { font-size: 13.5px; font-weight: 800; color: var(--primary); letter-spacing: -0.02em; }
+    .fc-body { font-size: 15px; font-weight: 500; line-height: 1.55; color: var(--text-main); letter-spacing: -0.015em; word-break: keep-all; }
+    .fc-author-row { display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: var(--text-muted); padding-top: 2px; }
     .fc-verified { color: var(--secondary); font-weight: 800; }
 
-    .fc-action-bar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding-top: 10px;
-      border-top: 1px solid var(--line-soft);
-    }
+    .fc-action-bar { display: flex; align-items: center; gap: 8px; padding-top: 10px; border-top: 1px solid var(--line-soft); }
+    .btn-fc-empathy { flex: 1; height: 38px; border-radius: 10px; background-color: var(--bg-subtle); color: var(--text-sub); font-size: 13.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 6px; }
+    .btn-fc-empathy.active { background-color: var(--primary-soft); color: var(--primary); font-weight: 800; }
+    .btn-fc-comment { height: 38px; padding: 0 14px; border-radius: 10px; background-color: var(--bg-subtle); color: var(--text-sub); font-size: 13.5px; font-weight: 700; display: flex; align-items: center; gap: 5px; white-space: nowrap; }
 
-    .btn-fc-empathy {
-      flex: 1;
-      height: 38px;
-      border-radius: 10px;
-      background-color: var(--bg-subtle);
-      color: var(--text-sub);
-      font-size: 13.5px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-
-    .btn-fc-empathy.active {
-      background-color: var(--primary-soft);
-      color: var(--primary);
-      font-weight: 800;
-    }
-
-    .btn-fc-comment {
-      height: 38px;
-      padding: 0 14px;
-      border-radius: 10px;
-      background-color: var(--bg-subtle);
-      color: var(--text-sub);
-      font-size: 13.5px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      white-space: nowrap;
-    }
-
-    /* 우측 하단 플로팅 버튼 (카드 액션과 겹치지 않도록 하단 여백 확보) */
     .fab-native-write {
       position: absolute;
       right: 16px;
@@ -748,7 +621,7 @@
     }
 
     /* ==========================================================================
-       [화면 4] 3초 컷 선택형 글쓰기 (건축물대장 실시간 건물 조회 포함)
+       [화면 4] 3초 컷 선택형 글쓰기
        ========================================================================== */
     #screen-write { z-index: 110; background-color: var(--bg-surface); }
 
@@ -777,17 +650,7 @@
     .write-step-block h3 { font-size: 15.5px; font-weight: 800; color: var(--text-main); margin-bottom: 12px; }
     .space-toggle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
-    .btn-space-card {
-      padding: 15px 14px;
-      border-radius: 16px;
-      background-color: var(--bg-base);
-      border: 2px solid transparent;
-      text-align: left;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
+    .btn-space-card { padding: 15px 14px; border-radius: 16px; background-color: var(--bg-base); border: 2px solid transparent; text-align: left; display: flex; flex-direction: column; gap: 4px; }
     .btn-space-card.active { background-color: var(--primary-soft); border-color: var(--primary); }
     .btn-space-card strong { font-size: 15px; font-weight: 800; color: var(--text-main); }
     .btn-space-card span { font-size: 12.5px; font-weight: 600; color: var(--text-sub); }
@@ -811,20 +674,7 @@
     .btn-who-level.active[data-lv="2"] { background-color: var(--lv2-soft); border-color: var(--lv2-orange); }
     .btn-who-level.active[data-lv="3"] { background-color: var(--lv3-soft); border-color: var(--lv3-red); }
 
-    .write-textarea {
-      width: 100%;
-      min-height: 96px;
-      border: none;
-      border-radius: 16px;
-      background-color: var(--bg-base);
-      padding: 14px 16px;
-      font-family: inherit;
-      font-size: 15px;
-      line-height: 1.5;
-      color: var(--text-main);
-      resize: none;
-      outline: none;
-    }
+    .write-textarea { width: 100%; min-height: 96px; border: none; border-radius: 16px; background-color: var(--bg-base); padding: 14px 16px; font-family: inherit; font-size: 15px; line-height: 1.5; color: var(--text-main); resize: none; outline: none; }
 
     .urgent-112-banner { background-color: var(--lv3-soft); border-radius: 14px; padding: 13px 15px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
     .urgent-112-banner span { font-size: 13px; font-weight: 700; color: var(--lv3-red); line-height: 1.4; }
@@ -849,11 +699,11 @@
 
     /* 모달 & 토스트 */
     .sheet-backdrop { position: absolute; inset: 0; background-color: rgba(17, 24, 39, 0.48); z-index: 120; display: flex; align-items: flex-end; justify-content: center; }
-    .native-modal-sheet { width: 100%; background-color: var(--bg-surface); border-radius: 24px 24px 0 0; padding: 14px 22px calc(26px + var(--safe-bottom)); display: flex; flex-direction: column; gap: 16px; max-height: 85%; overflow-y: auto; }
+    .native-modal-sheet { width: 100%; background-color: var(--bg-surface); border-radius: 24px 24px 0 0; padding: 14px 22px calc(26px + var(--safe-bottom)); display: flex; flex-direction: column; gap: 14px; max-height: 85%; overflow-y: auto; }
     .sheet-title-bar { display: flex; align-items: center; justify-content: space-between; }
     .sheet-title-bar h3 { font-size: 19px; font-weight: 800; letter-spacing: -0.03em; }
     .dong-option-list { display: flex; flex-direction: column; gap: 6px; }
-    .btn-dong-item { width: 100%; padding: 15px 16px; border-radius: 14px; font-size: 16px; font-weight: 700; text-align: left; display: flex; align-items: center; justify-content: space-between; color: var(--text-main); }
+    .btn-dong-item { width: 100%; padding: 14px 16px; border-radius: 14px; font-size: 15.5px; font-weight: 700; text-align: left; display: flex; align-items: center; justify-content: space-between; color: var(--text-main); }
     .btn-dong-item.selected { background-color: var(--primary-soft); color: var(--primary); font-weight: 800; }
     .sms-native-box { background-color: var(--bg-base); border-radius: 16px; padding: 16px; font-size: 14.5px; line-height: 1.6; color: var(--text-main); white-space: pre-line; }
     .app-toast { position: absolute; bottom: calc(84px + var(--safe-bottom)); left: 20px; right: 20px; background-color: rgba(17, 24, 39, 0.94); color: #FFFFFF; font-size: 14px; font-weight: 600; padding: 13px 18px; border-radius: 14px; text-align: center; z-index: 200; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); }
@@ -863,11 +713,11 @@
   <div class="app-shell">
 
     <!-- ========================================================================
-         [화면 1] 스플래시 ('53데시벨' 타이포 로고 + v1.0.5)
+         [화면 1] 스플래시 ('53데시벨' 타이포 로고 + v1.0.6)
          ======================================================================== -->
     <section class="screen" id="screen-splash" aria-label="53데시벨 시작 화면">
       <div class="splash-top-meta">
-        <span class="version-pill">v1.0.5</span>
+        <span class="version-pill">v1.0.6</span>
       </div>
 
       <div class="splash-center-group">
@@ -946,17 +796,17 @@
           <div class="native-field">
             <label for="input-nickname">닉네임</label>
             <div class="native-input-box">
-              <input type="text" id="input-nickname" value="조용한만수동부엉이">
+              <input type="text" id="input-nickname" value="조용한만수5동부엉이">
               <button type="button" class="btn-chip-action" id="btn-random-nick">새로 추천</button>
             </div>
           </div>
 
           <div class="native-field">
-            <label>내 동네 인증</label>
+            <label>내 행정동 인증</label>
             <div class="native-gps-card">
               <div class="native-gps-text">
-                <strong id="onboard-dong-name">인천 남동구 만수동</strong>
-                <span id="onboard-gps-status">현재 위치로 동네 인증 완료</span>
+                <strong id="onboard-dong-name">인천 남동구 만수5동</strong>
+                <span id="onboard-gps-status">행정동 단위 GPS 인증 완료</span>
               </div>
               <button type="button" class="btn-chip-action" id="btn-refresh-gps">현위치 갱신</button>
             </div>
@@ -977,12 +827,12 @@
     </section>
 
     <!-- ========================================================================
-         [화면 3] 메인 홈 (실제 카카오맵 + 3단 정돈 피드)
+         [화면 3] 메인 홈 (시야 방해 0% 순수 맵 + 하단 통합 피드 헤더)
          ======================================================================== -->
     <section class="screen" id="screen-home" hidden>
       <header class="app-topbar">
         <button type="button" class="dong-picker-btn" id="btn-open-dong-sheet">
-          <span id="current-dong-label">만수동</span>
+          <span id="current-dong-label">만수5동</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M6 9l6 6 6-6"/>
           </svg>
@@ -1002,33 +852,19 @@
 
       <div class="search-bar-float" id="search-drawer" hidden>
         <div class="native-input-box" style="flex:1; height:42px;">
-          <input type="text" id="input-map-search" placeholder="아파트·빌라·도로명 검색 (건축물대장 조회)">
+          <input type="text" id="input-map-search" placeholder="아파트·빌라·도로명 검색 (예: 만수주공1단지)">
         </div>
         <button type="button" class="btn-chip-action" id="btn-exec-search" style="height:42px; background:var(--primary); color:#fff;">조회</button>
       </div>
 
+      <!-- 순수 맵 영역: 상단 텍스트/필터 박스 완전 제거하여 시야 확보 -->
       <div class="map-container">
         <div id="kakao-map"></div>
         <div id="map-loading-box" class="map-status-msg">
           <span>카카오맵을 불러오는 중입니다...</span>
         </div>
 
-        <div class="map-floating-top">
-          <div class="live-status-capsule">
-            <span><i class="live-dot"></i>오늘 우리 동네 · <strong id="ticker-counts">실외 2건 · 건물 1곳</strong></span>
-            <span style="color:var(--secondary); font-size:12px;">건축물대장 연동</span>
-          </div>
-
-          <div class="floating-filter-scroll">
-            <button type="button" class="map-chip active" data-filter="all">전체</button>
-            <button type="button" class="map-chip" data-filter="bike">🏍️ 바이크·차량</button>
-            <button type="button" class="map-chip" data-filter="indoor">🏢 층간·벽간</button>
-            <button type="button" class="map-chip" data-filter="shout">🗣️ 고성·욕설</button>
-            <button type="button" class="map-chip" data-filter="const">🚧 공사·기계</button>
-          </div>
-        </div>
-
-        <button type="button" class="btn-floating-gps" id="btn-goto-gps" aria-label="내 위치로 이동">
+        <button type="button" class="btn-floating-gps" id="btn-goto-gps" aria-label="내 위치 및 행정동 찾기">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
             <circle cx="12" cy="12" r="6"/>
             <circle cx="12" cy="12" r="2" fill="currentColor"/>
@@ -1037,12 +873,24 @@
         </button>
       </div>
 
+      <!-- 하단 커뮤니티 시트: 동네 소음 요약 + 카테고리 필터 + 이웃 피드 통합 배치 -->
       <aside class="bottom-feed-sheet" id="feed-sheet">
-        <div class="sheet-grabber-area" id="sheet-handle">
-          <div class="grabber-bar"></div>
-          <div class="sheet-header-row">
-            <h2>이웃 소음 이야기 <span id="feed-total-badge" style="color:var(--primary);">3</span></h2>
-            <span id="sheet-expand-label">전체 목록 보기 ▲</span>
+        <div class="sheet-header-panel">
+          <div class="grabber-bar" id="sheet-handle-bar"></div>
+          <div class="sheet-title-row" id="sheet-handle">
+            <div class="sheet-title-left">
+              <h2>이웃 소음 이야기</h2>
+              <span class="dong-summary-pill"><i class="live-dot"></i><span id="ticker-counts">실외 2건 · 건물 1곳</span></span>
+            </div>
+            <span class="sheet-expand-btn" id="sheet-expand-label">전체 보기 ▲</span>
+          </div>
+
+          <div class="feed-filter-scroll">
+            <button type="button" class="map-chip active" data-filter="all">전체</button>
+            <button type="button" class="map-chip" data-filter="bike">🏍️ 바이크·차량</button>
+            <button type="button" class="map-chip" data-filter="indoor">🏢 층간·벽간</button>
+            <button type="button" class="map-chip" data-filter="shout">🗣️ 고성·욕설</button>
+            <button type="button" class="map-chip" data-filter="const">🚧 공사·기계</button>
           </div>
         </div>
 
@@ -1058,13 +906,13 @@
     </section>
 
     <!-- ========================================================================
-         [화면 4] 3초 컷 선택형 글쓰기 (실시간 건축물대장 조회 연동)
+         [화면 4] 3초 컷 선택형 글쓰기
          ======================================================================== -->
     <section class="screen" id="screen-write" hidden>
       <header class="subscreen-topbar">
         <button type="button" class="btn-chip-action" id="btn-close-write">닫기</button>
         <h2>우리 동네 소음 올리기</h2>
-        <span style="font-size:12px; font-weight:800; color:var(--secondary);">✓ 동네인증</span>
+        <span style="font-size:12px; font-weight:800; color:var(--secondary);">✓ 행정동 인증</span>
       </header>
 
       <div class="write-scroll-body">
@@ -1088,19 +936,19 @@
               <button type="button" class="btn-road-pill" data-roadtype="상가·주변">상가·공원 주변</button>
             </div>
             <div class="native-input-box" style="margin-top:10px; height:48px;">
-              <input type="text" id="input-write-anchor" value="만수서로 37번길 평화빌라 앞" placeholder="도로명 또는 인접 건물 기준점">
+              <input type="text" id="input-write-anchor" value="백범로 124번길 만수5동 행정복지센터 인근" placeholder="도로명 또는 인접 건물 기준점">
             </div>
           </div>
 
           <div id="write-indoor-opts" class="floor-picker-wrap" hidden>
             <div style="display:flex; gap:6px;">
               <div class="native-input-box" style="flex:1; height:44px; background:#fff;">
-                <input type="text" id="input-bldg-query" value="만수 드림하임" placeholder="건물명 또는 도로명 주소 입력">
+                <input type="text" id="input-bldg-query" value="만수주공1단지아파트" placeholder="아파트·빌라명 또는 도로명 입력">
               </div>
               <button type="button" class="btn-chip-action" id="btn-lookup-bldg" style="height:44px; background:var(--primary); color:#fff;">건물 조회</button>
             </div>
             <div id="write-bldg-info" style="font-size:13px; font-weight:800; color:var(--primary);">
-              만수 드림하임 · 지상 8층 · 1층 필로티 (2014년 준공)
+              만수주공1단지아파트 · 지상 15층 · 철근콘크리트 (건축물대장 연동)
             </div>
             <div class="floor-grid" id="write-floor-grid">
               <button type="button" class="btn-floor-chip" data-floor="2">2층</button>
@@ -1110,6 +958,7 @@
               <button type="button" class="btn-floor-chip" data-floor="6">6층</button>
               <button type="button" class="btn-floor-chip" data-floor="7">7층</button>
               <button type="button" class="btn-floor-chip" data-floor="8">8층</button>
+              <button type="button" class="btn-floor-chip" data-floor="10">10층</button>
             </div>
           </div>
         </div>
@@ -1151,7 +1000,7 @@
     </section>
 
     <!-- ========================================================================
-         [화면 5-A] 게시글 상세 & 공감·댓글·민원 리포트·BM 자리
+         [화면 5-A] 게시글 상세
          ======================================================================== -->
     <section class="screen" id="screen-detail" hidden>
       <header class="subscreen-topbar">
@@ -1163,7 +1012,7 @@
     </section>
 
     <!-- ========================================================================
-         [화면 5-B] 2.5D 입체 건물 단면 뷰 (건축물대장 연동 결과)
+         [화면 5-B] 2.5D 입체 건물 단면 뷰
          ======================================================================== -->
     <section class="screen" id="screen-building" hidden>
       <header class="subscreen-topbar">
@@ -1174,19 +1023,28 @@
       <div class="detail-scroll" id="bldg-detail-body"></div>
     </section>
 
-    <!-- 동네 선택 바텀시트 -->
+    <!-- 행정동 선택 바텀시트 (만수1~6동 실제 행정동 반영 + GPS 자동 감지) -->
     <div class="sheet-backdrop" id="modal-dong" hidden>
       <div class="native-modal-sheet">
         <div class="grabber-bar" style="margin-bottom:4px;"></div>
         <div class="sheet-title-bar">
-          <h3>동네 선택</h3>
+          <h3>행정동 선택</h3>
           <button type="button" class="btn-chip-action" id="btn-close-dong">닫기</button>
         </div>
+
+        <button type="button" id="btn-detect-admin-dong" style="width:100%; height:46px; border-radius:12px; background:var(--secondary-soft); color:#0F766E; font-size:14px; font-weight:800; display:flex; align-items:center; justify-content:center; gap:6px;">
+          <span>📍 현재 내 위치(GPS)로 행정동 자동 찾기</span>
+        </button>
+
         <div class="dong-option-list" id="dong-option-list">
-          <button type="button" class="btn-dong-item selected" data-dong="mansu"><span>인천 남동구 만수동</span><span>✓</span></button>
+          <button type="button" class="btn-dong-item" data-dong="mansu1"><span>인천 남동구 만수1동</span><span></span></button>
+          <button type="button" class="btn-dong-item" data-dong="mansu2"><span>인천 남동구 만수2동</span><span></span></button>
+          <button type="button" class="btn-dong-item" data-dong="mansu3"><span>인천 남동구 만수3동</span><span></span></button>
+          <button type="button" class="btn-dong-item" data-dong="mansu4"><span>인천 남동구 만수4동</span><span></span></button>
+          <button type="button" class="btn-dong-item selected" data-dong="mansu5"><span>인천 남동구 만수5동</span><span>✓</span></button>
+          <button type="button" class="btn-dong-item" data-dong="mansu6"><span>인천 남동구 만수6동</span><span></span></button>
+          <button type="button" class="btn-dong-item" data-dong="guwol1"><span>인천 남동구 구월1동</span><span></span></button>
           <button type="button" class="btn-dong-item" data-dong="munhak"><span>인천 미추홀구 문학동</span><span></span></button>
-          <button type="button" class="btn-dong-item" data-dong="nonhyeon"><span>인천 남동구 논현동</span><span></span></button>
-          <button type="button" class="btn-dong-item" data-dong="guwol"><span>인천 남동구 구월동</span><span></span></button>
         </div>
       </div>
     </div>
@@ -1232,15 +1090,19 @@
 
   <script>
     const CONFIG = {
-      STORAGE_KEY: '53db_native_state_v105',
+      STORAGE_KEY: '53db_native_state_v106',
       BLDG_API_KEY: '738a1e3eb24afc48a06e3871c47d057b54f27cfde63e91a4e2b5a2baf27cbae5'
     };
 
-    const DONG_CENTERS = {
-      mansu:    { short: '만수동', name: '인천 남동구 만수동', lat: 37.4562, lng: 126.7314, sigunguCd: '28200', bjdongCd: '10300' },
-      munhak:   { short: '문학동', name: '인천 미추홀구 문학동', lat: 37.4368, lng: 126.6815, sigunguCd: '28177', bjdongCd: '10500' },
-      nonhyeon: { short: '논현동', name: '인천 남동구 논현동', lat: 37.4061, lng: 126.7220, sigunguCd: '28200', bjdongCd: '11000' },
-      guwol:    { short: '구월동', name: '인천 남동구 구월동', lat: 37.4502, lng: 126.7028, sigunguCd: '28200', bjdongCd: '10100' }
+    const ADMIN_DONGS = {
+      mansu1: { short: '만수1동', name: '인천 남동구 만수1동', lat: 37.4565, lng: 126.7372, sigunguCd: '28200', bjdongCd: '10300' },
+      mansu2: { short: '만수2동', name: '인천 남동구 만수2동', lat: 37.4632, lng: 126.7335, sigunguCd: '28200', bjdongCd: '10300' },
+      mansu3: { short: '만수3동', name: '인천 남동구 만수3동', lat: 37.4638, lng: 126.7276, sigunguCd: '28200', bjdongCd: '10300' },
+      mansu4: { short: '만수4동', name: '인천 남동구 만수4동', lat: 37.4589, lng: 126.7351, sigunguCd: '28200', bjdongCd: '10300' },
+      mansu5: { short: '만수5동', name: '인천 남동구 만수5동', lat: 37.4556, lng: 126.7282, sigunguCd: '28200', bjdongCd: '10300' },
+      mansu6: { short: '만수6동', name: '인천 남동구 만수6동', lat: 37.4488, lng: 126.7380, sigunguCd: '28200', bjdongCd: '10300' },
+      guwol1: { short: '구월1동', name: '인천 남동구 구월1동', lat: 37.4485, lng: 126.7052, sigunguCd: '28200', bjdongCd: '10100' },
+      munhak: { short: '문학동',  name: '인천 미추홀구 문학동', lat: 37.4368, lng: 126.6815, sigunguCd: '28177', bjdongCd: '10500' }
     };
 
     const WHO_LEVELS = {
@@ -1270,9 +1132,6 @@
       { label: '기타', group: 'indoor', icon: '📌' }
     ];
 
-    /* ==========================================================================
-       1. 국토교통부 건축물대장 오픈API 실시간 조회 엔진 (표제부 + 층별개요)
-       ========================================================================== */
     async function fetchBuildingLedgerFromAPI(placeName, lat, lng, sigunguCd, bjdongCd, bun = '', ji = '') {
       const baseUrl = 'https://apis.data.go.kr/1613000/BldRgstHubService';
       const params = new URLSearchParams({
@@ -1315,9 +1174,7 @@
             source: '국토교통부 건축물대장 실시간 조회'
           };
         }
-      } catch (e) {
-        // 정적 웹 CORS 또는 지번 미매칭 시 카카오 장소 데이터 + 구조 추론으로 보완
-      }
+      } catch (e) {}
 
       return {
         id: 'bldg-kakao-' + Date.now(),
@@ -1325,8 +1182,8 @@
         name: placeName,
         lat: Number(lat),
         lng: Number(lng),
-        groundFloors: placeName.includes('아파트') || placeName.includes('휴먼') ? 15 : 6,
-        hasPiloti: !(placeName.includes('아파트')),
+        groundFloors: placeName.includes('아파트') || placeName.includes('주공') || placeName.includes('래미안') ? 15 : 6,
+        hasPiloti: !(placeName.includes('아파트') || placeName.includes('주공') || placeName.includes('래미안')),
         mainStructure: placeName.includes('아파트') ? '철근콘크리트 벽식구조' : '다세대 벽식구조',
         builtYear: 2013,
         source: '건축물대장·지도 공간 결합 프로파일'
@@ -1367,54 +1224,54 @@
     }
 
     function formatBackroadAnchor(roadName, anchorName, roadType) {
-      const safeAnchor = (anchorName || '○○빌라').replace(/\d+\s*호/g, '').trim();
-      return `${roadName} · ${safeAnchor} (${roadType})`;
+      const safeAnchor = (anchorName || '').replace(/\d+\s*호/g, '').trim();
+      return safeAnchor ? `${roadName} · ${safeAnchor} (${roadType})` : `${roadName} (${roadType})`;
     }
 
     const INITIAL_BUILDINGS = [
-      { id: 'bldg-mansu-1', dong: 'mansu', name: '만수 드림하임', lat: 37.4569, lng: 126.7305, groundFloors: 8, hasPiloti: true, mainStructure: '벽식구조', builtYear: 2014, source: '국토교통부 건축물대장 연동' },
-      { id: 'bldg-mansu-2', dong: 'mansu', name: '향촌 휴먼시아', lat: 37.4548, lng: 126.7336, groundFloors: 15, hasPiloti: false, mainStructure: '철근콘크리트', builtYear: 2009, source: '국토교통부 건축물대장 연동' },
-      { id: 'bldg-munhak-1', dong: 'munhak', name: '문학 미추홀빌리지', lat: 37.4374, lng: 126.6824, groundFloors: 5, hasPiloti: true, mainStructure: '벽식구조', builtYear: 2011, source: '국토교통부 건축물대장 연동' }
+      { id: 'bldg-mansu5-1', dong: 'mansu5', name: '만수주공1단지아파트', lat: 37.4547, lng: 126.7294, groundFloors: 15, hasPiloti: false, mainStructure: '철근콘크리트 벽식구조', builtYear: 1987, source: '국토교통부 건축물대장 연동' },
+      { id: 'bldg-mansu5-2', dong: 'mansu5', name: '신안래미안아파트', lat: 37.4578, lng: 126.7271, groundFloors: 15, hasPiloti: true, mainStructure: '철근콘크리트 구조', builtYear: 2004, source: '국토교통부 건축물대장 연동' },
+      { id: 'bldg-mansu5-3', dong: 'mansu5', name: '만수주공2단지아파트', lat: 37.4550, lng: 126.7318, groundFloors: 15, hasPiloti: false, mainStructure: '철근콘크리트 벽식구조', builtYear: 1987, source: '국토교통부 건축물대장 연동' }
     ];
 
     const INITIAL_POSTS = [
       {
-        id: 'post-101', dong: 'mansu', spaceType: 'outdoor', filterGroup: 'bike', category: '바이크·차량 굉음', whoLevel: 3,
-        lat: 37.4565, lng: 126.7321, roadName: '만수서로 37번길', anchorBuilding: '평화빌라 앞', roadType: '이면도로·골목',
-        nickname: '조용한만수동부엉이', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 14,
-        content: '밤 11시만 넘으면 머플러 개조한 배달 바이크가 골목 오르막길에서 풀악셀을 땡깁니다. 창문 닫아도 심장이 덜컥 내려앉아요.',
+        id: 'post-101', dong: 'mansu5', spaceType: 'outdoor', filterGroup: 'bike', category: '바이크·차량 굉음', whoLevel: 3,
+        lat: 37.4542, lng: 126.7289, roadName: '백범로 124번길', anchorBuilding: '만수주공1단지 앞', roadType: '이면도로·골목',
+        nickname: '조용한만수5동부엉이', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 14,
+        content: '밤 11시만 넘으면 머플러 개조한 배달 바이크가 단지 사이 이면도로에서 풀악셀을 땡깁니다. 창문 닫아도 심장이 덜컥 내려앉아요.',
         empathyCount: 29, empathizedByMe: false,
         comments: [
-          { nick: '만수3동주민', text: '저도 어제 밤 11시 반에 그 소리 때문에 깼습니다. 골목 양면 주차 때문에 더 울리는 것 같아요.', time: '9분 전' },
-          { nick: '평화빌라2층', text: '상습 구간입니다. 구청 단속 요청 같이 넣어요.', time: '4분 전' }
+          { nick: '만수5동주민', text: '저도 어제 밤 11시 반에 그 소리 때문에 깼습니다. 골목 양면 주차 때문에 더 울리는 것 같아요.', time: '9분 전' },
+          { nick: '1단지104동이웃', text: '상습 구간입니다. 구청 단속 요청 같이 넣어요.', time: '4분 전' }
         ]
       },
       {
-        id: 'post-102', dong: 'mansu', spaceType: 'indoor', buildingId: 'bldg-mansu-1', floor: 5, filterGroup: 'indoor', category: '발망치·뛰는소리', whoLevel: 2,
-        lat: 37.4569, lng: 126.7305, roadName: '구월로 348번길', anchorBuilding: '만수 드림하임 (5층)', roadType: '공동주택 실내',
+        id: 'post-102', dong: 'mansu5', spaceType: 'indoor', buildingId: 'bldg-mansu5-1', floor: 5, filterGroup: 'indoor', category: '발망치·뛰는소리', whoLevel: 2,
+        lat: 37.4547, lng: 126.7294, roadName: '구월로 372번길', anchorBuilding: '만수주공1단지아파트 (5층)', roadType: '공동주택 실내',
         nickname: '5층에서버티는중', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 42,
         content: '새벽 1시까지 쿵쾅거리는 발망치와 물건 떨어뜨리는 충격음이 벽을 타고 아래층까지 울립니다.',
         empathyCount: 16, empathizedByMe: false,
         comments: [{ nick: '4층이웃', text: '우리 집 천장도 같이 울립니다.', time: '20분 전' }]
       },
       {
-        id: 'post-103', dong: 'mansu', spaceType: 'outdoor', filterGroup: 'shout', category: '고성 및 욕설', whoLevel: 3,
-        lat: 37.4553, lng: 126.7298, roadName: '만수로 15번길 7', anchorBuilding: '인근 이면도로', roadType: '이면도로·골목',
+        id: 'post-103', dong: 'mansu5', spaceType: 'outdoor', filterGroup: 'shout', category: '고성 및 욕설', whoLevel: 3,
+        lat: 37.4558, lng: 126.7262, roadName: '만수서로 55번길', anchorBuilding: '만수5동 행정복지센터 인근', roadType: '이면도로·골목',
         nickname: '수면권수호자', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 88,
-        content: '밤 11시 40분경부터 자정 넘어서까지 15분 이상 괴성과 욕설이 간헐적으로 터져 나옵니다. 자다가 심장이 뜁니다.',
+        content: '밤 11시 40분경부터 자정 넘어서까지 15분 이상 고함과 욕설이 간헐적으로 터져 나옵니다. 아이가 자다가 깼어요.',
         empathyCount: 24, empathizedByMe: false, comments: []
       }
     ];
 
     const state = {
-      user: { loggedIn: false, nickname: '조용한만수동부엉이', gpsVerified: true, phoneVerifiedFor112: false },
-      currentDong: 'mansu',
+      user: { loggedIn: false, nickname: '조용한만수5동부엉이', gpsVerified: true, phoneVerifiedFor112: false },
+      currentDong: 'mansu5',
       activeFilter: 'all',
       buildings: [...INITIAL_BUILDINGS],
       posts: [...INITIAL_POSTS],
       map: null,
       overlays: [],
-      selectedBuildingId: 'bldg-mansu-1',
+      selectedBuildingId: 'bldg-mansu5-1',
       writeDraft: { space: 'outdoor', roadType: '이면도로·골목', floor: 5, category: '바이크·차량 굉음', group: 'bike', whoLevel: 2 }
     };
 
@@ -1473,14 +1330,13 @@
 
     document.getElementById('btn-guest-enter').addEventListener('click', () => goScreen('screen-home'));
 
-    const NICKS = ['조용한만수동부엉이', '문학동평화지킴이', '꿀잠자고싶은고양이', '53데시벨수호자', '배려하는이웃주민'];
+    const NICKS = ['조용한만수5동부엉이', '만수동평화지킴이', '꿀잠자고싶은고양이', '53데시벨수호자', '배려하는이웃주민'];
     document.getElementById('btn-random-nick').addEventListener('click', () => {
       document.getElementById('input-nickname').value = NICKS[Math.floor(Math.random() * NICKS.length)] + Math.floor(10 + Math.random() * 89);
     });
 
     document.getElementById('btn-refresh-gps').addEventListener('click', () => {
-      document.getElementById('onboard-gps-status').textContent = '현위치 GPS 인증 완료 ✓';
-      showToast('현재 위치로 동네 인증이 갱신되었어요.');
+      detectCurrentAdminDong(true);
     });
 
     document.getElementById('btn-complete-onboard').addEventListener('click', () => {
@@ -1491,13 +1347,71 @@
       goScreen('screen-home');
     });
 
-    /* 실제 카카오맵 초기화 + 지도 클릭 시 해당 위치 건물 건축물대장 조회 */
+    function selectAdminDongKey(dongKey, centerLat, centerLng) {
+      state.currentDong = dongKey;
+      const info = ADMIN_DONGS[dongKey];
+      document.getElementById('current-dong-label').textContent = info.short;
+      document.getElementById('onboard-dong-name').textContent = info.name;
+
+      document.querySelectorAll('.btn-dong-item').forEach(b => {
+        const isSel = b.dataset.dong === dongKey;
+        b.classList.toggle('selected', isSel);
+        b.lastElementChild.textContent = isSel ? '✓' : '';
+      });
+
+      if (state.map && typeof kakao !== 'undefined') {
+        state.map.setCenter(new kakao.maps.LatLng(centerLat || info.lat, centerLng || info.lng));
+      }
+      renderHome();
+    }
+
+    function detectCurrentAdminDong(isOnboard = false) {
+      if (!navigator.geolocation) {
+        showToast('브라우저 위치 권한을 허용해 주세요.');
+        return;
+      }
+      showToast('현재 위치의 행정동을 확인하고 있어요...');
+      navigator.geolocation.getCurrentPosition(pos => {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+        if (typeof kakao !== 'undefined' && kakao.maps && kakao.maps.services) {
+          kakao.maps.load(() => {
+            const geocoder = new kakao.maps.services.Geocoder();
+            geocoder.coord2RegionCode(lng, lat, (result, status) => {
+              if (status === kakao.maps.services.Status.OK) {
+                const admin = result.find(r => r.region_type === 'H') || result[0];
+                const dongName = admin.region_3depth_name;
+                const matchedKey = Object.keys(ADMIN_DONGS).find(k => ADMIN_DONGS[k].short === dongName);
+                if (matchedKey) {
+                  selectAdminDongKey(matchedKey, lat, lng);
+                } else {
+                  ADMIN_DONGS['custom'] = {
+                    short: dongName,
+                    name: `${admin.region_1depth_name} ${admin.region_2depth_name} ${dongName}`,
+                    lat, lng, sigunguCd: '28200', bjdongCd: '10300'
+                  };
+                  selectAdminDongKey('custom', lat, lng);
+                }
+                if (isOnboard) {
+                  document.getElementById('onboard-gps-status').textContent = `${dongName} 행정동 GPS 인증 완료 ✓`;
+                }
+                document.getElementById('modal-dong').hidden = true;
+                showToast(`현재 위치 [${dongName}]으로 설정되었어요.`);
+              }
+            });
+          });
+        }
+      }, () => {
+        showToast('위치 정보를 가져올 수 없어 기본 동네(만수5동)로 유지합니다.');
+      });
+    }
+
     function initMap() {
       const msgBox = document.getElementById('map-loading-box');
       if (state.map) {
         if (msgBox) msgBox.hidden = true;
         state.map.relayout();
-        const c = DONG_CENTERS[state.currentDong];
+        const c = ADMIN_DONGS[state.currentDong];
         state.map.setCenter(new kakao.maps.LatLng(c.lat, c.lng));
         renderPins();
         return;
@@ -1507,7 +1421,7 @@
 
       kakao.maps.load(() => {
         const container = document.getElementById('kakao-map');
-        const c = DONG_CENTERS[state.currentDong];
+        const c = ADMIN_DONGS[state.currentDong];
         state.map = new kakao.maps.Map(container, {
           center: new kakao.maps.LatLng(c.lat, c.lng),
           level: 4
@@ -1580,9 +1494,6 @@
       }
     }
 
-    /* ==========================================================================
-       3단 정돈 커뮤니티 피드 렌더링
-       ========================================================================== */
     function renderHome() {
       const dongPosts = state.posts.filter(p => p.dong === state.currentDong);
       const outCnt = dongPosts.filter(p => p.spaceType === 'outdoor').length;
@@ -1590,9 +1501,19 @@
       document.getElementById('ticker-counts').textContent = `실외 ${outCnt}건 · 건물 ${inCnt}곳`;
 
       const filtered = getFilteredPosts();
-      document.getElementById('feed-total-badge').textContent = filtered.length;
-
       const listEl = document.getElementById('feed-list');
+
+      if (!filtered.length) {
+        listEl.innerHTML = `
+          <div style="text-align:center; padding:36px 16px; color:var(--text-muted); font-size:14px; line-height:1.6;">
+            <strong>${ADMIN_DONGS[state.currentDong].short}</strong>에 아직 등록된 소음 기록이 없어요.<br>
+            우측 하단 <strong>[+ 소음 올리기]</strong>로 첫 번째 소음 지도를 만들어보세요!
+          </div>
+        `;
+        renderPins();
+        return;
+      }
+
       listEl.innerHTML = filtered.map(post => {
         const cis = calculateCIS(post);
         const who = WHO_LEVELS[post.whoLevel] || WHO_LEVELS[2];
@@ -1611,7 +1532,7 @@
             <p class="fc-body">${post.content}</p>
 
             <div class="fc-author-row">
-              ${post.gpsVerified ? '<span class="fc-verified">✓ 동네인증</span><span>·</span>' : ''}
+              ${post.gpsVerified ? '<span class="fc-verified">✓ 행정동 인증</span><span>·</span>' : ''}
               <span>${post.nickname}</span>
               <span>·</span>
               <span>${relTime(post.timestamp)}</span>
@@ -1650,15 +1571,12 @@
       renderPins();
     }
 
-    /* ==========================================================================
-       건물 조회 (카카오 장소 검색 + 국토부 건축물대장 API 결합)
-       ========================================================================== */
     async function searchAndProfileBuilding(keyword) {
       if (!keyword || typeof kakao === 'undefined') return null;
       showToast(`'${keyword}' 건축물대장 정보를 조회하는 중...`);
       return new Promise(resolve => {
         const ps = new kakao.maps.services.Places();
-        const dongInfo = DONG_CENTERS[state.currentDong];
+        const dongInfo = ADMIN_DONGS[state.currentDong];
         ps.keywordSearch(`${dongInfo.short} ${keyword}`, async (data, status) => {
           if (status === kakao.maps.services.Status.OK && data[0]) {
             const place = data[0];
@@ -1775,7 +1693,7 @@
     });
 
     document.getElementById('btn-write-to-112').onclick = () => {
-      const anchor = document.getElementById('input-write-anchor').value.trim() || '만수서로 37번길 평화빌라 앞';
+      const anchor = document.getElementById('input-write-anchor').value.trim() || '백범로 124번길 인근';
       const content = document.getElementById('input-write-content').value.trim() || '현재 심한 생활 소음이 지속 발생 중입니다.';
       open112Modal({
         roadName: anchor,
@@ -1788,12 +1706,12 @@
     };
 
     document.getElementById('btn-submit-post').onclick = () => {
-      const c = DONG_CENTERS[state.currentDong];
+      const c = ADMIN_DONGS[state.currentDong];
       const isIndoor = state.writeDraft.space === 'indoor';
       const targetBldg = state.buildings.find(b => b.id === state.selectedBuildingId) || state.buildings[0];
       const anchor = isIndoor
         ? `${targetBldg.name} (${state.writeDraft.floor}층)`
-        : (document.getElementById('input-write-anchor').value.trim() || '만수서로 37번길 평화빌라 앞');
+        : (document.getElementById('input-write-anchor').value.trim() || '백범로 124번길 인근');
       const content = document.getElementById('input-write-content').value.trim()
         || `${state.writeDraft.category} 소음이 발생해 이웃들과 공유합니다.`;
 
@@ -1809,7 +1727,7 @@
         lat: isIndoor ? targetBldg.lat : c.lat + (Math.random() - 0.5) * 0.002,
         lng: isIndoor ? targetBldg.lng : c.lng + (Math.random() - 0.5) * 0.002,
         roadName: isIndoor ? '공동주택' : anchor,
-        anchorBuilding: isIndoor ? anchor : '인근 도로',
+        anchorBuilding: isIndoor ? anchor : '',
         roadType: isIndoor ? '공동주택 실내' : state.writeDraft.roadType,
         nickname: state.user.nickname,
         gpsVerified: true,
@@ -1837,7 +1755,7 @@
       document.getElementById('detail-body').innerHTML = `
         <div style="background:var(--primary-soft); border-radius:16px; padding:14px 16px;">
           <div style="font-size:13px; font-weight:800; color:var(--primary);">AI 피해 신뢰도 ${cis.cisScore}% · 상습 피해 분석됨</div>
-          <div style="font-size:12.5px; color:var(--text-sub); margin-top:4px;">동네 GPS 인증 주민 공감 일치 · 어뷰징 패턴 없음</div>
+          <div style="font-size:12.5px; color:var(--text-sub); margin-top:4px;">행정동 GPS 인증 주민 공감 일치 · 어뷰징 패턴 없음</div>
         </div>
 
         <div>
@@ -1847,7 +1765,7 @@
           </div>
           <div class="fc-loc" style="font-size:16px; margin-bottom:10px;">📍 ${loc}</div>
           <p class="fc-body" style="font-size:16px;">${post.content}</p>
-          <div style="margin-top:10px; font-size:13px; color:var(--text-muted);">✓ 동네인증 · ${post.nickname} · ${relTime(post.timestamp)}</div>
+          <div style="margin-top:10px; font-size:13px; color:var(--text-muted);">✓ 행정동 인증 · ${post.nickname} · ${relTime(post.timestamp)}</div>
         </div>
 
         <button type="button" class="btn-cta-primary" id="btn-detail-empathy" style="background:${post.empathizedByMe ? 'var(--secondary)' : 'var(--primary)'}; height:50px; font-size:15.5px;">
@@ -1893,9 +1811,9 @@
 
       document.getElementById('btn-copy-gov').onclick = () => {
         const rep = `[53데시벨 시민 소음 누적 리포트]
-• 발생구역: ${DONG_CENTERS[post.dong].name} ${loc}
+• 발생구역: ${ADMIN_DONGS[post.dong].name} ${loc}
 • 소음유형: ${post.category} (${WHO_LEVELS[post.whoLevel].badge})
-• AI 피해신뢰도: ${cis.cisScore}% (동네인증 주민 ${post.empathyCount}명 공감)
+• AI 피해신뢰도: ${cis.cisScore}% (행정동 인증 주민 ${post.empathyCount}명 공감)
 • 상세내용: ${post.content}`;
         navigator.clipboard.writeText(rep).then(() => showToast('국민신문고·구청 제출용 리포트가 복사되었어요.'));
       };
@@ -1968,7 +1886,7 @@
     function open112Modal(post) {
       const loc = formatBackroadAnchor(post.roadName, post.anchorBuilding, post.roadType);
       const txt = `[53데시벨 소음신고]
-• 위치: ${DONG_CENTERS[state.currentDong].name} ${loc}
+• 위치: ${ADMIN_DONGS[state.currentDong].name} ${loc}
 • 유형: ${post.category}
 • 내용: ${post.content}
 • 이웃공감: ${post.empathyCount}명 확인`;
@@ -1981,18 +1899,12 @@
 
     document.getElementById('btn-open-dong-sheet').onclick = () => { document.getElementById('modal-dong').hidden = false; };
     document.getElementById('btn-close-dong').onclick = () => { document.getElementById('modal-dong').hidden = true; };
+    document.getElementById('btn-detect-admin-dong').onclick = () => detectCurrentAdminDong(false);
+
     document.querySelectorAll('.btn-dong-item').forEach(btn => {
       btn.onclick = () => {
-        state.currentDong = btn.dataset.dong;
-        const c = DONG_CENTERS[state.currentDong];
-        document.getElementById('current-dong-label').textContent = c.short;
-        document.querySelectorAll('.btn-dong-item').forEach(b => {
-          b.classList.toggle('selected', b === btn);
-          b.lastElementChild.textContent = (b === btn) ? '✓' : '';
-        });
+        selectAdminDongKey(btn.dataset.dong);
         document.getElementById('modal-dong').hidden = true;
-        if (state.map) state.map.setCenter(new kakao.maps.LatLng(c.lat, c.lng));
-        renderHome();
       };
     });
 
@@ -2006,7 +1918,7 @@
 
     document.getElementById('sheet-handle').onclick = () => {
       const exp = document.getElementById('feed-sheet').classList.toggle('expanded');
-      document.getElementById('sheet-expand-label').textContent = exp ? '지도 함께 보기 ▼' : '전체 목록 보기 ▲';
+      document.getElementById('sheet-expand-label').textContent = exp ? '지도 함께 보기 ▼' : '전체 보기 ▲';
       if (state.map) setTimeout(() => state.map.relayout(), 300);
     };
 
@@ -2038,11 +1950,7 @@
       navigator.clipboard.writeText(document.getElementById('sms-preview-text').textContent)
         .then(() => showToast('112 신고 문구가 복사되었어요.'));
     };
-    document.getElementById('btn-goto-gps').onclick = () => {
-      const c = DONG_CENTERS[state.currentDong];
-      if (state.map && typeof kakao !== 'undefined') state.map.panTo(new kakao.maps.LatLng(c.lat, c.lng));
-      showToast(`${c.short} 현재 위치로 중심을 맞췄어요.`);
-    };
+    document.getElementById('btn-goto-gps').onclick = () => detectCurrentAdminDong(false);
   </script>
 </body>
 </html>
