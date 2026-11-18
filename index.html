@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <meta name="color-scheme" content="only light">
-  <meta name="theme-color" content="#F6F8FA">
+  <meta name="theme-color" content="#E8ECF2">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨 (v1.0.6)</title>
+  <title>53데시벨 (v1.0.7)</title>
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Crect width='128' height='128' rx='28' fill='%231B4965'/%3E%3Ctext x='64' y='74' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='54' font-weight='900'%3E53%3C/text%3E%3Ctext x='64' y='102' text-anchor='middle' fill='%235EEAD4' font-family='sans-serif' font-size='22' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%231B4965'/%3E%3Ctext x='90' y='102' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='76' font-weight='900'%3E53%3C/text%3E%3Ctext x='90' y='142' text-anchor='middle' fill='%235EEAD4' font-family='sans-serif' font-size='30' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
@@ -32,30 +32,38 @@
   <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=20b24a9df15474b70785b099967431b3&libraries=services,clusterer&autoload=false"></script>
 
   <style>
+    /* ==========================================================================
+       1. 소프트 라이트 뉴모피즘(Soft Light Neumorphism) 디자인 토큰
+       - 눈부심을 잡은 소프트 스톤 그레이(#E8ECF2) 베이스 위에 양각(볼록) & 음각(오목) 입체감 구현
+       ========================================================================== */
     :root {
       color-scheme: only light;
-      --bg-base: #F6F8FA;
-      --bg-surface: #FFFFFF;
-      --bg-subtle: #F1F5F9;
-      --line-soft: #E5E7EB;
-      --border-color: #CBD5E1;
+      --neu-bg: #E8ECF2;           /* 눈부심을 잡은 소프트 스톤 베이스 */
+      --neu-surface: #EDF1F7;      /* 볼록 카드/버튼 표면 */
+      --neu-card-warm: #FAF9F6;    /* 증언 카드용 눈이 편안한 웜 페이퍼 */
+
+      /* 뉴모피즘 입체 그림자 (좌상단 빛 · 우하단 그림자) */
+      --neu-convex: -5px -5px 11px rgba(255, 255, 255, 0.85), 5px 5px 12px rgba(163, 177, 198, 0.55);
+      --neu-convex-sm: -3px -3px 7px rgba(255, 255, 255, 0.85), 3px 3px 8px rgba(163, 177, 198, 0.5);
+      --neu-concave: inset -3px -3px 7px rgba(255, 255, 255, 0.85), inset 3px 3px 7px rgba(163, 177, 198, 0.55);
+      --neu-pressed: inset -2px -2px 5px rgba(255, 255, 255, 0.7), inset 3px 3px 6px rgba(163, 177, 198, 0.65);
 
       --text-main: #111827;
       --text-sub: #374151;
-      --text-muted: #6B7280;
+      --text-muted: #5F6B7A;
 
       --primary: #1B4965;
       --primary-dark: #123246;
-      --primary-soft: #EBF3F8;
+      --primary-soft: #DCE8F0;
       --secondary: #0D9488;
-      --secondary-soft: #E6F7F5;
+      --secondary-soft: #D7F0ED;
 
-      --lv1-yellow: #D97706;
+      --lv1-yellow: #B45309;
       --lv1-soft: #FEF3C7;
-      --lv2-orange: #EA580C;
+      --lv2-orange: #C2410C;
       --lv2-soft: #FFEDD5;
-      --lv3-red: #DC2626;
-      --lv3-soft: #FEE2E2;
+      --lv3-red: #BE123C;
+      --lv3-soft: #FFE4E6;
 
       --safe-top: env(safe-area-inset-top, 0px);
       --safe-bottom: env(safe-area-inset-bottom, 0px);
@@ -77,7 +85,7 @@
     html, body {
       width: 100%;
       height: 100%;
-      background-color: #E5E9F0;
+      background-color: #DCE2EC;
       color: var(--text-main);
       font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, sans-serif;
       overflow: hidden;
@@ -90,15 +98,15 @@
       max-width: 430px;
       height: 100dvh;
       margin: 0 auto;
-      background-color: var(--bg-surface);
+      background-color: var(--neu-bg);
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 24px 60px rgba(27, 73, 101, 0.16);
     }
 
     @media (max-width: 500px) {
-      html, body { background-color: var(--bg-base); }
+      html, body { background-color: var(--neu-bg); }
       .app-shell { max-width: 100%; box-shadow: none; }
     }
 
@@ -107,7 +115,7 @@
       inset: 0;
       width: 100%;
       height: 100%;
-      background-color: var(--bg-surface);
+      background-color: var(--neu-bg);
       display: flex;
       flex-direction: column;
       z-index: 10;
@@ -119,17 +127,17 @@
       background: none;
       cursor: pointer;
       touch-action: manipulation;
-      transition: transform 0.12s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.15s ease;
+      transition: transform 0.12s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.15s ease, background-color 0.15s ease;
     }
 
     button:active { transform: scale(0.97); }
 
     /* ==========================================================================
-       [화면 1] 스플래시 ('53데시벨' 타이포 로고 + v1.0.6)
+       2. [화면 1] 스플래시 (뉴모피즘 볼록 엠블럼 & WHO 권고문 카드)
        ========================================================================== */
     #screen-splash {
       z-index: 100;
-      background-color: var(--bg-base);
+      background-color: var(--neu-bg);
       justify-content: space-between;
       padding: calc(20px + var(--safe-top)) 26px calc(38px + var(--safe-bottom));
       cursor: pointer;
@@ -138,13 +146,13 @@
     .splash-top-meta { width: 100%; display: flex; justify-content: flex-end; }
 
     .version-pill {
-      background-color: var(--bg-surface);
+      background-color: var(--neu-surface);
       color: var(--primary);
       font-size: 12px;
       font-weight: 800;
-      padding: 5px 11px;
+      padding: 6px 13px;
       border-radius: 999px;
-      box-shadow: 0 2px 8px rgba(27, 73, 101, 0.08);
+      box-shadow: var(--neu-convex-sm);
       letter-spacing: 0.02em;
     }
 
@@ -157,11 +165,22 @@
       width: 100%;
     }
 
+    /* 뉴모피즘 볼록 로고 플레이트 */
+    .brand-neu-plate {
+      padding: 24px 30px 20px;
+      border-radius: 28px;
+      background-color: var(--neu-surface);
+      box-shadow: var(--neu-convex);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     .brand-logo-lockup {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 8px;
       padding-bottom: 12px;
       border-bottom: 3.5px solid var(--secondary);
     }
@@ -172,17 +191,17 @@
       justify-content: center;
       background: linear-gradient(145deg, #235B7E 0%, #1B4965 100%);
       color: #FFFFFF;
-      font-size: 40px;
+      font-size: 38px;
       font-weight: 900;
       letter-spacing: -0.04em;
       line-height: 1;
       padding: 10px 14px;
       border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(27, 73, 101, 0.18);
+      box-shadow: 3px 3px 8px rgba(27, 73, 101, 0.35);
     }
 
     .logo-text-kr {
-      font-size: 42px;
+      font-size: 40px;
       font-weight: 900;
       color: var(--primary);
       letter-spacing: -0.04em;
@@ -190,8 +209,8 @@
     }
 
     .splash-slogan {
-      margin-top: 18px;
-      font-size: 16.5px;
+      margin-top: 16px;
+      font-size: 15.5px;
       font-weight: 700;
       color: var(--text-sub);
       letter-spacing: -0.03em;
@@ -200,10 +219,10 @@
 
     .splash-who-footer {
       width: 100%;
-      background-color: var(--bg-surface);
-      border-radius: 22px;
+      background-color: var(--neu-surface);
+      border-radius: 24px;
       padding: 22px 22px 20px;
-      box-shadow: 0 6px 24px rgba(27, 73, 101, 0.06);
+      box-shadow: var(--neu-convex);
       text-align: left;
     }
 
@@ -219,16 +238,17 @@
 
     .who-eyebrow::before {
       content: '';
-      width: 6px;
-      height: 6px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background-color: var(--secondary);
+      box-shadow: 0 0 6px rgba(13, 148, 136, 0.6);
     }
 
     .who-statement {
       font-size: 15px;
       font-weight: 600;
-      line-height: 1.6;
+      line-height: 1.62;
       color: var(--text-main);
       letter-spacing: -0.025em;
       word-break: keep-all;
@@ -245,11 +265,11 @@
     }
 
     /* ==========================================================================
-       [화면 2] 로그인 & 온보딩
+       3. [화면 2] 로그인 & 온보딩 (뉴모피즘 양각·음각 스타일)
        ========================================================================== */
     #screen-auth {
       z-index: 90;
-      background-color: var(--bg-surface);
+      background-color: var(--neu-bg);
       padding: calc(24px + var(--safe-top)) 24px calc(24px + var(--safe-bottom));
     }
 
@@ -266,10 +286,11 @@
     }
 
     .hero-illust {
-      width: 124px;
-      height: 124px;
-      border-radius: 38px;
-      background-color: var(--bg-base);
+      width: 120px;
+      height: 120px;
+      border-radius: 36px;
+      background-color: var(--neu-surface);
+      box-shadow: var(--neu-convex);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -279,75 +300,174 @@
 
     .hero-illust-badge {
       position: absolute;
-      bottom: -6px;
-      right: -6px;
+      bottom: -8px;
+      right: -8px;
       background-color: var(--secondary);
       color: #FFFFFF;
       font-size: 12px;
       font-weight: 800;
-      padding: 5px 10px;
+      padding: 5px 11px;
       border-radius: 999px;
-      box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
+      box-shadow: 0 4px 12px rgba(13, 148, 136, 0.35);
     }
 
-    .auth-hero h1 { font-size: 26px; font-weight: 800; line-height: 1.35; letter-spacing: -0.035em; color: var(--text-main); word-break: keep-all; }
-    .auth-hero p { margin-top: 12px; font-size: 15.5px; font-weight: 500; line-height: 1.55; color: var(--text-muted); max-width: 300px; }
+    .auth-hero h1 { font-size: 25px; font-weight: 800; line-height: 1.35; letter-spacing: -0.035em; color: var(--text-main); word-break: keep-all; }
+    .auth-hero p { margin-top: 12px; font-size: 15px; font-weight: 500; line-height: 1.55; color: var(--text-sub); max-width: 300px; }
 
-    .hero-pills { margin-top: 22px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
-    .hero-pill { background-color: var(--bg-base); color: var(--text-sub); font-size: 13px; font-weight: 700; padding: 8px 13px; border-radius: 999px; }
+    .hero-pills { margin-top: 22px; display: flex; flex-wrap: wrap; justify-content: center; gap: 9px; }
+    .hero-pill {
+      background-color: var(--neu-surface);
+      box-shadow: var(--neu-convex-sm);
+      color: var(--text-sub);
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 8px 13px;
+      border-radius: 999px;
+    }
 
-    .auth-bottom-actions { display: flex; flex-direction: column; gap: 10px; width: 100%; }
-    .btn-native-social { width: 100%; height: 54px; border-radius: 14px; font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px; }
+    .auth-bottom-actions { display: flex; flex-direction: column; gap: 11px; width: 100%; }
+    .btn-native-social {
+      width: 100%;
+      height: 54px;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: var(--neu-convex-sm);
+    }
     .btn-native-social svg { width: 20px; height: 20px; flex-shrink: 0; }
     .btn-native-kakao { background-color: #FEE500; color: #191919; }
     .btn-native-naver { background-color: #03C75A; color: #FFFFFF; }
-    .btn-native-google { background-color: var(--bg-base); color: var(--text-main); }
+    .btn-native-google { background-color: var(--neu-surface); color: var(--text-main); }
 
     .btn-browse-first { margin-top: 4px; height: 44px; width: 100%; font-size: 14.5px; font-weight: 700; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 4px; }
 
     .onboard-top { padding-top: 16px; }
     .onboard-top h2 { font-size: 24px; font-weight: 800; line-height: 1.35; letter-spacing: -0.03em; color: var(--text-main); }
-    .onboard-top p { margin-top: 8px; font-size: 15px; color: var(--text-muted); }
-    .onboard-form { margin-top: 32px; display: flex; flex-direction: column; gap: 24px; }
-    .native-field label { display: block; font-size: 13.5px; font-weight: 700; color: var(--text-sub); margin-bottom: 8px; }
-    .native-input-box { display: flex; align-items: center; background-color: var(--bg-base); border-radius: 14px; padding: 6px 8px 6px 16px; height: 54px; }
+    .onboard-top p { margin-top: 8px; font-size: 15px; color: var(--text-sub); }
+    .onboard-form { margin-top: 28px; display: flex; flex-direction: column; gap: 22px; }
+    .native-field label { display: block; font-size: 13.5px; font-weight: 800; color: var(--text-sub); margin-bottom: 8px; }
+
+    /* 뉴모피즘 음각(오목하게 파인) 입력창 */
+    .native-input-box {
+      display: flex;
+      align-items: center;
+      background-color: var(--neu-bg);
+      box-shadow: var(--neu-concave);
+      border-radius: 16px;
+      padding: 6px 8px 6px 16px;
+      height: 54px;
+    }
     .native-input-box input { flex: 1; border: none; background: transparent; font-size: 16px; font-weight: 700; color: var(--text-main); outline: none; }
-    .btn-chip-action { height: 38px; padding: 0 12px; border-radius: 10px; background-color: var(--bg-surface); font-size: 13px; font-weight: 700; color: var(--primary); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08); }
-    .native-gps-card { background-color: var(--secondary-soft); border-radius: 16px; padding: 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+
+    /* 뉴모피즘 볼록 칩 버튼 */
+    .btn-chip-action {
+      height: 38px;
+      padding: 0 13px;
+      border-radius: 12px;
+      background-color: var(--neu-surface);
+      box-shadow: var(--neu-convex-sm);
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .btn-chip-action:active { box-shadow: var(--neu-pressed); }
+
+    .native-gps-card {
+      background-color: var(--neu-surface);
+      box-shadow: var(--neu-convex-sm);
+      border-radius: 18px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
     .native-gps-text strong { display: block; font-size: 16px; font-weight: 800; color: #0F766E; }
-    .native-gps-text span { display: block; margin-top: 3px; font-size: 13px; font-weight: 600; color: #115E59; }
-    .native-agree-row { display: flex; align-items: center; gap: 12px; padding: 16px; background-color: var(--bg-base); border-radius: 14px; cursor: pointer; }
+    .native-gps-text span { display: block; margin-top: 3px; font-size: 13px; font-weight: 600; color: var(--text-sub); }
+
+    .native-agree-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      background-color: var(--neu-surface);
+      box-shadow: var(--neu-convex-sm);
+      border-radius: 16px;
+      cursor: pointer;
+    }
     .native-agree-row input { width: 22px; height: 22px; accent-color: var(--primary); }
     .native-agree-row span { font-size: 14.5px; font-weight: 700; color: var(--text-main); }
-    .btn-cta-primary { width: 100%; height: 56px; border-radius: 16px; background-color: var(--primary); color: #FFFFFF; font-size: 17px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+
+    .btn-cta-primary {
+      width: 100%;
+      height: 56px;
+      border-radius: 18px;
+      background: linear-gradient(145deg, #215778 0%, #1B4965 100%);
+      color: #FFFFFF;
+      font-size: 17px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: -4px -4px 10px rgba(255, 255, 255, 0.7), 5px 5px 14px rgba(27, 73, 101, 0.38);
+    }
 
     /* ==========================================================================
-       [화면 3] 메인 홈 (시야 방해 0% 순수 맵 + 하단 통합 피드 헤더)
+       4. [화면 3] 메인 홈 (순수 카카오맵 + 뉴모피즘 증언 카드 피드)
        ========================================================================== */
-    #screen-home { z-index: 20; background-color: var(--bg-base); }
+    #screen-home { z-index: 20; background-color: var(--neu-bg); }
 
     .app-topbar {
-      height: calc(54px + var(--safe-top));
+      height: calc(56px + var(--safe-top));
       padding: var(--safe-top) 16px 0;
-      background-color: var(--bg-surface);
+      background-color: var(--neu-bg);
       display: flex;
       align-items: center;
       justify-content: space-between;
       z-index: 35;
       flex-shrink: 0;
-      border-bottom: 1px solid var(--line-soft);
     }
 
-    .dong-picker-btn { display: flex; align-items: center; gap: 5px; font-size: 19px; font-weight: 800; letter-spacing: -0.03em; color: var(--text-main); padding: 6px 4px; }
-    .dong-picker-btn svg { width: 18px; height: 18px; }
-    .topbar-right-actions { display: flex; align-items: center; gap: 8px; }
-    .btn-top-icon { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; color: var(--text-main); }
+    .dong-picker-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text-main);
+      padding: 7px 14px;
+      border-radius: 14px;
+      background-color: var(--neu-surface);
+      box-shadow: var(--neu-convex-sm);
+    }
+    .dong-picker-btn:active { box-shadow: var(--neu-pressed); }
+    .dong-picker-btn svg { width: 17px; height: 17px; }
+
+    .topbar-right-actions { display: flex; align-items: center; gap: 10px; }
+
+    .btn-top-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      background-color: var(--neu-surface);
+      box-shadow: var(--neu-convex-sm);
+      display: grid;
+      place-items: center;
+      color: var(--text-main);
+    }
+    .btn-top-icon:active { box-shadow: var(--neu-pressed); }
 
     .btn-112-pill {
-      height: 34px;
-      padding: 0 12px;
-      border-radius: 999px;
-      background-color: var(--lv3-soft);
+      height: 38px;
+      padding: 0 13px;
+      border-radius: 14px;
+      background-color: var(--neu-surface);
+      box-shadow: var(--neu-convex-sm);
       color: var(--lv3-red);
       font-size: 13.5px;
       font-weight: 800;
@@ -355,23 +475,26 @@
       align-items: center;
       gap: 4px;
     }
+    .btn-112-pill:active { box-shadow: var(--neu-pressed); }
 
     .search-bar-float {
-      background-color: var(--bg-surface);
+      background-color: var(--neu-bg);
       padding: 8px 16px 12px;
       display: flex;
       gap: 8px;
       z-index: 34;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
     }
 
+    /* 순수 맵 영역 */
     .map-container {
       position: relative;
-      height: 46%;
+      height: 44%;
       width: 100%;
       flex-shrink: 0;
       overflow: hidden;
-      background-color: #E2E8F0;
+      background-color: #DDE3EC;
+      border-radius: 22px 22px 0 0;
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.06);
     }
 
     #kakao-map { position: absolute; inset: 0; width: 100%; height: 100%; }
@@ -395,13 +518,13 @@
     .btn-floating-gps {
       position: absolute;
       right: 14px;
-      bottom: 18px;
+      bottom: 22px;
       z-index: 25;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background-color: var(--bg-surface);
-      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.18);
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background-color: var(--neu-surface);
+      box-shadow: 0 4px 12px rgba(17, 24, 39, 0.22);
       display: grid;
       place-items: center;
       color: var(--primary);
@@ -417,7 +540,7 @@
       border-radius: 999px;
       background-color: #111827;
       color: #FFFFFF;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
       cursor: pointer;
       white-space: nowrap;
       border: 2px solid #FFFFFF;
@@ -428,7 +551,7 @@
     .pin-outdoor.lv-2 .pin-outdoor-dot { background-color: #FB923C; }
     .pin-outdoor.lv-3 .pin-outdoor-dot { background-color: #F43F5E; }
 
-    .pin-outdoor-title { font-size: 12px; font-weight: 800; color: #FFFFFF; letter-spacing: -0.02em; }
+    .pin-outdoor-title { font-size: 12px; font-weight: 800; color: #FFFFFF; }
     .pin-outdoor-cnt { font-size: 11.5px; font-weight: 800; color: #5EEAD4; }
 
     .pin-epicenter-tag {
@@ -446,12 +569,7 @@
       white-space: nowrap;
     }
 
-    .pin-building {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      cursor: pointer;
-    }
+    .pin-building { display: flex; flex-direction: column; align-items: center; cursor: pointer; }
 
     .bldg-card-pin {
       background-color: var(--primary);
@@ -475,7 +593,7 @@
       color: #5EEAD4;
     }
 
-    .bldg-card-pin .bldg-name-txt { font-size: 12px; font-weight: 800; letter-spacing: -0.02em; }
+    .bldg-card-pin .bldg-name-txt { font-size: 12px; font-weight: 800; }
 
     .bldg-card-pin .bldg-cnt-badge {
       background-color: #FFFFFF;
@@ -488,37 +606,45 @@
 
     .bldg-pin-stem { width: 3px; height: 8px; background-color: var(--primary); }
 
-    /* 하단 커뮤니티 시트 */
+    /* ==========================================================================
+       5. 하단 뉴모피즘 커뮤니티 시트 (볼록 증언 카드 & 음각 필터/댓글창 부각)
+       ========================================================================== */
     .bottom-feed-sheet {
       flex: 1;
-      background-color: var(--bg-base);
-      border-radius: 22px 22px 0 0;
-      box-shadow: 0 -6px 24px rgba(17, 24, 39, 0.08);
+      background-color: var(--neu-bg);
+      border-radius: 26px 26px 0 0;
+      box-shadow: 0 -8px 24px rgba(17, 24, 39, 0.10);
       display: flex;
       flex-direction: column;
       z-index: 30;
-      margin-top: -12px;
+      margin-top: -14px;
       overflow: hidden;
     }
 
     .bottom-feed-sheet.expanded {
       position: absolute;
-      inset: calc(54px + var(--safe-top)) 0 0 0;
+      inset: calc(56px + var(--safe-top)) 0 0 0;
       margin-top: 0;
       border-radius: 0;
     }
 
     .sheet-header-panel {
-      background-color: var(--bg-surface);
-      padding: 10px 16px 12px;
-      border-bottom: 1px solid var(--line-soft);
+      background-color: var(--neu-bg);
+      padding: 10px 18px 12px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 11px;
       flex-shrink: 0;
     }
 
-    .grabber-bar { width: 36px; height: 4px; border-radius: 999px; background-color: #CBD5E1; margin: 0 auto; }
+    .grabber-bar {
+      width: 40px;
+      height: 5px;
+      border-radius: 999px;
+      background-color: var(--neu-bg);
+      box-shadow: var(--neu-concave);
+      margin: 0 auto;
+    }
 
     .sheet-title-row {
       display: flex;
@@ -528,31 +654,44 @@
     }
 
     .sheet-title-left { display: flex; align-items: center; gap: 8px; }
-    .sheet-title-left h2 { font-size: 17px; font-weight: 800; letter-spacing: -0.03em; color: var(--text-main); }
+    .sheet-title-left h2 { font-size: 17.5px; font-weight: 800; letter-spacing: -0.03em; color: var(--text-main); }
 
+    /* 뉴모피즘 음각 현황 캡슐 */
     .dong-summary-pill {
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      background-color: var(--secondary-soft);
+      background-color: var(--neu-bg);
+      box-shadow: var(--neu-concave);
       color: #0F766E;
       font-size: 12px;
       font-weight: 800;
-      padding: 3px 9px;
+      padding: 4px 10px;
       border-radius: 999px;
     }
 
     .live-dot { width: 6px; height: 6px; border-radius: 50%; background-color: var(--secondary); display: inline-block; }
-    .sheet-expand-btn { font-size: 12.5px; font-weight: 700; color: var(--primary); }
 
-    .feed-filter-scroll { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+    .sheet-expand-btn {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--primary);
+      padding: 5px 10px;
+      border-radius: 10px;
+      background-color: var(--neu-surface);
+      box-shadow: var(--neu-convex-sm);
+    }
+
+    .feed-filter-scroll { display: flex; gap: 8px; overflow-x: auto; padding: 3px 2px; scrollbar-width: none; }
     .feed-filter-scroll::-webkit-scrollbar { display: none; }
 
+    /* 뉴모피즘 양각/음각 토글 필터 칩 */
     .map-chip {
-      height: 32px;
-      padding: 0 12px;
-      border-radius: 999px;
-      background-color: var(--bg-base);
+      height: 34px;
+      padding: 0 13px;
+      border-radius: 12px;
+      background-color: var(--neu-surface);
+      box-shadow: var(--neu-convex-sm);
       font-size: 12.5px;
       font-weight: 700;
       color: var(--text-sub);
@@ -562,74 +701,133 @@
       gap: 4px;
     }
 
-    .map-chip.active { background-color: var(--primary); color: #FFFFFF; }
+    .map-chip.active {
+      background-color: var(--neu-bg);
+      box-shadow: var(--neu-pressed);
+      color: var(--primary);
+      font-weight: 800;
+    }
 
     .native-feed-scroll {
       flex: 1;
       overflow-y: auto;
-      padding: 12px 16px calc(92px + var(--safe-bottom));
+      padding: 8px 18px calc(94px + var(--safe-bottom));
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 16px;
     }
 
+    /* ==========================================================================
+       [핵심 차별화] 볼록하게 솟아오른 시민 소음 증언 카드 (웜 페이퍼 + 뉴모피즘)
+       ========================================================================== */
     .feed-card {
-      background-color: var(--bg-surface);
-      border-radius: 18px;
-      padding: 16px;
-      box-shadow: 0 2px 10px rgba(17, 24, 39, 0.04);
+      background-color: var(--neu-card-warm);
+      border-radius: 22px;
+      padding: 18px;
+      box-shadow: -6px -6px 14px rgba(255, 255, 255, 0.9), 6px 6px 14px rgba(163, 177, 198, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.7);
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 11px;
       cursor: pointer;
     }
 
     .fc-top { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
     .fc-badges { display: flex; align-items: center; gap: 6px; flex-wrap: nowrap; overflow: hidden; }
-    .fc-cat { background-color: var(--bg-subtle); color: var(--text-sub); font-size: 12px; font-weight: 800; padding: 4px 8px; border-radius: 6px; white-space: nowrap; }
-    .fc-who { font-size: 12px; font-weight: 800; padding: 4px 8px; border-radius: 6px; white-space: nowrap; }
+    .fc-cat { background-color: var(--neu-bg); color: var(--text-sub); font-size: 12px; font-weight: 800; padding: 4px 9px; border-radius: 8px; white-space: nowrap; }
+    .fc-who { font-size: 12px; font-weight: 800; padding: 4px 9px; border-radius: 8px; white-space: nowrap; }
     .fc-who.lv-1 { background-color: var(--lv1-soft); color: var(--lv1-yellow); }
     .fc-who.lv-2 { background-color: var(--lv2-soft); color: var(--lv2-orange); }
     .fc-who.lv-3 { background-color: var(--lv3-soft); color: var(--lv3-red); }
-    .fc-cis { font-size: 12px; font-weight: 800; color: var(--primary); white-space: nowrap; flex-shrink: 0; }
-    .fc-loc { font-size: 13.5px; font-weight: 800; color: var(--primary); letter-spacing: -0.02em; }
-    .fc-body { font-size: 15px; font-weight: 500; line-height: 1.55; color: var(--text-main); letter-spacing: -0.015em; word-break: keep-all; }
-    .fc-author-row { display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: var(--text-muted); padding-top: 2px; }
+
+    .fc-cis {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--primary);
+      background-color: var(--primary-soft);
+      padding: 4px 8px;
+      border-radius: 8px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .fc-loc { font-size: 14px; font-weight: 800; color: var(--primary); letter-spacing: -0.02em; }
+    .fc-body { font-size: 15.5px; font-weight: 500; line-height: 1.58; color: var(--text-main); letter-spacing: -0.015em; word-break: keep-all; }
+    .fc-author-row { display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: var(--text-muted); }
     .fc-verified { color: var(--secondary); font-weight: 800; }
 
-    .fc-action-bar { display: flex; align-items: center; gap: 8px; padding-top: 10px; border-top: 1px solid var(--line-soft); }
-    .btn-fc-empathy { flex: 1; height: 38px; border-radius: 10px; background-color: var(--bg-subtle); color: var(--text-sub); font-size: 13.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 6px; }
-    .btn-fc-empathy.active { background-color: var(--primary-soft); color: var(--primary); font-weight: 800; }
-    .btn-fc-comment { height: 38px; padding: 0 14px; border-radius: 10px; background-color: var(--bg-subtle); color: var(--text-sub); font-size: 13.5px; font-weight: 700; display: flex; align-items: center; gap: 5px; white-space: nowrap; }
+    /* 뉴모피즘 입체 공감/댓글 버튼 */
+    .fc-action-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(203, 213, 225, 0.5);
+    }
+
+    .btn-fc-empathy {
+      flex: 1;
+      height: 40px;
+      border-radius: 12px;
+      background-color: var(--neu-surface);
+      box-shadow: -3px -3px 6px rgba(255, 255, 255, 0.9), 3px 3px 6px rgba(163, 177, 198, 0.45);
+      color: var(--text-sub);
+      font-size: 13.5px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-fc-empathy.active {
+      background-color: var(--primary-soft);
+      box-shadow: inset -2px -2px 5px rgba(255, 255, 255, 0.8), inset 2px 2px 5px rgba(27, 73, 101, 0.22);
+      color: var(--primary);
+    }
+
+    .btn-fc-comment {
+      height: 40px;
+      padding: 0 14px;
+      border-radius: 12px;
+      background-color: var(--neu-surface);
+      box-shadow: -3px -3px 6px rgba(255, 255, 255, 0.9), 3px 3px 6px rgba(163, 177, 198, 0.45);
+      color: var(--text-sub);
+      font-size: 13.5px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+    }
 
     .fab-native-write {
       position: absolute;
-      right: 16px;
+      right: 18px;
       bottom: calc(18px + var(--safe-bottom));
       z-index: 40;
-      height: 50px;
-      padding: 0 18px;
-      border-radius: 999px;
-      background-color: var(--primary);
+      height: 52px;
+      padding: 0 20px;
+      border-radius: 18px;
+      background: linear-gradient(145deg, #215778 0%, #1B4965 100%);
       color: #FFFFFF;
       font-size: 15px;
       font-weight: 800;
       display: flex;
       align-items: center;
       gap: 6px;
-      box-shadow: 0 8px 22px rgba(27, 73, 101, 0.34);
+      box-shadow: -3px -3px 8px rgba(255, 255, 255, 0.6), 5px 5px 14px rgba(27, 73, 101, 0.4);
     }
 
     /* ==========================================================================
-       [화면 4] 3초 컷 선택형 글쓰기
+       6. [화면 4] 3초 컷 선택형 글쓰기 (뉴모피즘 볼록 선택 카드)
        ========================================================================== */
-    #screen-write { z-index: 110; background-color: var(--bg-surface); }
+    #screen-write { z-index: 110; background-color: var(--neu-bg); }
 
     .subscreen-topbar {
-      height: calc(54px + var(--safe-top));
+      height: calc(56px + var(--safe-top));
       padding: var(--safe-top) 16px 0;
-      background-color: var(--bg-surface);
-      border-bottom: 1px solid var(--line-soft);
+      background-color: var(--neu-bg);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -641,92 +839,282 @@
     .write-scroll-body {
       flex: 1;
       overflow-y: auto;
-      padding: 20px 20px calc(110px + var(--safe-bottom));
+      padding: 16px 20px calc(110px + var(--safe-bottom));
       display: flex;
       flex-direction: column;
       gap: 24px;
     }
 
     .write-step-block h3 { font-size: 15.5px; font-weight: 800; color: var(--text-main); margin-bottom: 12px; }
-    .space-toggle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .space-toggle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
-    .btn-space-card { padding: 15px 14px; border-radius: 16px; background-color: var(--bg-base); border: 2px solid transparent; text-align: left; display: flex; flex-direction: column; gap: 4px; }
-    .btn-space-card.active { background-color: var(--primary-soft); border-color: var(--primary); }
+    .btn-space-card {
+      padding: 16px 14px;
+      border-radius: 18px;
+      background-color: var(--neu-surface);
+      box-shadow: var(--neu-convex-sm);
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .btn-space-card.active {
+      background-color: var(--neu-bg);
+      box-shadow: var(--neu-pressed);
+      border: 1.5px solid var(--primary);
+    }
+
     .btn-space-card strong { font-size: 15px; font-weight: 800; color: var(--text-main); }
     .btn-space-card span { font-size: 12.5px; font-weight: 600; color: var(--text-sub); }
 
-    .road-type-pills { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
-    .btn-road-pill { padding: 9px 13px; border-radius: 999px; background-color: var(--bg-base); font-size: 13px; font-weight: 700; color: var(--text-sub); }
-    .btn-road-pill.active { background-color: var(--secondary); color: #FFFFFF; }
+    .road-type-pills { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+    .btn-road-pill {
+      padding: 9px 14px;
+      border-radius: 12px;
+      background-color: var(--neu-surface);
+      box-shadow: var(--neu-convex-sm);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-sub);
+    }
+    .btn-road-pill.active {
+      background-color: var(--secondary);
+      color: #FFFFFF;
+      box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2);
+    }
 
-    .floor-picker-wrap { margin-top: 12px; background-color: var(--bg-base); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
-    .floor-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-    .btn-floor-chip { height: 40px; border-radius: 10px; background-color: var(--bg-surface); font-size: 13.5px; font-weight: 700; color: var(--text-main); }
-    .btn-floor-chip.active { background-color: var(--primary); color: #FFFFFF; }
+    .floor-picker-wrap {
+      margin-top: 14px;
+      background-color: var(--neu-surface);
+      box-shadow: var(--neu-convex-sm);
+      border-radius: 18px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .floor-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; }
+    .btn-floor-chip {
+      height: 40px;
+      border-radius: 12px;
+      background-color: var(--neu-surface);
+      box-shadow: var(--neu-convex-sm);
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .btn-floor-chip.active {
+      background-color: var(--primary);
+      color: #FFFFFF;
+      box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.25);
+    }
 
-    .cat-select-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
-    .btn-cat-item { height: 46px; padding: 0 14px; border-radius: 12px; background-color: var(--bg-base); font-size: 14px; font-weight: 700; color: var(--text-sub); text-align: left; display: flex; align-items: center; gap: 8px; }
-    .btn-cat-item.active { background-color: var(--primary); color: #FFFFFF; }
+    .cat-select-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .btn-cat-item {
+      height: 48px;
+      padding: 0 14px;
+      border-radius: 14px;
+      background-color: var(--neu-surface);
+      box-shadow: var(--neu-convex-sm);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-sub);
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-cat-item.active {
+      background-color: var(--neu-bg);
+      box-shadow: var(--neu-pressed);
+      color: var(--primary);
+      font-weight: 800;
+      border: 1.5px solid var(--primary);
+    }
 
-    .who-level-stack { display: flex; flex-direction: column; gap: 8px; }
-    .btn-who-level { padding: 14px 16px; border-radius: 14px; background-color: var(--bg-base); border: 2px solid transparent; text-align: left; display: flex; align-items: center; justify-content: space-between; }
-    .btn-who-level.active[data-lv="1"] { background-color: var(--lv1-soft); border-color: var(--lv1-yellow); }
-    .btn-who-level.active[data-lv="2"] { background-color: var(--lv2-soft); border-color: var(--lv2-orange); }
-    .btn-who-level.active[data-lv="3"] { background-color: var(--lv3-soft); border-color: var(--lv3-red); }
+    .who-level-stack { display: flex; flex-direction: column; gap: 10px; }
+    .btn-who-level {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background-color: var(--neu-surface);
+      box-shadow: var(--neu-convex-sm);
+      text-align: left;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .btn-who-level.active[data-lv="1"] { background-color: var(--lv1-soft); box-shadow: var(--neu-pressed); }
+    .btn-who-level.active[data-lv="2"] { background-color: var(--lv2-soft); box-shadow: var(--neu-pressed); }
+    .btn-who-level.active[data-lv="3"] { background-color: var(--lv3-soft); box-shadow: var(--neu-pressed); }
 
-    .write-textarea { width: 100%; min-height: 96px; border: none; border-radius: 16px; background-color: var(--bg-base); padding: 14px 16px; font-family: inherit; font-size: 15px; line-height: 1.5; color: var(--text-main); resize: none; outline: none; }
+    .write-textarea {
+      width: 100%;
+      min-height: 96px;
+      border: none;
+      border-radius: 18px;
+      background-color: var(--neu-bg);
+      box-shadow: var(--neu-concave);
+      padding: 14px 16px;
+      font-family: inherit;
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--text-main);
+      resize: none;
+      outline: none;
+    }
 
-    .urgent-112-banner { background-color: var(--lv3-soft); border-radius: 14px; padding: 13px 15px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .urgent-112-banner {
+      background-color: var(--neu-surface);
+      box-shadow: var(--neu-convex-sm);
+      border-radius: 16px;
+      padding: 14px 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
     .urgent-112-banner span { font-size: 13px; font-weight: 700; color: var(--lv3-red); line-height: 1.4; }
-    .btn-urgent-112-go { padding: 8px 12px; border-radius: 10px; background-color: var(--lv3-red); color: #FFFFFF; font-size: 12.5px; font-weight: 800; white-space: nowrap; }
+    .btn-urgent-112-go { padding: 9px 13px; border-radius: 12px; background-color: var(--lv3-red); color: #FFFFFF; font-size: 12.5px; font-weight: 800; white-space: nowrap; }
 
     /* ==========================================================================
-       [화면 5] 2.5D 입체 건물 단면 뷰 & 게시글 상세
+       7. [화면 5] 게시글 상세 (정성스러운 증언형 댓글 카드) & 2.5D 입체 건물 단면
        ========================================================================== */
-    #screen-detail, #screen-building { z-index: 105; background-color: var(--bg-surface); }
-    .detail-scroll { flex: 1; overflow-y: auto; padding: 20px 20px calc(40px + var(--safe-bottom)); display: flex; flex-direction: column; gap: 20px; }
+    #screen-detail, #screen-building { z-index: 105; background-color: var(--neu-bg); }
+    .detail-scroll { flex: 1; overflow-y: auto; padding: 16px 20px calc(44px + var(--safe-bottom)); display: flex; flex-direction: column; gap: 18px; }
 
-    .building-cross-section { background-color: var(--bg-base); border-radius: 22px; padding: 18px 16px; display: flex; flex-direction: column; gap: 6px; }
+    /* 상세 화면 내 메인 증언 카드 */
+    .detail-main-card {
+      background-color: var(--neu-card-warm);
+      border-radius: 22px;
+      padding: 20px;
+      box-shadow: var(--neu-convex);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* 독립된 입체 증언 댓글 카드 (일반 댓글창과 차별화) */
+    .testimony-card {
+      background-color: var(--neu-card-warm);
+      border-radius: 18px;
+      padding: 15px 16px;
+      box-shadow: var(--neu-convex-sm);
+      border-left: 4px solid var(--secondary);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .testimony-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12.5px;
+    }
+
+    .testimony-badge {
+      font-weight: 800;
+      color: var(--secondary);
+    }
+
+    .testimony-time {
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .testimony-body {
+      font-size: 14.5px;
+      line-height: 1.52;
+      color: var(--text-main);
+      word-break: keep-all;
+    }
+
+    .building-cross-section {
+      background-color: var(--neu-surface);
+      box-shadow: var(--neu-convex);
+      border-radius: 22px;
+      padding: 18px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
     .bldg-roof-cap { height: 12px; background-color: var(--primary); border-radius: 8px 8px 2px 2px; margin: 0 12px 4px; }
-    .floor-stack-row { display: flex; align-items: center; justify-content: space-between; padding: 11px 14px; border-radius: 12px; background-color: var(--bg-surface); font-size: 13.5px; font-weight: 700; }
-    .floor-stack-row.piloti { background-color: #E2E8F0; color: var(--text-sub); }
-    .floor-stack-row.hot-2 { background-color: var(--lv2-soft); border: 1.5px solid var(--lv2-orange); }
-    .floor-stack-row.hot-3 { background-color: var(--lv3-soft); border: 1.5px solid var(--lv3-red); }
+    .floor-stack-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background-color: var(--neu-bg);
+      box-shadow: var(--neu-concave);
+      font-size: 13.5px;
+      font-weight: 700;
+    }
+    .floor-stack-row.piloti { background-color: #DCE2EC; color: var(--text-sub); }
+    .floor-stack-row.hot-2 { background-color: var(--lv2-soft); box-shadow: var(--neu-convex-sm); border: 1.5px solid var(--lv2-orange); }
+    .floor-stack-row.hot-3 { background-color: var(--lv3-soft); box-shadow: var(--neu-convex-sm); border: 1.5px solid var(--lv3-red); }
 
-    .bm-report-card { background: linear-gradient(135deg, #F8FAFC 0%, #EBF3F8 100%); border-radius: 20px; padding: 18px; display: flex; flex-direction: column; gap: 10px; }
-    .bm-tag { align-self: flex-start; background-color: var(--primary); color: #FFFFFF; font-size: 11.5px; font-weight: 800; padding: 4px 9px; border-radius: 999px; }
-    .comment-item-box { padding: 12px 0; border-bottom: 1px solid var(--line-soft); font-size: 14px; }
+    .bm-report-card {
+      background-color: var(--neu-surface);
+      box-shadow: var(--neu-convex);
+      border-radius: 22px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .bm-tag { align-self: flex-start; background-color: var(--primary); color: #FFFFFF; font-size: 11.5px; font-weight: 800; padding: 4px 10px; border-radius: 999px; }
 
     /* 모달 & 토스트 */
-    .sheet-backdrop { position: absolute; inset: 0; background-color: rgba(17, 24, 39, 0.48); z-index: 120; display: flex; align-items: flex-end; justify-content: center; }
-    .native-modal-sheet { width: 100%; background-color: var(--bg-surface); border-radius: 24px 24px 0 0; padding: 14px 22px calc(26px + var(--safe-bottom)); display: flex; flex-direction: column; gap: 14px; max-height: 85%; overflow-y: auto; }
+    .sheet-backdrop { position: absolute; inset: 0; background-color: rgba(17, 24, 39, 0.45); z-index: 120; display: flex; align-items: flex-end; justify-content: center; }
+    .native-modal-sheet { width: 100%; background-color: var(--neu-bg); border-radius: 26px 26px 0 0; padding: 14px 22px calc(26px + var(--safe-bottom)); display: flex; flex-direction: column; gap: 14px; max-height: 85%; overflow-y: auto; }
     .sheet-title-bar { display: flex; align-items: center; justify-content: space-between; }
     .sheet-title-bar h3 { font-size: 19px; font-weight: 800; letter-spacing: -0.03em; }
-    .dong-option-list { display: flex; flex-direction: column; gap: 6px; }
-    .btn-dong-item { width: 100%; padding: 14px 16px; border-radius: 14px; font-size: 15.5px; font-weight: 700; text-align: left; display: flex; align-items: center; justify-content: space-between; color: var(--text-main); }
-    .btn-dong-item.selected { background-color: var(--primary-soft); color: var(--primary); font-weight: 800; }
-    .sms-native-box { background-color: var(--bg-base); border-radius: 16px; padding: 16px; font-size: 14.5px; line-height: 1.6; color: var(--text-main); white-space: pre-line; }
-    .app-toast { position: absolute; bottom: calc(84px + var(--safe-bottom)); left: 20px; right: 20px; background-color: rgba(17, 24, 39, 0.94); color: #FFFFFF; font-size: 14px; font-weight: 600; padding: 13px 18px; border-radius: 14px; text-align: center; z-index: 200; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); }
+    .dong-option-list { display: flex; flex-direction: column; gap: 8px; }
+    .btn-dong-item {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background-color: var(--neu-surface);
+      box-shadow: var(--neu-convex-sm);
+      font-size: 15.5px;
+      font-weight: 700;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--text-main);
+    }
+    .btn-dong-item.selected {
+      background-color: var(--neu-bg);
+      box-shadow: var(--neu-pressed);
+      color: var(--primary);
+      font-weight: 800;
+    }
+    .sms-native-box { background-color: var(--neu-bg); box-shadow: var(--neu-concave); border-radius: 16px; padding: 16px; font-size: 14.5px; line-height: 1.6; color: var(--text-main); white-space: pre-line; }
+    .app-toast { position: absolute; bottom: calc(84px + var(--safe-bottom)); left: 20px; right: 20px; background-color: rgba(17, 24, 39, 0.94); color: #FFFFFF; font-size: 14px; font-weight: 600; padding: 13px 18px; border-radius: 16px; text-align: center; z-index: 200; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18); }
   </style>
 </head>
 <body>
   <div class="app-shell">
 
     <!-- ========================================================================
-         [화면 1] 스플래시 ('53데시벨' 타이포 로고 + v1.0.6)
+         [화면 1] 스플래시 (뉴모피즘 입체 로고 플레이트 + v1.0.7)
          ======================================================================== -->
     <section class="screen" id="screen-splash" aria-label="53데시벨 시작 화면">
       <div class="splash-top-meta">
-        <span class="version-pill">v1.0.6</span>
+        <span class="version-pill">v1.0.7</span>
       </div>
 
       <div class="splash-center-group">
-        <div class="brand-logo-lockup" role="img" aria-label="53데시벨">
-          <span class="logo-num-box">53</span>
-          <span class="logo-text-kr">데시벨</span>
+        <div class="brand-neu-plate">
+          <div class="brand-logo-lockup" role="img" aria-label="53데시벨">
+            <span class="logo-num-box">53</span>
+            <span class="logo-text-kr">데시벨</span>
+          </div>
+          <p class="splash-slogan">조용히 살 권리를 지키는 시민 커뮤니티</p>
         </div>
-
-        <p class="splash-slogan">조용히 살 권리를 지키는 시민 커뮤니티</p>
       </div>
 
       <div class="splash-who-footer">
@@ -827,7 +1215,7 @@
     </section>
 
     <!-- ========================================================================
-         [화면 3] 메인 홈 (시야 방해 0% 순수 맵 + 하단 통합 피드 헤더)
+         [화면 3] 메인 홈 (순수 카카오맵 + 뉴모피즘 볼록 증언 카드 피드)
          ======================================================================== -->
     <section class="screen" id="screen-home" hidden>
       <header class="app-topbar">
@@ -840,7 +1228,7 @@
 
         <div class="topbar-right-actions">
           <button type="button" class="btn-top-icon" id="btn-toggle-search" aria-label="건물·도로 검색">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round">
               <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>
             </svg>
           </button>
@@ -851,13 +1239,13 @@
       </header>
 
       <div class="search-bar-float" id="search-drawer" hidden>
-        <div class="native-input-box" style="flex:1; height:42px;">
+        <div class="native-input-box" style="flex:1; height:44px;">
           <input type="text" id="input-map-search" placeholder="아파트·빌라·도로명 검색 (예: 만수주공1단지)">
         </div>
-        <button type="button" class="btn-chip-action" id="btn-exec-search" style="height:42px; background:var(--primary); color:#fff;">조회</button>
+        <button type="button" class="btn-chip-action" id="btn-exec-search" style="height:44px; background:var(--primary); color:#fff;">조회</button>
       </div>
 
-      <!-- 순수 맵 영역: 상단 텍스트/필터 박스 완전 제거하여 시야 확보 -->
+      <!-- 시야 방해 0% 순수 맵 -->
       <div class="map-container">
         <div id="kakao-map"></div>
         <div id="map-loading-box" class="map-status-msg">
@@ -873,7 +1261,7 @@
         </button>
       </div>
 
-      <!-- 하단 커뮤니티 시트: 동네 소음 요약 + 카테고리 필터 + 이웃 피드 통합 배치 -->
+      <!-- 하단 뉴모피즘 커뮤니티 시트 -->
       <aside class="bottom-feed-sheet" id="feed-sheet">
         <div class="sheet-header-panel">
           <div class="grabber-bar" id="sheet-handle-bar"></div>
@@ -935,14 +1323,14 @@
               <button type="button" class="btn-road-pill" data-roadtype="큰 도로·대로변">큰 도로·대로변</button>
               <button type="button" class="btn-road-pill" data-roadtype="상가·주변">상가·공원 주변</button>
             </div>
-            <div class="native-input-box" style="margin-top:10px; height:48px;">
+            <div class="native-input-box" style="margin-top:12px; height:48px;">
               <input type="text" id="input-write-anchor" value="백범로 124번길 만수5동 행정복지센터 인근" placeholder="도로명 또는 인접 건물 기준점">
             </div>
           </div>
 
           <div id="write-indoor-opts" class="floor-picker-wrap" hidden>
             <div style="display:flex; gap:6px;">
-              <div class="native-input-box" style="flex:1; height:44px; background:#fff;">
+              <div class="native-input-box" style="flex:1; height:44px;">
                 <input type="text" id="input-bldg-query" value="만수주공1단지아파트" placeholder="아파트·빌라명 또는 도로명 입력">
               </div>
               <button type="button" class="btn-chip-action" id="btn-lookup-bldg" style="height:44px; background:var(--primary); color:#fff;">건물 조회</button>
@@ -987,25 +1375,25 @@
           <h3>4. 이웃과 나눌 한마디</h3>
           <textarea class="write-textarea" id="input-write-content" placeholder="예) 밤 11시 40분부터 골목에서 고함과 욕설이 15분째 이어지고 있습니다."></textarea>
 
-          <div class="urgent-112-banner" style="margin-top:12px;">
+          <div class="urgent-112-banner" style="margin-top:14px;">
             <span>지금도 소음이 계속되고 있나요?<br>작성 내용 그대로 바로 신고할 수 있어요.</span>
             <button type="button" class="btn-urgent-112-go" id="btn-write-to-112">🚨 112 문자 신고</button>
           </div>
         </div>
       </div>
 
-      <div style="padding:12px 20px calc(20px + var(--safe-bottom)); background:var(--bg-surface); border-top:1px solid var(--line-soft);">
+      <div style="padding:12px 20px calc(20px + var(--safe-bottom)); background:var(--neu-bg);">
         <button type="button" class="btn-cta-primary" id="btn-submit-post">지도와 동네 피드에 올리기</button>
       </div>
     </section>
 
     <!-- ========================================================================
-         [화면 5-A] 게시글 상세
+         [화면 5-A] 게시글 상세 (정성스러운 증언형 댓글 카드 UI)
          ======================================================================== -->
     <section class="screen" id="screen-detail" hidden>
       <header class="subscreen-topbar">
         <button type="button" class="btn-chip-action" id="btn-close-detail">← 뒤로</button>
-        <h2>소음 이야기 상세</h2>
+        <h2>이웃 소음 증언 상세</h2>
         <button type="button" class="btn-112-pill" id="btn-detail-112">🚨 112</button>
       </header>
       <div class="detail-scroll" id="detail-body"></div>
@@ -1023,7 +1411,7 @@
       <div class="detail-scroll" id="bldg-detail-body"></div>
     </section>
 
-    <!-- 행정동 선택 바텀시트 (만수1~6동 실제 행정동 반영 + GPS 자동 감지) -->
+    <!-- 행정동 선택 바텀시트 -->
     <div class="sheet-backdrop" id="modal-dong" hidden>
       <div class="native-modal-sheet">
         <div class="grabber-bar" style="margin-bottom:4px;"></div>
@@ -1032,7 +1420,7 @@
           <button type="button" class="btn-chip-action" id="btn-close-dong">닫기</button>
         </div>
 
-        <button type="button" id="btn-detect-admin-dong" style="width:100%; height:46px; border-radius:12px; background:var(--secondary-soft); color:#0F766E; font-size:14px; font-weight:800; display:flex; align-items:center; justify-content:center; gap:6px;">
+        <button type="button" id="btn-detect-admin-dong" style="width:100%; height:48px; border-radius:14px; background:var(--neu-surface); box-shadow:var(--neu-convex-sm); color:#0F766E; font-size:14px; font-weight:800; display:flex; align-items:center; justify-content:center; gap:6px;">
           <span>📍 현재 내 위치(GPS)로 행정동 자동 찾기</span>
         </button>
 
@@ -1076,7 +1464,7 @@
           </p>
           <div class="sms-native-box" id="sms-preview-text"></div>
           <div style="display:flex; gap:10px; margin-top:16px;">
-            <button type="button" class="btn-chip-action" id="btn-copy-112" style="flex:1; height:52px; font-size:15px; background:var(--bg-base);">문구 복사</button>
+            <button type="button" class="btn-chip-action" id="btn-copy-112" style="flex:1; height:52px; font-size:15px;">문구 복사</button>
             <a id="link-sms-112" href="sms:112" class="btn-cta-primary" style="flex:2; height:52px; font-size:16px; text-decoration:none; background:var(--lv3-red);">
               112 문자 앱 열기
             </a>
@@ -1090,7 +1478,7 @@
 
   <script>
     const CONFIG = {
-      STORAGE_KEY: '53db_native_state_v106',
+      STORAGE_KEY: '53db_native_state_v107',
       BLDG_API_KEY: '738a1e3eb24afc48a06e3871c47d057b54f27cfde63e91a4e2b5a2baf27cbae5'
     };
 
@@ -1544,7 +1932,7 @@
                 <strong>${post.empathyCount}</strong>
               </button>
               <button type="button" class="btn-fc-comment" data-cmt="${post.id}">
-                <span>💬 댓글</span>
+                <span>💬 증언</span>
                 <strong>${(post.comments || []).length}</strong>
               </button>
             </div>
@@ -1753,51 +2141,52 @@
       const loc = formatBackroadAnchor(post.roadName, post.anchorBuilding, post.roadType);
 
       document.getElementById('detail-body').innerHTML = `
-        <div style="background:var(--primary-soft); border-radius:16px; padding:14px 16px;">
-          <div style="font-size:13px; font-weight:800; color:var(--primary);">AI 피해 신뢰도 ${cis.cisScore}% · 상습 피해 분석됨</div>
-          <div style="font-size:12.5px; color:var(--text-sub); margin-top:4px;">행정동 GPS 인증 주민 공감 일치 · 어뷰징 패턴 없음</div>
-        </div>
+        <div class="detail-main-card">
+          <div style="background:var(--primary-soft); border-radius:12px; padding:11px 14px;">
+            <div style="font-size:13px; font-weight:800; color:var(--primary);">AI 피해 신뢰도 ${cis.cisScore}% · 상습 피해 교차 분석됨</div>
+            <div style="font-size:12px; color:var(--text-sub); margin-top:2px;">행정동 GPS 인증 주민 공감 일치 · 조작·어뷰징 패턴 없음</div>
+          </div>
 
-        <div>
-          <div class="fc-badges" style="margin-bottom:8px;">
+          <div class="fc-badges">
             <span class="fc-cat">${post.category}</span>
             <span class="fc-who lv-${post.whoLevel}">${who.badge}</span>
           </div>
-          <div class="fc-loc" style="font-size:16px; margin-bottom:10px;">📍 ${loc}</div>
+          <div class="fc-loc" style="font-size:16px;">📍 ${loc}</div>
           <p class="fc-body" style="font-size:16px;">${post.content}</p>
-          <div style="margin-top:10px; font-size:13px; color:var(--text-muted);">✓ 행정동 인증 · ${post.nickname} · ${relTime(post.timestamp)}</div>
-        </div>
+          <div style="font-size:13px; color:var(--text-muted);">✓ 행정동 인증 · ${post.nickname} · ${relTime(post.timestamp)}</div>
 
-        <button type="button" class="btn-cta-primary" id="btn-detail-empathy" style="background:${post.empathizedByMe ? 'var(--secondary)' : 'var(--primary)'}; height:50px; font-size:15.5px;">
-          🙌 저도 같은 피해를 겪고 있어요 (${post.empathyCount}명)
-        </button>
+          <button type="button" class="btn-cta-primary" id="btn-detail-empathy" style="background:${post.empathizedByMe ? 'var(--secondary)' : 'var(--primary)'}; height:50px; font-size:15.5px; margin-top:4px;">
+            🙌 저도 같은 피해를 겪고 있어요 (${post.empathyCount}명)
+          </button>
 
-        <div style="display:flex; gap:8px;">
-          <button type="button" class="btn-chip-action" id="btn-copy-gov" style="flex:1; height:46px; background:var(--bg-base); font-size:13.5px;">🏛️ 구청·신문고 민원 리포트 복사</button>
+          <button type="button" class="btn-chip-action" id="btn-copy-gov" style="width:100%; height:44px; font-size:13.5px;">🏛️ 구청·신문고 민원 리포트 복사</button>
         </div>
 
         <div class="bm-report-card">
           <span class="bm-tag">53dB 주거 검증 리포트 · 베타 무료</span>
           <strong style="font-size:15.5px; color:var(--text-main);">이 구역·건물 24시간 소음 히트맵 & 방음 성적표</strong>
           <p style="font-size:13px; color:var(--text-sub); line-height:1.5;">이사·계약 전 심야 시간대 고정 소음원 패턴과 건물 구조 취약도를 확인하고, 인증된 현지 주민에게 직접 익명 질문할 수 있어요.</p>
-          <button type="button" class="btn-chip-action" onclick="showToast('베타 기간 중 무료로 제공되는 심층 리포트입니다.')" style="align-self:flex-start; background:var(--bg-surface);">심층 리포트 미리보기 →</button>
+          <button type="button" class="btn-chip-action" onclick="showToast('베타 기간 중 무료로 제공되는 심층 리포트입니다.')" style="align-self:flex-start;">심층 리포트 미리보기 →</button>
         </div>
 
-        <div>
-          <h3 style="font-size:15.5px; font-weight:800; margin-bottom:10px;">이웃 공감 댓글 (${(post.comments || []).length})</h3>
-          <div style="display:flex; gap:8px; margin-bottom:12px;">
-            <div class="native-input-box" style="flex:1; height:44px;">
-              <input type="text" id="input-detail-comment" placeholder="같은 피해를 겪고 계신가요?">
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <h3 style="font-size:16px; font-weight:800; color:var(--text-main);">이웃 공동 증언 카드 (${(post.comments || []).length}건)</h3>
+          <div style="display:flex; gap:8px;">
+            <div class="native-input-box" style="flex:1; height:46px;">
+              <input type="text" id="input-detail-comment" placeholder="겪으신 시간대와 상황을 증언해 주세요">
             </div>
-            <button type="button" class="btn-chip-action" id="btn-add-comment" style="height:44px; background:var(--primary); color:#fff;">등록</button>
+            <button type="button" class="btn-chip-action" id="btn-add-comment" style="height:46px; background:var(--primary); color:#fff;">증언 등록</button>
           </div>
-          <div>
+          <div style="display:flex; flex-direction:column; gap:10px;">
             ${(post.comments || []).map(c => `
-              <div class="comment-item-box">
-                <div style="font-size:12.5px; font-weight:800; color:var(--secondary); margin-bottom:3px;">✓ ${c.nick} · ${c.time}</div>
-                <div style="color:var(--text-main); line-height:1.45;">${c.text}</div>
+              <div class="testimony-card">
+                <div class="testimony-header">
+                  <span class="testimony-badge">✓ 행정동 인증 증언 · ${c.nick}</span>
+                  <span class="testimony-time">${c.time}</span>
+                </div>
+                <div class="testimony-body">${c.text}</div>
               </div>
-            `).join('') || '<div style="font-size:13.5px; color:var(--text-muted); padding:12px 0;">첫 번째 이웃 공감 댓글을 남겨주세요.</div>'}
+            `).join('') || '<div style="font-size:13.5px; color:var(--text-muted); padding:16px; text-align:center; background:var(--neu-surface); border-radius:16px; box-shadow:var(--neu-concave);">아직 등록된 이웃 증언이 없습니다.<br>첫 번째 공동 증언을 남겨 신뢰도를 높여주세요.</div>'}
           </div>
         </div>
       `;
@@ -1858,11 +2247,11 @@
       }
 
       document.getElementById('bldg-detail-body').innerHTML = `
-        <div style="background:var(--bg-base); border-radius:18px; padding:16px;">
-          <div style="font-size:12px; font-weight:800; color:var(--secondary); margin-bottom:4px;">✓ ${prof.source || '국토교통부 건축물대장 연동'}</div>
-          <div style="font-size:14px; font-weight:800; color:var(--primary);">건축 구조 프로파일링 · 방음 취약도 ${prof.vulnerability}점</div>
-          <div style="font-size:14px; color:var(--text-sub); margin-top:5px;">${prof.summary}</div>
-          <div style="font-size:12px; color:var(--text-muted); margin-top:4px;">※ 보복·명예훼손 방지를 위해 개별 호수는 절대 공개되지 않습니다.</div>
+        <div class="detail-main-card">
+          <div style="font-size:12px; font-weight:800; color:var(--secondary);">✓ ${prof.source || '국토교통부 건축물대장 연동'}</div>
+          <div style="font-size:15px; font-weight:800; color:var(--primary);">건축 구조 프로파일링 · 방음 취약도 ${prof.vulnerability}점</div>
+          <div style="font-size:14px; color:var(--text-sub);">${prof.summary}</div>
+          <div style="font-size:12px; color:var(--text-muted);">※ 보복·명예훼손 방지를 위해 개별 호수는 절대 공개되지 않습니다.</div>
         </div>
 
         <div class="building-cross-section">
@@ -1874,7 +2263,7 @@
           <span class="bm-tag">이사·계약 전 건물 검증 · 베타 무료</span>
           <strong style="font-size:15.5px;">${prof.name} 구조적 방음 성적표 & 입주민 Q&A</strong>
           <p style="font-size:13px; color:var(--text-sub); line-height:1.5;">이웃이 바뀌어도 변하지 않는 배관·벽간 구조 방음 데이터와 현재 거주 중인 인증 입주민에게 직접 질문해 보세요.</p>
-          <button type="button" class="btn-chip-action" onclick="showToast('현재 거주 중인 인증 입주민에게 익명 질문 알림을 보낼 수 있습니다.')" style="align-self:flex-start; background:var(--bg-surface);">입주민에게 익명 질문하기 →</button>
+          <button type="button" class="btn-chip-action" onclick="showToast('현재 거주 중인 인증 입주민에게 익명 질문 알림을 보낼 수 있습니다.')" style="align-self:flex-start;">입주민에게 익명 질문하기 →</button>
         </div>
       `;
 
