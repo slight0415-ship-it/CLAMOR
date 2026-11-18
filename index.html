@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨 (v1.0.3)</title>
+  <title>53데시벨 (v1.0.4)</title>
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Crect width='128' height='128' rx='28' fill='%231B4965'/%3E%3Ctext x='64' y='74' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='54' font-weight='900'%3E53%3C/text%3E%3Ctext x='64' y='102' text-anchor='middle' fill='%235EEAD4' font-family='sans-serif' font-size='22' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%231B4965'/%3E%3Ctext x='90' y='102' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='76' font-weight='900'%3E53%3C/text%3E%3Ctext x='90' y='142' text-anchor='middle' fill='%235EEAD4' font-family='sans-serif' font-size='30' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
@@ -125,7 +125,7 @@
     button:active { transform: scale(0.97); }
 
     /* ==========================================================================
-       [화면 1] 스플래시 (명확한 '53데시벨' 타이포 로고 + 버전 배지)
+       [화면 1] 스플래시 (명확한 '53데시벨' 타이포 로고 + v1.0.4)
        ========================================================================== */
     #screen-splash {
       z-index: 100;
@@ -161,7 +161,6 @@
       width: 100%;
     }
 
-    /* 명확한 시인성을 위한 '53데시벨' 브랜드 워드마크 */
     .brand-logo-lockup {
       display: inline-flex;
       align-items: center;
@@ -494,7 +493,7 @@
     }
 
     /* ==========================================================================
-       [화면 3] 메인 홈
+       [화면 3] 메인 홈 (실제 카카오맵 전용)
        ========================================================================== */
     #screen-home {
       z-index: 20;
@@ -562,19 +561,32 @@
       position: relative;
       flex: 1;
       width: 100%;
+      min-height: 240px;
       overflow: hidden;
-      background-color: #EDF2F7;
+      background-color: #E2E8F0;
     }
 
-    #kakao-map { width: 100%; height: 100%; }
-
-    .fallback-vector-map {
+    #kakao-map {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
-      background-color: #F1F5F9;
-      overflow: hidden;
+    }
+
+    .map-status-msg {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-sub);
+      gap: 8px;
+      z-index: 5;
     }
 
     .map-floating-top {
@@ -950,11 +962,11 @@
   <div class="app-shell">
 
     <!-- ========================================================================
-         [화면 1] 스플래시 (시인성이 명확한 '53데시벨' 브랜드 워드마크 + v1.0.3)
+         [화면 1] 스플래시 ('53데시벨' 타이포 로고 + v1.0.4)
          ======================================================================== -->
     <section class="screen" id="screen-splash" aria-label="53데시벨 시작 화면">
       <div class="splash-top-meta">
-        <span class="version-pill">v1.0.3</span>
+        <span class="version-pill">v1.0.4</span>
       </div>
 
       <div class="splash-center-group">
@@ -1064,7 +1076,7 @@
     </section>
 
     <!-- ========================================================================
-         [화면 3] 메인 홈
+         [화면 3] 메인 홈 (실제 카카오맵 전용)
          ======================================================================== -->
     <section class="screen" id="screen-home" hidden>
       <header class="app-topbar">
@@ -1096,25 +1108,8 @@
 
       <div class="map-container">
         <div id="kakao-map"></div>
-
-        <div id="fallback-map" class="fallback-vector-map" hidden>
-          <svg width="100%" height="100%" viewBox="0 0 430 420" preserveAspectRatio="xMidYMid slice">
-            <rect width="430" height="420" fill="#EDF2F7"/>
-            <rect x="24" y="250" width="96" height="84" rx="18" fill="#DCFCE7"/>
-            <rect x="310" y="95" width="90" height="72" rx="16" fill="#DCFCE7"/>
-            <rect x="35" y="105" width="115" height="110" rx="14" fill="#E2E8F0"/>
-            <rect x="180" y="105" width="110" height="110" rx="14" fill="#E2E8F0"/>
-            <rect x="150" y="245" width="140" height="120" rx="14" fill="#E2E8F0"/>
-            <path d="M0 230 H430" stroke="#FFFFFF" stroke-width="18"/>
-            <path d="M0 230 H430" stroke="#FCD34D" stroke-width="1.5" stroke-dasharray="6 6"/>
-            <path d="M165 0 V420" stroke="#FFFFFF" stroke-width="16"/>
-            <path d="M300 0 V420" stroke="#FFFFFF" stroke-width="10"/>
-            <path d="M0 160 H300" stroke="#FFFFFF" stroke-width="9"/>
-            <path d="M0 310 H430" stroke="#FFFFFF" stroke-width="9"/>
-            <text x="18" y="224" fill="#64748B" font-size="11" font-weight="700">만수서로 (간선도로)</text>
-            <text x="185" y="154" fill="#64748B" font-size="10.5" font-weight="700">만수서로 37번길 (이면도로)</text>
-          </svg>
-          <div id="fallback-pins-layer" style="position:absolute; inset:0;"></div>
+        <div id="map-loading-box" class="map-status-msg">
+          <span>카카오맵을 불러오는 중입니다...</span>
         </div>
 
         <div class="map-floating-top">
@@ -1327,7 +1322,7 @@
   </div>
 
   <script>
-    const CONFIG = { STORAGE_KEY: '53db_native_state_v103' };
+    const CONFIG = { STORAGE_KEY: '53db_native_state_v104' };
 
     const DONG_CENTERS = {
       mansu:    { short: '만수동', name: '인천 남동구 만수동', lat: 37.4562, lng: 126.7314 },
@@ -1410,7 +1405,7 @@
     const INITIAL_POSTS = [
       {
         id: 'post-101', dong: 'mansu', spaceType: 'outdoor', filterGroup: 'bike', category: '바이크·차량 굉음', whoLevel: 3,
-        lat: 37.4565, lng: 126.7321, fx: 58, fy: 42, roadName: '만수서로 37번길', anchorBuilding: '평화빌라 앞', roadType: '이면도로·골목',
+        lat: 37.4565, lng: 126.7321, roadName: '만수서로 37번길', anchorBuilding: '평화빌라 앞', roadType: '이면도로·골목',
         nickname: '조용한만수동부엉이', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 14,
         content: '밤 11시만 넘으면 머플러 개조한 배달 바이크가 골목 오르막길에서 풀악셀을 땡깁니다. 창문 닫아도 심장이 덜컥 내려앉아요.',
         empathyCount: 29, empathizedByMe: false,
@@ -1421,7 +1416,7 @@
       },
       {
         id: 'post-102', dong: 'mansu', spaceType: 'indoor', buildingId: 'bldg-mansu-1', floor: 5, filterGroup: 'indoor', category: '발망치·뛰는소리', whoLevel: 2,
-        lat: 37.4569, lng: 126.7305, fx: 32, fy: 54, roadName: '구월로 348번길', anchorBuilding: '만수 드림하임 (5층)', roadType: '공동주택 실내',
+        lat: 37.4569, lng: 126.7305, roadName: '구월로 348번길', anchorBuilding: '만수 드림하임 (5층)', roadType: '공동주택 실내',
         nickname: '5층에서버티는중', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 42,
         content: '새벽 1시까지 쿵쾅거리는 발망치와 물건 떨어뜨리는 충격음이 벽을 타고 아래층까지 울립니다.',
         empathyCount: 16, empathizedByMe: false,
@@ -1429,7 +1424,7 @@
       },
       {
         id: 'post-103', dong: 'mansu', spaceType: 'outdoor', filterGroup: 'shout', category: '고성 및 욕설', whoLevel: 3,
-        lat: 37.4553, lng: 126.7298, fx: 72, fy: 66, roadName: '만수로 15번길 7', anchorBuilding: '인근 이면도로', roadType: '이면도로·골목',
+        lat: 37.4553, lng: 126.7298, roadName: '만수로 15번길 7', anchorBuilding: '인근 이면도로', roadType: '이면도로·골목',
         nickname: '수면권수호자', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 88,
         content: '밤 11시 40분경부터 자정 넘어서까지 15분 이상 괴성과 욕설이 간헐적으로 터져 나옵니다. 자다가 심장이 뜁니다.',
         empathyCount: 24, empathizedByMe: false, comments: []
@@ -1478,8 +1473,8 @@
         document.getElementById(s).hidden = (s !== id);
       });
       if (id === 'screen-home') {
-        initMap();
         renderHome();
+        requestAnimationFrame(() => initMap());
       }
     }
 
@@ -1519,88 +1514,46 @@
       goScreen('screen-home');
     });
 
-    function enableFallbackMap() {
-      document.getElementById('kakao-map').hidden = true;
-      document.getElementById('fallback-map').hidden = false;
-      renderFallbackPins();
-    }
-
+    /* 실제 카카오맵 전용 초기화 */
     function initMap() {
-      if (state.map) { setTimeout(() => state.map.relayout(), 60); return; }
-      if (typeof kakao === 'undefined' || !kakao.maps) { enableFallbackMap(); return; }
-      try {
-        kakao.maps.load(() => {
-          try {
-            const c = DONG_CENTERS[state.currentDong];
-            state.map = new kakao.maps.Map(document.getElementById('kakao-map'), {
-              center: new kakao.maps.LatLng(c.lat, c.lng),
-              level: 4
-            });
-            renderPins();
-          } catch (err) { enableFallbackMap(); }
+      const msgBox = document.getElementById('map-loading-box');
+      if (state.map) {
+        if (msgBox) msgBox.hidden = true;
+        state.map.relayout();
+        const c = DONG_CENTERS[state.currentDong];
+        state.map.setCenter(new kakao.maps.LatLng(c.lat, c.lng));
+        renderPins();
+        return;
+      }
+
+      if (typeof kakao === 'undefined' || !kakao.maps) {
+        if (msgBox) {
+          msgBox.innerHTML = '<span>카카오맵 SDK 스크립트를 불러오지 못했습니다.</span><span style="font-size:12px; color:#8B95A1;">네트워크 연결 및 카카오 개발자센터 카카오맵 ON 설정을 확인해 주세요.</span>';
+        }
+        return;
+      }
+
+      kakao.maps.load(() => {
+        const container = document.getElementById('kakao-map');
+        const c = DONG_CENTERS[state.currentDong];
+        state.map = new kakao.maps.Map(container, {
+          center: new kakao.maps.LatLng(c.lat, c.lng),
+          level: 4
         });
-        setTimeout(() => { if (!state.map) enableFallbackMap(); }, 1500);
-      } catch (e) { enableFallbackMap(); }
+        if (msgBox) msgBox.hidden = true;
+        setTimeout(() => {
+          state.map.relayout();
+          state.map.setCenter(new kakao.maps.LatLng(c.lat, c.lng));
+          renderPins();
+        }, 120);
+      });
     }
 
     function getFilteredPosts() {
       return state.posts.filter(p => p.dong === state.currentDong && (state.activeFilter === 'all' || p.filterGroup === state.activeFilter));
     }
 
-    function renderFallbackPins() {
-      const layer = document.getElementById('fallback-pins-layer');
-      if (!layer) return;
-      layer.innerHTML = '';
-      const posts = getFilteredPosts();
-      const outdoor = posts.filter(p => p.spaceType === 'outdoor');
-      const epicenter = localizeNoiseSource(outdoor);
-
-      outdoor.forEach((post, i) => {
-        const cis = calculateCIS(post);
-        const emoji = post.filterGroup === 'bike' ? '🏍️' : (post.filterGroup === 'shout' ? '🗣️' : '🚧');
-        const el = document.createElement('div');
-        el.className = `pin-outdoor lv-${post.whoLevel}`;
-        el.style.position = 'absolute';
-        el.style.left = `${post.fx || (35 + i * 18)}%`;
-        el.style.top = `${post.fy || (45 + i * 10)}%`;
-        el.style.transform = 'translate(-50%, -50%)';
-        el.innerHTML = `
-          ${i === 0 && epicenter ? `<span class="pin-epicenter-tag">발원지 추정 · 신뢰도 ${cis.cisScore}%</span>` : ''}
-          <span class="pin-outdoor-badge">${emoji}</span>
-          <span class="pin-outdoor-title">${post.category}</span>
-          <span class="pin-outdoor-cnt">🙌 ${post.empathyCount}</span>
-        `;
-        el.onclick = () => openPostDetail(post.id);
-        layer.appendChild(el);
-      });
-
-      if (state.activeFilter === 'all' || state.activeFilter === 'indoor') {
-        state.buildings.filter(b => b.dong === state.currentDong).forEach((bldg, idx) => {
-          const bReports = state.posts.filter(p => p.buildingId === bldg.id);
-          const prof = profileBuildingStructure(bldg, bReports);
-          let lines = '';
-          for (let f = 5; f >= 1; f--) {
-            const hot = bReports.find(r => (r.floor % 5) + 1 === f);
-            lines += `<div class="bldg-floor-line ${hot ? 'hot-lv' + hot.whoLevel : ''}"></div>`;
-          }
-          const el = document.createElement('div');
-          el.className = 'pin-building';
-          el.style.position = 'absolute';
-          el.style.left = `${28 + idx * 36}%`;
-          el.style.top = `${56 - idx * 8}%`;
-          el.style.transform = 'translate(-50%, -50%)';
-          el.innerHTML = `
-            <div class="bldg-3d-box">${lines}</div>
-            <div class="bldg-label-pill"><span>${prof.name}</span><b>${bReports.length}</b></div>
-          `;
-          el.onclick = () => openBuildingView(bldg.id);
-          layer.appendChild(el);
-        });
-      }
-    }
-
     function renderPins() {
-      if (!document.getElementById('fallback-map').hidden) { renderFallbackPins(); return; }
       if (!state.map || typeof kakao === 'undefined') return;
       state.overlays.forEach(o => o.setMap(null));
       state.overlays = [];
@@ -1808,8 +1761,6 @@
         whoLevel: state.writeDraft.whoLevel,
         lat: c.lat + (Math.random() - 0.5) * 0.002,
         lng: c.lng + (Math.random() - 0.5) * 0.002,
-        fx: 30 + Math.floor(Math.random() * 45),
-        fy: 35 + Math.floor(Math.random() * 35),
         roadName: isIndoor ? '구월로 348번길' : anchor,
         anchorBuilding: isIndoor ? anchor : '인근 도로',
         roadType: isIndoor ? '공동주택 실내' : state.writeDraft.roadType,
@@ -2008,6 +1959,7 @@
     document.getElementById('sheet-handle').onclick = () => {
       const exp = document.getElementById('feed-sheet').classList.toggle('expanded');
       document.getElementById('sheet-expand-label').textContent = exp ? '지도 크게 보기' : '목록 넓히기';
+      if (state.map) setTimeout(() => state.map.relayout(), 300);
     };
 
     document.getElementById('btn-toggle-search').onclick = () => {
@@ -2016,8 +1968,7 @@
     };
     document.getElementById('btn-exec-search').onclick = () => {
       const q = document.getElementById('input-map-search').value.trim();
-      if (!q) return;
-      if (!state.map || typeof kakao === 'undefined') { showToast(`'${q}' 구역으로 이동했습니다.`); document.getElementById('search-drawer').hidden = true; return; }
+      if (!q || !state.map || typeof kakao === 'undefined') return;
       const ps = new kakao.maps.services.Places();
       ps.keywordSearch(q, (data, st) => {
         if (st === kakao.maps.services.Status.OK && data[0]) {
