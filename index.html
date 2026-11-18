@@ -6,8 +6,25 @@
   <meta name="color-scheme" content="only light">
   <meta name="theme-color" content="#F6F8FA">
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨</title>
+  <title>53데시벨 (v1.0.3)</title>
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Crect width='128' height='128' rx='28' fill='%231B4965'/%3E%3Ctext x='64' y='74' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='54' font-weight='900'%3E53%3C/text%3E%3Ctext x='64' y='102' text-anchor='middle' fill='%235EEAD4' font-family='sans-serif' font-size='22' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%231B4965'/%3E%3Ctext x='90' y='102' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='76' font-weight='900'%3E53%3C/text%3E%3Ctext x='90' y='142' text-anchor='middle' fill='%235EEAD4' font-family='sans-serif' font-size='30' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function(regs) {
+        for (let r of regs) { r.unregister(); }
+      });
+    }
+    if ('caches' in window) {
+      caches.keys().then(function(names) {
+        for (let name of names) { caches.delete(name); }
+      });
+    }
+  </script>
 
   <!-- Pretendard Variable -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
@@ -15,29 +32,24 @@
   <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=20b24a9df15474b70785b099967431b3&libraries=services,clusterer&autoload=false"></script>
 
   <style>
-    /* ==========================================================================
-       1. 네이티브 앱 디자인 토큰 (라이트 톤 고정)
-       ========================================================================== */
     :root {
       color-scheme: only light;
-      --bg-base: #F6F8FA;          /* 메인 쿨 화이트 그레이 */
-      --bg-surface: #FFFFFF;       /* 카드/시트 표면 */
-      --bg-subtle: #F1F5F9;        /* 연한 면 구분색 */
-      --line-soft: #EEF2F6;        /* 구분선 */
-      --border-color: #E2E8F0;     /* 테두리 */
+      --bg-base: #F6F8FA;
+      --bg-surface: #FFFFFF;
+      --bg-subtle: #F1F5F9;
+      --line-soft: #EEF2F6;
+      --border-color: #E2E8F0;
 
-      --text-main: #111827;        /* 기본 텍스트 */
-      --text-sub: #4B5563;         /* 보조 텍스트 */
-      --text-muted: #8B95A1;       /* 캡션 텍스트 */
+      --text-main: #111827;
+      --text-sub: #4B5563;
+      --text-muted: #8B95A1;
 
-      /* 브랜드 컬러 */
-      --primary: #1B4965;          /* 딥 피콕 블루 */
+      --primary: #1B4965;
       --primary-dark: #123246;
       --primary-soft: #EBF3F8;
-      --secondary: #0D9488;        /* 에메랄드 세이지 */
+      --secondary: #0D9488;
       --secondary-soft: #E6F7F5;
 
-      /* 데이터 시맨틱 컬러 (소음 강도/위험 표시 전용) */
       --lv1-yellow: #EAB308;
       --lv1-soft: #FEF9C3;
       --lv2-orange: #F59E0B;
@@ -113,14 +125,31 @@
     button:active { transform: scale(0.97); }
 
     /* ==========================================================================
-       2. [화면 1] 스플래시 ('53데시벨' 커스텀 그래픽 워드마크 로고화)
+       [화면 1] 스플래시 (명확한 '53데시벨' 타이포 로고 + 버전 배지)
        ========================================================================== */
     #screen-splash {
       z-index: 100;
       background-color: var(--bg-base);
       justify-content: space-between;
-      padding: calc(72px + var(--safe-top)) 26px calc(38px + var(--safe-bottom));
+      padding: calc(20px + var(--safe-top)) 26px calc(38px + var(--safe-bottom));
       cursor: pointer;
+    }
+
+    .splash-top-meta {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .version-pill {
+      background-color: var(--bg-surface);
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 800;
+      padding: 5px 11px;
+      border-radius: 999px;
+      box-shadow: 0 2px 8px rgba(27, 73, 101, 0.08);
+      letter-spacing: 0.02em;
     }
 
     .splash-center-group {
@@ -132,29 +161,37 @@
       width: 100%;
     }
 
-    .wordmark-logo-wrap {
-      width: 100%;
-      max-width: 310px;
-      display: flex;
-      flex-direction: column;
+    /* 명확한 시인성을 위한 '53데시벨' 브랜드 워드마크 */
+    .brand-logo-lockup {
+      display: inline-flex;
       align-items: center;
-      position: relative;
+      justify-content: center;
+      gap: 6px;
+      padding-bottom: 12px;
+      border-bottom: 3.5px solid var(--secondary);
     }
 
-    .wordmark-svg {
-      width: 100%;
-      height: auto;
-      overflow: visible;
-      filter: drop-shadow(0 10px 24px rgba(27, 73, 101, 0.10));
+    .logo-num-box {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(145deg, #235B7E 0%, #1B4965 100%);
+      color: #FFFFFF;
+      font-size: 40px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      padding: 10px 14px;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(27, 73, 101, 0.18);
     }
 
-    .eq-bar-1 { animation: eqPulse 2.2s ease-in-out infinite; transform-origin: center bottom; }
-    .eq-bar-2 { animation: eqPulse 2.2s ease-in-out 0.35s infinite; transform-origin: center bottom; }
-    .eq-bar-3 { animation: eqPulse 2.2s ease-in-out 0.7s infinite; transform-origin: center bottom; }
-
-    @keyframes eqPulse {
-      0%, 100% { transform: scaleY(1); }
-      50% { transform: scaleY(0.72); }
+    .logo-text-kr {
+      font-size: 42px;
+      font-weight: 900;
+      color: var(--primary);
+      letter-spacing: -0.04em;
+      line-height: 1;
     }
 
     .splash-slogan {
@@ -218,7 +255,7 @@
     }
 
     /* ==========================================================================
-       3. [화면 2] 로그인 & 온보딩 (관공서식 설명 박스 제거 · 네이티브 온보딩)
+       [화면 2] 로그인 & 온보딩
        ========================================================================== */
     #screen-auth {
       z-index: 90;
@@ -325,12 +362,7 @@
       gap: 10px;
     }
 
-    .btn-native-social svg {
-      width: 20px;
-      height: 20px;
-      flex-shrink: 0;
-    }
-
+    .btn-native-social svg { width: 20px; height: 20px; flex-shrink: 0; }
     .btn-native-kakao { background-color: #FEE500; color: #191919; }
     .btn-native-naver { background-color: #03C75A; color: #FFFFFF; }
     .btn-native-google { background-color: var(--bg-base); color: var(--text-main); }
@@ -444,17 +476,8 @@
       cursor: pointer;
     }
 
-    .native-agree-row input {
-      width: 22px;
-      height: 22px;
-      accent-color: var(--primary);
-    }
-
-    .native-agree-row span {
-      font-size: 14.5px;
-      font-weight: 700;
-      color: var(--text-main);
-    }
+    .native-agree-row input { width: 22px; height: 22px; accent-color: var(--primary); }
+    .native-agree-row span { font-size: 14.5px; font-weight: 700; color: var(--text-main); }
 
     .btn-cta-primary {
       width: 100%;
@@ -471,7 +494,7 @@
     }
 
     /* ==========================================================================
-       4. [화면 3] 메인 홈 (당근마켓식 상단 바 + 지도 & 오프라인 벡터 백업 + 바텀시트)
+       [화면 3] 메인 홈
        ========================================================================== */
     #screen-home {
       z-index: 20;
@@ -500,17 +523,8 @@
       padding: 6px 4px;
     }
 
-    .dong-picker-btn svg {
-      width: 18px;
-      height: 18px;
-      color: var(--text-main);
-    }
-
-    .topbar-right-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .dong-picker-btn svg { width: 18px; height: 18px; color: var(--text-main); }
+    .topbar-right-actions { display: flex; align-items: center; gap: 8px; }
 
     .btn-top-icon {
       width: 38px;
@@ -554,7 +568,6 @@
 
     #kakao-map { width: 100%; height: 100%; }
 
-    /* 로컬 파일 실행 시 카카오맵 도메인 미등록 대비 깔끔한 인터랙티브 동네 벡터 지도 레이어 */
     .fallback-vector-map {
       position: absolute;
       inset: 0;
@@ -635,7 +648,6 @@
       box-shadow: 0 4px 12px rgba(27, 73, 101, 0.28);
     }
 
-    /* 우측 하단 현위치 버튼 (깨짐 없는 깔끔한 원형 SVG 버튼) */
     .btn-floating-gps {
       position: absolute;
       right: 14px;
@@ -651,9 +663,7 @@
       color: var(--primary);
     }
 
-    /* ==========================================================================
-       5. 지도 핀 (카카오맵 오버레이 & 벡터 지도 공용)
-       ========================================================================== */
+    /* 지도 핀 */
     .pin-outdoor {
       position: relative;
       display: inline-flex;
@@ -686,18 +696,8 @@
     .pin-outdoor.lv-2 .pin-outdoor-badge { background-color: var(--lv2-orange); }
     .pin-outdoor.lv-3 .pin-outdoor-badge { background-color: var(--lv3-red); }
 
-    .pin-outdoor-title {
-      font-size: 12.5px;
-      font-weight: 800;
-      color: var(--text-main);
-      letter-spacing: -0.02em;
-    }
-
-    .pin-outdoor-cnt {
-      font-size: 11.5px;
-      font-weight: 800;
-      color: var(--primary);
-    }
+    .pin-outdoor-title { font-size: 12.5px; font-weight: 800; color: var(--text-main); letter-spacing: -0.02em; }
+    .pin-outdoor-cnt { font-size: 11.5px; font-weight: 800; color: var(--primary); }
 
     .pin-epicenter-tag {
       position: absolute;
@@ -732,12 +732,7 @@
       border-top: 4px solid #387CA3;
     }
 
-    .bldg-floor-line {
-      height: 3.5px;
-      border-radius: 2px;
-      background-color: rgba(255, 255, 255, 0.22);
-    }
-
+    .bldg-floor-line { height: 3.5px; border-radius: 2px; background-color: rgba(255, 255, 255, 0.22); }
     .bldg-floor-line.hot-lv1 { background-color: var(--lv1-yellow); }
     .bldg-floor-line.hot-lv2 { background-color: var(--lv2-orange); }
     .bldg-floor-line.hot-lv3 { background-color: var(--lv3-red); }
@@ -759,9 +754,7 @@
 
     .bldg-label-pill b { color: var(--lv3-red); }
 
-    /* ==========================================================================
-       6. 바텀시트 피드 & 플로팅 글쓰기 버튼
-       ========================================================================== */
+    /* 바텀시트 피드 */
     .bottom-feed-sheet {
       height: 45%;
       background-color: var(--bg-surface);
@@ -775,44 +768,13 @@
 
     .bottom-feed-sheet.expanded { height: 78%; }
 
-    .sheet-grabber-area {
-      padding: 10px 20px 12px;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
+    .sheet-grabber-area { padding: 10px 20px 12px; cursor: pointer; flex-shrink: 0; }
+    .grabber-bar { width: 36px; height: 4px; border-radius: 999px; background-color: #D1D5DB; margin: 0 auto 12px; }
+    .sheet-header-row { display: flex; align-items: center; justify-content: space-between; }
+    .sheet-header-row h2 { font-size: 17px; font-weight: 800; letter-spacing: -0.03em; color: var(--text-main); }
+    .sheet-header-row span { font-size: 13px; font-weight: 700; color: var(--text-muted); }
 
-    .grabber-bar {
-      width: 36px;
-      height: 4px;
-      border-radius: 999px;
-      background-color: #D1D5DB;
-      margin: 0 auto 12px;
-    }
-
-    .sheet-header-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .sheet-header-row h2 {
-      font-size: 17px;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      color: var(--text-main);
-    }
-
-    .sheet-header-row span {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-muted);
-    }
-
-    .native-feed-scroll {
-      flex: 1;
-      overflow-y: auto;
-      padding: 0 20px calc(88px + var(--safe-bottom));
-    }
+    .native-feed-scroll { flex: 1; overflow-y: auto; padding: 0 20px calc(88px + var(--safe-bottom)); }
 
     .native-post-item {
       padding: 18px 0;
@@ -823,82 +785,19 @@
       cursor: pointer;
     }
 
-    .post-badge-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    .post-cat-chip {
-      background-color: var(--bg-subtle);
-      color: var(--text-sub);
-      font-size: 12px;
-      font-weight: 700;
-      padding: 4px 8px;
-      border-radius: 6px;
-    }
-
-    .post-who-chip {
-      font-size: 12px;
-      font-weight: 800;
-      padding: 4px 8px;
-      border-radius: 6px;
-    }
-
+    .post-badge-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .post-cat-chip { background-color: var(--bg-subtle); color: var(--text-sub); font-size: 12px; font-weight: 700; padding: 4px 8px; border-radius: 6px; }
+    .post-who-chip { font-size: 12px; font-weight: 800; padding: 4px 8px; border-radius: 6px; }
     .post-who-chip.lv-1 { background-color: var(--lv1-soft); color: #9A6B00; }
     .post-who-chip.lv-2 { background-color: var(--lv2-soft); color: #C2410C; }
     .post-who-chip.lv-3 { background-color: var(--lv3-soft); color: var(--lv3-red); }
-
-    .post-cis-right {
-      margin-left: auto;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--primary);
-    }
-
-    .post-location-title {
-      font-size: 14px;
-      font-weight: 800;
-      color: var(--primary);
-      letter-spacing: -0.02em;
-    }
-
-    .post-content-body {
-      font-size: 15.5px;
-      font-weight: 400;
-      line-height: 1.52;
-      color: var(--text-main);
-      letter-spacing: -0.015em;
-      word-break: keep-all;
-    }
-
-    .post-meta-footer {
-      margin-top: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .post-author-info {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-muted);
-    }
-
-    .verified-dong-tag {
-      color: var(--secondary);
-      font-weight: 800;
-    }
-
-    .post-reaction-group {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .post-cis-right { margin-left: auto; font-size: 12px; font-weight: 700; color: var(--primary); }
+    .post-location-title { font-size: 14px; font-weight: 800; color: var(--primary); letter-spacing: -0.02em; }
+    .post-content-body { font-size: 15.5px; font-weight: 400; line-height: 1.52; color: var(--text-main); letter-spacing: -0.015em; word-break: keep-all; }
+    .post-meta-footer { margin-top: 4px; display: flex; align-items: center; justify-content: space-between; }
+    .post-author-info { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text-muted); }
+    .verified-dong-tag { color: var(--secondary); font-weight: 800; }
+    .post-reaction-group { display: flex; align-items: center; gap: 8px; }
 
     .btn-native-empathy {
       height: 34px;
@@ -913,18 +812,8 @@
       gap: 5px;
     }
 
-    .btn-native-empathy.active {
-      background-color: var(--primary-soft);
-      color: var(--primary);
-      font-weight: 800;
-    }
-
-    .comment-count-label {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-muted);
-      padding: 0 4px;
-    }
+    .btn-native-empathy.active { background-color: var(--primary-soft); color: var(--primary); font-weight: 800; }
+    .comment-count-label { font-size: 13px; font-weight: 600; color: var(--text-muted); padding: 0 4px; }
 
     .fab-native-write {
       position: absolute;
@@ -946,12 +835,9 @@
     }
 
     /* ==========================================================================
-       7. [화면 4] 3초 컷 선택형 글쓰기 풀스크린 시트
+       [화면 4] 3초 컷 선택형 글쓰기
        ========================================================================== */
-    #screen-write {
-      z-index: 110;
-      background-color: var(--bg-surface);
-    }
+    #screen-write { z-index: 110; background-color: var(--bg-surface); }
 
     .subscreen-topbar {
       height: calc(54px + var(--safe-top));
@@ -964,11 +850,7 @@
       flex-shrink: 0;
     }
 
-    .subscreen-topbar h2 {
-      font-size: 17px;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-    }
+    .subscreen-topbar h2 { font-size: 17px; font-weight: 800; letter-spacing: -0.03em; }
 
     .write-scroll-body {
       flex: 1;
@@ -979,19 +861,8 @@
       gap: 26px;
     }
 
-    .write-step-block h3 {
-      font-size: 15.5px;
-      font-weight: 800;
-      color: var(--text-main);
-      margin-bottom: 12px;
-      letter-spacing: -0.02em;
-    }
-
-    .space-toggle-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
+    .write-step-block h3 { font-size: 15.5px; font-weight: 800; color: var(--text-main); margin-bottom: 12px; letter-spacing: -0.02em; }
+    .space-toggle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
     .btn-space-card {
       padding: 16px 14px;
@@ -1004,115 +875,25 @@
       gap: 4px;
     }
 
-    .btn-space-card.active {
-      background-color: var(--primary-soft);
-      border-color: var(--primary);
-    }
+    .btn-space-card.active { background-color: var(--primary-soft); border-color: var(--primary); }
+    .btn-space-card strong { font-size: 15px; font-weight: 800; color: var(--text-main); }
+    .btn-space-card span { font-size: 12.5px; font-weight: 600; color: var(--text-sub); }
 
-    .btn-space-card strong {
-      font-size: 15px;
-      font-weight: 800;
-      color: var(--text-main);
-    }
+    .road-type-pills { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+    .btn-road-pill { padding: 9px 13px; border-radius: 999px; background-color: var(--bg-base); font-size: 13px; font-weight: 700; color: var(--text-sub); }
+    .btn-road-pill.active { background-color: var(--secondary); color: #FFFFFF; }
 
-    .btn-space-card span {
-      font-size: 12.5px;
-      font-weight: 600;
-      color: var(--text-sub);
-    }
+    .floor-picker-wrap { margin-top: 12px; background-color: var(--bg-base); border-radius: 16px; padding: 14px; }
+    .floor-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 10px; }
+    .btn-floor-chip { height: 40px; border-radius: 10px; background-color: var(--bg-surface); font-size: 13.5px; font-weight: 700; color: var(--text-main); }
+    .btn-floor-chip.active { background-color: var(--primary); color: #FFFFFF; }
 
-    .road-type-pills {
-      display: flex;
-      gap: 8px;
-      margin-top: 12px;
-      flex-wrap: wrap;
-    }
+    .cat-select-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .btn-cat-item { height: 46px; padding: 0 14px; border-radius: 12px; background-color: var(--bg-base); font-size: 14px; font-weight: 700; color: var(--text-sub); text-align: left; display: flex; align-items: center; gap: 8px; }
+    .btn-cat-item.active { background-color: var(--primary); color: #FFFFFF; }
 
-    .btn-road-pill {
-      padding: 9px 13px;
-      border-radius: 999px;
-      background-color: var(--bg-base);
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-sub);
-    }
-
-    .btn-road-pill.active {
-      background-color: var(--secondary);
-      color: #FFFFFF;
-    }
-
-    /* 실내 선택 시 층별 미니 선택기 */
-    .floor-picker-wrap {
-      margin-top: 12px;
-      background-color: var(--bg-base);
-      border-radius: 16px;
-      padding: 14px;
-    }
-
-    .floor-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    .btn-floor-chip {
-      height: 40px;
-      border-radius: 10px;
-      background-color: var(--bg-surface);
-      font-size: 13.5px;
-      font-weight: 700;
-      color: var(--text-main);
-    }
-
-    .btn-floor-chip.active {
-      background-color: var(--primary);
-      color: #FFFFFF;
-    }
-
-    .cat-select-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-    }
-
-    .btn-cat-item {
-      height: 46px;
-      padding: 0 14px;
-      border-radius: 12px;
-      background-color: var(--bg-base);
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text-sub);
-      text-align: left;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn-cat-item.active {
-      background-color: var(--primary);
-      color: #FFFFFF;
-    }
-
-    .who-level-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .btn-who-level {
-      padding: 14px 16px;
-      border-radius: 14px;
-      background-color: var(--bg-base);
-      border: 2px solid transparent;
-      text-align: left;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
+    .who-level-stack { display: flex; flex-direction: column; gap: 8px; }
+    .btn-who-level { padding: 14px 16px; border-radius: 14px; background-color: var(--bg-base); border: 2px solid transparent; text-align: left; display: flex; align-items: center; justify-content: space-between; }
     .btn-who-level.active[data-lv="1"] { background-color: var(--lv1-soft); border-color: var(--lv1-yellow); }
     .btn-who-level.active[data-lv="2"] { background-color: var(--lv2-soft); border-color: var(--lv2-orange); }
     .btn-who-level.active[data-lv="3"] { background-color: var(--lv3-soft); border-color: var(--lv3-red); }
@@ -1132,241 +913,59 @@
       outline: none;
     }
 
-    .urgent-112-banner {
-      background-color: var(--lv3-soft);
-      border-radius: 14px;
-      padding: 13px 15px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .urgent-112-banner span {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--lv3-red);
-      line-height: 1.4;
-    }
-
-    .btn-urgent-112-go {
-      padding: 8px 12px;
-      border-radius: 10px;
-      background-color: var(--lv3-red);
-      color: #FFFFFF;
-      font-size: 12.5px;
-      font-weight: 800;
-      white-space: nowrap;
-    }
+    .urgent-112-banner { background-color: var(--lv3-soft); border-radius: 14px; padding: 13px 15px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .urgent-112-banner span { font-size: 13px; font-weight: 700; color: var(--lv3-red); line-height: 1.4; }
+    .btn-urgent-112-go { padding: 8px 12px; border-radius: 10px; background-color: var(--lv3-red); color: #FFFFFF; font-size: 12.5px; font-weight: 800; white-space: nowrap; }
 
     /* ==========================================================================
-       8. [화면 5] 2.5D 입체 건물 단면 뷰 & 게시글 상세 / BM 리포트 자리
+       [화면 5] 2.5D 입체 건물 단면 뷰 & 게시글 상세
        ========================================================================== */
-    #screen-detail, #screen-building {
-      z-index: 105;
-      background-color: var(--bg-surface);
-    }
+    #screen-detail, #screen-building { z-index: 105; background-color: var(--bg-surface); }
+    .detail-scroll { flex: 1; overflow-y: auto; padding: 20px 20px calc(40px + var(--safe-bottom)); display: flex; flex-direction: column; gap: 20px; }
 
-    .detail-scroll {
-      flex: 1;
-      overflow-y: auto;
-      padding: 20px 20px calc(40px + var(--safe-bottom));
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
+    .building-cross-section { background-color: var(--bg-base); border-radius: 22px; padding: 18px 16px; display: flex; flex-direction: column; gap: 6px; }
+    .bldg-roof-cap { height: 12px; background-color: var(--primary); border-radius: 8px 8px 2px 2px; margin: 0 12px 4px; }
+    .floor-stack-row { display: flex; align-items: center; justify-content: space-between; padding: 11px 14px; border-radius: 12px; background-color: var(--bg-surface); font-size: 13.5px; font-weight: 700; }
+    .floor-stack-row.piloti { background-color: #E2E8F0; color: var(--text-sub); }
+    .floor-stack-row.hot-2 { background-color: var(--lv2-soft); border: 1.5px solid var(--lv2-orange); }
+    .floor-stack-row.hot-3 { background-color: var(--lv3-soft); border: 1.5px solid var(--lv3-red); }
 
-    /* 2.5D 입체 건물 단면 스택 UI */
-    .building-cross-section {
-      background-color: var(--bg-base);
-      border-radius: 22px;
-      padding: 18px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
+    .bm-report-card { background: linear-gradient(135deg, #F8FAFC 0%, #EBF3F8 100%); border-radius: 20px; padding: 18px; display: flex; flex-direction: column; gap: 10px; }
+    .bm-tag { align-self: flex-start; background-color: var(--primary); color: #FFFFFF; font-size: 11.5px; font-weight: 800; padding: 4px 9px; border-radius: 999px; }
+    .comment-item-box { padding: 12px 0; border-bottom: 1px solid var(--line-soft); font-size: 14px; }
 
-    .bldg-roof-cap {
-      height: 12px;
-      background-color: var(--primary);
-      border-radius: 8px 8px 2px 2px;
-      margin: 0 12px 4px;
-    }
-
-    .floor-stack-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 11px 14px;
-      border-radius: 12px;
-      background-color: var(--bg-surface);
-      font-size: 13.5px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .floor-stack-row.piloti {
-      background-color: #E2E8F0;
-      color: var(--text-sub);
-    }
-
-    .floor-stack-row.hot-2 {
-      background-color: var(--lv2-soft);
-      border: 1.5px solid var(--lv2-orange);
-    }
-
-    .floor-stack-row.hot-3 {
-      background-color: var(--lv3-soft);
-      border: 1.5px solid var(--lv3-red);
-    }
-
-    /* BM 자리 확보 카드 (이사 전 정밀 검증 리포트 & 현지 주민 Q&A) */
-    .bm-report-card {
-      background: linear-gradient(135deg, #F8FAFC 0%, #EBF3F8 100%);
-      border-radius: 20px;
-      padding: 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .bm-tag {
-      align-self: flex-start;
-      background-color: var(--primary);
-      color: #FFFFFF;
-      font-size: 11.5px;
-      font-weight: 800;
-      padding: 4px 9px;
-      border-radius: 999px;
-    }
-
-    .comment-item-box {
-      padding: 12px 0;
-      border-bottom: 1px solid var(--line-soft);
-      font-size: 14px;
-    }
-
-    /* ==========================================================================
-       9. 네이티브 바텀시트 모달 & 토스트
-       ========================================================================== */
-    .sheet-backdrop {
-      position: absolute;
-      inset: 0;
-      background-color: rgba(17, 24, 39, 0.48);
-      z-index: 120;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-    }
-
-    .native-modal-sheet {
-      width: 100%;
-      background-color: var(--bg-surface);
-      border-radius: 24px 24px 0 0;
-      padding: 14px 22px calc(26px + var(--safe-bottom));
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      max-height: 85%;
-      overflow-y: auto;
-    }
-
-    .sheet-title-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .sheet-title-bar h3 {
-      font-size: 19px;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-    }
-
-    .dong-option-list {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .btn-dong-item {
-      width: 100%;
-      padding: 15px 16px;
-      border-radius: 14px;
-      font-size: 16px;
-      font-weight: 700;
-      text-align: left;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      color: var(--text-main);
-    }
-
-    .btn-dong-item.selected {
-      background-color: var(--primary-soft);
-      color: var(--primary);
-      font-weight: 800;
-    }
-
-    .sms-native-box {
-      background-color: var(--bg-base);
-      border-radius: 16px;
-      padding: 16px;
-      font-size: 14.5px;
-      line-height: 1.6;
-      color: var(--text-main);
-      white-space: pre-line;
-    }
-
-    .app-toast {
-      position: absolute;
-      bottom: calc(86px + var(--safe-bottom));
-      left: 20px;
-      right: 20px;
-      background-color: rgba(17, 24, 39, 0.92);
-      color: #FFFFFF;
-      font-size: 14px;
-      font-weight: 600;
-      padding: 13px 18px;
-      border-radius: 14px;
-      text-align: center;
-      z-index: 200;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    }
+    /* 모달 & 토스트 */
+    .sheet-backdrop { position: absolute; inset: 0; background-color: rgba(17, 24, 39, 0.48); z-index: 120; display: flex; align-items: flex-end; justify-content: center; }
+    .native-modal-sheet { width: 100%; background-color: var(--bg-surface); border-radius: 24px 24px 0 0; padding: 14px 22px calc(26px + var(--safe-bottom)); display: flex; flex-direction: column; gap: 16px; max-height: 85%; overflow-y: auto; }
+    .sheet-title-bar { display: flex; align-items: center; justify-content: space-between; }
+    .sheet-title-bar h3 { font-size: 19px; font-weight: 800; letter-spacing: -0.03em; }
+    .dong-option-list { display: flex; flex-direction: column; gap: 6px; }
+    .btn-dong-item { width: 100%; padding: 15px 16px; border-radius: 14px; font-size: 16px; font-weight: 700; text-align: left; display: flex; align-items: center; justify-content: space-between; color: var(--text-main); }
+    .btn-dong-item.selected { background-color: var(--primary-soft); color: var(--primary); font-weight: 800; }
+    .sms-native-box { background-color: var(--bg-base); border-radius: 16px; padding: 16px; font-size: 14.5px; line-height: 1.6; color: var(--text-main); white-space: pre-line; }
+    .app-toast { position: absolute; bottom: calc(86px + var(--safe-bottom)); left: 20px; right: 20px; background-color: rgba(17, 24, 39, 0.92); color: #FFFFFF; font-size: 14px; font-weight: 600; padding: 13px 18px; border-radius: 14px; text-align: center; z-index: 200; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); }
   </style>
 </head>
 <body>
   <div class="app-shell">
 
     <!-- ========================================================================
-         [화면 1] 스플래시 화면 ('53데시벨' 커스텀 그래픽 워드마크 로고)
+         [화면 1] 스플래시 (시인성이 명확한 '53데시벨' 브랜드 워드마크 + v1.0.3)
          ======================================================================== -->
     <section class="screen" id="screen-splash" aria-label="53데시벨 시작 화면">
+      <div class="splash-top-meta">
+        <span class="version-pill">v1.0.3</span>
+      </div>
+
       <div class="splash-center-group">
-        <div class="wordmark-logo-wrap">
-          <svg class="wordmark-svg" viewBox="0 0 320 108" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="53데시벨">
-            <defs>
-              <linearGradient id="gradPrimary" x1="0" y1="0" x2="120" y2="100" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stop-color="#235B7E"/>
-                <stop offset="100%" stop-color="#1B4965"/>
-              </linearGradient>
-            </defs>
-            <rect x="4" y="10" width="114" height="78" rx="22" fill="url(#gradPrimary)"/>
-            <path d="M51 27H26V47.5C29.5 45.2 33.5 44.5 38 44.5C47.5 44.5 54 50.2 54 59C54 68.2 46.8 74 36.5 74C28.5 74 22.8 70.5 20.5 64.5L29.5 60.5C31 63.8 33.5 65.5 37 65.5C41.5 65.5 44.5 62.8 44.5 58.8C44.5 54.8 41.5 52.2 36.8 52.2C33.2 52.2 30.2 53.5 28.5 55.5L20.5 52.5V27H51Z" fill="#FFFFFF"/>
-            <path d="M64 33.5C66.8 28.2 72.5 25.5 80.5 25.5C90.2 25.5 96.8 30.8 96.8 38.5C96.8 44.2 93.2 48.2 87.8 49.5C94.2 50.8 98.2 55.4 98.2 62C98.2 70.5 90.8 76 80.2 76C71.2 76 64.8 71.8 62.5 65.2L71.5 61.5C73.2 65.2 76.2 67.2 80.5 67.2C85.2 67.2 88.5 64.5 88.5 60.8C88.5 56.8 85 54.2 78.8 54.2H74.5V46.2H78.8C84.2 46.2 87.2 43.8 87.2 39.8C87.2 36.2 84.5 34 80.2 34C76.2 34 73.5 35.8 72 39L64 33.5Z" fill="#5EEAD4"/>
-            <rect class="eq-bar-1" x="128" y="42" width="5.5" height="32" rx="2.75" fill="#0D9488"/>
-            <rect class="eq-bar-2" x="137" y="24" width="5.5" height="50" rx="2.75" fill="#EAB308"/>
-            <rect class="eq-bar-3" x="146" y="34" width="5.5" height="40" rx="2.75" fill="#1B4965"/>
-            <circle cx="177" cy="22" r="4" fill="#0D9488"/>
-            <text x="159" y="71" fill="#1B4965" font-family="'Pretendard Variable', Pretendard, sans-serif" font-size="49" font-weight="900" letter-spacing="-3.2">데시벨</text>
-            <path d="M8 98H198L207 89L217 104L227 93L234 98H312" stroke="#0D9488" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>
-          </svg>
+        <div class="brand-logo-lockup" role="img" aria-label="53데시벨">
+          <span class="logo-num-box">53</span>
+          <span class="logo-text-kr">데시벨</span>
         </div>
 
         <p class="splash-slogan">조용히 살 권리를 지키는 시민 커뮤니티</p>
       </div>
 
-      <!-- WHO 공식 권고문 ('도로생활' 삭제 완료) -->
       <div class="splash-who-footer">
         <div class="who-eyebrow">WHO 환경소음 권고 기준</div>
         <p class="who-statement">
@@ -1465,7 +1064,7 @@
     </section>
 
     <!-- ========================================================================
-         [화면 3] 메인 홈 (지도 + 오프라인 벡터 백업 + 이웃 피드)
+         [화면 3] 메인 홈
          ======================================================================== -->
     <section class="screen" id="screen-home" hidden>
       <header class="app-topbar">
@@ -1498,22 +1097,17 @@
       <div class="map-container">
         <div id="kakao-map"></div>
 
-        <!-- 로컬/미등록 도메인 실행 시에도 지도와 핀이 100% 동작하는 동네 벡터 지도 레이어 -->
         <div id="fallback-map" class="fallback-vector-map" hidden>
           <svg width="100%" height="100%" viewBox="0 0 430 420" preserveAspectRatio="xMidYMid slice">
             <rect width="430" height="420" fill="#EDF2F7"/>
-            <!-- 공원/녹지 블록 -->
             <rect x="24" y="250" width="96" height="84" rx="18" fill="#DCFCE7"/>
             <rect x="310" y="95" width="90" height="72" rx="16" fill="#DCFCE7"/>
-            <!-- 주거 블록 -->
             <rect x="35" y="105" width="115" height="110" rx="14" fill="#E2E8F0"/>
             <rect x="180" y="105" width="110" height="110" rx="14" fill="#E2E8F0"/>
             <rect x="150" y="245" width="140" height="120" rx="14" fill="#E2E8F0"/>
-            <!-- 간선도로 -->
             <path d="M0 230 H430" stroke="#FFFFFF" stroke-width="18"/>
             <path d="M0 230 H430" stroke="#FCD34D" stroke-width="1.5" stroke-dasharray="6 6"/>
             <path d="M165 0 V420" stroke="#FFFFFF" stroke-width="16"/>
-            <!-- 이면도로 (골목길) -->
             <path d="M300 0 V420" stroke="#FFFFFF" stroke-width="10"/>
             <path d="M0 160 H300" stroke="#FFFFFF" stroke-width="9"/>
             <path d="M0 310 H430" stroke="#FFFFFF" stroke-width="9"/>
@@ -1525,7 +1119,7 @@
 
         <div class="map-floating-top">
           <div class="live-status-capsule">
-            <span><i class="live-dot"></i>오늘 우리 동네 · <strong id="ticker-counts">실외 3건 · 건물 1곳</strong></span>
+            <span><i class="live-dot"></i>오늘 우리 동네 · <strong id="ticker-counts">실외 2건 · 건물 1곳</strong></span>
             <span style="color:var(--secondary); font-size:12px;">실시간 공감 중</span>
           </div>
 
@@ -1538,7 +1132,6 @@
           </div>
         </div>
 
-        <!-- 깨짐 없이 깔끔하게 표시되는 현위치 원형 버튼 -->
         <button type="button" class="btn-floating-gps" id="btn-goto-gps" aria-label="내 위치로 이동">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
             <circle cx="12" cy="12" r="6"/>
@@ -1552,7 +1145,7 @@
         <div class="sheet-grabber-area" id="sheet-handle">
           <div class="grabber-bar"></div>
           <div class="sheet-header-row">
-            <h2>이웃 소음 이야기 <span id="feed-total-badge" style="color:var(--primary);">4</span></h2>
+            <h2>이웃 소음 이야기 <span id="feed-total-badge" style="color:var(--primary);">3</span></h2>
             <span id="sheet-expand-label">목록 넓히기</span>
           </div>
         </div>
@@ -1569,7 +1162,7 @@
     </section>
 
     <!-- ========================================================================
-         [화면 4] 3초 컷 선택형 글쓰기 화면 (실외 7종 / 실내 8종 / WHO 3단계)
+         [화면 4] 3초 컷 선택형 글쓰기 화면
          ======================================================================== -->
     <section class="screen" id="screen-write" hidden>
       <header class="subscreen-topbar">
@@ -1579,7 +1172,6 @@
       </header>
 
       <div class="write-scroll-body">
-        <!-- Step 1: 공간 선택 -->
         <div class="write-step-block">
           <h3>1. 어디서 들리는 소음인가요?</h3>
           <div class="space-toggle-grid">
@@ -1593,7 +1185,6 @@
             </button>
           </div>
 
-          <!-- 실외 선택 시 도로 성격 & 기준점 -->
           <div id="write-outdoor-opts">
             <div class="road-type-pills">
               <button type="button" class="btn-road-pill active" data-roadtype="이면도로·골목">동네 이면도로·골목</button>
@@ -1605,7 +1196,6 @@
             </div>
           </div>
 
-          <!-- 실내 선택 시 층수 선택 -->
           <div id="write-indoor-opts" class="floor-picker-wrap" hidden>
             <div style="font-size:13px; font-weight:700; color:var(--primary);">만수 드림하임 (지상 8층 · 1층 필로티) — 본인 거주/체류 층 선택</div>
             <div class="floor-grid" id="write-floor-grid">
@@ -1620,13 +1210,11 @@
           </div>
         </div>
 
-        <!-- Step 2: 소음 유형 선택 -->
         <div class="write-step-block">
           <h3>2. 어떤 소음인가요?</h3>
           <div class="cat-select-grid" id="write-cat-grid"></div>
         </div>
 
-        <!-- Step 3: 체감 소음 강도 -->
         <div class="write-step-block">
           <h3>3. 얼마나 심한가요? (WHO 체감 강도)</h3>
           <div class="who-level-stack">
@@ -1642,7 +1230,6 @@
           </div>
         </div>
 
-        <!-- Step 4: 한마디 & 즉시 112 분기 -->
         <div class="write-step-block">
           <h3>4. 이웃과 나눌 한마디</h3>
           <textarea class="write-textarea" id="input-write-content" placeholder="예) 밤 11시 40분부터 골목에서 고함과 욕설이 15분째 이어지고 있습니다."></textarea>
@@ -1668,7 +1255,6 @@
         <h2>소음 이야기 상세</h2>
         <button type="button" class="btn-112-pill" id="btn-detail-112">🚨 112</button>
       </header>
-
       <div class="detail-scroll" id="detail-body"></div>
     </section>
 
@@ -1681,13 +1267,10 @@
         <h2 id="bldg-detail-title">건물 입체 단면</h2>
         <span style="width:48px;"></span>
       </header>
-
       <div class="detail-scroll" id="bldg-detail-body"></div>
     </section>
 
-    <!-- ========================================================================
-         [네이티브 시트 1] 동네 선택 바텀시트
-         ======================================================================== -->
+    <!-- 동네 선택 바텀시트 -->
     <div class="sheet-backdrop" id="modal-dong" hidden>
       <div class="native-modal-sheet">
         <div class="grabber-bar" style="margin-bottom:4px;"></div>
@@ -1704,9 +1287,7 @@
       </div>
     </div>
 
-    <!-- ========================================================================
-         [네이티브 시트 2] 112 문자 신고 대행 & 단계적 본인인증 시트
-         ======================================================================== -->
+    <!-- 112 문자 신고 대행 시트 -->
     <div class="sheet-backdrop" id="modal-112" hidden>
       <div class="native-modal-sheet">
         <div class="grabber-bar" style="margin-bottom:4px;"></div>
@@ -1746,7 +1327,7 @@
   </div>
 
   <script>
-    const CONFIG = { STORAGE_KEY: '53db_native_state_v3' };
+    const CONFIG = { STORAGE_KEY: '53db_native_state_v103' };
 
     const DONG_CENTERS = {
       mansu:    { short: '만수동', name: '인천 남동구 만수동', lat: 37.4562, lng: 126.7314 },
@@ -1782,7 +1363,6 @@
       { label: '기타', group: 'indoor', icon: '📌' }
     ];
 
-    /* 1. 핵심 차별화 알고리즘 */
     function localizeNoiseSource(reports) {
       if (!reports || !reports.length) return null;
       let sumLat = 0, sumLng = 0, totalW = 0;
@@ -1821,7 +1401,6 @@
       return `${roadName} · ${safeAnchor} (${roadType})`;
     }
 
-    /* 2. 초기 실증 데이터 */
     const INITIAL_BUILDINGS = [
       { id: 'bldg-mansu-1', dong: 'mansu', name: '만수 드림하임', lat: 37.4569, lng: 126.7305, groundFloors: 8, hasPiloti: true, mainStructure: '벽식구조', builtYear: 2014 },
       { id: 'bldg-mansu-2', dong: 'mansu', name: '향촌 휴먼시아', lat: 37.4548, lng: 126.7336, groundFloors: 15, hasPiloti: false, mainStructure: '철근콘크리트', builtYear: 2009 },
@@ -1893,7 +1472,6 @@
       return m < 60 ? `${m}분 전` : `${Math.floor(m / 60)}시간 전`;
     }
 
-    /* 3. 화면 네비게이션 */
     let splashFinished = false;
     function goScreen(id) {
       ['screen-splash', 'screen-auth', 'screen-home', 'screen-write', 'screen-detail', 'screen-building'].forEach(s => {
@@ -1941,7 +1519,6 @@
       goScreen('screen-home');
     });
 
-    /* 4. 지도 초기화 (카카오맵 SDK + 도메인 미등록 시 깔끔한 동네 벡터 지도 자동 전환) */
     function enableFallbackMap() {
       document.getElementById('kakao-map').hidden = true;
       document.getElementById('fallback-map').hidden = false;
@@ -2080,7 +1657,6 @@
       }
     }
 
-    /* 5. 피드 렌더링 */
     function renderHome() {
       const dongPosts = state.posts.filter(p => p.dong === state.currentDong);
       const outCnt = dongPosts.filter(p => p.spaceType === 'outdoor').length;
@@ -2140,7 +1716,6 @@
       renderPins();
     }
 
-    /* 6. [화면 4] 3초 컷 글쓰기 인터랙션 */
     function renderWriteCategories() {
       const list = state.writeDraft.space === 'outdoor' ? CAT_OUTDOOR : CAT_INDOOR;
       if (!list.some(c => c.label === state.writeDraft.category)) {
@@ -2254,7 +1829,6 @@
       showToast('동네 지도와 이웃 피드에 등록되었어요!');
     };
 
-    /* 7. [화면 5-A] 게시글 상세 & 공감·댓글·민원 리포트·BM 자리 */
     function openPostDetail(postId) {
       const post = state.posts.find(p => p.id === postId);
       if (!post) return;
@@ -2286,7 +1860,6 @@
           <button type="button" class="btn-chip-action" id="btn-copy-gov" style="flex:1; height:46px; background:var(--bg-base); font-size:13.5px;">🏛️ 구청·신문고 민원 리포트 복사</button>
         </div>
 
-        <!-- BM 자리 확보 (이사 전 정밀 검증 리포트 & 현지 주민 Q&A) -->
         <div class="bm-report-card">
           <span class="bm-tag">53dB 주거 검증 리포트 · 베타 무료</span>
           <strong style="font-size:15.5px; color:var(--text-main);">이 구역·건물 24시간 소음 히트맵 & 방음 성적표</strong>
@@ -2344,7 +1917,6 @@
 
     document.getElementById('btn-close-detail').onclick = () => goScreen('screen-home');
 
-    /* 8. [화면 5-B] 2.5D 입체 건물 단면 뷰 */
     function openBuildingView(bldgId) {
       const bldg = state.buildings.find(b => b.id === bldgId);
       if (!bldg) return;
@@ -2394,7 +1966,6 @@
 
     document.getElementById('btn-close-bldg').onclick = () => goScreen('screen-home');
 
-    /* 9. 모달 및 공통 UI 이벤트 */
     function open112Modal(post) {
       const loc = formatBackroadAnchor(post.roadName, post.anchorBuilding, post.roadType);
       const txt = `[53데시벨 소음신고]
