@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨 (v1.0.8)</title>
+  <title>53데시벨 (v1.0.9)</title>
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Crect width='128' height='128' rx='28' fill='%231B4965'/%3E%3Ctext x='64' y='74' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='54' font-weight='900'%3E53%3C/text%3E%3Ctext x='64' y='102' text-anchor='middle' fill='%235EEAD4' font-family='sans-serif' font-size='22' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%231B4965'/%3E%3Ctext x='90' y='102' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='76' font-weight='900'%3E53%3C/text%3E%3Ctext x='90' y='142' text-anchor='middle' fill='%235EEAD4' font-family='sans-serif' font-size='30' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
@@ -131,7 +131,7 @@
     button:active { transform: scale(0.97); }
 
     /* ==========================================================================
-       2. [화면 1] 스플래시 (v1.0.8)
+       2. [화면 1] 스플래시 (v1.0.9)
        ========================================================================== */
     #screen-splash {
       z-index: 100;
@@ -412,7 +412,7 @@
     }
 
     /* ==========================================================================
-       4. [화면 3] 메인 홈 (축척 기반 LOD 맵 핀 시스템)
+       4. [화면 3] 메인 홈 (상단 지도 52% + 하단 핀 연동 스와이프 카드 48%)
        ========================================================================== */
     #screen-home { z-index: 20; background-color: var(--neu-bg); }
 
@@ -427,15 +427,21 @@
       flex-shrink: 0;
     }
 
+    .topbar-left-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
     .dong-picker-btn {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       font-size: 18px;
       font-weight: 800;
       letter-spacing: -0.03em;
       color: var(--text-main);
-      padding: 7px 14px;
+      padding: 7px 13px;
       border-radius: 14px;
       background-color: var(--neu-surface);
       box-shadow: var(--neu-convex-sm);
@@ -443,12 +449,24 @@
     .dong-picker-btn:active { box-shadow: var(--neu-pressed); }
     .dong-picker-btn svg { width: 17px; height: 17px; }
 
-    .topbar-right-actions { display: flex; align-items: center; gap: 10px; }
+    /* 상단 동네 요약 현황 배지 (제목과 분리되어 상단에서 깔끔하게 표시) */
+    .top-dong-stat {
+      font-size: 11.5px;
+      font-weight: 800;
+      color: #0F766E;
+      background-color: var(--neu-bg);
+      box-shadow: var(--neu-concave);
+      padding: 5px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .topbar-right-actions { display: flex; align-items: center; gap: 8px; }
 
     .btn-top-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 14px;
+      width: 38px;
+      height: 38px;
+      border-radius: 13px;
       background-color: var(--neu-surface);
       box-shadow: var(--neu-convex-sm);
       display: grid;
@@ -459,16 +477,17 @@
 
     .btn-112-pill {
       height: 38px;
-      padding: 0 13px;
-      border-radius: 14px;
+      padding: 0 11px;
+      border-radius: 13px;
       background-color: var(--neu-surface);
       box-shadow: var(--neu-convex-sm);
       color: var(--lv3-red);
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 800;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 3px;
+      white-space: nowrap;
     }
     .btn-112-pill:active { box-shadow: var(--neu-pressed); }
 
@@ -480,9 +499,10 @@
       z-index: 34;
     }
 
+    /* 상단 메인 지도: 화면의 52% 차지 */
     .map-container {
       position: relative;
-      height: 46%;
+      height: 52%;
       width: 100%;
       flex-shrink: 0;
       overflow: hidden;
@@ -525,12 +545,8 @@
     }
 
     /* ==========================================================================
-       [핵심] 축척(Zoom Level) 기반 2단계 마커 디자인
-       - 기본 축척(Level 3+): 지도 가림 없는 컴팩트 아이콘 마커만 표시
-       - 최대 확대(Level 1~2): 상세 정보 카드 & 실제 층수 비율 아파트 입체 모델 표시
+       지도 핀 (기본 축척: 컴팩트 아이콘 / 선택됨: 펄스 강조 / 최대확대: 상세·입체층수)
        ========================================================================== */
-
-    /* 1) 기본 축척: 컴팩트 원형/물방울 아이콘 핀 (지도를 전혀 가리지 않음) */
     .pin-compact-spot {
       position: relative;
       width: 38px;
@@ -543,6 +559,7 @@
       display: grid;
       place-items: center;
       cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .pin-compact-spot.lv-1 { border-color: #D97706; }
@@ -551,6 +568,13 @@
     .pin-compact-spot.indoor-spot {
       background-color: var(--primary);
       border-color: #FFFFFF;
+    }
+
+    /* 하단 카드와 동기화되어 현재 선택된 지점 핀 강조 */
+    .pin-compact-spot.selected-spot {
+      transform: rotate(-45deg) scale(1.24);
+      box-shadow: 0 0 0 6px rgba(27, 73, 101, 0.28), 0 8px 20px rgba(17, 24, 39, 0.38);
+      z-index: 99;
     }
 
     .pin-compact-inner {
@@ -579,7 +603,7 @@
       place-items: center;
     }
 
-    /* 2) 최대 확대(Level 1~2): 실외 소음 지점 상세 미니 카드 */
+    /* 최대 확대(Level 1~2): 실외 소음 지점 상세 미니 카드 */
     .pin-zoomed-outdoor {
       background-color: rgba(255, 255, 255, 0.98);
       border: 2px solid var(--primary);
@@ -610,7 +634,7 @@
     .pzo-title { font-size: 12px; font-weight: 800; color: var(--text-main); }
     .pzo-meta { font-size: 10.5px; font-weight: 700; color: var(--primary); }
 
-    /* 3) 최대 확대(Level 1~2): 실제 층수에 맞춰 제작된 공동주택/아파트 입체 단면 핀 */
+    /* 최대 확대(Level 1~2): 실제 층수에 맞춰 제작된 공동주택/아파트 입체 단면 핀 */
     .pin-zoomed-bldg {
       display: flex;
       flex-direction: column;
@@ -670,7 +694,7 @@
     }
 
     /* ==========================================================================
-       5. 하단 뉴모피즘 커뮤니티 시트
+       5. [개편 핵심] 하단 지점 연동 시트 (유형 필터 제거 · 명확한 섹션 헤더 · 가로 스와이프)
        ========================================================================== */
     .bottom-feed-sheet {
       flex: 1;
@@ -691,161 +715,207 @@
       border-radius: 0;
     }
 
-    .sheet-header-panel {
+    /* 명확하게 구분된 섹션 타이틀 바 */
+    .sheet-section-header {
       background-color: var(--neu-bg);
-      padding: 10px 18px 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 11px;
-      flex-shrink: 0;
-    }
-
-    .grabber-bar {
-      width: 40px;
-      height: 5px;
-      border-radius: 999px;
-      background-color: var(--neu-bg);
-      box-shadow: var(--neu-concave);
-      margin: 0 auto;
-    }
-
-    .sheet-title-row {
+      padding: 12px 18px 8px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      cursor: pointer;
+      flex-shrink: 0;
     }
 
-    .sheet-title-left { display: flex; align-items: center; gap: 8px; }
-    .sheet-title-left h2 { font-size: 17.5px; font-weight: 800; letter-spacing: -0.03em; color: var(--text-main); }
-
-    .dong-summary-pill {
-      display: inline-flex;
+    .section-title-block {
+      display: flex;
       align-items: center;
-      gap: 5px;
-      background-color: var(--neu-bg);
-      box-shadow: var(--neu-concave);
-      color: #0F766E;
-      font-size: 12px;
-      font-weight: 800;
-      padding: 4px 10px;
+      gap: 8px;
+    }
+
+    .section-accent-bar {
+      width: 4px;
+      height: 18px;
       border-radius: 999px;
+      background-color: var(--primary);
     }
 
-    .live-dot { width: 6px; height: 6px; border-radius: 50%; background-color: var(--secondary); display: inline-block; }
-
-    .sheet-expand-btn {
-      font-size: 12px;
-      font-weight: 800;
-      color: var(--primary);
-      padding: 5px 10px;
-      border-radius: 10px;
-      background-color: var(--neu-surface);
-      box-shadow: var(--neu-convex-sm);
+    .section-title-block h2 {
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--text-main);
     }
 
-    .feed-filter-scroll { display: flex; gap: 8px; overflow-x: auto; padding: 3px 2px; scrollbar-width: none; }
-    .feed-filter-scroll::-webkit-scrollbar { display: none; }
-
-    .map-chip {
-      height: 34px;
-      padding: 0 13px;
-      border-radius: 12px;
-      background-color: var(--neu-surface);
-      box-shadow: var(--neu-convex-sm);
-      font-size: 12.5px;
-      font-weight: 700;
-      color: var(--text-sub);
-      white-space: nowrap;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .map-chip.active {
-      background-color: var(--neu-bg);
-      box-shadow: var(--neu-pressed);
-      color: var(--primary);
-      font-weight: 800;
-    }
-
-    .native-feed-scroll {
-      flex: 1;
-      overflow-y: auto;
-      padding: 8px 18px calc(94px + var(--safe-bottom));
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .feed-card {
-      background-color: var(--neu-card-warm);
-      border-radius: 22px;
-      padding: 18px;
-      box-shadow: -6px -6px 14px rgba(255, 255, 255, 0.9), 6px 6px 14px rgba(163, 177, 198, 0.55);
-      border: 1px solid rgba(255, 255, 255, 0.7);
-      display: flex;
-      flex-direction: column;
-      gap: 11px;
-      cursor: pointer;
-    }
-
-    .fc-top { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
-    .fc-badges { display: flex; align-items: center; gap: 6px; flex-wrap: nowrap; overflow: hidden; }
-    .fc-cat {
-      background-color: var(--neu-bg);
-      color: var(--text-sub);
-      font-size: 12px;
-      font-weight: 800;
-      padding: 4px 9px;
-      border-radius: 8px;
-      white-space: nowrap;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .fc-who { font-size: 12px; font-weight: 800; padding: 4px 9px; border-radius: 8px; white-space: nowrap; }
-    .fc-who.lv-1 { background-color: var(--lv1-soft); color: var(--lv1-yellow); }
-    .fc-who.lv-2 { background-color: var(--lv2-soft); color: var(--lv2-orange); }
-    .fc-who.lv-3 { background-color: var(--lv3-soft); color: var(--lv3-red); }
-
-    .fc-cis {
+    .spot-index-pill {
       font-size: 12px;
       font-weight: 800;
       color: var(--primary);
       background-color: var(--primary-soft);
-      padding: 4px 8px;
-      border-radius: 8px;
+      padding: 3px 9px;
+      border-radius: 999px;
+    }
+
+    .sheet-expand-btn {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--primary);
+      padding: 6px 12px;
+      border-radius: 12px;
+      background-color: var(--neu-surface);
+      box-shadow: var(--neu-convex-sm);
+    }
+    .sheet-expand-btn:active { box-shadow: var(--neu-pressed); }
+
+    /* 기본 상태: 지도 핀과 1:1로 연동되는 가로 스와이프 지점 카드 캐러셀 */
+    .spot-carousel-wrap {
+      flex: 1;
+      display: flex;
+      gap: 14px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 6px 18px calc(82px + var(--safe-bottom));
+      scrollbar-width: none;
+    }
+    .spot-carousel-wrap::-webkit-scrollbar { display: none; }
+
+    /* 전체 보기(expanded) 상태: 동네 전체 소음 지점을 세로 리스트로 한눈에 보기 */
+    .bottom-feed-sheet.expanded .spot-carousel-wrap {
+      flex-direction: column;
+      overflow-x: hidden;
+      overflow-y: auto;
+      scroll-snap-type: none;
+      padding: 8px 18px calc(94px + var(--safe-bottom));
+    }
+
+    /* 고시인성 소음 지점 카드 */
+    .spot-card {
+      flex: 0 0 100%;
+      scroll-snap-align: center;
+      background-color: var(--neu-card-warm);
+      border-radius: 22px;
+      padding: 16px 18px;
+      box-shadow: -5px -5px 12px rgba(255, 255, 255, 0.9), 5px 5px 12px rgba(163, 177, 198, 0.55);
+      border: 1.5px solid rgba(255, 255, 255, 0.85);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .bottom-feed-sheet.expanded .spot-card {
+      flex: none;
+      width: 100%;
+    }
+
+    /* 카드 상단 1줄: 지점 주소 (가장 크고 선명하게) */
+    .sc-location-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .sc-loc-text {
+      font-size: 15px;
+      font-weight: 900;
+      color: var(--primary);
+      letter-spacing: -0.025em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sc-time-tag {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text-muted);
       white-space: nowrap;
       flex-shrink: 0;
     }
 
-    .fc-loc { font-size: 14px; font-weight: 800; color: var(--primary); letter-spacing: -0.02em; }
-    .fc-body { font-size: 15.5px; font-weight: 500; line-height: 1.58; color: var(--text-main); letter-spacing: -0.015em; word-break: keep-all; }
-    .fc-author-row { display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: var(--text-muted); }
-    .fc-verified { color: var(--secondary); font-weight: 800; }
-
-    .fc-action-bar {
+    /* 카드 2줄: 고시인성 핵심 3대 지표 (강도 블록 + 유형 + AI 신뢰도) */
+    .sc-metrics-strip {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding-top: 10px;
-      border-top: 1px solid rgba(203, 213, 225, 0.5);
+      gap: 6px;
+      flex-wrap: nowrap;
+    }
+
+    .sc-lv-badge {
+      font-size: 12px;
+      font-weight: 900;
+      padding: 4px 9px;
+      border-radius: 8px;
+      white-space: nowrap;
+    }
+    .sc-lv-badge.lv-1 { background-color: #FEF3C7; color: #92400E; }
+    .sc-lv-badge.lv-2 { background-color: #FFEDD5; color: #9A3412; }
+    .sc-lv-badge.lv-3 { background-color: #FFE4E6; color: #9F1239; }
+
+    .sc-type-badge {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--text-main);
+      background-color: var(--neu-bg);
+      padding: 4px 9px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    .sc-cis-badge {
+      margin-left: auto;
+      font-size: 12px;
+      font-weight: 900;
+      color: #0F766E;
+      background-color: var(--secondary-soft);
+      padding: 4px 9px;
+      border-radius: 8px;
+      white-space: nowrap;
+    }
+
+    /* 카드 3줄: 시민 증언 본문 (2~3줄 깔끔 표시) */
+    .sc-body-text {
+      font-size: 14.5px;
+      font-weight: 500;
+      line-height: 1.5;
+      color: var(--text-main);
+      letter-spacing: -0.015em;
+      word-break: keep-all;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .bottom-feed-sheet.expanded .sc-body-text {
+      -webkit-line-clamp: unset;
+    }
+
+    /* 카드 4줄: 하단 공감 & 증언 버튼 */
+    .sc-footer-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(203, 213, 225, 0.55);
     }
 
     .btn-fc-empathy {
       flex: 1;
-      height: 40px;
+      height: 38px;
       border-radius: 12px;
       background-color: var(--neu-surface);
       box-shadow: -3px -3px 6px rgba(255, 255, 255, 0.9), 3px 3px 6px rgba(163, 177, 198, 0.45);
       color: var(--text-sub);
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 800;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 5px;
     }
 
     .btn-fc-empathy.active {
@@ -855,31 +925,32 @@
     }
 
     .btn-fc-comment {
-      height: 40px;
-      padding: 0 14px;
+      height: 38px;
+      padding: 0 13px;
       border-radius: 12px;
       background-color: var(--neu-surface);
       box-shadow: -3px -3px 6px rgba(255, 255, 255, 0.9), 3px 3px 6px rgba(163, 177, 198, 0.45);
       color: var(--text-sub);
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 800;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
       white-space: nowrap;
     }
 
+    /* 우측 하단 + 소음 올리기 버튼 (카드 액션 바와 겹치지 않도록 하단 여백 확보) */
     .fab-native-write {
       position: absolute;
       right: 18px;
-      bottom: calc(18px + var(--safe-bottom));
+      bottom: calc(16px + var(--safe-bottom));
       z-index: 40;
-      height: 52px;
-      padding: 0 20px;
-      border-radius: 18px;
+      height: 48px;
+      padding: 0 18px;
+      border-radius: 16px;
       background: linear-gradient(145deg, #215778 0%, #1B4965 100%);
       color: #FFFFFF;
-      font-size: 15px;
+      font-size: 14.5px;
       font-weight: 800;
       display: flex;
       align-items: center;
@@ -1146,11 +1217,11 @@
   <div class="app-shell">
 
     <!-- ========================================================================
-         [화면 1] 스플래시 (v1.0.8)
+         [화면 1] 스플래시 (v1.0.9)
          ======================================================================== -->
     <section class="screen" id="screen-splash" aria-label="53데시벨 시작 화면">
       <div class="splash-top-meta">
-        <span class="version-pill">v1.0.8</span>
+        <span class="version-pill">v1.0.9</span>
       </div>
 
       <div class="splash-center-group">
@@ -1261,25 +1332,28 @@
     </section>
 
     <!-- ========================================================================
-         [화면 3] 메인 홈 (축척 기반 LOD 맵 핀 + 뉴모피즘 증언 카드)
+         [화면 3] 메인 홈 (상단 지도 52% + 하단 핀 연동 스와이프 카드 48%)
          ======================================================================== -->
     <section class="screen" id="screen-home" hidden>
       <header class="app-topbar">
-        <button type="button" class="dong-picker-btn" id="btn-open-dong-sheet">
-          <span id="current-dong-label">만수5동</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 9l6 6 6-6"/>
-          </svg>
-        </button>
+        <div class="topbar-left-group">
+          <button type="button" class="dong-picker-btn" id="btn-open-dong-sheet">
+            <span id="current-dong-label">만수5동</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          <span class="top-dong-stat" id="ticker-counts">실외 2 · 건물 1</span>
+        </div>
 
         <div class="topbar-right-actions">
           <button type="button" class="btn-top-icon" id="btn-toggle-search" aria-label="건물·도로 검색">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round">
               <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>
             </svg>
           </button>
           <button type="button" class="btn-112-pill" id="btn-global-112">
-            <span>🚨 112 신고</span>
+            <span>🚨 112</span>
           </button>
         </div>
       </header>
@@ -1291,7 +1365,7 @@
         <button type="button" class="btn-chip-action" id="btn-exec-search" style="height:44px; background:var(--primary); color:#fff;">조회</button>
       </div>
 
-      <!-- 시야 방해 0% 순수 맵 (축척에 따라 컴팩트 아이콘 ↔ 상세/입체층수 자동 전환) -->
+      <!-- 상단 52% 순수 카카오맵 -->
       <div class="map-container">
         <div id="kakao-map"></div>
         <div id="map-loading-box" class="map-status-msg">
@@ -1307,26 +1381,22 @@
         </button>
       </div>
 
-      <!-- 하단 뉴모피즘 커뮤니티 시트 -->
+      <!-- 하단 48% 지점 연동 시트 (유형 필터 제거 · 명확한 섹션 타이틀 · 가로 스와이프 카드) -->
       <aside class="bottom-feed-sheet" id="feed-sheet">
-        <div class="sheet-header-panel">
-          <div class="grabber-bar" id="sheet-handle-bar"></div>
-          <div class="sheet-title-row" id="sheet-handle">
-            <div class="sheet-title-left">
-              <h2>이웃 소음 이야기</h2>
-              <span class="dong-summary-pill"><i class="live-dot"></i><span id="ticker-counts">실외 2건 · 건물 1곳</span></span>
-            </div>
-            <span class="sheet-expand-btn" id="sheet-expand-label">전체 보기 ▲</span>
+        <div class="sheet-section-header">
+          <div class="section-title-block">
+            <span class="section-accent-bar"></span>
+            <h2 id="sheet-section-title">만수5동 소음 지점</h2>
+            <span class="spot-index-pill" id="spot-index-indicator">1 / 3</span>
           </div>
-
-          <div class="feed-filter-scroll" id="filter-chips-bar"></div>
+          <button type="button" class="sheet-expand-btn" id="sheet-expand-btn">전체 보기 ▲</button>
         </div>
 
-        <div class="native-feed-scroll" id="feed-list"></div>
+        <div class="spot-carousel-wrap" id="feed-list"></div>
       </aside>
 
       <button type="button" class="fab-native-write" id="btn-open-write">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round">
           <path d="M12 5v14M5 12h14"/>
         </svg>
         <span>소음 올리기</span>
@@ -1518,16 +1588,12 @@
 
   <script>
     const CONFIG = {
-      STORAGE_KEY: '53db_native_state_v108',
+      STORAGE_KEY: '53db_native_state_v109',
       BLDG_API_KEY: '738a1e3eb24afc48a06e3871c47d057b54f27cfde63e91a4e2b5a2baf27cbae5',
-      ZOOM_DETAIL_LEVEL: 2 /* 카카오맵 축척 Level 1~2(최대 확대) 시 상세 정보 & 입체 층수 노출 */
+      ZOOM_DETAIL_LEVEL: 2
     };
 
-    /* ==========================================================================
-       커스텀 벡터 아이콘 세트 (사용자 스케치 기반 '고성 및 욕설' 포함)
-       ========================================================================== */
     const NOISE_ICONS = {
-      /* 사용자 스케치 반영: 마주 보고 다투는 두 사람 실루엣 + 머리 위 붉은 찌릿찌릿 고성 파동 4줄 */
       shout: (size = 20) => `
         <svg width="${size}" height="${size}" viewBox="0 0 32 32" fill="none">
           <path d="M7.5 6.5L9.2 9L7.8 11.2" stroke="#E11D48" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1539,7 +1605,6 @@
           <circle cx="21.5" cy="14.5" r="3.3" stroke="#E11D48" stroke-width="2"/>
           <path d="M16.8 26.5C16.8 21.8 18.6 19.2 21.5 19.2C24.4 19.2 26.5 21.8 26.5 26.5" stroke="#E11D48" stroke-width="2" stroke-linecap="round"/>
         </svg>`,
-      /* 바이크·차량 굉음 */
       bike: (size = 20) => `
         <svg width="${size}" height="${size}" viewBox="0 0 32 32" fill="none">
           <circle cx="8.5" cy="22" r="4" stroke="#1B4965" stroke-width="2.2"/>
@@ -1547,14 +1612,12 @@
           <path d="M8.5 22L13 14.5H19.5L23.5 22M15 11.5H20.5L22 14.5" stroke="#1B4965" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M3 15H6M2 18.5H5" stroke="#EA580C" stroke-width="2.2" stroke-linecap="round"/>
         </svg>`,
-      /* 층간·벽간 실내 소음 (건물 내 파동) */
       indoor: (size = 20, color = '#FFFFFF') => `
         <svg width="${size}" height="${size}" viewBox="0 0 32 32" fill="none">
           <rect x="8" y="6" width="16" height="20" rx="3" stroke="${color}" stroke-width="2.2"/>
           <path d="M12 12H20M12 16.5H20M12 21H16" stroke="${color}" stroke-width="2" stroke-linecap="round"/>
           <circle cx="20" cy="21" r="1.5" fill="#5EEAD4"/>
         </svg>`,
-      /* 공사·기계 소음 */
       const: (size = 20) => `
         <svg width="${size}" height="${size}" viewBox="0 0 32 32" fill="none">
           <path d="M7 22H25L22.5 13H9.5L7 22Z" stroke="#B45309" stroke-width="2.2" stroke-linejoin="round"/>
@@ -1684,10 +1747,9 @@
 
     function formatBackroadAnchor(roadName, anchorName, roadType) {
       const safeAnchor = (anchorName || '').replace(/\d+\s*호/g, '').trim();
-      return safeAnchor ? `${roadName} · ${safeAnchor} (${roadType})` : `${roadName} (${roadType})`;
+      return safeAnchor ? `${roadName} · ${safeAnchor}` : `${roadName} (${roadType})`;
     }
 
-    /* 실제 층수에 맞춘 건물 데이터 (소음 기록이 있는 건물만 지도에 표시) */
     const INITIAL_BUILDINGS = [
       { id: 'bldg-mansu5-1', dong: 'mansu5', name: '만수주공1단지아파트', lat: 37.4547, lng: 126.7294, groundFloors: 15, hasPiloti: false, mainStructure: '철근콘크리트 벽식구조', builtYear: 1987, source: '국토교통부 건축물대장 연동' },
       { id: 'bldg-mansu5-2', dong: 'mansu5', name: '신안래미안아파트', lat: 37.4578, lng: 126.7271, groundFloors: 12, hasPiloti: true, mainStructure: '철근콘크리트 구조', builtYear: 2004, source: '국토교통부 건축물대장 연동' }
@@ -1725,7 +1787,7 @@
     const state = {
       user: { loggedIn: false, nickname: '조용한만수5동부엉이', gpsVerified: true, phoneVerifiedFor112: false },
       currentDong: 'mansu5',
-      activeFilter: 'all',
+      selectedPostId: 'post-101',
       buildings: [...INITIAL_BUILDINGS],
       posts: [...INITIAL_POSTS],
       map: null,
@@ -1766,7 +1828,6 @@
         document.getElementById(s).hidden = (s !== id);
       });
       if (id === 'screen-home') {
-        renderFilterChips();
         renderHome();
         requestAnimationFrame(() => initMap());
       }
@@ -1810,6 +1871,9 @@
       const info = ADMIN_DONGS[dongKey];
       document.getElementById('current-dong-label').textContent = info.short;
       document.getElementById('onboard-dong-name').textContent = info.name;
+
+      const dongPosts = getDongPosts();
+      state.selectedPostId = dongPosts[0] ? dongPosts[0].id : null;
 
       document.querySelectorAll('.btn-dong-item').forEach(b => {
         const isSel = b.dataset.dong === dongKey;
@@ -1864,9 +1928,6 @@
       });
     }
 
-    /* ==========================================================================
-       카카오맵 초기화 & 축척(zoom_changed) 감지 리스너 연결
-       ========================================================================== */
     function initMap() {
       const msgBox = document.getElementById('map-loading-box');
       if (state.map) {
@@ -1889,7 +1950,6 @@
         });
         if (msgBox) msgBox.hidden = true;
 
-        /* 축척 변경 시 마커 상세도(LOD) 자동 전환 */
         kakao.maps.event.addListener(state.map, 'zoom_changed', () => {
           renderPins();
         });
@@ -1902,15 +1962,40 @@
       });
     }
 
-    function getFilteredPosts() {
-      return state.posts.filter(p => p.dong === state.currentDong && (state.activeFilter === 'all' || p.filterGroup === state.activeFilter));
+    function getDongPosts() {
+      return state.posts.filter(p => p.dong === state.currentDong);
     }
 
     /* ==========================================================================
-       축척(Zoom Level) 기반 2단계 핀 렌더링
-       - Level >= 3: 지도를 가리지 않는 컴팩트 아이콘 핀만 표시 (불필요한 건물명/층수 배지 제거)
-       - Level <= 2 (최대 확대): 소음 발생 지점 간략 정보 + 실제 층수 비율 입체 아파트 표시
+       지도 핀 <-> 하단 카드 양방향 동기화 함수
        ========================================================================== */
+    function focusSpotOnMapAndCard(postId, scrollCard = true) {
+      const posts = getDongPosts();
+      const idx = posts.findIndex(p => p.id === postId);
+      if (idx === -1) return;
+
+      state.selectedPostId = postId;
+      const targetPost = posts[idx];
+
+      /* 1. 상단 인덱스 배지 갱신 */
+      document.getElementById('spot-index-indicator').textContent = `${idx + 1} / ${posts.length}`;
+
+      /* 2. 상단 메인 지도 부드럽게 해당 지점으로 이동 & 선택 핀 강조 */
+      if (state.map && typeof kakao !== 'undefined') {
+        state.map.panTo(new kakao.maps.LatLng(targetPost.lat, targetPost.lng));
+      }
+      renderPins();
+
+      /* 3. 하단 캐러셀 해당 카드로 부드럽게 스크롤 */
+      if (scrollCard) {
+        const cardEl = document.getElementById(`spot-card-${postId}`);
+        const wrapEl = document.getElementById('feed-list');
+        if (cardEl && wrapEl && !document.getElementById('feed-sheet').classList.contains('expanded')) {
+          wrapEl.scrollTo({ left: cardEl.offsetLeft - 18, behavior: 'smooth' });
+        }
+      }
+    }
+
     function renderPins() {
       if (!state.map || typeof kakao === 'undefined') return;
       state.overlays.forEach(o => o.setMap(null));
@@ -1918,22 +2003,20 @@
 
       const currentLevel = state.map.getLevel();
       const isMaxZoomed = currentLevel <= CONFIG.ZOOM_DETAIL_LEVEL;
-
-      const posts = getFilteredPosts();
+      const posts = getDongPosts();
       const outdoor = posts.filter(p => p.spaceType === 'outdoor');
 
-      /* 1. 실외 소음 발생 지점 마커 */
+      /* 1. 실외 소음 발생 지점 핀 */
       outdoor.forEach(post => {
+        const isSelected = (post.id === state.selectedPostId);
         const el = document.createElement('div');
         if (!isMaxZoomed) {
-          /* 기본 축척: 컴팩트 유형 아이콘 핀 (지도를 가리지 않음) */
-          el.className = `pin-compact-spot lv-${post.whoLevel}`;
+          el.className = `pin-compact-spot lv-${post.whoLevel} ${isSelected ? 'selected-spot' : ''}`;
           el.innerHTML = `
             <div class="pin-compact-inner">${getNoiseIconSvg(post.filterGroup, 20)}</div>
             <span class="pin-compact-badge">${post.empathyCount}</span>
           `;
         } else {
-          /* 최대 확대 축척(Level 1~2): 소음 지점 간략 정보 카드 표시 */
           const who = WHO_LEVELS[post.whoLevel] || WHO_LEVELS[2];
           el.className = `pin-zoomed-outdoor lv-${post.whoLevel}`;
           el.innerHTML = `
@@ -1944,142 +2027,134 @@
             </div>
           `;
         }
-        el.onclick = () => openPostDetail(post.id);
+        el.onclick = () => {
+          if (state.selectedPostId === post.id) {
+            openPostDetail(post.id);
+          } else {
+            focusSpotOnMapAndCard(post.id, true);
+          }
+        };
 
         const ov = new kakao.maps.CustomOverlay({
           position: new kakao.maps.LatLng(post.lat, post.lng),
-          content: el, yAnchor: 0.5, zIndex: 20 + post.whoLevel
+          content: el, yAnchor: 0.5, zIndex: isSelected ? 60 : (20 + post.whoLevel)
         });
         ov.setMap(state.map);
         state.overlays.push(ov);
       });
 
-      /* 2. 공동주택·아파트 실내 소음 마커 (실제 소음 기록이 있는 건물만 표시) */
-      if (state.activeFilter === 'all' || state.activeFilter === 'indoor') {
-        state.buildings.filter(b => b.dong === state.currentDong).forEach(bldg => {
-          const bReports = state.posts.filter(p => p.buildingId === bldg.id);
-          if (bReports.length === 0) return; /* 소음 기록이 없는 아파트는 지도에 불필요하게 띄우지 않음 */
+      /* 2. 공동주택·아파트 실내 소음 핀 */
+      state.buildings.filter(b => b.dong === state.currentDong).forEach(bldg => {
+        const bReports = state.posts.filter(p => p.buildingId === bldg.id);
+        if (bReports.length === 0) return;
 
-          const prof = profileBuildingStructure(bldg, bReports);
-          const el = document.createElement('div');
+        const isSelected = bReports.some(r => r.id === state.selectedPostId);
+        const prof = profileBuildingStructure(bldg, bReports);
+        const el = document.createElement('div');
 
-          if (!isMaxZoomed) {
-            /* 기본 축척: 컴팩트 실내 소음 아이콘 핀 (15층 등의 불필요한 텍스트 제거) */
-            el.className = 'pin-compact-spot indoor-spot';
-            el.innerHTML = `
-              <div class="pin-compact-inner">${getNoiseIconSvg('indoor', 19, '#FFFFFF')}</div>
-              <span class="pin-compact-badge">${bReports.length}</span>
-            `;
-          } else {
-            /* 최대 확대 축척(Level 1~2): 실제 층수(groundFloors)에 맞춰 제작된 입체 단면 + 층별 소음 정보 */
-            const totalFloors = Math.max(3, Math.min(25, prof.groundFloors));
-            let floorsHtml = '';
-            for (let f = totalFloors; f >= 2; f--) {
-              const hit = bReports.find(r => r.floor === f);
-              if (hit) {
-                floorsHtml += `<div class="pzb-floor-row hot"><span>${f}F</span><span>${hit.category.slice(0, 4)}</span></div>`;
-              } else {
-                floorsHtml += `<div class="pzb-floor-row"></div>`;
-              }
-            }
-            if (prof.hasPiloti) {
-              floorsHtml += `<div class="pzb-floor-row piloti" title="1층 필로티"></div>`;
+        if (!isMaxZoomed) {
+          el.className = `pin-compact-spot indoor-spot ${isSelected ? 'selected-spot' : ''}`;
+          el.innerHTML = `
+            <div class="pin-compact-inner">${getNoiseIconSvg('indoor', 19, '#FFFFFF')}</div>
+            <span class="pin-compact-badge">${bReports.length}</span>
+          `;
+        } else {
+          const totalFloors = Math.max(3, Math.min(25, prof.groundFloors));
+          let floorsHtml = '';
+          for (let f = totalFloors; f >= 2; f--) {
+            const hit = bReports.find(r => r.floor === f);
+            if (hit) {
+              floorsHtml += `<div class="pzb-floor-row hot"><span>${f}F</span><span>${hit.category.slice(0, 4)}</span></div>`;
             } else {
-              const hit1 = bReports.find(r => r.floor === 1);
-              floorsHtml += hit1
-                ? `<div class="pzb-floor-row hot"><span>1F</span><span>소음</span></div>`
-                : `<div class="pzb-floor-row"></div>`;
+              floorsHtml += `<div class="pzb-floor-row"></div>`;
             }
-
-            el.className = 'pin-zoomed-bldg';
-            el.innerHTML = `
-              <div class="pzb-tower">${floorsHtml}</div>
-              <div class="pzb-caption"><span>${prof.name} (${prof.groundFloors}층)</span></div>
-            `;
+          }
+          if (prof.hasPiloti) {
+            floorsHtml += `<div class="pzb-floor-row piloti"></div>`;
+          } else {
+            const hit1 = bReports.find(r => r.floor === 1);
+            floorsHtml += hit1
+              ? `<div class="pzb-floor-row hot"><span>1F</span><span>소음</span></div>`
+              : `<div class="pzb-floor-row"></div>`;
           }
 
-          el.onclick = () => openBuildingView(bldg.id);
+          el.className = 'pin-zoomed-bldg';
+          el.innerHTML = `
+            <div class="pzb-tower">${floorsHtml}</div>
+            <div class="pzb-caption"><span>${prof.name} (${prof.groundFloors}층)</span></div>
+          `;
+        }
 
-          const ov = new kakao.maps.CustomOverlay({
-            position: new kakao.maps.LatLng(bldg.lat, bldg.lng),
-            content: el, yAnchor: isMaxZoomed ? 0.95 : 0.5, zIndex: 35
-          });
-          ov.setMap(state.map);
-          state.overlays.push(ov);
-        });
-      }
-    }
-
-    function renderFilterChips() {
-      const bar = document.getElementById('filter-chips-bar');
-      const items = [
-        { key: 'all', label: '전체', icon: '' },
-        { key: 'bike', label: '바이크·차량', icon: getNoiseIconSvg('bike', 16) },
-        { key: 'indoor', label: '층간·벽간', icon: getNoiseIconSvg('indoor', 16, '#1B4965') },
-        { key: 'shout', label: '고성·욕설', icon: getNoiseIconSvg('shout', 16) },
-        { key: 'const', label: '공사·기계', icon: getNoiseIconSvg('const', 16) }
-      ];
-      bar.innerHTML = items.map(it => `
-        <button type="button" class="map-chip ${state.activeFilter === it.key ? 'active' : ''}" data-filter="${it.key}">
-          ${it.icon}<span>${it.label}</span>
-        </button>
-      `).join('');
-
-      bar.querySelectorAll('.map-chip').forEach(chip => {
-        chip.onclick = () => {
-          state.activeFilter = chip.dataset.filter;
-          renderFilterChips();
-          renderHome();
+        el.onclick = () => {
+          if (isSelected) {
+            openBuildingView(bldg.id);
+          } else {
+            focusSpotOnMapAndCard(bReports[0].id, true);
+          }
         };
+
+        const ov = new kakao.maps.CustomOverlay({
+          position: new kakao.maps.LatLng(bldg.lat, bldg.lng),
+          content: el, yAnchor: isMaxZoomed ? 0.95 : 0.5, zIndex: isSelected ? 65 : 35
+        });
+        ov.setMap(state.map);
+        state.overlays.push(ov);
       });
     }
 
     function renderHome() {
-      const dongPosts = state.posts.filter(p => p.dong === state.currentDong);
+      const dongInfo = ADMIN_DONGS[state.currentDong];
+      const dongPosts = getDongPosts();
       const outCnt = dongPosts.filter(p => p.spaceType === 'outdoor').length;
       const inCnt = new Set(dongPosts.filter(p => p.spaceType === 'indoor').map(p => p.buildingId)).size;
-      document.getElementById('ticker-counts').textContent = `실외 ${outCnt}건 · 건물 ${inCnt}곳`;
 
-      const filtered = getFilteredPosts();
+      document.getElementById('ticker-counts').textContent = `실외 ${outCnt} · 건물 ${inCnt}`;
+      document.getElementById('sheet-section-title').textContent = `${dongInfo.short} 소음 지점`;
+
       const listEl = document.getElementById('feed-list');
+      const idxPill = document.getElementById('spot-index-indicator');
 
-      if (!filtered.length) {
+      if (!dongPosts.length) {
+        idxPill.textContent = '0 / 0';
         listEl.innerHTML = `
-          <div style="text-align:center; padding:36px 16px; color:var(--text-muted); font-size:14px; line-height:1.6;">
-            <strong>${ADMIN_DONGS[state.currentDong].short}</strong>에 아직 등록된 소음 기록이 없어요.<br>
-            우측 하단 <strong>[+ 소음 올리기]</strong>로 첫 번째 소음 지도를 만들어보세요!
+          <div style="width:100%; text-align:center; padding:32px 16px; color:var(--text-muted); font-size:14px; line-height:1.6;">
+            <strong>${dongInfo.short}</strong>에 아직 등록된 소음 지점이 없어요.<br>
+            우측 하단 <strong>[+ 소음 올리기]</strong>로 첫 번째 소음 지점을 기록해 보세요!
           </div>
         `;
         renderPins();
         return;
       }
 
-      listEl.innerHTML = filtered.map(post => {
+      if (!dongPosts.some(p => p.id === state.selectedPostId)) {
+        state.selectedPostId = dongPosts[0].id;
+      }
+      const curIdx = dongPosts.findIndex(p => p.id === state.selectedPostId);
+      idxPill.textContent = `${curIdx + 1} / ${dongPosts.length}`;
+
+      listEl.innerHTML = dongPosts.map(post => {
         const cis = calculateCIS(post);
         const who = WHO_LEVELS[post.whoLevel] || WHO_LEVELS[2];
         const loc = formatBackroadAnchor(post.roadName, post.anchorBuilding, post.roadType);
         const iconSvg = getNoiseIconSvg(post.filterGroup, 15, '#1B4965');
         return `
-          <article class="feed-card" id="post-${post.id}" data-id="${post.id}">
-            <div class="fc-top">
-              <div class="fc-badges">
-                <span class="fc-cat">${iconSvg}<span>${post.category}</span></span>
-                <span class="fc-who lv-${post.whoLevel}">${who.badge}</span>
+          <article class="spot-card" id="spot-card-${post.id}" data-id="${post.id}">
+            <div>
+              <div class="sc-location-header">
+                <span class="sc-loc-text">📍 ${loc}</span>
+                <span class="sc-time-tag">${relTime(post.timestamp)}</span>
               </div>
-              <span class="fc-cis">신뢰도 ${cis.cisScore}%</span>
+
+              <div class="sc-metrics-strip" style="margin-top:8px;">
+                <span class="sc-lv-badge lv-${post.whoLevel}">${who.badge}</span>
+                <span class="sc-type-badge">${iconSvg}<span>${post.category}</span></span>
+                <span class="sc-cis-badge">신뢰도 ${cis.cisScore}%</span>
+              </div>
             </div>
 
-            <div class="fc-loc">📍 ${loc}</div>
-            <p class="fc-body">${post.content}</p>
+            <p class="sc-body-text">${post.content}</p>
 
-            <div class="fc-author-row">
-              ${post.gpsVerified ? '<span class="fc-verified">✓ 행정동 인증</span><span>·</span>' : ''}
-              <span>${post.nickname}</span>
-              <span>·</span>
-              <span>${relTime(post.timestamp)}</span>
-            </div>
-
-            <div class="fc-action-bar">
+            <div class="sc-footer-actions">
               <button type="button" class="btn-fc-empathy ${post.empathizedByMe ? 'active' : ''}" data-emp="${post.id}">
                 <span>🙌 저도 들었어요</span>
                 <strong>${post.empathyCount}</strong>
@@ -2105,12 +2180,38 @@
         };
       });
 
-      listEl.querySelectorAll('.feed-card').forEach(item => {
+      listEl.querySelectorAll('.spot-card').forEach(item => {
         item.onclick = () => openPostDetail(item.dataset.id);
       });
 
       renderPins();
     }
+
+    /* 가로 스와이프 시 현재 화면 중앙에 온 카드와 상단 지도 핀 자동 동기화 */
+    let scrollSyncTimer = null;
+    document.getElementById('feed-list').addEventListener('scroll', () => {
+      if (document.getElementById('feed-sheet').classList.contains('expanded')) return;
+      clearTimeout(scrollSyncTimer);
+      scrollSyncTimer = setTimeout(() => {
+        const wrap = document.getElementById('feed-list');
+        const cards = Array.from(wrap.querySelectorAll('.spot-card'));
+        if (!cards.length) return;
+        const center = wrap.scrollLeft + wrap.clientWidth / 2;
+        let closest = cards[0];
+        let minDist = Infinity;
+        cards.forEach(c => {
+          const cCenter = c.offsetLeft + c.offsetWidth / 2;
+          const dist = Math.abs(center - cCenter);
+          if (dist < minDist) {
+            minDist = dist;
+            closest = c;
+          }
+        });
+        if (closest && closest.dataset.id !== state.selectedPostId) {
+          focusSpotOnMapAndCard(closest.dataset.id, false);
+        }
+      }, 90);
+    });
 
     async function searchAndProfileBuilding(keyword) {
       if (!keyword || typeof kakao === 'undefined') return null;
@@ -2280,6 +2381,7 @@
       };
 
       state.posts.unshift(newPost);
+      state.selectedPostId = newPost.id;
       saveState();
       document.getElementById('input-write-content').value = '';
       goScreen('screen-home');
@@ -2300,12 +2402,12 @@
             <div style="font-size:12px; color:var(--text-sub); margin-top:2px;">행정동 GPS 인증 주민 공감 일치 · 조작·어뷰징 패턴 없음</div>
           </div>
 
-          <div class="fc-badges">
-            <span class="fc-cat">${getNoiseIconSvg(post.filterGroup, 16, '#1B4965')}<span>${post.category}</span></span>
-            <span class="fc-who lv-${post.whoLevel}">${who.badge}</span>
+          <div class="sc-metrics-strip">
+            <span class="sc-lv-badge lv-${post.whoLevel}">${who.badge}</span>
+            <span class="sc-type-badge">${getNoiseIconSvg(post.filterGroup, 16, '#1B4965')}<span>${post.category}</span></span>
           </div>
-          <div class="fc-loc" style="font-size:16px;">📍 ${loc}</div>
-          <p class="fc-body" style="font-size:16px;">${post.content}</p>
+          <div class="sc-loc-text" style="font-size:16px;">📍 ${loc}</div>
+          <p style="font-size:16px; line-height:1.58; color:var(--text-main); word-break:keep-all;">${post.content}</p>
           <div style="font-size:13px; color:var(--text-muted);">✓ 행정동 인증 · ${post.nickname} · ${relTime(post.timestamp)}</div>
 
           <button type="button" class="btn-cta-primary" id="btn-detail-empathy" style="background:${post.empathizedByMe ? 'var(--secondary)' : 'var(--primary)'}; height:50px; font-size:15.5px; margin-top:4px;">
@@ -2450,9 +2552,9 @@
       };
     });
 
-    document.getElementById('sheet-handle').onclick = () => {
+    document.getElementById('sheet-expand-btn').onclick = () => {
       const exp = document.getElementById('feed-sheet').classList.toggle('expanded');
-      document.getElementById('sheet-expand-label').textContent = exp ? '지도 함께 보기 ▼' : '전체 보기 ▲';
+      document.getElementById('sheet-expand-btn').textContent = exp ? '지도 함께 보기 ▼' : '전체 보기 ▲';
       if (state.map) setTimeout(() => state.map.relayout(), 300);
     };
 
@@ -2472,7 +2574,7 @@
       }
     };
 
-    document.getElementById('btn-global-112').onclick = () => open112Modal(getFilteredPosts()[0] || state.posts[0]);
+    document.getElementById('btn-global-112').onclick = () => open112Modal(getDongPosts()[0] || state.posts[0]);
     document.getElementById('btn-close-112').onclick = () => { document.getElementById('modal-112').hidden = true; };
     document.getElementById('btn-confirm-verify').onclick = () => {
       state.user.phoneVerifiedFor112 = true;
