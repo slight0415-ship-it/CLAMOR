@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨 (v1.1.0)</title>
+  <title>53데시벨 (v1.1.1)</title>
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Crect width='128' height='128' rx='28' fill='%231B4965'/%3E%3Ctext x='64' y='74' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='54' font-weight='900'%3E53%3C/text%3E%3Ctext x='64' y='102' text-anchor='middle' fill='%235EEAD4' font-family='sans-serif' font-size='22' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%231B4965'/%3E%3Ctext x='90' y='102' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='76' font-weight='900'%3E53%3C/text%3E%3Ctext x='90' y='142' text-anchor='middle' fill='%235EEAD4' font-family='sans-serif' font-size='30' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
@@ -128,7 +128,7 @@
     button:active { transform: scale(0.97); }
 
     /* ==========================================================================
-       [화면 1] 스플래시 (v1.1.0)
+       [화면 1] 스플래시 (v1.1.1)
        ========================================================================== */
     #screen-splash {
       z-index: 100;
@@ -299,7 +299,7 @@
     .btn-cta-primary { width: 100%; height: 56px; border-radius: 18px; background: linear-gradient(145deg, #215778 0%, #1B4965 100%); color: #FFFFFF; font-size: 17px; font-weight: 800; display: flex; align-items: center; justify-content: center; box-shadow: -4px -4px 10px rgba(255, 255, 255, 0.7), 5px 5px 14px rgba(27, 73, 101, 0.38); }
 
     /* ==========================================================================
-       [화면 3] 메인 홈 (호갱노노 스타일 지점 데이터 마커 + 고밀도 소음 지점 카드)
+       [화면 3] 메인 홈 (공공데이터 기반 취약도 분석 + 시민 제보 하이브리드 지도)
        ========================================================================== */
     #screen-home { z-index: 20; background-color: var(--neu-bg); }
 
@@ -333,17 +333,17 @@
     .dong-picker-btn svg { width: 17px; height: 17px; }
 
     .top-dong-stat {
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 800;
       color: #0F766E;
       background-color: var(--neu-bg);
       box-shadow: var(--neu-concave);
-      padding: 5px 10px;
+      padding: 5px 9px;
       border-radius: 999px;
       white-space: nowrap;
     }
 
-    .topbar-right-actions { display: flex; align-items: center; gap: 8px; }
+    .topbar-right-actions { display: flex; align-items: center; gap: 7px; }
 
     .btn-top-icon {
       width: 38px; height: 38px; border-radius: 13px;
@@ -364,7 +364,7 @@
 
     .map-container {
       position: relative;
-      height: 52%;
+      height: 51%;
       width: 100%;
       flex-shrink: 0;
       overflow: hidden;
@@ -380,16 +380,49 @@
       text-align: center; padding: 24px; font-size: 14px; font-weight: 700; color: var(--text-sub); gap: 8px; z-index: 5;
     }
 
+    /* 지도 우측 보조 레이어 버튼 (호갱노노 우측 툴바 스타일: CCTV ON/OFF & 현위치) */
+    .map-right-tools {
+      position: absolute;
+      right: 12px;
+      top: 12px;
+      z-index: 25;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .btn-map-tool {
+      width: 46px;
+      height: 46px;
+      border-radius: 13px;
+      background-color: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 3px 10px rgba(17, 24, 39, 0.18);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--text-sub);
+      border: 1.5px solid #FFFFFF;
+    }
+
+    .btn-map-tool.active {
+      background-color: var(--primary);
+      color: #FFFFFF;
+    }
+
     .btn-floating-gps {
-      position: absolute; right: 14px; bottom: 22px; z-index: 25;
+      position: absolute; right: 12px; bottom: 22px; z-index: 25;
       width: 42px; height: 42px; border-radius: 14px;
       background-color: var(--neu-surface); box-shadow: 0 4px 12px rgba(17, 24, 39, 0.22);
       display: grid; place-items: center; color: var(--primary);
     }
 
     /* ==========================================================================
-       [핵심 개편 1] 호갱노노 스타일 '지점 데이터 마커' (정확한 지점 꼬리표 포함)
-       - 아이콘 마커 폐기 → 일관된 2단 데이터 블록 + 뾰족한 위치 꼬리표 + 상단 실시간 공감 말풍선
+       [핵심 개편] 호갱노노 스타일 지점 데이터 마커
+       - 시민 제보 지점 (실제 피해 기록) vs 공공데이터 분석 지점 (규제시대·밀집도 예측)
        ========================================================================== */
     .hg-marker-wrap {
       position: relative;
@@ -397,7 +430,7 @@
       flex-direction: column;
       align-items: flex-start;
       cursor: pointer;
-      filter: drop-shadow(0 5px 10px rgba(17, 24, 39, 0.28));
+      filter: drop-shadow(0 5px 10px rgba(17, 24, 39, 0.26));
       transition: transform 0.18s ease;
     }
 
@@ -406,7 +439,6 @@
       z-index: 100;
     }
 
-    /* 상단 실시간 공감 말풍선 (호갱노노 '40명 보는중' 벤치마킹) */
     .hg-live-bubble {
       align-self: center;
       background-color: #1F2937;
@@ -420,9 +452,14 @@
       letter-spacing: -0.02em;
     }
 
-    /* 2단 데이터 박스 본체 */
+    /* 공공데이터 분석 지점의 상단 말풍선은 딥 슬레이트 블루 */
+    .hg-marker-wrap.is-public .hg-live-bubble {
+      background-color: #334155;
+      color: #E2E8F0;
+    }
+
     .hg-marker-box {
-      min-width: 74px;
+      min-width: 78px;
       border-radius: 9px 9px 9px 2px;
       overflow: hidden;
       border: 1.5px solid #FFFFFF;
@@ -431,19 +468,23 @@
       text-align: center;
     }
 
-    /* 건물/아파트 마커는 지붕 엣지 포인트 추가 */
     .hg-marker-wrap.is-bldg .hg-marker-box {
       border-top: 3.5px solid #5EEAD4;
       background-color: #123246;
     }
 
-    /* 강도별 헤더 바 */
+    /* 공공데이터 기반 예측 마커는 차분한 슬레이트 틸 톤 */
+    .hg-marker-wrap.is-public .hg-marker-box {
+      background-color: #334155;
+      border-top: 3.5px solid #38BDF8;
+    }
+
     .hg-m-top {
-      font-size: 10.5px;
+      font-size: 10px;
       font-weight: 800;
       padding: 2.5px 8px;
       background-color: rgba(255, 255, 255, 0.16);
-      color: #E2E8F0;
+      color: #F1F5F9;
       white-space: nowrap;
       letter-spacing: -0.02em;
     }
@@ -451,10 +492,10 @@
     .hg-marker-wrap.lv-3 .hg-m-top { background-color: #BE123C; color: #FFFFFF; }
     .hg-marker-wrap.lv-2 .hg-m-top { background-color: #C2410C; color: #FFFFFF; }
     .hg-marker-wrap.is-bldg .hg-m-top { background-color: #0D9488; color: #FFFFFF; }
+    .hg-marker-wrap.is-public .hg-m-top { background-color: #0284C7; color: #FFFFFF; }
 
-    /* 메인 핵심 수치/명칭 바 (호갱노노의 '6.2억' 위치) */
     .hg-m-main {
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 900;
       padding: 4px 9px 5px;
       color: #FFFFFF;
@@ -462,7 +503,6 @@
       letter-spacing: -0.03em;
     }
 
-    /* 좌측 하단 뾰족한 지점 지시 꼬리표 (정확한 지점을 콕 찌름) */
     .hg-m-pointer {
       width: 0;
       height: 0;
@@ -470,11 +510,9 @@
       border-right: 9px solid transparent;
       margin-left: 1px;
     }
-    .hg-marker-wrap.is-bldg .hg-m-pointer {
-      border-top-color: #123246;
-    }
+    .hg-marker-wrap.is-bldg .hg-m-pointer { border-top-color: #123246; }
+    .hg-marker-wrap.is-public .hg-m-pointer { border-top-color: #334155; }
 
-    /* 정확히 지점을 찍는 바닥 점(Pin Point Dot) */
     .hg-m-dot {
       width: 7px;
       height: 7px;
@@ -485,9 +523,26 @@
       margin-top: -1px;
       box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.3);
     }
+    .hg-marker-wrap.is-public .hg-m-dot {
+      background-color: #0284C7;
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.3);
+    }
+
+    /* 방범 CCTV 마커 (토글 ON 시 표시) */
+    .cctv-pin {
+      background-color: #111827;
+      color: #38BDF8;
+      border: 1.5px solid #FFFFFF;
+      border-radius: 999px;
+      padding: 3px 7px;
+      font-size: 10px;
+      font-weight: 800;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      white-space: nowrap;
+    }
 
     /* ==========================================================================
-       [핵심 개편 2] 하단 고밀도 소음 지점 카드 (호갱노노 상세 정보 밀도 반영)
+       하단 고밀도 지점 카드 시트
        ========================================================================== */
     .bottom-feed-sheet {
       flex: 1;
@@ -552,7 +607,6 @@
       padding: 8px 18px calc(94px + var(--safe-bottom));
     }
 
-    /* 호갱노노 스타일 고밀도 요약 카드 */
     .spot-card {
       flex: 0 0 100%;
       scroll-snap-align: center;
@@ -570,7 +624,6 @@
 
     .bottom-feed-sheet.expanded .spot-card { flex: none; width: 100%; }
 
-    /* 1단: 지점 주소 + 경과 시간 + 상세 화살표 */
     .sc-location-header {
       display: flex;
       align-items: center;
@@ -579,7 +632,7 @@
     }
 
     .sc-loc-text {
-      font-size: 15.5px;
+      font-size: 15px;
       font-weight: 900;
       color: var(--primary);
       letter-spacing: -0.025em;
@@ -588,15 +641,17 @@
       text-overflow: ellipsis;
     }
 
-    .sc-detail-link {
-      font-size: 11.5px;
+    .sc-source-tag {
+      font-size: 11px;
       font-weight: 800;
-      color: var(--secondary);
+      padding: 3px 8px;
+      border-radius: 6px;
       white-space: nowrap;
       flex-shrink: 0;
     }
+    .sc-source-tag.citizen { background-color: var(--lv3-soft); color: var(--lv3-red); }
+    .sc-source-tag.public { background-color: #E0F2FE; color: #0369A1; }
 
-    /* 2단: 호갱노노식 3열 핵심 수치 그리드 (체감강도 | AI 신뢰도 | 누적공감·증언) */
     .sc-kpi-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -608,28 +663,13 @@
       text-align: center;
     }
 
-    .sc-kpi-cell {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .sc-kpi-label {
-      font-size: 10.5px;
-      font-weight: 700;
-      color: var(--text-muted);
-    }
-
-    .sc-kpi-val {
-      font-size: 13.5px;
-      font-weight: 900;
-      color: var(--text-main);
-    }
+    .sc-kpi-cell { display: flex; flex-direction: column; gap: 2px; }
+    .sc-kpi-label { font-size: 10.5px; font-weight: 700; color: var(--text-muted); }
+    .sc-kpi-val { font-size: 13px; font-weight: 900; color: var(--text-main); }
     .sc-kpi-val.danger { color: var(--lv3-red); }
     .sc-kpi-val.trust { color: var(--primary); }
     .sc-kpi-val.teal { color: #0F766E; }
 
-    /* 3단: 시민 증언 본문 */
     .sc-body-text {
       font-size: 14px;
       font-weight: 500;
@@ -644,7 +684,6 @@
 
     .bottom-feed-sheet.expanded .sc-body-text { -webkit-line-clamp: unset; }
 
-    /* 4단: 공감 & 증언 버튼 */
     .sc-footer-actions {
       display: flex;
       align-items: center;
@@ -741,7 +780,7 @@
     .btn-urgent-112-go { padding: 9px 13px; border-radius: 12px; background-color: var(--lv3-red); color: #FFFFFF; font-size: 12.5px; font-weight: 800; white-space: nowrap; }
 
     /* ==========================================================================
-       [화면 5] 호갱노노 스타일 지점 상세 리포트 (추이 차트 + 접수 테이블 + 증언 카드)
+       [화면 5] 지점 상세 리포트 (건축 규제 시대 분석 + 야간 인구 밀집도 + 이력 테이블)
        ========================================================================== */
     #screen-detail, #screen-building { z-index: 105; background-color: var(--neu-bg); }
     .detail-scroll { flex: 1; overflow-y: auto; padding: 16px 20px calc(44px + var(--safe-bottom)); display: flex; flex-direction: column; gap: 16px; }
@@ -756,7 +795,6 @@
       gap: 14px;
     }
 
-    /* 호갱노노 상세 화면 상단 2대 핵심 수치 비교 (평균 체감 소음 vs AI 신뢰도) */
     .hg-compare-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -772,7 +810,40 @@
     .hg-comp-big { font-size: 24px; font-weight: 900; letter-spacing: -0.04em; color: var(--primary); }
     .hg-comp-big.red { color: var(--lv3-red); }
 
-    /* 시간대별 소음 추이 SVG 그래프 박스 */
+    /* 건축 규제 역사 + 야간 인구 밀집도 정밀 분석 카드 */
+    .era-analysis-box {
+      background-color: var(--neu-bg);
+      box-shadow: var(--neu-concave);
+      border-radius: 16px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .era-badge-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .era-tag {
+      font-size: 11.5px;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 6px;
+      background-color: var(--primary);
+      color: #FFFFFF;
+    }
+
+    .era-desc {
+      font-size: 13px;
+      line-height: 1.52;
+      color: var(--text-sub);
+      word-break: keep-all;
+    }
+
     .hg-chart-box {
       background-color: var(--neu-surface);
       box-shadow: var(--neu-convex-sm);
@@ -792,25 +863,9 @@
       color: var(--text-main);
     }
 
-    /* 호갱노노 실거래가 테이블 스타일의 '최근 소음 접수 이력 표' */
-    .hg-history-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 12.5px;
-    }
-    .hg-history-table th {
-      text-align: left;
-      padding: 8px 6px;
-      color: var(--text-muted);
-      font-weight: 700;
-      border-bottom: 1px solid #CBD5E1;
-    }
-    .hg-history-table td {
-      padding: 9px 6px;
-      color: var(--text-main);
-      font-weight: 700;
-      border-bottom: 1px solid rgba(203, 213, 225, 0.45);
-    }
+    .hg-history-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+    .hg-history-table th { text-align: left; padding: 8px 6px; color: var(--text-muted); font-weight: 700; border-bottom: 1px solid #CBD5E1; }
+    .hg-history-table td { padding: 9px 6px; color: var(--text-main); font-weight: 700; border-bottom: 1px solid rgba(203, 213, 225, 0.45); }
 
     .testimony-card {
       background-color: var(--neu-card-warm);
@@ -865,11 +920,11 @@
   <div class="app-shell">
 
     <!-- ========================================================================
-         [화면 1] 스플래시 (v1.1.0)
+         [화면 1] 스플래시 (v1.1.1)
          ======================================================================== -->
     <section class="screen" id="screen-splash" aria-label="53데시벨 시작 화면">
       <div class="splash-top-meta">
-        <span class="version-pill">v1.1.0</span>
+        <span class="version-pill">v1.1.1</span>
       </div>
 
       <div class="splash-center-group">
@@ -892,7 +947,7 @@
     </section>
 
     <!-- ========================================================================
-         [화면 2] 로그인 및 초간단 온보딩
+         [화면 2] 로그인 & 온보딩
          ======================================================================== -->
     <section class="screen" id="screen-auth" hidden>
       <div id="auth-step-login" class="auth-view">
@@ -911,10 +966,10 @@
           </div>
 
           <h1>우리 동네 소음 고민,<br>이웃과 함께 해결해요</h1>
-          <p>골목길 바이크 굉음부터 건물 층간소음까지<br>지도 위에 기록하고 공감을 모아보세요.</p>
+          <p>건축 규제 시대별 방음 취약도 분석부터<br>실시간 골목·층간 소음 증언까지 한눈에 확인하세요.</p>
 
           <div class="hero-pills">
-            <span class="hero-pill">📍 호수 노출 없는 안심 기록</span>
+            <span class="hero-pill">🏛️ 건축물대장·규제시대 분석</span>
             <span class="hero-pill">🙌 이웃 공감 신뢰도</span>
             <span class="hero-pill">🚨 112·신문고 원터치 연계</span>
           </div>
@@ -980,7 +1035,7 @@
     </section>
 
     <!-- ========================================================================
-         [화면 3] 메인 홈 (호갱노노식 지점 데이터 마커 + 고밀도 소음 지점 카드)
+         [화면 3] 메인 홈
          ======================================================================== -->
     <section class="screen" id="screen-home" hidden>
       <header class="app-topbar">
@@ -991,7 +1046,7 @@
               <path d="M6 9l6 6 6-6"/>
             </svg>
           </button>
-          <span class="top-dong-stat" id="ticker-counts">실외 2 · 건물 1</span>
+          <span class="top-dong-stat" id="ticker-counts">제보 3 · 공공분석 2</span>
         </div>
 
         <div class="topbar-right-actions">
@@ -1008,15 +1063,25 @@
 
       <div class="search-bar-float" id="search-drawer" hidden>
         <div class="native-input-box" style="flex:1; height:44px;">
-          <input type="text" id="input-map-search" placeholder="아파트·빌라·도로명 검색 (예: 만수주공1단지)">
+          <input type="text" id="input-map-search" placeholder="아파트·빌라·도로명 검색 (건축물대장 방음분석)">
         </div>
-        <button type="button" class="btn-chip-action" id="btn-exec-search" style="height:44px; background:var(--primary); color:#fff;">조회</button>
+        <button type="button" class="btn-chip-action" id="btn-exec-search" style="height:44px; background:var(--primary); color:#fff;">분석</button>
       </div>
 
       <div class="map-container">
         <div id="kakao-map"></div>
         <div id="map-loading-box" class="map-status-msg">
           <span>카카오맵을 불러오는 중입니다...</span>
+        </div>
+
+        <!-- 지도 우측 보조 도구 (호갱노노 우측 툴바 스타일: CCTV 토글) -->
+        <div class="map-right-tools">
+          <button type="button" class="btn-map-tool" id="btn-toggle-cctv" title="채증 가능 방범 CCTV 위치 표시">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/>
+            </svg>
+            <span>CCTV</span>
+          </button>
         </div>
 
         <button type="button" class="btn-floating-gps" id="btn-goto-gps" aria-label="내 위치 및 행정동 찾기">
@@ -1033,7 +1098,7 @@
           <div class="section-title-block">
             <span class="section-accent-bar"></span>
             <h2 id="sheet-section-title">만수5동 소음 지점</h2>
-            <span class="spot-index-pill" id="spot-index-indicator">1 / 3</span>
+            <span class="spot-index-pill" id="spot-index-indicator">1 / 5</span>
           </div>
           <button type="button" class="sheet-expand-btn" id="sheet-expand-btn">전체 보기 ▲</button>
         </div>
@@ -1092,7 +1157,7 @@
               <button type="button" class="btn-chip-action" id="btn-lookup-bldg" style="height:44px; background:var(--primary); color:#fff;">건물 조회</button>
             </div>
             <div id="write-bldg-info" style="font-size:13px; font-weight:800; color:var(--primary);">
-              만수주공1단지아파트 · 지상 15층 · 철근콘크리트 (건축물대장 연동)
+              만수주공1단지아파트 · 지상 15층 · 1987년 준공 (규제 도입 전)
             </div>
             <div class="floor-grid" id="write-floor-grid">
               <button type="button" class="btn-floor-chip" data-floor="2">2층</button>
@@ -1144,7 +1209,7 @@
     </section>
 
     <!-- ========================================================================
-         [화면 5-A] 호갱노노식 지점 상세 리포트 (추이 차트 + 이력 테이블 + 증언 카드)
+         [화면 5-A] 지점 상세 리포트
          ======================================================================== -->
     <section class="screen" id="screen-detail" hidden>
       <header class="subscreen-topbar">
@@ -1156,12 +1221,12 @@
     </section>
 
     <!-- ========================================================================
-         [화면 5-B] 공동주택·아파트 상세 리포트 (2.5D 층별 단면 + 구조 분석)
+         [화면 5-B] 건물 방음 취약도 & 입체 단면 리포트
          ======================================================================== -->
     <section class="screen" id="screen-building" hidden>
       <header class="subscreen-topbar">
         <button type="button" class="btn-chip-action" id="btn-close-bldg">← 뒤로</button>
-        <h2 id="bldg-detail-title">건물 소음 리포트</h2>
+        <h2 id="bldg-detail-title">건물 방음 리포트</h2>
         <span style="width:48px;"></span>
       </header>
       <div class="detail-scroll" id="bldg-detail-body"></div>
@@ -1234,19 +1299,19 @@
 
   <script>
     const CONFIG = {
-      STORAGE_KEY: '53db_native_state_v110',
+      STORAGE_KEY: '53db_native_state_v111',
       BLDG_API_KEY: '738a1e3eb24afc48a06e3871c47d057b54f27cfde63e91a4e2b5a2baf27cbae5'
     };
 
     const ADMIN_DONGS = {
-      mansu1: { short: '만수1동', name: '인천 남동구 만수1동', lat: 37.4565, lng: 126.7372, sigunguCd: '28200', bjdongCd: '10300' },
-      mansu2: { short: '만수2동', name: '인천 남동구 만수2동', lat: 37.4632, lng: 126.7335, sigunguCd: '28200', bjdongCd: '10300' },
-      mansu3: { short: '만수3동', name: '인천 남동구 만수3동', lat: 37.4638, lng: 126.7276, sigunguCd: '28200', bjdongCd: '10300' },
-      mansu4: { short: '만수4동', name: '인천 남동구 만수4동', lat: 37.4589, lng: 126.7351, sigunguCd: '28200', bjdongCd: '10300' },
-      mansu5: { short: '만수5동', name: '인천 남동구 만수5동', lat: 37.4556, lng: 126.7282, sigunguCd: '28200', bjdongCd: '10300' },
-      mansu6: { short: '만수6동', name: '인천 남동구 만수6동', lat: 37.4488, lng: 126.7380, sigunguCd: '28200', bjdongCd: '10300' },
-      guwol1: { short: '구월1동', name: '인천 남동구 구월1동', lat: 37.4485, lng: 126.7052, sigunguCd: '28200', bjdongCd: '10100' },
-      munhak: { short: '문학동',  name: '인천 미추홀구 문학동', lat: 37.4368, lng: 126.6815, sigunguCd: '28177', bjdongCd: '10500' }
+      mansu1: { short: '만수1동', name: '인천 남동구 만수1동', lat: 37.4565, lng: 126.7372, sigunguCd: '28200', bjdongCd: '10300', nightPopDensity: '높음 (다세대 밀집)' },
+      mansu2: { short: '만수2동', name: '인천 남동구 만수2동', lat: 37.4632, lng: 126.7335, sigunguCd: '28200', bjdongCd: '10300', nightPopDensity: '보통 (혼합 주거)' },
+      mansu3: { short: '만수3동', name: '인천 남동구 만수3동', lat: 37.4638, lng: 126.7276, sigunguCd: '28200', bjdongCd: '10300', nightPopDensity: '높음 (빌라·상가 인접)' },
+      mansu4: { short: '만수4동', name: '인천 남동구 만수4동', lat: 37.4589, lng: 126.7351, sigunguCd: '28200', bjdongCd: '10300', nightPopDensity: '매우 높음 (대단지 밀집)' },
+      mansu5: { short: '만수5동', name: '인천 남동구 만수5동', lat: 37.4556, lng: 126.7282, sigunguCd: '28200', bjdongCd: '10300', nightPopDensity: '매우 높음 (대단지·빌라촌)' },
+      mansu6: { short: '만수6동', name: '인천 남동구 만수6동', lat: 37.4488, lng: 126.7380, sigunguCd: '28200', bjdongCd: '10300', nightPopDensity: '높음 (공동주택 단지)' },
+      guwol1: { short: '구월1동', name: '인천 남동구 구월1동', lat: 37.4485, lng: 126.7052, sigunguCd: '28200', bjdongCd: '10100', nightPopDensity: '매우 높음 (상업·주거 경계)' },
+      munhak: { short: '문학동',  name: '인천 미추홀구 문학동', lat: 37.4368, lng: 126.6815, sigunguCd: '28177', bjdongCd: '10500', nightPopDensity: '보통 (저층 다세대)' }
     };
 
     const WHO_LEVELS = {
@@ -1275,6 +1340,75 @@
       { label: '기타', shortTag: '실내소음', group: 'indoor' }
     ];
 
+    /* ==========================================================================
+       [핵심 엔진] 대한민국 건축 규제 시대별 & 부실시공 리스크 정밀 프로파일러
+       - 단순 연식('오래됨=취약')이 아닌 실제 대한민국 법적 바닥충격음 규제 변천사를 반영
+       ========================================================================== */
+    function analyzeBuildingRegulationEra(builtYear, mainStructure = '', hasPiloti = false, households = 40) {
+      let eraTitle = '';
+      let baseVuln = 50;
+      let slabSpec = '';
+      let reason = '';
+
+      if (builtYear <= 1991) {
+        eraTitle = '1991년 이전 (규제 공백기 · 1기 신도시 전후)';
+        baseVuln = 76;
+        slabSpec = '바닥 슬래브 120~150mm 내외';
+        reason = '바닥충격음 법적 기준이 전혀 없던 시기로, 슬래브 두께가 얇아 중량·경량 충격음이 직하층으로 그대로 전달됩니다.';
+      } else if (builtYear <= 2004) {
+        eraTitle = '1992~2004년 (권고 기준기 · 차음재 미비)';
+        baseVuln = 82;
+        slabSpec = '슬래브 135~150mm (완충재 의무 전)';
+        reason = '층간소음 완충재(차음재) 의무 시공 전 시기로, 얇은 바닥판에 온돌 파이프만 매설되어 발망치·진동 울림이 매우 심한 구간입니다.';
+      } else if (builtYear <= 2013) {
+        eraTitle = '2005~2013년 (초기 규제 도입기 · 180mm 기준)';
+        baseVuln = 68;
+        slabSpec = '벽식구조 180mm (무량판 150mm)';
+        reason = '경량·중량충격음 기준이 처음 도입되었으나, 당시 허용된 180mm 벽식 슬래브는 저주파 발망치(중량충격음) 차단에 한계가 있습니다.';
+      } else if (builtYear <= 2021) {
+        eraTitle = '2014~2021년 (210mm 의무화 · 사전인정제 한계기)';
+        baseVuln = 62;
+        slabSpec = '슬래브 210mm (실험실 사전인정제)';
+        reason = '법정 두께는 210mm로 상향되었으나, 현장 시공 후 측정이 아닌 실험실 인증 제품만 쓰면 통과되던 시기로 실제 입주 후 소음 민원이 다수 발생했습니다.';
+      } else {
+        eraTitle = '2022년 이후 (사후확인제 도입 · 최근 시공품질 변수)';
+        baseVuln = 48;
+        slabSpec = '슬래브 210mm+ (사후확인제 적용)';
+        reason = '준공 전 실제 세대 바닥충격음을 측정하는 사후확인제가 도입되었으나, 최근 원자재·인력난 속 시공 편차 및 마감 들뜸 여부를 입주민 증언으로 교차 확인해야 합니다.';
+      }
+
+      if (String(mainStructure).includes('벽식')) baseVuln += 7;
+      if (hasPiloti) baseVuln += 9;
+      if (households >= 100) baseVuln += 5; // 야간 상주 인구 밀집도 가중치
+
+      return {
+        eraTitle,
+        slabSpec,
+        reason,
+        score: Math.min(97, Math.max(32, baseVuln))
+      };
+    }
+
+    function profileBuildingStructure(ledger, reports = []) {
+      const era = analyzeBuildingRegulationEra(
+        ledger.builtYear,
+        ledger.mainStructure,
+        ledger.hasPiloti,
+        ledger.households || 60
+      );
+      const reportBonus = Math.min(10, reports.length * 4);
+      const finalScore = Math.min(98, era.score + reportBonus);
+
+      return {
+        ...ledger,
+        vulnerability: finalScore,
+        eraTitle: era.eraTitle,
+        slabSpec: era.slabSpec,
+        eraReason: era.reason,
+        summary: `${ledger.builtYear}년 준공 (${era.slabSpec}) · ${ledger.hasPiloti ? '1층 필로티 공명 주의' : ledger.mainStructure}`
+      };
+    }
+
     async function fetchBuildingLedgerFromAPI(placeName, lat, lng, sigunguCd, bjdongCd, bun = '', ji = '') {
       const baseUrl = 'https://apis.data.go.kr/1613000/BldRgstHubService';
       const params = new URLSearchParams({
@@ -1299,8 +1433,9 @@
 
         if (matched) {
           const groundFloors = Number(matched.grndFlrCnt) || 5;
-          const builtYear = matched.useAprDay ? Number(String(matched.useAprDay).slice(0, 4)) : 2012;
-          const mainStructure = matched.strctCdNm || '철근콘크리트구조';
+          const builtYear = matched.useAprDay ? Number(String(matched.useAprDay).slice(0, 4)) : 2003;
+          const mainStructure = matched.strctCdNm || '철근콘크리트 벽식구조';
+          const households = Number(matched.hhldCnt) || (groundFloors * 4);
           const etcPurps = String(matched.etcPurps || '');
           const hasPiloti = etcPurps.includes('주차') || etcPurps.includes('필로티') || groundFloors <= 6;
 
@@ -1311,6 +1446,7 @@
             lat: Number(lat),
             lng: Number(lng),
             groundFloors,
+            households,
             hasPiloti,
             mainStructure,
             builtYear,
@@ -1319,34 +1455,24 @@
         }
       } catch (e) {}
 
+      const isApt = placeName.includes('아파트') || placeName.includes('주공') || placeName.includes('래미안');
       return {
         id: 'bldg-kakao-' + Date.now(),
         dong: state.currentDong,
         name: placeName,
         lat: Number(lat),
         lng: Number(lng),
-        groundFloors: placeName.includes('아파트') || placeName.includes('주공') || placeName.includes('래미안') ? 15 : 6,
-        hasPiloti: !(placeName.includes('아파트') || placeName.includes('주공') || placeName.includes('래미안')),
-        mainStructure: placeName.includes('아파트') ? '철근콘크리트 벽식구조' : '다세대 벽식구조',
-        builtYear: 2013,
-        source: '건축물대장·지도 공간 결합 프로파일'
-      };
-    }
-
-    function profileBuildingStructure(ledger, reports = []) {
-      let vuln = ledger.builtYear < 2005 ? 74 : (ledger.builtYear < 2016 ? 56 : 38);
-      if (ledger.hasPiloti) vuln += 11;
-      vuln += Math.min(13, reports.length * 4);
-      return {
-        ...ledger,
-        vulnerability: Math.min(98, vuln),
-        summary: ledger.hasPiloti
-          ? `1층 필로티 구조 · 하부 진동 및 야간 반사음 주의 (${ledger.builtYear}년 준공)`
-          : `${ledger.builtYear}년 준공 · ${ledger.mainStructure}`
+        groundFloors: isApt ? 15 : 5,
+        households: isApt ? 120 : 12,
+        hasPiloti: !isApt,
+        mainStructure: '철근콘크리트 벽식구조',
+        builtYear: isApt ? 2002 : 2016,
+        source: '건축물대장·규제시대 결합 프로파일'
       };
     }
 
     function calculateCIS(post) {
+      if (post.isPublicPrediction) return { cisScore: post.publicConfidence || 84 };
       let score = 48 + (post.gpsVerified ? 22 : 0) + Math.min(25, Math.round(Math.log2(1 + (post.empathyCount || 0)) * 7.5));
       return { cisScore: Math.min(99, score) };
     }
@@ -1356,21 +1482,33 @@
       return safeAnchor ? `${roadName} · ${safeAnchor}` : `${roadName} (${roadType})`;
     }
 
-    const INITIAL_BUILDINGS = [
-      { id: 'bldg-mansu5-1', dong: 'mansu5', name: '만수주공1단지아파트', lat: 37.4547, lng: 126.7294, groundFloors: 15, hasPiloti: false, mainStructure: '철근콘크리트 벽식구조', builtYear: 1987, source: '국토교통부 건축물대장 연동' }
+    /* 방범 CCTV 샘플 좌표 (토글 ON 시 채증 가능 위치 표시) */
+    const CCTV_POINTS = [
+      { dong: 'mansu5', lat: 37.4544, lng: 126.7285, label: '방범CCTV (1단지입구)' },
+      { dong: 'mansu5', lat: 37.4561, lng: 126.7266, label: '방범CCTV (행정복지센터)' },
+      { dong: 'mansu5', lat: 37.4573, lng: 126.7280, label: '방범CCTV (백범로사거리)' },
+      { dong: 'mansu1', lat: 37.4568, lng: 126.7368, label: '방범CCTV (만수1동사거리)' },
+      { dong: 'mansu4', lat: 37.4592, lng: 126.7345, label: '방범CCTV (만수주공4단지)' }
     ];
 
+    const INITIAL_BUILDINGS = [
+      { id: 'bldg-mansu5-1', dong: 'mansu5', name: '만수주공1단지아파트', lat: 37.4547, lng: 126.7294, groundFloors: 15, households: 180, hasPiloti: false, mainStructure: '철근콘크리트 벽식구조', builtYear: 1987, source: '국토교통부 건축물대장 연동' },
+      { id: 'bldg-mansu5-2', dong: 'mansu5', name: '신안래미안아파트', lat: 37.4578, lng: 126.7271, groundFloors: 15, households: 240, hasPiloti: true, mainStructure: '철근콘크리트 벽식구조', builtYear: 2003, source: '국토교통부 건축물대장 연동' },
+      { id: 'bldg-mansu1-1', dong: 'mansu1', name: '만수주공7단지아파트', lat: 37.4562, lng: 126.7378, groundFloors: 15, households: 210, hasPiloti: false, mainStructure: '철근콘크리트 벽식구조', builtYear: 1989, source: '국토교통부 건축물대장 연동' },
+      { id: 'bldg-mansu4-1', dong: 'mansu4', name: '만수주공4단지아파트', lat: 37.4591, lng: 126.7354, groundFloors: 15, households: 260, hasPiloti: false, mainStructure: '철근콘크리트 벽식구조', builtYear: 1988, source: '국토교통부 건축물대장 연동' }
+    ];
+
+    /* 초기 데이터: 시민 실제 제보 + 공공데이터(야간인구 밀집도·건축규제시대·이면도로) 기반 자동 분석 지점 */
     const INITIAL_POSTS = [
       {
-        id: 'post-101', dong: 'mansu5', spaceType: 'outdoor', filterGroup: 'bike', category: '바이크·차량 굉음', shortTag: '바이크·굉음', whoLevel: 3,
+        id: 'post-101', dong: 'mansu5', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'bike', category: '바이크·차량 굉음', shortTag: '바이크·굉음', whoLevel: 3,
         lat: 37.4542, lng: 126.7289, roadName: '백범로 124번길', anchorBuilding: '만수주공1단지 앞', roadType: '이면도로·골목',
         nickname: '조용한만수5동부엉이', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 14,
         content: '밤 11시만 넘으면 머플러 개조한 배달 바이크가 단지 사이 이면도로에서 풀악셀을 땡깁니다. 창문 닫아도 심장이 덜컥 내려앉아요.',
         empathyCount: 29, empathizedByMe: false,
         historyLogs: [
           { date: '어제 23:42', db: '104dB급', type: '머플러 개조 바이크', spot: '1단지 정문 앞 골목' },
-          { date: '3일 전 00:15', db: '98dB급', type: '급가속 굉음', spot: '백범로 124번길 교차점' },
-          { date: '5일 전 23:10', db: '95dB급', type: '배달 오토바이 공회전', spot: '편의점 앞 이면도로' }
+          { date: '3일 전 00:15', db: '98dB급', type: '급가속 굉음', spot: '백범로 124번길 교차점' }
         ],
         comments: [
           { nick: '만수5동주민', text: '저도 어제 밤 11시 반에 그 소리 때문에 깼습니다. 골목 양면 주차 때문에 더 울리는 것 같아요.', time: '9분 전' },
@@ -1378,39 +1516,90 @@
         ]
       },
       {
-        id: 'post-102', dong: 'mansu5', spaceType: 'indoor', buildingId: 'bldg-mansu5-1', floor: 5, filterGroup: 'indoor', category: '발망치·뛰는소리', shortTag: '층간·발망치', whoLevel: 2,
+        id: 'post-102', dong: 'mansu5', isPublicPrediction: false, spaceType: 'indoor', buildingId: 'bldg-mansu5-1', floor: 5, filterGroup: 'indoor', category: '발망치·뛰는소리', shortTag: '층간·발망치', whoLevel: 2,
         lat: 37.4547, lng: 126.7294, roadName: '구월로 372번길', anchorBuilding: '만수주공1단지아파트 (5층)', roadType: '공동주택 실내',
         nickname: '5층에서버티는중', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 42,
         content: '새벽 1시까지 쿵쾅거리는 발망치와 물건 떨어뜨리는 충격음이 벽을 타고 아래층까지 울립니다.',
         empathyCount: 16, empathizedByMe: false,
         historyLogs: [
-          { date: '오늘 00:50', db: '84dB급', type: '발망치·뛰는소리', spot: '5층 라인' },
-          { date: '2일 전 23:30', db: '80dB급', type: '물건 충격음', spot: '5층 라인' }
+          { date: '오늘 00:50', db: '84dB급', type: '발망치·뛰는소리', spot: '5층 라인' }
         ],
         comments: [{ nick: '4층이웃', text: '우리 집 천장도 같이 울립니다.', time: '20분 전' }]
       },
       {
-        id: 'post-103', dong: 'mansu5', spaceType: 'outdoor', filterGroup: 'shout', category: '고성 및 욕설', shortTag: '고성·욕설', whoLevel: 3,
+        id: 'post-103', dong: 'mansu5', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'shout', category: '고성 및 욕설', shortTag: '고성·욕설', whoLevel: 3,
         lat: 37.4558, lng: 126.7262, roadName: '만수서로 55번길', anchorBuilding: '만수5동 행정복지센터 인근', roadType: '이면도로·골목',
         nickname: '수면권수호자', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 88,
         content: '밤 11시 40분경부터 자정 넘어서까지 15분 이상 고함과 욕설이 간헐적으로 터져 나옵니다. 아이가 자다가 깼어요.',
         empathyCount: 24, empathizedByMe: false,
         historyLogs: [
-          { date: '어제 23:45', db: '96dB급', type: '주취 고성·욕설', spot: '행정복지센터 뒤 골목' },
-          { date: '4일 전 00:20', db: '92dB급', type: '다툼·고함', spot: '만수서로 55번길' }
+          { date: '어제 23:45', db: '96dB급', type: '주취 고성·욕설', spot: '행정복지센터 뒤 골목' }
+        ],
+        comments: []
+      },
+      /* 공공데이터 자동 분석 지점 (신안래미안아파트: 2003년 준공 완충재 의무 전 시대 + 야간인구 고밀집) */
+      {
+        id: 'pub-mansu5-1', dong: 'mansu5', isPublicPrediction: true, publicConfidence: 88,
+        spaceType: 'indoor', buildingId: 'bldg-mansu5-2', floor: 7, filterGroup: 'indoor', category: '규제전 준공 · 방음취약', shortTag: '방음취약 89점', whoLevel: 2,
+        lat: 37.4578, lng: 126.7271, roadName: '백범로 140번길', anchorBuilding: '신안래미안아파트 (2003년 준공)', roadType: '공공데이터 분석',
+        nickname: '53dB 공공데이터 분석', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 120,
+        content: '2003년 준공(차음재 의무화 직전 시기) 벽식구조 대단지로 야간 상주 인구 밀집도가 높아 층간·벽간 전달음 취약도가 높은 구역입니다.',
+        empathyCount: 11, empathizedByMe: false,
+        historyLogs: [
+          { date: '건축물대장', db: '취약 89점', type: '2003년 권고기준기 준공', spot: '완충재 의무화 전 슬래브' },
+          { date: '인구밀집도', db: '고밀집', type: '야간 상주 세대 밀집', spot: '백범로 간선도로 인접' }
         ],
         comments: []
       }
     ];
 
+    /* 제보가 없는 다른 행정동 선택 시에도 공공데이터 기반 분석 지점을 자동 생성 */
+    function ensurePublicPredictionForDong(dongKey) {
+      const existing = state.posts.filter(p => p.dong === dongKey);
+      if (existing.length > 0) return;
+      const info = ADMIN_DONGS[dongKey];
+      if (!info) return;
+
+      const autoPost = {
+        id: `pub-${dongKey}-auto`,
+        dong: dongKey,
+        isPublicPrediction: true,
+        publicConfidence: 85,
+        spaceType: 'outdoor',
+        filterGroup: 'bike',
+        category: '야간밀집 · 이면도로 주의',
+        shortTag: '야간주의 78점',
+        whoLevel: 2,
+        lat: info.lat,
+        lng: info.lng,
+        roadName: `${info.short} 주거밀집 이면도로`,
+        anchorBuilding: '공동주택 밀집 블록',
+        roadType: '공공데이터 분석',
+        nickname: '53dB 공공데이터 분석',
+        gpsVerified: true,
+        timestamp: Date.now(),
+        content: `${info.name}은 야간 상주 인구 밀집도가 '${info.nightPopDensity}' 수준으로, 심야 시간대 생활소음 및 이면도로 차량 소음 민감도가 높은 지역입니다.`,
+        empathyCount: 5,
+        empathizedByMe: false,
+        historyLogs: [
+          { date: '야간인구', db: '밀집구역', type: info.nightPopDensity, spot: info.short },
+          { date: '도로구조', db: '주의 78점', type: '주거지 관통 이면도로', spot: '반사음 주의' }
+        ],
+        comments: []
+      };
+      state.posts.push(autoPost);
+    }
+
     const state = {
       user: { loggedIn: false, nickname: '조용한만수5동부엉이', gpsVerified: true, phoneVerifiedFor112: false },
       currentDong: 'mansu5',
       selectedPostId: 'post-101',
+      showCCTV: false,
       buildings: [...INITIAL_BUILDINGS],
       posts: [...INITIAL_POSTS],
       map: null,
       overlays: [],
+      cctvOverlays: [],
       selectedBuildingId: 'bldg-mansu5-1',
       writeDraft: { space: 'outdoor', roadType: '이면도로·골목', floor: 5, category: '바이크·차량 굉음', shortTag: '바이크·굉음', group: 'bike', whoLevel: 2 }
     };
@@ -1447,6 +1636,7 @@
         document.getElementById(s).hidden = (s !== id);
       });
       if (id === 'screen-home') {
+        ensurePublicPredictionForDong(state.currentDong);
         renderHome();
         requestAnimationFrame(() => initMap());
       }
@@ -1487,6 +1677,7 @@
 
     function selectAdminDongKey(dongKey, centerLat, centerLng) {
       state.currentDong = dongKey;
+      ensurePublicPredictionForDong(dongKey);
       const info = ADMIN_DONGS[dongKey];
       document.getElementById('current-dong-label').textContent = info.short;
       document.getElementById('onboard-dong-name').textContent = info.name;
@@ -1529,7 +1720,7 @@
                   ADMIN_DONGS['custom'] = {
                     short: dongName,
                     name: `${admin.region_1depth_name} ${admin.region_2depth_name} ${dongName}`,
-                    lat, lng, sigunguCd: '28200', bjdongCd: '10300'
+                    lat, lng, sigunguCd: '28200', bjdongCd: '10300', nightPopDensity: '높음 (주거 밀집)'
                   };
                   selectAdminDongKey('custom', lat, lng);
                 }
@@ -1605,9 +1796,31 @@
       }
     }
 
-    /* ==========================================================================
-       호갱노노식 일관된 '지점 데이터 마커' 렌더링 (뾰족한 지점 지시 꼬리표 포함)
-       ========================================================================== */
+    function renderCCTVOverlay() {
+      state.cctvOverlays.forEach(o => o.setMap(null));
+      state.cctvOverlays = [];
+      if (!state.showCCTV || !state.map || typeof kakao === 'undefined') return;
+
+      CCTV_POINTS.filter(c => c.dong === state.currentDong).forEach(pt => {
+        const el = document.createElement('div');
+        el.className = 'cctv-pin';
+        el.textContent = `📹 ${pt.label}`;
+        const ov = new kakao.maps.CustomOverlay({
+          position: new kakao.maps.LatLng(pt.lat, pt.lng),
+          content: el, yAnchor: 0.5, zIndex: 15
+        });
+        ov.setMap(state.map);
+        state.cctvOverlays.push(ov);
+      });
+    }
+
+    document.getElementById('btn-toggle-cctv').onclick = () => {
+      state.showCCTV = !state.showCCTV;
+      document.getElementById('btn-toggle-cctv').classList.toggle('active', state.showCCTV);
+      renderCCTVOverlay();
+      showToast(state.showCCTV ? '채증 가능한 방범 CCTV 위치를 표시합니다.' : 'CCTV 레이어를 숨겼습니다.');
+    };
+
     function renderPins() {
       if (!state.map || typeof kakao === 'undefined') return;
       state.overlays.forEach(o => o.setMap(null));
@@ -1616,19 +1829,19 @@
       const posts = getDongPosts();
       const outdoor = posts.filter(p => p.spaceType === 'outdoor');
 
-      /* 1. 실외 소음 발생 지점 마커 */
+      /* 1. 실외 소음 지점 (시민 제보 vs 공공데이터 예측 구분) */
       outdoor.forEach(post => {
         const isSelected = (post.id === state.selectedPostId);
         const who = WHO_LEVELS[post.whoLevel] || WHO_LEVELS[2];
-        const tag = post.shortTag || post.category.slice(0, 6);
+        const isPub = Boolean(post.isPublicPrediction);
 
         const el = document.createElement('div');
-        el.className = `hg-marker-wrap lv-${post.whoLevel} ${isSelected ? 'selected' : ''}`;
+        el.className = `hg-marker-wrap lv-${post.whoLevel} ${isPub ? 'is-public' : ''} ${isSelected ? 'selected' : ''}`;
         el.innerHTML = `
-          <div class="hg-live-bubble">${post.empathyCount}명 공감중</div>
+          <div class="hg-live-bubble">${isPub ? '공공데이터 분석' : `${post.empathyCount}명 공감중`}</div>
           <div class="hg-marker-box">
-            <div class="hg-m-top">${tag}</div>
-            <div class="hg-m-main">${who.shortDb}</div>
+            <div class="hg-m-top">${post.shortTag || '생활소음'}</div>
+            <div class="hg-m-main">${isPub ? '야간밀집' : who.shortDb}</div>
           </div>
           <div class="hg-m-pointer"></div>
           <div class="hg-m-dot"></div>
@@ -1644,31 +1857,30 @@
 
         const ov = new kakao.maps.CustomOverlay({
           position: new kakao.maps.LatLng(post.lat, post.lng),
-          content: el,
-          xAnchor: 0.12,
-          yAnchor: 1.0,
+          content: el, xAnchor: 0.12, yAnchor: 1.0,
           zIndex: isSelected ? 80 : (20 + post.whoLevel)
         });
         ov.setMap(state.map);
         state.overlays.push(ov);
       });
 
-      /* 2. 공동주택·아파트 지점 마커 (소음 기록이 있는 건물만 지점 표시) */
+      /* 2. 공동주택·아파트 지점 (건축 규제 시대 취약도 포함) */
       state.buildings.filter(b => b.dong === state.currentDong).forEach(bldg => {
         const bReports = state.posts.filter(p => p.buildingId === bldg.id);
         if (bReports.length === 0) return;
 
         const isSelected = bReports.some(r => r.id === state.selectedPostId);
+        const isPubOnly = bReports.every(r => r.isPublicPrediction);
         const prof = profileBuildingStructure(bldg, bReports);
         const totalEmp = bReports.reduce((acc, r) => acc + (r.empathyCount || 0), 0);
         const shortName = prof.name.replace('아파트', '');
 
         const el = document.createElement('div');
-        el.className = `hg-marker-wrap is-bldg ${isSelected ? 'selected' : ''}`;
+        el.className = `hg-marker-wrap is-bldg ${isPubOnly ? 'is-public' : ''} ${isSelected ? 'selected' : ''}`;
         el.innerHTML = `
-          <div class="hg-live-bubble">${totalEmp}명 공감중</div>
+          <div class="hg-live-bubble">${isPubOnly ? `${prof.builtYear}년 준공 · 취약 ${prof.vulnerability}점` : `${totalEmp}명 공감중`}</div>
           <div class="hg-marker-box">
-            <div class="hg-m-top">${prof.groundFloors}층 · ${prof.hasPiloti ? '필로티' : '공동주택'}</div>
+            <div class="hg-m-top">${prof.builtYear}년 · 방음취약 ${prof.vulnerability}점</div>
             <div class="hg-m-main">${shortName}</div>
           </div>
           <div class="hg-m-pointer"></div>
@@ -1685,68 +1897,57 @@
 
         const ov = new kakao.maps.CustomOverlay({
           position: new kakao.maps.LatLng(bldg.lat, bldg.lng),
-          content: el,
-          xAnchor: 0.12,
-          yAnchor: 1.0,
+          content: el, xAnchor: 0.12, yAnchor: 1.0,
           zIndex: isSelected ? 85 : 35
         });
         ov.setMap(state.map);
         state.overlays.push(ov);
       });
+
+      renderCCTVOverlay();
     }
 
     function renderHome() {
       const dongInfo = ADMIN_DONGS[state.currentDong];
       const dongPosts = getDongPosts();
-      const outCnt = dongPosts.filter(p => p.spaceType === 'outdoor').length;
-      const inCnt = new Set(dongPosts.filter(p => p.spaceType === 'indoor').map(p => p.buildingId)).size;
+      const citizenCnt = dongPosts.filter(p => !p.isPublicPrediction).length;
+      const pubCnt = dongPosts.filter(p => p.isPublicPrediction).length;
 
-      document.getElementById('ticker-counts').textContent = `실외 ${outCnt} · 건물 ${inCnt}`;
+      document.getElementById('ticker-counts').textContent = `제보 ${citizenCnt} · 공공분석 ${pubCnt}`;
       document.getElementById('sheet-section-title').textContent = `${dongInfo.short} 소음 지점`;
 
       const listEl = document.getElementById('feed-list');
       const idxPill = document.getElementById('spot-index-indicator');
 
-      if (!dongPosts.length) {
-        idxPill.textContent = '0 / 0';
-        listEl.innerHTML = `
-          <div style="width:100%; text-align:center; padding:32px 16px; color:var(--text-muted); font-size:14px; line-height:1.6;">
-            <strong>${dongInfo.short}</strong>에 아직 등록된 소음 지점이 없어요.<br>
-            우측 하단 <strong>[+ 소음 올리기]</strong>로 첫 번째 소음 지점을 기록해 보세요!
-          </div>
-        `;
-        renderPins();
-        return;
-      }
-
       if (!dongPosts.some(p => p.id === state.selectedPostId)) {
-        state.selectedPostId = dongPosts[0].id;
+        state.selectedPostId = dongPosts[0] ? dongPosts[0].id : null;
       }
       const curIdx = dongPosts.findIndex(p => p.id === state.selectedPostId);
-      idxPill.textContent = `${curIdx + 1} / ${dongPosts.length}`;
+      idxPill.textContent = dongPosts.length ? `${curIdx + 1} / ${dongPosts.length}` : '0 / 0';
 
       listEl.innerHTML = dongPosts.map(post => {
         const cis = calculateCIS(post);
         const who = WHO_LEVELS[post.whoLevel] || WHO_LEVELS[2];
         const loc = formatBackroadAnchor(post.roadName, post.anchorBuilding, post.roadType);
+        const isPub = Boolean(post.isPublicPrediction);
         return `
           <article class="spot-card" id="spot-card-${post.id}" data-id="${post.id}">
             <div class="sc-location-header">
               <span class="sc-loc-text">📍 ${loc}</span>
-              <span class="sc-detail-link">상세리포트 ›</span>
+              <span class="sc-source-tag ${isPub ? 'public' : 'citizen'}">${isPub ? '공공데이터 분석' : '시민 실제제보'}</span>
             </div>
 
             <div class="sc-kpi-grid">
               <div class="sc-kpi-cell">
-                <span class="sc-kpi-label">체감 강도</span>
-                <span class="sc-kpi-val danger">${who.shortDb}</span>
+                <span class="sc-kpi-label">${isPub ? '야간밀집도' : '체감 강도'}</span>
+                <span class="sc-kpi-val danger">${isPub ? '고밀집' : who.shortDb}</span>
               </div>
               <div class="sc-kpi-cell">
-                <span class="sc-kpi-label">AI 신뢰도</span>
+                <span class="sc-kpi-label">${isPub ? '데이터 신뢰' : 'AI 신뢰도'}</span>
                 <span class="sc-kpi-val trust">${cis.cisScore}%</span>
               </div>
               <div class="sc-kpi-cell">
-                <span class="sc-kpi-label">유형 · 제보</span>
+                <span class="sc-kpi-label">분석 핵심</span>
                 <span class="sc-kpi-val teal">${post.shortTag || '생활소음'}</span>
               </div>
             </div>
@@ -1755,7 +1956,7 @@
 
             <div class="sc-footer-actions">
               <button type="button" class="btn-fc-empathy ${post.empathizedByMe ? 'active' : ''}" data-emp="${post.id}">
-                <span>🙌 저도 들었어요</span>
+                <span>${isPub ? '🙌 여기도 시끄러워요' : '🙌 저도 들었어요'}</span>
                 <strong>${post.empathyCount}</strong>
               </button>
               <button type="button" class="btn-fc-comment" data-cmt="${post.id}">
@@ -1774,6 +1975,11 @@
           if (!p) return;
           p.empathizedByMe = !p.empathizedByMe;
           p.empathyCount += p.empathizedByMe ? 1 : -1;
+          /* 공공데이터 예측 지점에 주민 공감이 눌리면 시민 검증 지점으로 승격 */
+          if (p.isPublicPrediction && p.empathizedByMe) {
+            p.isPublicPrediction = false;
+            showToast('주민 공감이 더해져 실제 소음 검증 지점으로 승격되었어요!');
+          }
           saveState();
           renderHome();
         };
@@ -1820,7 +2026,7 @@
 
     async function searchAndProfileBuilding(keyword) {
       if (!keyword || typeof kakao === 'undefined') return null;
-      showToast(`'${keyword}' 건축물대장 정보를 조회하는 중...`);
+      showToast(`'${keyword}' 건축물대장·규제시대 방음 분석 중...`);
       return new Promise(resolve => {
         const ps = new kakao.maps.services.Places();
         const dongInfo = ADMIN_DONGS[state.currentDong];
@@ -1854,7 +2060,7 @@
       const prof = profileBuildingStructure(bldg);
       state.selectedBuildingId = bldg.id;
       document.getElementById('write-bldg-info').textContent =
-        `${prof.name} · 지상 ${prof.groundFloors}층 · ${prof.hasPiloti ? '1층 필로티' : prof.mainStructure} (${prof.builtYear}년 준공)`;
+        `${prof.name} · ${prof.builtYear}년 준공 · 방음취약 ${prof.vulnerability}점 (${prof.slabSpec})`;
 
       const maxF = Math.min(20, Math.max(4, prof.groundFloors));
       let btns = '';
@@ -1876,7 +2082,7 @@
       const bldg = await searchAndProfileBuilding(q);
       if (bldg) {
         updateWriteFloorButtons(bldg);
-        showToast(`${bldg.name} 건축물대장 프로파일을 불러왔어요.`);
+        showToast(`${bldg.name} 규제시대 방음 분석을 불러왔어요.`);
       }
     };
 
@@ -1967,6 +2173,7 @@
       const newPost = {
         id: 'post-' + Date.now(),
         dong: state.currentDong,
+        isPublicPrediction: false,
         spaceType: state.writeDraft.space,
         buildingId: isIndoor ? targetBldg.id : null,
         floor: isIndoor ? state.writeDraft.floor : null,
@@ -1999,15 +2206,13 @@
       showToast('동네 지도와 이웃 피드에 등록되었어요!');
     };
 
-    /* ==========================================================================
-       [호갱노노 상세 화면 벤치마킹] 지점 상세 리포트 (추이 차트 + 이력 테이블 + 증언)
-       ========================================================================== */
     function openPostDetail(postId) {
       const post = state.posts.find(p => p.id === postId);
       if (!post) return;
       const cis = calculateCIS(post);
       const who = WHO_LEVELS[post.whoLevel] || WHO_LEVELS[2];
       const loc = formatBackroadAnchor(post.roadName, post.anchorBuilding, post.roadType);
+      const dongInfo = ADMIN_DONGS[post.dong];
       const logs = post.historyLogs || [
         { date: relTime(post.timestamp), db: who.shortDb, type: post.category, spot: loc }
       ];
@@ -2017,39 +2222,35 @@
       document.getElementById('detail-body').innerHTML = `
         <div class="detail-main-card">
           <div>
-            <div style="font-size:12px; font-weight:800; color:var(--secondary); margin-bottom:4px;">✓ ${ADMIN_DONGS[post.dong].name} · ${post.roadType}</div>
+            <div style="font-size:12px; font-weight:800; color:var(--secondary); margin-bottom:4px;">✓ ${dongInfo.name} · 야간인구 밀집도: ${dongInfo.nightPopDensity}</div>
             <div style="font-size:18px; font-weight:900; color:var(--text-main); letter-spacing:-0.03em;">${loc}</div>
           </div>
 
-          <!-- 호갱노노식 2대 핵심 지표 비교 -->
           <div class="hg-compare-row">
             <div class="hg-comp-col">
-              <span class="hg-comp-sub">최근 체감 소음 강도</span>
-              <span class="hg-comp-big red">${who.shortDb}</span>
+              <span class="hg-comp-sub">${post.isPublicPrediction ? '공공데이터 예측 등급' : '최근 체감 소음 강도'}</span>
+              <span class="hg-comp-big red">${post.isPublicPrediction ? '주의구간' : who.shortDb}</span>
             </div>
             <div class="hg-comp-col">
-              <span class="hg-comp-sub">AI 피해 신뢰도 (${post.empathyCount}명 공감)</span>
+              <span class="hg-comp-sub">분석 신뢰도 (${post.empathyCount}명 공감)</span>
               <span class="hg-comp-big">${cis.cisScore}%</span>
             </div>
           </div>
 
-          <!-- 시간대별 소음 발생 추이 그래프 (호갱노노 시세 그래프 벤치마킹) -->
           <div class="hg-chart-box">
             <div class="hg-chart-title">
-              <span>시간대별 소음 집중 추이</span>
+              <span>시간대별 야간 소음 민감 추이</span>
               <span style="color:var(--lv3-red); font-size:12px;">심야 23:00~01:00 최고치</span>
             </div>
             <svg width="100%" height="96" viewBox="0 0 320 96" fill="none">
               <line x1="16" y1="20" x2="304" y2="20" stroke="#CBD5E1" stroke-dasharray="3 3"/>
               <line x1="16" y1="50" x2="304" y2="50" stroke="#CBD5E1" stroke-dasharray="3 3"/>
               <line x1="16" y1="78" x2="304" y2="78" stroke="#CBD5E1"/>
-              <!-- 하단 제보 빈도 바 -->
               <rect x="34" y="68" width="12" height="10" rx="2" fill="#94A3B8" opacity="0.5"/>
               <rect x="94" y="62" width="12" height="16" rx="2" fill="#94A3B8" opacity="0.6"/>
               <rect x="154" y="54" width="12" height="24" rx="2" fill="#1B4965" opacity="0.75"/>
               <rect x="214" y="46" width="12" height="32" rx="2" fill="#E11D48" opacity="0.85"/>
               <rect x="274" y="58" width="12" height="20" rx="2" fill="#1B4965" opacity="0.7"/>
-              <!-- 추이 꺾은선 -->
               <path d="M40 64 L100 54 L160 38 L220 18 L280 34" stroke="#1B4965" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
               <circle cx="220" cy="18" r="5" fill="#E11D48" stroke="#FFFFFF" stroke-width="2"/>
               <text x="208" y="11" fill="#E11D48" font-size="10" font-weight="800">최고</text>
@@ -2061,16 +2262,15 @@
             </svg>
           </div>
 
-          <!-- 호갱노노 실거래 표 스타일의 '최근 소음 접수 내역' -->
           <div>
-            <div style="font-size:13px; font-weight:800; color:var(--text-main); margin-bottom:6px;">최근 소음 접수 이력</div>
+            <div style="font-size:13px; font-weight:800; color:var(--text-main); margin-bottom:6px;">소음 분석 및 접수 이력</div>
             <table class="hg-history-table">
               <thead>
                 <tr>
-                  <th>발생일시</th>
-                  <th>강도</th>
-                  <th>소음유형</th>
-                  <th>세부지점</th>
+                  <th>구분/일시</th>
+                  <th>수준</th>
+                  <th>유형</th>
+                  <th>세부내용</th>
                 </tr>
               </thead>
               <tbody>
@@ -2122,15 +2322,16 @@
       document.getElementById('btn-detail-empathy').onclick = () => {
         post.empathizedByMe = !post.empathizedByMe;
         post.empathyCount += post.empathizedByMe ? 1 : -1;
+        if (post.isPublicPrediction && post.empathizedByMe) post.isPublicPrediction = false;
         saveState();
         openPostDetail(postId);
       };
 
       document.getElementById('btn-copy-gov').onclick = () => {
         const rep = `[53데시벨 시민 소음 누적 리포트]
-• 발생구역: ${ADMIN_DONGS[post.dong].name} ${loc}
+• 발생구역: ${dongInfo.name} ${loc}
 • 소음유형: ${post.category} (${WHO_LEVELS[post.whoLevel].badge})
-• AI 피해신뢰도: ${cis.cisScore}% (행정동 인증 주민 ${post.empathyCount}명 공감)
+• 분석신뢰도: ${cis.cisScore}% (주민 ${post.empathyCount}명 공감)
 • 상세내용: ${post.content}`;
         navigator.clipboard.writeText(rep).then(() => showToast('국민신문고·구청 제출용 리포트가 복사되었어요.'));
       };
@@ -2140,6 +2341,7 @@
         if (!val) return;
         post.comments = post.comments || [];
         post.comments.push({ nick: state.user.nickname, text: val, time: '방금 전' });
+        if (post.isPublicPrediction) post.isPublicPrediction = false;
         saveState();
         openPostDetail(postId);
       };
@@ -2150,6 +2352,9 @@
 
     document.getElementById('btn-close-detail').onclick = () => goScreen('screen-home');
 
+    /* ==========================================================================
+       [화면 5-B] 건물 방음 취약도 상세 리포트 (건축 규제 시대별 정밀 분석 포함)
+       ========================================================================== */
     function openBuildingView(bldgId) {
       const bldg = state.buildings.find(b => b.id === bldgId);
       if (!bldg) return;
@@ -2161,12 +2366,12 @@
 
       let floorsHtml = '';
       for (let f = prof.groundFloors; f >= 2; f--) {
-        const rep = bReports.find(r => r.floor === f);
+        const rep = bReports.find(r => r.floor === f && !r.isPublicPrediction);
         floorsHtml += `
           <div class="floor-stack-row ${rep ? 'hot-' + rep.whoLevel : ''}">
             <span>${f}층 라인</span>
             <span style="font-size:12.5px; color:${rep ? 'var(--lv3-red)' : 'var(--text-muted)'};">
-              ${rep ? `${rep.category} · 공감 ${rep.empathyCount}` : '특이 소음 없음'}
+              ${rep ? `${rep.category} · 공감 ${rep.empathyCount}` : '특이 제보 없음'}
             </span>
           </div>
         `;
@@ -2185,7 +2390,7 @@
 
           <div class="hg-compare-row">
             <div class="hg-comp-col">
-              <span class="hg-comp-sub">건물 방음 취약도</span>
+              <span class="hg-comp-sub">규제시대 반영 방음취약도</span>
               <span class="hg-comp-big red">${prof.vulnerability}점</span>
             </div>
             <div class="hg-comp-col">
@@ -2194,26 +2399,42 @@
             </div>
           </div>
 
+          <!-- 건축 규제 시대별 정밀 분석 카드 -->
+          <div class="era-analysis-box">
+            <div class="era-badge-row">
+              <span class="era-tag">${prof.eraTitle}</span>
+              <span style="font-size:11.5px; font-weight:800; color:var(--primary);">${prof.slabSpec}</span>
+            </div>
+            <p class="era-desc">${prof.eraReason}</p>
+          </div>
+
           <div>
-            <div style="font-size:13px; font-weight:800; color:var(--text-main); margin-bottom:6px;">층별 소음 접수 이력 (호수 비공개)</div>
+            <div style="font-size:13px; font-weight:800; color:var(--text-main); margin-bottom:6px;">소음 분석 및 접수 이력 (호수 비공개)</div>
             <table class="hg-history-table">
               <thead>
                 <tr>
-                  <th>접수시점</th>
-                  <th>강도</th>
-                  <th>소음유형</th>
+                  <th>구분/시점</th>
+                  <th>수준</th>
+                  <th>유형</th>
                   <th>층수</th>
                 </tr>
               </thead>
               <tbody>
                 ${bReports.map(r => `
                   <tr>
-                    <td>${relTime(r.timestamp)}</td>
-                    <td style="color:var(--lv3-red); font-weight:900;">${(WHO_LEVELS[r.whoLevel] || WHO_LEVELS[2]).shortDb}</td>
+                    <td>${r.isPublicPrediction ? '공공분석' : relTime(r.timestamp)}</td>
+                    <td style="color:var(--lv3-red); font-weight:900;">${r.isPublicPrediction ? `취약 ${prof.vulnerability}점` : (WHO_LEVELS[r.whoLevel] || WHO_LEVELS[2]).shortDb}</td>
                     <td>${r.category}</td>
-                    <td>${r.floor}층</td>
+                    <td>${r.isPublicPrediction ? '전층' : r.floor + '층'}</td>
                   </tr>
-                `).join('')}
+                `).join('') || `
+                  <tr>
+                    <td>건축물대장</td>
+                    <td style="color:var(--primary);">취약 ${prof.vulnerability}점</td>
+                    <td>${prof.builtYear}년 준공 분석</td>
+                    <td>전층</td>
+                  </tr>
+                `}
               </tbody>
             </table>
           </div>
