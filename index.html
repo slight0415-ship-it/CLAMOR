@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨 (v1.0.9)</title>
+  <title>53데시벨 (v1.1.0)</title>
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Crect width='128' height='128' rx='28' fill='%231B4965'/%3E%3Ctext x='64' y='74' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='54' font-weight='900'%3E53%3C/text%3E%3Ctext x='64' y='102' text-anchor='middle' fill='%235EEAD4' font-family='sans-serif' font-size='22' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%231B4965'/%3E%3Ctext x='90' y='102' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='76' font-weight='900'%3E53%3C/text%3E%3Ctext x='90' y='142' text-anchor='middle' fill='%235EEAD4' font-family='sans-serif' font-size='30' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
@@ -32,9 +32,6 @@
   <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=20b24a9df15474b70785b099967431b3&libraries=services,clusterer&autoload=false"></script>
 
   <style>
-    /* ==========================================================================
-       1. 소프트 라이트 뉴모피즘(Soft Light Neumorphism) 디자인 토큰
-       ========================================================================== */
     :root {
       color-scheme: only light;
       --neu-bg: #E8ECF2;
@@ -131,7 +128,7 @@
     button:active { transform: scale(0.97); }
 
     /* ==========================================================================
-       2. [화면 1] 스플래시 (v1.0.9)
+       [화면 1] 스플래시 (v1.1.0)
        ========================================================================== */
     #screen-splash {
       z-index: 100;
@@ -142,7 +139,6 @@
     }
 
     .splash-top-meta { width: 100%; display: flex; justify-content: flex-end; }
-
     .version-pill {
       background-color: var(--neu-surface);
       color: var(--primary);
@@ -151,7 +147,6 @@
       padding: 6px 13px;
       border-radius: 999px;
       box-shadow: var(--neu-convex-sm);
-      letter-spacing: 0.02em;
     }
 
     .splash-center-group {
@@ -239,7 +234,6 @@
       height: 7px;
       border-radius: 50%;
       background-color: var(--secondary);
-      box-shadow: 0 0 6px rgba(13, 148, 136, 0.6);
     }
 
     .who-statement {
@@ -252,17 +246,10 @@
     }
 
     .who-statement strong { font-weight: 800; color: var(--primary); }
-
-    .who-source {
-      margin-top: 12px;
-      font-size: 13px;
-      font-weight: 800;
-      color: var(--primary);
-      text-align: right;
-    }
+    .who-source { margin-top: 12px; font-size: 13px; font-weight: 800; color: var(--primary); text-align: right; }
 
     /* ==========================================================================
-       3. [화면 2] 로그인 & 온보딩
+       [화면 2] 로그인 & 온보딩
        ========================================================================== */
     #screen-auth {
       z-index: 90;
@@ -271,75 +258,27 @@
     }
 
     .auth-view { display: flex; flex-direction: column; height: 100%; }
-
-    .auth-hero {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 12px 0;
-    }
-
+    .auth-hero { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 12px 0; }
     .hero-illust {
-      width: 120px;
-      height: 120px;
-      border-radius: 36px;
-      background-color: var(--neu-surface);
-      box-shadow: var(--neu-convex);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      margin-bottom: 26px;
+      width: 120px; height: 120px; border-radius: 36px;
+      background-color: var(--neu-surface); box-shadow: var(--neu-convex);
+      display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 26px;
     }
-
     .hero-illust-badge {
-      position: absolute;
-      bottom: -8px;
-      right: -8px;
-      background-color: var(--secondary);
-      color: #FFFFFF;
-      font-size: 12px;
-      font-weight: 800;
-      padding: 5px 11px;
-      border-radius: 999px;
-      box-shadow: 0 4px 12px rgba(13, 148, 136, 0.35);
+      position: absolute; bottom: -8px; right: -8px; background-color: var(--secondary); color: #FFFFFF;
+      font-size: 12px; font-weight: 800; padding: 5px 11px; border-radius: 999px;
     }
-
     .auth-hero h1 { font-size: 25px; font-weight: 800; line-height: 1.35; letter-spacing: -0.035em; color: var(--text-main); word-break: keep-all; }
     .auth-hero p { margin-top: 12px; font-size: 15px; font-weight: 500; line-height: 1.55; color: var(--text-sub); max-width: 300px; }
-
     .hero-pills { margin-top: 22px; display: flex; flex-wrap: wrap; justify-content: center; gap: 9px; }
-    .hero-pill {
-      background-color: var(--neu-surface);
-      box-shadow: var(--neu-convex-sm);
-      color: var(--text-sub);
-      font-size: 12.5px;
-      font-weight: 700;
-      padding: 8px 13px;
-      border-radius: 999px;
-    }
+    .hero-pill { background-color: var(--neu-surface); box-shadow: var(--neu-convex-sm); color: var(--text-sub); font-size: 12.5px; font-weight: 700; padding: 8px 13px; border-radius: 999px; }
 
     .auth-bottom-actions { display: flex; flex-direction: column; gap: 11px; width: 100%; }
-    .btn-native-social {
-      width: 100%;
-      height: 54px;
-      border-radius: 16px;
-      font-size: 16px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      box-shadow: var(--neu-convex-sm);
-    }
+    .btn-native-social { width: 100%; height: 54px; border-radius: 16px; font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: var(--neu-convex-sm); }
     .btn-native-social svg { width: 20px; height: 20px; flex-shrink: 0; }
     .btn-native-kakao { background-color: #FEE500; color: #191919; }
     .btn-native-naver { background-color: #03C75A; color: #FFFFFF; }
     .btn-native-google { background-color: var(--neu-surface); color: var(--text-main); }
-
     .btn-browse-first { margin-top: 4px; height: 44px; width: 100%; font-size: 14.5px; font-weight: 700; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 4px; }
 
     .onboard-top { padding-top: 16px; }
@@ -347,72 +286,20 @@
     .onboard-top p { margin-top: 8px; font-size: 15px; color: var(--text-sub); }
     .onboard-form { margin-top: 28px; display: flex; flex-direction: column; gap: 22px; }
     .native-field label { display: block; font-size: 13.5px; font-weight: 800; color: var(--text-sub); margin-bottom: 8px; }
-
-    .native-input-box {
-      display: flex;
-      align-items: center;
-      background-color: var(--neu-bg);
-      box-shadow: var(--neu-concave);
-      border-radius: 16px;
-      padding: 6px 8px 6px 16px;
-      height: 54px;
-    }
+    .native-input-box { display: flex; align-items: center; background-color: var(--neu-bg); box-shadow: var(--neu-concave); border-radius: 16px; padding: 6px 8px 6px 16px; height: 54px; }
     .native-input-box input { flex: 1; border: none; background: transparent; font-size: 16px; font-weight: 700; color: var(--text-main); outline: none; }
-
-    .btn-chip-action {
-      height: 38px;
-      padding: 0 13px;
-      border-radius: 12px;
-      background-color: var(--neu-surface);
-      box-shadow: var(--neu-convex-sm);
-      font-size: 13px;
-      font-weight: 800;
-      color: var(--primary);
-    }
+    .btn-chip-action { height: 38px; padding: 0 13px; border-radius: 12px; background-color: var(--neu-surface); box-shadow: var(--neu-convex-sm); font-size: 13px; font-weight: 800; color: var(--primary); }
     .btn-chip-action:active { box-shadow: var(--neu-pressed); }
-
-    .native-gps-card {
-      background-color: var(--neu-surface);
-      box-shadow: var(--neu-convex-sm);
-      border-radius: 18px;
-      padding: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
+    .native-gps-card { background-color: var(--neu-surface); box-shadow: var(--neu-convex-sm); border-radius: 18px; padding: 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
     .native-gps-text strong { display: block; font-size: 16px; font-weight: 800; color: #0F766E; }
     .native-gps-text span { display: block; margin-top: 3px; font-size: 13px; font-weight: 600; color: var(--text-sub); }
-
-    .native-agree-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 16px;
-      background-color: var(--neu-surface);
-      box-shadow: var(--neu-convex-sm);
-      border-radius: 16px;
-      cursor: pointer;
-    }
+    .native-agree-row { display: flex; align-items: center; gap: 12px; padding: 16px; background-color: var(--neu-surface); box-shadow: var(--neu-convex-sm); border-radius: 16px; cursor: pointer; }
     .native-agree-row input { width: 22px; height: 22px; accent-color: var(--primary); }
     .native-agree-row span { font-size: 14.5px; font-weight: 700; color: var(--text-main); }
-
-    .btn-cta-primary {
-      width: 100%;
-      height: 56px;
-      border-radius: 18px;
-      background: linear-gradient(145deg, #215778 0%, #1B4965 100%);
-      color: #FFFFFF;
-      font-size: 17px;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: -4px -4px 10px rgba(255, 255, 255, 0.7), 5px 5px 14px rgba(27, 73, 101, 0.38);
-    }
+    .btn-cta-primary { width: 100%; height: 56px; border-radius: 18px; background: linear-gradient(145deg, #215778 0%, #1B4965 100%); color: #FFFFFF; font-size: 17px; font-weight: 800; display: flex; align-items: center; justify-content: center; box-shadow: -4px -4px 10px rgba(255, 255, 255, 0.7), 5px 5px 14px rgba(27, 73, 101, 0.38); }
 
     /* ==========================================================================
-       4. [화면 3] 메인 홈 (상단 지도 52% + 하단 핀 연동 스와이프 카드 48%)
+       [화면 3] 메인 홈 (호갱노노 스타일 지점 데이터 마커 + 고밀도 소음 지점 카드)
        ========================================================================== */
     #screen-home { z-index: 20; background-color: var(--neu-bg); }
 
@@ -427,11 +314,7 @@
       flex-shrink: 0;
     }
 
-    .topbar-left-group {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .topbar-left-group { display: flex; align-items: center; gap: 8px; }
 
     .dong-picker-btn {
       display: flex;
@@ -449,7 +332,6 @@
     .dong-picker-btn:active { box-shadow: var(--neu-pressed); }
     .dong-picker-btn svg { width: 17px; height: 17px; }
 
-    /* 상단 동네 요약 현황 배지 (제목과 분리되어 상단에서 깔끔하게 표시) */
     .top-dong-stat {
       font-size: 11.5px;
       font-weight: 800;
@@ -464,42 +346,22 @@
     .topbar-right-actions { display: flex; align-items: center; gap: 8px; }
 
     .btn-top-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 13px;
-      background-color: var(--neu-surface);
-      box-shadow: var(--neu-convex-sm);
-      display: grid;
-      place-items: center;
-      color: var(--text-main);
+      width: 38px; height: 38px; border-radius: 13px;
+      background-color: var(--neu-surface); box-shadow: var(--neu-convex-sm);
+      display: grid; place-items: center; color: var(--text-main);
     }
     .btn-top-icon:active { box-shadow: var(--neu-pressed); }
 
     .btn-112-pill {
-      height: 38px;
-      padding: 0 11px;
-      border-radius: 13px;
-      background-color: var(--neu-surface);
-      box-shadow: var(--neu-convex-sm);
-      color: var(--lv3-red);
-      font-size: 13px;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      gap: 3px;
-      white-space: nowrap;
+      height: 38px; padding: 0 11px; border-radius: 13px;
+      background-color: var(--neu-surface); box-shadow: var(--neu-convex-sm);
+      color: var(--lv3-red); font-size: 13px; font-weight: 800;
+      display: flex; align-items: center; gap: 3px; white-space: nowrap;
     }
     .btn-112-pill:active { box-shadow: var(--neu-pressed); }
 
-    .search-bar-float {
-      background-color: var(--neu-bg);
-      padding: 8px 16px 12px;
-      display: flex;
-      gap: 8px;
-      z-index: 34;
-    }
+    .search-bar-float { background-color: var(--neu-bg); padding: 8px 16px 12px; display: flex; gap: 8px; z-index: 34; }
 
-    /* 상단 메인 지도: 화면의 52% 차지 */
     .map-container {
       position: relative;
       height: 52%;
@@ -514,187 +376,118 @@
     #kakao-map { position: absolute; inset: 0; width: 100%; height: 100%; }
 
     .map-status-msg {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 24px;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text-sub);
-      gap: 8px;
-      z-index: 5;
+      position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 24px; font-size: 14px; font-weight: 700; color: var(--text-sub); gap: 8px; z-index: 5;
     }
 
     .btn-floating-gps {
-      position: absolute;
-      right: 14px;
-      bottom: 22px;
-      z-index: 25;
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
-      background-color: var(--neu-surface);
-      box-shadow: 0 4px 12px rgba(17, 24, 39, 0.22);
-      display: grid;
-      place-items: center;
-      color: var(--primary);
+      position: absolute; right: 14px; bottom: 22px; z-index: 25;
+      width: 42px; height: 42px; border-radius: 14px;
+      background-color: var(--neu-surface); box-shadow: 0 4px 12px rgba(17, 24, 39, 0.22);
+      display: grid; place-items: center; color: var(--primary);
     }
 
     /* ==========================================================================
-       지도 핀 (기본 축척: 컴팩트 아이콘 / 선택됨: 펄스 강조 / 최대확대: 상세·입체층수)
+       [핵심 개편 1] 호갱노노 스타일 '지점 데이터 마커' (정확한 지점 꼬리표 포함)
+       - 아이콘 마커 폐기 → 일관된 2단 데이터 블록 + 뾰족한 위치 꼬리표 + 상단 실시간 공감 말풍선
        ========================================================================== */
-    .pin-compact-spot {
+    .hg-marker-wrap {
       position: relative;
-      width: 38px;
-      height: 38px;
-      border-radius: 50% 50% 50% 4px;
-      transform: rotate(-45deg);
-      background-color: #FFFFFF;
-      border: 2.5px solid var(--primary);
-      box-shadow: 0 4px 12px rgba(17, 24, 39, 0.28);
-      display: grid;
-      place-items: center;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
       cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      filter: drop-shadow(0 5px 10px rgba(17, 24, 39, 0.28));
+      transition: transform 0.18s ease;
     }
 
-    .pin-compact-spot.lv-1 { border-color: #D97706; }
-    .pin-compact-spot.lv-2 { border-color: #EA580C; }
-    .pin-compact-spot.lv-3 { border-color: #E11D48; }
-    .pin-compact-spot.indoor-spot {
-      background-color: var(--primary);
-      border-color: #FFFFFF;
+    .hg-marker-wrap.selected {
+      transform: scale(1.1);
+      z-index: 100;
     }
 
-    /* 하단 카드와 동기화되어 현재 선택된 지점 핀 강조 */
-    .pin-compact-spot.selected-spot {
-      transform: rotate(-45deg) scale(1.24);
-      box-shadow: 0 0 0 6px rgba(27, 73, 101, 0.28), 0 8px 20px rgba(17, 24, 39, 0.38);
-      z-index: 99;
-    }
-
-    .pin-compact-inner {
-      transform: rotate(45deg);
-      display: grid;
-      place-items: center;
-      width: 24px;
-      height: 24px;
-    }
-
-    .pin-compact-badge {
-      position: absolute;
-      top: -6px;
-      right: -6px;
-      transform: rotate(45deg);
-      background-color: #111827;
+    /* 상단 실시간 공감 말풍선 (호갱노노 '40명 보는중' 벤치마킹) */
+    .hg-live-bubble {
+      align-self: center;
+      background-color: #1F2937;
       color: #FFFFFF;
       font-size: 10px;
       font-weight: 800;
-      min-width: 17px;
-      height: 17px;
-      padding: 0 4px;
-      border-radius: 999px;
+      padding: 2px 7px;
+      border-radius: 6px;
+      margin-bottom: 3px;
+      white-space: nowrap;
+      letter-spacing: -0.02em;
+    }
+
+    /* 2단 데이터 박스 본체 */
+    .hg-marker-box {
+      min-width: 74px;
+      border-radius: 9px 9px 9px 2px;
+      overflow: hidden;
       border: 1.5px solid #FFFFFF;
-      display: grid;
-      place-items: center;
+      background-color: var(--primary);
+      color: #FFFFFF;
+      text-align: center;
     }
 
-    /* 최대 확대(Level 1~2): 실외 소음 지점 상세 미니 카드 */
-    .pin-zoomed-outdoor {
-      background-color: rgba(255, 255, 255, 0.98);
-      border: 2px solid var(--primary);
-      border-radius: 14px;
-      padding: 7px 11px;
-      box-shadow: 0 6px 18px rgba(17, 24, 39, 0.25);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      white-space: nowrap;
+    /* 건물/아파트 마커는 지붕 엣지 포인트 추가 */
+    .hg-marker-wrap.is-bldg .hg-marker-box {
+      border-top: 3.5px solid #5EEAD4;
+      background-color: #123246;
     }
 
-    .pin-zoomed-outdoor.lv-3 { border-color: #E11D48; }
-    .pin-zoomed-outdoor.lv-2 { border-color: #EA580C; }
-
-    .pzo-icon-box {
-      width: 28px;
-      height: 28px;
-      border-radius: 9px;
-      background-color: var(--neu-bg);
-      display: grid;
-      place-items: center;
-      flex-shrink: 0;
-    }
-
-    .pzo-info { display: flex; flex-direction: column; gap: 1px; }
-    .pzo-title { font-size: 12px; font-weight: 800; color: var(--text-main); }
-    .pzo-meta { font-size: 10.5px; font-weight: 700; color: var(--primary); }
-
-    /* 최대 확대(Level 1~2): 실제 층수에 맞춰 제작된 공동주택/아파트 입체 단면 핀 */
-    .pin-zoomed-bldg {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      cursor: pointer;
-      filter: drop-shadow(0 8px 16px rgba(17, 24, 39, 0.3));
-    }
-
-    .pzb-tower {
-      width: 64px;
-      background-color: #1B4965;
-      border: 2px solid #FFFFFF;
-      border-radius: 8px 8px 3px 3px;
-      padding: 4px 4px 3px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .pzb-floor-row {
-      height: 5px;
-      border-radius: 2px;
-      background-color: rgba(255, 255, 255, 0.22);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2px;
-    }
-
-    .pzb-floor-row.hot {
-      height: 13px;
-      background-color: #FFE4E6;
-      border: 1px solid #E11D48;
-      font-size: 9px;
-      font-weight: 900;
-      color: #BE123C;
-    }
-
-    .pzb-floor-row.piloti {
-      height: 7px;
-      background-color: #0D9488;
-    }
-
-    .pzb-caption {
-      margin-top: 4px;
-      background-color: #FFFFFF;
-      border: 1.5px solid var(--primary);
-      border-radius: 9px;
-      padding: 3px 8px;
-      font-size: 11px;
+    /* 강도별 헤더 바 */
+    .hg-m-top {
+      font-size: 10.5px;
       font-weight: 800;
-      color: var(--primary);
+      padding: 2.5px 8px;
+      background-color: rgba(255, 255, 255, 0.16);
+      color: #E2E8F0;
       white-space: nowrap;
-      display: flex;
-      align-items: center;
-      gap: 4px;
+      letter-spacing: -0.02em;
+    }
+
+    .hg-marker-wrap.lv-3 .hg-m-top { background-color: #BE123C; color: #FFFFFF; }
+    .hg-marker-wrap.lv-2 .hg-m-top { background-color: #C2410C; color: #FFFFFF; }
+    .hg-marker-wrap.is-bldg .hg-m-top { background-color: #0D9488; color: #FFFFFF; }
+
+    /* 메인 핵심 수치/명칭 바 (호갱노노의 '6.2억' 위치) */
+    .hg-m-main {
+      font-size: 13.5px;
+      font-weight: 900;
+      padding: 4px 9px 5px;
+      color: #FFFFFF;
+      white-space: nowrap;
+      letter-spacing: -0.03em;
+    }
+
+    /* 좌측 하단 뾰족한 지점 지시 꼬리표 (정확한 지점을 콕 찌름) */
+    .hg-m-pointer {
+      width: 0;
+      height: 0;
+      border-top: 8px solid var(--primary);
+      border-right: 9px solid transparent;
+      margin-left: 1px;
+    }
+    .hg-marker-wrap.is-bldg .hg-m-pointer {
+      border-top-color: #123246;
+    }
+
+    /* 정확히 지점을 찍는 바닥 점(Pin Point Dot) */
+    .hg-m-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: #E11D48;
+      border: 1.5px solid #FFFFFF;
+      margin-left: -2px;
+      margin-top: -1px;
+      box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.3);
     }
 
     /* ==========================================================================
-       5. [개편 핵심] 하단 지점 연동 시트 (유형 필터 제거 · 명확한 섹션 헤더 · 가로 스와이프)
+       [핵심 개편 2] 하단 고밀도 소음 지점 카드 (호갱노노 상세 정보 밀도 반영)
        ========================================================================== */
     .bottom-feed-sheet {
       flex: 1;
@@ -715,7 +508,6 @@
       border-radius: 0;
     }
 
-    /* 명확하게 구분된 섹션 타이틀 바 */
     .sheet-section-header {
       background-color: var(--neu-bg);
       padding: 12px 18px 8px;
@@ -725,47 +517,22 @@
       flex-shrink: 0;
     }
 
-    .section-title-block {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .section-accent-bar {
-      width: 4px;
-      height: 18px;
-      border-radius: 999px;
-      background-color: var(--primary);
-    }
-
-    .section-title-block h2 {
-      font-size: 18px;
-      font-weight: 900;
-      letter-spacing: -0.03em;
-      color: var(--text-main);
-    }
+    .section-title-block { display: flex; align-items: center; gap: 8px; }
+    .section-accent-bar { width: 4px; height: 18px; border-radius: 999px; background-color: var(--primary); }
+    .section-title-block h2 { font-size: 18px; font-weight: 900; letter-spacing: -0.03em; color: var(--text-main); }
 
     .spot-index-pill {
-      font-size: 12px;
-      font-weight: 800;
-      color: var(--primary);
-      background-color: var(--primary-soft);
-      padding: 3px 9px;
-      border-radius: 999px;
+      font-size: 12px; font-weight: 800; color: var(--primary);
+      background-color: var(--primary-soft); padding: 3px 9px; border-radius: 999px;
     }
 
     .sheet-expand-btn {
-      font-size: 12.5px;
-      font-weight: 800;
-      color: var(--primary);
-      padding: 6px 12px;
-      border-radius: 12px;
-      background-color: var(--neu-surface);
-      box-shadow: var(--neu-convex-sm);
+      font-size: 12.5px; font-weight: 800; color: var(--primary);
+      padding: 6px 12px; border-radius: 12px;
+      background-color: var(--neu-surface); box-shadow: var(--neu-convex-sm);
     }
     .sheet-expand-btn:active { box-shadow: var(--neu-pressed); }
 
-    /* 기본 상태: 지도 핀과 1:1로 연동되는 가로 스와이프 지점 카드 캐러셀 */
     .spot-carousel-wrap {
       flex: 1;
       display: flex;
@@ -777,7 +544,6 @@
     }
     .spot-carousel-wrap::-webkit-scrollbar { display: none; }
 
-    /* 전체 보기(expanded) 상태: 동네 전체 소음 지점을 세로 리스트로 한눈에 보기 */
     .bottom-feed-sheet.expanded .spot-carousel-wrap {
       flex-direction: column;
       overflow-x: hidden;
@@ -786,28 +552,25 @@
       padding: 8px 18px calc(94px + var(--safe-bottom));
     }
 
-    /* 고시인성 소음 지점 카드 */
+    /* 호갱노노 스타일 고밀도 요약 카드 */
     .spot-card {
       flex: 0 0 100%;
       scroll-snap-align: center;
       background-color: var(--neu-card-warm);
       border-radius: 22px;
-      padding: 16px 18px;
+      padding: 15px 17px;
       box-shadow: -5px -5px 12px rgba(255, 255, 255, 0.9), 5px 5px 12px rgba(163, 177, 198, 0.55);
       border: 1.5px solid rgba(255, 255, 255, 0.85);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 10px;
+      gap: 9px;
       cursor: pointer;
     }
 
-    .bottom-feed-sheet.expanded .spot-card {
-      flex: none;
-      width: 100%;
-    }
+    .bottom-feed-sheet.expanded .spot-card { flex: none; width: 100%; }
 
-    /* 카드 상단 1줄: 지점 주소 (가장 크고 선명하게) */
+    /* 1단: 지점 주소 + 경과 시간 + 상세 화살표 */
     .sc-location-header {
       display: flex;
       align-items: center;
@@ -816,7 +579,7 @@
     }
 
     .sc-loc-text {
-      font-size: 15px;
+      font-size: 15.5px;
       font-weight: 900;
       color: var(--primary);
       letter-spacing: -0.025em;
@@ -825,64 +588,53 @@
       text-overflow: ellipsis;
     }
 
-    .sc-time-tag {
+    .sc-detail-link {
       font-size: 11.5px;
-      font-weight: 700;
-      color: var(--text-muted);
+      font-weight: 800;
+      color: var(--secondary);
       white-space: nowrap;
       flex-shrink: 0;
     }
 
-    /* 카드 2줄: 고시인성 핵심 3대 지표 (강도 블록 + 유형 + AI 신뢰도) */
-    .sc-metrics-strip {
-      display: flex;
-      align-items: center;
+    /* 2단: 호갱노노식 3열 핵심 수치 그리드 (체감강도 | AI 신뢰도 | 누적공감·증언) */
+    .sc-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 6px;
-      flex-wrap: nowrap;
-    }
-
-    .sc-lv-badge {
-      font-size: 12px;
-      font-weight: 900;
-      padding: 4px 9px;
-      border-radius: 8px;
-      white-space: nowrap;
-    }
-    .sc-lv-badge.lv-1 { background-color: #FEF3C7; color: #92400E; }
-    .sc-lv-badge.lv-2 { background-color: #FFEDD5; color: #9A3412; }
-    .sc-lv-badge.lv-3 { background-color: #FFE4E6; color: #9F1239; }
-
-    .sc-type-badge {
-      font-size: 12px;
-      font-weight: 800;
-      color: var(--text-main);
       background-color: var(--neu-bg);
-      padding: 4px 9px;
-      border-radius: 8px;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      white-space: nowrap;
+      box-shadow: var(--neu-concave);
+      border-radius: 12px;
+      padding: 7px 8px;
+      text-align: center;
     }
 
-    .sc-cis-badge {
-      margin-left: auto;
-      font-size: 12px;
+    .sc-kpi-cell {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .sc-kpi-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .sc-kpi-val {
+      font-size: 13.5px;
       font-weight: 900;
-      color: #0F766E;
-      background-color: var(--secondary-soft);
-      padding: 4px 9px;
-      border-radius: 8px;
-      white-space: nowrap;
-    }
-
-    /* 카드 3줄: 시민 증언 본문 (2~3줄 깔끔 표시) */
-    .sc-body-text {
-      font-size: 14.5px;
-      font-weight: 500;
-      line-height: 1.5;
       color: var(--text-main);
-      letter-spacing: -0.015em;
+    }
+    .sc-kpi-val.danger { color: var(--lv3-red); }
+    .sc-kpi-val.trust { color: var(--primary); }
+    .sc-kpi-val.teal { color: #0F766E; }
+
+    /* 3단: 시민 증언 본문 */
+    .sc-body-text {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.48;
+      color: var(--text-main);
       word-break: keep-all;
       display: -webkit-box;
       -webkit-line-clamp: 2;
@@ -890,23 +642,21 @@
       overflow: hidden;
     }
 
-    .bottom-feed-sheet.expanded .sc-body-text {
-      -webkit-line-clamp: unset;
-    }
+    .bottom-feed-sheet.expanded .sc-body-text { -webkit-line-clamp: unset; }
 
-    /* 카드 4줄: 하단 공감 & 증언 버튼 */
+    /* 4단: 공감 & 증언 버튼 */
     .sc-footer-actions {
       display: flex;
       align-items: center;
       gap: 8px;
-      padding-top: 8px;
+      padding-top: 7px;
       border-top: 1px solid rgba(203, 213, 225, 0.55);
     }
 
     .btn-fc-empathy {
       flex: 1;
-      height: 38px;
-      border-radius: 12px;
+      height: 36px;
+      border-radius: 11px;
       background-color: var(--neu-surface);
       box-shadow: -3px -3px 6px rgba(255, 255, 255, 0.9), 3px 3px 6px rgba(163, 177, 198, 0.45);
       color: var(--text-sub);
@@ -925,9 +675,9 @@
     }
 
     .btn-fc-comment {
-      height: 38px;
+      height: 36px;
       padding: 0 13px;
-      border-radius: 12px;
+      border-radius: 11px;
       background-color: var(--neu-surface);
       box-shadow: -3px -3px 6px rgba(255, 255, 255, 0.9), 3px 3px 6px rgba(163, 177, 198, 0.45);
       color: var(--text-sub);
@@ -939,7 +689,6 @@
       white-space: nowrap;
     }
 
-    /* 우측 하단 + 소음 올리기 버튼 (카드 액션 바와 겹치지 않도록 하단 여백 확보) */
     .fab-native-write {
       position: absolute;
       right: 18px;
@@ -959,177 +708,108 @@
     }
 
     /* ==========================================================================
-       6. [화면 4] 3초 컷 선택형 글쓰기
+       [화면 4] 3초 컷 선택형 글쓰기
        ========================================================================== */
     #screen-write { z-index: 110; background-color: var(--neu-bg); }
-
-    .subscreen-topbar {
-      height: calc(56px + var(--safe-top));
-      padding: var(--safe-top) 16px 0;
-      background-color: var(--neu-bg);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-shrink: 0;
-    }
-
+    .subscreen-topbar { height: calc(56px + var(--safe-top)); padding: var(--safe-top) 16px 0; background-color: var(--neu-bg); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
     .subscreen-topbar h2 { font-size: 17px; font-weight: 800; letter-spacing: -0.03em; }
-
-    .write-scroll-body {
-      flex: 1;
-      overflow-y: auto;
-      padding: 16px 20px calc(110px + var(--safe-bottom));
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
+    .write-scroll-body { flex: 1; overflow-y: auto; padding: 16px 20px calc(110px + var(--safe-bottom)); display: flex; flex-direction: column; gap: 24px; }
     .write-step-block h3 { font-size: 15.5px; font-weight: 800; color: var(--text-main); margin-bottom: 12px; }
     .space-toggle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-    .btn-space-card {
-      padding: 16px 14px;
-      border-radius: 18px;
-      background-color: var(--neu-surface);
-      box-shadow: var(--neu-convex-sm);
-      text-align: left;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .btn-space-card.active {
-      background-color: var(--neu-bg);
-      box-shadow: var(--neu-pressed);
-      border: 1.5px solid var(--primary);
-    }
-
+    .btn-space-card { padding: 16px 14px; border-radius: 18px; background-color: var(--neu-surface); box-shadow: var(--neu-convex-sm); text-align: left; display: flex; flex-direction: column; gap: 4px; }
+    .btn-space-card.active { background-color: var(--neu-bg); box-shadow: var(--neu-pressed); border: 1.5px solid var(--primary); }
     .btn-space-card strong { font-size: 15px; font-weight: 800; color: var(--text-main); }
     .btn-space-card span { font-size: 12.5px; font-weight: 600; color: var(--text-sub); }
-
     .road-type-pills { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
-    .btn-road-pill {
-      padding: 9px 14px;
-      border-radius: 12px;
-      background-color: var(--neu-surface);
-      box-shadow: var(--neu-convex-sm);
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-sub);
-    }
-    .btn-road-pill.active {
-      background-color: var(--secondary);
-      color: #FFFFFF;
-      box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2);
-    }
-
-    .floor-picker-wrap {
-      margin-top: 14px;
-      background-color: var(--neu-surface);
-      box-shadow: var(--neu-convex-sm);
-      border-radius: 18px;
-      padding: 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+    .btn-road-pill { padding: 9px 14px; border-radius: 12px; background-color: var(--neu-surface); box-shadow: var(--neu-convex-sm); font-size: 13px; font-weight: 700; color: var(--text-sub); }
+    .btn-road-pill.active { background-color: var(--secondary); color: #FFFFFF; box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2); }
+    .floor-picker-wrap { margin-top: 14px; background-color: var(--neu-surface); box-shadow: var(--neu-convex-sm); border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 12px; }
     .floor-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; }
-    .btn-floor-chip {
-      height: 40px;
-      border-radius: 12px;
-      background-color: var(--neu-surface);
-      box-shadow: var(--neu-convex-sm);
-      font-size: 13.5px;
-      font-weight: 700;
-      color: var(--text-main);
-    }
-    .btn-floor-chip.active {
-      background-color: var(--primary);
-      color: #FFFFFF;
-      box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.25);
-    }
-
+    .btn-floor-chip { height: 40px; border-radius: 12px; background-color: var(--neu-surface); box-shadow: var(--neu-convex-sm); font-size: 13.5px; font-weight: 700; color: var(--text-main); }
+    .btn-floor-chip.active { background-color: var(--primary); color: #FFFFFF; box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.25); }
     .cat-select-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-    .btn-cat-item {
-      height: 48px;
-      padding: 0 14px;
-      border-radius: 14px;
-      background-color: var(--neu-surface);
-      box-shadow: var(--neu-convex-sm);
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text-sub);
-      text-align: left;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .btn-cat-item.active {
-      background-color: var(--neu-bg);
-      box-shadow: var(--neu-pressed);
-      color: var(--primary);
-      font-weight: 800;
-      border: 1.5px solid var(--primary);
-    }
-
+    .btn-cat-item { height: 48px; padding: 0 14px; border-radius: 14px; background-color: var(--neu-surface); box-shadow: var(--neu-convex-sm); font-size: 14px; font-weight: 700; color: var(--text-sub); text-align: left; display: flex; align-items: center; gap: 8px; }
+    .btn-cat-item.active { background-color: var(--neu-bg); box-shadow: var(--neu-pressed); color: var(--primary); font-weight: 800; border: 1.5px solid var(--primary); }
     .who-level-stack { display: flex; flex-direction: column; gap: 10px; }
-    .btn-who-level {
-      padding: 14px 16px;
-      border-radius: 16px;
-      background-color: var(--neu-surface);
-      box-shadow: var(--neu-convex-sm);
-      text-align: left;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+    .btn-who-level { padding: 14px 16px; border-radius: 16px; background-color: var(--neu-surface); box-shadow: var(--neu-convex-sm); text-align: left; display: flex; align-items: center; justify-content: space-between; }
     .btn-who-level.active[data-lv="1"] { background-color: var(--lv1-soft); box-shadow: var(--neu-pressed); }
     .btn-who-level.active[data-lv="2"] { background-color: var(--lv2-soft); box-shadow: var(--neu-pressed); }
     .btn-who-level.active[data-lv="3"] { background-color: var(--lv3-soft); box-shadow: var(--neu-pressed); }
-
-    .write-textarea {
-      width: 100%;
-      min-height: 96px;
-      border: none;
-      border-radius: 18px;
-      background-color: var(--neu-bg);
-      box-shadow: var(--neu-concave);
-      padding: 14px 16px;
-      font-family: inherit;
-      font-size: 15px;
-      line-height: 1.5;
-      color: var(--text-main);
-      resize: none;
-      outline: none;
-    }
-
-    .urgent-112-banner {
-      background-color: var(--neu-surface);
-      box-shadow: var(--neu-convex-sm);
-      border-radius: 16px;
-      padding: 14px 15px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
+    .write-textarea { width: 100%; min-height: 96px; border: none; border-radius: 18px; background-color: var(--neu-bg); box-shadow: var(--neu-concave); padding: 14px 16px; font-family: inherit; font-size: 15px; line-height: 1.5; color: var(--text-main); resize: none; outline: none; }
+    .urgent-112-banner { background-color: var(--neu-surface); box-shadow: var(--neu-convex-sm); border-radius: 16px; padding: 14px 15px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
     .urgent-112-banner span { font-size: 13px; font-weight: 700; color: var(--lv3-red); line-height: 1.4; }
     .btn-urgent-112-go { padding: 9px 13px; border-radius: 12px; background-color: var(--lv3-red); color: #FFFFFF; font-size: 12.5px; font-weight: 800; white-space: nowrap; }
 
     /* ==========================================================================
-       7. [화면 5] 게시글 상세 & 2.5D 입체 건물 단면 뷰
+       [화면 5] 호갱노노 스타일 지점 상세 리포트 (추이 차트 + 접수 테이블 + 증언 카드)
        ========================================================================== */
     #screen-detail, #screen-building { z-index: 105; background-color: var(--neu-bg); }
-    .detail-scroll { flex: 1; overflow-y: auto; padding: 16px 20px calc(44px + var(--safe-bottom)); display: flex; flex-direction: column; gap: 18px; }
+    .detail-scroll { flex: 1; overflow-y: auto; padding: 16px 20px calc(44px + var(--safe-bottom)); display: flex; flex-direction: column; gap: 16px; }
 
     .detail-main-card {
       background-color: var(--neu-card-warm);
       border-radius: 22px;
-      padding: 20px;
+      padding: 18px;
       box-shadow: var(--neu-convex);
       display: flex;
       flex-direction: column;
+      gap: 14px;
+    }
+
+    /* 호갱노노 상세 화면 상단 2대 핵심 수치 비교 (평균 체감 소음 vs AI 신뢰도) */
+    .hg-compare-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 12px;
+      padding: 14px;
+      border-radius: 16px;
+      background-color: var(--neu-bg);
+      box-shadow: var(--neu-concave);
+    }
+
+    .hg-comp-col { display: flex; flex-direction: column; gap: 3px; }
+    .hg-comp-sub { font-size: 11.5px; font-weight: 700; color: var(--text-muted); }
+    .hg-comp-big { font-size: 24px; font-weight: 900; letter-spacing: -0.04em; color: var(--primary); }
+    .hg-comp-big.red { color: var(--lv3-red); }
+
+    /* 시간대별 소음 추이 SVG 그래프 박스 */
+    .hg-chart-box {
+      background-color: var(--neu-surface);
+      box-shadow: var(--neu-convex-sm);
+      border-radius: 18px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .hg-chart-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    /* 호갱노노 실거래가 테이블 스타일의 '최근 소음 접수 이력 표' */
+    .hg-history-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+    }
+    .hg-history-table th {
+      text-align: left;
+      padding: 8px 6px;
+      color: var(--text-muted);
+      font-weight: 700;
+      border-bottom: 1px solid #CBD5E1;
+    }
+    .hg-history-table td {
+      padding: 9px 6px;
+      color: var(--text-main);
+      font-weight: 700;
+      border-bottom: 1px solid rgba(203, 213, 225, 0.45);
     }
 
     .testimony-card {
@@ -1159,29 +839,15 @@
     }
     .bldg-roof-cap { height: 12px; background-color: var(--primary); border-radius: 8px 8px 2px 2px; margin: 0 12px 4px; }
     .floor-stack-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 14px;
-      border-radius: 14px;
-      background-color: var(--neu-bg);
-      box-shadow: var(--neu-concave);
-      font-size: 13.5px;
-      font-weight: 700;
+      display: flex; align-items: center; justify-content: space-between; padding: 12px 14px;
+      border-radius: 14px; background-color: var(--neu-bg); box-shadow: var(--neu-concave);
+      font-size: 13.5px; font-weight: 700;
     }
     .floor-stack-row.piloti { background-color: #DCE2EC; color: var(--text-sub); }
     .floor-stack-row.hot-2 { background-color: var(--lv2-soft); box-shadow: var(--neu-convex-sm); border: 1.5px solid var(--lv2-orange); }
     .floor-stack-row.hot-3 { background-color: var(--lv3-soft); box-shadow: var(--neu-convex-sm); border: 1.5px solid var(--lv3-red); }
 
-    .bm-report-card {
-      background-color: var(--neu-surface);
-      box-shadow: var(--neu-convex);
-      border-radius: 22px;
-      padding: 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+    .bm-report-card { background-color: var(--neu-surface); box-shadow: var(--neu-convex); border-radius: 22px; padding: 18px; display: flex; flex-direction: column; gap: 10px; }
     .bm-tag { align-self: flex-start; background-color: var(--primary); color: #FFFFFF; font-size: 11.5px; font-weight: 800; padding: 4px 10px; border-radius: 999px; }
 
     .sheet-backdrop { position: absolute; inset: 0; background-color: rgba(17, 24, 39, 0.45); z-index: 120; display: flex; align-items: flex-end; justify-content: center; }
@@ -1189,26 +855,8 @@
     .sheet-title-bar { display: flex; align-items: center; justify-content: space-between; }
     .sheet-title-bar h3 { font-size: 19px; font-weight: 800; letter-spacing: -0.03em; }
     .dong-option-list { display: flex; flex-direction: column; gap: 8px; }
-    .btn-dong-item {
-      width: 100%;
-      padding: 14px 16px;
-      border-radius: 16px;
-      background-color: var(--neu-surface);
-      box-shadow: var(--neu-convex-sm);
-      font-size: 15.5px;
-      font-weight: 700;
-      text-align: left;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      color: var(--text-main);
-    }
-    .btn-dong-item.selected {
-      background-color: var(--neu-bg);
-      box-shadow: var(--neu-pressed);
-      color: var(--primary);
-      font-weight: 800;
-    }
+    .btn-dong-item { width: 100%; padding: 14px 16px; border-radius: 16px; background-color: var(--neu-surface); box-shadow: var(--neu-convex-sm); font-size: 15.5px; font-weight: 700; text-align: left; display: flex; align-items: center; justify-content: space-between; color: var(--text-main); }
+    .btn-dong-item.selected { background-color: var(--neu-bg); box-shadow: var(--neu-pressed); color: var(--primary); font-weight: 800; }
     .sms-native-box { background-color: var(--neu-bg); box-shadow: var(--neu-concave); border-radius: 16px; padding: 16px; font-size: 14.5px; line-height: 1.6; color: var(--text-main); white-space: pre-line; }
     .app-toast { position: absolute; bottom: calc(84px + var(--safe-bottom)); left: 20px; right: 20px; background-color: rgba(17, 24, 39, 0.94); color: #FFFFFF; font-size: 14px; font-weight: 600; padding: 13px 18px; border-radius: 16px; text-align: center; z-index: 200; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18); }
   </style>
@@ -1217,11 +865,11 @@
   <div class="app-shell">
 
     <!-- ========================================================================
-         [화면 1] 스플래시 (v1.0.9)
+         [화면 1] 스플래시 (v1.1.0)
          ======================================================================== -->
     <section class="screen" id="screen-splash" aria-label="53데시벨 시작 화면">
       <div class="splash-top-meta">
-        <span class="version-pill">v1.0.9</span>
+        <span class="version-pill">v1.1.0</span>
       </div>
 
       <div class="splash-center-group">
@@ -1332,7 +980,7 @@
     </section>
 
     <!-- ========================================================================
-         [화면 3] 메인 홈 (상단 지도 52% + 하단 핀 연동 스와이프 카드 48%)
+         [화면 3] 메인 홈 (호갱노노식 지점 데이터 마커 + 고밀도 소음 지점 카드)
          ======================================================================== -->
     <section class="screen" id="screen-home" hidden>
       <header class="app-topbar">
@@ -1365,7 +1013,6 @@
         <button type="button" class="btn-chip-action" id="btn-exec-search" style="height:44px; background:var(--primary); color:#fff;">조회</button>
       </div>
 
-      <!-- 상단 52% 순수 카카오맵 -->
       <div class="map-container">
         <div id="kakao-map"></div>
         <div id="map-loading-box" class="map-status-msg">
@@ -1381,7 +1028,6 @@
         </button>
       </div>
 
-      <!-- 하단 48% 지점 연동 시트 (유형 필터 제거 · 명확한 섹션 타이틀 · 가로 스와이프 카드) -->
       <aside class="bottom-feed-sheet" id="feed-sheet">
         <div class="sheet-section-header">
           <div class="section-title-block">
@@ -1498,24 +1144,24 @@
     </section>
 
     <!-- ========================================================================
-         [화면 5-A] 게시글 상세
+         [화면 5-A] 호갱노노식 지점 상세 리포트 (추이 차트 + 이력 테이블 + 증언 카드)
          ======================================================================== -->
     <section class="screen" id="screen-detail" hidden>
       <header class="subscreen-topbar">
         <button type="button" class="btn-chip-action" id="btn-close-detail">← 뒤로</button>
-        <h2>이웃 소음 증언 상세</h2>
+        <h2 id="detail-topbar-title">소음 지점 리포트</h2>
         <button type="button" class="btn-112-pill" id="btn-detail-112">🚨 112</button>
       </header>
       <div class="detail-scroll" id="detail-body"></div>
     </section>
 
     <!-- ========================================================================
-         [화면 5-B] 2.5D 입체 건물 단면 뷰
+         [화면 5-B] 공동주택·아파트 상세 리포트 (2.5D 층별 단면 + 구조 분석)
          ======================================================================== -->
     <section class="screen" id="screen-building" hidden>
       <header class="subscreen-topbar">
         <button type="button" class="btn-chip-action" id="btn-close-bldg">← 뒤로</button>
-        <h2 id="bldg-detail-title">건물 입체 단면</h2>
+        <h2 id="bldg-detail-title">건물 소음 리포트</h2>
         <span style="width:48px;"></span>
       </header>
       <div class="detail-scroll" id="bldg-detail-body"></div>
@@ -1588,49 +1234,9 @@
 
   <script>
     const CONFIG = {
-      STORAGE_KEY: '53db_native_state_v109',
-      BLDG_API_KEY: '738a1e3eb24afc48a06e3871c47d057b54f27cfde63e91a4e2b5a2baf27cbae5',
-      ZOOM_DETAIL_LEVEL: 2
+      STORAGE_KEY: '53db_native_state_v110',
+      BLDG_API_KEY: '738a1e3eb24afc48a06e3871c47d057b54f27cfde63e91a4e2b5a2baf27cbae5'
     };
-
-    const NOISE_ICONS = {
-      shout: (size = 20) => `
-        <svg width="${size}" height="${size}" viewBox="0 0 32 32" fill="none">
-          <path d="M7.5 6.5L9.2 9L7.8 11.2" stroke="#E11D48" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M12.5 5L13.8 7.6L12.5 10" stroke="#E11D48" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M19.5 5L18.2 7.6L19.5 10" stroke="#E11D48" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M24.5 6.5L22.8 9L24.2 11.2" stroke="#E11D48" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="10.5" cy="14.5" r="3.3" stroke="#E11D48" stroke-width="2"/>
-          <path d="M5.5 26.5C5.5 21.8 7.6 19.2 10.5 19.2C13.4 19.2 15.2 21.8 15.2 26.5" stroke="#E11D48" stroke-width="2" stroke-linecap="round"/>
-          <circle cx="21.5" cy="14.5" r="3.3" stroke="#E11D48" stroke-width="2"/>
-          <path d="M16.8 26.5C16.8 21.8 18.6 19.2 21.5 19.2C24.4 19.2 26.5 21.8 26.5 26.5" stroke="#E11D48" stroke-width="2" stroke-linecap="round"/>
-        </svg>`,
-      bike: (size = 20) => `
-        <svg width="${size}" height="${size}" viewBox="0 0 32 32" fill="none">
-          <circle cx="8.5" cy="22" r="4" stroke="#1B4965" stroke-width="2.2"/>
-          <circle cx="23.5" cy="22" r="4" stroke="#1B4965" stroke-width="2.2"/>
-          <path d="M8.5 22L13 14.5H19.5L23.5 22M15 11.5H20.5L22 14.5" stroke="#1B4965" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M3 15H6M2 18.5H5" stroke="#EA580C" stroke-width="2.2" stroke-linecap="round"/>
-        </svg>`,
-      indoor: (size = 20, color = '#FFFFFF') => `
-        <svg width="${size}" height="${size}" viewBox="0 0 32 32" fill="none">
-          <rect x="8" y="6" width="16" height="20" rx="3" stroke="${color}" stroke-width="2.2"/>
-          <path d="M12 12H20M12 16.5H20M12 21H16" stroke="${color}" stroke-width="2" stroke-linecap="round"/>
-          <circle cx="20" cy="21" r="1.5" fill="#5EEAD4"/>
-        </svg>`,
-      const: (size = 20) => `
-        <svg width="${size}" height="${size}" viewBox="0 0 32 32" fill="none">
-          <path d="M7 22H25L22.5 13H9.5L7 22Z" stroke="#B45309" stroke-width="2.2" stroke-linejoin="round"/>
-          <path d="M5 25H27M13 13V9H19V13" stroke="#B45309" stroke-width="2.2" stroke-linecap="round"/>
-        </svg>`
-    };
-
-    function getNoiseIconSvg(group, size = 18, color = '#FFFFFF') {
-      if (group === 'shout') return NOISE_ICONS.shout(size);
-      if (group === 'bike') return NOISE_ICONS.bike(size);
-      if (group === 'indoor') return NOISE_ICONS.indoor(size, color);
-      return NOISE_ICONS.const(size);
-    }
 
     const ADMIN_DONGS = {
       mansu1: { short: '만수1동', name: '인천 남동구 만수1동', lat: 37.4565, lng: 126.7372, sigunguCd: '28200', bjdongCd: '10300' },
@@ -1644,29 +1250,29 @@
     };
 
     const WHO_LEVELS = {
-      1: { label: '거슬림 53dB+', weight: 1.0, badge: '거슬림 53dB+' },
-      2: { label: '매우 시끄러움 80dB급', weight: 1.8, badge: '시끄러움 80dB급' },
-      3: { label: '고통/공포 100dB급', weight: 2.7, badge: '고통/공포 100dB급' }
+      1: { label: '거슬림 53dB+', shortDb: '58dB급', weight: 1.0, badge: '거슬림 53dB+' },
+      2: { label: '매우 시끄러움 80dB급', shortDb: '82dB급', weight: 1.8, badge: '시끄러움 80dB급' },
+      3: { label: '고통/공포 100dB급', shortDb: '102dB급', weight: 2.7, badge: '고통/공포 100dB급' }
     };
 
     const CAT_OUTDOOR = [
-      { label: '바이크·차량 굉음', group: 'bike' },
-      { label: '고성 및 욕설', group: 'shout' },
-      { label: '노래·음악소리', group: 'shout' },
-      { label: '공사소음', group: 'const' },
-      { label: '기계음', group: 'const' },
-      { label: '기타', group: 'const' }
+      { label: '바이크·차량 굉음', shortTag: '바이크·굉음', group: 'bike' },
+      { label: '고성 및 욕설', shortTag: '고성·욕설', group: 'shout' },
+      { label: '노래·음악소리', shortTag: '노래·음악', group: 'shout' },
+      { label: '공사소음', shortTag: '공사소음', group: 'const' },
+      { label: '기계음', shortTag: '기계소음', group: 'const' },
+      { label: '기타', shortTag: '생활소음', group: 'const' }
     ];
 
     const CAT_INDOOR = [
-      { label: '발망치·뛰는소리', group: 'indoor' },
-      { label: '물건충격음', group: 'indoor' },
-      { label: '가구끄는소리', group: 'indoor' },
-      { label: '반려동물짖음', group: 'indoor' },
-      { label: '고성·싸움·노래', group: 'indoor' },
-      { label: '화장실·배관·가전음', group: 'indoor' },
-      { label: '기계음', group: 'indoor' },
-      { label: '기타', group: 'indoor' }
+      { label: '발망치·뛰는소리', shortTag: '층간·발망치', group: 'indoor' },
+      { label: '물건충격음', shortTag: '층간·충격', group: 'indoor' },
+      { label: '가구끄는소리', shortTag: '가구끄는음', group: 'indoor' },
+      { label: '반려동물짖음', shortTag: '반려동물', group: 'indoor' },
+      { label: '고성·싸움·노래', shortTag: '실내·고성', group: 'indoor' },
+      { label: '화장실·배관·가전음', shortTag: '배관·가전', group: 'indoor' },
+      { label: '기계음', shortTag: '기계소음', group: 'indoor' },
+      { label: '기타', shortTag: '실내소음', group: 'indoor' }
     ];
 
     async function fetchBuildingLedgerFromAPI(placeName, lat, lng, sigunguCd, bjdongCd, bun = '', ji = '') {
@@ -1751,36 +1357,49 @@
     }
 
     const INITIAL_BUILDINGS = [
-      { id: 'bldg-mansu5-1', dong: 'mansu5', name: '만수주공1단지아파트', lat: 37.4547, lng: 126.7294, groundFloors: 15, hasPiloti: false, mainStructure: '철근콘크리트 벽식구조', builtYear: 1987, source: '국토교통부 건축물대장 연동' },
-      { id: 'bldg-mansu5-2', dong: 'mansu5', name: '신안래미안아파트', lat: 37.4578, lng: 126.7271, groundFloors: 12, hasPiloti: true, mainStructure: '철근콘크리트 구조', builtYear: 2004, source: '국토교통부 건축물대장 연동' }
+      { id: 'bldg-mansu5-1', dong: 'mansu5', name: '만수주공1단지아파트', lat: 37.4547, lng: 126.7294, groundFloors: 15, hasPiloti: false, mainStructure: '철근콘크리트 벽식구조', builtYear: 1987, source: '국토교통부 건축물대장 연동' }
     ];
 
     const INITIAL_POSTS = [
       {
-        id: 'post-101', dong: 'mansu5', spaceType: 'outdoor', filterGroup: 'bike', category: '바이크·차량 굉음', whoLevel: 3,
+        id: 'post-101', dong: 'mansu5', spaceType: 'outdoor', filterGroup: 'bike', category: '바이크·차량 굉음', shortTag: '바이크·굉음', whoLevel: 3,
         lat: 37.4542, lng: 126.7289, roadName: '백범로 124번길', anchorBuilding: '만수주공1단지 앞', roadType: '이면도로·골목',
         nickname: '조용한만수5동부엉이', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 14,
         content: '밤 11시만 넘으면 머플러 개조한 배달 바이크가 단지 사이 이면도로에서 풀악셀을 땡깁니다. 창문 닫아도 심장이 덜컥 내려앉아요.',
         empathyCount: 29, empathizedByMe: false,
+        historyLogs: [
+          { date: '어제 23:42', db: '104dB급', type: '머플러 개조 바이크', spot: '1단지 정문 앞 골목' },
+          { date: '3일 전 00:15', db: '98dB급', type: '급가속 굉음', spot: '백범로 124번길 교차점' },
+          { date: '5일 전 23:10', db: '95dB급', type: '배달 오토바이 공회전', spot: '편의점 앞 이면도로' }
+        ],
         comments: [
           { nick: '만수5동주민', text: '저도 어제 밤 11시 반에 그 소리 때문에 깼습니다. 골목 양면 주차 때문에 더 울리는 것 같아요.', time: '9분 전' },
           { nick: '1단지104동이웃', text: '상습 구간입니다. 구청 단속 요청 같이 넣어요.', time: '4분 전' }
         ]
       },
       {
-        id: 'post-102', dong: 'mansu5', spaceType: 'indoor', buildingId: 'bldg-mansu5-1', floor: 5, filterGroup: 'indoor', category: '발망치·뛰는소리', whoLevel: 2,
+        id: 'post-102', dong: 'mansu5', spaceType: 'indoor', buildingId: 'bldg-mansu5-1', floor: 5, filterGroup: 'indoor', category: '발망치·뛰는소리', shortTag: '층간·발망치', whoLevel: 2,
         lat: 37.4547, lng: 126.7294, roadName: '구월로 372번길', anchorBuilding: '만수주공1단지아파트 (5층)', roadType: '공동주택 실내',
         nickname: '5층에서버티는중', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 42,
         content: '새벽 1시까지 쿵쾅거리는 발망치와 물건 떨어뜨리는 충격음이 벽을 타고 아래층까지 울립니다.',
         empathyCount: 16, empathizedByMe: false,
+        historyLogs: [
+          { date: '오늘 00:50', db: '84dB급', type: '발망치·뛰는소리', spot: '5층 라인' },
+          { date: '2일 전 23:30', db: '80dB급', type: '물건 충격음', spot: '5층 라인' }
+        ],
         comments: [{ nick: '4층이웃', text: '우리 집 천장도 같이 울립니다.', time: '20분 전' }]
       },
       {
-        id: 'post-103', dong: 'mansu5', spaceType: 'outdoor', filterGroup: 'shout', category: '고성 및 욕설', whoLevel: 3,
+        id: 'post-103', dong: 'mansu5', spaceType: 'outdoor', filterGroup: 'shout', category: '고성 및 욕설', shortTag: '고성·욕설', whoLevel: 3,
         lat: 37.4558, lng: 126.7262, roadName: '만수서로 55번길', anchorBuilding: '만수5동 행정복지센터 인근', roadType: '이면도로·골목',
         nickname: '수면권수호자', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 88,
         content: '밤 11시 40분경부터 자정 넘어서까지 15분 이상 고함과 욕설이 간헐적으로 터져 나옵니다. 아이가 자다가 깼어요.',
-        empathyCount: 24, empathizedByMe: false, comments: []
+        empathyCount: 24, empathizedByMe: false,
+        historyLogs: [
+          { date: '어제 23:45', db: '96dB급', type: '주취 고성·욕설', spot: '행정복지센터 뒤 골목' },
+          { date: '4일 전 00:20', db: '92dB급', type: '다툼·고함', spot: '만수서로 55번길' }
+        ],
+        comments: []
       }
     ];
 
@@ -1793,7 +1412,7 @@
       map: null,
       overlays: [],
       selectedBuildingId: 'bldg-mansu5-1',
-      writeDraft: { space: 'outdoor', roadType: '이면도로·골목', floor: 5, category: '바이크·차량 굉음', group: 'bike', whoLevel: 2 }
+      writeDraft: { space: 'outdoor', roadType: '이면도로·골목', floor: 5, category: '바이크·차량 굉음', shortTag: '바이크·굉음', group: 'bike', whoLevel: 2 }
     };
 
     try {
@@ -1950,10 +1569,6 @@
         });
         if (msgBox) msgBox.hidden = true;
 
-        kakao.maps.event.addListener(state.map, 'zoom_changed', () => {
-          renderPins();
-        });
-
         setTimeout(() => {
           state.map.relayout();
           state.map.setCenter(new kakao.maps.LatLng(c.lat, c.lng));
@@ -1966,9 +1581,6 @@
       return state.posts.filter(p => p.dong === state.currentDong);
     }
 
-    /* ==========================================================================
-       지도 핀 <-> 하단 카드 양방향 동기화 함수
-       ========================================================================== */
     function focusSpotOnMapAndCard(postId, scrollCard = true) {
       const posts = getDongPosts();
       const idx = posts.findIndex(p => p.id === postId);
@@ -1977,16 +1589,13 @@
       state.selectedPostId = postId;
       const targetPost = posts[idx];
 
-      /* 1. 상단 인덱스 배지 갱신 */
       document.getElementById('spot-index-indicator').textContent = `${idx + 1} / ${posts.length}`;
 
-      /* 2. 상단 메인 지도 부드럽게 해당 지점으로 이동 & 선택 핀 강조 */
       if (state.map && typeof kakao !== 'undefined') {
         state.map.panTo(new kakao.maps.LatLng(targetPost.lat, targetPost.lng));
       }
       renderPins();
 
-      /* 3. 하단 캐러셀 해당 카드로 부드럽게 스크롤 */
       if (scrollCard) {
         const cardEl = document.getElementById(`spot-card-${postId}`);
         const wrapEl = document.getElementById('feed-list');
@@ -1996,37 +1605,35 @@
       }
     }
 
+    /* ==========================================================================
+       호갱노노식 일관된 '지점 데이터 마커' 렌더링 (뾰족한 지점 지시 꼬리표 포함)
+       ========================================================================== */
     function renderPins() {
       if (!state.map || typeof kakao === 'undefined') return;
       state.overlays.forEach(o => o.setMap(null));
       state.overlays = [];
 
-      const currentLevel = state.map.getLevel();
-      const isMaxZoomed = currentLevel <= CONFIG.ZOOM_DETAIL_LEVEL;
       const posts = getDongPosts();
       const outdoor = posts.filter(p => p.spaceType === 'outdoor');
 
-      /* 1. 실외 소음 발생 지점 핀 */
+      /* 1. 실외 소음 발생 지점 마커 */
       outdoor.forEach(post => {
         const isSelected = (post.id === state.selectedPostId);
+        const who = WHO_LEVELS[post.whoLevel] || WHO_LEVELS[2];
+        const tag = post.shortTag || post.category.slice(0, 6);
+
         const el = document.createElement('div');
-        if (!isMaxZoomed) {
-          el.className = `pin-compact-spot lv-${post.whoLevel} ${isSelected ? 'selected-spot' : ''}`;
-          el.innerHTML = `
-            <div class="pin-compact-inner">${getNoiseIconSvg(post.filterGroup, 20)}</div>
-            <span class="pin-compact-badge">${post.empathyCount}</span>
-          `;
-        } else {
-          const who = WHO_LEVELS[post.whoLevel] || WHO_LEVELS[2];
-          el.className = `pin-zoomed-outdoor lv-${post.whoLevel}`;
-          el.innerHTML = `
-            <div class="pzo-icon-box">${getNoiseIconSvg(post.filterGroup, 22)}</div>
-            <div class="pzo-info">
-              <span class="pzo-title">${post.category}</span>
-              <span class="pzo-meta">${who.badge} · 공감 ${post.empathyCount}명</span>
-            </div>
-          `;
-        }
+        el.className = `hg-marker-wrap lv-${post.whoLevel} ${isSelected ? 'selected' : ''}`;
+        el.innerHTML = `
+          <div class="hg-live-bubble">${post.empathyCount}명 공감중</div>
+          <div class="hg-marker-box">
+            <div class="hg-m-top">${tag}</div>
+            <div class="hg-m-main">${who.shortDb}</div>
+          </div>
+          <div class="hg-m-pointer"></div>
+          <div class="hg-m-dot"></div>
+        `;
+
         el.onclick = () => {
           if (state.selectedPostId === post.id) {
             openPostDetail(post.id);
@@ -2037,53 +1644,36 @@
 
         const ov = new kakao.maps.CustomOverlay({
           position: new kakao.maps.LatLng(post.lat, post.lng),
-          content: el, yAnchor: 0.5, zIndex: isSelected ? 60 : (20 + post.whoLevel)
+          content: el,
+          xAnchor: 0.12,
+          yAnchor: 1.0,
+          zIndex: isSelected ? 80 : (20 + post.whoLevel)
         });
         ov.setMap(state.map);
         state.overlays.push(ov);
       });
 
-      /* 2. 공동주택·아파트 실내 소음 핀 */
+      /* 2. 공동주택·아파트 지점 마커 (소음 기록이 있는 건물만 지점 표시) */
       state.buildings.filter(b => b.dong === state.currentDong).forEach(bldg => {
         const bReports = state.posts.filter(p => p.buildingId === bldg.id);
         if (bReports.length === 0) return;
 
         const isSelected = bReports.some(r => r.id === state.selectedPostId);
         const prof = profileBuildingStructure(bldg, bReports);
+        const totalEmp = bReports.reduce((acc, r) => acc + (r.empathyCount || 0), 0);
+        const shortName = prof.name.replace('아파트', '');
+
         const el = document.createElement('div');
-
-        if (!isMaxZoomed) {
-          el.className = `pin-compact-spot indoor-spot ${isSelected ? 'selected-spot' : ''}`;
-          el.innerHTML = `
-            <div class="pin-compact-inner">${getNoiseIconSvg('indoor', 19, '#FFFFFF')}</div>
-            <span class="pin-compact-badge">${bReports.length}</span>
-          `;
-        } else {
-          const totalFloors = Math.max(3, Math.min(25, prof.groundFloors));
-          let floorsHtml = '';
-          for (let f = totalFloors; f >= 2; f--) {
-            const hit = bReports.find(r => r.floor === f);
-            if (hit) {
-              floorsHtml += `<div class="pzb-floor-row hot"><span>${f}F</span><span>${hit.category.slice(0, 4)}</span></div>`;
-            } else {
-              floorsHtml += `<div class="pzb-floor-row"></div>`;
-            }
-          }
-          if (prof.hasPiloti) {
-            floorsHtml += `<div class="pzb-floor-row piloti"></div>`;
-          } else {
-            const hit1 = bReports.find(r => r.floor === 1);
-            floorsHtml += hit1
-              ? `<div class="pzb-floor-row hot"><span>1F</span><span>소음</span></div>`
-              : `<div class="pzb-floor-row"></div>`;
-          }
-
-          el.className = 'pin-zoomed-bldg';
-          el.innerHTML = `
-            <div class="pzb-tower">${floorsHtml}</div>
-            <div class="pzb-caption"><span>${prof.name} (${prof.groundFloors}층)</span></div>
-          `;
-        }
+        el.className = `hg-marker-wrap is-bldg ${isSelected ? 'selected' : ''}`;
+        el.innerHTML = `
+          <div class="hg-live-bubble">${totalEmp}명 공감중</div>
+          <div class="hg-marker-box">
+            <div class="hg-m-top">${prof.groundFloors}층 · ${prof.hasPiloti ? '필로티' : '공동주택'}</div>
+            <div class="hg-m-main">${shortName}</div>
+          </div>
+          <div class="hg-m-pointer"></div>
+          <div class="hg-m-dot"></div>
+        `;
 
         el.onclick = () => {
           if (isSelected) {
@@ -2095,7 +1685,10 @@
 
         const ov = new kakao.maps.CustomOverlay({
           position: new kakao.maps.LatLng(bldg.lat, bldg.lng),
-          content: el, yAnchor: isMaxZoomed ? 0.95 : 0.5, zIndex: isSelected ? 65 : 35
+          content: el,
+          xAnchor: 0.12,
+          yAnchor: 1.0,
+          zIndex: isSelected ? 85 : 35
         });
         ov.setMap(state.map);
         state.overlays.push(ov);
@@ -2136,19 +1729,25 @@
         const cis = calculateCIS(post);
         const who = WHO_LEVELS[post.whoLevel] || WHO_LEVELS[2];
         const loc = formatBackroadAnchor(post.roadName, post.anchorBuilding, post.roadType);
-        const iconSvg = getNoiseIconSvg(post.filterGroup, 15, '#1B4965');
         return `
           <article class="spot-card" id="spot-card-${post.id}" data-id="${post.id}">
-            <div>
-              <div class="sc-location-header">
-                <span class="sc-loc-text">📍 ${loc}</span>
-                <span class="sc-time-tag">${relTime(post.timestamp)}</span>
-              </div>
+            <div class="sc-location-header">
+              <span class="sc-loc-text">📍 ${loc}</span>
+              <span class="sc-detail-link">상세리포트 ›</span>
+            </div>
 
-              <div class="sc-metrics-strip" style="margin-top:8px;">
-                <span class="sc-lv-badge lv-${post.whoLevel}">${who.badge}</span>
-                <span class="sc-type-badge">${iconSvg}<span>${post.category}</span></span>
-                <span class="sc-cis-badge">신뢰도 ${cis.cisScore}%</span>
+            <div class="sc-kpi-grid">
+              <div class="sc-kpi-cell">
+                <span class="sc-kpi-label">체감 강도</span>
+                <span class="sc-kpi-val danger">${who.shortDb}</span>
+              </div>
+              <div class="sc-kpi-cell">
+                <span class="sc-kpi-label">AI 신뢰도</span>
+                <span class="sc-kpi-val trust">${cis.cisScore}%</span>
+              </div>
+              <div class="sc-kpi-cell">
+                <span class="sc-kpi-label">유형 · 제보</span>
+                <span class="sc-kpi-val teal">${post.shortTag || '생활소음'}</span>
               </div>
             </div>
 
@@ -2181,13 +1780,19 @@
       });
 
       listEl.querySelectorAll('.spot-card').forEach(item => {
-        item.onclick = () => openPostDetail(item.dataset.id);
+        item.onclick = () => {
+          const p = state.posts.find(x => x.id === item.dataset.id);
+          if (p && p.spaceType === 'indoor' && p.buildingId) {
+            openBuildingView(p.buildingId);
+          } else {
+            openPostDetail(item.dataset.id);
+          }
+        };
       });
 
       renderPins();
     }
 
-    /* 가로 스와이프 시 현재 화면 중앙에 온 카드와 상단 지도 핀 자동 동기화 */
     let scrollSyncTimer = null;
     document.getElementById('feed-list').addEventListener('scroll', () => {
       if (document.getElementById('feed-sheet').classList.contains('expanded')) return;
@@ -2279,18 +1884,20 @@
       const list = state.writeDraft.space === 'outdoor' ? CAT_OUTDOOR : CAT_INDOOR;
       if (!list.some(c => c.label === state.writeDraft.category)) {
         state.writeDraft.category = list[0].label;
+        state.writeDraft.shortTag = list[0].shortTag;
         state.writeDraft.group = list[0].group;
       }
       const grid = document.getElementById('write-cat-grid');
       grid.innerHTML = list.map(c => `
-        <button type="button" class="btn-cat-item ${state.writeDraft.category === c.label ? 'active' : ''}" data-cat="${c.label}" data-grp="${c.group}">
-          ${getNoiseIconSvg(c.group, 18, '#1B4965')}<span>${c.label}</span>
+        <button type="button" class="btn-cat-item ${state.writeDraft.category === c.label ? 'active' : ''}" data-cat="${c.label}" data-tag="${c.shortTag}" data-grp="${c.group}">
+          <span>${c.label}</span>
         </button>
       `).join('');
 
       grid.querySelectorAll('.btn-cat-item').forEach(btn => {
         btn.onclick = () => {
           state.writeDraft.category = btn.dataset.cat;
+          state.writeDraft.shortTag = btn.dataset.tag;
           state.writeDraft.group = btn.dataset.grp;
           renderWriteCategories();
         };
@@ -2365,6 +1972,7 @@
         floor: isIndoor ? state.writeDraft.floor : null,
         filterGroup: state.writeDraft.group,
         category: state.writeDraft.category,
+        shortTag: state.writeDraft.shortTag,
         whoLevel: state.writeDraft.whoLevel,
         lat: isIndoor ? targetBldg.lat : c.lat + (Math.random() - 0.5) * 0.002,
         lng: isIndoor ? targetBldg.lng : c.lng + (Math.random() - 0.5) * 0.002,
@@ -2377,6 +1985,9 @@
         content,
         empathyCount: 1,
         empathizedByMe: true,
+        historyLogs: [
+          { date: '방금 전', db: WHO_LEVELS[state.writeDraft.whoLevel].shortDb, type: state.writeDraft.category, spot: anchor }
+        ],
         comments: []
       };
 
@@ -2388,40 +1999,102 @@
       showToast('동네 지도와 이웃 피드에 등록되었어요!');
     };
 
+    /* ==========================================================================
+       [호갱노노 상세 화면 벤치마킹] 지점 상세 리포트 (추이 차트 + 이력 테이블 + 증언)
+       ========================================================================== */
     function openPostDetail(postId) {
       const post = state.posts.find(p => p.id === postId);
       if (!post) return;
       const cis = calculateCIS(post);
       const who = WHO_LEVELS[post.whoLevel] || WHO_LEVELS[2];
       const loc = formatBackroadAnchor(post.roadName, post.anchorBuilding, post.roadType);
+      const logs = post.historyLogs || [
+        { date: relTime(post.timestamp), db: who.shortDb, type: post.category, spot: loc }
+      ];
+
+      document.getElementById('detail-topbar-title').textContent = post.anchorBuilding || post.roadName;
 
       document.getElementById('detail-body').innerHTML = `
         <div class="detail-main-card">
-          <div style="background:var(--primary-soft); border-radius:12px; padding:11px 14px;">
-            <div style="font-size:13px; font-weight:800; color:var(--primary);">AI 피해 신뢰도 ${cis.cisScore}% · 상습 피해 교차 분석됨</div>
-            <div style="font-size:12px; color:var(--text-sub); margin-top:2px;">행정동 GPS 인증 주민 공감 일치 · 조작·어뷰징 패턴 없음</div>
+          <div>
+            <div style="font-size:12px; font-weight:800; color:var(--secondary); margin-bottom:4px;">✓ ${ADMIN_DONGS[post.dong].name} · ${post.roadType}</div>
+            <div style="font-size:18px; font-weight:900; color:var(--text-main); letter-spacing:-0.03em;">${loc}</div>
           </div>
 
-          <div class="sc-metrics-strip">
-            <span class="sc-lv-badge lv-${post.whoLevel}">${who.badge}</span>
-            <span class="sc-type-badge">${getNoiseIconSvg(post.filterGroup, 16, '#1B4965')}<span>${post.category}</span></span>
+          <!-- 호갱노노식 2대 핵심 지표 비교 -->
+          <div class="hg-compare-row">
+            <div class="hg-comp-col">
+              <span class="hg-comp-sub">최근 체감 소음 강도</span>
+              <span class="hg-comp-big red">${who.shortDb}</span>
+            </div>
+            <div class="hg-comp-col">
+              <span class="hg-comp-sub">AI 피해 신뢰도 (${post.empathyCount}명 공감)</span>
+              <span class="hg-comp-big">${cis.cisScore}%</span>
+            </div>
           </div>
-          <div class="sc-loc-text" style="font-size:16px;">📍 ${loc}</div>
-          <p style="font-size:16px; line-height:1.58; color:var(--text-main); word-break:keep-all;">${post.content}</p>
-          <div style="font-size:13px; color:var(--text-muted);">✓ 행정동 인증 · ${post.nickname} · ${relTime(post.timestamp)}</div>
 
-          <button type="button" class="btn-cta-primary" id="btn-detail-empathy" style="background:${post.empathizedByMe ? 'var(--secondary)' : 'var(--primary)'}; height:50px; font-size:15.5px; margin-top:4px;">
+          <!-- 시간대별 소음 발생 추이 그래프 (호갱노노 시세 그래프 벤치마킹) -->
+          <div class="hg-chart-box">
+            <div class="hg-chart-title">
+              <span>시간대별 소음 집중 추이</span>
+              <span style="color:var(--lv3-red); font-size:12px;">심야 23:00~01:00 최고치</span>
+            </div>
+            <svg width="100%" height="96" viewBox="0 0 320 96" fill="none">
+              <line x1="16" y1="20" x2="304" y2="20" stroke="#CBD5E1" stroke-dasharray="3 3"/>
+              <line x1="16" y1="50" x2="304" y2="50" stroke="#CBD5E1" stroke-dasharray="3 3"/>
+              <line x1="16" y1="78" x2="304" y2="78" stroke="#CBD5E1"/>
+              <!-- 하단 제보 빈도 바 -->
+              <rect x="34" y="68" width="12" height="10" rx="2" fill="#94A3B8" opacity="0.5"/>
+              <rect x="94" y="62" width="12" height="16" rx="2" fill="#94A3B8" opacity="0.6"/>
+              <rect x="154" y="54" width="12" height="24" rx="2" fill="#1B4965" opacity="0.75"/>
+              <rect x="214" y="46" width="12" height="32" rx="2" fill="#E11D48" opacity="0.85"/>
+              <rect x="274" y="58" width="12" height="20" rx="2" fill="#1B4965" opacity="0.7"/>
+              <!-- 추이 꺾은선 -->
+              <path d="M40 64 L100 54 L160 38 L220 18 L280 34" stroke="#1B4965" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="220" cy="18" r="5" fill="#E11D48" stroke="#FFFFFF" stroke-width="2"/>
+              <text x="208" y="11" fill="#E11D48" font-size="10" font-weight="800">최고</text>
+              <text x="26" y="92" fill="#64748B" font-size="10" font-weight="700">20시</text>
+              <text x="86" y="92" fill="#64748B" font-size="10" font-weight="700">21시</text>
+              <text x="146" y="92" fill="#64748B" font-size="10" font-weight="700">22시</text>
+              <text x="206" y="92" fill="#E11D48" font-size="10" font-weight="800">23시</text>
+              <text x="266" y="92" fill="#64748B" font-size="10" font-weight="700">01시</text>
+            </svg>
+          </div>
+
+          <!-- 호갱노노 실거래 표 스타일의 '최근 소음 접수 내역' -->
+          <div>
+            <div style="font-size:13px; font-weight:800; color:var(--text-main); margin-bottom:6px;">최근 소음 접수 이력</div>
+            <table class="hg-history-table">
+              <thead>
+                <tr>
+                  <th>발생일시</th>
+                  <th>강도</th>
+                  <th>소음유형</th>
+                  <th>세부지점</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${logs.map(l => `
+                  <tr>
+                    <td>${l.date}</td>
+                    <td style="color:var(--lv3-red); font-weight:900;">${l.db}</td>
+                    <td>${l.type}</td>
+                    <td style="color:var(--text-sub);">${l.spot}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+
+          <p style="font-size:15px; line-height:1.58; color:var(--text-main); background:var(--neu-bg); padding:14px; border-radius:14px; box-shadow:var(--neu-concave);">
+            "${post.content}"
+          </p>
+
+          <button type="button" class="btn-cta-primary" id="btn-detail-empathy" style="background:${post.empathizedByMe ? 'var(--secondary)' : 'var(--primary)'}; height:50px; font-size:15.5px;">
             🙌 저도 같은 피해를 겪고 있어요 (${post.empathyCount}명)
           </button>
 
           <button type="button" class="btn-chip-action" id="btn-copy-gov" style="width:100%; height:44px; font-size:13.5px;">🏛️ 구청·신문고 민원 리포트 복사</button>
-        </div>
-
-        <div class="bm-report-card">
-          <span class="bm-tag">53dB 주거 검증 리포트 · 베타 무료</span>
-          <strong style="font-size:15.5px; color:var(--text-main);">이 구역·건물 24시간 소음 히트맵 & 방음 성적표</strong>
-          <p style="font-size:13px; color:var(--text-sub); line-height:1.5;">이사·계약 전 심야 시간대 고정 소음원 패턴과 건물 구조 취약도를 확인하고, 인증된 현지 주민에게 직접 익명 질문할 수 있어요.</p>
-          <button type="button" class="btn-chip-action" onclick="showToast('베타 기간 중 무료로 제공되는 심층 리포트입니다.')" style="align-self:flex-start;">심층 리포트 미리보기 →</button>
         </div>
 
         <div style="display:flex; flex-direction:column; gap:12px;">
@@ -2482,6 +2155,7 @@
       if (!bldg) return;
       const bReports = state.posts.filter(p => p.buildingId === bldg.id);
       const prof = profileBuildingStructure(bldg, bReports);
+      const totalEmp = bReports.reduce((s, r) => s + (r.empathyCount || 0), 0);
 
       document.getElementById('bldg-detail-title').textContent = prof.name;
 
@@ -2503,10 +2177,46 @@
 
       document.getElementById('bldg-detail-body').innerHTML = `
         <div class="detail-main-card">
-          <div style="font-size:12px; font-weight:800; color:var(--secondary);">✓ ${prof.source || '국토교통부 건축물대장 연동'}</div>
-          <div style="font-size:15px; font-weight:800; color:var(--primary);">건축 구조 프로파일링 · 방음 취약도 ${prof.vulnerability}점</div>
-          <div style="font-size:14px; color:var(--text-sub);">${prof.summary}</div>
-          <div style="font-size:12px; color:var(--text-muted);">※ 보복·명예훼손 방지를 위해 개별 호수는 절대 공개되지 않습니다.</div>
+          <div>
+            <div style="font-size:12px; font-weight:800; color:var(--secondary); margin-bottom:4px;">✓ ${prof.source || '국토교통부 건축물대장 연동'} · 지상 ${prof.groundFloors}층</div>
+            <div style="font-size:18px; font-weight:900; color:var(--text-main);">${prof.name}</div>
+            <div style="font-size:13px; color:var(--text-sub); margin-top:3px;">${prof.summary}</div>
+          </div>
+
+          <div class="hg-compare-row">
+            <div class="hg-comp-col">
+              <span class="hg-comp-sub">건물 방음 취약도</span>
+              <span class="hg-comp-big red">${prof.vulnerability}점</span>
+            </div>
+            <div class="hg-comp-col">
+              <span class="hg-comp-sub">입주민 누적 공감</span>
+              <span class="hg-comp-big">${totalEmp}명</span>
+            </div>
+          </div>
+
+          <div>
+            <div style="font-size:13px; font-weight:800; color:var(--text-main); margin-bottom:6px;">층별 소음 접수 이력 (호수 비공개)</div>
+            <table class="hg-history-table">
+              <thead>
+                <tr>
+                  <th>접수시점</th>
+                  <th>강도</th>
+                  <th>소음유형</th>
+                  <th>층수</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${bReports.map(r => `
+                  <tr>
+                    <td>${relTime(r.timestamp)}</td>
+                    <td style="color:var(--lv3-red); font-weight:900;">${(WHO_LEVELS[r.whoLevel] || WHO_LEVELS[2]).shortDb}</td>
+                    <td>${r.category}</td>
+                    <td>${r.floor}층</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
         </div>
 
         <div class="building-cross-section">
