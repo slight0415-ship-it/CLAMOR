@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨 (v1.0.7)</title>
+  <title>53데시벨 (v1.0.8)</title>
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Crect width='128' height='128' rx='28' fill='%231B4965'/%3E%3Ctext x='64' y='74' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='54' font-weight='900'%3E53%3C/text%3E%3Ctext x='64' y='102' text-anchor='middle' fill='%235EEAD4' font-family='sans-serif' font-size='22' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%231B4965'/%3E%3Ctext x='90' y='102' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='76' font-weight='900'%3E53%3C/text%3E%3Ctext x='90' y='142' text-anchor='middle' fill='%235EEAD4' font-family='sans-serif' font-size='30' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
@@ -34,15 +34,13 @@
   <style>
     /* ==========================================================================
        1. 소프트 라이트 뉴모피즘(Soft Light Neumorphism) 디자인 토큰
-       - 눈부심을 잡은 소프트 스톤 그레이(#E8ECF2) 베이스 위에 양각(볼록) & 음각(오목) 입체감 구현
        ========================================================================== */
     :root {
       color-scheme: only light;
-      --neu-bg: #E8ECF2;           /* 눈부심을 잡은 소프트 스톤 베이스 */
-      --neu-surface: #EDF1F7;      /* 볼록 카드/버튼 표면 */
-      --neu-card-warm: #FAF9F6;    /* 증언 카드용 눈이 편안한 웜 페이퍼 */
+      --neu-bg: #E8ECF2;
+      --neu-surface: #EDF1F7;
+      --neu-card-warm: #FAF9F6;
 
-      /* 뉴모피즘 입체 그림자 (좌상단 빛 · 우하단 그림자) */
       --neu-convex: -5px -5px 11px rgba(255, 255, 255, 0.85), 5px 5px 12px rgba(163, 177, 198, 0.55);
       --neu-convex-sm: -3px -3px 7px rgba(255, 255, 255, 0.85), 3px 3px 8px rgba(163, 177, 198, 0.5);
       --neu-concave: inset -3px -3px 7px rgba(255, 255, 255, 0.85), inset 3px 3px 7px rgba(163, 177, 198, 0.55);
@@ -133,7 +131,7 @@
     button:active { transform: scale(0.97); }
 
     /* ==========================================================================
-       2. [화면 1] 스플래시 (뉴모피즘 볼록 엠블럼 & WHO 권고문 카드)
+       2. [화면 1] 스플래시 (v1.0.8)
        ========================================================================== */
     #screen-splash {
       z-index: 100;
@@ -165,7 +163,6 @@
       width: 100%;
     }
 
-    /* 뉴모피즘 볼록 로고 플레이트 */
     .brand-neu-plate {
       padding: 24px 30px 20px;
       border-radius: 28px;
@@ -265,7 +262,7 @@
     }
 
     /* ==========================================================================
-       3. [화면 2] 로그인 & 온보딩 (뉴모피즘 양각·음각 스타일)
+       3. [화면 2] 로그인 & 온보딩
        ========================================================================== */
     #screen-auth {
       z-index: 90;
@@ -351,7 +348,6 @@
     .onboard-form { margin-top: 28px; display: flex; flex-direction: column; gap: 22px; }
     .native-field label { display: block; font-size: 13.5px; font-weight: 800; color: var(--text-sub); margin-bottom: 8px; }
 
-    /* 뉴모피즘 음각(오목하게 파인) 입력창 */
     .native-input-box {
       display: flex;
       align-items: center;
@@ -363,7 +359,6 @@
     }
     .native-input-box input { flex: 1; border: none; background: transparent; font-size: 16px; font-weight: 700; color: var(--text-main); outline: none; }
 
-    /* 뉴모피즘 볼록 칩 버튼 */
     .btn-chip-action {
       height: 38px;
       padding: 0 13px;
@@ -417,7 +412,7 @@
     }
 
     /* ==========================================================================
-       4. [화면 3] 메인 홈 (순수 카카오맵 + 뉴모피즘 증언 카드 피드)
+       4. [화면 3] 메인 홈 (축척 기반 LOD 맵 핀 시스템)
        ========================================================================== */
     #screen-home { z-index: 20; background-color: var(--neu-bg); }
 
@@ -485,10 +480,9 @@
       z-index: 34;
     }
 
-    /* 순수 맵 영역 */
     .map-container {
       position: relative;
-      height: 44%;
+      height: 46%;
       width: 100%;
       flex-shrink: 0;
       overflow: hidden;
@@ -530,84 +524,153 @@
       color: var(--primary);
     }
 
-    /* 지도 핀 */
-    .pin-outdoor {
+    /* ==========================================================================
+       [핵심] 축척(Zoom Level) 기반 2단계 마커 디자인
+       - 기본 축척(Level 3+): 지도 가림 없는 컴팩트 아이콘 마커만 표시
+       - 최대 확대(Level 1~2): 상세 정보 카드 & 실제 층수 비율 아파트 입체 모델 표시
+       ========================================================================== */
+
+    /* 1) 기본 축척: 컴팩트 원형/물방울 아이콘 핀 (지도를 전혀 가리지 않음) */
+    .pin-compact-spot {
       position: relative;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 5px 10px 5px 6px;
-      border-radius: 999px;
-      background-color: #111827;
-      color: #FFFFFF;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+      width: 38px;
+      height: 38px;
+      border-radius: 50% 50% 50% 4px;
+      transform: rotate(-45deg);
+      background-color: #FFFFFF;
+      border: 2.5px solid var(--primary);
+      box-shadow: 0 4px 12px rgba(17, 24, 39, 0.28);
+      display: grid;
+      place-items: center;
       cursor: pointer;
-      white-space: nowrap;
-      border: 2px solid #FFFFFF;
     }
 
-    .pin-outdoor-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-    .pin-outdoor.lv-1 .pin-outdoor-dot { background-color: #FACC15; }
-    .pin-outdoor.lv-2 .pin-outdoor-dot { background-color: #FB923C; }
-    .pin-outdoor.lv-3 .pin-outdoor-dot { background-color: #F43F5E; }
-
-    .pin-outdoor-title { font-size: 12px; font-weight: 800; color: #FFFFFF; }
-    .pin-outdoor-cnt { font-size: 11.5px; font-weight: 800; color: #5EEAD4; }
-
-    .pin-epicenter-tag {
-      position: absolute;
-      top: -21px;
-      left: 50%;
-      transform: translateX(-50%);
+    .pin-compact-spot.lv-1 { border-color: #D97706; }
+    .pin-compact-spot.lv-2 { border-color: #EA580C; }
+    .pin-compact-spot.lv-3 { border-color: #E11D48; }
+    .pin-compact-spot.indoor-spot {
       background-color: var(--primary);
+      border-color: #FFFFFF;
+    }
+
+    .pin-compact-inner {
+      transform: rotate(45deg);
+      display: grid;
+      place-items: center;
+      width: 24px;
+      height: 24px;
+    }
+
+    .pin-compact-badge {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      transform: rotate(45deg);
+      background-color: #111827;
       color: #FFFFFF;
       font-size: 10px;
       font-weight: 800;
-      padding: 2px 7px;
-      border-radius: 6px;
+      min-width: 17px;
+      height: 17px;
+      padding: 0 4px;
+      border-radius: 999px;
       border: 1.5px solid #FFFFFF;
-      white-space: nowrap;
+      display: grid;
+      place-items: center;
     }
 
-    .pin-building { display: flex; flex-direction: column; align-items: center; cursor: pointer; }
-
-    .bldg-card-pin {
-      background-color: var(--primary);
-      color: #FFFFFF;
-      border: 2px solid #FFFFFF;
-      border-radius: 12px;
-      padding: 6px 10px;
-      box-shadow: 0 5px 15px rgba(27, 73, 101, 0.35);
+    /* 2) 최대 확대(Level 1~2): 실외 소음 지점 상세 미니 카드 */
+    .pin-zoomed-outdoor {
+      background-color: rgba(255, 255, 255, 0.98);
+      border: 2px solid var(--primary);
+      border-radius: 14px;
+      padding: 7px 11px;
+      box-shadow: 0 6px 18px rgba(17, 24, 39, 0.25);
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
+      cursor: pointer;
       white-space: nowrap;
     }
 
-    .bldg-card-pin .bldg-floors-tag {
-      background-color: rgba(255, 255, 255, 0.18);
-      font-size: 10.5px;
-      font-weight: 800;
-      padding: 2px 5px;
-      border-radius: 5px;
-      color: #5EEAD4;
+    .pin-zoomed-outdoor.lv-3 { border-color: #E11D48; }
+    .pin-zoomed-outdoor.lv-2 { border-color: #EA580C; }
+
+    .pzo-icon-box {
+      width: 28px;
+      height: 28px;
+      border-radius: 9px;
+      background-color: var(--neu-bg);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
     }
 
-    .bldg-card-pin .bldg-name-txt { font-size: 12px; font-weight: 800; }
+    .pzo-info { display: flex; flex-direction: column; gap: 1px; }
+    .pzo-title { font-size: 12px; font-weight: 800; color: var(--text-main); }
+    .pzo-meta { font-size: 10.5px; font-weight: 700; color: var(--primary); }
 
-    .bldg-card-pin .bldg-cnt-badge {
-      background-color: #FFFFFF;
-      color: var(--lv3-red);
-      font-size: 11px;
+    /* 3) 최대 확대(Level 1~2): 실제 층수에 맞춰 제작된 공동주택/아파트 입체 단면 핀 */
+    .pin-zoomed-bldg {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      filter: drop-shadow(0 8px 16px rgba(17, 24, 39, 0.3));
+    }
+
+    .pzb-tower {
+      width: 64px;
+      background-color: #1B4965;
+      border: 2px solid #FFFFFF;
+      border-radius: 8px 8px 3px 3px;
+      padding: 4px 4px 3px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .pzb-floor-row {
+      height: 5px;
+      border-radius: 2px;
+      background-color: rgba(255, 255, 255, 0.22);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2px;
+    }
+
+    .pzb-floor-row.hot {
+      height: 13px;
+      background-color: #FFE4E6;
+      border: 1px solid #E11D48;
+      font-size: 9px;
       font-weight: 900;
-      padding: 1px 6px;
-      border-radius: 999px;
+      color: #BE123C;
     }
 
-    .bldg-pin-stem { width: 3px; height: 8px; background-color: var(--primary); }
+    .pzb-floor-row.piloti {
+      height: 7px;
+      background-color: #0D9488;
+    }
+
+    .pzb-caption {
+      margin-top: 4px;
+      background-color: #FFFFFF;
+      border: 1.5px solid var(--primary);
+      border-radius: 9px;
+      padding: 3px 8px;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--primary);
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
 
     /* ==========================================================================
-       5. 하단 뉴모피즘 커뮤니티 시트 (볼록 증언 카드 & 음각 필터/댓글창 부각)
+       5. 하단 뉴모피즘 커뮤니티 시트
        ========================================================================== */
     .bottom-feed-sheet {
       flex: 1;
@@ -656,7 +719,6 @@
     .sheet-title-left { display: flex; align-items: center; gap: 8px; }
     .sheet-title-left h2 { font-size: 17.5px; font-weight: 800; letter-spacing: -0.03em; color: var(--text-main); }
 
-    /* 뉴모피즘 음각 현황 캡슐 */
     .dong-summary-pill {
       display: inline-flex;
       align-items: center;
@@ -685,7 +747,6 @@
     .feed-filter-scroll { display: flex; gap: 8px; overflow-x: auto; padding: 3px 2px; scrollbar-width: none; }
     .feed-filter-scroll::-webkit-scrollbar { display: none; }
 
-    /* 뉴모피즘 양각/음각 토글 필터 칩 */
     .map-chip {
       height: 34px;
       padding: 0 13px;
@@ -698,7 +759,7 @@
       white-space: nowrap;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 5px;
     }
 
     .map-chip.active {
@@ -717,9 +778,6 @@
       gap: 16px;
     }
 
-    /* ==========================================================================
-       [핵심 차별화] 볼록하게 솟아오른 시민 소음 증언 카드 (웜 페이퍼 + 뉴모피즘)
-       ========================================================================== */
     .feed-card {
       background-color: var(--neu-card-warm);
       border-radius: 22px;
@@ -734,7 +792,18 @@
 
     .fc-top { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
     .fc-badges { display: flex; align-items: center; gap: 6px; flex-wrap: nowrap; overflow: hidden; }
-    .fc-cat { background-color: var(--neu-bg); color: var(--text-sub); font-size: 12px; font-weight: 800; padding: 4px 9px; border-radius: 8px; white-space: nowrap; }
+    .fc-cat {
+      background-color: var(--neu-bg);
+      color: var(--text-sub);
+      font-size: 12px;
+      font-weight: 800;
+      padding: 4px 9px;
+      border-radius: 8px;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
     .fc-who { font-size: 12px; font-weight: 800; padding: 4px 9px; border-radius: 8px; white-space: nowrap; }
     .fc-who.lv-1 { background-color: var(--lv1-soft); color: var(--lv1-yellow); }
     .fc-who.lv-2 { background-color: var(--lv2-soft); color: var(--lv2-orange); }
@@ -756,7 +825,6 @@
     .fc-author-row { display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: var(--text-muted); }
     .fc-verified { color: var(--secondary); font-weight: 800; }
 
-    /* 뉴모피즘 입체 공감/댓글 버튼 */
     .fc-action-bar {
       display: flex;
       align-items: center;
@@ -820,7 +888,7 @@
     }
 
     /* ==========================================================================
-       6. [화면 4] 3초 컷 선택형 글쓰기 (뉴모피즘 볼록 선택 카드)
+       6. [화면 4] 3초 컷 선택형 글쓰기
        ========================================================================== */
     #screen-write { z-index: 110; background-color: var(--neu-bg); }
 
@@ -978,12 +1046,11 @@
     .btn-urgent-112-go { padding: 9px 13px; border-radius: 12px; background-color: var(--lv3-red); color: #FFFFFF; font-size: 12.5px; font-weight: 800; white-space: nowrap; }
 
     /* ==========================================================================
-       7. [화면 5] 게시글 상세 (정성스러운 증언형 댓글 카드) & 2.5D 입체 건물 단면
+       7. [화면 5] 게시글 상세 & 2.5D 입체 건물 단면 뷰
        ========================================================================== */
     #screen-detail, #screen-building { z-index: 105; background-color: var(--neu-bg); }
     .detail-scroll { flex: 1; overflow-y: auto; padding: 16px 20px calc(44px + var(--safe-bottom)); display: flex; flex-direction: column; gap: 18px; }
 
-    /* 상세 화면 내 메인 증언 카드 */
     .detail-main-card {
       background-color: var(--neu-card-warm);
       border-radius: 22px;
@@ -994,7 +1061,6 @@
       gap: 12px;
     }
 
-    /* 독립된 입체 증언 댓글 카드 (일반 댓글창과 차별화) */
     .testimony-card {
       background-color: var(--neu-card-warm);
       border-radius: 18px;
@@ -1006,29 +1072,10 @@
       gap: 6px;
     }
 
-    .testimony-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 12.5px;
-    }
-
-    .testimony-badge {
-      font-weight: 800;
-      color: var(--secondary);
-    }
-
-    .testimony-time {
-      color: var(--text-muted);
-      font-weight: 600;
-    }
-
-    .testimony-body {
-      font-size: 14.5px;
-      line-height: 1.52;
-      color: var(--text-main);
-      word-break: keep-all;
-    }
+    .testimony-header { display: flex; align-items: center; justify-content: space-between; font-size: 12.5px; }
+    .testimony-badge { font-weight: 800; color: var(--secondary); }
+    .testimony-time { color: var(--text-muted); font-weight: 600; }
+    .testimony-body { font-size: 14.5px; line-height: 1.52; color: var(--text-main); word-break: keep-all; }
 
     .building-cross-section {
       background-color: var(--neu-surface);
@@ -1066,7 +1113,6 @@
     }
     .bm-tag { align-self: flex-start; background-color: var(--primary); color: #FFFFFF; font-size: 11.5px; font-weight: 800; padding: 4px 10px; border-radius: 999px; }
 
-    /* 모달 & 토스트 */
     .sheet-backdrop { position: absolute; inset: 0; background-color: rgba(17, 24, 39, 0.45); z-index: 120; display: flex; align-items: flex-end; justify-content: center; }
     .native-modal-sheet { width: 100%; background-color: var(--neu-bg); border-radius: 26px 26px 0 0; padding: 14px 22px calc(26px + var(--safe-bottom)); display: flex; flex-direction: column; gap: 14px; max-height: 85%; overflow-y: auto; }
     .sheet-title-bar { display: flex; align-items: center; justify-content: space-between; }
@@ -1100,11 +1146,11 @@
   <div class="app-shell">
 
     <!-- ========================================================================
-         [화면 1] 스플래시 (뉴모피즘 입체 로고 플레이트 + v1.0.7)
+         [화면 1] 스플래시 (v1.0.8)
          ======================================================================== -->
     <section class="screen" id="screen-splash" aria-label="53데시벨 시작 화면">
       <div class="splash-top-meta">
-        <span class="version-pill">v1.0.7</span>
+        <span class="version-pill">v1.0.8</span>
       </div>
 
       <div class="splash-center-group">
@@ -1215,7 +1261,7 @@
     </section>
 
     <!-- ========================================================================
-         [화면 3] 메인 홈 (순수 카카오맵 + 뉴모피즘 볼록 증언 카드 피드)
+         [화면 3] 메인 홈 (축척 기반 LOD 맵 핀 + 뉴모피즘 증언 카드)
          ======================================================================== -->
     <section class="screen" id="screen-home" hidden>
       <header class="app-topbar">
@@ -1245,7 +1291,7 @@
         <button type="button" class="btn-chip-action" id="btn-exec-search" style="height:44px; background:var(--primary); color:#fff;">조회</button>
       </div>
 
-      <!-- 시야 방해 0% 순수 맵 -->
+      <!-- 시야 방해 0% 순수 맵 (축척에 따라 컴팩트 아이콘 ↔ 상세/입체층수 자동 전환) -->
       <div class="map-container">
         <div id="kakao-map"></div>
         <div id="map-loading-box" class="map-status-msg">
@@ -1273,13 +1319,7 @@
             <span class="sheet-expand-btn" id="sheet-expand-label">전체 보기 ▲</span>
           </div>
 
-          <div class="feed-filter-scroll">
-            <button type="button" class="map-chip active" data-filter="all">전체</button>
-            <button type="button" class="map-chip" data-filter="bike">🏍️ 바이크·차량</button>
-            <button type="button" class="map-chip" data-filter="indoor">🏢 층간·벽간</button>
-            <button type="button" class="map-chip" data-filter="shout">🗣️ 고성·욕설</button>
-            <button type="button" class="map-chip" data-filter="const">🚧 공사·기계</button>
-          </div>
+          <div class="feed-filter-scroll" id="filter-chips-bar"></div>
         </div>
 
         <div class="native-feed-scroll" id="feed-list"></div>
@@ -1388,7 +1428,7 @@
     </section>
 
     <!-- ========================================================================
-         [화면 5-A] 게시글 상세 (정성스러운 증언형 댓글 카드 UI)
+         [화면 5-A] 게시글 상세
          ======================================================================== -->
     <section class="screen" id="screen-detail" hidden>
       <header class="subscreen-topbar">
@@ -1478,9 +1518,56 @@
 
   <script>
     const CONFIG = {
-      STORAGE_KEY: '53db_native_state_v107',
-      BLDG_API_KEY: '738a1e3eb24afc48a06e3871c47d057b54f27cfde63e91a4e2b5a2baf27cbae5'
+      STORAGE_KEY: '53db_native_state_v108',
+      BLDG_API_KEY: '738a1e3eb24afc48a06e3871c47d057b54f27cfde63e91a4e2b5a2baf27cbae5',
+      ZOOM_DETAIL_LEVEL: 2 /* 카카오맵 축척 Level 1~2(최대 확대) 시 상세 정보 & 입체 층수 노출 */
     };
+
+    /* ==========================================================================
+       커스텀 벡터 아이콘 세트 (사용자 스케치 기반 '고성 및 욕설' 포함)
+       ========================================================================== */
+    const NOISE_ICONS = {
+      /* 사용자 스케치 반영: 마주 보고 다투는 두 사람 실루엣 + 머리 위 붉은 찌릿찌릿 고성 파동 4줄 */
+      shout: (size = 20) => `
+        <svg width="${size}" height="${size}" viewBox="0 0 32 32" fill="none">
+          <path d="M7.5 6.5L9.2 9L7.8 11.2" stroke="#E11D48" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12.5 5L13.8 7.6L12.5 10" stroke="#E11D48" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M19.5 5L18.2 7.6L19.5 10" stroke="#E11D48" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M24.5 6.5L22.8 9L24.2 11.2" stroke="#E11D48" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="10.5" cy="14.5" r="3.3" stroke="#E11D48" stroke-width="2"/>
+          <path d="M5.5 26.5C5.5 21.8 7.6 19.2 10.5 19.2C13.4 19.2 15.2 21.8 15.2 26.5" stroke="#E11D48" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="21.5" cy="14.5" r="3.3" stroke="#E11D48" stroke-width="2"/>
+          <path d="M16.8 26.5C16.8 21.8 18.6 19.2 21.5 19.2C24.4 19.2 26.5 21.8 26.5 26.5" stroke="#E11D48" stroke-width="2" stroke-linecap="round"/>
+        </svg>`,
+      /* 바이크·차량 굉음 */
+      bike: (size = 20) => `
+        <svg width="${size}" height="${size}" viewBox="0 0 32 32" fill="none">
+          <circle cx="8.5" cy="22" r="4" stroke="#1B4965" stroke-width="2.2"/>
+          <circle cx="23.5" cy="22" r="4" stroke="#1B4965" stroke-width="2.2"/>
+          <path d="M8.5 22L13 14.5H19.5L23.5 22M15 11.5H20.5L22 14.5" stroke="#1B4965" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M3 15H6M2 18.5H5" stroke="#EA580C" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>`,
+      /* 층간·벽간 실내 소음 (건물 내 파동) */
+      indoor: (size = 20, color = '#FFFFFF') => `
+        <svg width="${size}" height="${size}" viewBox="0 0 32 32" fill="none">
+          <rect x="8" y="6" width="16" height="20" rx="3" stroke="${color}" stroke-width="2.2"/>
+          <path d="M12 12H20M12 16.5H20M12 21H16" stroke="${color}" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="20" cy="21" r="1.5" fill="#5EEAD4"/>
+        </svg>`,
+      /* 공사·기계 소음 */
+      const: (size = 20) => `
+        <svg width="${size}" height="${size}" viewBox="0 0 32 32" fill="none">
+          <path d="M7 22H25L22.5 13H9.5L7 22Z" stroke="#B45309" stroke-width="2.2" stroke-linejoin="round"/>
+          <path d="M5 25H27M13 13V9H19V13" stroke="#B45309" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>`
+    };
+
+    function getNoiseIconSvg(group, size = 18, color = '#FFFFFF') {
+      if (group === 'shout') return NOISE_ICONS.shout(size);
+      if (group === 'bike') return NOISE_ICONS.bike(size);
+      if (group === 'indoor') return NOISE_ICONS.indoor(size, color);
+      return NOISE_ICONS.const(size);
+    }
 
     const ADMIN_DONGS = {
       mansu1: { short: '만수1동', name: '인천 남동구 만수1동', lat: 37.4565, lng: 126.7372, sigunguCd: '28200', bjdongCd: '10300' },
@@ -1500,24 +1587,23 @@
     };
 
     const CAT_OUTDOOR = [
-      { label: '바이크·차량 굉음', group: 'bike', icon: '🏍️' },
-      { label: '노래', group: 'shout', icon: '🎤' },
-      { label: '고성 및 욕설', group: 'shout', icon: '🗣️' },
-      { label: '공사소음', group: 'const', icon: '🚧' },
-      { label: '기계음', group: 'const', icon: '⚙️' },
-      { label: '음악소리', group: 'shout', icon: '🔊' },
-      { label: '기타', group: 'const', icon: '📌' }
+      { label: '바이크·차량 굉음', group: 'bike' },
+      { label: '고성 및 욕설', group: 'shout' },
+      { label: '노래·음악소리', group: 'shout' },
+      { label: '공사소음', group: 'const' },
+      { label: '기계음', group: 'const' },
+      { label: '기타', group: 'const' }
     ];
 
     const CAT_INDOOR = [
-      { label: '발망치·뛰는소리', group: 'indoor', icon: '👣' },
-      { label: '물건충격음', group: 'indoor', icon: '🔨' },
-      { label: '가구끄는소리', group: 'indoor', icon: '🪑' },
-      { label: '반려동물짖음', group: 'indoor', icon: '🐶' },
-      { label: '고성·싸움·노래', group: 'indoor', icon: '🗣️' },
-      { label: '화장실·배관·가전음', group: 'indoor', icon: '🚿' },
-      { label: '기계음', group: 'indoor', icon: '⚙️' },
-      { label: '기타', group: 'indoor', icon: '📌' }
+      { label: '발망치·뛰는소리', group: 'indoor' },
+      { label: '물건충격음', group: 'indoor' },
+      { label: '가구끄는소리', group: 'indoor' },
+      { label: '반려동물짖음', group: 'indoor' },
+      { label: '고성·싸움·노래', group: 'indoor' },
+      { label: '화장실·배관·가전음', group: 'indoor' },
+      { label: '기계음', group: 'indoor' },
+      { label: '기타', group: 'indoor' }
     ];
 
     async function fetchBuildingLedgerFromAPI(placeName, lat, lng, sigunguCd, bjdongCd, bun = '', ji = '') {
@@ -1578,21 +1664,6 @@
       };
     }
 
-    function localizeNoiseSource(reports) {
-      if (!reports || !reports.length) return null;
-      let sumLat = 0, sumLng = 0, totalW = 0;
-      reports.forEach(r => {
-        const w = (WHO_LEVELS[r.whoLevel]?.weight || 1) * (1 + Math.log1p(r.empathyCount || 0) * 0.35);
-        sumLat += r.lat * w;
-        sumLng += r.lng * w;
-        totalW += w;
-      });
-      return {
-        epicenterLat: Number((sumLat / totalW).toFixed(6)),
-        epicenterLng: Number((sumLng / totalW).toFixed(6))
-      };
-    }
-
     function profileBuildingStructure(ledger, reports = []) {
       let vuln = ledger.builtYear < 2005 ? 74 : (ledger.builtYear < 2016 ? 56 : 38);
       if (ledger.hasPiloti) vuln += 11;
@@ -1616,10 +1687,10 @@
       return safeAnchor ? `${roadName} · ${safeAnchor} (${roadType})` : `${roadName} (${roadType})`;
     }
 
+    /* 실제 층수에 맞춘 건물 데이터 (소음 기록이 있는 건물만 지도에 표시) */
     const INITIAL_BUILDINGS = [
       { id: 'bldg-mansu5-1', dong: 'mansu5', name: '만수주공1단지아파트', lat: 37.4547, lng: 126.7294, groundFloors: 15, hasPiloti: false, mainStructure: '철근콘크리트 벽식구조', builtYear: 1987, source: '국토교통부 건축물대장 연동' },
-      { id: 'bldg-mansu5-2', dong: 'mansu5', name: '신안래미안아파트', lat: 37.4578, lng: 126.7271, groundFloors: 15, hasPiloti: true, mainStructure: '철근콘크리트 구조', builtYear: 2004, source: '국토교통부 건축물대장 연동' },
-      { id: 'bldg-mansu5-3', dong: 'mansu5', name: '만수주공2단지아파트', lat: 37.4550, lng: 126.7318, groundFloors: 15, hasPiloti: false, mainStructure: '철근콘크리트 벽식구조', builtYear: 1987, source: '국토교통부 건축물대장 연동' }
+      { id: 'bldg-mansu5-2', dong: 'mansu5', name: '신안래미안아파트', lat: 37.4578, lng: 126.7271, groundFloors: 12, hasPiloti: true, mainStructure: '철근콘크리트 구조', builtYear: 2004, source: '국토교통부 건축물대장 연동' }
     ];
 
     const INITIAL_POSTS = [
@@ -1695,6 +1766,7 @@
         document.getElementById(s).hidden = (s !== id);
       });
       if (id === 'screen-home') {
+        renderFilterChips();
         renderHome();
         requestAnimationFrame(() => initMap());
       }
@@ -1723,9 +1795,7 @@
       document.getElementById('input-nickname').value = NICKS[Math.floor(Math.random() * NICKS.length)] + Math.floor(10 + Math.random() * 89);
     });
 
-    document.getElementById('btn-refresh-gps').addEventListener('click', () => {
-      detectCurrentAdminDong(true);
-    });
+    document.getElementById('btn-refresh-gps').addEventListener('click', () => detectCurrentAdminDong(true));
 
     document.getElementById('btn-complete-onboard').addEventListener('click', () => {
       if (!document.getElementById('chk-terms').checked) { showToast('필수 약관에 동의해 주세요.'); return; }
@@ -1794,6 +1864,9 @@
       });
     }
 
+    /* ==========================================================================
+       카카오맵 초기화 & 축척(zoom_changed) 감지 리스너 연결
+       ========================================================================== */
     function initMap() {
       const msgBox = document.getElementById('map-loading-box');
       if (state.map) {
@@ -1815,6 +1888,12 @@
           level: 4
         });
         if (msgBox) msgBox.hidden = true;
+
+        /* 축척 변경 시 마커 상세도(LOD) 자동 전환 */
+        kakao.maps.event.addListener(state.map, 'zoom_changed', () => {
+          renderPins();
+        });
+
         setTimeout(() => {
           state.map.relayout();
           state.map.setCenter(new kakao.maps.LatLng(c.lat, c.lng));
@@ -1827,25 +1906,44 @@
       return state.posts.filter(p => p.dong === state.currentDong && (state.activeFilter === 'all' || p.filterGroup === state.activeFilter));
     }
 
+    /* ==========================================================================
+       축척(Zoom Level) 기반 2단계 핀 렌더링
+       - Level >= 3: 지도를 가리지 않는 컴팩트 아이콘 핀만 표시 (불필요한 건물명/층수 배지 제거)
+       - Level <= 2 (최대 확대): 소음 발생 지점 간략 정보 + 실제 층수 비율 입체 아파트 표시
+       ========================================================================== */
     function renderPins() {
       if (!state.map || typeof kakao === 'undefined') return;
       state.overlays.forEach(o => o.setMap(null));
       state.overlays = [];
 
+      const currentLevel = state.map.getLevel();
+      const isMaxZoomed = currentLevel <= CONFIG.ZOOM_DETAIL_LEVEL;
+
       const posts = getFilteredPosts();
       const outdoor = posts.filter(p => p.spaceType === 'outdoor');
-      const epicenter = localizeNoiseSource(outdoor);
 
-      outdoor.forEach((post, i) => {
-        const cis = calculateCIS(post);
+      /* 1. 실외 소음 발생 지점 마커 */
+      outdoor.forEach(post => {
         const el = document.createElement('div');
-        el.className = `pin-outdoor lv-${post.whoLevel}`;
-        el.innerHTML = `
-          ${i === 0 && epicenter ? `<span class="pin-epicenter-tag">발원지 추정 · 신뢰도 ${cis.cisScore}%</span>` : ''}
-          <span class="pin-outdoor-dot"></span>
-          <span class="pin-outdoor-title">${post.category}</span>
-          <span class="pin-outdoor-cnt">🙌 ${post.empathyCount}</span>
-        `;
+        if (!isMaxZoomed) {
+          /* 기본 축척: 컴팩트 유형 아이콘 핀 (지도를 가리지 않음) */
+          el.className = `pin-compact-spot lv-${post.whoLevel}`;
+          el.innerHTML = `
+            <div class="pin-compact-inner">${getNoiseIconSvg(post.filterGroup, 20)}</div>
+            <span class="pin-compact-badge">${post.empathyCount}</span>
+          `;
+        } else {
+          /* 최대 확대 축척(Level 1~2): 소음 지점 간략 정보 카드 표시 */
+          const who = WHO_LEVELS[post.whoLevel] || WHO_LEVELS[2];
+          el.className = `pin-zoomed-outdoor lv-${post.whoLevel}`;
+          el.innerHTML = `
+            <div class="pzo-icon-box">${getNoiseIconSvg(post.filterGroup, 22)}</div>
+            <div class="pzo-info">
+              <span class="pzo-title">${post.category}</span>
+              <span class="pzo-meta">${who.badge} · 공감 ${post.empathyCount}명</span>
+            </div>
+          `;
+        }
         el.onclick = () => openPostDetail(post.id);
 
         const ov = new kakao.maps.CustomOverlay({
@@ -1856,30 +1954,84 @@
         state.overlays.push(ov);
       });
 
+      /* 2. 공동주택·아파트 실내 소음 마커 (실제 소음 기록이 있는 건물만 표시) */
       if (state.activeFilter === 'all' || state.activeFilter === 'indoor') {
         state.buildings.filter(b => b.dong === state.currentDong).forEach(bldg => {
           const bReports = state.posts.filter(p => p.buildingId === bldg.id);
+          if (bReports.length === 0) return; /* 소음 기록이 없는 아파트는 지도에 불필요하게 띄우지 않음 */
+
           const prof = profileBuildingStructure(bldg, bReports);
           const el = document.createElement('div');
-          el.className = 'pin-building';
-          el.innerHTML = `
-            <div class="bldg-card-pin">
-              <span class="bldg-floors-tag">${prof.groundFloors}층</span>
-              <span class="bldg-name-txt">${prof.name}</span>
-              ${bReports.length > 0 ? `<span class="bldg-cnt-badge">${bReports.length}</span>` : ''}
-            </div>
-            <div class="bldg-pin-stem"></div>
-          `;
+
+          if (!isMaxZoomed) {
+            /* 기본 축척: 컴팩트 실내 소음 아이콘 핀 (15층 등의 불필요한 텍스트 제거) */
+            el.className = 'pin-compact-spot indoor-spot';
+            el.innerHTML = `
+              <div class="pin-compact-inner">${getNoiseIconSvg('indoor', 19, '#FFFFFF')}</div>
+              <span class="pin-compact-badge">${bReports.length}</span>
+            `;
+          } else {
+            /* 최대 확대 축척(Level 1~2): 실제 층수(groundFloors)에 맞춰 제작된 입체 단면 + 층별 소음 정보 */
+            const totalFloors = Math.max(3, Math.min(25, prof.groundFloors));
+            let floorsHtml = '';
+            for (let f = totalFloors; f >= 2; f--) {
+              const hit = bReports.find(r => r.floor === f);
+              if (hit) {
+                floorsHtml += `<div class="pzb-floor-row hot"><span>${f}F</span><span>${hit.category.slice(0, 4)}</span></div>`;
+              } else {
+                floorsHtml += `<div class="pzb-floor-row"></div>`;
+              }
+            }
+            if (prof.hasPiloti) {
+              floorsHtml += `<div class="pzb-floor-row piloti" title="1층 필로티"></div>`;
+            } else {
+              const hit1 = bReports.find(r => r.floor === 1);
+              floorsHtml += hit1
+                ? `<div class="pzb-floor-row hot"><span>1F</span><span>소음</span></div>`
+                : `<div class="pzb-floor-row"></div>`;
+            }
+
+            el.className = 'pin-zoomed-bldg';
+            el.innerHTML = `
+              <div class="pzb-tower">${floorsHtml}</div>
+              <div class="pzb-caption"><span>${prof.name} (${prof.groundFloors}층)</span></div>
+            `;
+          }
+
           el.onclick = () => openBuildingView(bldg.id);
 
           const ov = new kakao.maps.CustomOverlay({
             position: new kakao.maps.LatLng(bldg.lat, bldg.lng),
-            content: el, yAnchor: 1.0, zIndex: 35
+            content: el, yAnchor: isMaxZoomed ? 0.95 : 0.5, zIndex: 35
           });
           ov.setMap(state.map);
           state.overlays.push(ov);
         });
       }
+    }
+
+    function renderFilterChips() {
+      const bar = document.getElementById('filter-chips-bar');
+      const items = [
+        { key: 'all', label: '전체', icon: '' },
+        { key: 'bike', label: '바이크·차량', icon: getNoiseIconSvg('bike', 16) },
+        { key: 'indoor', label: '층간·벽간', icon: getNoiseIconSvg('indoor', 16, '#1B4965') },
+        { key: 'shout', label: '고성·욕설', icon: getNoiseIconSvg('shout', 16) },
+        { key: 'const', label: '공사·기계', icon: getNoiseIconSvg('const', 16) }
+      ];
+      bar.innerHTML = items.map(it => `
+        <button type="button" class="map-chip ${state.activeFilter === it.key ? 'active' : ''}" data-filter="${it.key}">
+          ${it.icon}<span>${it.label}</span>
+        </button>
+      `).join('');
+
+      bar.querySelectorAll('.map-chip').forEach(chip => {
+        chip.onclick = () => {
+          state.activeFilter = chip.dataset.filter;
+          renderFilterChips();
+          renderHome();
+        };
+      });
     }
 
     function renderHome() {
@@ -1906,11 +2058,12 @@
         const cis = calculateCIS(post);
         const who = WHO_LEVELS[post.whoLevel] || WHO_LEVELS[2];
         const loc = formatBackroadAnchor(post.roadName, post.anchorBuilding, post.roadType);
+        const iconSvg = getNoiseIconSvg(post.filterGroup, 15, '#1B4965');
         return `
           <article class="feed-card" id="post-${post.id}" data-id="${post.id}">
             <div class="fc-top">
               <div class="fc-badges">
-                <span class="fc-cat">${post.spaceType === 'indoor' ? '🏢 층간·벽간' : '🏙️ 실외'} · ${post.category}</span>
+                <span class="fc-cat">${iconSvg}<span>${post.category}</span></span>
                 <span class="fc-who lv-${post.whoLevel}">${who.badge}</span>
               </div>
               <span class="fc-cis">신뢰도 ${cis.cisScore}%</span>
@@ -1997,7 +2150,7 @@
       document.getElementById('write-bldg-info').textContent =
         `${prof.name} · 지상 ${prof.groundFloors}층 · ${prof.hasPiloti ? '1층 필로티' : prof.mainStructure} (${prof.builtYear}년 준공)`;
 
-      const maxF = Math.min(15, Math.max(4, prof.groundFloors));
+      const maxF = Math.min(20, Math.max(4, prof.groundFloors));
       let btns = '';
       for (let f = 2; f <= maxF; f++) {
         btns += `<button type="button" class="btn-floor-chip ${f === state.writeDraft.floor ? 'active' : ''}" data-floor="${f}">${f}층</button>`;
@@ -2030,7 +2183,7 @@
       const grid = document.getElementById('write-cat-grid');
       grid.innerHTML = list.map(c => `
         <button type="button" class="btn-cat-item ${state.writeDraft.category === c.label ? 'active' : ''}" data-cat="${c.label}" data-grp="${c.group}">
-          <span>${c.icon}</span><span>${c.label}</span>
+          ${getNoiseIconSvg(c.group, 18, '#1B4965')}<span>${c.label}</span>
         </button>
       `).join('');
 
@@ -2148,7 +2301,7 @@
           </div>
 
           <div class="fc-badges">
-            <span class="fc-cat">${post.category}</span>
+            <span class="fc-cat">${getNoiseIconSvg(post.filterGroup, 16, '#1B4965')}<span>${post.category}</span></span>
             <span class="fc-who lv-${post.whoLevel}">${who.badge}</span>
           </div>
           <div class="fc-loc" style="font-size:16px;">📍 ${loc}</div>
@@ -2294,14 +2447,6 @@
       btn.onclick = () => {
         selectAdminDongKey(btn.dataset.dong);
         document.getElementById('modal-dong').hidden = true;
-      };
-    });
-
-    document.querySelectorAll('.map-chip').forEach(chip => {
-      chip.onclick = () => {
-        state.activeFilter = chip.dataset.filter;
-        document.querySelectorAll('.map-chip').forEach(c => c.classList.toggle('active', c === chip));
-        renderHome();
       };
     });
 
