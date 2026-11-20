@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨 (v1.1.4)</title>
+  <title>53데시벨 (v1.1.5)</title>
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Crect width='128' height='128' rx='28' fill='%231B4965'/%3E%3Ctext x='64' y='74' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='54' font-weight='900'%3E53%3C/text%3E%3Ctext x='64' y='102' text-anchor='middle' fill='%235EEAD4' font-family='sans-serif' font-size='22' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%231B4965'/%3E%3Ctext x='90' y='102' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='76' font-weight='900'%3E53%3C/text%3E%3Ctext x='90' y='142' text-anchor='middle' fill='%235EEAD4' font-family='sans-serif' font-size='30' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
@@ -129,7 +129,7 @@
     button:active { transform: scale(0.97); }
 
     /* ==========================================================================
-       [화면 1] 스플래시 (v1.1.4)
+       [화면 1] 스플래시 (v1.1.5)
        ========================================================================== */
     #screen-splash {
       z-index: 100;
@@ -355,7 +355,7 @@
 
     .map-container {
       position: relative;
-      height: 47%;
+      height: 48%;
       width: 100%;
       flex-shrink: 0;
       overflow: hidden;
@@ -525,7 +525,8 @@
     }
 
     /* ==========================================================================
-       하단 지점 카드 영역 (스크롤 정상 작동 + 정보는 플랫, 버튼만 뉴모피즘)
+       [핵심 개편 1] 하단 고시인성 소음 제보 카드 (단순·명확·스크롤 없음)
+       - 3열 중복 표를 걷어내고: [1줄: 위치 + 유형] → [2줄: 핵심 한 줄 요약(큰 글씨)] → [3줄: 공감/증언 버튼]
        ========================================================================== */
     .bottom-feed-sheet {
       flex: 1;
@@ -595,87 +596,87 @@
       padding: 8px 18px calc(92px + var(--safe-bottom));
     }
 
+    /* 고시인성 미니 카드: 한눈에 꽂히는 3단 구조 */
     .spot-card {
       flex: 0 0 100%;
       scroll-snap-align: center;
-      background-color: var(--card-warm);
+      background-color: var(--card-surface);
       border-radius: 20px;
-      padding: 15px 16px;
+      padding: 15px 17px;
       border: 1px solid #D5DCE6;
       box-shadow: 0 2px 8px rgba(17, 24, 39, 0.05);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 10px;
+      gap: 8px;
       cursor: pointer;
-      overflow-y: auto;
     }
 
     .bottom-feed-sheet.expanded .spot-card {
       flex: none;
       width: 100%;
-      overflow-y: visible;
     }
 
-    .sc-location-header {
+    /* 1줄: 강도·유형 핵심 배지 + 신뢰도 */
+    .sc-top-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
+      gap: 6px;
     }
 
-    .sc-loc-text {
-      font-size: 15px;
+    .sc-main-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
       font-weight: 900;
+      padding: 4px 10px;
+      border-radius: 8px;
+      white-space: nowrap;
+    }
+    .sc-main-pill.lv-3 { background-color: var(--lv3-soft); color: var(--lv3-red); }
+    .sc-main-pill.lv-2 { background-color: var(--lv2-soft); color: var(--lv2-orange); }
+    .sc-main-pill.lv-1 { background-color: var(--lv1-soft); color: var(--lv1-yellow); }
+    .sc-main-pill.public { background-color: #E0F2FE; color: #0369A1; }
+
+    .sc-trust-txt {
+      font-size: 12px;
+      font-weight: 800;
       color: var(--primary);
-      letter-spacing: -0.025em;
+      white-space: nowrap;
+    }
+
+    /* 2줄: 지점 명칭 (가장 크고 선명한 타이포) */
+    .sc-title-loc {
+      font-size: 16.5px;
+      font-weight: 900;
+      color: var(--text-main);
+      letter-spacing: -0.03em;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    .sc-source-tag {
-      font-size: 11px;
-      font-weight: 800;
-      padding: 3px 8px;
-      border-radius: 6px;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-    .sc-source-tag.citizen { background-color: var(--lv3-soft); color: var(--lv3-red); }
-    .sc-source-tag.public { background-color: #E0F2FE; color: #0369A1; }
-
-    .sc-kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
-      background-color: #F1F5F9;
-      border-radius: 12px;
-      padding: 8px 6px;
-      text-align: center;
-    }
-
-    .sc-kpi-cell { display: flex; flex-direction: column; gap: 2px; }
-    .sc-kpi-label { font-size: 10.5px; font-weight: 700; color: var(--text-muted); }
-    .sc-kpi-val { font-size: 13px; font-weight: 900; color: var(--text-main); }
-    .sc-kpi-val.danger { color: var(--lv3-red); }
-    .sc-kpi-val.trust { color: var(--primary); }
-    .sc-kpi-val.teal { color: #0F766E; }
-
-    .sc-body-text {
+    /* 3줄: 핵심 한 줄 요약 (2줄 말줄임으로 카드 내 스크롤 없이 깔끔 표시) */
+    .sc-summary-line {
       font-size: 14px;
       font-weight: 500;
-      line-height: 1.5;
-      color: var(--text-main);
+      line-height: 1.45;
+      color: var(--text-sub);
       word-break: keep-all;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
+    /* 4줄: 공감 / 증언 버튼 (뉴모피즘 입체 버튼) */
     .sc-footer-actions {
       display: flex;
       align-items: center;
       gap: 10px;
-      padding-top: 8px;
-      border-top: 1px solid #E2E8F0;
+      padding-top: 6px;
     }
 
     .btn-fc-empathy {
@@ -767,101 +768,147 @@
     .btn-urgent-112-go { padding: 9px 13px; border-radius: 12px; background-color: var(--lv3-red); color: #FFFFFF; font-size: 12.5px; font-weight: 800; white-space: nowrap; }
 
     /* ==========================================================================
-       [화면 5] 지점 상세 리포트
+       [핵심 개편 2] 호갱노노 스타일 '폰 1페이지 완결형' 상세 화면 (스크롤 없는 요약 탭 + 증언 탭)
+       - 하나의 지점 상세 정보를 스크롤 없이 폰 한 화면에 꽉 차게 배치
        ========================================================================== */
     #screen-detail, #screen-building { z-index: 105; background-color: var(--neu-bg); }
-    .detail-scroll { flex: 1; overflow-y: auto; padding: 16px 20px calc(44px + var(--safe-bottom)); display: flex; flex-direction: column; gap: 16px; }
 
-    .detail-main-card {
-      background-color: var(--card-warm);
-      border-radius: 20px;
-      padding: 18px;
-      border: 1px solid #D5DCE6;
+    .detail-page-shell {
+      flex: 1;
+      min-height: 0;
+      padding: 8px 16px calc(16px + var(--safe-bottom));
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      justify-content: space-between;
+      gap: 10px;
+      overflow: hidden; /* 한 페이지 안에 모든 핵심 정보 수용 */
     }
 
+    /* 호갱노노식 상단 네이비 타이틀 배너 */
+    .hg-hero-banner {
+      background-color: var(--primary);
+      color: #FFFFFF;
+      border-radius: 18px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .hg-hero-sub {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #A7F3D0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .hg-hero-title {
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* 호갱노노식 2대 핵심 지표 비교 블록 */
     .hg-compare-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      padding: 14px;
-      border-radius: 14px;
-      background-color: #F1F5F9;
+      gap: 10px;
+      background-color: var(--card-surface);
+      border: 1px solid #D5DCE6;
+      border-radius: 16px;
+      padding: 12px 14px;
+      flex-shrink: 0;
     }
 
-    .hg-comp-col { display: flex; flex-direction: column; gap: 3px; }
+    .hg-comp-col { display: flex; flex-direction: column; gap: 2px; }
     .hg-comp-sub { font-size: 11.5px; font-weight: 700; color: var(--text-muted); }
     .hg-comp-big { font-size: 24px; font-weight: 900; letter-spacing: -0.04em; color: var(--primary); }
     .hg-comp-big.red { color: var(--lv3-red); }
 
-    .era-analysis-box {
-      background-color: #F1F5F9;
-      border-radius: 14px;
+    /* 상세 화면 내 서브 탭 (1: 핵심분석·추이 | 2: 이웃증언·이력) - 스크롤 없이 전환 */
+    .detail-subtabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .btn-subtab {
+      height: 38px;
+      border-radius: 12px;
+      background-color: var(--neu-surface);
+      box-shadow: var(--btn-convex);
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text-sub);
+    }
+
+    .btn-subtab.active {
+      background-color: var(--neu-bg);
+      box-shadow: var(--btn-pressed);
+      color: var(--primary);
+      border: 1.5px solid var(--primary);
+    }
+
+    /* 탭 콘텐츠 패널: 남은 화면 높이를 꽉 채움 */
+    .detail-tab-panel {
+      flex: 1;
+      min-height: 0;
+      background-color: var(--card-surface);
+      border: 1px solid #D5DCE6;
+      border-radius: 18px;
       padding: 14px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      justify-content: space-between;
+      gap: 10px;
+      overflow-y: auto;
     }
 
-    .era-badge-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-    .era-tag { font-size: 11.5px; font-weight: 800; padding: 3px 9px; border-radius: 6px; background-color: var(--primary); color: #FFFFFF; }
-    .era-desc { font-size: 13px; line-height: 1.52; color: var(--text-sub); word-break: keep-all; }
-
-    .hg-chart-box {
-      background-color: var(--card-surface);
-      border: 1px solid #E2E8F0;
-      border-radius: 16px;
-      padding: 14px 16px;
+    .era-analysis-box {
+      background-color: #F1F5F9;
+      border-radius: 12px;
+      padding: 11px 12px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 5px;
     }
 
-    .hg-chart-title { display: flex; align-items: center; justify-content: space-between; font-size: 13px; font-weight: 800; color: var(--text-main); }
+    .era-badge-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+    .era-tag { font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 6px; background-color: var(--primary); color: #FFFFFF; }
+    .era-desc { font-size: 12.5px; line-height: 1.48; color: var(--text-sub); word-break: keep-all; }
 
-    .hg-history-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
-    .hg-history-table th { text-align: left; padding: 8px 6px; color: var(--text-muted); font-weight: 700; border-bottom: 1px solid #CBD5E1; }
-    .hg-history-table td { padding: 9px 6px; color: var(--text-main); font-weight: 700; border-bottom: 1px solid #E2E8F0; }
+    .hg-history-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .hg-history-table th { text-align: left; padding: 6px 4px; color: var(--text-muted); font-weight: 700; border-bottom: 1px solid #CBD5E1; }
+    .hg-history-table td { padding: 7px 4px; color: var(--text-main); font-weight: 700; border-bottom: 1px solid #E2E8F0; }
 
     .testimony-card {
       background-color: var(--card-warm);
-      border-radius: 16px;
-      padding: 14px 16px;
+      border-radius: 14px;
+      padding: 11px 13px;
       border: 1px solid #D5DCE6;
       border-left: 4px solid var(--secondary);
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 4px;
     }
 
-    .testimony-header { display: flex; align-items: center; justify-content: space-between; font-size: 12.5px; }
+    .testimony-header { display: flex; align-items: center; justify-content: space-between; font-size: 12px; }
     .testimony-badge { font-weight: 800; color: var(--secondary); }
     .testimony-time { color: var(--text-muted); font-weight: 600; }
-    .testimony-body { font-size: 14.5px; line-height: 1.52; color: var(--text-main); word-break: keep-all; }
+    .testimony-body { font-size: 13.5px; line-height: 1.45; color: var(--text-main); word-break: keep-all; }
 
-    .building-cross-section {
-      background-color: var(--card-surface);
-      border: 1px solid #D5DCE6;
-      border-radius: 20px;
-      padding: 18px 16px;
+    .detail-bottom-cta-row {
       display: flex;
-      flex-direction: column;
-      gap: 8px;
+      gap: 10px;
+      flex-shrink: 0;
     }
-    .bldg-roof-cap { height: 12px; background-color: var(--primary); border-radius: 8px 8px 2px 2px; margin: 0 12px 4px; }
-    .floor-stack-row {
-      display: flex; align-items: center; justify-content: space-between; padding: 11px 14px;
-      border-radius: 12px; background-color: #F1F5F9;
-      font-size: 13.5px; font-weight: 700;
-    }
-    .floor-stack-row.piloti { background-color: #E2E8F0; color: var(--text-sub); }
-    .floor-stack-row.hot-2 { background-color: var(--lv2-soft); border: 1.5px solid var(--lv2-orange); }
-    .floor-stack-row.hot-3 { background-color: var(--lv3-soft); border: 1.5px solid var(--lv3-red); }
-
-    .bm-report-card { background-color: var(--card-surface); border: 1px solid #D5DCE6; border-radius: 20px; padding: 18px; display: flex; flex-direction: column; gap: 10px; }
-    .bm-tag { align-self: flex-start; background-color: var(--primary); color: #FFFFFF; font-size: 11.5px; font-weight: 800; padding: 4px 10px; border-radius: 999px; }
 
     .sheet-backdrop { position: absolute; inset: 0; background-color: rgba(17, 24, 39, 0.45); z-index: 120; display: flex; align-items: flex-end; justify-content: center; }
     .native-modal-sheet { width: 100%; background-color: var(--neu-bg); border-radius: 26px 26px 0 0; padding: 14px 22px calc(26px + var(--safe-bottom)); display: flex; flex-direction: column; gap: 14px; max-height: 85%; overflow-y: auto; }
@@ -878,11 +925,11 @@
   <div class="app-shell">
 
     <!-- ========================================================================
-         [화면 1] 스플래시 (v1.1.4)
+         [화면 1] 스플래시 (v1.1.5)
          ======================================================================== -->
     <section class="screen" id="screen-splash" aria-label="53데시벨 시작 화면">
       <div class="splash-top-meta">
-        <span class="version-pill">v1.1.4</span>
+        <span class="version-pill">v1.1.5</span>
       </div>
 
       <div class="splash-center-group">
@@ -991,7 +1038,7 @@
     </section>
 
     <!-- ========================================================================
-         [화면 3] 메인 홈 (논현동 대규모 테스트 데이터셋 + 만수동 데이터 통합)
+         [화면 3] 메인 홈
          ======================================================================== -->
     <section class="screen" id="screen-home" hidden>
       <header class="app-topbar">
@@ -1002,7 +1049,7 @@
               <path d="M6 9l6 6 6-6"/>
             </svg>
           </button>
-          <span class="top-dong-stat" id="ticker-counts">제보 7 · 공공분석 2</span>
+          <span class="top-dong-stat" id="ticker-counts">제보 32 · 공공분석 4</span>
         </div>
 
         <div class="topbar-right-actions">
@@ -1053,7 +1100,7 @@
           <div class="section-title-block">
             <span class="section-accent-bar"></span>
             <h2 id="sheet-section-title">논현1동 일대 소음 지점</h2>
-            <span class="spot-index-pill" id="spot-index-indicator">1 / 9</span>
+            <span class="spot-index-pill" id="spot-index-indicator">1 / 36</span>
           </div>
           <button type="button" class="sheet-expand-btn" id="sheet-expand-btn">전체 보기 ▲</button>
         </div>
@@ -1164,30 +1211,30 @@
     </section>
 
     <!-- ========================================================================
-         [화면 5-A] 지점 상세 리포트
+         [화면 5-A] 폰 1페이지 완결형 실외 소음 지점 리포트
          ======================================================================== -->
     <section class="screen" id="screen-detail" hidden>
       <header class="subscreen-topbar">
-        <button type="button" class="btn-chip-action" id="btn-close-detail">← 뒤로</button>
+        <button type="button" class="btn-chip-action" id="btn-close-detail">← 지도</button>
         <h2 id="detail-topbar-title">소음 지점 리포트</h2>
         <button type="button" class="btn-112-pill" id="btn-detail-112">🚨 112</button>
       </header>
-      <div class="detail-scroll" id="detail-body"></div>
+      <div class="detail-page-shell" id="detail-body"></div>
     </section>
 
     <!-- ========================================================================
-         [화면 5-B] 건물 방음 취약도 & 입체 단면 리포트
+         [화면 5-B] 폰 1페이지 완결형 공동주택 방음 리포트
          ======================================================================== -->
     <section class="screen" id="screen-building" hidden>
       <header class="subscreen-topbar">
-        <button type="button" class="btn-chip-action" id="btn-close-bldg">← 뒤로</button>
+        <button type="button" class="btn-chip-action" id="btn-close-bldg">← 지도</button>
         <h2 id="bldg-detail-title">건물 방음 리포트</h2>
-        <span style="width:48px;"></span>
+        <button type="button" class="btn-112-pill" id="btn-bldg-112">🚨 112</button>
       </header>
-      <div class="detail-scroll" id="bldg-detail-body"></div>
+      <div class="detail-page-shell" id="bldg-detail-body"></div>
     </section>
 
-    <!-- 행정동 선택 바텀시트 (논현1·2·고잔동 + 만수1~6동 포함) -->
+    <!-- 행정동 선택 바텀시트 -->
     <div class="sheet-backdrop" id="modal-dong" hidden>
       <div class="native-modal-sheet">
         <div class="grabber-bar" style="margin-bottom:4px;"></div>
@@ -1201,8 +1248,8 @@
         </button>
 
         <div class="dong-option-list" id="dong-option-list">
-          <button type="button" class="btn-dong-item selected" data-dong="nonhyeon1"><span>인천 남동구 논현1동 (테스트 집중구역)</span><span>✓</span></button>
-          <button type="button" class="btn-dong-item" data-dong="nonhyeon2"><span>인천 남동구 논현2동 (테스트 집중구역)</span><span></span></button>
+          <button type="button" class="btn-dong-item selected" data-dong="nonhyeon1"><span>인천 남동구 논현1동 (테스트 30+건 집중)</span><span>✓</span></button>
+          <button type="button" class="btn-dong-item" data-dong="nonhyeon2"><span>인천 남동구 논현2동</span><span></span></button>
           <button type="button" class="btn-dong-item" data-dong="nonhyeongojan"><span>인천 남동구 논현고잔동 (에코메트로·소래)</span><span></span></button>
           <button type="button" class="btn-dong-item" data-dong="mansu5"><span>인천 남동구 만수5동</span><span></span></button>
           <button type="button" class="btn-dong-item" data-dong="mansu2"><span>인천 남동구 만수2동</span><span></span></button>
@@ -1253,7 +1300,7 @@
 
   <script>
     const CONFIG = {
-      STORAGE_KEY: '53db_native_state_v114',
+      STORAGE_KEY: '53db_native_state_v115',
       BLDG_API_KEY: '738a1e3eb24afc48a06e3871c47d057b54f27cfde63e91a4e2b5a2baf27cbae5'
     };
 
@@ -1303,30 +1350,30 @@
       let reason = '';
 
       if (builtYear <= 1991) {
-        eraTitle = '1991년 이전 (규제 공백기 · 1기 신도시 전후)';
+        eraTitle = '1991년 이전 (규제 공백기)';
         baseVuln = 76;
-        slabSpec = '바닥 슬래브 120~150mm 내외';
-        reason = '바닥충격음 법적 기준이 전혀 없던 시기로, 슬래브 두께가 얇아 중량·경량 충격음이 직하층으로 그대로 전달됩니다.';
+        slabSpec = '슬래브 120~150mm';
+        reason = '바닥충격음 법적 기준 부재 시기로 중량·경량 충격음이 직하층으로 그대로 전달됩니다.';
       } else if (builtYear <= 2004) {
-        eraTitle = '1992~2004년 (권고 기준기 · 차음재 미비)';
+        eraTitle = '1992~2004년 (완충재 의무 전)';
         baseVuln = 82;
-        slabSpec = '슬래브 135~150mm (완충재 의무 전)';
-        reason = '층간소음 완충재(차음재) 의무 시공 전 시기로, 얇은 바닥판에 온돌 파이프만 매설되어 발망치·진동 울림이 매우 심한 구간입니다.';
+        slabSpec = '슬래브 135~150mm';
+        reason = '차음재 의무 시공 전 시기로, 얇은 바닥판에 온돌 파이프만 매설되어 발망치·진동 울림이 매우 심합니다.';
       } else if (builtYear <= 2013) {
-        eraTitle = '2005~2013년 (초기 규제 도입기 · 180mm 기준)';
+        eraTitle = '2005~2013년 (초기 규제 도입기)';
         baseVuln = 68;
-        slabSpec = '벽식구조 180mm (무량판 150mm)';
-        reason = '경량·중량충격음 기준이 처음 도입되었으나, 당시 허용된 180mm 벽식 슬래브는 저주파 발망치(중량충격음) 차단에 한계가 있습니다.';
+        slabSpec = '벽식 180mm (무량판 150mm)';
+        reason = '충격음 기준이 도입되었으나 당시 허용된 180mm 벽식 슬래브는 저주파 발망치(중량충격음) 차단에 한계가 있습니다.';
       } else if (builtYear <= 2021) {
-        eraTitle = '2014~2021년 (210mm 의무화 · 사전인정제 한계기)';
+        eraTitle = '2014~2021년 (사전인정제 한계기)';
         baseVuln = 62;
-        slabSpec = '슬래브 210mm (실험실 사전인정제)';
-        reason = '법정 두께는 210mm로 상향되었으나, 현장 시공 후 측정이 아닌 실험실 인증 제품만 쓰면 통과되던 시기로 실제 입주 후 소음 민원이 다수 발생했습니다.';
+        slabSpec = '슬래브 210mm (사전인정)';
+        reason = '두께는 210mm로 상향됐으나 현장 측정 없이 실험실 인증만으로 통과되던 시기로 입주 후 소음 민원이 다수 발생했습니다.';
       } else {
-        eraTitle = '2022년 이후 (사후확인제 도입 · 최근 시공품질 변수)';
+        eraTitle = '2022년 이후 (사후확인제 도입기)';
         baseVuln = 48;
-        slabSpec = '슬래브 210mm+ (사후확인제 적용)';
-        reason = '준공 전 실제 세대 바닥충격음을 측정하는 사후확인제가 도입되었으나, 최근 원자재·인력난 속 시공 편차 및 마감 들뜸 여부를 입주민 증언으로 교차 확인해야 합니다.';
+        slabSpec = '슬래브 210mm+ (사후확인)';
+        reason = '준공 전 실제 세대 측정을 시행하나 최근 시공 품질 편차·마감 들뜸 여부를 입주민 증언으로 교차 확인해야 합니다.';
       }
 
       if (String(mainStructure).includes('벽식')) baseVuln += 7;
@@ -1357,7 +1404,7 @@
         eraTitle: era.eraTitle,
         slabSpec: era.slabSpec,
         eraReason: era.reason,
-        summary: `${ledger.builtYear}년 준공 (${era.slabSpec}) · ${ledger.hasPiloti ? '1층 필로티 공명 주의' : ledger.mainStructure}`
+        summary: `${ledger.builtYear}년 준공 · ${era.slabSpec} · ${ledger.hasPiloti ? '1층 필로티' : ledger.mainStructure}`
       };
     }
 
@@ -1434,145 +1481,74 @@
       return safeAnchor ? `${roadName} · ${safeAnchor}` : `${roadName} (${roadType})`;
     }
 
-    /* 논현동 & 만수동 방범 CCTV 데이터 */
     const CCTV_POINTS = [
       { dong: 'nonhyeon1', lat: 37.4015, lng: 126.7224, label: '방범CCTV (인천논현역1번출구)' },
       { dong: 'nonhyeon1', lat: 37.4036, lng: 126.7248, label: '방범CCTV (논고개로먹자골목)' },
       { dong: 'nonhyeon2', lat: 37.4074, lng: 126.7172, label: '방범CCTV (논현힐스테이트앞)' },
       { dong: 'nonhyeongojan', lat: 37.3978, lng: 126.7324, label: '방범CCTV (소래포구역광장)' },
       { dong: 'nonhyeongojan', lat: 37.3948, lng: 126.7295, label: '방범CCTV (에코메트로12단지)' },
-      { dong: 'mansu5', lat: 37.4544, lng: 126.7285, label: '방범CCTV (만수1단지입구)' },
-      { dong: 'mansu5', lat: 37.4561, lng: 126.7266, label: '방범CCTV (만수5동센터)' }
+      { dong: 'mansu5', lat: 37.4544, lng: 126.7285, label: '방범CCTV (만수1단지입구)' }
     ];
 
-    /* 논현동 실제 아파트 단지 + 만수동 아파트 단지 데이터 */
+    /* 인천 남동구 논현동 일대 주요 공동주택 단지 (12개 단지) */
     const INITIAL_BUILDINGS = [
       { id: 'bldg-nh-1', dong: 'nonhyeongojan', name: '에코메트로12단지한화꿈에그린', lat: 37.3945, lng: 126.7290, groundFloors: 25, households: 420, hasPiloti: true, mainStructure: '철근콘크리트 벽식구조', builtYear: 2009, source: '국토교통부 건축물대장 연동' },
       { id: 'bldg-nh-2', dong: 'nonhyeongojan', name: '에코메트로11단지한화꿈에그린', lat: 37.3968, lng: 126.7265, groundFloors: 24, households: 380, hasPiloti: false, mainStructure: '철근콘크리트 벽식구조', builtYear: 2009, source: '국토교통부 건축물대장 연동' },
       { id: 'bldg-nh-3', dong: 'nonhyeon2', name: '논현힐스테이트아파트', lat: 37.4078, lng: 126.7168, groundFloors: 20, households: 310, hasPiloti: true, mainStructure: '철근콘크리트 벽식구조', builtYear: 2007, source: '국토교통부 건축물대장 연동' },
       { id: 'bldg-nh-4', dong: 'nonhyeon1', name: '논현신일해피트리아파트', lat: 37.4045, lng: 126.7212, groundFloors: 18, households: 220, hasPiloti: false, mainStructure: '철근콘크리트 벽식구조', builtYear: 2007, source: '국토교통부 건축물대장 연동' },
       { id: 'bldg-nh-5', dong: 'nonhyeon1', name: '논현주공1단지아파트', lat: 37.4018, lng: 126.7268, groundFloors: 15, households: 290, hasPiloti: false, mainStructure: '철근콘크리트 벽식구조', builtYear: 2006, source: '국토교통부 건축물대장 연동' },
-      { id: 'bldg-mansu5-1', dong: 'mansu5', name: '만수주공1단지아파트', lat: 37.4547, lng: 126.7294, groundFloors: 15, households: 180, hasPiloti: false, mainStructure: '철근콘크리트 벽식구조', builtYear: 1987, source: '국토교통부 건축물대장 연동' },
-      { id: 'bldg-mansu5-2', dong: 'mansu5', name: '신안래미안아파트', lat: 37.4578, lng: 126.7271, groundFloors: 15, households: 240, hasPiloti: true, mainStructure: '철근콘크리트 벽식구조', builtYear: 2003, source: '국토교통부 건축물대장 연동' }
+      { id: 'bldg-nh-6', dong: 'nonhyeon1', name: '논현웰카운티10단지아파트', lat: 37.4052, lng: 126.7252, groundFloors: 20, households: 260, hasPiloti: true, mainStructure: '철근콘크리트 벽식구조', builtYear: 2008, source: '국토교통부 건축물대장 연동' },
+      { id: 'bldg-nh-7', dong: 'nonhyeon2', name: '논현아이파크아파트', lat: 37.4092, lng: 126.7195, groundFloors: 22, households: 340, hasPiloti: false, mainStructure: '철근콘크리트 벽식구조', builtYear: 2008, source: '국토교통부 건축물대장 연동' },
+      { id: 'bldg-nh-8', dong: 'nonhyeon2', name: '논현휴먼시아8단지아파트', lat: 37.4058, lng: 126.7142, groundFloors: 15, households: 210, hasPiloti: true, mainStructure: '철근콘크리트 벽식구조', builtYear: 2007, source: '국토교통부 건축물대장 연동' },
+      { id: 'bldg-nh-9', dong: 'nonhyeongojan', name: '에코메트로7단지한화꿈에그린', lat: 37.3992, lng: 126.7288, groundFloors: 25, households: 410, hasPiloti: false, mainStructure: '철근콘크리트 벽식구조', builtYear: 2010, source: '국토교통부 건축물대장 연동' },
+      { id: 'bldg-nh-10', dong: 'nonhyeongojan', name: '소래휴먼시아1단지아파트', lat: 37.3985, lng: 126.7345, groundFloors: 18, households: 280, hasPiloti: true, mainStructure: '철근콘크리트 벽식구조', builtYear: 2008, source: '국토교통부 건축물대장 연동' },
+      { id: 'bldg-mansu5-1', dong: 'mansu5', name: '만수주공1단지아파트', lat: 37.4547, lng: 126.7294, groundFloors: 15, households: 180, hasPiloti: false, mainStructure: '철근콘크리트 벽식구조', builtYear: 1987, source: '국토교통부 건축물대장 연동' }
     ];
 
-    /* 인천 남동구 논현동 일대 풍부한 테스트 데이터셋 (실제 도로명·단지·역세권 기반) */
+    /* 인천 남동구 논현동 일대 34건 대규모 실제 지명·좌표 테스트 제보 데이터 */
     const INITIAL_POSTS = [
-      {
-        id: 'post-nh-101', dong: 'nonhyeon1', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'bike', category: '바이크·차량 굉음', shortTag: '바이크·굉음', whoLevel: 3,
-        lat: 37.4016, lng: 126.7228, roadName: '논고개로 123번길', anchorBuilding: '인천논현역 1번출구 먹자골목', roadType: '이면도로·골목',
-        nickname: '논현역앞수면부족', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 11,
-        content: '밤 11시 반부터 새벽 2시까지 배달 오토바이 수십 대가 먹자골목 사이 이면도로로 굉음을 내며 질주합니다. 이중창 닫아도 배기음이 그대로 뚫고 들어옵니다.',
-        empathyCount: 47, empathizedByMe: false,
-        historyLogs: [
-          { date: '어제 23:55', db: '105dB급', type: '배달 바이크 굉음', spot: '인천논현역 먹자골목' },
-          { date: '2일 전 00:40', db: '101dB급', type: '튜닝 머플러 급가속', spot: '논고개로 123번길' },
-          { date: '4일 전 23:20', db: '96dB급', type: '차량 경적·공회전', spot: '상가 이면도로' }
-        ],
-        comments: [
-          { nick: '논현1동주민', text: '여기 진짜 심각합니다. 야간 단속 카메라 설치 민원 같이 넣어야 해요.', time: '6분 전' },
-          { nick: '오피스텔거주자', text: '저도 방금 112 문자 신고 넣었습니다. 매일 밤 전쟁입니다.', time: '2분 전' }
-        ]
-      },
-      {
-        id: 'post-nh-102', dong: 'nonhyeon1', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'shout', category: '고성 및 욕설', shortTag: '고성·욕설', whoLevel: 3,
-        lat: 37.4034, lng: 126.7246, roadName: '청능대로 595번길', anchorBuilding: '논현상업지구 이면도로', roadType: '상가·주변',
-        nickname: '조용한밤을원해', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 28,
-        content: '술집 밀집 골목에서 새벽 1시 넘어서까지 주취자들 고성과 욕설, 싸우는 소리가 주거단지 쪽으로 울려 퍼집니다.',
-        empathyCount: 34, empathizedByMe: false,
-        historyLogs: [
-          { date: '오늘 01:12', db: '98dB급', type: '주취 고성·욕설', spot: '상업지구 뒤 골목' },
-          { date: '3일 전 00:30', db: '94dB급', type: '노상 시비·고함', spot: '청능대로 595번길' }
-        ],
-        comments: [
-          { nick: '해피트리입주민', text: '창문 열어놓으면 집 안 거실까지 다 들립니다.', time: '15분 전' }
-        ]
-      },
-      {
-        id: 'post-nh-103', dong: 'nonhyeon1', isPublicPrediction: false, spaceType: 'indoor', buildingId: 'bldg-nh-4', floor: 9, filterGroup: 'indoor', category: '발망치·뛰는소리', shortTag: '층간·발망치', whoLevel: 2,
-        lat: 37.4045, lng: 126.7212, roadName: '논현고잔로 220번길', anchorBuilding: '논현신일해피트리아파트 (9층)', roadType: '공동주택 실내',
-        nickname: '9층거주민', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 52,
-        content: '2007년 초기 규제(180mm 슬래브) 아파트라 그런지 윗집 아이 뛰는 발망치 소리가 천장을 울립니다. 밤 11시 이후엔 자제 부탁드립니다.',
-        empathyCount: 19, empathizedByMe: false,
-        historyLogs: [
-          { date: '어제 23:25', db: '84dB급', type: '발망치·뛰는소리', spot: '9층 라인' }
-        ],
-        comments: []
-      },
-      {
-        id: 'post-nh-104', dong: 'nonhyeon1', isPublicPrediction: false, spaceType: 'indoor', buildingId: 'bldg-nh-5', floor: 6, filterGroup: 'indoor', category: '가구끄는소리', shortTag: '가구·충격음', whoLevel: 2,
-        lat: 37.4018, lng: 126.7268, roadName: '논고개로 95번길', anchorBuilding: '논현주공1단지아파트 (6층)', roadType: '공동주택 실내',
-        nickname: '1단지6층주민', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 95,
-        content: '새벽 시간마다 의자 끄는 소리와 무거운 물건 떨어뜨리는 충격음이 벽식 구조를 타고 옆집·아랫집까지 크게 전달됩니다.',
-        empathyCount: 22, empathizedByMe: false,
-        historyLogs: [
-          { date: '어제 01:05', db: '81dB급', type: '가구끄는소리', spot: '6층 라인' }
-        ],
-        comments: [
-          { nick: '5층이웃', text: '저도 같은 라인인데 새벽마다 깹니다.', time: '40분 전' }
-        ]
-      },
-      {
-        id: 'post-nh-105', dong: 'nonhyeon2', isPublicPrediction: false, spaceType: 'indoor', buildingId: 'bldg-nh-3', floor: 12, filterGroup: 'indoor', category: '반려동물짖음', shortTag: '반려동물·짖음', whoLevel: 2,
-        lat: 37.4078, lng: 126.7168, roadName: '논현로 46번길', anchorBuilding: '논현힐스테이트아파트 (12층)', roadType: '공동주택 실내',
-        nickname: '12층재택근무자', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 110,
-        content: '주인이 외출한 낮 시간부터 밤늦게까지 대형견 짖는 소리가 복도와 환기구를 타고 계속 울립니다.',
-        empathyCount: 15, empathizedByMe: false,
-        historyLogs: [
-          { date: '오늘 10:20', db: '79dB급', type: '반려동물 연속 짖음', spot: '12층 라인' }
-        ],
-        comments: []
-      },
-      {
-        id: 'post-nh-106', dong: 'nonhyeongojan', isPublicPrediction: false, spaceType: 'indoor', buildingId: 'bldg-nh-1', floor: 14, filterGroup: 'indoor', category: '발망치·뛰는소리', shortTag: '층간·발망치', whoLevel: 3,
-        lat: 37.3945, lng: 126.7290, roadName: '아암대로 1503번길', anchorBuilding: '에코메트로12단지한화꿈에그린 (14층)', roadType: '공동주택 실내',
-        nickname: '에코12단지이웃', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 140,
-        content: '필로티 상부 저층 및 고층 라인 모두 밤늦게 쿵쿵거리는 중량충격음이 심합니다. 2009년 준공 벽식구조 특성상 저주파 울림이 큽니다.',
-        empathyCount: 31, empathizedByMe: false,
-        historyLogs: [
-          { date: '어제 23:50', db: '88dB급', type: '심야 발망치·진동', spot: '14층 라인' }
-        ],
-        comments: [
-          { nick: '13층주민', text: '우리 라인도 밤 12시 넘어서 뛰는 소리 때문에 고통받습니다.', time: '1시간 전' }
-        ]
-      },
-      {
-        id: 'post-nh-107', dong: 'nonhyeongojan', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'bike', category: '바이크·차량 굉음', shortTag: '차량·배기음', whoLevel: 3,
-        lat: 37.3976, lng: 126.7322, roadName: '소래역로 45번길', anchorBuilding: '소래포구역 사거리 인근', roadType: '큰 도로·대로변',
-        nickname: '소래바닷바람', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 190,
-        content: '주말 밤마다 소래포구 방면 해안도로로 빠져나가는 스포츠카와 오토바이 배기음 굉음이 아파트 고층까지 올라옵니다.',
-        empathyCount: 38, empathizedByMe: false,
-        historyLogs: [
-          { date: '지난주말 00:30', db: '103dB급', type: '스포츠카·바이크 굉음', spot: '소래역로 사거리' }
-        ],
-        comments: []
-      },
-      {
-        id: 'pub-nh-108', dong: 'nonhyeongojan', isPublicPrediction: true, publicConfidence: 87,
-        spaceType: 'indoor', buildingId: 'bldg-nh-2', floor: 10, filterGroup: 'indoor', category: '초기규제 준공 · 대단지 밀집', shortTag: '방음취약 80점', whoLevel: 2,
-        lat: 37.3968, lng: 126.7265, roadName: '에코중앙로 90', anchorBuilding: '에코메트로11단지한화꿈에그린 (2009년 준공)', roadType: '공공데이터 분석',
-        nickname: '53dB 공공데이터 분석', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 240,
-        content: '2009년 준공(초기 규제 도입기 180mm 슬래브) 대단지로 야간 상주 인구 밀집도가 매우 높아 층간·벽간 전달음 주의가 필요한 단지입니다.',
-        empathyCount: 14, empathizedByMe: false,
-        historyLogs: [
-          { date: '건축물대장', db: '취약 80점', type: '2009년 초기규제기 준공', spot: '벽식구조 180mm' }
-        ],
-        comments: []
-      },
-      /* 기존 만수동 데이터 유지 */
-      {
-        id: 'post-101', dong: 'mansu5', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'bike', category: '바이크·차량 굉음', shortTag: '바이크·굉음', whoLevel: 3,
-        lat: 37.4542, lng: 126.7289, roadName: '백범로 124번길', anchorBuilding: '만수주공1단지 앞', roadType: '이면도로·골목',
-        nickname: '조용한만수5동부엉이', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 300,
-        content: '밤 11시만 넘으면 머플러 개조한 배달 바이크가 단지 사이 이면도로에서 풀악셀을 땡깁니다. 창문 닫아도 심장이 덜컥 내려앉아요.',
-        empathyCount: 29, empathizedByMe: false,
-        historyLogs: [
-          { date: '어제 23:42', db: '104dB급', type: '머플러 개조 바이크', spot: '1단지 정문 앞 골목' }
-        ],
-        comments: [
-          { nick: '만수5동주민', text: '저도 어제 밤 11시 반에 그 소리 때문에 깼습니다.', time: '9분 전' }
-        ]
-      }
+      { id: 'nh-01', dong: 'nonhyeon1', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'bike', category: '바이크·차량 굉음', shortTag: '바이크·굉음', whoLevel: 3, lat: 37.4016, lng: 126.7228, roadName: '논고개로 123번길', anchorBuilding: '인천논현역 1번출구 먹자골목', roadType: '이면도로·골목', nickname: '논현역앞수면부족', gpsVerified: true, timestamp: Date.now() - 1000*60*8, content: '밤 11시 반부터 새벽 2시까지 배달 오토바이 수십 대가 먹자골목 이면도로로 굉음을 내며 질주합니다.', empathyCount: 47, empathizedByMe: false, comments: [{ nick: '논현1동주민', text: '야간 단속 카메라 설치 민원 같이 넣어요.', time: '5분 전' }, { nick: '오피스텔거주자', text: '매일 밤 전쟁입니다.', time: '2분 전' }] },
+      { id: 'nh-02', dong: 'nonhyeon1', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'shout', category: '고성 및 욕설', shortTag: '고성·욕설', whoLevel: 3, lat: 37.4034, lng: 126.7246, roadName: '청능대로 595번길', anchorBuilding: '논현상업지구 이면도로', roadType: '상가·주변', nickname: '조용한밤을원해', gpsVerified: true, timestamp: Date.now() - 1000*60*19, content: '술집 밀집 골목에서 새벽 1시 넘어서까지 주취자들 고성과 욕설이 주거단지 쪽으로 울려 퍼집니다.', empathyCount: 34, empathizedByMe: false, comments: [{ nick: '해피트리입주민', text: '창문 열어놓으면 거실까지 다 들립니다.', time: '11분 전' }] },
+      { id: 'nh-03', dong: 'nonhyeon1', isPublicPrediction: false, spaceType: 'indoor', buildingId: 'bldg-nh-4', floor: 9, filterGroup: 'indoor', category: '발망치·뛰는소리', shortTag: '층간·발망치', whoLevel: 2, lat: 37.4045, lng: 126.7212, roadName: '논현고잔로 220번길', anchorBuilding: '논현신일해피트리아파트 (9층)', roadType: '공동주택 실내', nickname: '9층거주민', gpsVerified: true, timestamp: Date.now() - 1000*60*31, content: '2007년 초기 규제(180mm 슬래브) 아파트라 윗집 아이 뛰는 발망치 소리가 천장을 울립니다.', empathyCount: 19, empathizedByMe: false, comments: [] },
+      { id: 'nh-04', dong: 'nonhyeon1', isPublicPrediction: false, spaceType: 'indoor', buildingId: 'bldg-nh-5', floor: 6, filterGroup: 'indoor', category: '가구끄는소리', shortTag: '가구·충격음', whoLevel: 2, lat: 37.4018, lng: 126.7268, roadName: '논고개로 95번길', anchorBuilding: '논현주공1단지아파트 (6층)', roadType: '공동주택 실내', nickname: '1단지6층주민', gpsVerified: true, timestamp: Date.now() - 1000*60*45, content: '새벽 시간마다 의자 끄는 소리와 무거운 물건 떨어뜨리는 충격음이 벽식 구조를 타고 전달됩니다.', empathyCount: 22, empathizedByMe: false, comments: [{ nick: '5층이웃', text: '저도 같은 라인인데 새벽마다 깹니다.', time: '20분 전' }] },
+      { id: 'nh-05', dong: 'nonhyeon1', isPublicPrediction: false, spaceType: 'indoor', buildingId: 'bldg-nh-6', floor: 4, filterGroup: 'indoor', category: '물건충격음', shortTag: '필로티·진동', whoLevel: 2, lat: 37.4052, lng: 126.7252, roadName: '논현로 78번길', anchorBuilding: '논현웰카운티10단지아파트 (4층)', roadType: '공동주택 실내', nickname: '웰카운티주민', gpsVerified: true, timestamp: Date.now() - 1000*60*58, content: '1층 필로티 상부 저층 세대인데 밤늦게 쿵쿵거리는 충격음과 하부 차량 진동이 함께 울립니다.', empathyCount: 14, empathizedByMe: false, comments: [] },
+      { id: 'nh-06', dong: 'nonhyeon1', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'shout', category: '노래·음악소리', shortTag: '상가·음악음', whoLevel: 2, lat: 37.4021, lng: 126.7241, roadName: '논고개로 115번길', anchorBuilding: '논현중앙공원 맞은편 상가', roadType: '상가·주변', nickname: '공원산책러', gpsVerified: true, timestamp: Date.now() - 1000*60*72, content: '상가 1층 매장 외부 스피커에서 밤 11시까지 저음 우퍼 음악을 크게 틀어놓아 건너편 빌라까지 울립니다.', empathyCount: 17, empathizedByMe: false, comments: [] },
+      { id: 'nh-07', dong: 'nonhyeon1', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'const', category: '공사소음', shortTag: '새벽·공사음', whoLevel: 3, lat: 37.4039, lng: 126.7220, roadName: '청능대로 575번길', anchorBuilding: '논현1동 오피스텔 신축현장 인근', roadType: '이면도로·골목', nickname: '교대근무직장인', gpsVerified: true, timestamp: Date.now() - 1000*60*85, content: '아침 6시 20분부터 대형 레미콘 차량 공회전과 철근 내리는 쇳소리로 일대 주민들이 잠을 못 잡니다.', empathyCount: 28, empathizedByMe: false, comments: [] },
+      { id: 'nh-08', dong: 'nonhyeon1', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'bike', category: '바이크·차량 굉음', shortTag: '차량·경적음', whoLevel: 2, lat: 37.4008, lng: 126.7250, roadName: '논현고잔로 185번길', anchorBuilding: '논현역 사거리 횡단보도 앞', roadType: '큰 도로·대로변', nickname: '논현사거리주민', gpsVerified: true, timestamp: Date.now() - 1000*60*99, content: '심야 시간대 불법 주정차 차량 때문에 뒤차가 클랙슨을 길게 울리는 소음이 빈번합니다.', empathyCount: 13, empathizedByMe: false, comments: [] },
+      { id: 'nh-09', dong: 'nonhyeon1', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'shout', category: '고성 및 욕설', shortTag: '공원·고성', whoLevel: 2, lat: 37.4048, lng: 126.7235, roadName: '논현로 64번길', anchorBuilding: '논현중앙공원 벤치 주변', roadType: '상가·주변', nickname: '밤잠설치는이웃', gpsVerified: true, timestamp: Date.now() - 1000*60*115, content: '새벽 1시 무렵 공원 정자에서 술 마시며 고함 지르고 노래 부르는 소리가 아파트 저층에 그대로 들립니다.', empathyCount: 21, empathizedByMe: false, comments: [] },
+      { id: 'nh-10', dong: 'nonhyeon1', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'const', category: '기계음', shortTag: '실외기·기계음', whoLevel: 1, lat: 37.4029, lng: 126.7218, roadName: '청능대로 583번길', anchorBuilding: '논현프라자 뒤편 골목', roadType: '이면도로·골목', nickname: '빌라3층주민', gpsVerified: true, timestamp: Date.now() - 1000*60*130, content: '상가 건물 대형 냉동기 실외기 웅웅거리는 저주파 기계음이 밤새 멈추지 않습니다.', empathyCount: 11, empathizedByMe: false, comments: [] },
+
+      { id: 'nh-11', dong: 'nonhyeon2', isPublicPrediction: false, spaceType: 'indoor', buildingId: 'bldg-nh-3', floor: 12, filterGroup: 'indoor', category: '반려동물짖음', shortTag: '반려동물·짖음', whoLevel: 2, lat: 37.4078, lng: 126.7168, roadName: '논현로 46번길', anchorBuilding: '논현힐스테이트아파트 (12층)', roadType: '공동주택 실내', nickname: '12층재택근무자', gpsVerified: true, timestamp: Date.now() - 1000*60*145, content: '주인이 외출한 낮 시간부터 밤늦게까지 대형견 짖는 소리가 복도와 환기구를 타고 계속 울립니다.', empathyCount: 15, empathizedByMe: false, comments: [] },
+      { id: 'nh-12', dong: 'nonhyeon2', isPublicPrediction: false, spaceType: 'indoor', buildingId: 'bldg-nh-7', floor: 16, filterGroup: 'indoor', category: '발망치·뛰는소리', shortTag: '층간·발망치', whoLevel: 3, lat: 37.4092, lng: 126.7195, roadName: '논현로 110번길', anchorBuilding: '논현아이파크아파트 (16층)', roadType: '공동주택 실내', nickname: '아이파크16층', gpsVerified: true, timestamp: Date.now() - 1000*60*160, content: '자정이 넘은 시간에도 거실에서 뒤꿈치로 쿵쿵 걷는 소리가 아랫집 안방 천장을 때립니다.', empathyCount: 26, empathizedByMe: false, comments: [] },
+      { id: 'nh-13', dong: 'nonhyeon2', isPublicPrediction: false, spaceType: 'indoor', buildingId: 'bldg-nh-8', floor: 7, filterGroup: 'indoor', category: '화장실·배관·가전음', shortTag: '심야·세탁기음', whoLevel: 2, lat: 37.4058, lng: 126.7142, roadName: '남동대로 490번길', anchorBuilding: '논현휴먼시아8단지아파트 (7층)', roadType: '공동주택 실내', nickname: '휴먼시아7층', gpsVerified: true, timestamp: Date.now() - 1000*60*175, content: '새벽 2시에 돌리는 드럼세탁기 탈수 진동음이 벽을 타고 침대 머리맡까지 진동으로 전해집니다.', empathyCount: 18, empathizedByMe: false, comments: [] },
+      { id: 'nh-14', dong: 'nonhyeon2', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'bike', category: '바이크·차량 굉음', shortTag: '대로변·배기음', whoLevel: 3, lat: 37.4065, lng: 126.7155, roadName: '남동대로 510', anchorBuilding: '논현2동 행정복지센터 앞 대로변', roadType: '큰 도로·대로변', nickname: '남동대로거주민', gpsVerified: true, timestamp: Date.now() - 1000*60*190, content: '직선 구간이라 밤 12시 이후 개조 차량과 오토바이가 시속 100km 넘게 굉음을 내며 통과합니다.', empathyCount: 33, empathizedByMe: false, comments: [] },
+      { id: 'nh-15', dong: 'nonhyeon2', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'shout', category: '고성 및 욕설', shortTag: '상가·고성방가', whoLevel: 2, lat: 37.4084, lng: 126.7180, roadName: '논현로 82번길', anchorBuilding: '논현2동 상가주택 밀집골목', roadType: '이면도로·골목', nickname: '골목길주민', gpsVerified: true, timestamp: Date.now() - 1000*60*205, content: '편의점 앞 파라솔에서 새벽까지 술 마시며 고성방가하는 무리 때문에 창문을 못 엽니다.', empathyCount: 16, empathizedByMe: false, comments: [] },
+      { id: 'nh-16', dong: 'nonhyeon2', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'const', category: '공사소음', shortTag: '도로·포장공사', whoLevel: 2, lat: 37.4071, lng: 126.7198, roadName: '청능대로 530번길', anchorBuilding: '논현2동 사거리 인근', roadType: '큰 도로·대로변', nickname: '수면권지킴이', gpsVerified: true, timestamp: Date.now() - 1000*60*220, content: '야간 도로 아스팔트 절삭 작업 굉음이 새벽 3시까지 이어져 온 동네가 잠을 설쳤습니다.', empathyCount: 24, empathizedByMe: false, comments: [] },
+      { id: 'nh-17', dong: 'nonhyeon2', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'bike', category: '바이크·차량 굉음', shortTag: '학원가·차량음', whoLevel: 1, lat: 37.4088, lng: 126.7158, roadName: '논현로 54번길', anchorBuilding: '논현2동 학원가 이면도로', roadType: '이면도로·골목', nickname: '조용한동네희망', gpsVerified: true, timestamp: Date.now() - 1000*60*235, content: '밤 10시~11시 학원 픽업 차량들의 이중주차 경적과 디젤 엔진 공회전 소음이 심합니다.', empathyCount: 12, empathizedByMe: false, comments: [] },
+      { id: 'nh-18', dong: 'nonhyeon2', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'const', category: '기계음', shortTag: '분리수거·수거차', whoLevel: 2, lat: 37.4060, lng: 126.7176, roadName: '논현로 38번길', anchorBuilding: '단독주택 밀집구역 입구', roadType: '이면도로·골목', nickname: '새벽기상러', gpsVerified: true, timestamp: Date.now() - 1000*60*250, content: '새벽 4시 반 재활용 수거 차량의 유압 압축기 소음과 빈 병 쏟아붓는 소리가 엄청납니다.', empathyCount: 19, empathizedByMe: false, comments: [] },
+
+      { id: 'nh-19', dong: 'nonhyeongojan', isPublicPrediction: false, spaceType: 'indoor', buildingId: 'bldg-nh-1', floor: 14, filterGroup: 'indoor', category: '발망치·뛰는소리', shortTag: '층간·발망치', whoLevel: 3, lat: 37.3945, lng: 126.7290, roadName: '아암대로 1503번길', anchorBuilding: '에코메트로12단지한화꿈에그린 (14층)', roadType: '공동주택 실내', nickname: '에코12단지이웃', gpsVerified: true, timestamp: Date.now() - 1000*60*265, content: '2009년 준공 벽식구조 특성상 밤늦게 아이들 뛰는 중량충격음이 아래층 천장을 강하게 울립니다.', empathyCount: 31, empathizedByMe: false, comments: [{ nick: '13층주민', text: '우리 라인도 밤 12시 넘어서 뛰는 소리 때문에 고통받습니다.', time: '1시간 전' }] },
+      { id: 'nh-20', dong: 'nonhyeongojan', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'bike', category: '바이크·차량 굉음', shortTag: '해안도로·배기음', whoLevel: 3, lat: 37.3976, lng: 126.7322, roadName: '소래역로 45번길', anchorBuilding: '소래포구역 사거리 인근', roadType: '큰 도로·대로변', nickname: '소래바닷바람', gpsVerified: true, timestamp: Date.now() - 1000*60*280, content: '주말 밤마다 소래포구 방면 해안도로로 빠져나가는 스포츠카와 오토바이 배기음 굉음이 고층까지 올라옵니다.', empathyCount: 38, empathizedByMe: false, comments: [] },
+      { id: 'nh-21', dong: 'nonhyeongojan', isPublicPrediction: false, spaceType: 'indoor', buildingId: 'bldg-nh-9', floor: 18, filterGroup: 'indoor', category: '고성·싸움·노래', shortTag: '실내·고성노래', whoLevel: 2, lat: 37.3992, lng: 126.7288, roadName: '에코중앙로 110', anchorBuilding: '에코메트로7단지한화꿈에그린 (18층)', roadType: '공동주택 실내', nickname: '7단지18층', gpsVerified: true, timestamp: Date.now() - 1000*60*295, content: '주말 새벽마다 베란다 창문을 열어놓고 고성으로 노래 부르고 떠드는 소리가 옆 동까지 들립니다.', empathyCount: 17, empathizedByMe: false, comments: [] },
+      { id: 'nh-22', dong: 'nonhyeongojan', isPublicPrediction: false, spaceType: 'indoor', buildingId: 'bldg-nh-10', floor: 8, filterGroup: 'indoor', category: '물건충격음', shortTag: '아령·운동충격', whoLevel: 3, lat: 37.3985, lng: 126.7345, roadName: '소래역남로 28', anchorBuilding: '소래휴먼시아1단지아파트 (8층)', roadType: '공동주택 실내', nickname: '소래휴먼8층', gpsVerified: true, timestamp: Date.now() - 1000*60*310, content: '밤 11시에 홈트레이닝으로 무거운 기구를 바닥에 내려놓는 쿵 하는 충격음이 반복됩니다.', empathyCount: 23, empathizedByMe: false, comments: [] },
+      { id: 'nh-23', dong: 'nonhyeongojan', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'shout', category: '고성 및 욕설', shortTag: '포구·주취고성', whoLevel: 3, lat: 37.3970, lng: 126.7340, roadName: '소래역로 12번길', anchorBuilding: '소래포구 어시장 입구 이면도로', roadType: '상가·주변', nickname: '소래주민', gpsVerified: true, timestamp: Date.now() - 1000*60*325, content: '금·토요일 밤 관광객 주취자들의 고성과 싸우는 소리가 인근 아파트 단지까지 크게 들립니다.', empathyCount: 29, empathizedByMe: false, comments: [] },
+      { id: 'nh-24', dong: 'nonhyeongojan', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'bike', category: '바이크·차량 굉음', shortTag: '아암대로·폭주음', whoLevel: 3, lat: 37.3935, lng: 126.7278, roadName: '아암대로 1480', anchorBuilding: '에코메트로12단지 앞 아암대로변', roadType: '큰 도로·대로변', nickname: '아암대로피해자', gpsVerified: true, timestamp: Date.now() - 1000*60*340, content: '새벽 1~3시 사이 아암대로 직선 구간에서 폭주 오토바이 떼가 굉음을 내며 질주합니다.', empathyCount: 41, empathizedByMe: false, comments: [] },
+      { id: 'nh-25', dong: 'nonhyeongojan', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'shout', category: '노래·음악소리', shortTag: '수변공원·버스킹', whoLevel: 2, lat: 37.3955, lng: 126.7310, roadName: '포구로 2-6', anchorBuilding: '소래습지 수변 산책로 인근', roadType: '상가·주변', nickname: '수변산책주민', gpsVerified: true, timestamp: Date.now() - 1000*60*355, content: '밤 10시 이후에도 수변 공원에서 대형 블루투스 스피커로 앰프 음악을 틀어놓아 수면을 방해합니다.', empathyCount: 15, empathizedByMe: false, comments: [] },
+      { id: 'nh-26', dong: 'nonhyeongojan', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'const', category: '기계음', shortTag: '상가·환풍기음', whoLevel: 1, lat: 37.3982, lng: 126.7305, roadName: '에코중앙로 65', anchorBuilding: '에코메트로 중심상가 뒤편', roadType: '상가·주변', nickname: '중심상가이웃', gpsVerified: true, timestamp: Date.now() - 1000*60*370, content: '음식점 옥상 대형 배기 덕트 모터 돌아가는 소음이 새벽 1시까지 계속됩니다.', empathyCount: 10, empathizedByMe: false, comments: [] },
+      { id: 'nh-27', dong: 'nonhyeongojan', isPublicPrediction: false, spaceType: 'indoor', buildingId: 'bldg-nh-2', floor: 10, filterGroup: 'indoor', category: '가구끄는소리', shortTag: '층간·의자끄는음', whoLevel: 2, lat: 37.3968, lng: 126.7265, roadName: '에코중앙로 90', anchorBuilding: '에코메트로11단지한화꿈에그린 (10층)', roadType: '공동주택 실내', nickname: '11단지10층', gpsVerified: true, timestamp: Date.now() - 1000*60*385, content: '밤 12시 넘어 식탁 의자를 바닥에 그대로 끄는 드르륵 소리가 매일 반복됩니다.', empathyCount: 14, empathizedByMe: false, comments: [] },
+      { id: 'nh-28', dong: 'nonhyeongojan', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'const', category: '공사소음', shortTag: '물류센터·심야하역', whoLevel: 2, lat: 37.3948, lng: 126.7330, roadName: '논현고잔로 42', anchorBuilding: '고잔동 인접 물류창고 진입로', roadType: '큰 도로·대로변', nickname: '고잔단지주민', gpsVerified: true, timestamp: Date.now() - 1000*60*400, content: '새벽 시간 대형 화물차 후진 경고음과 상하차 쇠판 부딪히는 소리가 단지까지 넘어옵니다.', empathyCount: 20, empathizedByMe: false, comments: [] },
+      { id: 'nh-29', dong: 'nonhyeon1', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'bike', category: '바이크·차량 굉음', shortTag: '배달집결지·공회전', whoLevel: 2, lat: 37.4025, lng: 126.7258, roadName: '청능대로 610번길', anchorBuilding: '논현1동 패스트푸드점 앞 이면도로', roadType: '이면도로·골목', nickname: '골목1층거주', gpsVerified: true, timestamp: Date.now() - 1000*60*415, content: '심야 배달 콜 대기 오토바이 5~6대가 골목에 모여 시동을 켜둔 채 큰 소리로 대화합니다.', empathyCount: 25, empathizedByMe: false, comments: [] },
+      { id: 'nh-30', dong: 'nonhyeon1', isPublicPrediction: false, spaceType: 'indoor', buildingId: 'bldg-nh-4', floor: 14, filterGroup: 'indoor', category: '화장실·배관·가전음', shortTag: '화장실·배관소음', whoLevel: 2, lat: 37.4042, lng: 126.7208, roadName: '논현고잔로 220번길', anchorBuilding: '논현신일해피트리아파트 (14층)', roadType: '공동주택 실내', nickname: '14층이웃', gpsVerified: true, timestamp: Date.now() - 1000*60*430, content: '새벽 2~3시 화장실 배수관 물 내려가는 소리와 환풍기 담배연기·말소리가 그대로 타고 올라옵니다.', empathyCount: 16, empathizedByMe: false, comments: [] },
+      { id: 'nh-31', dong: 'nonhyeon2', isPublicPrediction: false, spaceType: 'indoor', buildingId: 'bldg-nh-3', floor: 5, filterGroup: 'indoor', category: '발망치·뛰는소리', shortTag: '층간·발망치', whoLevel: 2, lat: 37.4075, lng: 126.7162, roadName: '논현로 46번길', anchorBuilding: '논현힐스테이트아파트 (5층)', roadType: '공동주택 실내', nickname: '힐스테이트5층', gpsVerified: true, timestamp: Date.now() - 1000*60*445, content: '저녁 9시부터 밤 12시까지 윗집에서 계속 뛰어다니는 진동 때문에 거실에 앉아있기 힘듭니다.', empathyCount: 21, empathizedByMe: false, comments: [] },
+      { id: 'nh-32', dong: 'nonhyeongojan', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'shout', category: '고성 및 욕설', shortTag: '상가·심야고성', whoLevel: 2, lat: 37.3960, lng: 126.7295, roadName: '에코중앙로 40', anchorBuilding: '에코메트로12단지 정문 상가 앞', roadType: '상가·주변', nickname: '정문앞주민', gpsVerified: true, timestamp: Date.now() - 1000*60*460, content: '단지 정문 앞 호프집에서 밤 12시 넘어 손님들이 나와 떠들고 웃는 소리가 3층까지 다 들립니다.', empathyCount: 18, empathizedByMe: false, comments: [] },
+
+      /* 공공데이터 분석 지점 (규제시대·야간밀집도 기반) */
+      { id: 'pub-nh-1', dong: 'nonhyeongojan', isPublicPrediction: true, publicConfidence: 88, spaceType: 'indoor', buildingId: 'bldg-nh-2', floor: 10, filterGroup: 'indoor', category: '초기규제 준공 · 대단지 밀집', shortTag: '방음취약 80점', whoLevel: 2, lat: 37.3962, lng: 126.7258, roadName: '에코중앙로 90', anchorBuilding: '에코메트로11단지한화꿈에그린 (2009년 준공)', roadType: '공공데이터 분석', nickname: '53dB 공공데이터 분석', gpsVerified: true, timestamp: Date.now() - 1000*60*500, content: '2009년 준공(초기 규제 도입기 180mm 슬래브) 대단지로 야간 상주 인구 밀집도가 매우 높아 층간·벽간 전달음 주의가 필요합니다.', empathyCount: 14, empathizedByMe: false, comments: [] },
+      { id: 'pub-nh-2', dong: 'nonhyeon1', isPublicPrediction: true, publicConfidence: 91, spaceType: 'outdoor', filterGroup: 'bike', category: '역세권 상업경계 · 야간밀집', shortTag: '야간주의 86점', whoLevel: 3, lat: 37.4022, lng: 126.7238, roadName: '논고개로·청능대로 교차 상권', anchorBuilding: '인천논현역 상업·주거 경계 블록', roadType: '공공데이터 분석', nickname: '53dB 공공데이터 분석', gpsVerified: true, timestamp: Date.now() - 1000*60*520, content: '심야 영업 음식점·주점 밀집 구역과 고밀도 주거단지가 맞닿아 있어 23시~02시 실외 소음 취약도가 매우 높은 구역입니다.', empathyCount: 19, empathizedByMe: false, comments: [] },
+
+      /* 기존 만수5동 데이터 유지 */
+      { id: 'post-101', dong: 'mansu5', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'bike', category: '바이크·차량 굉음', shortTag: '바이크·굉음', whoLevel: 3, lat: 37.4542, lng: 126.7289, roadName: '백범로 124번길', anchorBuilding: '만수주공1단지 앞', roadType: '이면도로·골목', nickname: '조용한만수5동부엉이', gpsVerified: true, timestamp: Date.now() - 1000*60*600, content: '밤 11시만 넘으면 머플러 개조한 배달 바이크가 단지 사이 이면도로에서 풀악셀을 땡깁니다.', empathyCount: 29, empathizedByMe: false, comments: [] },
+      { id: 'post-102', dong: 'mansu5', isPublicPrediction: false, spaceType: 'indoor', buildingId: 'bldg-mansu5-1', floor: 5, filterGroup: 'indoor', category: '발망치·뛰는소리', shortTag: '층간·발망치', whoLevel: 2, lat: 37.4547, lng: 126.7294, roadName: '구월로 372번길', anchorBuilding: '만수주공1단지아파트 (5층)', roadType: '공동주택 실내', nickname: '5층에서버티는중', gpsVerified: true, timestamp: Date.now() - 1000*60*620, content: '새벽 1시까지 쿵쾅거리는 발망치와 물건 떨어뜨리는 충격음이 벽을 타고 아래층까지 울립니다.', empathyCount: 16, empathizedByMe: false, comments: [] }
     ];
 
     function ensurePublicPredictionForDong(dongKey) {
@@ -1602,9 +1578,6 @@
         content: `${info.name}은 야간 상주 인구 밀집도가 '${info.nightPopDensity}' 수준으로, 심야 시간대 생활소음 및 이면도로 차량 소음 민감도가 높은 지역입니다.`,
         empathyCount: 5,
         empathizedByMe: false,
-        historyLogs: [
-          { date: '야간인구', db: '밀집구역', type: info.nightPopDensity, spot: info.short }
-        ],
         comments: []
       };
       state.posts.push(autoPost);
@@ -1614,7 +1587,8 @@
       user: { loggedIn: false, nickname: '조용한논현동부엉이', gpsVerified: true, phoneVerifiedFor112: false },
       currentDong: 'nonhyeon1',
       viewportRegionLabel: '논현1동',
-      selectedPostId: 'post-nh-101',
+      selectedPostId: 'nh-01',
+      detailTab: 'analysis', // 'analysis' | 'testimony'
       showCCTV: false,
       buildings: [...INITIAL_BUILDINGS],
       posts: [...INITIAL_POSTS],
@@ -1627,7 +1601,7 @@
 
     try {
       const saved = JSON.parse(localStorage.getItem(CONFIG.STORAGE_KEY));
-      if (saved && Array.isArray(saved.posts)) {
+      if (saved && Array.isArray(saved.posts) && saved.posts.length >= 30) {
         state.posts = saved.posts;
         if (saved.buildings) state.buildings = saved.buildings;
         if (saved.user) state.user = { ...state.user, ...saved.user };
@@ -1984,6 +1958,9 @@
       renderCCTVOverlay();
     }
 
+    /* ==========================================================================
+       하단 고시인성 미니 카드 렌더링 (잡다한 나열 제거 → 핵심 3요소만 명확 표시)
+       ========================================================================== */
     function renderHome() {
       const visiblePosts = getVisiblePostsInMap();
       const citizenCnt = visiblePosts.filter(p => !p.isPublicPrediction).length;
@@ -2019,29 +1996,21 @@
         const dongTag = ADMIN_DONGS[post.dong] ? `[${ADMIN_DONGS[post.dong].short}] ` : '';
         const loc = dongTag + formatBackroadAnchor(post.roadName, post.anchorBuilding, post.roadType);
         const isPub = Boolean(post.isPublicPrediction);
+        const pillClass = isPub ? 'public' : `lv-${post.whoLevel}`;
+        const pillText = isPub
+          ? `공공데이터 분석 · ${post.shortTag}`
+          : `${who.shortDb} · ${post.category}`;
+
         return `
           <article class="spot-card" id="spot-card-${post.id}" data-id="${post.id}">
-            <div class="sc-location-header">
-              <span class="sc-loc-text">📍 ${loc}</span>
-              <span class="sc-source-tag ${isPub ? 'public' : 'citizen'}">${isPub ? '공공데이터 분석' : '시민 실제제보'}</span>
+            <div class="sc-top-row">
+              <span class="sc-main-pill ${pillClass}">${pillText}</span>
+              <span class="sc-trust-txt">신뢰도 ${cis.cisScore}%</span>
             </div>
 
-            <div class="sc-kpi-grid">
-              <div class="sc-kpi-cell">
-                <span class="sc-kpi-label">${isPub ? '야간밀집도' : '체감 강도'}</span>
-                <span class="sc-kpi-val danger">${isPub ? '고밀집' : who.shortDb}</span>
-              </div>
-              <div class="sc-kpi-cell">
-                <span class="sc-kpi-label">${isPub ? '데이터 신뢰' : 'AI 신뢰도'}</span>
-                <span class="sc-kpi-val trust">${cis.cisScore}%</span>
-              </div>
-              <div class="sc-kpi-cell">
-                <span class="sc-kpi-label">분석 핵심</span>
-                <span class="sc-kpi-val teal">${post.shortTag || '생활소음'}</span>
-              </div>
-            </div>
+            <div class="sc-title-loc">📍 ${loc}</div>
 
-            <p class="sc-body-text">${post.content}</p>
+            <p class="sc-summary-line">${post.content}</p>
 
             <div class="sc-footer-actions">
               <button type="button" class="btn-fc-empathy ${post.empathizedByMe ? 'active' : ''}" data-emp="${post.id}">
@@ -2076,6 +2045,7 @@
       listEl.querySelectorAll('.spot-card').forEach(item => {
         item.onclick = () => {
           const p = state.posts.find(x => x.id === item.dataset.id);
+          state.detailTab = 'analysis';
           if (p && p.spaceType === 'indoor' && p.buildingId) {
             openBuildingView(p.buildingId);
           } else {
@@ -2150,9 +2120,9 @@
       document.getElementById('write-bldg-info').textContent =
         `${prof.name} · ${prof.builtYear}년 준공 · 방음취약 ${prof.vulnerability}점 (${prof.slabSpec})`;
 
-      const maxF = Math.min(20, Math.max(4, prof.groundFloors));
+      const maxF = Math.min(25, Math.max(4, prof.groundFloors));
       let btns = '';
-      for (let f = 2; f <= maxF; f++) {
+      for (let f = 2; f <= maxF; f += Math.max(1, Math.floor(maxF / 8))) {
         btns += `<button type="button" class="btn-floor-chip ${f === state.writeDraft.floor ? 'active' : ''}" data-floor="${f}">${f}층</button>`;
       }
       const grid = document.getElementById('write-floor-grid');
@@ -2280,9 +2250,6 @@
         content,
         empathyCount: 1,
         empathizedByMe: true,
-        historyLogs: [
-          { date: '방금 전', db: WHO_LEVELS[state.writeDraft.whoLevel].shortDb, type: state.writeDraft.category, spot: anchor }
-        ],
         comments: []
       };
 
@@ -2294,6 +2261,9 @@
       showToast('동네 지도와 이웃 피드에 등록되었어요!');
     };
 
+    /* ==========================================================================
+       [화면 5-A] 폰 1페이지 완결형 실외 소음 지점 상세 (스크롤 없는 한 화면 구성)
+       ========================================================================== */
     function openPostDetail(postId) {
       const post = state.posts.find(p => p.id === postId);
       if (!post) return;
@@ -2301,100 +2271,49 @@
       const who = WHO_LEVELS[post.whoLevel] || WHO_LEVELS[2];
       const loc = formatBackroadAnchor(post.roadName, post.anchorBuilding, post.roadType);
       const dongInfo = ADMIN_DONGS[post.dong] || ADMIN_DONGS.nonhyeon1;
-      const logs = post.historyLogs || [
-        { date: relTime(post.timestamp), db: who.shortDb, type: post.category, spot: loc }
-      ];
+      const cmts = post.comments || [];
 
-      document.getElementById('detail-topbar-title').textContent = post.anchorBuilding || post.roadName;
+      document.getElementById('detail-topbar-title').textContent = post.shortTag || post.category;
 
-      document.getElementById('detail-body').innerHTML = `
-        <div class="detail-main-card">
-          <div>
-            <div style="font-size:12px; font-weight:800; color:var(--secondary); margin-bottom:4px;">✓ ${dongInfo.name} · 야간인구 밀집도: ${dongInfo.nightPopDensity}</div>
-            <div style="font-size:18px; font-weight:900; color:var(--text-main); letter-spacing:-0.03em;">${loc}</div>
-          </div>
-
-          <div class="hg-compare-row">
-            <div class="hg-comp-col">
-              <span class="hg-comp-sub">${post.isPublicPrediction ? '공공데이터 예측 등급' : '최근 체감 소음 강도'}</span>
-              <span class="hg-comp-big red">${post.isPublicPrediction ? '주의구간' : who.shortDb}</span>
-            </div>
-            <div class="hg-comp-col">
-              <span class="hg-comp-sub">분석 신뢰도 (${post.empathyCount}명 공감)</span>
-              <span class="hg-comp-big">${cis.cisScore}%</span>
-            </div>
-          </div>
-
-          <div class="hg-chart-box">
-            <div class="hg-chart-title">
-              <span>시간대별 야간 소음 민감 추이</span>
-              <span style="color:var(--lv3-red); font-size:12px;">심야 23:00~01:00 최고치</span>
-            </div>
-            <svg width="100%" height="96" viewBox="0 0 320 96" fill="none">
-              <line x1="16" y1="20" x2="304" y2="20" stroke="#CBD5E1" stroke-dasharray="3 3"/>
-              <line x1="16" y1="50" x2="304" y2="50" stroke="#CBD5E1" stroke-dasharray="3 3"/>
-              <line x1="16" y1="78" x2="304" y2="78" stroke="#CBD5E1"/>
-              <rect x="34" y="68" width="12" height="10" rx="2" fill="#94A3B8" opacity="0.5"/>
-              <rect x="94" y="62" width="12" height="16" rx="2" fill="#94A3B8" opacity="0.6"/>
-              <rect x="154" y="54" width="12" height="24" rx="2" fill="#1B4965" opacity="0.75"/>
-              <rect x="214" y="46" width="12" height="32" rx="2" fill="#E11D48" opacity="0.85"/>
-              <rect x="274" y="58" width="12" height="20" rx="2" fill="#1B4965" opacity="0.7"/>
-              <path d="M40 64 L100 54 L160 38 L220 18 L280 34" stroke="#1B4965" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-              <circle cx="220" cy="18" r="5" fill="#E11D48" stroke="#FFFFFF" stroke-width="2"/>
-              <text x="208" y="11" fill="#E11D48" font-size="10" font-weight="800">최고</text>
-              <text x="26" y="92" fill="#64748B" font-size="10" font-weight="700">20시</text>
-              <text x="86" y="92" fill="#64748B" font-size="10" font-weight="700">21시</text>
-              <text x="146" y="92" fill="#64748B" font-size="10" font-weight="700">22시</text>
-              <text x="206" y="92" fill="#E11D48" font-size="10" font-weight="800">23시</text>
-              <text x="266" y="92" fill="#64748B" font-size="10" font-weight="700">01시</text>
+      const tabContent = state.detailTab === 'analysis'
+        ? `
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <div style="font-size:12.5px; font-weight:800; color:var(--primary);">심야 소음 집중 추이 (20시 ~ 01시)</div>
+            <svg width="100%" height="84" viewBox="0 0 320 84" fill="none">
+              <line x1="16" y1="16" x2="304" y2="16" stroke="#CBD5E1" stroke-dasharray="3 3"/>
+              <line x1="16" y1="42" x2="304" y2="42" stroke="#CBD5E1" stroke-dasharray="3 3"/>
+              <line x1="16" y1="68" x2="304" y2="68" stroke="#CBD5E1"/>
+              <rect x="34" y="58" width="12" height="10" rx="2" fill="#94A3B8" opacity="0.5"/>
+              <rect x="94" y="52" width="12" height="16" rx="2" fill="#94A3B8" opacity="0.6"/>
+              <rect x="154" y="44" width="12" height="24" rx="2" fill="#1B4965" opacity="0.75"/>
+              <rect x="214" y="36" width="12" height="32" rx="2" fill="#E11D48" opacity="0.85"/>
+              <rect x="274" y="48" width="12" height="20" rx="2" fill="#1B4965" opacity="0.7"/>
+              <path d="M40 54 L100 44 L160 30 L220 14 L280 28" stroke="#1B4965" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="220" cy="14" r="4.5" fill="#E11D48" stroke="#FFFFFF" stroke-width="2"/>
+              <text x="26" y="81" fill="#64748B" font-size="10" font-weight="700">20시</text>
+              <text x="86" y="81" fill="#64748B" font-size="10" font-weight="700">21시</text>
+              <text x="146" y="81" fill="#64748B" font-size="10" font-weight="700">22시</text>
+              <text x="206" y="81" fill="#E11D48" font-size="10" font-weight="800">23시 최고</text>
+              <text x="266" y="81" fill="#64748B" font-size="10" font-weight="700">01시</text>
             </svg>
           </div>
-
-          <div>
-            <div style="font-size:13px; font-weight:800; color:var(--text-main); margin-bottom:6px;">소음 분석 및 접수 이력</div>
-            <table class="hg-history-table">
-              <thead>
-                <tr>
-                  <th>구분/일시</th>
-                  <th>수준</th>
-                  <th>유형</th>
-                  <th>세부내용</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${logs.map(l => `
-                  <tr>
-                    <td>${l.date}</td>
-                    <td style="color:var(--lv3-red); font-weight:900;">${l.db}</td>
-                    <td>${l.type}</td>
-                    <td style="color:var(--text-sub);">${l.spot}</td>
-                  </tr>
-                `).join('')}
-              </tbody>
-            </table>
+          <div class="era-analysis-box">
+            <div class="era-badge-row">
+              <span class="era-tag">시민 현장 증언 · ${post.nickname}</span>
+              <span style="font-size:11px; font-weight:700; color:var(--text-muted);">${relTime(post.timestamp)}</span>
+            </div>
+            <p class="era-desc" style="color:var(--text-main); font-weight:600;">"${post.content}"</p>
           </div>
-
-          <p style="font-size:15px; line-height:1.58; color:var(--text-main); background:#F1F5F9; padding:14px; border-radius:14px;">
-            "${post.content}"
-          </p>
-
-          <button type="button" class="btn-cta-primary" id="btn-detail-empathy" style="background:${post.empathizedByMe ? 'var(--secondary)' : 'var(--primary)'}; height:50px; font-size:15.5px;">
-            🙌 저도 같은 피해를 겪고 있어요 (${post.empathyCount}명)
-          </button>
-
-          <button type="button" class="btn-chip-action" id="btn-copy-gov" style="width:100%; height:44px; font-size:13.5px;">🏛️ 구청·신문고 민원 리포트 복사</button>
-        </div>
-
-        <div style="display:flex; flex-direction:column; gap:12px;">
-          <h3 style="font-size:16px; font-weight:800; color:var(--text-main);">이웃 공동 증언 카드 (${(post.comments || []).length}건)</h3>
-          <div style="display:flex; gap:8px;">
-            <div class="native-input-box" style="flex:1; height:46px;">
+        `
+        : `
+          <div style="display:flex; gap:6px;">
+            <div class="native-input-box" style="flex:1; height:42px;">
               <input type="text" id="input-detail-comment" placeholder="겪으신 시간대와 상황을 증언해 주세요">
             </div>
-            <button type="button" class="btn-chip-action" id="btn-add-comment" style="height:46px; background:var(--primary); color:#fff;">증언 등록</button>
+            <button type="button" class="btn-chip-action" id="btn-add-comment" style="height:42px; background:var(--primary); color:#fff;">등록</button>
           </div>
-          <div style="display:flex; flex-direction:column; gap:10px;">
-            ${(post.comments || []).map(c => `
+          <div style="flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:8px;">
+            ${cmts.map(c => `
               <div class="testimony-card">
                 <div class="testimony-header">
                   <span class="testimony-badge">✓ 행정동 인증 증언 · ${c.nick}</span>
@@ -2402,10 +2321,49 @@
                 </div>
                 <div class="testimony-body">${c.text}</div>
               </div>
-            `).join('') || '<div style="font-size:13.5px; color:var(--text-muted); padding:16px; text-align:center; background:var(--card-surface); border-radius:16px; border:1px solid #D5DCE6;">아직 등록된 이웃 증언이 없습니다.<br>첫 번째 공동 증언을 남겨 신뢰도를 높여주세요.</div>'}
+            `).join('') || '<div style="font-size:13px; color:var(--text-muted); text-align:center; padding:24px 0;">첫 번째 이웃 공동 증언을 남겨주세요.</div>'}
+          </div>
+        `;
+
+      document.getElementById('detail-body').innerHTML = `
+        <div class="hg-hero-banner">
+          <div class="hg-hero-sub">
+            <span>${dongInfo.name} · ${post.roadType}</span>
+            <span>야간인구 ${dongInfo.nightPopDensity.split(' ')[0]}</span>
+          </div>
+          <div class="hg-hero-title">📍 ${loc}</div>
+        </div>
+
+        <div class="hg-compare-row">
+          <div class="hg-comp-col">
+            <span class="hg-comp-sub">${post.isPublicPrediction ? '공공데이터 분석 등급' : '체감 소음 강도'}</span>
+            <span class="hg-comp-big red">${post.isPublicPrediction ? '주의구간' : who.shortDb}</span>
+          </div>
+          <div class="hg-comp-col">
+            <span class="hg-comp-sub">AI 피해 신뢰도</span>
+            <span class="hg-comp-big">${cis.cisScore}%</span>
           </div>
         </div>
+
+        <div class="detail-subtabs">
+          <button type="button" class="btn-subtab ${state.detailTab === 'analysis' ? 'active' : ''}" id="tab-btn-analysis">📊 소음 분석 · 요약</button>
+          <button type="button" class="btn-subtab ${state.detailTab === 'testimony' ? 'active' : ''}" id="tab-btn-testimony">💬 이웃 증언 (${cmts.length})</button>
+        </div>
+
+        <div class="detail-tab-panel">
+          ${tabContent}
+        </div>
+
+        <div class="detail-bottom-cta-row">
+          <button type="button" class="btn-chip-action" id="btn-copy-gov" style="height:48px; padding:0 14px;">🏛️ 민원복사</button>
+          <button type="button" class="btn-cta-primary" id="btn-detail-empathy" style="flex:1; height:48px; font-size:15px; background:${post.empathizedByMe ? 'var(--secondary)' : 'var(--primary)'};">
+            🙌 저도 들었어요 (${post.empathyCount}명)
+          </button>
+        </div>
       `;
+
+      document.getElementById('tab-btn-analysis').onclick = () => { state.detailTab = 'analysis'; openPostDetail(postId); };
+      document.getElementById('tab-btn-testimony').onclick = () => { state.detailTab = 'testimony'; openPostDetail(postId); };
 
       document.getElementById('btn-detail-empathy').onclick = () => {
         post.empathizedByMe = !post.empathizedByMe;
@@ -2416,23 +2374,26 @@
       };
 
       document.getElementById('btn-copy-gov').onclick = () => {
-        const rep = `[53데시벨 시민 소음 누적 리포트]
-• 발생구역: ${dongInfo.name} ${loc}
-• 소음유형: ${post.category} (${WHO_LEVELS[post.whoLevel].badge})
-• 분석신뢰도: ${cis.cisScore}% (주민 ${post.empathyCount}명 공감)
-• 상세내용: ${post.content}`;
+        const rep = `[53데시벨 시민 소음 리포트]
+• 위치: ${dongInfo.name} ${loc}
+• 유형: ${post.category} (${who.badge})
+• 신뢰도: ${cis.cisScore}% (${post.empathyCount}명 공감)
+• 내용: ${post.content}`;
         navigator.clipboard.writeText(rep).then(() => showToast('국민신문고·구청 제출용 리포트가 복사되었어요.'));
       };
 
-      document.getElementById('btn-add-comment').onclick = () => {
-        const val = document.getElementById('input-detail-comment').value.trim();
-        if (!val) return;
-        post.comments = post.comments || [];
-        post.comments.push({ nick: state.user.nickname, text: val, time: '방금 전' });
-        if (post.isPublicPrediction) post.isPublicPrediction = false;
-        saveState();
-        openPostDetail(postId);
-      };
+      const addBtn = document.getElementById('btn-add-comment');
+      if (addBtn) {
+        addBtn.onclick = () => {
+          const val = document.getElementById('input-detail-comment').value.trim();
+          if (!val) return;
+          post.comments = post.comments || [];
+          post.comments.push({ nick: state.user.nickname, text: val, time: '방금 전' });
+          if (post.isPublicPrediction) post.isPublicPrediction = false;
+          saveState();
+          openPostDetail(postId);
+        };
+      }
 
       document.getElementById('btn-detail-112').onclick = () => open112Modal(post);
       goScreen('screen-detail');
@@ -2440,50 +2401,21 @@
 
     document.getElementById('btn-close-detail').onclick = () => goScreen('screen-home');
 
+    /* ==========================================================================
+       [화면 5-B] 폰 1페이지 완결형 공동주택 방음 리포트 (규제시대 분석 + 입주민 증언 탭)
+       ========================================================================== */
     function openBuildingView(bldgId) {
       const bldg = state.buildings.find(b => b.id === bldgId);
       if (!bldg) return;
       const bReports = state.posts.filter(p => p.buildingId === bldg.id);
       const prof = profileBuildingStructure(bldg, bReports);
       const totalEmp = bReports.reduce((s, r) => s + (r.empathyCount || 0), 0);
+      const allComments = bReports.flatMap(r => r.comments || []);
 
-      document.getElementById('bldg-detail-title').textContent = prof.name;
+      document.getElementById('bldg-detail-title').textContent = prof.name.replace('한화꿈에그린', '');
 
-      let floorsHtml = '';
-      for (let f = prof.groundFloors; f >= 2; f--) {
-        const rep = bReports.find(r => r.floor === f && !r.isPublicPrediction);
-        floorsHtml += `
-          <div class="floor-stack-row ${rep ? 'hot-' + rep.whoLevel : ''}">
-            <span>${f}층 라인</span>
-            <span style="font-size:12.5px; color:${rep ? 'var(--lv3-red)' : 'var(--text-muted)'};">
-              ${rep ? `${rep.category} · 공감 ${rep.empathyCount}` : '특이 제보 없음'}
-            </span>
-          </div>
-        `;
-      }
-      if (prof.hasPiloti) {
-        floorsHtml += `<div class="floor-stack-row piloti"><span>1층 필로티 주차장</span><span>구조적 공명·반사음 구역</span></div>`;
-      }
-
-      document.getElementById('bldg-detail-body').innerHTML = `
-        <div class="detail-main-card">
-          <div>
-            <div style="font-size:12px; font-weight:800; color:var(--secondary); margin-bottom:4px;">✓ ${prof.source || '국토교통부 건축물대장 연동'} · 지상 ${prof.groundFloors}층</div>
-            <div style="font-size:18px; font-weight:900; color:var(--text-main);">${prof.name}</div>
-            <div style="font-size:13px; color:var(--text-sub); margin-top:3px;">${prof.summary}</div>
-          </div>
-
-          <div class="hg-compare-row">
-            <div class="hg-comp-col">
-              <span class="hg-comp-sub">규제시대 반영 방음취약도</span>
-              <span class="hg-comp-big red">${prof.vulnerability}점</span>
-            </div>
-            <div class="hg-comp-col">
-              <span class="hg-comp-sub">입주민 누적 공감</span>
-              <span class="hg-comp-big">${totalEmp}명</span>
-            </div>
-          </div>
-
+      const tabContent = state.detailTab === 'analysis'
+        ? `
           <div class="era-analysis-box">
             <div class="era-badge-row">
               <span class="era-tag">${prof.eraTitle}</span>
@@ -2491,17 +2423,11 @@
             </div>
             <p class="era-desc">${prof.eraReason}</p>
           </div>
-
           <div>
-            <div style="font-size:13px; font-weight:800; color:var(--text-main); margin-bottom:6px;">소음 분석 및 접수 이력 (호수 비공개)</div>
+            <div style="font-size:12.5px; font-weight:800; color:var(--text-main); margin-bottom:4px;">층별 소음 접수 현황 (호수 비공개)</div>
             <table class="hg-history-table">
               <thead>
-                <tr>
-                  <th>구분/시점</th>
-                  <th>수준</th>
-                  <th>유형</th>
-                  <th>층수</th>
-                </tr>
+                <tr><th>시점</th><th>강도</th><th>소음유형</th><th>층수</th></tr>
               </thead>
               <tbody>
                 ${bReports.map(r => `
@@ -2511,32 +2437,102 @@
                     <td>${r.category}</td>
                     <td>${r.isPublicPrediction ? '전층' : r.floor + '층'}</td>
                   </tr>
-                `).join('') || `
-                  <tr>
-                    <td>건축물대장</td>
-                    <td style="color:var(--primary);">취약 ${prof.vulnerability}점</td>
-                    <td>${prof.builtYear}년 준공 분석</td>
-                    <td>전층</td>
-                  </tr>
-                `}
+                `).join('')}
               </tbody>
             </table>
           </div>
+        `
+        : `
+          <div style="display:flex; gap:6px;">
+            <div class="native-input-box" style="flex:1; height:42px;">
+              <input type="text" id="input-bldg-comment" placeholder="입주민 소음 경험이나 질문을 남겨주세요">
+            </div>
+            <button type="button" class="btn-chip-action" id="btn-add-bldg-comment" style="height:42px; background:var(--primary); color:#fff;">등록</button>
+          </div>
+          <div style="flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:8px;">
+            ${bReports.map(r => `
+              <div class="testimony-card">
+                <div class="testimony-header">
+                  <span class="testimony-badge">✓ ${r.isPublicPrediction ? '공공데이터 분석' : `${r.floor}층 입주민 증언 · ${r.nickname}`}</span>
+                  <span class="testimony-time">${relTime(r.timestamp)}</span>
+                </div>
+                <div class="testimony-body">${r.content}</div>
+              </div>
+            `).join('')}
+            ${allComments.map(c => `
+              <div class="testimony-card">
+                <div class="testimony-header">
+                  <span class="testimony-badge">✓ 이웃 댓글 · ${c.nick}</span>
+                  <span class="testimony-time">${c.time}</span>
+                </div>
+                <div class="testimony-body">${c.text}</div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+
+      document.getElementById('bldg-detail-body').innerHTML = `
+        <div class="hg-hero-banner">
+          <div class="hg-hero-sub">
+            <span>${prof.source || '국토교통부 건축물대장 연동'}</span>
+            <span>지상 ${prof.groundFloors}층 · ${prof.builtYear}년 준공</span>
+          </div>
+          <div class="hg-hero-title">🏢 ${prof.name}</div>
         </div>
 
-        <div class="building-cross-section">
-          <div class="bldg-roof-cap"></div>
-          ${floorsHtml}
+        <div class="hg-compare-row">
+          <div class="hg-comp-col">
+            <span class="hg-comp-sub">규제시대 방음취약도</span>
+            <span class="hg-comp-big red">${prof.vulnerability}점</span>
+          </div>
+          <div class="hg-comp-col">
+            <span class="hg-comp-sub">입주민 누적 공감</span>
+            <span class="hg-comp-big">${totalEmp}명</span>
+          </div>
         </div>
 
-        <div class="bm-report-card">
-          <span class="bm-tag">이사·계약 전 건물 검증 · 베타 무료</span>
-          <strong style="font-size:15.5px;">${prof.name} 구조적 방음 성적표 & 입주민 Q&A</strong>
-          <p style="font-size:13px; color:var(--text-sub); line-height:1.5;">이웃이 바뀌어도 변하지 않는 배관·벽간 구조 방음 데이터와 현재 거주 중인 인증 입주민에게 직접 질문해 보세요.</p>
-          <button type="button" class="btn-chip-action" onclick="showToast('현재 거주 중인 인증 입주민에게 익명 질문 알림을 보낼 수 있습니다.')" style="align-self:flex-start;">입주민에게 익명 질문하기 →</button>
+        <div class="detail-subtabs">
+          <button type="button" class="btn-subtab ${state.detailTab === 'analysis' ? 'active' : ''}" id="bldg-tab-analysis">🏛️ 규제시대 · 층별이력</button>
+          <button type="button" class="btn-subtab ${state.detailTab === 'testimony' ? 'active' : ''}" id="bldg-tab-testimony">💬 입주민 증언 (${bReports.length + allComments.length})</button>
+        </div>
+
+        <div class="detail-tab-panel">
+          ${tabContent}
+        </div>
+
+        <div class="detail-bottom-cta-row">
+          <button type="button" class="btn-chip-action" onclick="showToast('인증 입주민에게 익명 질문 알림을 보낼 수 있습니다.')" style="height:48px; padding:0 14px;">❓ 입주민 질문</button>
+          <button type="button" class="btn-cta-primary" id="btn-bldg-empathy" style="flex:1; height:48px; font-size:15px;">
+            🙌 저도 겪고 있어요 (${totalEmp}명)
+          </button>
         </div>
       `;
 
+      document.getElementById('bldg-tab-analysis').onclick = () => { state.detailTab = 'analysis'; openBuildingView(bldgId); };
+      document.getElementById('bldg-tab-testimony').onclick = () => { state.detailTab = 'testimony'; openBuildingView(bldgId); };
+
+      document.getElementById('btn-bldg-empathy').onclick = () => {
+        if (bReports[0]) {
+          bReports[0].empathyCount += 1;
+          saveState();
+          openBuildingView(bldgId);
+          showToast('입주민 공감이 반영되었습니다.');
+        }
+      };
+
+      const addBldgBtn = document.getElementById('btn-add-bldg-comment');
+      if (addBldgBtn) {
+        addBldgBtn.onclick = () => {
+          const val = document.getElementById('input-bldg-comment').value.trim();
+          if (!val || !bReports[0]) return;
+          bReports[0].comments = bReports[0].comments || [];
+          bReports[0].comments.push({ nick: state.user.nickname, text: val, time: '방금 전' });
+          saveState();
+          openBuildingView(bldgId);
+        };
+      }
+
+      document.getElementById('btn-bldg-112').onclick = () => open112Modal(bReports[0] || state.posts[0]);
       goScreen('screen-building');
     }
 
@@ -2544,8 +2540,9 @@
 
     function open112Modal(post) {
       const loc = formatBackroadAnchor(post.roadName, post.anchorBuilding, post.roadType);
+      const dongName = (ADMIN_DONGS[post.dong] || ADMIN_DONGS.nonhyeon1).name;
       const txt = `[53데시벨 소음신고]
-• 위치: ${ADMIN_DONGS[state.currentDong].name} ${loc}
+• 위치: ${dongName} ${loc}
 • 유형: ${post.category}
 • 내용: ${post.content}
 • 이웃공감: ${post.empathyCount}명 확인`;
@@ -2585,6 +2582,7 @@
       if (bldg) {
         if (state.map) state.map.setCenter(new kakao.maps.LatLng(bldg.lat, bldg.lng));
         renderPins();
+        state.detailTab = 'analysis';
         openBuildingView(bldg.id);
       }
     };
