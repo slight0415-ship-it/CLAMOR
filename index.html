@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨 (v1.1.3)</title>
+  <title>53데시벨 (v1.1.4)</title>
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Crect width='128' height='128' rx='28' fill='%231B4965'/%3E%3Ctext x='64' y='74' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='54' font-weight='900'%3E53%3C/text%3E%3Ctext x='64' y='102' text-anchor='middle' fill='%235EEAD4' font-family='sans-serif' font-size='22' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%231B4965'/%3E%3Ctext x='90' y='102' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='76' font-weight='900'%3E53%3C/text%3E%3Ctext x='90' y='142' text-anchor='middle' fill='%235EEAD4' font-family='sans-serif' font-size='30' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
@@ -32,11 +32,6 @@
   <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=20b24a9df15474b70785b099967431b3&libraries=services,clusterer&autoload=false"></script>
 
   <style>
-    /* ==========================================================================
-       디자인 원칙 (v1.1.3):
-       1. 뉴모피즘(볼록/오목) 효과는 오직 클릭·터치 가능한 '버튼'과 '입력필드'에만 적용
-       2. 정보를 보여주는 카드·패널·배지는 깔끔하고 플랫한 고시인성 디자인 유지
-       ========================================================================== */
     :root {
       color-scheme: only light;
       --neu-bg: #E8ECF2;
@@ -134,7 +129,7 @@
     button:active { transform: scale(0.97); }
 
     /* ==========================================================================
-       [화면 1] 스플래시 (v1.1.3 - 정보 영역은 플랫 카드, 버튼만 입체)
+       [화면 1] 스플래시 (v1.1.4)
        ========================================================================== */
     #screen-splash {
       z-index: 100;
@@ -204,7 +199,6 @@
       text-align: center;
     }
 
-    /* 정보 표시 카드: 불필요한 뉴모피즘 제거, 깔끔한 플랫 서피스 */
     .splash-who-footer {
       width: 100%;
       background-color: var(--card-surface);
@@ -270,7 +264,6 @@
     .hero-pill { background-color: var(--card-surface); border: 1px solid #DCE3EC; color: var(--text-sub); font-size: 12.5px; font-weight: 700; padding: 7px 12px; border-radius: 999px; }
 
     .auth-bottom-actions { display: flex; flex-direction: column; gap: 11px; width: 100%; }
-    /* 버튼에는 뉴모피즘 볼록 효과 적용 */
     .btn-native-social { width: 100%; height: 54px; border-radius: 16px; font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: var(--btn-convex); }
     .btn-native-social:active { box-shadow: var(--btn-pressed); }
     .btn-native-social svg { width: 20px; height: 20px; flex-shrink: 0; }
@@ -314,7 +307,6 @@
 
     .topbar-left-group { display: flex; align-items: center; gap: 8px; overflow: hidden; }
 
-    /* 버튼: 뉴모피즘 볼록 적용 */
     .dong-picker-btn {
       display: flex;
       align-items: center;
@@ -332,7 +324,6 @@
     .dong-picker-btn:active { box-shadow: var(--btn-pressed); }
     .dong-picker-btn svg { width: 17px; height: 17px; flex-shrink: 0; }
 
-    /* 정보 표시 배지: 뉴모피즘 오목 제거 → 깔끔한 플랫 정보 배지 */
     .top-dong-stat {
       font-size: 11px;
       font-weight: 800;
@@ -345,7 +336,6 @@
 
     .topbar-right-actions { display: flex; align-items: center; gap: 7px; flex-shrink: 0; }
 
-    /* 버튼: 뉴모피즘 볼록 적용 */
     .btn-top-icon {
       width: 38px; height: 38px; border-radius: 13px;
       background-color: var(--neu-surface); box-shadow: var(--btn-convex);
@@ -353,7 +343,6 @@
     }
     .btn-top-icon:active { box-shadow: var(--btn-pressed); }
 
-    /* 버튼: 뉴모피즘 볼록 적용 */
     .btn-112-pill {
       height: 38px; padding: 0 11px; border-radius: 13px;
       background-color: var(--neu-surface); box-shadow: var(--btn-convex);
@@ -364,7 +353,6 @@
 
     .search-bar-float { background-color: var(--neu-bg); padding: 8px 16px 12px; display: flex; gap: 8px; z-index: 34; }
 
-    /* 지도 영역: 상단 47%로 조정하여 하단 소음 제보 카드가 여유 있게 보이도록 비율 최적화 */
     .map-container {
       position: relative;
       height: 47%;
@@ -541,7 +529,7 @@
        ========================================================================== */
     .bottom-feed-sheet {
       flex: 1;
-      min-height: 0; /* flex 자식 스크롤 보장 필수 속성 */
+      min-height: 0;
       background-color: var(--neu-bg);
       border-radius: 24px 24px 0 0;
       box-shadow: 0 -4px 16px rgba(17, 24, 39, 0.07);
@@ -577,7 +565,6 @@
       background-color: var(--primary-soft); padding: 3px 9px; border-radius: 999px; flex-shrink: 0;
     }
 
-    /* 버튼: 뉴모피즘 볼록 적용 */
     .sheet-expand-btn {
       font-size: 12.5px; font-weight: 800; color: var(--primary);
       padding: 6px 12px; border-radius: 12px;
@@ -585,7 +572,6 @@
     }
     .sheet-expand-btn:active { box-shadow: var(--btn-pressed); }
 
-    /* 가로·세로 스크롤이 부드럽게 작동하는 카드 리스트 컨테이너 */
     .spot-carousel-wrap {
       flex: 1;
       min-height: 0;
@@ -609,7 +595,6 @@
       padding: 8px 18px calc(92px + var(--safe-bottom));
     }
 
-    /* 정보 카드: 불필요한 뉴모피즘 볼록/오목 그림자 제거 → 깔끔한 플랫 화이트/웜 페이퍼 카드 */
     .spot-card {
       flex: 0 0 100%;
       scroll-snap-align: center;
@@ -660,7 +645,6 @@
     .sc-source-tag.citizen { background-color: var(--lv3-soft); color: var(--lv3-red); }
     .sc-source-tag.public { background-color: #E0F2FE; color: #0369A1; }
 
-    /* 정보 표시 3열 지표: 오목 뉴모피즘 제거 → 깔끔한 플랫 구분 박스 */
     .sc-kpi-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -694,7 +678,6 @@
       border-top: 1px solid #E2E8F0;
     }
 
-    /* 버튼: 뉴모피즘 볼록 적용 */
     .btn-fc-empathy {
       flex: 1;
       height: 38px;
@@ -716,7 +699,6 @@
       color: var(--primary);
     }
 
-    /* 버튼: 뉴모피즘 볼록 적용 */
     .btn-fc-comment {
       height: 38px;
       padding: 0 14px;
@@ -733,7 +715,6 @@
     }
     .btn-fc-comment:active { box-shadow: var(--btn-pressed); }
 
-    /* 플로팅 버튼: 뉴모피즘 볼록 적용 */
     .fab-native-write {
       position: absolute;
       right: 18px;
@@ -753,7 +734,7 @@
     }
 
     /* ==========================================================================
-       [화면 4] 3초 컷 선택형 글쓰기 (버튼에만 뉴모피즘 적용)
+       [화면 4] 3초 컷 선택형 글쓰기
        ========================================================================== */
     #screen-write { z-index: 110; background-color: var(--neu-bg); }
     .subscreen-topbar { height: calc(56px + var(--safe-top)); padding: var(--safe-top) 16px 0; background-color: var(--neu-bg); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
@@ -786,7 +767,7 @@
     .btn-urgent-112-go { padding: 9px 13px; border-radius: 12px; background-color: var(--lv3-red); color: #FFFFFF; font-size: 12.5px; font-weight: 800; white-space: nowrap; }
 
     /* ==========================================================================
-       [화면 5] 지점 상세 리포트 (정보 영역은 플랫, 버튼만 뉴모피즘)
+       [화면 5] 지점 상세 리포트
        ========================================================================== */
     #screen-detail, #screen-building { z-index: 105; background-color: var(--neu-bg); }
     .detail-scroll { flex: 1; overflow-y: auto; padding: 16px 20px calc(44px + var(--safe-bottom)); display: flex; flex-direction: column; gap: 16px; }
@@ -897,11 +878,11 @@
   <div class="app-shell">
 
     <!-- ========================================================================
-         [화면 1] 스플래시 (v1.1.3)
+         [화면 1] 스플래시 (v1.1.4)
          ======================================================================== -->
     <section class="screen" id="screen-splash" aria-label="53데시벨 시작 화면">
       <div class="splash-top-meta">
-        <span class="version-pill">v1.1.3</span>
+        <span class="version-pill">v1.1.4</span>
       </div>
 
       <div class="splash-center-group">
@@ -979,7 +960,7 @@
           <div class="native-field">
             <label for="input-nickname">닉네임</label>
             <div class="native-input-box">
-              <input type="text" id="input-nickname" value="조용한만수5동부엉이">
+              <input type="text" id="input-nickname" value="조용한논현동부엉이">
               <button type="button" class="btn-chip-action" id="btn-random-nick">새로 추천</button>
             </div>
           </div>
@@ -988,7 +969,7 @@
             <label>내 행정동 인증</label>
             <div class="native-gps-card">
               <div class="native-gps-text">
-                <strong id="onboard-dong-name">인천 남동구 만수5동</strong>
+                <strong id="onboard-dong-name">인천 남동구 논현1동</strong>
                 <span id="onboard-gps-status">행정동 단위 GPS 인증 완료</span>
               </div>
               <button type="button" class="btn-chip-action" id="btn-refresh-gps">현위치 갱신</button>
@@ -1010,18 +991,18 @@
     </section>
 
     <!-- ========================================================================
-         [화면 3] 메인 홈
+         [화면 3] 메인 홈 (논현동 대규모 테스트 데이터셋 + 만수동 데이터 통합)
          ======================================================================== -->
     <section class="screen" id="screen-home" hidden>
       <header class="app-topbar">
         <div class="topbar-left-group">
           <button type="button" class="dong-picker-btn" id="btn-open-dong-sheet">
-            <span id="current-dong-label">만수5동</span>
+            <span id="current-dong-label">논현1동</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M6 9l6 6 6-6"/>
             </svg>
           </button>
-          <span class="top-dong-stat" id="ticker-counts">제보 3 · 공공분석 2</span>
+          <span class="top-dong-stat" id="ticker-counts">제보 7 · 공공분석 2</span>
         </div>
 
         <div class="topbar-right-actions">
@@ -1038,7 +1019,7 @@
 
       <div class="search-bar-float" id="search-drawer" hidden>
         <div class="native-input-box" style="flex:1; height:44px;">
-          <input type="text" id="input-map-search" placeholder="아파트·빌라·도로명 검색 (건축물대장 방음분석)">
+          <input type="text" id="input-map-search" placeholder="아파트·빌라·도로명 검색 (예: 에코메트로, 한화꿈에그린)">
         </div>
         <button type="button" class="btn-chip-action" id="btn-exec-search" style="height:44px; background:var(--primary); color:#fff;">분석</button>
       </div>
@@ -1071,8 +1052,8 @@
         <div class="sheet-section-header">
           <div class="section-title-block">
             <span class="section-accent-bar"></span>
-            <h2 id="sheet-section-title">만수5동 소음 지점</h2>
-            <span class="spot-index-pill" id="spot-index-indicator">1 / 4</span>
+            <h2 id="sheet-section-title">논현1동 일대 소음 지점</h2>
+            <span class="spot-index-pill" id="spot-index-indicator">1 / 9</span>
           </div>
           <button type="button" class="sheet-expand-btn" id="sheet-expand-btn">전체 보기 ▲</button>
         </div>
@@ -1119,29 +1100,29 @@
               <button type="button" class="btn-road-pill" data-roadtype="상가·주변">상가·공원 주변</button>
             </div>
             <div class="native-input-box" style="margin-top:12px; height:48px;">
-              <input type="text" id="input-write-anchor" value="백범로 124번길 만수5동 행정복지센터 인근" placeholder="도로명 또는 인접 건물 기준점">
+              <input type="text" id="input-write-anchor" value="논고개로 123번길 인천논현역 먹자골목 인근" placeholder="도로명 또는 인접 건물 기준점">
             </div>
           </div>
 
           <div id="write-indoor-opts" class="floor-picker-wrap" hidden>
             <div style="display:flex; gap:6px;">
               <div class="native-input-box" style="flex:1; height:44px;">
-                <input type="text" id="input-bldg-query" value="만수주공1단지아파트" placeholder="아파트·빌라명 또는 도로명 입력">
+                <input type="text" id="input-bldg-query" value="에코메트로12단지한화꿈에그린" placeholder="아파트·빌라명 또는 도로명 입력">
               </div>
               <button type="button" class="btn-chip-action" id="btn-lookup-bldg" style="height:44px; background:var(--primary); color:#fff;">건물 조회</button>
             </div>
             <div id="write-bldg-info" style="font-size:13px; font-weight:800; color:var(--primary);">
-              만수주공1단지아파트 · 지상 15층 · 1987년 준공 (규제 도입 전)
+              에코메트로12단지한화꿈에그린 · 지상 25층 · 2009년 준공
             </div>
             <div class="floor-grid" id="write-floor-grid">
-              <button type="button" class="btn-floor-chip" data-floor="2">2층</button>
               <button type="button" class="btn-floor-chip" data-floor="3">3층</button>
-              <button type="button" class="btn-floor-chip" data-floor="4">4층</button>
-              <button type="button" class="btn-floor-chip active" data-floor="5">5층</button>
-              <button type="button" class="btn-floor-chip" data-floor="6">6층</button>
-              <button type="button" class="btn-floor-chip" data-floor="7">7층</button>
+              <button type="button" class="btn-floor-chip" data-floor="5">5층</button>
               <button type="button" class="btn-floor-chip" data-floor="8">8층</button>
-              <button type="button" class="btn-floor-chip" data-floor="10">10층</button>
+              <button type="button" class="btn-floor-chip active" data-floor="11">11층</button>
+              <button type="button" class="btn-floor-chip" data-floor="14">14층</button>
+              <button type="button" class="btn-floor-chip" data-floor="17">17층</button>
+              <button type="button" class="btn-floor-chip" data-floor="20">20층</button>
+              <button type="button" class="btn-floor-chip" data-floor="23">23층</button>
             </div>
           </div>
         </div>
@@ -1206,9 +1187,10 @@
       <div class="detail-scroll" id="bldg-detail-body"></div>
     </section>
 
-    <!-- 행정동 선택 바텀시트 -->
+    <!-- 행정동 선택 바텀시트 (논현1·2·고잔동 + 만수1~6동 포함) -->
     <div class="sheet-backdrop" id="modal-dong" hidden>
       <div class="native-modal-sheet">
+        <div class="grabber-bar" style="margin-bottom:4px;"></div>
         <div class="sheet-title-bar">
           <h3>행정동 선택</h3>
           <button type="button" class="btn-chip-action" id="btn-close-dong">닫기</button>
@@ -1219,14 +1201,13 @@
         </button>
 
         <div class="dong-option-list" id="dong-option-list">
-          <button type="button" class="btn-dong-item" data-dong="mansu1"><span>인천 남동구 만수1동</span><span></span></button>
+          <button type="button" class="btn-dong-item selected" data-dong="nonhyeon1"><span>인천 남동구 논현1동 (테스트 집중구역)</span><span>✓</span></button>
+          <button type="button" class="btn-dong-item" data-dong="nonhyeon2"><span>인천 남동구 논현2동 (테스트 집중구역)</span><span></span></button>
+          <button type="button" class="btn-dong-item" data-dong="nonhyeongojan"><span>인천 남동구 논현고잔동 (에코메트로·소래)</span><span></span></button>
+          <button type="button" class="btn-dong-item" data-dong="mansu5"><span>인천 남동구 만수5동</span><span></span></button>
           <button type="button" class="btn-dong-item" data-dong="mansu2"><span>인천 남동구 만수2동</span><span></span></button>
-          <button type="button" class="btn-dong-item" data-dong="mansu3"><span>인천 남동구 만수3동</span><span></span></button>
           <button type="button" class="btn-dong-item" data-dong="mansu4"><span>인천 남동구 만수4동</span><span></span></button>
-          <button type="button" class="btn-dong-item selected" data-dong="mansu5"><span>인천 남동구 만수5동</span><span>✓</span></button>
-          <button type="button" class="btn-dong-item" data-dong="mansu6"><span>인천 남동구 만수6동</span><span></span></button>
           <button type="button" class="btn-dong-item" data-dong="guwol1"><span>인천 남동구 구월1동</span><span></span></button>
-          <button type="button" class="btn-dong-item" data-dong="munhak"><span>인천 미추홀구 문학동</span><span></span></button>
         </div>
       </div>
     </div>
@@ -1234,6 +1215,7 @@
     <!-- 112 문자 신고 대행 시트 -->
     <div class="sheet-backdrop" id="modal-112" hidden>
       <div class="native-modal-sheet">
+        <div class="grabber-bar" style="margin-bottom:4px;"></div>
         <div class="sheet-title-bar">
           <h3>🚨 112 문자 신고</h3>
           <button type="button" class="btn-chip-action" id="btn-close-112">닫기</button>
@@ -1271,19 +1253,21 @@
 
   <script>
     const CONFIG = {
-      STORAGE_KEY: '53db_native_state_v113',
+      STORAGE_KEY: '53db_native_state_v114',
       BLDG_API_KEY: '738a1e3eb24afc48a06e3871c47d057b54f27cfde63e91a4e2b5a2baf27cbae5'
     };
 
     const ADMIN_DONGS = {
-      mansu1: { short: '만수1동', name: '인천 남동구 만수1동', lat: 37.4565, lng: 126.7372, sigunguCd: '28200', bjdongCd: '10300', nightPopDensity: '높음 (다세대 밀집)' },
-      mansu2: { short: '만수2동', name: '인천 남동구 만수2동', lat: 37.4632, lng: 126.7335, sigunguCd: '28200', bjdongCd: '10300', nightPopDensity: '보통 (혼합 주거)' },
-      mansu3: { short: '만수3동', name: '인천 남동구 만수3동', lat: 37.4638, lng: 126.7276, sigunguCd: '28200', bjdongCd: '10300', nightPopDensity: '높음 (빌라·상가 인접)' },
-      mansu4: { short: '만수4동', name: '인천 남동구 만수4동', lat: 37.4589, lng: 126.7351, sigunguCd: '28200', bjdongCd: '10300', nightPopDensity: '매우 높음 (대단지 밀집)' },
-      mansu5: { short: '만수5동', name: '인천 남동구 만수5동', lat: 37.4556, lng: 126.7282, sigunguCd: '28200', bjdongCd: '10300', nightPopDensity: '매우 높음 (대단지·빌라촌)' },
-      mansu6: { short: '만수6동', name: '인천 남동구 만수6동', lat: 37.4488, lng: 126.7380, sigunguCd: '28200', bjdongCd: '10300', nightPopDensity: '높음 (공동주택 단지)' },
-      guwol1: { short: '구월1동', name: '인천 남동구 구월1동', lat: 37.4485, lng: 126.7052, sigunguCd: '28200', bjdongCd: '10100', nightPopDensity: '매우 높음 (상업·주거 경계)' },
-      munhak: { short: '문학동',  name: '인천 미추홀구 문학동', lat: 37.4368, lng: 126.6815, sigunguCd: '28177', bjdongCd: '10500', nightPopDensity: '보통 (저층 다세대)' }
+      nonhyeon1:    { short: '논현1동',     name: '인천 남동구 논현1동',     lat: 37.4028, lng: 126.7235, sigunguCd: '28200', bjdongCd: '11000', nightPopDensity: '매우 높음 (역세권·상가·대단지)' },
+      nonhyeon2:    { short: '논현2동',     name: '인천 남동구 논현2동',     lat: 37.4068, lng: 126.7165, sigunguCd: '28200', bjdongCd: '11000', nightPopDensity: '높음 (대규모 아파트 밀집)' },
+      nonhyeongojan:{ short: '논현고잔동', name: '인천 남동구 논현고잔동', lat: 37.3965, lng: 126.7315, sigunguCd: '28200', bjdongCd: '11100', nightPopDensity: '매우 높음 (에코메트로·소래포구)' },
+      mansu1:       { short: '만수1동',     name: '인천 남동구 만수1동',     lat: 37.4565, lng: 126.7372, sigunguCd: '28200', bjdongCd: '10300', nightPopDensity: '높음 (다세대 밀집)' },
+      mansu2:       { short: '만수2동',     name: '인천 남동구 만수2동',     lat: 37.4632, lng: 126.7335, sigunguCd: '28200', bjdongCd: '10300', nightPopDensity: '보통 (혼합 주거)' },
+      mansu3:       { short: '만수3동',     name: '인천 남동구 만수3동',     lat: 37.4638, lng: 126.7276, sigunguCd: '28200', bjdongCd: '10300', nightPopDensity: '높음 (빌라·상가 인접)' },
+      mansu4:       { short: '만수4동',     name: '인천 남동구 만수4동',     lat: 37.4589, lng: 126.7351, sigunguCd: '28200', bjdongCd: '10300', nightPopDensity: '매우 높음 (대단지 밀집)' },
+      mansu5:       { short: '만수5동',     name: '인천 남동구 만수5동',     lat: 37.4556, lng: 126.7282, sigunguCd: '28200', bjdongCd: '10300', nightPopDensity: '매우 높음 (대단지·빌라촌)' },
+      mansu6:       { short: '만수6동',     name: '인천 남동구 만수6동',     lat: 37.4488, lng: 126.7380, sigunguCd: '28200', bjdongCd: '10300', nightPopDensity: '높음 (공동주택 단지)' },
+      guwol1:       { short: '구월1동',     name: '인천 남동구 구월1동',     lat: 37.4485, lng: 126.7052, sigunguCd: '28200', bjdongCd: '10100', nightPopDensity: '매우 높음 (상업·주거 경계)' }
     };
 
     const WHO_LEVELS = {
@@ -1382,7 +1366,7 @@
       const params = new URLSearchParams({
         serviceKey: CONFIG.BLDG_API_KEY,
         sigunguCd: sigunguCd || '28200',
-        bjdongCd: bjdongCd || '10300',
+        bjdongCd: bjdongCd || '11000',
         platGbCd: '0',
         bun: bun ? String(bun).padStart(4, '0') : '',
         ji: ji ? String(ji).padStart(4, '0') : '',
@@ -1401,7 +1385,7 @@
 
         if (matched) {
           const groundFloors = Number(matched.grndFlrCnt) || 5;
-          const builtYear = matched.useAprDay ? Number(String(matched.useAprDay).slice(0, 4)) : 2003;
+          const builtYear = matched.useAprDay ? Number(String(matched.useAprDay).slice(0, 4)) : 2009;
           const mainStructure = matched.strctCdNm || '철근콘크리트 벽식구조';
           const households = Number(matched.hhldCnt) || (groundFloors * 4);
           const etcPurps = String(matched.etcPurps || '');
@@ -1423,18 +1407,18 @@
         }
       } catch (e) {}
 
-      const isApt = placeName.includes('아파트') || placeName.includes('주공') || placeName.includes('래미안');
+      const isApt = placeName.includes('아파트') || placeName.includes('주공') || placeName.includes('에코') || placeName.includes('꿈에그린') || placeName.includes('힐스테이트');
       return {
         id: 'bldg-kakao-' + Date.now(),
         dong: state.currentDong,
         name: placeName,
         lat: Number(lat),
         lng: Number(lng),
-        groundFloors: isApt ? 15 : 5,
-        households: isApt ? 120 : 12,
+        groundFloors: isApt ? 20 : 5,
+        households: isApt ? 240 : 12,
         hasPiloti: !isApt,
         mainStructure: '철근콘크리트 벽식구조',
-        builtYear: isApt ? 2002 : 2016,
+        builtYear: isApt ? 2009 : 2016,
         source: '건축물대장·규제시대 결합 프로파일'
       };
     }
@@ -1450,95 +1434,144 @@
       return safeAnchor ? `${roadName} · ${safeAnchor}` : `${roadName} (${roadType})`;
     }
 
+    /* 논현동 & 만수동 방범 CCTV 데이터 */
     const CCTV_POINTS = [
-      { dong: 'mansu5', lat: 37.4544, lng: 126.7285, label: '방범CCTV (1단지입구)' },
-      { dong: 'mansu5', lat: 37.4561, lng: 126.7266, label: '방범CCTV (행정복지센터)' },
-      { dong: 'mansu5', lat: 37.4573, lng: 126.7280, label: '방범CCTV (백범로사거리)' },
-      { dong: 'mansu1', lat: 37.4568, lng: 126.7368, label: '방범CCTV (만수1동사거리)' },
-      { dong: 'mansu4', lat: 37.4592, lng: 126.7345, label: '방범CCTV (만수주공4단지)' }
+      { dong: 'nonhyeon1', lat: 37.4015, lng: 126.7224, label: '방범CCTV (인천논현역1번출구)' },
+      { dong: 'nonhyeon1', lat: 37.4036, lng: 126.7248, label: '방범CCTV (논고개로먹자골목)' },
+      { dong: 'nonhyeon2', lat: 37.4074, lng: 126.7172, label: '방범CCTV (논현힐스테이트앞)' },
+      { dong: 'nonhyeongojan', lat: 37.3978, lng: 126.7324, label: '방범CCTV (소래포구역광장)' },
+      { dong: 'nonhyeongojan', lat: 37.3948, lng: 126.7295, label: '방범CCTV (에코메트로12단지)' },
+      { dong: 'mansu5', lat: 37.4544, lng: 126.7285, label: '방범CCTV (만수1단지입구)' },
+      { dong: 'mansu5', lat: 37.4561, lng: 126.7266, label: '방범CCTV (만수5동센터)' }
     ];
 
+    /* 논현동 실제 아파트 단지 + 만수동 아파트 단지 데이터 */
     const INITIAL_BUILDINGS = [
+      { id: 'bldg-nh-1', dong: 'nonhyeongojan', name: '에코메트로12단지한화꿈에그린', lat: 37.3945, lng: 126.7290, groundFloors: 25, households: 420, hasPiloti: true, mainStructure: '철근콘크리트 벽식구조', builtYear: 2009, source: '국토교통부 건축물대장 연동' },
+      { id: 'bldg-nh-2', dong: 'nonhyeongojan', name: '에코메트로11단지한화꿈에그린', lat: 37.3968, lng: 126.7265, groundFloors: 24, households: 380, hasPiloti: false, mainStructure: '철근콘크리트 벽식구조', builtYear: 2009, source: '국토교통부 건축물대장 연동' },
+      { id: 'bldg-nh-3', dong: 'nonhyeon2', name: '논현힐스테이트아파트', lat: 37.4078, lng: 126.7168, groundFloors: 20, households: 310, hasPiloti: true, mainStructure: '철근콘크리트 벽식구조', builtYear: 2007, source: '국토교통부 건축물대장 연동' },
+      { id: 'bldg-nh-4', dong: 'nonhyeon1', name: '논현신일해피트리아파트', lat: 37.4045, lng: 126.7212, groundFloors: 18, households: 220, hasPiloti: false, mainStructure: '철근콘크리트 벽식구조', builtYear: 2007, source: '국토교통부 건축물대장 연동' },
+      { id: 'bldg-nh-5', dong: 'nonhyeon1', name: '논현주공1단지아파트', lat: 37.4018, lng: 126.7268, groundFloors: 15, households: 290, hasPiloti: false, mainStructure: '철근콘크리트 벽식구조', builtYear: 2006, source: '국토교통부 건축물대장 연동' },
       { id: 'bldg-mansu5-1', dong: 'mansu5', name: '만수주공1단지아파트', lat: 37.4547, lng: 126.7294, groundFloors: 15, households: 180, hasPiloti: false, mainStructure: '철근콘크리트 벽식구조', builtYear: 1987, source: '국토교통부 건축물대장 연동' },
-      { id: 'bldg-mansu5-2', dong: 'mansu5', name: '신안래미안아파트', lat: 37.4578, lng: 126.7271, groundFloors: 15, households: 240, hasPiloti: true, mainStructure: '철근콘크리트 벽식구조', builtYear: 2003, source: '국토교통부 건축물대장 연동' },
-      { id: 'bldg-mansu1-1', dong: 'mansu1', name: '만수주공7단지아파트', lat: 37.4562, lng: 126.7378, groundFloors: 15, households: 210, hasPiloti: false, mainStructure: '철근콘크리트 벽식구조', builtYear: 1989, source: '국토교통부 건축물대장 연동' },
-      { id: 'bldg-mansu4-1', dong: 'mansu4', name: '만수주공4단지아파트', lat: 37.4591, lng: 126.7354, groundFloors: 15, households: 260, hasPiloti: false, mainStructure: '철근콘크리트 벽식구조', builtYear: 1988, source: '국토교통부 건축물대장 연동' }
+      { id: 'bldg-mansu5-2', dong: 'mansu5', name: '신안래미안아파트', lat: 37.4578, lng: 126.7271, groundFloors: 15, households: 240, hasPiloti: true, mainStructure: '철근콘크리트 벽식구조', builtYear: 2003, source: '국토교통부 건축물대장 연동' }
     ];
 
+    /* 인천 남동구 논현동 일대 풍부한 테스트 데이터셋 (실제 도로명·단지·역세권 기반) */
     const INITIAL_POSTS = [
       {
-        id: 'post-101', dong: 'mansu5', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'bike', category: '바이크·차량 굉음', shortTag: '바이크·굉음', whoLevel: 3,
-        lat: 37.4542, lng: 126.7289, roadName: '백범로 124번길', anchorBuilding: '만수주공1단지 앞', roadType: '이면도로·골목',
-        nickname: '조용한만수5동부엉이', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 14,
-        content: '밤 11시만 넘으면 머플러 개조한 배달 바이크가 단지 사이 이면도로에서 풀악셀을 땡깁니다. 창문 닫아도 심장이 덜컥 내려앉아요.',
-        empathyCount: 29, empathizedByMe: false,
+        id: 'post-nh-101', dong: 'nonhyeon1', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'bike', category: '바이크·차량 굉음', shortTag: '바이크·굉음', whoLevel: 3,
+        lat: 37.4016, lng: 126.7228, roadName: '논고개로 123번길', anchorBuilding: '인천논현역 1번출구 먹자골목', roadType: '이면도로·골목',
+        nickname: '논현역앞수면부족', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 11,
+        content: '밤 11시 반부터 새벽 2시까지 배달 오토바이 수십 대가 먹자골목 사이 이면도로로 굉음을 내며 질주합니다. 이중창 닫아도 배기음이 그대로 뚫고 들어옵니다.',
+        empathyCount: 47, empathizedByMe: false,
         historyLogs: [
-          { date: '어제 23:42', db: '104dB급', type: '머플러 개조 바이크', spot: '1단지 정문 앞 골목' },
-          { date: '3일 전 00:15', db: '98dB급', type: '급가속 굉음', spot: '백범로 124번길 교차점' }
+          { date: '어제 23:55', db: '105dB급', type: '배달 바이크 굉음', spot: '인천논현역 먹자골목' },
+          { date: '2일 전 00:40', db: '101dB급', type: '튜닝 머플러 급가속', spot: '논고개로 123번길' },
+          { date: '4일 전 23:20', db: '96dB급', type: '차량 경적·공회전', spot: '상가 이면도로' }
         ],
         comments: [
-          { nick: '만수5동주민', text: '저도 어제 밤 11시 반에 그 소리 때문에 깼습니다. 골목 양면 주차 때문에 더 울리는 것 같아요.', time: '9분 전' },
-          { nick: '1단지104동이웃', text: '상습 구간입니다. 구청 단속 요청 같이 넣어요.', time: '4분 전' }
+          { nick: '논현1동주민', text: '여기 진짜 심각합니다. 야간 단속 카메라 설치 민원 같이 넣어야 해요.', time: '6분 전' },
+          { nick: '오피스텔거주자', text: '저도 방금 112 문자 신고 넣었습니다. 매일 밤 전쟁입니다.', time: '2분 전' }
         ]
       },
       {
-        id: 'post-102', dong: 'mansu5', isPublicPrediction: false, spaceType: 'indoor', buildingId: 'bldg-mansu5-1', floor: 5, filterGroup: 'indoor', category: '발망치·뛰는소리', shortTag: '층간·발망치', whoLevel: 2,
-        lat: 37.4547, lng: 126.7294, roadName: '구월로 372번길', anchorBuilding: '만수주공1단지아파트 (5층)', roadType: '공동주택 실내',
-        nickname: '5층에서버티는중', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 42,
-        content: '새벽 1시까지 쿵쾅거리는 발망치와 물건 떨어뜨리는 충격음이 벽을 타고 아래층까지 울립니다.',
-        empathyCount: 16, empathizedByMe: false,
+        id: 'post-nh-102', dong: 'nonhyeon1', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'shout', category: '고성 및 욕설', shortTag: '고성·욕설', whoLevel: 3,
+        lat: 37.4034, lng: 126.7246, roadName: '청능대로 595번길', anchorBuilding: '논현상업지구 이면도로', roadType: '상가·주변',
+        nickname: '조용한밤을원해', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 28,
+        content: '술집 밀집 골목에서 새벽 1시 넘어서까지 주취자들 고성과 욕설, 싸우는 소리가 주거단지 쪽으로 울려 퍼집니다.',
+        empathyCount: 34, empathizedByMe: false,
         historyLogs: [
-          { date: '오늘 00:50', db: '84dB급', type: '발망치·뛰는소리', spot: '5층 라인' }
+          { date: '오늘 01:12', db: '98dB급', type: '주취 고성·욕설', spot: '상업지구 뒤 골목' },
+          { date: '3일 전 00:30', db: '94dB급', type: '노상 시비·고함', spot: '청능대로 595번길' }
         ],
-        comments: [{ nick: '4층이웃', text: '우리 집 천장도 같이 울립니다.', time: '20분 전' }]
+        comments: [
+          { nick: '해피트리입주민', text: '창문 열어놓으면 집 안 거실까지 다 들립니다.', time: '15분 전' }
+        ]
       },
       {
-        id: 'post-103', dong: 'mansu5', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'shout', category: '고성 및 욕설', shortTag: '고성·욕설', whoLevel: 3,
-        lat: 37.4558, lng: 126.7262, roadName: '만수서로 55번길', anchorBuilding: '만수5동 행정복지센터 인근', roadType: '이면도로·골목',
-        nickname: '수면권수호자', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 88,
-        content: '밤 11시 40분경부터 자정 넘어서까지 15분 이상 고함과 욕설이 간헐적으로 터져 나옵니다. 아이가 자다가 깼어요.',
-        empathyCount: 24, empathizedByMe: false,
+        id: 'post-nh-103', dong: 'nonhyeon1', isPublicPrediction: false, spaceType: 'indoor', buildingId: 'bldg-nh-4', floor: 9, filterGroup: 'indoor', category: '발망치·뛰는소리', shortTag: '층간·발망치', whoLevel: 2,
+        lat: 37.4045, lng: 126.7212, roadName: '논현고잔로 220번길', anchorBuilding: '논현신일해피트리아파트 (9층)', roadType: '공동주택 실내',
+        nickname: '9층거주민', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 52,
+        content: '2007년 초기 규제(180mm 슬래브) 아파트라 그런지 윗집 아이 뛰는 발망치 소리가 천장을 울립니다. 밤 11시 이후엔 자제 부탁드립니다.',
+        empathyCount: 19, empathizedByMe: false,
         historyLogs: [
-          { date: '어제 23:45', db: '96dB급', type: '주취 고성·욕설', spot: '행정복지센터 뒤 골목' }
+          { date: '어제 23:25', db: '84dB급', type: '발망치·뛰는소리', spot: '9층 라인' }
         ],
         comments: []
       },
       {
-        id: 'pub-mansu5-1', dong: 'mansu5', isPublicPrediction: true, publicConfidence: 88,
-        spaceType: 'indoor', buildingId: 'bldg-mansu5-2', floor: 7, filterGroup: 'indoor', category: '규제전 준공 · 방음취약', shortTag: '방음취약 89점', whoLevel: 2,
-        lat: 37.4578, lng: 126.7271, roadName: '백범로 140번길', anchorBuilding: '신안래미안아파트 (2003년 준공)', roadType: '공공데이터 분석',
-        nickname: '53dB 공공데이터 분석', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 120,
-        content: '2003년 준공(차음재 의무화 직전 시기) 벽식구조 대단지로 야간 상주 인구 밀집도가 높아 층간·벽간 전달음 취약도가 높은 구역입니다.',
-        empathyCount: 11, empathizedByMe: false,
+        id: 'post-nh-104', dong: 'nonhyeon1', isPublicPrediction: false, spaceType: 'indoor', buildingId: 'bldg-nh-5', floor: 6, filterGroup: 'indoor', category: '가구끄는소리', shortTag: '가구·충격음', whoLevel: 2,
+        lat: 37.4018, lng: 126.7268, roadName: '논고개로 95번길', anchorBuilding: '논현주공1단지아파트 (6층)', roadType: '공동주택 실내',
+        nickname: '1단지6층주민', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 95,
+        content: '새벽 시간마다 의자 끄는 소리와 무거운 물건 떨어뜨리는 충격음이 벽식 구조를 타고 옆집·아랫집까지 크게 전달됩니다.',
+        empathyCount: 22, empathizedByMe: false,
         historyLogs: [
-          { date: '건축물대장', db: '취약 89점', type: '2003년 권고기준기 준공', spot: '완충재 의무화 전 슬래브' },
-          { date: '인구밀집도', db: '고밀집', type: '야간 상주 세대 밀집', spot: '백범로 간선도로 인접' }
+          { date: '어제 01:05', db: '81dB급', type: '가구끄는소리', spot: '6층 라인' }
+        ],
+        comments: [
+          { nick: '5층이웃', text: '저도 같은 라인인데 새벽마다 깹니다.', time: '40분 전' }
+        ]
+      },
+      {
+        id: 'post-nh-105', dong: 'nonhyeon2', isPublicPrediction: false, spaceType: 'indoor', buildingId: 'bldg-nh-3', floor: 12, filterGroup: 'indoor', category: '반려동물짖음', shortTag: '반려동물·짖음', whoLevel: 2,
+        lat: 37.4078, lng: 126.7168, roadName: '논현로 46번길', anchorBuilding: '논현힐스테이트아파트 (12층)', roadType: '공동주택 실내',
+        nickname: '12층재택근무자', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 110,
+        content: '주인이 외출한 낮 시간부터 밤늦게까지 대형견 짖는 소리가 복도와 환기구를 타고 계속 울립니다.',
+        empathyCount: 15, empathizedByMe: false,
+        historyLogs: [
+          { date: '오늘 10:20', db: '79dB급', type: '반려동물 연속 짖음', spot: '12층 라인' }
         ],
         comments: []
       },
       {
-        id: 'pub-mansu2-1', dong: 'mansu2', isPublicPrediction: true, publicConfidence: 85,
-        spaceType: 'outdoor', filterGroup: 'bike', category: '야간밀집 · 이면도로 주의', shortTag: '야간주의 78점', whoLevel: 2,
-        lat: 37.4632, lng: 126.7335, roadName: '만수2동 주거밀집 이면도로', anchorBuilding: '공동주택 밀집 블록', roadType: '공공데이터 분석',
-        nickname: '53dB 공공데이터 분석', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 180,
-        content: '만수2동 주거밀집 이면도로 구간은 야간 상주 인구와 배달 이동 동선이 겹쳐 심야 시간대 생활·차량 소음 민감도가 높은 지역입니다.',
-        empathyCount: 5, empathizedByMe: false,
+        id: 'post-nh-106', dong: 'nonhyeongojan', isPublicPrediction: false, spaceType: 'indoor', buildingId: 'bldg-nh-1', floor: 14, filterGroup: 'indoor', category: '발망치·뛰는소리', shortTag: '층간·발망치', whoLevel: 3,
+        lat: 37.3945, lng: 126.7290, roadName: '아암대로 1503번길', anchorBuilding: '에코메트로12단지한화꿈에그린 (14층)', roadType: '공동주택 실내',
+        nickname: '에코12단지이웃', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 140,
+        content: '필로티 상부 저층 및 고층 라인 모두 밤늦게 쿵쿵거리는 중량충격음이 심합니다. 2009년 준공 벽식구조 특성상 저주파 울림이 큽니다.',
+        empathyCount: 31, empathizedByMe: false,
         historyLogs: [
-          { date: '야간인구', db: '밀집구역', type: '보통 (혼합 주거)', spot: '만수2동' }
+          { date: '어제 23:50', db: '88dB급', type: '심야 발망치·진동', spot: '14층 라인' }
+        ],
+        comments: [
+          { nick: '13층주민', text: '우리 라인도 밤 12시 넘어서 뛰는 소리 때문에 고통받습니다.', time: '1시간 전' }
+        ]
+      },
+      {
+        id: 'post-nh-107', dong: 'nonhyeongojan', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'bike', category: '바이크·차량 굉음', shortTag: '차량·배기음', whoLevel: 3,
+        lat: 37.3976, lng: 126.7322, roadName: '소래역로 45번길', anchorBuilding: '소래포구역 사거리 인근', roadType: '큰 도로·대로변',
+        nickname: '소래바닷바람', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 190,
+        content: '주말 밤마다 소래포구 방면 해안도로로 빠져나가는 스포츠카와 오토바이 배기음 굉음이 아파트 고층까지 올라옵니다.',
+        empathyCount: 38, empathizedByMe: false,
+        historyLogs: [
+          { date: '지난주말 00:30', db: '103dB급', type: '스포츠카·바이크 굉음', spot: '소래역로 사거리' }
         ],
         comments: []
       },
       {
-        id: 'pub-mansu4-1', dong: 'mansu4', isPublicPrediction: true, publicConfidence: 89,
-        spaceType: 'indoor', buildingId: 'bldg-mansu4-1', floor: 6, filterGroup: 'indoor', category: '규제공백 준공 · 대단지 밀집', shortTag: '방음취약 85점', whoLevel: 2,
-        lat: 37.4591, lng: 126.7354, roadName: '구월로 402번길', anchorBuilding: '만수주공4단지아파트 (1988년 준공)', roadType: '공공데이터 분석',
-        nickname: '53dB 공공데이터 분석', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 210,
-        content: '1988년 준공(바닥충격음 규제 공백기) 대단지 아파트로 야간 상주 인구가 매우 밀집해 층간·벽간 전달음 주의가 필요한 단지입니다.',
-        empathyCount: 8, empathizedByMe: false,
+        id: 'pub-nh-108', dong: 'nonhyeongojan', isPublicPrediction: true, publicConfidence: 87,
+        spaceType: 'indoor', buildingId: 'bldg-nh-2', floor: 10, filterGroup: 'indoor', category: '초기규제 준공 · 대단지 밀집', shortTag: '방음취약 80점', whoLevel: 2,
+        lat: 37.3968, lng: 126.7265, roadName: '에코중앙로 90', anchorBuilding: '에코메트로11단지한화꿈에그린 (2009년 준공)', roadType: '공공데이터 분석',
+        nickname: '53dB 공공데이터 분석', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 240,
+        content: '2009년 준공(초기 규제 도입기 180mm 슬래브) 대단지로 야간 상주 인구 밀집도가 매우 높아 층간·벽간 전달음 주의가 필요한 단지입니다.',
+        empathyCount: 14, empathizedByMe: false,
         historyLogs: [
-          { date: '건축물대장', db: '취약 85점', type: '1988년 규제공백기 준공', spot: '슬래브 120~150mm' }
+          { date: '건축물대장', db: '취약 80점', type: '2009년 초기규제기 준공', spot: '벽식구조 180mm' }
         ],
         comments: []
+      },
+      /* 기존 만수동 데이터 유지 */
+      {
+        id: 'post-101', dong: 'mansu5', isPublicPrediction: false, spaceType: 'outdoor', filterGroup: 'bike', category: '바이크·차량 굉음', shortTag: '바이크·굉음', whoLevel: 3,
+        lat: 37.4542, lng: 126.7289, roadName: '백범로 124번길', anchorBuilding: '만수주공1단지 앞', roadType: '이면도로·골목',
+        nickname: '조용한만수5동부엉이', gpsVerified: true, timestamp: Date.now() - 1000 * 60 * 300,
+        content: '밤 11시만 넘으면 머플러 개조한 배달 바이크가 단지 사이 이면도로에서 풀악셀을 땡깁니다. 창문 닫아도 심장이 덜컥 내려앉아요.',
+        empathyCount: 29, empathizedByMe: false,
+        historyLogs: [
+          { date: '어제 23:42', db: '104dB급', type: '머플러 개조 바이크', spot: '1단지 정문 앞 골목' }
+        ],
+        comments: [
+          { nick: '만수5동주민', text: '저도 어제 밤 11시 반에 그 소리 때문에 깼습니다.', time: '9분 전' }
+        ]
       }
     ];
 
@@ -1570,8 +1603,7 @@
         empathyCount: 5,
         empathizedByMe: false,
         historyLogs: [
-          { date: '야간인구', db: '밀집구역', type: info.nightPopDensity, spot: info.short },
-          { date: '도로구조', db: '주의 78점', type: '주거지 관통 이면도로', spot: '반사음 주의' }
+          { date: '야간인구', db: '밀집구역', type: info.nightPopDensity, spot: info.short }
         ],
         comments: []
       };
@@ -1579,18 +1611,18 @@
     }
 
     const state = {
-      user: { loggedIn: false, nickname: '조용한만수5동부엉이', gpsVerified: true, phoneVerifiedFor112: false },
-      currentDong: 'mansu5',
-      viewportRegionLabel: '만수5동',
-      selectedPostId: 'post-101',
+      user: { loggedIn: false, nickname: '조용한논현동부엉이', gpsVerified: true, phoneVerifiedFor112: false },
+      currentDong: 'nonhyeon1',
+      viewportRegionLabel: '논현1동',
+      selectedPostId: 'post-nh-101',
       showCCTV: false,
       buildings: [...INITIAL_BUILDINGS],
       posts: [...INITIAL_POSTS],
       map: null,
       overlays: [],
       cctvOverlays: [],
-      selectedBuildingId: 'bldg-mansu5-1',
-      writeDraft: { space: 'outdoor', roadType: '이면도로·골목', floor: 5, category: '바이크·차량 굉음', shortTag: '바이크·굉음', group: 'bike', whoLevel: 2 }
+      selectedBuildingId: 'bldg-nh-1',
+      writeDraft: { space: 'outdoor', roadType: '이면도로·골목', floor: 11, category: '바이크·차량 굉음', shortTag: '바이크·굉음', group: 'bike', whoLevel: 2 }
     };
 
     try {
@@ -1649,7 +1681,7 @@
 
     document.getElementById('btn-guest-enter').addEventListener('click', () => goScreen('screen-home'));
 
-    const NICKS = ['조용한만수5동부엉이', '만수동평화지킴이', '꿀잠자고싶은고양이', '53데시벨수호자', '배려하는이웃주민'];
+    const NICKS = ['조용한논현동부엉이', '에코메트로평화지킴이', '꿀잠자고싶은고양이', '53데시벨수호자', '배려하는이웃주민'];
     document.getElementById('btn-random-nick').addEventListener('click', () => {
       document.getElementById('input-nickname').value = NICKS[Math.floor(Math.random() * NICKS.length)] + Math.floor(10 + Math.random() * 89);
     });
@@ -1716,7 +1748,7 @@
       });
 
       if (state.map && typeof kakao !== 'undefined') {
-        state.map.setLevel(4);
+        state.map.setLevel(5);
         state.map.setCenter(new kakao.maps.LatLng(centerLat || info.lat, centerLng || info.lng));
       }
       renderHome();
@@ -1745,7 +1777,7 @@
                   ADMIN_DONGS['custom'] = {
                     short: dongName,
                     name: `${admin.region_1depth_name} ${admin.region_2depth_name} ${dongName}`,
-                    lat, lng, sigunguCd: '28200', bjdongCd: '10300', nightPopDensity: '높음 (주거 밀집)'
+                    lat, lng, sigunguCd: '28200', bjdongCd: '11000', nightPopDensity: '높음 (주거 밀집)'
                   };
                   selectAdminDongKey('custom', lat, lng);
                 }
@@ -1759,7 +1791,7 @@
           });
         }
       }, () => {
-        showToast('위치 정보를 가져올 수 없어 기본 동네(만수5동)로 유지합니다.');
+        showToast('위치 정보를 가져올 수 없어 기본 동네(논현1동)로 유지합니다.');
       });
     }
 
@@ -1779,7 +1811,7 @@
         const c = ADMIN_DONGS[state.currentDong];
         state.map = new kakao.maps.Map(container, {
           center: new kakao.maps.LatLng(c.lat, c.lng),
-          level: 4
+          level: 5
         });
         if (msgBox) msgBox.hidden = true;
 
@@ -1918,7 +1950,7 @@
         const isPubOnly = bReports.every(r => r.isPublicPrediction);
         const prof = profileBuildingStructure(bldg, bReports);
         const totalEmp = bReports.reduce((acc, r) => acc + (r.empathyCount || 0), 0);
-        const shortName = prof.name.replace('아파트', '');
+        const shortName = prof.name.replace('아파트', '').replace('한화꿈에그린', '');
 
         const el = document.createElement('div');
         el.className = `hg-marker-wrap is-bldg ${isPubOnly ? 'is-public' : ''} ${isSelected ? 'selected' : ''}`;
@@ -2204,7 +2236,7 @@
     });
 
     document.getElementById('btn-write-to-112').onclick = () => {
-      const anchor = document.getElementById('input-write-anchor').value.trim() || '백범로 124번길 인근';
+      const anchor = document.getElementById('input-write-anchor').value.trim() || '논고개로 123번길 인근';
       const content = document.getElementById('input-write-content').value.trim() || '현재 심한 생활 소음이 지속 발생 중입니다.';
       open112Modal({
         roadName: anchor,
@@ -2222,7 +2254,7 @@
       const targetBldg = state.buildings.find(b => b.id === state.selectedBuildingId) || state.buildings[0];
       const anchor = isIndoor
         ? `${targetBldg.name} (${state.writeDraft.floor}층)`
-        : (document.getElementById('input-write-anchor').value.trim() || '백범로 124번길 인근');
+        : (document.getElementById('input-write-anchor').value.trim() || '논고개로 123번길 인근');
       const content = document.getElementById('input-write-content').value.trim()
         || `${state.writeDraft.category} 소음이 발생해 이웃들과 공유합니다.`;
 
@@ -2268,7 +2300,7 @@
       const cis = calculateCIS(post);
       const who = WHO_LEVELS[post.whoLevel] || WHO_LEVELS[2];
       const loc = formatBackroadAnchor(post.roadName, post.anchorBuilding, post.roadType);
-      const dongInfo = ADMIN_DONGS[post.dong] || ADMIN_DONGS.mansu5;
+      const dongInfo = ADMIN_DONGS[post.dong] || ADMIN_DONGS.nonhyeon1;
       const logs = post.historyLogs || [
         { date: relTime(post.timestamp), db: who.shortDb, type: post.category, spot: loc }
       ];
