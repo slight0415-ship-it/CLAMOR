@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨 (v1.3.7)</title>
+  <title>53데시벨 (v1.3.8)</title>
 
   <!-- 인라인 Web App Manifest (standalone 전체 화면 설치 지원) -->
   <link id="pwa-manifest-link" rel="manifest">
@@ -49,7 +49,7 @@
 
   <style>
     /* ==========================================================================
-       [v1.3.7 디자인 시스템]
+       [v1.3.8 디자인 시스템]
        - 딥 로얄 블루(#1E3A8A) + 스카이 시안(#0284C7) + 경고 코랄 레드(#E11D48)
        - 순백색(#FFFFFF) 플랫 카드 & 명확한 버튼 배치
        ========================================================================== */
@@ -185,7 +185,7 @@
     }
 
     /* ==========================================================================
-       [화면 1] 스플래시 (v1.3.7)
+       [화면 1] 스플래시 (v1.3.8)
        ========================================================================== */
     #screen-splash {
       z-index: 100;
@@ -486,7 +486,7 @@
 
     <!-- [화면 1] 스플래시 -->
     <section class="screen" id="screen-splash" aria-label="53데시벨 시작 화면">
-      <div class="splash-top-meta"><span class="version-pill">v1.3.7</span></div>
+      <div class="splash-top-meta"><span class="version-pill">v1.3.8</span></div>
       <div class="splash-center-group">
         <div class="brand-logo-lockup" role="img" aria-label="53데시벨">
           <span class="logo-num-box">53</span>
@@ -1012,6 +1012,10 @@
       } catch (e) {}
     }
     loadSandboxData();
+    if (state.user && state.user.lat && state.user.lng) {
+      state.centerLat = state.user.lat;
+      state.centerLng = state.user.lng;
+    }
     try {
       const lastGps = JSON.parse(localStorage.getItem('53db_last_gps'));
       if (lastGps && lastGps.lat && lastGps.lng) {
@@ -1019,6 +1023,34 @@
         state.centerLng = lastGps.lng;
       }
     } catch (e) {}
+
+    /* 실내/실외 모두에서 안정적으로 작동하는 2단계 GPS+네트워크 위치 획득 함수 */
+    function requestDeviceLocation(onSuccess, onFail) {
+      if (!navigator.geolocation) {
+        if (onFail) onFail('위치 서비스를 지원하지 않는 브라우저입니다.');
+        return;
+      }
+      const handleSuccess = (pos) => {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+        try { localStorage.setItem('53db_last_gps', JSON.stringify({ lat, lng, ts: Date.now() })); } catch (e) {}
+        if (onSuccess) onSuccess(lat, lng);
+      };
+      navigator.geolocation.getCurrentPosition(
+        handleSuccess,
+        () => {
+          /* 1차 고정밀 GPS 실패/타임아웃 시 2차 Wi-Fi/기지국 기반 위치로 자동 폴백 */
+          navigator.geolocation.getCurrentPosition(
+            handleSuccess,
+            (err) => {
+              if (onFail) onFail(err && err.code === 1 ? '브라우저 위치 권한이 차단되어 있습니다.' : '현재 위치를 가져올 수 없습니다.');
+            },
+            { enableHighAccuracy: false, timeout: 8000, maximumAge: 60000 }
+          );
+        },
+        { enableHighAccuracy: true, timeout: 5000, maximumAge: 10000 }
+      );
+    }
 
     function showToast(msg) {
       const el = document.getElementById('toast-bar');
@@ -1163,13 +1195,10 @@
           }
           updatePickerAddressAtCenter(startLat, startLng);
 
-          if (mode === 'onboard' && navigator.geolocation) {
-            showToast('현재 실제 위치(GPS)를 확인하고 있어요...');
-            navigator.geolocation.getCurrentPosition(pos => {
-              const gpsLat = pos.coords.latitude;
-              const gpsLng = pos.coords.longitude;
-              try { localStorage.setItem('53db_last_gps', JSON.stringify({ lat: gpsLat, lng: gpsLng })); } catch (e) {}
-              if (pickerUserDragged) return; // 사용자가 이미 지도를 움직였다면 덮어쓰지 않음
+          if (mode === 'onboard') {
+            showToast('현재 실제 위치를 확인하고 있어요...');
+            requestDeviceLocation((gpsLat, gpsLng) => {
+              if (pickerUserDragged) return;
               state.centerLat = gpsLat;
               state.centerLng = gpsLng;
               if (state.pickerMap) {
@@ -1177,9 +1206,9 @@
                 state.pickerMap.setCenter(new kakao.maps.LatLng(gpsLat, gpsLng));
               }
               updatePickerAddressAtCenter(gpsLat, gpsLng);
-            }, () => {
-              showToast('GPS 신호가 약해 지도를 움직여 직접 위치를 맞춰주세요.');
-            }, { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 });
+            }, (msg) => {
+              showToast(msg + ' 지도를 움직여 직접 맞춰주세요.');
+            });
           }
         });
       }, 80);
@@ -1187,13 +1216,13 @@
 
     document.getElementById('btn-picker-back').onclick = () => goScreen(state.pickerMode === 'onboard' ? 'screen-auth' : 'screen-write');
     document.getElementById('btn-picker-gps').onclick = () => {
-      if (!navigator.geolocation) { showToast('위치 권한을 허용해 주세요.'); return; }
-      showToast('현재 GPS 위치로 이동 중...');
-      navigator.geolocation.getCurrentPosition(pos => {
-        state.centerLat = pos.coords.latitude; state.centerLng = pos.coords.longitude;
-        if (state.pickerMap) { state.pickerMap.setLevel(3); state.pickerMap.setCenter(new kakao.maps.LatLng(pos.coords.latitude, pos.coords.longitude)); }
-        updatePickerAddressAtCenter(pos.coords.latitude, pos.coords.longitude);
-      }, () => showToast('GPS 위치를 가져올 수 없습니다. 위치 권한을 확인해 주세요.'), { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 });
+      pickerUserDragged = false;
+      showToast('현재 위치로 이동 중...');
+      requestDeviceLocation((lat, lng) => {
+        state.centerLat = lat; state.centerLng = lng;
+        if (state.pickerMap) { state.pickerMap.setLevel(3); state.pickerMap.setCenter(new kakao.maps.LatLng(lat, lng)); }
+        updatePickerAddressAtCenter(lat, lng);
+      }, (msg) => showToast(msg));
     };
     document.getElementById('btn-picker-search').onclick = () => {
       const q = document.getElementById('input-picker-search').value.trim();
@@ -1216,6 +1245,7 @@
       const loc = state.draftLocation;
       if (state.pickerMode === 'onboard') {
         state.centerLat = loc.lat; state.centerLng = loc.lng;
+        try { localStorage.setItem('53db_last_gps', JSON.stringify({ lat: loc.lat, lng: loc.lng, ts: Date.now() })); } catch (e) {}
         const dongMatch = loc.jibunAddr.match(/\[지번\]\s*([^\s]+)/);
         const homeDong = dongMatch ? dongMatch[1] : '내 동네';
         state.viewportRegionLabel = homeDong;
@@ -1238,13 +1268,21 @@
       }
     };
 
+    let hasAutoLocatedOnMain = false;
+
     function locateUserGPS(silent = false) {
-      if (!navigator.geolocation) { if (!silent) showToast('위치 권한을 차단되어 있어 기본 위치로 표시합니다.'); return; }
-      if (!silent) showToast('현재 내 위치(GPS)로 지도를 맞추고 있어요...');
-      navigator.geolocation.getCurrentPosition(pos => {
-        state.centerLat = pos.coords.latitude; state.centerLng = pos.coords.longitude;
-        if (state.map && typeof kakao !== 'undefined') { state.map.setLevel(4); state.map.setCenter(new kakao.maps.LatLng(state.centerLat, state.centerLng)); syncRegionByMapViewport(); }
-      }, () => { if (!silent) showToast('위치 정보를 가져올 수 없어 현재 지도를 유지합니다.'); }, { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 });
+      if (!silent) showToast('현재 내 위치로 지도를 맞추고 있어요...');
+      requestDeviceLocation((lat, lng) => {
+        state.centerLat = lat;
+        state.centerLng = lng;
+        if (state.map && typeof kakao !== 'undefined') {
+          state.map.setLevel(4);
+          state.map.setCenter(new kakao.maps.LatLng(lat, lng));
+          syncRegionByMapViewport();
+        }
+      }, (msg) => {
+        if (!silent) showToast(msg);
+      });
     }
 
     function syncRegionByMapViewport() {
@@ -1270,7 +1308,15 @@
       kakao.maps.load(() => {
         state.map = new kakao.maps.Map(document.getElementById('kakao-map'), { center: new kakao.maps.LatLng(state.centerLat, state.centerLng), level: 4 });
         kakao.maps.event.addListener(state.map, 'idle', () => syncRegionByMapViewport());
-        setTimeout(() => { state.map.relayout(); state.map.setCenter(new kakao.maps.LatLng(state.centerLat, state.centerLng)); syncRegionByMapViewport(); }, 120);
+        setTimeout(() => {
+          state.map.relayout();
+          state.map.setCenter(new kakao.maps.LatLng(state.centerLat, state.centerLng));
+          syncRegionByMapViewport();
+          if (!hasAutoLocatedOnMain) {
+            hasAutoLocatedOnMain = true;
+            locateUserGPS(true);
+          }
+        }, 120);
       });
     }
 
