@@ -9,53 +9,11 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨 (v1.3.1)</title>
+  <title>53데시벨 (v1.3.3)</title>
 
   <!-- 인라인 Web App Manifest (standalone 전체 화면 설치 지원) -->
-  <link id="pwa-manifest-link" rel="manifest">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='42' fill='%231E3A8A'/%3E%3Ctext x='96' y='112' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='78' font-weight='900'%3E53%3C/text%3E%3Ctext x='96' y='152' text-anchor='middle' fill='%2338BDF8' font-family='sans-serif' font-size='30' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='42' fill='%231E3A8A'/%3E%3Ctext x='96' y='112' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='78' font-weight='900'%3E53%3C/text%3E%3Ctext x='96' y='152' text-anchor='middle' fill='%2338BDF8' font-family='sans-serif' font-size='30' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
-
-  <script>
-    (function setupStandalonePWA() {
-      const iconSvg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='42' fill='%231E3A8A'/%3E%3Ctext x='96' y='112' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='78' font-weight='900'%3E53%3C/text%3E%3Ctext x='96' y='152' text-anchor='middle' fill='%2338BDF8' font-family='sans-serif' font-size='30' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E";
-      const manifestObj = {
-        name: "53데시벨",
-        short_name: "53데시벨",
-        start_url: "./",
-        scope: "./",
-        display: "standalone",
-        display_override: ["standalone", "fullscreen"],
-        background_color: "#FFFFFF",
-        theme_color: "#1E3A8A",
-        orientation: "portrait",
-        icons: [
-          { src: iconSvg, sizes: "192x192", type: "image/svg+xml", purpose: "any" },
-          { src: iconSvg, sizes: "512x512", type: "image/svg+xml", purpose: "any maskable" }
-        ]
-      };
-      try {
-        const blob = new Blob([JSON.stringify(manifestObj)], { type: "application/manifest+json" });
-        const manifestUrl = URL.createObjectURL(blob);
-        const linkEl = document.getElementById("pwa-manifest-link");
-        if (linkEl) linkEl.href = manifestUrl;
-      } catch (e) {}
-
-      if ("serviceWorker" in navigator && location.protocol === "https:") {
-        const swCode = `
-          self.addEventListener('install', (e) => { self.skipWaiting(); });
-          self.addEventListener('activate', (e) => { e.waitUntil(self.clients.claim()); });
-          self.addEventListener('fetch', (e) => {});
-        `;
-        try {
-          const swBlob = new Blob([swCode], { type: "application/javascript" });
-          const swUrl = URL.createObjectURL(swBlob);
-          navigator.serviceWorker.register(swUrl, { scope: "./" }).catch(() => {});
-        } catch (e) {}
-      }
-    })();
-  </script>
-
   <!-- Pretendard Variable -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
   <!-- 카카오맵 SDK -->
@@ -63,7 +21,7 @@
 
   <style>
     /* ==========================================================================
-       [v1.3.1 디자인 시스템]
+       [v1.3.3 디자인 시스템]
        - 딥 로얄 블루(#1E3A8A) + 스카이 시안(#0284C7) + 경고 코랄 레드(#E11D48)
        - 순백색(#FFFFFF) 플랫 카드 & 명확한 버튼 배치
        ========================================================================== */
@@ -199,7 +157,7 @@
     }
 
     /* ==========================================================================
-       [화면 1] 스플래시 (v1.3.1)
+       [화면 1] 스플래시 (v1.3.3)
        ========================================================================== */
     #screen-splash {
       z-index: 100;
@@ -497,7 +455,7 @@
 
     <!-- [화면 1] 스플래시 -->
     <section class="screen" id="screen-splash" aria-label="53데시벨 시작 화면">
-      <div class="splash-top-meta"><span class="version-pill">v1.3.1</span></div>
+      <div class="splash-top-meta"><span class="version-pill">v1.3.3</span></div>
       <div class="splash-center-group">
         <div class="brand-logo-lockup" role="img" aria-label="53데시벨">
           <span class="logo-num-box">53</span>
@@ -1049,7 +1007,8 @@
     let splashFinished = false;
     function goScreen(id) {
       ['screen-splash', 'screen-auth', 'screen-pin-picker', 'screen-main', 'screen-write', 'screen-detail', 'screen-building'].forEach(s => {
-        document.getElementById(s).hidden = (s !== id);
+        const el = document.getElementById(s);
+        if (el) el.hidden = (s !== id);
       });
       if (id === 'screen-auth') { showAuthStep('auth-step-login'); renderSavedAccountsUI(); }
       if (id === 'screen-main') { switchMainTab(state.activeMainTab || 'map'); }
@@ -1057,7 +1016,10 @@
 
     function switchMainTab(tabKey) {
       state.activeMainTab = tabKey;
-      ['map', 'report', 'community', 'care'].forEach(k => { document.getElementById(`tab-view-${k}`).hidden = (k !== tabKey); });
+      ['map', 'report', 'community', 'care'].forEach(k => {
+        const el = document.getElementById(`tab-view-${k}`);
+        if (el) el.hidden = (k !== tabKey);
+      });
       document.querySelectorAll('.btn-nav-tab').forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tabKey));
       if (tabKey === 'map') { renderHome(); requestAnimationFrame(() => initMap()); }
       else if (tabKey === 'report') { renderReportTab(); }
@@ -1066,9 +1028,17 @@
 
     document.querySelectorAll('.btn-nav-tab').forEach(btn => { btn.onclick = () => switchMainTab(btn.dataset.tab); });
     function showAuthStep(stepId) { ['auth-step-login', 'auth-step-perm', 'auth-step-terms'].forEach(st => { document.getElementById(st).hidden = (st !== stepId); }); }
-    function exitSplash() { if (splashFinished) return; splashFinished = true; goScreen(state.user.loggedIn ? 'screen-main' : 'screen-auth'); }
-    document.getElementById('screen-splash').addEventListener('pointerdown', exitSplash);
-    setTimeout(exitSplash, 2200);
+    function exitSplash() {
+      if (splashFinished) return;
+      splashFinished = true;
+      goScreen(state.user.loggedIn ? 'screen-main' : 'screen-auth');
+    }
+    const splashEl = document.getElementById('screen-splash');
+    if (splashEl) {
+      splashEl.addEventListener('pointerdown', exitSplash);
+      splashEl.addEventListener('click', exitSplash);
+    }
+    setTimeout(exitSplash, 1800);
 
     document.querySelectorAll('.btn-social').forEach(btn => {
       btn.addEventListener('click', () => {
