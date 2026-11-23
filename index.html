@@ -9,9 +9,37 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨 (v1.3.4)</title>
+  <title>53데시벨 (v1.3.5)</title>
 
   <!-- 인라인 Web App Manifest (standalone 전체 화면 설치 지원) -->
+  <link id="pwa-manifest-link" rel="manifest">
+  <script>
+    (function() {
+      const iconSvg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='42' fill='%231E3A8A'/%3E%3Ctext x='96' y='112' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='78' font-weight='900'%3E53%3C/text%3E%3Ctext x='96' y='152' text-anchor='middle' fill='%2338BDF8' font-family='sans-serif' font-size='30' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E";
+      const pageUrl = window.location.href.split('#')[0].split('?')[0];
+      const baseScope = pageUrl.substring(0, pageUrl.lastIndexOf('/') + 1);
+      const manifestObj = {
+        id: pageUrl,
+        name: "53데시벨",
+        short_name: "53데시벨",
+        start_url: pageUrl,
+        scope: baseScope,
+        display: "standalone",
+        background_color: "#FFFFFF",
+        theme_color: "#1E3A8A",
+        orientation: "portrait",
+        icons: [
+          { src: iconSvg, sizes: "192x192", type: "image/svg+xml", purpose: "any" },
+          { src: iconSvg, sizes: "512x512", type: "image/svg+xml", purpose: "any maskable" }
+        ]
+      };
+      try {
+        const dataUri = "data:application/manifest+json;charset=utf-8," + encodeURIComponent(JSON.stringify(manifestObj));
+        const linkEl = document.getElementById("pwa-manifest-link");
+        if (linkEl) linkEl.href = dataUri;
+      } catch (e) {}
+    })();
+  </script>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='42' fill='%231E3A8A'/%3E%3Ctext x='96' y='112' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='78' font-weight='900'%3E53%3C/text%3E%3Ctext x='96' y='152' text-anchor='middle' fill='%2338BDF8' font-family='sans-serif' font-size='30' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='42' fill='%231E3A8A'/%3E%3Ctext x='96' y='112' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='78' font-weight='900'%3E53%3C/text%3E%3Ctext x='96' y='152' text-anchor='middle' fill='%2338BDF8' font-family='sans-serif' font-size='30' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
   <!-- Pretendard Variable -->
@@ -21,7 +49,7 @@
 
   <style>
     /* ==========================================================================
-       [v1.3.4 디자인 시스템]
+       [v1.3.5 디자인 시스템]
        - 딥 로얄 블루(#1E3A8A) + 스카이 시안(#0284C7) + 경고 코랄 레드(#E11D48)
        - 순백색(#FFFFFF) 플랫 카드 & 명확한 버튼 배치
        ========================================================================== */
@@ -157,7 +185,7 @@
     }
 
     /* ==========================================================================
-       [화면 1] 스플래시 (v1.3.4)
+       [화면 1] 스플래시 (v1.3.5)
        ========================================================================== */
     #screen-splash {
       z-index: 100;
@@ -448,14 +476,14 @@
     .btn-dong-item { width: 100%; padding: 12px 14px; border-radius: 11px; background-color: var(--bg-subtle); border: 1px solid var(--border-line); font-size: 14.5px; font-weight: 700; text-align: left; display: flex; align-items: center; justify-content: space-between; }
     .sms-native-box { background-color: var(--bg-subtle); border: 1px solid var(--border-strong); border-radius: 12px; padding: 13px; font-size: 13.5px; line-height: 1.55; white-space: pre-line; }
     .app-toast { position: absolute; bottom: calc(70px + var(--safe-bottom)); left: 18px; right: 18px; background-color: rgba(15, 23, 42, 0.94); color: #FFFFFF; font-size: 13px; font-weight: 600; padding: 12px 16px; border-radius: 12px; text-align: center; z-index: 200; }
-  </script>
+  </style>
 </head>
 <body>
   <div class="app-shell">
 
     <!-- [화면 1] 스플래시 -->
     <section class="screen" id="screen-splash" aria-label="53데시벨 시작 화면">
-      <div class="splash-top-meta"><span class="version-pill">v1.3.4</span></div>
+      <div class="splash-top-meta"><span class="version-pill">v1.3.5</span></div>
       <div class="splash-center-group">
         <div class="brand-logo-lockup" role="img" aria-label="53데시벨">
           <span class="logo-num-box">53</span>
