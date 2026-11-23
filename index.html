@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨 (v1.2.1)</title>
+  <title>53데시벨 (v1.2.2)</title>
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Crect width='128' height='128' rx='28' fill='%231B4965'/%3E%3Ctext x='64' y='74' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='54' font-weight='900'%3E53%3C/text%3E%3Ctext x='64' y='102' text-anchor='middle' fill='%235EEAD4' font-family='sans-serif' font-size='22' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%231B4965'/%3E%3Ctext x='90' y='102' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='76' font-weight='900'%3E53%3C/text%3E%3Ctext x='90' y='142' text-anchor='middle' fill='%235EEAD4' font-family='sans-serif' font-size='30' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
@@ -39,7 +39,6 @@
       --card-surface: #FFFFFF;
       --card-warm: #FAF9F6;
 
-      /* 뉴모피즘 효과는 오직 버튼과 입력필드에만 적용 */
       --btn-convex: -3px -3px 7px rgba(255, 255, 255, 0.88), 3px 3px 8px rgba(163, 177, 198, 0.52);
       --btn-pressed: inset -2px -2px 5px rgba(255, 255, 255, 0.75), inset 3px 3px 6px rgba(163, 177, 198, 0.65);
       --input-concave: inset -3px -3px 7px rgba(255, 255, 255, 0.85), inset 3px 3px 7px rgba(163, 177, 198, 0.52);
@@ -129,7 +128,7 @@
     button:active { transform: scale(0.97); }
 
     /* ==========================================================================
-       [화면 1] 스플래시 (v1.2.1)
+       [화면 1] 스플래시 (v1.2.2)
        ========================================================================== */
     #screen-splash {
       z-index: 100;
@@ -239,19 +238,20 @@
     .who-source { margin-top: 12px; font-size: 13px; font-weight: 800; color: var(--primary); text-align: right; }
 
     /* ==========================================================================
-       [화면 2] 회원가입 & 로그인 (다중 테스트 계정 생성·전환)
+       [화면 2] 요기요 스타일 4단계 표준 온보딩
+       (1: 소셜선택 → 2: 접근권한 안내 → 3: 이용약관 동의 → 4: 지도에서 주소 찾기)
        ========================================================================== */
     #screen-auth {
       z-index: 90;
-      background-color: var(--neu-bg);
+      background-color: var(--card-surface);
       padding: calc(20px + var(--safe-top)) 22px calc(24px + var(--safe-bottom));
     }
 
     .auth-view { display: flex; flex-direction: column; height: 100%; overflow-y: auto; }
     .auth-hero { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 12px 0; }
     .hero-illust {
-      width: 112px; height: 112px; border-radius: 30px;
-      background-color: var(--card-surface); border: 1px solid #DCE3EC;
+      width: 108px; height: 108px; border-radius: 28px;
+      background-color: var(--neu-bg);
       display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 20px;
     }
     .hero-illust-badge {
@@ -263,36 +263,17 @@
 
     .saved-accounts-box {
       width: 100%;
-      background-color: var(--card-surface);
-      border: 1px solid #D5DCE6;
+      background-color: var(--neu-bg);
       border-radius: 16px;
       padding: 12px 14px;
       margin-bottom: 14px;
       text-align: left;
     }
-    .saved-accounts-title {
-      font-size: 12px;
-      font-weight: 800;
-      color: var(--primary);
-      margin-bottom: 8px;
-      display: flex;
-      justify-content: space-between;
-    }
-    .saved-account-chips {
-      display: flex;
-      gap: 6px;
-      overflow-x: auto;
-      padding-bottom: 2px;
-    }
+    .saved-accounts-title { font-size: 12px; font-weight: 800; color: var(--primary); margin-bottom: 8px; display: flex; justify-content: space-between; }
+    .saved-account-chips { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px; }
     .btn-quick-login {
-      padding: 7px 12px;
-      border-radius: 10px;
-      background-color: var(--neu-surface);
-      box-shadow: var(--btn-convex);
-      font-size: 12.5px;
-      font-weight: 800;
-      color: var(--text-main);
-      white-space: nowrap;
+      padding: 7px 12px; border-radius: 10px; background-color: var(--neu-surface); box-shadow: var(--btn-convex);
+      font-size: 12.5px; font-weight: 800; color: var(--text-main); white-space: nowrap;
     }
 
     .auth-bottom-actions { display: flex; flex-direction: column; gap: 10px; width: 100%; }
@@ -304,22 +285,156 @@
     .btn-native-google { background-color: var(--neu-surface); color: var(--text-main); }
     .btn-browse-first { margin-top: 2px; height: 42px; width: 100%; font-size: 14px; font-weight: 700; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 4px; }
 
-    .onboard-top { padding-top: 12px; }
-    .onboard-top h2 { font-size: 23px; font-weight: 800; line-height: 1.35; letter-spacing: -0.03em; color: var(--text-main); }
-    .onboard-top p { margin-top: 6px; font-size: 14.5px; color: var(--text-sub); }
-    .onboard-form { margin-top: 22px; display: flex; flex-direction: column; gap: 18px; }
-    .native-field label { display: block; font-size: 13.5px; font-weight: 800; color: var(--text-sub); margin-bottom: 8px; }
-    .native-input-box { display: flex; align-items: center; background-color: var(--neu-bg); box-shadow: var(--input-concave); border-radius: 16px; padding: 6px 8px 6px 16px; height: 52px; }
-    .native-input-box input { flex: 1; border: none; background: transparent; font-size: 15.5px; font-weight: 700; color: var(--text-main); outline: none; }
+    /* 요기요 Step 2: 접근 권한 안내 화면 */
+    .perm-header h2 { font-size: 24px; font-weight: 800; line-height: 1.38; letter-spacing: -0.03em; color: var(--text-main); margin-top: 12px; }
+    .perm-list { margin-top: 26px; display: flex; flex-direction: column; gap: 18px; }
+    .perm-item { display: flex; align-items: center; gap: 14px; }
+    .perm-icon-circle { width: 46px; height: 46px; border-radius: 50%; background-color: var(--neu-bg); display: grid; place-items: center; color: var(--primary); flex-shrink: 0; }
+    .perm-text strong { display: block; font-size: 15.5px; font-weight: 800; color: var(--text-main); }
+    .perm-text strong em { font-style: normal; color: var(--secondary); font-size: 13px; margin-left: 4px; }
+    .perm-text span { display: block; font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+    .perm-notice { margin-top: auto; margin-bottom: 16px; padding: 14px; background-color: #F8FAFC; border-radius: 12px; font-size: 12px; line-height: 1.55; color: var(--text-muted); }
+
+    /* 요기요 Step 3: 이용약관 동의 화면 */
+    .terms-title-area { text-align: center; padding-top: 18px; margin-bottom: 28px; }
+    .terms-title-area h2 { font-size: 23px; font-weight: 800; color: var(--text-main); }
+    .terms-title-area p { font-size: 14px; color: var(--text-muted); margin-top: 6px; }
+    .terms-all-row { display: flex; align-items: center; gap: 12px; padding: 16px 4px; border-bottom: 1.5px solid #E2E8F0; font-size: 17px; font-weight: 800; cursor: pointer; }
+    .terms-sub-list { display: flex; flex-direction: column; gap: 18px; padding: 20px 4px; }
+    .terms-sub-row { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; }
+    .terms-sub-row input, .terms-all-row input { width: 22px; height: 22px; accent-color: var(--primary); margin-top: 1px; flex-shrink: 0; }
+    .terms-sub-text strong { display: block; font-size: 15px; font-weight: 700; color: var(--text-main); }
+    .terms-sub-text span { display: block; font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
+
+    .btn-cta-primary { width: 100%; height: 54px; border-radius: 16px; background: linear-gradient(145deg, #215778 0%, #1B4965 100%); color: #FFFFFF; font-size: 16.5px; font-weight: 800; display: flex; align-items: center; justify-content: center; box-shadow: -3px -3px 8px rgba(255, 255, 255, 0.7), 4px 4px 12px rgba(27, 73, 101, 0.35); }
+    .btn-cta-primary:disabled { background: #CBD5E1; color: #FFFFFF; box-shadow: none; cursor: not-allowed; }
+
+    .native-input-box { display: flex; align-items: center; background-color: var(--neu-bg); box-shadow: var(--input-concave); border-radius: 14px; padding: 6px 8px 6px 14px; height: 48px; }
+    .native-input-box input { flex: 1; border: none; background: transparent; font-size: 15px; font-weight: 700; color: var(--text-main); outline: none; }
     .btn-chip-action { height: 38px; padding: 0 13px; border-radius: 12px; background-color: var(--neu-surface); box-shadow: var(--btn-convex); font-size: 13px; font-weight: 800; color: var(--primary); white-space: nowrap; }
     .btn-chip-action:active { box-shadow: var(--btn-pressed); }
-    .native-gps-card { background-color: var(--card-surface); border: 1px solid #DCE3EC; border-radius: 16px; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    .native-gps-text strong { display: block; font-size: 15.5px; font-weight: 800; color: #0F766E; }
-    .native-gps-text span { display: block; margin-top: 3px; font-size: 12.5px; font-weight: 600; color: var(--text-sub); }
-    .native-agree-row { display: flex; align-items: center; gap: 12px; padding: 14px 16px; background-color: var(--card-surface); border: 1px solid #DCE3EC; border-radius: 16px; cursor: pointer; }
-    .native-agree-row input { width: 20px; height: 20px; accent-color: var(--primary); }
-    .native-agree-row span { font-size: 14px; font-weight: 700; color: var(--text-main); }
-    .btn-cta-primary { width: 100%; height: 54px; border-radius: 18px; background: linear-gradient(145deg, #215778 0%, #1B4965 100%); color: #FFFFFF; font-size: 16.5px; font-weight: 800; display: flex; align-items: center; justify-content: center; box-shadow: -3px -3px 8px rgba(255, 255, 255, 0.7), 4px 4px 12px rgba(27, 73, 101, 0.35); }
+
+    /* ==========================================================================
+       [공통 풀스크린 지도 핀 피커] (요기요 '지도에서 주소 찾기'와 100% 동일한 구조)
+       - 온보딩 위치 설정 & 소음 올리기 위치 지정에서 공용으로 사용
+       ========================================================================== */
+    #screen-pin-picker {
+      z-index: 150;
+      background-color: var(--card-surface);
+    }
+
+    .picker-topbar {
+      height: calc(54px + var(--safe-top));
+      padding: var(--safe-top) 16px 0;
+      background-color: var(--card-surface);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #E2E8F0;
+      flex-shrink: 0;
+    }
+
+    .picker-topbar h2 { font-size: 17px; font-weight: 800; color: var(--text-main); }
+
+    .picker-search-strip {
+      padding: 10px 14px;
+      background-color: var(--card-surface);
+      display: flex;
+      gap: 8px;
+      border-bottom: 1px solid #E2E8F0;
+      flex-shrink: 0;
+    }
+
+    .picker-map-area {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      background-color: #DDE3EC;
+      overflow: hidden;
+    }
+
+    #picker-kakao-map { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+    /* 요기요 스타일 지도 중앙 고정 핀 + 파란 안내 말풍선 */
+    .picker-center-pin-wrap {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -100%);
+      z-index: 30;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    .picker-guide-bubble {
+      background-color: #2563EB;
+      color: #FFFFFF;
+      font-size: 12.5px;
+      font-weight: 800;
+      padding: 7px 14px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+      white-space: nowrap;
+      margin-bottom: 8px;
+      position: relative;
+    }
+
+    .picker-guide-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-top: 6px solid #2563EB;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+    }
+
+    .picker-pin-head {
+      width: 34px;
+      height: 34px;
+      border-radius: 50% 50% 50% 4px;
+      transform: rotate(-45deg);
+      background-color: #111827;
+      border: 3px solid #FFFFFF;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+      display: grid;
+      place-items: center;
+    }
+
+    .picker-pin-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #38BDF8;
+    }
+
+    .picker-footer-panel {
+      background-color: var(--card-surface);
+      padding: 18px 20px calc(22px + var(--safe-bottom));
+      border-top: 1px solid #E2E8F0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .picker-road-addr {
+      font-size: 17px;
+      font-weight: 900;
+      color: var(--text-main);
+      letter-spacing: -0.03em;
+      word-break: keep-all;
+    }
+
+    .picker-jibun-addr {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
 
     /* ==========================================================================
        [화면 3] 메인 홈
@@ -373,24 +488,14 @@
       overflow: hidden;
     }
     .btn-top-search-bar:active { box-shadow: var(--btn-pressed); }
-    .btn-top-search-bar span {
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+    .btn-top-search-bar span { overflow: hidden; text-overflow: ellipsis; }
 
     .topbar-right-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
 
     .btn-test-mgr {
-      width: 38px;
-      height: 38px;
-      border-radius: 13px;
-      background-color: var(--neu-surface);
-      box-shadow: var(--btn-convex);
-      display: grid;
-      place-items: center;
-      color: var(--primary);
-      font-size: 12px;
-      font-weight: 900;
+      width: 38px; height: 38px; border-radius: 13px;
+      background-color: var(--neu-surface); box-shadow: var(--btn-convex);
+      display: grid; place-items: center; color: var(--primary); font-size: 12px; font-weight: 900;
     }
     .btn-test-mgr:active { box-shadow: var(--btn-pressed); }
 
@@ -421,37 +526,14 @@
       text-align: center; padding: 24px; font-size: 14px; font-weight: 700; color: var(--text-sub); gap: 8px; z-index: 5;
     }
 
-    .map-right-tools {
-      position: absolute;
-      right: 12px;
-      top: 12px;
-      z-index: 25;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
+    .map-right-tools { position: absolute; right: 12px; top: 12px; z-index: 25; display: flex; flex-direction: column; gap: 8px; }
     .btn-map-tool {
-      width: 46px;
-      height: 46px;
-      border-radius: 13px;
-      background-color: rgba(255, 255, 255, 0.96);
-      box-shadow: 0 3px 10px rgba(17, 24, 39, 0.18);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 2px;
-      font-size: 10px;
-      font-weight: 800;
-      color: var(--text-sub);
-      border: 1.5px solid #FFFFFF;
+      width: 46px; height: 46px; border-radius: 13px;
+      background-color: rgba(255, 255, 255, 0.96); box-shadow: 0 3px 10px rgba(17, 24, 39, 0.18);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+      font-size: 10px; font-weight: 800; color: var(--text-sub); border: 1.5px solid #FFFFFF;
     }
-
-    .btn-map-tool.active {
-      background-color: var(--primary);
-      color: #FFFFFF;
-    }
+    .btn-map-tool.active { background-color: var(--primary); color: #FFFFFF; }
 
     .btn-floating-gps {
       position: absolute; right: 12px; bottom: 22px; z-index: 25;
@@ -470,488 +552,195 @@
       filter: drop-shadow(0 5px 10px rgba(17, 24, 39, 0.26));
       transition: transform 0.18s ease;
     }
-
-    .hg-marker-wrap.selected {
-      transform: scale(1.1);
-      z-index: 100;
-    }
-
+    .hg-marker-wrap.selected { transform: scale(1.1); z-index: 100; }
     .hg-live-bubble {
-      align-self: center;
-      background-color: #1F2937;
-      color: #FFFFFF;
-      font-size: 10px;
-      font-weight: 800;
-      padding: 2px 7px;
-      border-radius: 6px;
-      margin-bottom: 3px;
-      white-space: nowrap;
-      letter-spacing: -0.02em;
+      align-self: center; background-color: #1F2937; color: #FFFFFF;
+      font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 6px; margin-bottom: 3px; white-space: nowrap;
     }
-
     .hg-marker-box {
-      min-width: 78px;
-      border-radius: 9px 9px 9px 2px;
-      overflow: hidden;
-      border: 1.5px solid #FFFFFF;
-      background-color: var(--primary);
-      color: #FFFFFF;
-      text-align: center;
+      min-width: 78px; border-radius: 9px 9px 9px 2px; overflow: hidden;
+      border: 1.5px solid #FFFFFF; background-color: var(--primary); color: #FFFFFF; text-align: center;
     }
-
-    .hg-marker-wrap.is-bldg .hg-marker-box {
-      border-top: 3.5px solid #5EEAD4;
-      background-color: #123246;
-    }
-
-    .hg-m-top {
-      font-size: 10px;
-      font-weight: 800;
-      padding: 2.5px 8px;
-      background-color: rgba(255, 255, 255, 0.16);
-      color: #F1F5F9;
-      white-space: nowrap;
-      letter-spacing: -0.02em;
-    }
-
+    .hg-marker-wrap.is-bldg .hg-marker-box { border-top: 3.5px solid #5EEAD4; background-color: #123246; }
+    .hg-m-top { font-size: 10px; font-weight: 800; padding: 2.5px 8px; background-color: rgba(255, 255, 255, 0.16); color: #F1F5F9; white-space: nowrap; }
     .hg-marker-wrap.lv-3 .hg-m-top { background-color: #BE123C; color: #FFFFFF; }
     .hg-marker-wrap.lv-2 .hg-m-top { background-color: #C2410C; color: #FFFFFF; }
     .hg-marker-wrap.is-bldg .hg-m-top { background-color: #0D9488; color: #FFFFFF; }
-
-    .hg-m-main {
-      font-size: 13px;
-      font-weight: 900;
-      padding: 4px 9px 5px;
-      color: #FFFFFF;
-      white-space: nowrap;
-      letter-spacing: -0.03em;
-    }
-
-    .hg-m-pointer {
-      width: 0;
-      height: 0;
-      border-top: 8px solid var(--primary);
-      border-right: 9px solid transparent;
-      margin-left: 1px;
-    }
+    .hg-m-main { font-size: 13px; font-weight: 900; padding: 4px 9px 5px; color: #FFFFFF; white-space: nowrap; }
+    .hg-m-pointer { width: 0; height: 0; border-top: 8px solid var(--primary); border-right: 9px solid transparent; margin-left: 1px; }
     .hg-marker-wrap.is-bldg .hg-m-pointer { border-top-color: #123246; }
-
     .hg-m-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background-color: #E11D48;
-      border: 1.5px solid #FFFFFF;
-      margin-left: -2px;
-      margin-top: -1px;
-      box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.3);
+      width: 7px; height: 7px; border-radius: 50%; background-color: #E11D48;
+      border: 1.5px solid #FFFFFF; margin-left: -2px; margin-top: -1px;
     }
 
-    .cctv-pin {
-      background-color: #111827;
-      color: #38BDF8;
-      border: 1.5px solid #FFFFFF;
-      border-radius: 999px;
-      padding: 3px 7px;
-      font-size: 10px;
-      font-weight: 800;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-      white-space: nowrap;
-    }
-
-    /* ==========================================================================
-       하단 지점 카드 영역 (폰 화면 가로 폭에 100% 딱 맞게 잘림 방지)
-       ========================================================================== */
+    /* 하단 지점 카드 영역 */
     .bottom-feed-sheet {
-      flex: 1;
-      min-height: 0;
-      background-color: var(--neu-bg);
-      border-radius: 24px 24px 0 0;
-      box-shadow: 0 -4px 16px rgba(17, 24, 39, 0.07);
-      display: flex;
-      flex-direction: column;
-      z-index: 30;
-      margin-top: -12px;
-      overflow: hidden;
+      flex: 1; min-height: 0; background-color: var(--neu-bg); border-radius: 24px 24px 0 0;
+      box-shadow: 0 -4px 16px rgba(17, 24, 39, 0.07); display: flex; flex-direction: column;
+      z-index: 30; margin-top: -12px; overflow: hidden;
     }
-
-    .bottom-feed-sheet.expanded {
-      position: absolute;
-      inset: calc(58px + var(--safe-top)) 0 0 0;
-      margin-top: 0;
-      border-radius: 0;
-    }
-
-    .sheet-section-header {
-      background-color: var(--neu-bg);
-      padding: 12px 16px 8px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-shrink: 0;
-    }
-
+    .bottom-feed-sheet.expanded { position: absolute; inset: calc(58px + var(--safe-top)) 0 0 0; margin-top: 0; border-radius: 0; }
+    .sheet-section-header { background-color: var(--neu-bg); padding: 12px 16px 8px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
     .section-title-block { display: flex; align-items: center; gap: 7px; overflow: hidden; }
     .section-accent-bar { width: 4px; height: 18px; border-radius: 999px; background-color: var(--primary); flex-shrink: 0; }
     .section-title-block h2 { font-size: 17px; font-weight: 900; letter-spacing: -0.03em; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
-    .spot-index-pill {
-      font-size: 12px; font-weight: 800; color: var(--primary);
-      background-color: var(--primary-soft); padding: 3px 9px; border-radius: 999px; flex-shrink: 0;
-    }
-
-    .sheet-expand-btn {
-      font-size: 12.5px; font-weight: 800; color: var(--primary);
-      padding: 6px 12px; border-radius: 12px;
-      background-color: var(--neu-surface); box-shadow: var(--btn-convex); flex-shrink: 0;
-    }
+    .spot-index-pill { font-size: 12px; font-weight: 800; color: var(--primary); background-color: var(--primary-soft); padding: 3px 9px; border-radius: 999px; flex-shrink: 0; }
+    .sheet-expand-btn { font-size: 12.5px; font-weight: 800; color: var(--primary); padding: 6px 12px; border-radius: 12px; background-color: var(--neu-surface); box-shadow: var(--btn-convex); flex-shrink: 0; }
     .sheet-expand-btn:active { box-shadow: var(--btn-pressed); }
 
     .spot-carousel-wrap {
-      flex: 1;
-      min-height: 0;
-      width: 100%;
-      display: flex;
-      overflow-x: auto;
-      overflow-y: hidden;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      touch-action: pan-x pan-y;
-      padding-bottom: calc(74px + var(--safe-bottom));
-      scrollbar-width: none;
+      flex: 1; min-height: 0; width: 100%; display: flex; overflow-x: auto; overflow-y: hidden;
+      scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; touch-action: pan-x pan-y;
+      padding-bottom: calc(74px + var(--safe-bottom)); scrollbar-width: none;
     }
     .spot-carousel-wrap::-webkit-scrollbar { display: none; }
-
-    .spot-slide {
-      flex: 0 0 100%;
-      width: 100%;
-      max-width: 100%;
-      padding: 4px 16px 0;
-      scroll-snap-align: start;
-      display: flex;
-    }
-
-    .bottom-feed-sheet.expanded .spot-carousel-wrap {
-      flex-direction: column;
-      overflow-x: hidden;
-      overflow-y: auto;
-      scroll-snap-type: none;
-      gap: 12px;
-      padding: 8px 16px calc(92px + var(--safe-bottom));
-    }
-
-    .bottom-feed-sheet.expanded .spot-slide {
-      flex: none;
-      padding: 0;
-    }
+    .spot-slide { flex: 0 0 100%; width: 100%; max-width: 100%; padding: 4px 16px 0; scroll-snap-align: start; display: flex; }
+    .bottom-feed-sheet.expanded .spot-carousel-wrap { flex-direction: column; overflow-x: hidden; overflow-y: auto; scroll-snap-type: none; gap: 12px; padding: 8px 16px calc(92px + var(--safe-bottom)); }
+    .bottom-feed-sheet.expanded .spot-slide { flex: none; padding: 0; }
 
     .spot-card {
-      width: 100%;
-      background-color: var(--card-surface);
-      border-radius: 20px;
-      padding: 15px 16px;
-      border: 1px solid #D5DCE6;
-      box-shadow: 0 2px 8px rgba(17, 24, 39, 0.05);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 8px;
-      cursor: pointer;
+      width: 100%; background-color: var(--card-surface); border-radius: 20px; padding: 15px 16px;
+      border: 1px solid #D5DCE6; box-shadow: 0 2px 8px rgba(17, 24, 39, 0.05);
+      display: flex; flex-direction: column; justify-content: space-between; gap: 8px; cursor: pointer;
     }
-
-    .sc-top-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
-    }
-
-    .sc-main-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 12.5px;
-      font-weight: 900;
-      padding: 4px 9px;
-      border-radius: 8px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+    .sc-top-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+    .sc-main-pill { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 900; padding: 4px 9px; border-radius: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .sc-main-pill.lv-3 { background-color: var(--lv3-soft); color: var(--lv3-red); }
     .sc-main-pill.lv-2 { background-color: var(--lv2-soft); color: var(--lv2-orange); }
     .sc-main-pill.lv-1 { background-color: var(--lv1-soft); color: var(--lv1-yellow); }
-
-    .sc-trust-txt {
-      font-size: 12px;
-      font-weight: 800;
-      color: var(--primary);
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    .sc-title-loc {
-      font-size: 16px;
-      font-weight: 900;
-      color: var(--text-main);
-      letter-spacing: -0.03em;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .sc-summary-line {
-      font-size: 13.5px;
-      font-weight: 500;
-      line-height: 1.45;
-      color: var(--text-sub);
-      word-break: keep-all;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .sc-footer-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding-top: 6px;
-    }
-
-    .btn-fc-empathy {
-      flex: 1;
-      height: 38px;
-      border-radius: 12px;
-      background-color: var(--neu-surface);
-      box-shadow: var(--btn-convex);
-      color: var(--text-sub);
-      font-size: 13px;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-    }
-
-    .btn-fc-empathy.active {
-      background-color: var(--primary-soft);
-      box-shadow: var(--btn-pressed);
-      color: var(--primary);
-    }
-
-    .btn-fc-comment {
-      height: 38px;
-      padding: 0 14px;
-      border-radius: 12px;
-      background-color: var(--neu-surface);
-      box-shadow: var(--btn-convex);
-      color: var(--text-sub);
-      font-size: 13px;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      white-space: nowrap;
-    }
-    .btn-fc-comment:active { box-shadow: var(--btn-pressed); }
+    .sc-trust-txt { font-size: 12px; font-weight: 800; color: var(--primary); white-space: nowrap; flex-shrink: 0; }
+    .sc-title-loc { font-size: 16px; font-weight: 900; color: var(--text-main); letter-spacing: -0.03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sc-summary-line { font-size: 13.5px; font-weight: 500; line-height: 1.45; color: var(--text-sub); word-break: keep-all; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .sc-footer-actions { display: flex; align-items: center; gap: 10px; padding-top: 6px; }
+    .btn-fc-empathy { flex: 1; height: 38px; border-radius: 12px; background-color: var(--neu-surface); box-shadow: var(--btn-convex); color: var(--text-sub); font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 5px; }
+    .btn-fc-empathy.active { background-color: var(--primary-soft); box-shadow: var(--btn-pressed); color: var(--primary); }
+    .btn-fc-comment { height: 38px; padding: 0 14px; border-radius: 12px; background-color: var(--neu-surface); box-shadow: var(--btn-convex); color: var(--text-sub); font-size: 13px; font-weight: 800; display: flex; align-items: center; gap: 4px; white-space: nowrap; }
 
     .fab-native-write {
-      position: absolute;
-      right: 16px;
-      bottom: calc(14px + var(--safe-bottom));
-      z-index: 40;
-      height: 46px;
-      padding: 0 18px;
-      border-radius: 15px;
-      background: linear-gradient(145deg, #215778 0%, #1B4965 100%);
-      color: #FFFFFF;
-      font-size: 14.5px;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      position: absolute; right: 16px; bottom: calc(14px + var(--safe-bottom)); z-index: 40;
+      height: 46px; padding: 0 18px; border-radius: 15px;
+      background: linear-gradient(145deg, #215778 0%, #1B4965 100%); color: #FFFFFF;
+      font-size: 14.5px; font-weight: 800; display: flex; align-items: center; gap: 6px;
       box-shadow: -2px -2px 6px rgba(255, 255, 255, 0.7), 4px 4px 12px rgba(27, 73, 101, 0.38);
     }
 
     /* ==========================================================================
-       [화면 4] 3초 컷 선택형 글쓰기
+       [화면 4] 전면 개편된 「우리 동네 소음 올리기」
+       - 1단계: 최우선 '소음 발생 위치' (지도 핀찍기 + 도로명/지번 주소 확정)
+       - 2단계: 공간 구분 (실외 도로 / 건물 실내)
+       - 건물 실내 선택 시 실제 층수(1층, 2층, 3층... N층) 연속 표시
        ========================================================================== */
     #screen-write { z-index: 110; background-color: var(--neu-bg); }
     .subscreen-topbar { height: calc(56px + var(--safe-top)); padding: var(--safe-top) 16px 0; background-color: var(--neu-bg); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
     .subscreen-topbar h2 { font-size: 17px; font-weight: 800; letter-spacing: -0.03em; }
-    .write-scroll-body { flex: 1; overflow-y: auto; padding: 16px 20px calc(110px + var(--safe-bottom)); display: flex; flex-direction: column; gap: 24px; }
-    .write-step-block h3 { font-size: 15.5px; font-weight: 800; color: var(--text-main); margin-bottom: 12px; }
+    .write-scroll-body { flex: 1; overflow-y: auto; padding: 14px 18px calc(110px + var(--safe-bottom)); display: flex; flex-direction: column; gap: 22px; }
+    .write-step-block h3 { font-size: 15.5px; font-weight: 800; color: var(--text-main); margin-bottom: 10px; }
+
+    /* 최우선 위치 확정 카드 */
+    .write-location-box {
+      background-color: var(--card-surface);
+      border: 1.5px solid var(--primary);
+      border-radius: 18px;
+      padding: 14px 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .wlb-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .wlb-addrs strong {
+      display: block;
+      font-size: 15px;
+      font-weight: 900;
+      color: var(--text-main);
+      line-height: 1.35;
+      word-break: keep-all;
+    }
+
+    .wlb-addrs span {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
     .space-toggle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .btn-space-card { padding: 16px 14px; border-radius: 18px; background-color: var(--neu-surface); box-shadow: var(--btn-convex); text-align: left; display: flex; flex-direction: column; gap: 4px; }
+    .btn-space-card { padding: 14px; border-radius: 16px; background-color: var(--neu-surface); box-shadow: var(--btn-convex); text-align: left; display: flex; flex-direction: column; gap: 4px; }
     .btn-space-card.active { background-color: var(--neu-bg); box-shadow: var(--btn-pressed); border: 1.5px solid var(--primary); }
-    .btn-space-card strong { font-size: 15px; font-weight: 800; color: var(--text-main); }
-    .btn-space-card span { font-size: 12.5px; font-weight: 600; color: var(--text-sub); }
-    .road-type-pills { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+    .btn-space-card strong { font-size: 14.5px; font-weight: 800; color: var(--text-main); }
+    .btn-space-card span { font-size: 12px; font-weight: 600; color: var(--text-sub); }
+
+    .road-type-pills { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
     .btn-road-pill { padding: 9px 14px; border-radius: 12px; background-color: var(--neu-surface); box-shadow: var(--btn-convex); font-size: 13px; font-weight: 700; color: var(--text-sub); }
     .btn-road-pill.active { background-color: var(--secondary); color: #FFFFFF; box-shadow: var(--btn-pressed); }
-    .floor-picker-wrap { margin-top: 14px; background-color: var(--card-surface); border: 1px solid #DCE3EC; border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 12px; }
-    .floor-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; }
-    .btn-floor-chip { height: 40px; border-radius: 12px; background-color: var(--neu-surface); box-shadow: var(--btn-convex); font-size: 13.5px; font-weight: 700; color: var(--text-main); }
+
+    .floor-picker-wrap { margin-top: 12px; background-color: var(--card-surface); border: 1px solid #DCE3EC; border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 12px; }
+    /* 연속 층수 버튼 그리드 (1층, 2층, 3층... 실제 최고층까지 빠짐없이 표시) */
+    .floor-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; max-height: 180px; overflow-y: auto; padding: 2px; }
+    .btn-floor-chip { height: 38px; border-radius: 11px; background-color: var(--neu-surface); box-shadow: var(--btn-convex); font-size: 13px; font-weight: 700; color: var(--text-main); }
     .btn-floor-chip.active { background-color: var(--primary); color: #FFFFFF; box-shadow: var(--btn-pressed); }
+
     .cat-select-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-    .btn-cat-item { height: 48px; padding: 0 14px; border-radius: 14px; background-color: var(--neu-surface); box-shadow: var(--btn-convex); font-size: 14px; font-weight: 700; color: var(--text-sub); text-align: left; display: flex; align-items: center; gap: 8px; }
+    .btn-cat-item { height: 46px; padding: 0 14px; border-radius: 14px; background-color: var(--neu-surface); box-shadow: var(--btn-convex); font-size: 14px; font-weight: 700; color: var(--text-sub); text-align: left; display: flex; align-items: center; gap: 8px; }
     .btn-cat-item.active { background-color: var(--neu-bg); box-shadow: var(--btn-pressed); color: var(--primary); font-weight: 800; border: 1.5px solid var(--primary); }
+
     .who-level-stack { display: flex; flex-direction: column; gap: 10px; }
-    .btn-who-level { padding: 14px 16px; border-radius: 16px; background-color: var(--neu-surface); box-shadow: var(--btn-convex); text-align: left; display: flex; align-items: center; justify-content: space-between; }
+    .btn-who-level { padding: 13px 15px; border-radius: 15px; background-color: var(--neu-surface); box-shadow: var(--btn-convex); text-align: left; display: flex; align-items: center; justify-content: space-between; font-size: 13.5px; }
     .btn-who-level.active[data-lv="1"] { background-color: var(--lv1-soft); box-shadow: var(--btn-pressed); }
     .btn-who-level.active[data-lv="2"] { background-color: var(--lv2-soft); box-shadow: var(--btn-pressed); }
     .btn-who-level.active[data-lv="3"] { background-color: var(--lv3-soft); box-shadow: var(--btn-pressed); }
-    .write-textarea { width: 100%; min-height: 96px; border: none; border-radius: 18px; background-color: var(--neu-bg); box-shadow: var(--input-concave); padding: 14px 16px; font-family: inherit; font-size: 15px; line-height: 1.5; color: var(--text-main); resize: none; outline: none; }
-    .urgent-112-banner { background-color: var(--lv3-soft); border-radius: 16px; padding: 14px 15px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-    .urgent-112-banner span { font-size: 13px; font-weight: 700; color: var(--lv3-red); line-height: 1.4; }
-    .btn-urgent-112-go { padding: 9px 13px; border-radius: 12px; background-color: var(--lv3-red); color: #FFFFFF; font-size: 12.5px; font-weight: 800; white-space: nowrap; }
+
+    .write-textarea { width: 100%; min-height: 92px; border: none; border-radius: 16px; background-color: var(--neu-bg); box-shadow: var(--input-concave); padding: 13px 15px; font-family: inherit; font-size: 14.5px; line-height: 1.5; color: var(--text-main); resize: none; outline: none; }
+    .urgent-112-banner { background-color: var(--lv3-soft); border-radius: 15px; padding: 13px 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .urgent-112-banner span { font-size: 12.5px; font-weight: 700; color: var(--lv3-red); line-height: 1.4; }
+    .btn-urgent-112-go { padding: 9px 12px; border-radius: 11px; background-color: var(--lv3-red); color: #FFFFFF; font-size: 12.5px; font-weight: 800; white-space: nowrap; }
 
     /* ==========================================================================
        [화면 5] 폰 1페이지 완결형 상세 리포트
        ========================================================================== */
     #screen-detail, #screen-building { z-index: 105; background-color: var(--neu-bg); }
-
-    .detail-page-shell {
-      flex: 1;
-      min-height: 0;
-      padding: 8px 16px calc(16px + var(--safe-bottom));
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 10px;
-      overflow: hidden;
-    }
-
-    .hg-hero-banner {
-      background-color: var(--primary);
-      color: #FFFFFF;
-      border-radius: 18px;
-      padding: 14px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      flex-shrink: 0;
-    }
-
-    .hg-hero-sub {
-      font-size: 11.5px;
-      font-weight: 700;
-      color: #A7F3D0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .hg-hero-title {
-      font-size: 18px;
-      font-weight: 900;
-      letter-spacing: -0.03em;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .hg-compare-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      background-color: var(--card-surface);
-      border: 1px solid #D5DCE6;
-      border-radius: 16px;
-      padding: 12px 14px;
-      flex-shrink: 0;
-    }
-
+    .detail-page-shell { flex: 1; min-height: 0; padding: 8px 16px calc(16px + var(--safe-bottom)); display: flex; flex-direction: column; justify-content: space-between; gap: 10px; overflow: hidden; }
+    .hg-hero-banner { background-color: var(--primary); color: #FFFFFF; border-radius: 18px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
+    .hg-hero-sub { font-size: 11.5px; font-weight: 700; color: #A7F3D0; display: flex; align-items: center; justify-content: space-between; }
+    .hg-hero-title { font-size: 18px; font-weight: 900; letter-spacing: -0.03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .hg-compare-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background-color: var(--card-surface); border: 1px solid #D5DCE6; border-radius: 16px; padding: 12px 14px; flex-shrink: 0; }
     .hg-comp-col { display: flex; flex-direction: column; gap: 2px; }
     .hg-comp-sub { font-size: 11.5px; font-weight: 700; color: var(--text-muted); }
     .hg-comp-big { font-size: 24px; font-weight: 900; letter-spacing: -0.04em; color: var(--primary); }
     .hg-comp-big.red { color: var(--lv3-red); }
-
-    .detail-subtabs {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      flex-shrink: 0;
-    }
-
-    .btn-subtab {
-      height: 38px;
-      border-radius: 12px;
-      background-color: var(--neu-surface);
-      box-shadow: var(--btn-convex);
-      font-size: 13px;
-      font-weight: 800;
-      color: var(--text-sub);
-    }
-
-    .btn-subtab.active {
-      background-color: var(--neu-bg);
-      box-shadow: var(--btn-pressed);
-      color: var(--primary);
-      border: 1.5px solid var(--primary);
-    }
-
-    .detail-tab-panel {
-      flex: 1;
-      min-height: 0;
-      background-color: var(--card-surface);
-      border: 1px solid #D5DCE6;
-      border-radius: 18px;
-      padding: 14px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 10px;
-      overflow-y: auto;
-    }
-
-    .era-analysis-box {
-      background-color: #F1F5F9;
-      border-radius: 12px;
-      padding: 11px 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-
+    .detail-subtabs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; flex-shrink: 0; }
+    .btn-subtab { height: 38px; border-radius: 12px; background-color: var(--neu-surface); box-shadow: var(--btn-convex); font-size: 13px; font-weight: 800; color: var(--text-sub); }
+    .btn-subtab.active { background-color: var(--neu-bg); box-shadow: var(--btn-pressed); color: var(--primary); border: 1.5px solid var(--primary); }
+    .detail-tab-panel { flex: 1; min-height: 0; background-color: var(--card-surface); border: 1px solid #D5DCE6; border-radius: 18px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between; gap: 10px; overflow-y: auto; }
+    .era-analysis-box { background-color: #F1F5F9; border-radius: 12px; padding: 11px 12px; display: flex; flex-direction: column; gap: 5px; }
     .era-badge-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
     .era-tag { font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 6px; background-color: var(--primary); color: #FFFFFF; }
     .era-desc { font-size: 12.5px; line-height: 1.48; color: var(--text-sub); word-break: keep-all; }
-
     .hg-history-table { width: 100%; border-collapse: collapse; font-size: 12px; }
     .hg-history-table th { text-align: left; padding: 6px 4px; color: var(--text-muted); font-weight: 700; border-bottom: 1px solid #CBD5E1; }
     .hg-history-table td { padding: 7px 4px; color: var(--text-main); font-weight: 700; border-bottom: 1px solid #E2E8F0; }
-
-    .testimony-card {
-      background-color: var(--card-warm);
-      border-radius: 14px;
-      padding: 11px 13px;
-      border: 1px solid #D5DCE6;
-      border-left: 4px solid var(--secondary);
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
+    .testimony-card { background-color: var(--card-warm); border-radius: 14px; padding: 11px 13px; border: 1px solid #D5DCE6; border-left: 4px solid var(--secondary); display: flex; flex-direction: column; gap: 4px; }
     .testimony-header { display: flex; align-items: center; justify-content: space-between; font-size: 12px; }
     .testimony-badge { font-weight: 800; color: var(--secondary); }
     .testimony-time { color: var(--text-muted); font-weight: 600; }
     .testimony-body { font-size: 13.5px; line-height: 1.45; color: var(--text-main); word-break: keep-all; }
+    .detail-bottom-cta-row { display: flex; gap: 10px; flex-shrink: 0; }
 
-    .detail-bottom-cta-row {
-      display: flex;
-      gap: 10px;
-      flex-shrink: 0;
-    }
-
+    /* 모달 & 토스트 */
     .sheet-backdrop { position: absolute; inset: 0; background-color: rgba(17, 24, 39, 0.45); z-index: 120; display: flex; align-items: flex-end; justify-content: center; }
     .native-modal-sheet { width: 100%; background-color: var(--neu-bg); border-radius: 26px 26px 0 0; padding: 14px 22px calc(26px + var(--safe-bottom)); display: flex; flex-direction: column; gap: 12px; max-height: 88%; overflow-y: auto; }
     .sheet-title-bar { display: flex; align-items: center; justify-content: space-between; }
     .sheet-title-bar h3 { font-size: 18.5px; font-weight: 800; letter-spacing: -0.03em; }
     .dong-option-list { display: flex; flex-direction: column; gap: 8px; }
     .btn-dong-item { width: 100%; padding: 14px 16px; border-radius: 16px; background-color: var(--neu-surface); box-shadow: var(--btn-convex); font-size: 15.5px; font-weight: 700; text-align: left; display: flex; align-items: center; justify-content: space-between; color: var(--text-main); }
-    .btn-dong-item.selected { background-color: var(--neu-bg); box-shadow: var(--btn-pressed); color: var(--primary); font-weight: 800; }
     .sms-native-box { background-color: var(--card-surface); border: 1px solid #CBD5E1; border-radius: 16px; padding: 16px; font-size: 14.5px; line-height: 1.6; color: var(--text-main); white-space: pre-line; }
     .app-toast { position: absolute; bottom: calc(84px + var(--safe-bottom)); left: 20px; right: 20px; background-color: rgba(17, 24, 39, 0.94); color: #FFFFFF; font-size: 14px; font-weight: 600; padding: 13px 18px; border-radius: 16px; text-align: center; z-index: 200; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18); }
   </style>
@@ -960,11 +749,11 @@
   <div class="app-shell">
 
     <!-- ========================================================================
-         [화면 1] 스플래시 (v1.2.1)
+         [화면 1] 스플래시 (v1.2.2)
          ======================================================================== -->
     <section class="screen" id="screen-splash" aria-label="53데시벨 시작 화면">
       <div class="splash-top-meta">
-        <span class="version-pill">v1.2.1</span>
+        <span class="version-pill">v1.2.2</span>
       </div>
 
       <div class="splash-center-group">
@@ -985,19 +774,18 @@
     </section>
 
     <!-- ========================================================================
-         [화면 2] 회원가입 & 로그인
+         [화면 2] 요기요 스타일 4단계 표준 온보딩
          ======================================================================== -->
     <section class="screen" id="screen-auth" hidden>
+      <!-- Step 1: 로그인 / 신규 가입 시작 -->
       <div id="auth-step-login" class="auth-view">
         <div class="auth-hero">
           <div class="hero-illust">
-            <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+            <svg width="60" height="60" viewBox="0 0 64 64" fill="none">
               <rect x="10" y="22" width="22" height="32" rx="4" fill="#1B4965"/>
               <rect x="28" y="12" width="26" height="42" rx="4" fill="#2B678B"/>
               <rect x="34" y="20" width="6" height="5" rx="1.5" fill="#F59E0B"/>
-              <rect x="43" y="20" width="6" height="5" rx="1.5" fill="#FFFFFF" fill-opacity="0.4"/>
               <rect x="34" y="29" width="6" height="5" rx="1.5" fill="#E11D48"/>
-              <rect x="43" y="29" width="6" height="5" rx="1.5" fill="#FFFFFF" fill-opacity="0.4"/>
               <rect x="15" y="30" width="5" height="5" rx="1.5" fill="#5EEAD4"/>
             </svg>
             <span class="hero-illust-badge">53데시벨</span>
@@ -1028,50 +816,142 @@
             <span>Google로 신규 회원가입</span>
           </button>
           <button type="button" class="btn-browse-first" id="btn-guest-enter">
-            <span>로그인 없이 내 주변 지도 먼저 보기</span>
+            <span>로그인 없이 지도에서 위치 설정 후 둘러보기</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg>
           </button>
         </div>
       </div>
 
-      <div id="auth-step-onboard" class="auth-view" hidden>
-        <div class="onboard-top">
-          <h2>어떤 닉네임으로<br>우리 동네에서 활동할까요?</h2>
-          <p id="onboard-provider-badge">가입 완료 시 내 현재 위치(GPS) 중심 지도로 이동합니다.</p>
+      <!-- Step 2: 앱 접근 권한 안내 (요기요 스크린샷 1~2 반영) -->
+      <div id="auth-step-perm" class="auth-view" hidden>
+        <div class="perm-header">
+          <h2>편리한 53데시벨 이용을 위해<br>앱 접근 권한이 필요해요</h2>
         </div>
 
-        <div class="onboard-form">
-          <div class="native-field">
-            <label for="input-nickname">활동 닉네임</label>
-            <div class="native-input-box">
-              <input type="text" id="input-nickname" value="조용한이웃01">
-              <button type="button" class="btn-chip-action" id="btn-random-nick">새로 추천</button>
+        <div class="perm-list">
+          <div class="perm-item">
+            <div class="perm-icon-circle">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="perm-text">
+              <strong>위치정보<em>(필수)</em></strong>
+              <span>현재 위치 확인 및 소음 발생 지점·동네 인증</span>
             </div>
           </div>
 
-          <div class="native-field">
-            <label>거주지 GPS 동네 인증</label>
-            <div class="native-gps-card">
-              <div class="native-gps-text">
-                <strong id="onboard-dong-name">내 현재 위치 확인 중...</strong>
-                <span id="onboard-gps-status">GPS 권한을 허용하면 거주지가 자동 인증됩니다</span>
-              </div>
-              <button type="button" class="btn-chip-action" id="btn-refresh-gps">현위치 감지</button>
+          <div class="perm-item">
+            <div class="perm-icon-circle">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            </div>
+            <div class="perm-text">
+              <strong>알림<em>(선택)</em></strong>
+              <span>내 동네 신규 소음 증언 및 공감 알림 안내</span>
             </div>
           </div>
 
-          <label class="native-agree-row">
-            <input type="checkbox" id="chk-terms" checked>
-            <span>위치기반 서비스 및 커뮤니티 이용약관 동의</span>
+          <div class="perm-item">
+            <div class="perm-icon-circle">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="perm-text">
+              <strong>저장공간<em>(선택)</em></strong>
+              <span>민원 리포트 및 테스트 데이터 JSON 백업</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="perm-notice">
+          <strong>[동의 및 철회 안내]</strong><br>
+          • 선택 권한은 서비스 사용 중 필요한 시점에 동의를 받고 있으며, 허용하지 않으셔도 기본 지도 및 커뮤니티 이용이 가능합니다.
+        </div>
+
+        <button type="button" class="btn-cta-primary" id="btn-perm-confirm">확인</button>
+      </div>
+
+      <!-- Step 3: 이용약관 동의 (요기요 스크린샷 3 반영) -->
+      <div id="auth-step-terms" class="auth-view" hidden>
+        <div class="terms-title-area">
+          <h2>이용약관 동의</h2>
+          <p>아래의 약관에 동의하신 후 53데시벨 서비스를 이용해 주세요</p>
+        </div>
+
+        <label class="terms-all-row">
+          <input type="checkbox" id="chk-terms-all">
+          <span>전체 동의</span>
+        </label>
+
+        <div class="terms-sub-list">
+          <label class="terms-sub-row">
+            <input type="checkbox" id="chk-terms-req" class="chk-term-item">
+            <div class="terms-sub-text">
+              <strong>위치기반서비스 이용약관 동의 (필수)</strong>
+              <span>주변 소음 지점 조회 및 행정동 인증에만 사용됩니다.</span>
+            </div>
+          </label>
+
+          <label class="terms-sub-row">
+            <input type="checkbox" id="chk-terms-opt" class="chk-term-item">
+            <div class="terms-sub-text">
+              <strong>우리 동네 소음 알림 수신 동의 (선택)</strong>
+              <span>이웃 공감 및 심야 소음 주의 안내를 전달합니다.</span>
+            </div>
           </label>
         </div>
 
-        <div style="margin-top:auto; display:flex; gap:8px;">
-          <button type="button" class="btn-chip-action" id="btn-back-login" style="height:54px; padding:0 16px;">이전</button>
-          <button type="button" class="btn-cta-primary" id="btn-complete-onboard" style="flex:1;">
-            가입 완료하고 내 동네 지도 열기
-          </button>
+        <div class="native-field" style="margin-top:8px;">
+          <label for="input-nickname">활동 닉네임 설정</label>
+          <div class="native-input-box">
+            <input type="text" id="input-nickname" value="조용한이웃01">
+            <button type="button" class="btn-chip-action" id="btn-random-nick">새로 추천</button>
+          </div>
         </div>
+
+        <div style="margin-top:auto;">
+          <button type="button" class="btn-cta-primary" id="btn-terms-start" disabled>시작하기</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         [공용 화면] 요기요 스타일 「지도에서 주소 찾기」 핀 드래그 화면
+         - 온보딩 위치 확정 & 소음 올리기 위치 지정에서 공용 호출
+         ======================================================================== -->
+    <section class="screen" id="screen-pin-picker" hidden>
+      <header class="picker-topbar">
+        <button type="button" class="btn-chip-action" id="btn-picker-back">← 이전</button>
+        <h2 id="picker-title">지도에서 주소 찾기</h2>
+        <span style="width:52px;"></span>
+      </header>
+
+      <div class="picker-search-strip">
+        <div class="native-input-box" style="flex:1; height:42px;">
+          <input type="text" id="input-picker-search" placeholder="건물명, 도로명 또는 지번으로 검색">
+        </div>
+        <button type="button" class="btn-chip-action" id="btn-picker-search" style="height:42px; background:var(--primary); color:#fff;">검색</button>
+      </div>
+
+      <div class="picker-map-area">
+        <div id="picker-kakao-map"></div>
+
+        <!-- 지도 정중앙 고정 핀 + 파란 안내 말풍선 -->
+        <div class="picker-center-pin-wrap">
+          <div class="picker-guide-bubble">지도를 움직여 위치를 설정하세요</div>
+          <div class="picker-pin-head"><div class="picker-pin-dot"></div></div>
+        </div>
+
+        <button type="button" class="btn-floating-gps" id="btn-picker-gps" title="현재 내 위치로 이동">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+            <circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2" fill="currentColor"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="picker-footer-panel">
+        <div>
+          <div class="picker-road-addr" id="picker-road-text">주소를 확인하는 중...</div>
+          <div class="picker-jibun-addr" id="picker-jibun-text">[지번] 지도를 움직여 정확한 위치를 맞춰주세요</div>
+        </div>
+        <button type="button" class="btn-cta-primary" id="btn-picker-confirm">선택한 위치로 설정</button>
       </div>
     </section>
 
@@ -1126,9 +1006,7 @@
 
         <button type="button" class="btn-floating-gps" id="btn-goto-gps" aria-label="내 위치 및 행정동 찾기">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
-            <circle cx="12" cy="12" r="6"/>
-            <circle cx="12" cy="12" r="2" fill="currentColor"/>
-            <path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>
+            <circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2" fill="currentColor"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>
           </svg>
         </button>
       </div>
@@ -1155,7 +1033,9 @@
     </section>
 
     <!-- ========================================================================
-         [화면 4] 3초 컷 선택형 글쓰기
+         [화면 4] 전면 개편된 「우리 동네 소음 올리기」
+         - 1단계: 최우선 '소음 발생 위치' (지도 핀찍기 + 도로명/지번 주소 확정)
+         - 2단계: 공간 구분 (실외 도로 / 건물 실내)
          ======================================================================== -->
     <section class="screen" id="screen-write" hidden>
       <header class="subscreen-topbar">
@@ -1165,60 +1045,72 @@
       </header>
 
       <div class="write-scroll-body">
+        <!-- 1단계: 최우선 위치 확정 -->
         <div class="write-step-block">
-          <h3>1. 어디서 들리는 소음인가요?</h3>
+          <h3>1. 소음 발생 위치 (지도 핀 · 주소 확인)</h3>
+          <div class="write-location-box">
+            <div class="wlb-top">
+              <div class="wlb-addrs">
+                <strong id="write-road-addr">위치를 설정해 주세요</strong>
+                <span id="write-jibun-addr">[지번] 지도를 움직여 정확한 지점을 찍어주세요</span>
+              </div>
+              <button type="button" class="btn-chip-action" id="btn-write-pick-map" style="background:var(--primary); color:#FFFFFF;">
+                📍 지도에서 핀찍기
+              </button>
+            </div>
+            <div class="native-input-box" style="height:44px;">
+              <input type="text" id="input-write-detail-loc" placeholder="세부 위치 메모 (예: 정문 앞 편의점 골목, 102동 라인)">
+            </div>
+          </div>
+        </div>
+
+        <!-- 2단계: 실외 / 건물 실내 구분 -->
+        <div class="write-step-block">
+          <h3>2. 실외인가요, 건물 실내인가요?</h3>
           <div class="space-toggle-grid">
             <button type="button" class="btn-space-card active" data-space="outdoor">
               <strong>🏙️ 실외 도로·동네</strong>
               <span>이면도로·골목·상가·공사</span>
             </button>
             <button type="button" class="btn-space-card" data-space="indoor">
-              <strong>🏢 우리 건물 실내</strong>
+              <strong>🏢 건물 실내</strong>
               <span>층간·벽간·배관 (호수 비공개)</span>
             </button>
           </div>
 
+          <!-- 실외 도로 선택 시 -->
           <div id="write-outdoor-opts">
             <div class="road-type-pills">
               <button type="button" class="btn-road-pill active" data-roadtype="이면도로·골목">동네 이면도로·골목</button>
               <button type="button" class="btn-road-pill" data-roadtype="큰 도로·대로변">큰 도로·대로변</button>
               <button type="button" class="btn-road-pill" data-roadtype="상가·주변">상가·공원 주변</button>
             </div>
-            <div class="native-input-box" style="margin-top:12px; height:48px;">
-              <input type="text" id="input-write-anchor" placeholder="도로명 또는 인접 건물 기준점">
-            </div>
           </div>
 
+          <!-- 건물 실내 선택 시: 건축물대장 실제 층수(1층, 2층, 3층... N층) 연속 표시 -->
           <div id="write-indoor-opts" class="floor-picker-wrap" hidden>
             <div style="display:flex; gap:6px;">
               <div class="native-input-box" style="flex:1; height:44px;">
-                <input type="text" id="input-bldg-query" placeholder="아파트·빌라명 입력 후 조회">
+                <input type="text" id="input-bldg-query" placeholder="아파트·빌라·건물명 입력 후 조회">
               </div>
               <button type="button" class="btn-chip-action" id="btn-lookup-bldg" style="height:44px; background:var(--primary); color:#fff;">건물 조회</button>
             </div>
-            <div id="write-bldg-info" style="font-size:13px; font-weight:800; color:var(--primary);">
-              건물명을 입력하고 [건물 조회]를 누르면 건축물대장 연식·층수를 불러옵니다.
+            <div id="write-bldg-info" style="font-size:12.5px; font-weight:800; color:var(--primary);">
+              건물명을 조회하면 건축물대장의 실제 지상 층수를 불러옵니다.
             </div>
-            <div class="floor-grid" id="write-floor-grid">
-              <button type="button" class="btn-floor-chip" data-floor="2">2층</button>
-              <button type="button" class="btn-floor-chip" data-floor="4">4층</button>
-              <button type="button" class="btn-floor-chip active" data-floor="6">6층</button>
-              <button type="button" class="btn-floor-chip" data-floor="8">8층</button>
-              <button type="button" class="btn-floor-chip" data-floor="10">10층</button>
-              <button type="button" class="btn-floor-chip" data-floor="12">12층</button>
-              <button type="button" class="btn-floor-chip" data-floor="15">15층</button>
-              <button type="button" class="btn-floor-chip" data-floor="18">18층</button>
-            </div>
+            <div class="floor-grid" id="write-floor-grid"></div>
           </div>
         </div>
 
+        <!-- 3단계: 소음 유형 -->
         <div class="write-step-block">
-          <h3>2. 어떤 소음인가요?</h3>
+          <h3>3. 어떤 소음인가요?</h3>
           <div class="cat-select-grid" id="write-cat-grid"></div>
         </div>
 
+        <!-- 4단계: 체감 강도 -->
         <div class="write-step-block">
-          <h3>3. 얼마나 심한가요? (WHO 체감 강도)</h3>
+          <h3>4. 얼마나 심한가요? (WHO 체감 강도)</h3>
           <div class="who-level-stack">
             <button type="button" class="btn-who-level" data-lv="1">
               <span><strong>🟡 거슬림 (53~60dB급)</strong> · 집중·휴식 방해</span>
@@ -1232,8 +1124,9 @@
           </div>
         </div>
 
+        <!-- 5단계: 한마디 -->
         <div class="write-step-block">
-          <h3>4. 이웃과 나눌 한마디</h3>
+          <h3>5. 이웃과 나눌 한마디</h3>
           <textarea class="write-textarea" id="input-write-content" placeholder="예) 밤 11시 40분부터 골목에서 고함과 욕설이 15분째 이어지고 있습니다."></textarea>
 
           <div class="urgent-112-banner" style="margin-top:14px;">
@@ -1244,7 +1137,7 @@
       </div>
 
       <div style="padding:12px 20px calc(20px + var(--safe-bottom)); background:var(--neu-bg);">
-        <button type="button" class="btn-cta-primary" id="btn-submit-post">현재 지도 위치에 소음 올리기</button>
+        <button type="button" class="btn-cta-primary" id="btn-submit-post">설정한 위치에 소음 올리기</button>
       </div>
     </section>
 
@@ -1295,7 +1188,7 @@
       </div>
     </div>
 
-    <!-- 테스트 계정 및 샌드박스 데이터 관리·내보내기·복원 모달 (v1.2.1 추가) -->
+    <!-- 테스트 계정 및 샌드박스 데이터 관리 모달 -->
     <div class="sheet-backdrop" id="modal-test-mgr" hidden>
       <div class="native-modal-sheet">
         <div class="grabber-bar" style="margin-bottom:4px;"></div>
@@ -1313,7 +1206,6 @@
           + 로그아웃 및 새 테스트 계정 회원가입
         </button>
 
-        <!-- 제미나이 전달용 JSON 내보내기(복사) & 복원 -->
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
           <button type="button" class="btn-chip-action" id="btn-export-json" style="height:46px; background:var(--secondary); color:#FFFFFF;">
             📋 데이터 복사 (전달용)
@@ -1377,10 +1269,10 @@
 
   <script>
     const STORAGE_KEYS = {
-      TEST_ACCOUNTS: '53db_sandbox_accounts_v120',
-      TEST_POSTS:    '53db_sandbox_posts_v120',
-      TEST_BLDGS:    '53db_sandbox_bldgs_v120',
-      SESSION_USER:  '53db_sandbox_session_v120'
+      TEST_ACCOUNTS: '53db_sandbox_accounts_v122',
+      TEST_POSTS:    '53db_sandbox_posts_v122',
+      TEST_BLDGS:    '53db_sandbox_bldgs_v122',
+      SESSION_USER:  '53db_sandbox_session_v122'
     };
 
     const CONFIG = {
@@ -1478,14 +1370,20 @@
       };
     }
 
-    async function fetchBuildingLedgerFromAPI(placeName, lat, lng, sigunguCd = '28200', bjdongCd = '10300') {
+    /* ==========================================================================
+       국토교통부 건축물대장 API + 지번 본번/부번(bun/ji) 정밀 매칭 조회
+       - 자연노인전문요양원 같은 일반 상가·의료건물이 18층으로 잘못 나오는 문제 해결
+       ========================================================================== */
+    async function fetchBuildingLedgerFromAPI(placeName, lat, lng, sigunguCd = '28200', bjdongCd = '10300', bun = '', ji = '') {
       const baseUrl = 'https://apis.data.go.kr/1613000/BldRgstHubService';
       const params = new URLSearchParams({
         serviceKey: CONFIG.BLDG_API_KEY,
         sigunguCd,
         bjdongCd,
         platGbCd: '0',
-        numOfRows: '10',
+        bun: bun ? String(bun).padStart(4, '0') : '',
+        ji: ji ? String(ji).padStart(4, '0') : '',
+        numOfRows: '15',
         pageNo: '1',
         _type: 'json'
       });
@@ -1498,11 +1396,11 @@
         const list = Array.isArray(items) ? items : (items ? [items] : []);
         const matched = list.find(it => it.bldNm && placeName && it.bldNm.includes(placeName.split(' ')[0])) || list[0];
 
-        if (matched) {
-          const groundFloors = Number(matched.grndFlrCnt) || 5;
-          const builtYear = matched.useAprDay ? Number(String(matched.useAprDay).slice(0, 4)) : 2005;
-          const mainStructure = matched.strctCdNm || '철근콘크리트 벽식구조';
-          const households = Number(matched.hhldCnt) || (groundFloors * 4);
+        if (matched && Number(matched.grndFlrCnt) > 0) {
+          const groundFloors = Number(matched.grndFlrCnt);
+          const builtYear = matched.useAprDay ? Number(String(matched.useAprDay).slice(0, 4)) : 2008;
+          const mainStructure = matched.strctCdNm || '철근콘크리트구조';
+          const households = Number(matched.hhldCnt) || (groundFloors * 3);
           const etcPurps = String(matched.etcPurps || '');
           const hasPiloti = etcPurps.includes('주차') || etcPurps.includes('필로티') || groundFloors <= 6;
 
@@ -1516,23 +1414,27 @@
             hasPiloti,
             mainStructure,
             builtYear,
-            source: '국토교통부 건축물대장 실시간 조회'
+            source: '국토교통부 건축물대장 실측 데이터'
           };
         }
       } catch (e) {}
 
-      const isApt = placeName.includes('아파트') || placeName.includes('주공') || placeName.includes('에코') || placeName.includes('래미안') || placeName.includes('힐스테이트');
+      /* API 미매칭 시 건물 용도 키워드에 따른 합리적 기본 층수 (요양원/상가/빌라 = 5~7층, 아파트 = 15층) */
+      const isHighApt = placeName.includes('아파트') || placeName.includes('주공') || placeName.includes('에코') || placeName.includes('래미안') || placeName.includes('힐스테이트') || placeName.includes('아이파크');
+      const isMidBldg = placeName.includes('요양원') || placeName.includes('병원') || placeName.includes('프라자') || placeName.includes('타워') || placeName.includes('오피스텔');
+      const estimatedFloors = isHighApt ? 15 : (isMidBldg ? 7 : 5);
+
       return {
         id: 'bldg-' + Date.now(),
         name: placeName,
         lat: Number(lat),
         lng: Number(lng),
-        groundFloors: isApt ? 15 : 5,
-        households: isApt ? 200 : 12,
-        hasPiloti: !isApt,
-        mainStructure: '철근콘크리트 벽식구조',
-        builtYear: isApt ? 2004 : 2015,
-        source: '건축물대장·규제시대 결합 프로파일'
+        groundFloors: estimatedFloors,
+        households: isHighApt ? 180 : estimatedFloors * 3,
+        hasPiloti: !isHighApt,
+        mainStructure: '철근콘크리트 구조',
+        builtYear: isHighApt ? 2005 : 2014,
+        source: '건축물 용도·규제시대 프로파일'
       };
     }
 
@@ -1555,26 +1457,37 @@
       centerLng: 126.7282,
       viewportRegionLabel: '만수5동',
       viewportFullAddress: '인천 남동구 만수5동',
+
+      /* 현재 확정된 소음 발생 위치(핀 좌표 + 도로명 + 지번 + 건물명) */
+      draftLocation: {
+        lat: 37.4556,
+        lng: 126.7282,
+        roadAddr: '',
+        jibunAddr: '',
+        bldgName: '',
+        bun: '',
+        ji: ''
+      },
+      pickerMode: 'onboard', // 'onboard' | 'write'
+      pickerMap: null,
+
       selectedPostId: null,
       detailTab: 'analysis',
       showCCTV: false,
       map: null,
       overlays: [],
       selectedBuildingId: null,
-      writeDraft: { space: 'outdoor', roadType: '이면도로·골목', floor: 6, category: '바이크·차량 굉음', shortTag: '바이크·굉음', group: 'bike', whoLevel: 2 }
+      writeDraft: { space: 'outdoor', roadType: '이면도로·골목', floor: 1, category: '바이크·차량 굉음', shortTag: '바이크·굉음', group: 'bike', whoLevel: 2 }
     };
 
     function loadSandboxData() {
       try {
         const accs = JSON.parse(localStorage.getItem(STORAGE_KEYS.TEST_ACCOUNTS));
         if (Array.isArray(accs)) state.accounts = accs;
-
         const bldgs = JSON.parse(localStorage.getItem(STORAGE_KEYS.TEST_BLDGS));
         if (Array.isArray(bldgs)) state.buildings = bldgs;
-
         const posts = JSON.parse(localStorage.getItem(STORAGE_KEYS.TEST_POSTS));
         if (Array.isArray(posts)) state.posts = posts;
-
         const sess = JSON.parse(localStorage.getItem(STORAGE_KEYS.SESSION_USER));
         if (sess && sess.nickname) state.user = { ...state.user, ...sess };
       } catch (e) {}
@@ -1604,14 +1517,14 @@
       return m < 60 ? `${m}분 전` : `${Math.floor(m / 60)}시간 전`;
     }
 
+    /* ==========================================================================
+       요기요 스타일 4단계 온보딩 흐름 제어
+       ========================================================================== */
     function renderSavedAccountsUI() {
       const box = document.getElementById('saved-accounts-box');
       const chips = document.getElementById('saved-account-chips');
       const cnt = document.getElementById('saved-account-count');
-      if (!state.accounts.length) {
-        box.hidden = true;
-        return;
-      }
+      if (!state.accounts.length) { box.hidden = true; return; }
       box.hidden = false;
       cnt.textContent = `${state.accounts.length}명 등록됨`;
       chips.innerHTML = state.accounts.map((acc, idx) => `
@@ -1625,32 +1538,33 @@
           const acc = state.accounts[Number(btn.dataset.accIdx)];
           if (!acc) return;
           state.user = { ...acc, loggedIn: true };
-          if (acc.lat && acc.lng) {
-            state.centerLat = acc.lat;
-            state.centerLng = acc.lng;
-          }
+          if (acc.lat && acc.lng) { state.centerLat = acc.lat; state.centerLng = acc.lng; }
           saveSandboxData();
           showToast(`[${acc.nickname}] 계정으로 로그인되었습니다.`);
           goScreen('screen-home');
-          locateUserGPS(false);
         };
       });
     }
 
     let splashFinished = false;
     function goScreen(id) {
-      ['screen-splash', 'screen-auth', 'screen-home', 'screen-write', 'screen-detail', 'screen-building'].forEach(s => {
+      ['screen-splash', 'screen-auth', 'screen-pin-picker', 'screen-home', 'screen-write', 'screen-detail', 'screen-building'].forEach(s => {
         document.getElementById(s).hidden = (s !== id);
       });
       if (id === 'screen-auth') {
-        document.getElementById('auth-step-login').hidden = false;
-        document.getElementById('auth-step-onboard').hidden = true;
+        showAuthStep('auth-step-login');
         renderSavedAccountsUI();
       }
       if (id === 'screen-home') {
         renderHome();
         requestAnimationFrame(() => initMap());
       }
+    }
+
+    function showAuthStep(stepId) {
+      ['auth-step-login', 'auth-step-perm', 'auth-step-terms'].forEach(st => {
+        document.getElementById(st).hidden = (st !== stepId);
+      });
     }
 
     function exitSplash() {
@@ -1662,83 +1576,212 @@
     document.getElementById('screen-splash').addEventListener('pointerdown', exitSplash);
     setTimeout(exitSplash, 2400);
 
+    /* Step 1: 소셜 버튼 클릭 → Step 2: 접근 권한 안내 화면으로 이동 */
     document.querySelectorAll('.btn-native-social').forEach(btn => {
       btn.addEventListener('click', () => {
         state.user.provider = btn.dataset.provider;
         const nextNum = String(state.accounts.length + 1).padStart(2, '0');
         document.getElementById('input-nickname').value = `우리동네주민${nextNum}`;
-        document.getElementById('auth-step-login').hidden = true;
-        document.getElementById('auth-step-onboard').hidden = false;
-        detectOnboardGPS();
+        showAuthStep('auth-step-perm');
       });
-    });
-
-    document.getElementById('btn-back-login').addEventListener('click', () => {
-      document.getElementById('auth-step-onboard').hidden = true;
-      document.getElementById('auth-step-login').hidden = false;
     });
 
     document.getElementById('btn-guest-enter').addEventListener('click', () => {
       state.user.loggedIn = false;
-      goScreen('screen-home');
-      locateUserGPS(true);
+      openPinPicker('onboard');
     });
+
+    /* Step 2: 접근 권한 [확인] 클릭 → 브라우저 위치 권한 요청 후 Step 3: 이용약관 동의 화면으로 이동 */
+    document.getElementById('btn-perm-confirm').addEventListener('click', () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(pos => {
+          state.centerLat = pos.coords.latitude;
+          state.centerLng = pos.coords.longitude;
+        }, () => {});
+      }
+      showAuthStep('auth-step-terms');
+    });
+
+    /* Step 3: 이용약관 전체동의 / 필수동의 체크 로직 */
+    const chkAll = document.getElementById('chk-terms-all');
+    const chkReq = document.getElementById('chk-terms-req');
+    const chkOpt = document.getElementById('chk-terms-opt');
+    const btnTermsStart = document.getElementById('btn-terms-start');
+
+    function updateTermsButtonState() {
+      btnTermsStart.disabled = !chkReq.checked;
+      chkAll.checked = (chkReq.checked && chkOpt.checked);
+    }
+
+    chkAll.addEventListener('change', () => {
+      chkReq.checked = chkAll.checked;
+      chkOpt.checked = chkAll.checked;
+      updateTermsButtonState();
+    });
+    chkReq.addEventListener('change', updateTermsButtonState);
+    chkOpt.addEventListener('change', updateTermsButtonState);
 
     const NICKS = ['조용한이웃', '수면권지킴이', '밤잠소중해', '53데시벨시민', '평화로운동네'];
     document.getElementById('btn-random-nick').addEventListener('click', () => {
       document.getElementById('input-nickname').value = NICKS[Math.floor(Math.random() * NICKS.length)] + Math.floor(10 + Math.random() * 89);
     });
 
-    function detectOnboardGPS() {
-      if (!navigator.geolocation) return;
-      navigator.geolocation.getCurrentPosition(pos => {
-        state.centerLat = pos.coords.latitude;
-        state.centerLng = pos.coords.longitude;
-        if (typeof kakao !== 'undefined' && kakao.maps && kakao.maps.services) {
-          kakao.maps.load(() => {
-            const geocoder = new kakao.maps.services.Geocoder();
-            geocoder.coord2RegionCode(state.centerLng, state.centerLat, (res, status) => {
-              if (status === kakao.maps.services.Status.OK && res[0]) {
-                const admin = res.find(r => r.region_type === 'H') || res[0];
-                state.viewportRegionLabel = admin.region_3depth_name;
-                state.viewportFullAddress = `${admin.region_1depth_name} ${admin.region_2depth_name} ${admin.region_3depth_name}`;
-                document.getElementById('onboard-dong-name').textContent = state.viewportFullAddress;
-                document.getElementById('onboard-gps-status').textContent = '실제 거주지 GPS 인증 완료 ✓';
-              }
-            });
-          });
+    /* Step 3 [시작하기] 클릭 → Step 4: 요기요 스타일 '지도에서 주소 찾기' 핀 설정 화면으로 이동 */
+    btnTermsStart.addEventListener('click', () => {
+      if (!chkReq.checked) return;
+      openPinPicker('onboard');
+    });
+
+    /* ==========================================================================
+       [공용 풀스크린 지도 핀 피커] (요기요 '지도에서 주소 찾기' 구현)
+       - 지도를 움직일 때마다 중앙 핀 아래의 도로명 주소 + [지번] 주소 실시간 갱신
+       ========================================================================== */
+    function updatePickerAddressAtCenter(lat, lng) {
+      state.draftLocation.lat = lat;
+      state.draftLocation.lng = lng;
+      if (typeof kakao === 'undefined' || !kakao.maps.services) return;
+
+      const geocoder = new kakao.maps.services.Geocoder();
+      geocoder.coord2Address(lng, lat, (res, status) => {
+        if (status === kakao.maps.services.Status.OK && res[0]) {
+          const rAddr = res[0].road_address;
+          const jAddr = res[0].address;
+
+          const bldgName = (rAddr && rAddr.building_name) ? rAddr.building_name : '';
+          const roadText = rAddr
+            ? `${rAddr.address_name}${bldgName ? ' ' + bldgName : ''}`
+            : jAddr.address_name;
+          const jibunText = `[지번] ${jAddr.region_3depth_name} ${jAddr.main_address_no}${jAddr.sub_address_no ? '-' + jAddr.sub_address_no : ''}${bldgName ? ' ' + bldgName : ''}`;
+
+          state.draftLocation.roadAddr = roadText;
+          state.draftLocation.jibunAddr = jibunText;
+          state.draftLocation.bldgName = bldgName;
+          state.draftLocation.bun = jAddr.main_address_no || '';
+          state.draftLocation.ji = jAddr.sub_address_no || '';
+
+          document.getElementById('picker-road-text').textContent = roadText;
+          document.getElementById('picker-jibun-text').textContent = jibunText;
         }
-      }, () => {
-        document.getElementById('onboard-dong-name').textContent = '인천 남동구 만수5동 (기본)';
-        document.getElementById('onboard-gps-status').textContent = '위치 권한 미허용 시 기본 위치로 시작합니다';
       });
     }
 
-    document.getElementById('btn-refresh-gps').addEventListener('click', () => {
-      showToast('현재 GPS 위치를 다시 확인하고 있어요...');
-      detectOnboardGPS();
-    });
+    function openPinPicker(mode) {
+      state.pickerMode = mode;
+      document.getElementById('picker-title').textContent = mode === 'onboard'
+        ? '거주지 주소 설정'
+        : '소음 발생 위치 지정';
+      goScreen('screen-pin-picker');
 
-    document.getElementById('btn-complete-onboard').addEventListener('click', () => {
-      if (!document.getElementById('chk-terms').checked) { showToast('필수 약관에 동의해 주세요.'); return; }
-      const nick = document.getElementById('input-nickname').value.trim() || `테스터${state.accounts.length + 1}`;
-      const newAcc = {
-        nickname: nick,
-        provider: state.user.provider || '카카오',
-        homeDong: state.viewportRegionLabel,
-        lat: state.centerLat,
-        lng: state.centerLng,
-        loggedIn: true,
-        phoneVerifiedFor112: false
-      };
-      state.accounts.unshift(newAcc);
-      state.user = { ...newAcc };
-      saveSandboxData();
-      showToast(`[${nick}] 가입 완료! 내 거주지 지도로 이동합니다.`);
-      goScreen('screen-home');
-      locateUserGPS(false);
-    });
+      requestAnimationFrame(() => {
+        if (typeof kakao === 'undefined' || !kakao.maps) return;
+        kakao.maps.load(() => {
+          const container = document.getElementById('picker-kakao-map');
+          const startLat = mode === 'write' ? state.draftLocation.lat : state.centerLat;
+          const startLng = mode === 'write' ? state.draftLocation.lng : state.centerLng;
 
+          if (!state.pickerMap) {
+            state.pickerMap = new kakao.maps.Map(container, {
+              center: new kakao.maps.LatLng(startLat, startLng),
+              level: 3
+            });
+
+            kakao.maps.event.addListener(state.pickerMap, 'idle', () => {
+              const c = state.pickerMap.getCenter();
+              updatePickerAddressAtCenter(c.getLat(), c.getLng());
+            });
+          } else {
+            state.pickerMap.relayout();
+            state.pickerMap.setLevel(3);
+            state.pickerMap.setCenter(new kakao.maps.LatLng(startLat, startLng));
+          }
+          updatePickerAddressAtCenter(startLat, startLng);
+        });
+      });
+    }
+
+    document.getElementById('btn-picker-back').onclick = () => {
+      goScreen(state.pickerMode === 'onboard' ? 'screen-auth' : 'screen-write');
+    };
+
+    document.getElementById('btn-picker-gps').onclick = () => {
+      if (!navigator.geolocation) { showToast('위치 권한을 허용해 주세요.'); return; }
+      showToast('현재 GPS 위치로 핀을 이동합니다...');
+      navigator.geolocation.getCurrentPosition(pos => {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+        if (state.pickerMap) {
+          state.pickerMap.setLevel(3);
+          state.pickerMap.setCenter(new kakao.maps.LatLng(lat, lng));
+        }
+        updatePickerAddressAtCenter(lat, lng);
+      });
+    };
+
+    document.getElementById('btn-picker-search').onclick = () => {
+      const q = document.getElementById('input-picker-search').value.trim();
+      if (!q || typeof kakao === 'undefined') return;
+      const ps = new kakao.maps.services.Places();
+      ps.keywordSearch(q, (data, status) => {
+        if (status === kakao.maps.services.Status.OK && data[0]) {
+          const place = data[0];
+          const lat = Number(place.y);
+          const lng = Number(place.x);
+          if (state.pickerMap) {
+            state.pickerMap.setLevel(3);
+            state.pickerMap.setCenter(new kakao.maps.LatLng(lat, lng));
+          }
+          updatePickerAddressAtCenter(lat, lng);
+        } else {
+          showToast('검색 결과를 찾지 못했어요.');
+        }
+      });
+    };
+
+    /* [선택한 위치로 설정] 확정 버튼 */
+    document.getElementById('btn-picker-confirm').onclick = async () => {
+      const loc = state.draftLocation;
+
+      if (state.pickerMode === 'onboard') {
+        state.centerLat = loc.lat;
+        state.centerLng = loc.lng;
+        const dongMatch = loc.jibunAddr.match(/\[지번\]\s*([^\s]+)/);
+        const homeDong = dongMatch ? dongMatch[1] : '내 동네';
+        state.viewportRegionLabel = homeDong;
+
+        if (state.user.provider) {
+          const nick = document.getElementById('input-nickname').value.trim() || `우리동네주민${state.accounts.length + 1}`;
+          const newAcc = {
+            nickname: nick,
+            provider: state.user.provider,
+            homeDong,
+            lat: loc.lat,
+            lng: loc.lng,
+            loggedIn: true,
+            phoneVerifiedFor112: false
+          };
+          state.accounts.unshift(newAcc);
+          state.user = { ...newAcc };
+          saveSandboxData();
+          showToast(`[${nick}] 회원가입 완료! (${homeDong})`);
+        }
+        goScreen('screen-home');
+      } else {
+        /* 소음 올리기 화면으로 확정된 위치 전달 */
+        document.getElementById('write-road-addr').textContent = loc.roadAddr;
+        document.getElementById('write-jibun-addr').textContent = loc.jibunAddr;
+        if (loc.bldgName) {
+          document.getElementById('input-bldg-query').value = loc.bldgName;
+          if (state.writeDraft.space === 'indoor') {
+            await autoLookupBuildingForWrite(loc.bldgName, loc.lat, loc.lng, loc.bun, loc.ji);
+          }
+        }
+        goScreen('screen-write');
+      }
+    };
+
+    /* ==========================================================================
+       메인 지도 & 행정구역 동기화
+       ========================================================================== */
     function locateUserGPS(silent = false) {
       if (!navigator.geolocation) {
         if (!silent) showToast('위치 권한이 차단되어 있어 기본 위치로 표시합니다.');
@@ -1809,8 +1852,7 @@
         setTimeout(() => {
           state.map.relayout();
           state.map.setCenter(new kakao.maps.LatLng(state.centerLat, state.centerLng));
-          locateUserGPS(true);
-          renderHome();
+          syncRegionByMapViewport();
         }, 120);
       });
     }
@@ -1959,7 +2001,7 @@
             <div class="spot-card" style="justify-content:center; align-items:center; text-align:center; gap:8px; cursor:default;">
               <strong style="font-size:15.5px; color:var(--primary);">아직 등록된 소음 지점이 없어요</strong>
               <p style="font-size:13.5px; color:var(--text-muted); line-height:1.5;">
-                지도를 원하는 위치로 맞춘 뒤 우측 하단<br><strong>[+ 소음 올리기]</strong>를 눌러 첫 제보를 등록해 보세요!
+                우측 하단 <strong>[+ 소음 올리기]</strong>를 눌러<br>지도 핀으로 위치를 찍고 첫 제보를 등록해 보세요!
               </p>
             </div>
           </div>
@@ -2085,40 +2127,14 @@
       });
     };
 
-    async function searchAndProfileBuilding(keyword) {
-      if (!keyword || typeof kakao === 'undefined') return null;
-      showToast(`'${keyword}' 건축물대장·규제시대 방음 분석 중...`);
-      return new Promise(resolve => {
-        const ps = new kakao.maps.services.Places();
-        ps.keywordSearch(`${state.viewportRegionLabel} ${keyword}`, async (data, status) => {
-          if (status === kakao.maps.services.Status.OK && data[0]) {
-            const place = data[0];
-            const bldg = await fetchBuildingLedgerFromAPI(place.place_name, place.y, place.x);
-            const existing = state.buildings.find(b => b.name === bldg.name);
-            if (!existing) {
-              state.buildings.push(bldg);
-              saveSandboxData();
-              resolve(bldg);
-            } else {
-              resolve(existing);
-            }
-          } else {
-            showToast('일치하는 건물을 찾지 못했어요.');
-            resolve(null);
-          }
-        });
-      });
-    }
-
-    function updateWriteFloorButtons(bldg) {
-      const prof = profileBuildingStructure(bldg);
-      state.selectedBuildingId = bldg.id;
-      document.getElementById('write-bldg-info').textContent =
-        `${prof.name} · ${prof.builtYear}년 준공 · 방음취약 ${prof.vulnerability}점 (${prof.slabSpec})`;
-
-      const maxF = Math.min(25, Math.max(4, prof.groundFloors));
+    /* ==========================================================================
+       [소음 올리기] 실제 건물 층수 조회 및 연속 층수(1층, 2층, 3층... N층) 버튼 생성
+       ========================================================================== */
+    function renderContinuousFloorButtons(maxFloors) {
+      const total = Math.max(1, Math.min(40, Number(maxFloors) || 5));
+      if (state.writeDraft.floor > total) state.writeDraft.floor = 1;
       let btns = '';
-      for (let f = 2; f <= maxF; f += Math.max(1, Math.floor(maxF / 8))) {
+      for (let f = 1; f <= total; f++) {
         btns += `<button type="button" class="btn-floor-chip ${f === state.writeDraft.floor ? 'active' : ''}" data-floor="${f}">${f}층</button>`;
       }
       const grid = document.getElementById('write-floor-grid');
@@ -2131,13 +2147,31 @@
       });
     }
 
+    async function autoLookupBuildingForWrite(keyword, lat, lng, bun = '', ji = '') {
+      if (!keyword) {
+        renderContinuousFloorButtons(5);
+        return null;
+      }
+      const bldg = await fetchBuildingLedgerFromAPI(keyword, lat, lng, '28200', '10300', bun, ji);
+      const existing = state.buildings.find(b => b.name === bldg.name);
+      const target = existing || bldg;
+      if (!existing) {
+        state.buildings.push(target);
+        saveSandboxData();
+      }
+      state.selectedBuildingId = target.id;
+      const prof = profileBuildingStructure(target);
+      document.getElementById('write-bldg-info').textContent =
+        `${prof.name} · 지상 ${prof.groundFloors}층 (${prof.builtYear}년 준공 · 방음취약 ${prof.vulnerability}점)`;
+      renderContinuousFloorButtons(prof.groundFloors);
+      return target;
+    }
+
     document.getElementById('btn-lookup-bldg').onclick = async () => {
       const q = document.getElementById('input-bldg-query').value.trim();
-      const bldg = await searchAndProfileBuilding(q);
-      if (bldg) {
-        updateWriteFloorButtons(bldg);
-        showToast(`${bldg.name} 규제시대 방음 분석을 불러왔어요.`);
-      }
+      if (!q) { showToast('건물명을 입력해 주세요.'); return; }
+      showToast(`'${q}' 실제 건축물대장 층수를 조회합니다...`);
+      await autoLookupBuildingForWrite(q, state.draftLocation.lat, state.draftLocation.lng, state.draftLocation.bun, state.draftLocation.ji);
     };
 
     function renderWriteCategories() {
@@ -2170,31 +2204,58 @@
         ? `✓ ${state.user.nickname}`
         : '✓ 게스트 모드';
 
-      if (state.map && typeof kakao !== 'undefined' && kakao.maps.services) {
-        const c = state.map.getCenter();
+      const c = state.map ? state.map.getCenter() : { getLat: () => state.centerLat, getLng: () => state.centerLng };
+      state.draftLocation.lat = c.getLat();
+      state.draftLocation.lng = c.getLng();
+
+      if (typeof kakao !== 'undefined' && kakao.maps.services) {
         const geocoder = new kakao.maps.services.Geocoder();
-        geocoder.coord2Address(c.getLng(), c.getLat(), (res, status) => {
+        geocoder.coord2Address(state.draftLocation.lng, state.draftLocation.lat, async (res, status) => {
           if (status === kakao.maps.services.Status.OK && res[0]) {
-            const road = res[0].road_address ? res[0].road_address.address_name : res[0].address.address_name;
-            const bldgName = res[0].road_address && res[0].road_address.building_name ? ` ${res[0].road_address.building_name}` : '';
-            document.getElementById('input-write-anchor').value = `${road}${bldgName}`;
-            if (bldgName.trim()) {
-              document.getElementById('input-bldg-query').value = bldgName.trim();
-            }
+            const rAddr = res[0].road_address;
+            const jAddr = res[0].address;
+            const bldgName = (rAddr && rAddr.building_name) ? rAddr.building_name : '';
+            const roadText = rAddr ? `${rAddr.address_name}${bldgName ? ' ' + bldgName : ''}` : jAddr.address_name;
+            const jibunText = `[지번] ${jAddr.region_3depth_name} ${jAddr.main_address_no}${jAddr.sub_address_no ? '-' + jAddr.sub_address_no : ''}${bldgName ? ' ' + bldgName : ''}`;
+
+            state.draftLocation.roadAddr = roadText;
+            state.draftLocation.jibunAddr = jibunText;
+            state.draftLocation.bldgName = bldgName;
+            state.draftLocation.bun = jAddr.main_address_no || '';
+            state.draftLocation.ji = jAddr.sub_address_no || '';
+
+            document.getElementById('write-road-addr').textContent = roadText;
+            document.getElementById('write-jibun-addr').textContent = jibunText;
+            document.getElementById('input-bldg-query').value = bldgName;
           }
         });
       }
       goScreen('screen-write');
     };
+
+    document.getElementById('btn-write-pick-map').onclick = () => {
+      openPinPicker('write');
+    };
+
     document.getElementById('btn-close-write').onclick = () => goScreen('screen-home');
 
     document.querySelectorAll('.btn-space-card').forEach(btn => {
-      btn.onclick = () => {
+      btn.onclick = async () => {
         state.writeDraft.space = btn.dataset.space;
         document.querySelectorAll('.btn-space-card').forEach(b => b.classList.toggle('active', b === btn));
         document.getElementById('write-outdoor-opts').hidden = (state.writeDraft.space !== 'outdoor');
         document.getElementById('write-indoor-opts').hidden = (state.writeDraft.space !== 'indoor');
         renderWriteCategories();
+
+        if (state.writeDraft.space === 'indoor') {
+          const bName = document.getElementById('input-bldg-query').value.trim() || state.draftLocation.bldgName;
+          if (bName) {
+            await autoLookupBuildingForWrite(bName, state.draftLocation.lat, state.draftLocation.lng, state.draftLocation.bun, state.draftLocation.ji);
+          } else {
+            document.getElementById('write-bldg-info').textContent = '건물명을 입력하고 [건물 조회]를 누르면 실제 층수를 불러옵니다.';
+            renderContinuousFloorButtons(5);
+          }
+        }
       };
     });
 
@@ -2202,13 +2263,6 @@
       btn.onclick = () => {
         state.writeDraft.roadType = btn.dataset.roadtype;
         document.querySelectorAll('.btn-road-pill').forEach(b => b.classList.toggle('active', b === btn));
-      };
-    });
-
-    document.querySelectorAll('.btn-floor-chip').forEach(btn => {
-      btn.onclick = () => {
-        state.writeDraft.floor = Number(btn.dataset.floor);
-        document.querySelectorAll('.btn-floor-chip').forEach(b => b.classList.toggle('active', b === btn));
       };
     });
 
@@ -2220,11 +2274,11 @@
     });
 
     document.getElementById('btn-write-to-112').onclick = () => {
-      const anchor = document.getElementById('input-write-anchor').value.trim() || state.viewportFullAddress;
+      const anchor = state.draftLocation.roadAddr || state.viewportFullAddress;
       const content = document.getElementById('input-write-content').value.trim() || '현재 심한 생활 소음이 지속 발생 중입니다.';
       open112Modal({
         roadName: anchor,
-        anchorBuilding: '',
+        anchorBuilding: document.getElementById('input-write-detail-loc').value.trim(),
         roadType: state.writeDraft.roadType,
         category: state.writeDraft.category,
         content,
@@ -2233,22 +2287,23 @@
     };
 
     document.getElementById('btn-submit-post').onclick = () => {
-      const mapCenter = state.map ? state.map.getCenter() : null;
-      const lat = mapCenter ? mapCenter.getLat() : state.centerLat;
-      const lng = mapCenter ? mapCenter.getLng() : state.centerLng;
-
+      const loc = state.draftLocation;
       const isIndoor = state.writeDraft.space === 'indoor';
       const targetBldg = state.buildings.find(b => b.id === state.selectedBuildingId) || state.buildings[0];
+      const detailMemo = document.getElementById('input-write-detail-loc').value.trim();
+
       const anchor = isIndoor
-        ? `${targetBldg ? targetBldg.name : '공동주택'} (${state.writeDraft.floor}층)`
-        : (document.getElementById('input-write-anchor').value.trim() || state.viewportFullAddress);
+        ? `${targetBldg ? targetBldg.name : (document.getElementById('input-bldg-query').value.trim() || '공동주택')} (${state.writeDraft.floor}층)`
+        : (detailMemo || loc.bldgName || state.writeDraft.roadType);
+
       const content = document.getElementById('input-write-content').value.trim()
         || `${state.writeDraft.category} 소음이 발생해 이웃들과 공유합니다.`;
 
       const newPost = {
         id: 'post-' + Date.now(),
         dong: state.viewportRegionLabel,
-        fullAddress: state.viewportFullAddress,
+        fullAddress: loc.roadAddr || state.viewportFullAddress,
+        jibunAddress: loc.jibunAddr,
         spaceType: state.writeDraft.space,
         buildingId: (isIndoor && targetBldg) ? targetBldg.id : null,
         floor: isIndoor ? state.writeDraft.floor : null,
@@ -2256,11 +2311,11 @@
         category: state.writeDraft.category,
         shortTag: state.writeDraft.shortTag,
         whoLevel: state.writeDraft.whoLevel,
-        lat: (isIndoor && targetBldg) ? targetBldg.lat : lat,
-        lng: (isIndoor && targetBldg) ? targetBldg.lng : lng,
-        roadName: isIndoor ? '공동주택' : anchor,
-        anchorBuilding: isIndoor ? anchor : '',
-        roadType: isIndoor ? '공동주택 실내' : state.writeDraft.roadType,
+        lat: loc.lat,
+        lng: loc.lng,
+        roadName: loc.roadAddr || state.viewportFullAddress,
+        anchorBuilding: anchor,
+        roadType: isIndoor ? '건물 실내' : state.writeDraft.roadType,
         nickname: state.user.nickname || '익명이웃',
         gpsVerified: true,
         timestamp: Date.now(),
@@ -2274,10 +2329,14 @@
       state.selectedPostId = newPost.id;
       saveSandboxData();
       document.getElementById('input-write-content').value = '';
+      document.getElementById('input-write-detail-loc').value = '';
       goScreen('screen-home');
-      showToast(`현재 지도 위치에 등록 완료! (누적 ${state.posts.length}건)`);
+      showToast(`설정한 위치에 등록 완료! (누적 ${state.posts.length}건)`);
     };
 
+    /* ==========================================================================
+       [화면 5] 폰 1페이지 완결형 상세 리포트
+       ========================================================================== */
     function openPostDetail(postId) {
       const post = state.posts.find(p => p.id === postId);
       if (!post) return;
@@ -2341,7 +2400,7 @@
       document.getElementById('detail-body').innerHTML = `
         <div class="hg-hero-banner">
           <div class="hg-hero-sub">
-            <span>${post.fullAddress || state.viewportFullAddress} · ${post.roadType}</span>
+            <span>${post.jibunAddress || post.roadType}</span>
           </div>
           <div class="hg-hero-title">📍 ${loc}</div>
         </div>
@@ -2386,7 +2445,7 @@
 
       document.getElementById('btn-copy-gov').onclick = () => {
         const rep = `[53데시벨 시민 소음 리포트]
-• 위치: ${post.fullAddress || state.viewportFullAddress} ${loc}
+• 위치: ${loc} (${post.jibunAddress || ''})
 • 유형: ${post.category} (${who.badge})
 • 신뢰도: ${cis.cisScore}% (${post.empathyCount}명 공감)
 • 내용: ${post.content}`;
@@ -2574,7 +2633,7 @@
         posts: state.posts
       });
       navigator.clipboard.writeText(payload).then(() => {
-        showToast(`계정 ${state.accounts.length}명 · 제보 ${state.posts.length}건 JSON이 복사되었습니다! 채팅창에 붙여넣어 주세요.`);
+        showToast(`계정 ${state.accounts.length}명 · 제보 ${state.posts.length}건 JSON이 복사되었습니다!`);
       }).catch(() => {
         document.getElementById('import-json-box').hidden = false;
         document.getElementById('textarea-import-json').value = payload;
@@ -2618,7 +2677,7 @@
       if (!post) { showToast('신고할 소음 지점을 먼저 선택하거나 등록해 주세요.'); return; }
       const loc = formatBackroadAnchor(post.roadName, post.anchorBuilding, post.roadType);
       const txt = `[53데시벨 소음신고]
-• 위치: ${post.fullAddress || state.viewportFullAddress} ${loc}
+• 위치: ${loc}
 • 유형: ${post.category}
 • 내용: ${post.content}
 • 이웃공감: ${post.empathyCount}명 확인`;
