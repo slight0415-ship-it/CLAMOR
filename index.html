@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨 (v1.3.5)</title>
+  <title>53데시벨 (v1.3.6)</title>
 
   <!-- 인라인 Web App Manifest (standalone 전체 화면 설치 지원) -->
   <link id="pwa-manifest-link" rel="manifest">
@@ -49,7 +49,7 @@
 
   <style>
     /* ==========================================================================
-       [v1.3.5 디자인 시스템]
+       [v1.3.6 디자인 시스템]
        - 딥 로얄 블루(#1E3A8A) + 스카이 시안(#0284C7) + 경고 코랄 레드(#E11D48)
        - 순백색(#FFFFFF) 플랫 카드 & 명확한 버튼 배치
        ========================================================================== */
@@ -185,7 +185,7 @@
     }
 
     /* ==========================================================================
-       [화면 1] 스플래시 (v1.3.5)
+       [화면 1] 스플래시 (v1.3.6)
        ========================================================================== */
     #screen-splash {
       z-index: 100;
@@ -409,28 +409,31 @@
     /* [화면 4] 소음 올리기 */
     #screen-write { z-index: 110; background-color: var(--bg-page); }
     .write-scroll-body { flex: 1; overflow-y: auto; padding: 14px 16px calc(96px + var(--safe-bottom)); display: flex; flex-direction: column; gap: 18px; }
-    .write-step-block h3 { font-size: 15px; font-weight: 800; margin-bottom: 8px; }
+    .write-step-block h3 { font-size: 16px; font-weight: 900; color: var(--primary); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; letter-spacing: -0.02em; }
+    .write-step-block h3::before { content: ''; width: 4px; height: 15px; border-radius: 4px; background-color: var(--secondary); flex-shrink: 0; }
     .write-location-box { background-color: var(--bg-white); border: 1.5px solid var(--primary); border-radius: 14px; padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
-    .wlb-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+    .wlb-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
     .wlb-addrs strong { display: block; font-size: 14.5px; font-weight: 900; line-height: 1.35; }
     .wlb-addrs span { display: block; font-size: 12px; color: var(--text-muted); margin-top: 2px; }
     .space-toggle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .btn-space-card { padding: 13px; border-radius: 12px; background-color: var(--bg-white); border: 1.5px solid var(--border-line); text-align: left; display: flex; flex-direction: column; gap: 3px; }
-    .btn-space-card.active { background-color: var(--primary-soft); border-color: var(--primary); }
-    .btn-space-card strong { font-size: 14px; font-weight: 800; }
+    .btn-space-card { padding: 16px 10px; border-radius: 14px; background-color: var(--bg-white); border: 1.5px solid var(--border-strong); text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+    .btn-space-card.active { background-color: var(--primary-soft); border: 2px solid var(--primary); }
+    .btn-space-card strong { font-size: 15px; font-weight: 900; color: var(--text-main); }
+    .btn-space-card.active strong { color: var(--primary); }
     .btn-space-card span { font-size: 11.5px; color: var(--text-sub); }
-    .road-type-pills { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
-    .btn-road-pill { padding: 8px 12px; border-radius: 10px; background-color: var(--bg-white); border: 1px solid var(--border-strong); font-size: 12.5px; font-weight: 700; color: var(--text-sub); }
-    .btn-road-pill.active { background-color: var(--secondary); border-color: var(--secondary); color: #FFFFFF; }
+    .space-prompt-box { margin-top: 10px; padding: 14px; border-radius: 12px; background-color: var(--bg-white); border: 1px dashed var(--border-strong); text-align: center; font-size: 13px; font-weight: 700; color: var(--text-muted); }
+    .road-type-pills { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 10px; }
+    .btn-road-pill { height: 40px; padding: 0 10px; border-radius: 10px; background-color: var(--bg-white); border: 1px solid var(--border-strong); font-size: 13px; font-weight: 700; color: var(--text-sub); display: flex; align-items: center; justify-content: center; text-align: center; }
+    .btn-road-pill.active { background-color: var(--secondary); border-color: var(--secondary); color: #FFFFFF; font-weight: 800; }
     .floor-picker-wrap { margin-top: 10px; background-color: var(--bg-white); border: 1px solid var(--border-line); border-radius: 14px; padding: 12px; display: flex; flex-direction: column; gap: 10px; }
     .floor-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; max-height: 160px; overflow-y: auto; }
-    .btn-floor-chip { height: 36px; border-radius: 9px; background-color: var(--bg-subtle); border: 1px solid var(--border-line); font-size: 12.5px; font-weight: 700; }
+    .btn-floor-chip { height: 36px; border-radius: 9px; background-color: var(--bg-subtle); border: 1px solid var(--border-line); font-size: 12.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
     .btn-floor-chip.active { background-color: var(--primary); border-color: var(--primary); color: #FFFFFF; }
     .cat-select-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
-    .btn-cat-item { height: 42px; padding: 0 12px; border-radius: 10px; background-color: var(--bg-white); border: 1px solid var(--border-line); font-size: 13.5px; font-weight: 700; color: var(--text-sub); text-align: left; display: flex; align-items: center; }
+    .btn-cat-item { height: 44px; padding: 0 10px; border-radius: 10px; background-color: var(--bg-white); border: 1px solid var(--border-strong); font-size: 13.5px; font-weight: 700; color: var(--text-sub); text-align: center; display: flex; align-items: center; justify-content: center; }
     .btn-cat-item.active { background-color: var(--primary-soft); border: 1.5px solid var(--primary); color: var(--primary); font-weight: 800; }
     .who-level-stack { display: flex; flex-direction: column; gap: 8px; }
-    .btn-who-level { padding: 12px 14px; border-radius: 11px; background-color: var(--bg-white); border: 1px solid var(--border-line); text-align: left; font-size: 13px; }
+    .btn-who-level { padding: 13px 12px; border-radius: 11px; background-color: var(--bg-white); border: 1px solid var(--border-strong); text-align: center; display: flex; align-items: center; justify-content: center; font-size: 13px; }
     .btn-who-level.active[data-lv="1"] { background-color: var(--lv1-soft); border-color: var(--lv1-yellow); }
     .btn-who-level.active[data-lv="2"] { background-color: var(--lv2-soft); border-color: var(--lv2-orange); }
     .btn-who-level.active[data-lv="3"] { background-color: var(--lv3-soft); border-color: var(--lv3-red); }
@@ -483,7 +486,7 @@
 
     <!-- [화면 1] 스플래시 -->
     <section class="screen" id="screen-splash" aria-label="53데시벨 시작 화면">
-      <div class="splash-top-meta"><span class="version-pill">v1.3.5</span></div>
+      <div class="splash-top-meta"><span class="version-pill">v1.3.6</span></div>
       <div class="splash-center-group">
         <div class="brand-logo-lockup" role="img" aria-label="53데시벨">
           <span class="logo-num-box">53</span>
@@ -738,7 +741,7 @@
       </header>
       <div class="write-scroll-body">
         <div class="write-step-block">
-          <h3>1. 소음 발생 위치 (지도 핀 · 주소 확인)</h3>
+          <h3>소음 발생 위치를 정해주세요</h3>
           <div class="write-location-box">
             <div class="wlb-top">
               <div class="wlb-addrs"><strong id="write-road-addr">위치를 설정해 주세요</strong><span id="write-jibun-addr">[지번] 지도를 움직여 정확한 지점을 찍어주세요</span></div>
@@ -748,16 +751,24 @@
           </div>
         </div>
         <div class="write-step-block">
-          <h3>2. 실외인가요, 건물 실내인가요?</h3>
+          <h3>소음 발생 공간 선택</h3>
           <div class="space-toggle-grid">
-            <button type="button" class="btn-space-card active" data-space="outdoor"><strong>🏙️ 실외 도로·동네</strong><span>이면도로·골목·상가·공사</span></button>
-            <button type="button" class="btn-space-card" data-space="indoor"><strong>🏢 건물 실내</strong><span>층간·벽간·배관 (호수 비공개)</span></button>
+            <button type="button" class="btn-space-card" data-space="indoor"><strong>🏢 건물 내 소음</strong><span>층간·벽간·배관 (호수 비공개)</span></button>
+            <button type="button" class="btn-space-card" data-space="outdoor"><strong>🏙️ 실외 소음</strong><span>도로·골목·상가·공원·공사</span></button>
           </div>
-          <div id="write-outdoor-opts">
+          <div id="write-space-prompt" class="space-prompt-box">
+            위에서 <strong>[건물 내 소음]</strong> 또는 <strong>[실외 소음]</strong>을 선택하면<br>맞춤 상세 장소와 소음 유형이 나타납니다.
+          </div>
+          <div id="write-outdoor-opts" hidden>
             <div class="road-type-pills">
-              <button type="button" class="btn-road-pill active" data-roadtype="이면도로·골목">동네 이면도로·골목</button>
-              <button type="button" class="btn-road-pill" data-roadtype="큰 도로·대로변">큰 도로·대로변</button>
-              <button type="button" class="btn-road-pill" data-roadtype="상가·주변">상가·공원 주변</button>
+              <button type="button" class="btn-road-pill active" data-roadtype="동네 작은 도로">동네 작은 도로</button>
+              <button type="button" class="btn-road-pill" data-roadtype="주택가 골목">주택가 골목</button>
+              <button type="button" class="btn-road-pill" data-roadtype="큰 도로변·대로">큰 도로변·대로</button>
+              <button type="button" class="btn-road-pill" data-roadtype="상가·번화가 주위">상가·번화가 주위</button>
+              <button type="button" class="btn-road-pill" data-roadtype="공원·놀이터 주변">공원·놀이터 주변</button>
+              <button type="button" class="btn-road-pill" data-roadtype="건물·주차장 주변">건물·주차장 주변</button>
+              <button type="button" class="btn-road-pill" data-roadtype="공사장 인근">공사장 인근</button>
+              <button type="button" class="btn-road-pill" data-roadtype="학교·학원가 주변">학교·학원가 주변</button>
             </div>
           </div>
           <div id="write-indoor-opts" class="floor-picker-wrap" hidden>
@@ -765,13 +776,16 @@
               <div class="flat-input-box" style="flex:1; height:40px;"><input type="text" id="input-bldg-query" placeholder="아파트·빌라·건물명 입력 후 조회"></div>
               <button type="button" class="btn-outline" id="btn-lookup-bldg" style="height:40px; background:var(--primary); color:#fff; border-color:var(--primary);">건물 조회</button>
             </div>
-            <div id="write-bldg-info" style="font-size:12.5px; font-weight:800; color:var(--primary);">건물명을 조회하면 건축물대장의 실제 지상 층수를 불러옵니다.</div>
+            <div id="write-bldg-info" style="font-size:12.5px; font-weight:800; color:var(--primary); text-align:center;">건물명을 조회하면 건축물대장의 실제 지상 층수를 불러옵니다.</div>
             <div class="floor-grid" id="write-floor-grid"></div>
           </div>
         </div>
-        <div class="write-step-block"><h3>3. 어떤 소음인가요?</h3><div class="cat-select-grid" id="write-cat-grid"></div></div>
+        <div class="write-step-block" id="write-cat-section" hidden>
+          <h3>어떤 소음인가요?</h3>
+          <div class="cat-select-grid" id="write-cat-grid"></div>
+        </div>
         <div class="write-step-block">
-          <h3>4. 얼마나 심한가요? (WHO 체감 강도)</h3>
+          <h3>체감 소음 강도 (WHO 기준)</h3>
           <div class="who-level-stack">
             <button type="button" class="btn-who-level" data-lv="1"><span><strong>🟡 거슬림 (53~60dB급)</strong> · 집중·휴식 방해</span></button>
             <button type="button" class="btn-who-level active" data-lv="2"><span><strong>🟠 매우 시끄러움 (80dB급)</strong> · 청소기 수준, 대화 불가</span></button>
@@ -779,7 +793,7 @@
           </div>
         </div>
         <div class="write-step-block">
-          <h3>5. 이웃과 나눌 한마디</h3>
+          <h3>이웃과 나눌 한마디</h3>
           <textarea class="write-textarea" id="input-write-content" placeholder="예) 밤 11시 40분부터 골목에서 고함과 욕설이 15분째 이어지고 있습니다."></textarea>
           <div class="urgent-112-banner" style="margin-top:12px;">
             <span>지금도 소음이 계속되고 있나요?<br>작성 내용 그대로 바로 신고할 수 있어요.</span>
@@ -977,7 +991,7 @@
       pickerMode: 'onboard', pickerMap: null,
       selectedPostId: null, detailTab: 'analysis', showCCTV: false,
       map: null, overlays: [], selectedBuildingId: null,
-      writeDraft: { space: 'outdoor', roadType: '이면도로·골목', floor: 1, category: '바이크·차량 굉음', shortTag: '바이크·굉음', group: 'bike', whoLevel: 2 }
+      writeDraft: { space: null, roadType: '동네 작은 도로', floor: 1, category: '바이크·차량 굉음', shortTag: '바이크·굉음', group: 'bike', whoLevel: 2 }
     };
 
     function loadSandboxData() {
@@ -1127,6 +1141,23 @@
             state.pickerMap.relayout(); state.pickerMap.setLevel(3); state.pickerMap.setCenter(new kakao.maps.LatLng(startLat, startLng));
           }
           updatePickerAddressAtCenter(startLat, startLng);
+
+          if (mode === 'onboard' && navigator.geolocation) {
+            showToast('현재 실제 위치(GPS)를 정확히 확인하고 있어요...');
+            navigator.geolocation.getCurrentPosition(pos => {
+              const gpsLat = pos.coords.latitude;
+              const gpsLng = pos.coords.longitude;
+              state.centerLat = gpsLat;
+              state.centerLng = gpsLng;
+              if (state.pickerMap) {
+                state.pickerMap.setLevel(3);
+                state.pickerMap.setCenter(new kakao.maps.LatLng(gpsLat, gpsLng));
+              }
+              updatePickerAddressAtCenter(gpsLat, gpsLng);
+            }, () => {
+              showToast('GPS 신호가 약해 지도를 움직여 직접 위치를 맞춰주세요.');
+            }, { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 });
+          }
         });
       });
     }
@@ -1134,10 +1165,12 @@
     document.getElementById('btn-picker-back').onclick = () => goScreen(state.pickerMode === 'onboard' ? 'screen-auth' : 'screen-write');
     document.getElementById('btn-picker-gps').onclick = () => {
       if (!navigator.geolocation) { showToast('위치 권한을 허용해 주세요.'); return; }
+      showToast('현재 GPS 위치로 이동 중...');
       navigator.geolocation.getCurrentPosition(pos => {
+        state.centerLat = pos.coords.latitude; state.centerLng = pos.coords.longitude;
         if (state.pickerMap) { state.pickerMap.setLevel(3); state.pickerMap.setCenter(new kakao.maps.LatLng(pos.coords.latitude, pos.coords.longitude)); }
         updatePickerAddressAtCenter(pos.coords.latitude, pos.coords.longitude);
-      });
+      }, () => showToast('GPS 위치를 가져올 수 없습니다. 위치 권한을 확인해 주세요.'), { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 });
     };
     document.getElementById('btn-picker-search').onclick = () => {
       const q = document.getElementById('input-picker-search').value.trim();
@@ -1183,7 +1216,7 @@
       navigator.geolocation.getCurrentPosition(pos => {
         state.centerLat = pos.coords.latitude; state.centerLng = pos.coords.longitude;
         if (state.map && typeof kakao !== 'undefined') { state.map.setLevel(4); state.map.setCenter(new kakao.maps.LatLng(state.centerLat, state.centerLng)); syncRegionByMapViewport(); }
-      }, () => { if (!silent) showToast('위치 정보를 가져올 수 없어 현재 지도를 유지합니다.'); });
+      }, () => { if (!silent) showToast('위치 정보를 가져올 수 없어 현재 지도를 유지합니다.'); }, { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 });
     }
 
     function syncRegionByMapViewport() {
@@ -1416,7 +1449,12 @@
     }
 
     document.getElementById('btn-open-write').onclick = () => {
-      renderWriteCategories();
+      state.writeDraft.space = null;
+      document.querySelectorAll('.btn-space-card').forEach(b => b.classList.remove('active'));
+      document.getElementById('write-space-prompt').hidden = false;
+      document.getElementById('write-outdoor-opts').hidden = true;
+      document.getElementById('write-indoor-opts').hidden = true;
+      document.getElementById('write-cat-section').hidden = true;
       document.getElementById('write-author-tag').textContent = state.user.loggedIn ? `✓ ${state.user.nickname}` : '✓ 게스트 모드';
       const c = state.map ? state.map.getCenter() : { getLat: () => state.centerLat, getLng: () => state.centerLng };
       state.draftLocation.lat = c.getLat(); state.draftLocation.lng = c.getLng();
@@ -1442,8 +1480,10 @@
       btn.onclick = async () => {
         state.writeDraft.space = btn.dataset.space;
         document.querySelectorAll('.btn-space-card').forEach(b => b.classList.toggle('active', b === btn));
+        document.getElementById('write-space-prompt').hidden = true;
         document.getElementById('write-outdoor-opts').hidden = (state.writeDraft.space !== 'outdoor');
         document.getElementById('write-indoor-opts').hidden = (state.writeDraft.space !== 'indoor');
+        document.getElementById('write-cat-section').hidden = false;
         renderWriteCategories();
         if (state.writeDraft.space === 'indoor') {
           const bName = document.getElementById('input-bldg-query').value.trim() || state.draftLocation.bldgName;
@@ -1461,6 +1501,7 @@
     };
 
     document.getElementById('btn-submit-post').onclick = () => {
+      if (!state.writeDraft.space) { showToast('[건물 내 소음] 또는 [실외 소음]을 먼저 선택해 주세요.'); return; }
       const loc = state.draftLocation, isIndoor = state.writeDraft.space === 'indoor', targetBldg = state.buildings.find(b => b.id === state.selectedBuildingId) || state.buildings[0], detailMemo = document.getElementById('input-write-detail-loc').value.trim();
       const anchor = isIndoor ? `${targetBldg ? targetBldg.name : (document.getElementById('input-bldg-query').value.trim() || '공동주택')} (${state.writeDraft.floor}층)` : (detailMemo || loc.bldgName || state.writeDraft.roadType);
       const content = document.getElementById('input-write-content').value.trim() || `${state.writeDraft.category} 소음이 발생해 이웃들과 공유합니다.`;
