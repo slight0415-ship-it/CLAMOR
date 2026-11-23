@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <meta name="color-scheme" content="only light">
-  <meta name="theme-color" content="#E8ECF2">
+  <meta name="theme-color" content="#FFFFFF">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨 (v1.2.2)</title>
+  <title>53데시벨 (v1.3.0)</title>
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Crect width='128' height='128' rx='28' fill='%231B4965'/%3E%3Ctext x='64' y='74' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='54' font-weight='900'%3E53%3C/text%3E%3Ctext x='64' y='102' text-anchor='middle' fill='%235EEAD4' font-family='sans-serif' font-size='22' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%231B4965'/%3E%3Ctext x='90' y='102' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='76' font-weight='900'%3E53%3C/text%3E%3Ctext x='90' y='142' text-anchor='middle' fill='%235EEAD4' font-family='sans-serif' font-size='30' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
@@ -32,19 +32,21 @@
   <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=20b24a9df15474b70785b099967431b3&libraries=services,clusterer&autoload=false"></script>
 
   <style>
+    /* ==========================================================================
+       [v1.3.0 디자인 시스템]
+       - 올록볼록(뉴모피즘) 그림자 100% 폐기
+       - 순백색(#FFFFFF) 서피스 + 1px 라인(#E2E8F0) + 고대비 포인트 컬러의 상용 앱 디자인
+       ========================================================================== */
     :root {
       color-scheme: only light;
-      --neu-bg: #E8ECF2;
-      --neu-surface: #EDF1F7;
-      --card-surface: #FFFFFF;
-      --card-warm: #FAF9F6;
+      --bg-page: #F4F6F9;
+      --bg-white: #FFFFFF;
+      --bg-subtle: #F8FAFC;
+      --border-line: #E2E8F0;
+      --border-strong: #CBD5E1;
 
-      --btn-convex: -3px -3px 7px rgba(255, 255, 255, 0.88), 3px 3px 8px rgba(163, 177, 198, 0.52);
-      --btn-pressed: inset -2px -2px 5px rgba(255, 255, 255, 0.75), inset 3px 3px 6px rgba(163, 177, 198, 0.65);
-      --input-concave: inset -3px -3px 7px rgba(255, 255, 255, 0.85), inset 3px 3px 7px rgba(163, 177, 198, 0.52);
-
-      --text-main: #111827;
-      --text-sub: #374151;
+      --text-main: #0F172A;
+      --text-sub: #334155;
       --text-muted: #64748B;
 
       --primary: #1B4965;
@@ -52,12 +54,13 @@
       --primary-soft: #EBF3F8;
       --secondary: #0D9488;
       --secondary-soft: #E6F7F5;
+      --accent-blue: #2563EB;
 
       --lv1-yellow: #B45309;
       --lv1-soft: #FEF3C7;
       --lv2-orange: #C2410C;
       --lv2-soft: #FFEDD5;
-      --lv3-red: #BE123C;
+      --lv3-red: #E11D48;
       --lv3-soft: #FFE4E6;
 
       --safe-top: env(safe-area-inset-top, 0px);
@@ -80,7 +83,7 @@
     html, body {
       width: 100%;
       height: 100%;
-      background-color: #DCE2EC;
+      background-color: #E2E8F0;
       color: var(--text-main);
       font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, sans-serif;
       overflow: hidden;
@@ -93,15 +96,15 @@
       max-width: 430px;
       height: 100dvh;
       margin: 0 auto;
-      background-color: var(--neu-bg);
+      background-color: var(--bg-page);
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      box-shadow: 0 24px 60px rgba(27, 73, 101, 0.16);
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12);
     }
 
     @media (max-width: 500px) {
-      html, body { background-color: var(--neu-bg); }
+      html, body { background-color: var(--bg-white); }
       .app-shell { max-width: 100%; box-shadow: none; }
     }
 
@@ -110,7 +113,7 @@
       inset: 0;
       width: 100%;
       height: 100%;
-      background-color: var(--neu-bg);
+      background-color: var(--bg-page);
       display: flex;
       flex-direction: column;
       z-index: 10;
@@ -122,17 +125,70 @@
       background: none;
       cursor: pointer;
       touch-action: manipulation;
-      transition: transform 0.12s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.15s ease, background-color 0.15s ease;
+      transition: transform 0.1s ease, background-color 0.15s ease, border-color 0.15s ease;
     }
 
-    button:active { transform: scale(0.97); }
+    button:active { transform: scale(0.98); }
+
+    /* 공통 플랫 버튼 & 입력 컴포넌트 */
+    .btn-primary {
+      width: 100%;
+      height: 52px;
+      border-radius: 14px;
+      background-color: var(--primary);
+      color: #FFFFFF;
+      font-size: 16px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-primary:disabled { background-color: #CBD5E1; cursor: not-allowed; }
+
+    .btn-outline {
+      height: 38px;
+      padding: 0 13px;
+      border-radius: 10px;
+      background-color: var(--bg-white);
+      border: 1px solid var(--border-strong);
+      color: var(--text-main);
+      font-size: 13px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+    .btn-outline:active { background-color: #F1F5F9; }
+
+    .flat-input-box {
+      display: flex;
+      align-items: center;
+      background-color: var(--bg-subtle);
+      border: 1.5px solid var(--border-strong);
+      border-radius: 12px;
+      padding: 0 12px;
+      height: 48px;
+    }
+    .flat-input-box:focus-within { border-color: var(--primary); background-color: var(--bg-white); }
+    .flat-input-box input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-main);
+      outline: none;
+    }
 
     /* ==========================================================================
-       [화면 1] 스플래시 (v1.2.2)
+       [화면 1] 스플래시 (v1.3.0 - 순백색 클린 스플래시)
        ========================================================================== */
     #screen-splash {
       z-index: 100;
-      background-color: var(--neu-bg);
+      background-color: var(--bg-white);
       justify-content: space-between;
       padding: calc(20px + var(--safe-top)) 26px calc(38px + var(--safe-bottom));
       cursor: pointer;
@@ -140,13 +196,12 @@
 
     .splash-top-meta { width: 100%; display: flex; justify-content: flex-end; }
     .version-pill {
-      background-color: var(--card-surface);
+      background-color: var(--primary-soft);
       color: var(--primary);
       font-size: 12px;
       font-weight: 800;
       padding: 5px 12px;
       border-radius: 999px;
-      border: 1px solid #CBD5E1;
     }
 
     .splash-center-group {
@@ -171,14 +226,14 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(145deg, #235B7E 0%, #1B4965 100%);
+      background-color: var(--primary);
       color: #FFFFFF;
       font-size: 40px;
       font-weight: 900;
       letter-spacing: -0.04em;
       line-height: 1;
       padding: 10px 14px;
-      border-radius: 16px;
+      border-radius: 14px;
     }
 
     .logo-text-kr {
@@ -200,10 +255,10 @@
 
     .splash-who-footer {
       width: 100%;
-      background-color: var(--card-surface);
-      border-radius: 20px;
+      background-color: var(--bg-subtle);
+      border-radius: 18px;
       padding: 20px 22px;
-      border: 1px solid #DCE3EC;
+      border: 1px solid var(--border-line);
       text-align: left;
     }
 
@@ -216,42 +271,25 @@
       color: var(--secondary);
       margin-bottom: 8px;
     }
-
-    .who-eyebrow::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background-color: var(--secondary);
-    }
-
-    .who-statement {
-      font-size: 15px;
-      font-weight: 600;
-      line-height: 1.62;
-      color: var(--text-main);
-      letter-spacing: -0.025em;
-      word-break: keep-all;
-    }
-
+    .who-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background-color: var(--secondary); }
+    .who-statement { font-size: 15px; font-weight: 600; line-height: 1.62; color: var(--text-main); word-break: keep-all; }
     .who-statement strong { font-weight: 800; color: var(--primary); }
     .who-source { margin-top: 12px; font-size: 13px; font-weight: 800; color: var(--primary); text-align: right; }
 
     /* ==========================================================================
        [화면 2] 요기요 스타일 4단계 표준 온보딩
-       (1: 소셜선택 → 2: 접근권한 안내 → 3: 이용약관 동의 → 4: 지도에서 주소 찾기)
        ========================================================================== */
     #screen-auth {
       z-index: 90;
-      background-color: var(--card-surface);
+      background-color: var(--bg-white);
       padding: calc(20px + var(--safe-top)) 22px calc(24px + var(--safe-bottom));
     }
 
     .auth-view { display: flex; flex-direction: column; height: 100%; overflow-y: auto; }
     .auth-hero { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 12px 0; }
     .hero-illust {
-      width: 108px; height: 108px; border-radius: 28px;
-      background-color: var(--neu-bg);
+      width: 104px; height: 104px; border-radius: 26px;
+      background-color: var(--primary-soft);
       display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 20px;
     }
     .hero-illust-badge {
@@ -263,8 +301,9 @@
 
     .saved-accounts-box {
       width: 100%;
-      background-color: var(--neu-bg);
-      border-radius: 16px;
+      background-color: var(--bg-subtle);
+      border: 1px solid var(--border-line);
+      border-radius: 14px;
       padding: 12px 14px;
       margin-bottom: 14px;
       text-align: left;
@@ -272,185 +311,106 @@
     .saved-accounts-title { font-size: 12px; font-weight: 800; color: var(--primary); margin-bottom: 8px; display: flex; justify-content: space-between; }
     .saved-account-chips { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px; }
     .btn-quick-login {
-      padding: 7px 12px; border-radius: 10px; background-color: var(--neu-surface); box-shadow: var(--btn-convex);
-      font-size: 12.5px; font-weight: 800; color: var(--text-main); white-space: nowrap;
+      padding: 7px 12px; border-radius: 9px; background-color: var(--bg-white);
+      border: 1px solid var(--border-strong); font-size: 12.5px; font-weight: 700; color: var(--text-main); white-space: nowrap;
     }
 
     .auth-bottom-actions { display: flex; flex-direction: column; gap: 10px; width: 100%; }
-    .btn-native-social { width: 100%; height: 52px; border-radius: 16px; font-size: 15.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: var(--btn-convex); }
-    .btn-native-social:active { box-shadow: var(--btn-pressed); }
-    .btn-native-social svg { width: 20px; height: 20px; flex-shrink: 0; }
-    .btn-native-kakao { background-color: #FEE500; color: #191919; }
-    .btn-native-naver { background-color: #03C75A; color: #FFFFFF; }
-    .btn-native-google { background-color: var(--neu-surface); color: var(--text-main); }
+    .btn-social { width: 100%; height: 50px; border-radius: 14px; font-size: 15.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px; }
+    .btn-social svg { width: 20px; height: 20px; flex-shrink: 0; }
+    .btn-kakao { background-color: #FEE500; color: #191919; }
+    .btn-naver { background-color: #03C75A; color: #FFFFFF; }
+    .btn-google { background-color: var(--bg-white); color: var(--text-main); border: 1px solid var(--border-strong); }
     .btn-browse-first { margin-top: 2px; height: 42px; width: 100%; font-size: 14px; font-weight: 700; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 4px; }
 
-    /* 요기요 Step 2: 접근 권한 안내 화면 */
     .perm-header h2 { font-size: 24px; font-weight: 800; line-height: 1.38; letter-spacing: -0.03em; color: var(--text-main); margin-top: 12px; }
     .perm-list { margin-top: 26px; display: flex; flex-direction: column; gap: 18px; }
     .perm-item { display: flex; align-items: center; gap: 14px; }
-    .perm-icon-circle { width: 46px; height: 46px; border-radius: 50%; background-color: var(--neu-bg); display: grid; place-items: center; color: var(--primary); flex-shrink: 0; }
+    .perm-icon-circle { width: 46px; height: 46px; border-radius: 50%; background-color: var(--primary-soft); display: grid; place-items: center; color: var(--primary); flex-shrink: 0; }
     .perm-text strong { display: block; font-size: 15.5px; font-weight: 800; color: var(--text-main); }
     .perm-text strong em { font-style: normal; color: var(--secondary); font-size: 13px; margin-left: 4px; }
     .perm-text span { display: block; font-size: 13px; color: var(--text-muted); margin-top: 2px; }
-    .perm-notice { margin-top: auto; margin-bottom: 16px; padding: 14px; background-color: #F8FAFC; border-radius: 12px; font-size: 12px; line-height: 1.55; color: var(--text-muted); }
+    .perm-notice { margin-top: auto; margin-bottom: 16px; padding: 14px; background-color: var(--bg-subtle); border-radius: 12px; font-size: 12px; line-height: 1.55; color: var(--text-muted); }
 
-    /* 요기요 Step 3: 이용약관 동의 화면 */
-    .terms-title-area { text-align: center; padding-top: 18px; margin-bottom: 28px; }
+    .terms-title-area { text-align: center; padding-top: 18px; margin-bottom: 24px; }
     .terms-title-area h2 { font-size: 23px; font-weight: 800; color: var(--text-main); }
     .terms-title-area p { font-size: 14px; color: var(--text-muted); margin-top: 6px; }
-    .terms-all-row { display: flex; align-items: center; gap: 12px; padding: 16px 4px; border-bottom: 1.5px solid #E2E8F0; font-size: 17px; font-weight: 800; cursor: pointer; }
-    .terms-sub-list { display: flex; flex-direction: column; gap: 18px; padding: 20px 4px; }
+    .terms-all-row { display: flex; align-items: center; gap: 12px; padding: 16px 4px; border-bottom: 1.5px solid var(--border-line); font-size: 17px; font-weight: 800; cursor: pointer; }
+    .terms-sub-list { display: flex; flex-direction: column; gap: 16px; padding: 18px 4px; }
     .terms-sub-row { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; }
     .terms-sub-row input, .terms-all-row input { width: 22px; height: 22px; accent-color: var(--primary); margin-top: 1px; flex-shrink: 0; }
     .terms-sub-text strong { display: block; font-size: 15px; font-weight: 700; color: var(--text-main); }
     .terms-sub-text span { display: block; font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
 
-    .btn-cta-primary { width: 100%; height: 54px; border-radius: 16px; background: linear-gradient(145deg, #215778 0%, #1B4965 100%); color: #FFFFFF; font-size: 16.5px; font-weight: 800; display: flex; align-items: center; justify-content: center; box-shadow: -3px -3px 8px rgba(255, 255, 255, 0.7), 4px 4px 12px rgba(27, 73, 101, 0.35); }
-    .btn-cta-primary:disabled { background: #CBD5E1; color: #FFFFFF; box-shadow: none; cursor: not-allowed; }
+    /* ==========================================================================
+       [공용 풀스크린 지도 핀 피커] (요기요 '지도에서 주소 찾기')
+       ========================================================================== */
+    #screen-pin-picker { z-index: 150; background-color: var(--bg-white); }
+    .picker-topbar {
+      height: calc(54px + var(--safe-top)); padding: var(--safe-top) 16px 0;
+      background-color: var(--bg-white); display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--border-line); flex-shrink: 0;
+    }
+    .picker-topbar h2 { font-size: 17px; font-weight: 800; color: var(--text-main); }
+    .picker-search-strip { padding: 10px 14px; background-color: var(--bg-white); display: flex; gap: 8px; border-bottom: 1px solid var(--border-line); flex-shrink: 0; }
+    .picker-map-area { position: relative; flex: 1; width: 100%; background-color: #E2E8F0; overflow: hidden; }
+    #picker-kakao-map { position: absolute; inset: 0; width: 100%; height: 100%; }
 
-    .native-input-box { display: flex; align-items: center; background-color: var(--neu-bg); box-shadow: var(--input-concave); border-radius: 14px; padding: 6px 8px 6px 14px; height: 48px; }
-    .native-input-box input { flex: 1; border: none; background: transparent; font-size: 15px; font-weight: 700; color: var(--text-main); outline: none; }
-    .btn-chip-action { height: 38px; padding: 0 13px; border-radius: 12px; background-color: var(--neu-surface); box-shadow: var(--btn-convex); font-size: 13px; font-weight: 800; color: var(--primary); white-space: nowrap; }
-    .btn-chip-action:active { box-shadow: var(--btn-pressed); }
+    .picker-center-pin-wrap {
+      position: absolute; left: 50%; top: 50%; transform: translate(-50%, -100%);
+      z-index: 30; display: flex; flex-direction: column; align-items: center; pointer-events: none;
+    }
+    .picker-guide-bubble {
+      background-color: var(--accent-blue); color: #FFFFFF; font-size: 12.5px; font-weight: 800;
+      padding: 7px 14px; border-radius: 8px; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+      white-space: nowrap; margin-bottom: 8px; position: relative;
+    }
+    .picker-guide-bubble::after {
+      content: ''; position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%);
+      border-top: 6px solid var(--accent-blue); border-left: 6px solid transparent; border-right: 6px solid transparent;
+    }
+    .picker-pin-head {
+      width: 34px; height: 34px; border-radius: 50% 50% 50% 4px; transform: rotate(-45deg);
+      background-color: #111827; border: 3px solid #FFFFFF; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      display: grid; place-items: center;
+    }
+    .picker-pin-dot { width: 10px; height: 10px; border-radius: 50%; background-color: #38BDF8; }
+    .picker-footer-panel {
+      background-color: var(--bg-white); padding: 18px 20px calc(22px + var(--safe-bottom));
+      border-top: 1px solid var(--border-line); display: flex; flex-direction: column; gap: 12px; flex-shrink: 0;
+    }
+    .picker-road-addr { font-size: 17px; font-weight: 900; color: var(--text-main); word-break: keep-all; }
+    .picker-jibun-addr { font-size: 13.5px; font-weight: 600; color: var(--text-muted); margin-top: 2px; }
 
     /* ==========================================================================
-       [공통 풀스크린 지도 핀 피커] (요기요 '지도에서 주소 찾기'와 100% 동일한 구조)
-       - 온보딩 위치 설정 & 소음 올리기 위치 지정에서 공용으로 사용
+       [메인 4탭 구조] (마미톡·베이비타임 상용 앱 아키텍처 적용)
+       - 탭 1: 소음지도 (Map)
+       - 탭 2: 소음분석 (Report - 베이비타임 패턴/보고서 벤치마킹)
+       - 탭 3: 커뮤니티 (Community - 마미톡 커뮤니티 벤치마킹)
+       - 탭 4: 수면·방음 (Care & Shop - 뮤직박스 + 방음솔루션 특가 벤치마킹)
        ========================================================================== */
-    #screen-pin-picker {
-      z-index: 150;
-      background-color: var(--card-surface);
-    }
+    #screen-main { z-index: 20; background-color: var(--bg-page); }
 
-    .picker-topbar {
-      height: calc(54px + var(--safe-top));
-      padding: var(--safe-top) 16px 0;
-      background-color: var(--card-surface);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid #E2E8F0;
-      flex-shrink: 0;
-    }
-
-    .picker-topbar h2 { font-size: 17px; font-weight: 800; color: var(--text-main); }
-
-    .picker-search-strip {
-      padding: 10px 14px;
-      background-color: var(--card-surface);
-      display: flex;
-      gap: 8px;
-      border-bottom: 1px solid #E2E8F0;
-      flex-shrink: 0;
-    }
-
-    .picker-map-area {
-      position: relative;
+    .tab-view {
       flex: 1;
-      width: 100%;
-      background-color: #DDE3EC;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
       overflow: hidden;
     }
 
-    #picker-kakao-map { position: absolute; inset: 0; width: 100%; height: 100%; }
-
-    /* 요기요 스타일 지도 중앙 고정 핀 + 파란 안내 말풍선 */
-    .picker-center-pin-wrap {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -100%);
-      z-index: 30;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      pointer-events: none;
-    }
-
-    .picker-guide-bubble {
-      background-color: #2563EB;
-      color: #FFFFFF;
-      font-size: 12.5px;
-      font-weight: 800;
-      padding: 7px 14px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
-      white-space: nowrap;
-      margin-bottom: 8px;
-      position: relative;
-    }
-
-    .picker-guide-bubble::after {
-      content: '';
-      position: absolute;
-      bottom: -6px;
-      left: 50%;
-      transform: translateX(-50%);
-      border-top: 6px solid #2563EB;
-      border-left: 6px solid transparent;
-      border-right: 6px solid transparent;
-    }
-
-    .picker-pin-head {
-      width: 34px;
-      height: 34px;
-      border-radius: 50% 50% 50% 4px;
-      transform: rotate(-45deg);
-      background-color: #111827;
-      border: 3px solid #FFFFFF;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
-      display: grid;
-      place-items: center;
-    }
-
-    .picker-pin-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background-color: #38BDF8;
-    }
-
-    .picker-footer-panel {
-      background-color: var(--card-surface);
-      padding: 18px 20px calc(22px + var(--safe-bottom));
-      border-top: 1px solid #E2E8F0;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      flex-shrink: 0;
-    }
-
-    .picker-road-addr {
-      font-size: 17px;
-      font-weight: 900;
-      color: var(--text-main);
-      letter-spacing: -0.03em;
-      word-break: keep-all;
-    }
-
-    .picker-jibun-addr {
-      font-size: 13.5px;
-      font-weight: 600;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
-
-    /* ==========================================================================
-       [화면 3] 메인 홈
-       ========================================================================== */
-    #screen-home { z-index: 20; background-color: var(--neu-bg); }
-
-    .app-topbar {
-      height: calc(58px + var(--safe-top));
+    /* 상단 헤더 (플랫 화이트 + 1px 하단 구분선) */
+    .flat-topbar {
+      height: calc(56px + var(--safe-top));
       padding: var(--safe-top) 14px 0;
-      background-color: var(--neu-bg);
+      background-color: var(--bg-white);
+      border-bottom: 1px solid var(--border-line);
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 8px;
-      z-index: 35;
       flex-shrink: 0;
+      z-index: 35;
     }
 
     .dong-picker-btn {
@@ -459,301 +419,462 @@
       gap: 4px;
       font-size: 16px;
       font-weight: 900;
-      letter-spacing: -0.03em;
       color: var(--text-main);
-      padding: 8px 11px;
-      border-radius: 13px;
-      background-color: var(--neu-surface);
-      box-shadow: var(--btn-convex);
+      padding: 6px 10px;
+      border-radius: 10px;
+      background-color: var(--bg-subtle);
+      border: 1px solid var(--border-line);
       white-space: nowrap;
       flex-shrink: 0;
     }
-    .dong-picker-btn:active { box-shadow: var(--btn-pressed); }
-    .dong-picker-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
 
     .btn-top-search-bar {
       flex: 1;
-      height: 38px;
-      padding: 0 12px;
-      border-radius: 13px;
-      background-color: var(--neu-surface);
-      box-shadow: var(--btn-convex);
+      height: 36px;
+      padding: 0 11px;
+      border-radius: 10px;
+      background-color: var(--bg-subtle);
+      border: 1px solid var(--border-line);
       display: flex;
       align-items: center;
       gap: 6px;
-      color: var(--primary);
+      color: var(--text-muted);
       font-size: 13px;
-      font-weight: 800;
+      font-weight: 600;
       white-space: nowrap;
       overflow: hidden;
     }
-    .btn-top-search-bar:active { box-shadow: var(--btn-pressed); }
-    .btn-top-search-bar span { overflow: hidden; text-overflow: ellipsis; }
 
-    .topbar-right-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
-
-    .btn-test-mgr {
-      width: 38px; height: 38px; border-radius: 13px;
-      background-color: var(--neu-surface); box-shadow: var(--btn-convex);
-      display: grid; place-items: center; color: var(--primary); font-size: 12px; font-weight: 900;
+    .btn-112-badge {
+      height: 36px;
+      padding: 0 10px;
+      border-radius: 10px;
+      background-color: var(--lv3-soft);
+      color: var(--lv3-red);
+      font-size: 12.5px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
-    .btn-test-mgr:active { box-shadow: var(--btn-pressed); }
 
-    .btn-112-pill {
-      height: 38px; padding: 0 10px; border-radius: 13px;
-      background-color: var(--neu-surface); box-shadow: var(--btn-convex);
-      color: var(--lv3-red); font-size: 12.5px; font-weight: 800;
-      display: flex; align-items: center; gap: 2px; white-space: nowrap;
+    .search-bar-float { background-color: var(--bg-white); padding: 8px 14px; border-bottom: 1px solid var(--border-line); display: flex; gap: 8px; z-index: 34; }
+
+    /* 하단 4탭 네비게이션 바 */
+    .bottom-tab-bar {
+      height: calc(60px + var(--safe-bottom));
+      padding-bottom: var(--safe-bottom);
+      background-color: var(--bg-white);
+      border-top: 1px solid var(--border-line);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      flex-shrink: 0;
+      z-index: 45;
     }
-    .btn-112-pill:active { box-shadow: var(--btn-pressed); }
 
-    .search-bar-float { background-color: var(--neu-bg); padding: 6px 14px 12px; display: flex; gap: 8px; z-index: 34; }
+    .btn-nav-tab {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .btn-nav-tab.active {
+      color: var(--primary);
+      font-weight: 900;
+    }
+    .btn-nav-tab svg { width: 21px; height: 21px; }
 
+    /* --------------------------------------------------------------------------
+       [탭 1] 소음지도
+       -------------------------------------------------------------------------- */
     .map-container {
       position: relative;
-      height: 48%;
+      height: 54%;
       width: 100%;
       flex-shrink: 0;
+      background-color: #E2E8F0;
       overflow: hidden;
-      background-color: #DDE3EC;
-      border-radius: 22px 22px 0 0;
     }
-
     #kakao-map { position: absolute; inset: 0; width: 100%; height: 100%; }
-
-    .map-status-msg {
-      position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; padding: 24px; font-size: 14px; font-weight: 700; color: var(--text-sub); gap: 8px; z-index: 5;
-    }
 
     .map-right-tools { position: absolute; right: 12px; top: 12px; z-index: 25; display: flex; flex-direction: column; gap: 8px; }
     .btn-map-tool {
-      width: 46px; height: 46px; border-radius: 13px;
-      background-color: rgba(255, 255, 255, 0.96); box-shadow: 0 3px 10px rgba(17, 24, 39, 0.18);
+      width: 44px; height: 44px; border-radius: 12px;
+      background-color: var(--bg-white); border: 1px solid var(--border-strong);
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.12);
       display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
-      font-size: 10px; font-weight: 800; color: var(--text-sub); border: 1.5px solid #FFFFFF;
+      font-size: 10px; font-weight: 800; color: var(--text-sub);
     }
-    .btn-map-tool.active { background-color: var(--primary); color: #FFFFFF; }
+    .btn-map-tool.active { background-color: var(--primary); color: #FFFFFF; border-color: var(--primary); }
 
     .btn-floating-gps {
-      position: absolute; right: 12px; bottom: 22px; z-index: 25;
-      width: 42px; height: 42px; border-radius: 14px;
-      background-color: var(--neu-surface); box-shadow: 0 4px 12px rgba(17, 24, 39, 0.22);
+      position: absolute; right: 12px; bottom: 16px; z-index: 25;
+      width: 42px; height: 42px; border-radius: 12px;
+      background-color: var(--bg-white); border: 1px solid var(--border-strong);
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.14);
       display: grid; place-items: center; color: var(--primary);
     }
 
-    /* 호갱노노 스타일 지점 데이터 마커 */
-    .hg-marker-wrap {
-      position: relative;
+    /* 지도 마커 */
+    .hg-marker-wrap { position: relative; display: flex; flex-direction: column; align-items: flex-start; cursor: pointer; filter: drop-shadow(0 3px 6px rgba(15, 23, 42, 0.22)); }
+    .hg-marker-wrap.selected { transform: scale(1.08); z-index: 100; }
+    .hg-live-bubble { align-self: center; background-color: #1E293B; color: #FFFFFF; font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 6px; margin-bottom: 3px; white-space: nowrap; }
+    .hg-marker-box { min-width: 76px; border-radius: 8px 8px 8px 2px; overflow: hidden; border: 1.5px solid #FFFFFF; background-color: var(--primary); color: #FFFFFF; text-align: center; }
+    .hg-marker-wrap.is-bldg .hg-marker-box { border-top: 3.5px solid #5EEAD4; background-color: #123246; }
+    .hg-m-top { font-size: 10px; font-weight: 800; padding: 2px 8px; background-color: rgba(255, 255, 255, 0.16); color: #F1F5F9; white-space: nowrap; }
+    .hg-marker-wrap.lv-3 .hg-m-top { background-color: var(--lv3-red); color: #FFFFFF; }
+    .hg-marker-wrap.lv-2 .hg-m-top { background-color: #EA580C; color: #FFFFFF; }
+    .hg-marker-wrap.is-bldg .hg-m-top { background-color: var(--secondary); color: #FFFFFF; }
+    .hg-m-main { font-size: 13px; font-weight: 900; padding: 4px 9px; color: #FFFFFF; white-space: nowrap; }
+    .hg-m-pointer { width: 0; height: 0; border-top: 7px solid var(--primary); border-right: 8px solid transparent; margin-left: 1px; }
+    .hg-marker-wrap.is-bldg .hg-m-pointer { border-top-color: #123246; }
+    .hg-m-dot { width: 7px; height: 7px; border-radius: 50%; background-color: var(--lv3-red); border: 1.5px solid #FFFFFF; margin-left: -2px; margin-top: -1px; }
+
+    /* 하단 플랫 지점 카드 시트 */
+    .map-bottom-sheet {
+      flex: 1;
+      min-height: 0;
+      background-color: var(--bg-page);
+      border-top: 1px solid var(--border-line);
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      cursor: pointer;
-      filter: drop-shadow(0 5px 10px rgba(17, 24, 39, 0.26));
-      transition: transform 0.18s ease;
-    }
-    .hg-marker-wrap.selected { transform: scale(1.1); z-index: 100; }
-    .hg-live-bubble {
-      align-self: center; background-color: #1F2937; color: #FFFFFF;
-      font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 6px; margin-bottom: 3px; white-space: nowrap;
-    }
-    .hg-marker-box {
-      min-width: 78px; border-radius: 9px 9px 9px 2px; overflow: hidden;
-      border: 1.5px solid #FFFFFF; background-color: var(--primary); color: #FFFFFF; text-align: center;
-    }
-    .hg-marker-wrap.is-bldg .hg-marker-box { border-top: 3.5px solid #5EEAD4; background-color: #123246; }
-    .hg-m-top { font-size: 10px; font-weight: 800; padding: 2.5px 8px; background-color: rgba(255, 255, 255, 0.16); color: #F1F5F9; white-space: nowrap; }
-    .hg-marker-wrap.lv-3 .hg-m-top { background-color: #BE123C; color: #FFFFFF; }
-    .hg-marker-wrap.lv-2 .hg-m-top { background-color: #C2410C; color: #FFFFFF; }
-    .hg-marker-wrap.is-bldg .hg-m-top { background-color: #0D9488; color: #FFFFFF; }
-    .hg-m-main { font-size: 13px; font-weight: 900; padding: 4px 9px 5px; color: #FFFFFF; white-space: nowrap; }
-    .hg-m-pointer { width: 0; height: 0; border-top: 8px solid var(--primary); border-right: 9px solid transparent; margin-left: 1px; }
-    .hg-marker-wrap.is-bldg .hg-m-pointer { border-top-color: #123246; }
-    .hg-m-dot {
-      width: 7px; height: 7px; border-radius: 50%; background-color: #E11D48;
-      border: 1.5px solid #FFFFFF; margin-left: -2px; margin-top: -1px;
+      position: relative;
     }
 
-    /* 하단 지점 카드 영역 */
-    .bottom-feed-sheet {
-      flex: 1; min-height: 0; background-color: var(--neu-bg); border-radius: 24px 24px 0 0;
-      box-shadow: 0 -4px 16px rgba(17, 24, 39, 0.07); display: flex; flex-direction: column;
-      z-index: 30; margin-top: -12px; overflow: hidden;
+    .map-bottom-sheet.expanded {
+      position: absolute;
+      inset: calc(56px + var(--safe-top)) 0 0 0;
+      z-index: 40;
     }
-    .bottom-feed-sheet.expanded { position: absolute; inset: calc(58px + var(--safe-top)) 0 0 0; margin-top: 0; border-radius: 0; }
-    .sheet-section-header { background-color: var(--neu-bg); padding: 12px 16px 8px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
-    .section-title-block { display: flex; align-items: center; gap: 7px; overflow: hidden; }
-    .section-accent-bar { width: 4px; height: 18px; border-radius: 999px; background-color: var(--primary); flex-shrink: 0; }
-    .section-title-block h2 { font-size: 17px; font-weight: 900; letter-spacing: -0.03em; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .spot-index-pill { font-size: 12px; font-weight: 800; color: var(--primary); background-color: var(--primary-soft); padding: 3px 9px; border-radius: 999px; flex-shrink: 0; }
-    .sheet-expand-btn { font-size: 12.5px; font-weight: 800; color: var(--primary); padding: 6px 12px; border-radius: 12px; background-color: var(--neu-surface); box-shadow: var(--btn-convex); flex-shrink: 0; }
-    .sheet-expand-btn:active { box-shadow: var(--btn-pressed); }
+
+    .sheet-header-row {
+      padding: 10px 16px 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .sheet-title-wrap { display: flex; align-items: center; gap: 6px; overflow: hidden; }
+    .sheet-title-wrap h2 { font-size: 16px; font-weight: 900; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .spot-count-pill { font-size: 11.5px; font-weight: 800; color: var(--primary); background-color: var(--primary-soft); padding: 2px 8px; border-radius: 999px; flex-shrink: 0; }
 
     .spot-carousel-wrap {
-      flex: 1; min-height: 0; width: 100%; display: flex; overflow-x: auto; overflow-y: hidden;
-      scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; touch-action: pan-x pan-y;
-      padding-bottom: calc(74px + var(--safe-bottom)); scrollbar-width: none;
+      flex: 1;
+      min-height: 0;
+      width: 100%;
+      display: flex;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 10px;
+      scrollbar-width: none;
     }
     .spot-carousel-wrap::-webkit-scrollbar { display: none; }
-    .spot-slide { flex: 0 0 100%; width: 100%; max-width: 100%; padding: 4px 16px 0; scroll-snap-align: start; display: flex; }
-    .bottom-feed-sheet.expanded .spot-carousel-wrap { flex-direction: column; overflow-x: hidden; overflow-y: auto; scroll-snap-type: none; gap: 12px; padding: 8px 16px calc(92px + var(--safe-bottom)); }
-    .bottom-feed-sheet.expanded .spot-slide { flex: none; padding: 0; }
+
+    .spot-slide {
+      flex: 0 0 100%;
+      width: 100%;
+      max-width: 100%;
+      padding: 2px 16px 0;
+      scroll-snap-align: start;
+      display: flex;
+    }
+
+    .map-bottom-sheet.expanded .spot-carousel-wrap {
+      flex-direction: column;
+      overflow-x: hidden;
+      overflow-y: auto;
+      scroll-snap-type: none;
+      gap: 10px;
+      padding: 6px 16px 76px;
+    }
+    .map-bottom-sheet.expanded .spot-slide { flex: none; padding: 0; }
 
     .spot-card {
-      width: 100%; background-color: var(--card-surface); border-radius: 20px; padding: 15px 16px;
-      border: 1px solid #D5DCE6; box-shadow: 0 2px 8px rgba(17, 24, 39, 0.05);
-      display: flex; flex-direction: column; justify-content: space-between; gap: 8px; cursor: pointer;
+      width: 100%;
+      background-color: var(--bg-white);
+      border: 1px solid var(--border-line);
+      border-radius: 16px;
+      padding: 13px 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 6px;
+      cursor: pointer;
     }
-    .sc-top-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
-    .sc-main-pill { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 900; padding: 4px 9px; border-radius: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .sc-main-pill.lv-3 { background-color: var(--lv3-soft); color: var(--lv3-red); }
-    .sc-main-pill.lv-2 { background-color: var(--lv2-soft); color: var(--lv2-orange); }
-    .sc-main-pill.lv-1 { background-color: var(--lv1-soft); color: var(--lv1-yellow); }
-    .sc-trust-txt { font-size: 12px; font-weight: 800; color: var(--primary); white-space: nowrap; flex-shrink: 0; }
-    .sc-title-loc { font-size: 16px; font-weight: 900; color: var(--text-main); letter-spacing: -0.03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .sc-summary-line { font-size: 13.5px; font-weight: 500; line-height: 1.45; color: var(--text-sub); word-break: keep-all; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-    .sc-footer-actions { display: flex; align-items: center; gap: 10px; padding-top: 6px; }
-    .btn-fc-empathy { flex: 1; height: 38px; border-radius: 12px; background-color: var(--neu-surface); box-shadow: var(--btn-convex); color: var(--text-sub); font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 5px; }
-    .btn-fc-empathy.active { background-color: var(--primary-soft); box-shadow: var(--btn-pressed); color: var(--primary); }
-    .btn-fc-comment { height: 38px; padding: 0 14px; border-radius: 12px; background-color: var(--neu-surface); box-shadow: var(--btn-convex); color: var(--text-sub); font-size: 13px; font-weight: 800; display: flex; align-items: center; gap: 4px; white-space: nowrap; }
 
-    .fab-native-write {
-      position: absolute; right: 16px; bottom: calc(14px + var(--safe-bottom)); z-index: 40;
-      height: 46px; padding: 0 18px; border-radius: 15px;
-      background: linear-gradient(145deg, #215778 0%, #1B4965 100%); color: #FFFFFF;
-      font-size: 14.5px; font-weight: 800; display: flex; align-items: center; gap: 6px;
-      box-shadow: -2px -2px 6px rgba(255, 255, 255, 0.7), 4px 4px 12px rgba(27, 73, 101, 0.38);
+    .sc-top-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+    .sc-badge { font-size: 12px; font-weight: 800; padding: 3px 8px; border-radius: 6px; white-space: nowrap; }
+    .sc-badge.lv-3 { background-color: var(--lv3-soft); color: var(--lv3-red); }
+    .sc-badge.lv-2 { background-color: var(--lv2-soft); color: var(--lv2-orange); }
+    .sc-badge.lv-1 { background-color: var(--lv1-soft); color: var(--lv1-yellow); }
+    .sc-trust { font-size: 12px; font-weight: 800; color: var(--primary); }
+    .sc-loc { font-size: 15.5px; font-weight: 900; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sc-desc { font-size: 13.5px; color: var(--text-sub); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+
+    .sc-actions { display: flex; align-items: center; gap: 8px; padding-top: 4px; }
+    .btn-card-act {
+      height: 34px;
+      padding: 0 12px;
+      border-radius: 9px;
+      background-color: var(--bg-subtle);
+      border: 1px solid var(--border-line);
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--text-sub);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
+    .btn-card-act.active { background-color: var(--primary-soft); border-color: var(--primary); color: var(--primary); }
+
+    /* 우측 하단 + 소음 올리기 플로팅 버튼 */
+    .fab-write {
+      position: absolute;
+      right: 16px;
+      bottom: 14px;
+      z-index: 42;
+      height: 44px;
+      padding: 0 16px;
+      border-radius: 999px;
+      background-color: var(--primary);
+      color: #FFFFFF;
+      font-size: 14px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      box-shadow: 0 6px 16px rgba(27, 73, 101, 0.28);
+    }
+
+    /* --------------------------------------------------------------------------
+       [탭 2] 소음분석 리포트 (베이비타임 '건강 기록 정보 / 주간 패턴' 벤치마킹)
+       -------------------------------------------------------------------------- */
+    .tab-scroll-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .white-card {
+      background-color: var(--bg-white);
+      border: 1px solid var(--border-line);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .wc-header { display: flex; align-items: center; justify-content: space-between; }
+    .wc-title { font-size: 16px; font-weight: 900; color: var(--text-main); display: flex; align-items: center; gap: 6px; }
+    .wc-sub { font-size: 12px; font-weight: 600; color: var(--text-muted); }
+
+    .kpi-3-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .kpi-box { background-color: var(--bg-subtle); border-radius: 12px; padding: 12px 8px; text-align: center; }
+    .kpi-box span { display: block; font-size: 11.5px; font-weight: 700; color: var(--text-muted); }
+    .kpi-box strong { display: block; font-size: 18px; font-weight: 900; color: var(--primary); margin-top: 3px; }
+    .kpi-box strong.red { color: var(--lv3-red); }
+
+    /* --------------------------------------------------------------------------
+       [탭 3] 이웃 커뮤니티 (마미톡 '함께 공감하며 궁금증 해결 커뮤니티' 벤치마킹)
+       -------------------------------------------------------------------------- */
+    .comm-cat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      background-color: var(--bg-white);
+      border: 1px solid var(--border-line);
+      border-radius: 16px;
+      padding: 14px 10px;
+    }
+    .btn-comm-cat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-sub);
+    }
+    .btn-comm-cat.active { color: var(--primary); font-weight: 900; }
+    .comm-cat-circle {
+      width: 44px; height: 44px; border-radius: 14px;
+      background-color: var(--bg-subtle);
+      display: grid; place-items: center; font-size: 20px;
+    }
+    .btn-comm-cat.active .comm-cat-circle { background-color: var(--primary-soft); border: 1.5px solid var(--primary); }
+
+    .comm-post-card {
+      background-color: var(--bg-white);
+      border: 1px solid var(--border-line);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .comm-tag { align-self: flex-start; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 6px; background-color: var(--primary-soft); color: var(--primary); }
+    .comm-title { font-size: 15.5px; font-weight: 800; color: var(--text-main); }
+    .comm-body { font-size: 13.5px; color: var(--text-sub); line-height: 1.5; }
+    .comm-meta { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); padding-top: 6px; border-top: 1px solid var(--border-line); }
+
+    /* --------------------------------------------------------------------------
+       [탭 4] 수면·방음 케어 (베이비타임 '뮤직박스' + 마미톡 '특가 스토어' 벤치마킹)
+       -------------------------------------------------------------------------- */
+    .sound-player-banner {
+      background: linear-gradient(135deg, #1B4965 0%, #0F293A 100%);
+      color: #FFFFFF;
+      border-radius: 18px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .sound-timer { font-size: 32px; font-weight: 900; letter-spacing: 0.04em; font-variant-numeric: tabular-nums; }
+    .sound-controls { display: flex; align-items: center; gap: 18px; }
+    .btn-play-main {
+      width: 52px; height: 52px; border-radius: 50%;
+      background-color: #FFFFFF; color: var(--primary);
+      font-size: 20px; font-weight: 900; display: grid; place-items: center;
+    }
+    .sound-track-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 4px; border-bottom: 1px solid var(--border-line); cursor: pointer;
+    }
+    .sound-track-row:last-child { border-bottom: none; }
+    .sound-track-row.playing strong { color: var(--secondary); }
+
+    .deal-item-card {
+      display: flex;
+      gap: 12px;
+      padding: 12px;
+      background-color: var(--bg-white);
+      border: 1px solid var(--border-line);
+      border-radius: 14px;
+      align-items: center;
+    }
+    .deal-thumb {
+      width: 68px; height: 68px; border-radius: 12px;
+      background-color: var(--primary-soft);
+      display: grid; place-items: center; font-size: 28px; flex-shrink: 0;
+    }
+    .deal-info { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+    .deal-info strong { font-size: 14.5px; font-weight: 800; color: var(--text-main); }
+    .deal-price { font-size: 15px; font-weight: 900; color: var(--lv3-red); }
+    .deal-price em { font-style: normal; color: var(--text-main); margin-left: 4px; }
+    .deal-tag { font-size: 11.5px; color: var(--text-muted); }
 
     /* ==========================================================================
-       [화면 4] 전면 개편된 「우리 동네 소음 올리기」
-       - 1단계: 최우선 '소음 발생 위치' (지도 핀찍기 + 도로명/지번 주소 확정)
-       - 2단계: 공간 구분 (실외 도로 / 건물 실내)
-       - 건물 실내 선택 시 실제 층수(1층, 2층, 3층... N층) 연속 표시
+       [화면 4] 우리 동네 소음 올리기 (플랫 디자인 + 위치 최우선 + 연속 층수)
        ========================================================================== */
-    #screen-write { z-index: 110; background-color: var(--neu-bg); }
-    .subscreen-topbar { height: calc(56px + var(--safe-top)); padding: var(--safe-top) 16px 0; background-color: var(--neu-bg); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
-    .subscreen-topbar h2 { font-size: 17px; font-weight: 800; letter-spacing: -0.03em; }
-    .write-scroll-body { flex: 1; overflow-y: auto; padding: 14px 18px calc(110px + var(--safe-bottom)); display: flex; flex-direction: column; gap: 22px; }
-    .write-step-block h3 { font-size: 15.5px; font-weight: 800; color: var(--text-main); margin-bottom: 10px; }
+    #screen-write { z-index: 110; background-color: var(--bg-page); }
+    .write-scroll-body { flex: 1; overflow-y: auto; padding: 16px 18px calc(100px + var(--safe-bottom)); display: flex; flex-direction: column; gap: 20px; }
+    .write-step-block h3 { font-size: 15px; font-weight: 800; color: var(--text-main); margin-bottom: 10px; }
 
-    /* 최우선 위치 확정 카드 */
     .write-location-box {
-      background-color: var(--card-surface);
+      background-color: var(--bg-white);
       border: 1.5px solid var(--primary);
-      border-radius: 18px;
-      padding: 14px 15px;
+      border-radius: 16px;
+      padding: 14px;
       display: flex;
       flex-direction: column;
       gap: 10px;
     }
+    .wlb-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+    .wlb-addrs strong { display: block; font-size: 15px; font-weight: 900; color: var(--text-main); line-height: 1.35; }
+    .wlb-addrs span { display: block; font-size: 12.5px; font-weight: 600; color: var(--text-muted); margin-top: 3px; }
 
-    .wlb-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .wlb-addrs strong {
-      display: block;
-      font-size: 15px;
-      font-weight: 900;
-      color: var(--text-main);
-      line-height: 1.35;
-      word-break: keep-all;
-    }
-
-    .wlb-addrs span {
-      display: block;
-      font-size: 12.5px;
-      font-weight: 600;
-      color: var(--text-muted);
-      margin-top: 3px;
-    }
-
-    .space-toggle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .btn-space-card { padding: 14px; border-radius: 16px; background-color: var(--neu-surface); box-shadow: var(--btn-convex); text-align: left; display: flex; flex-direction: column; gap: 4px; }
-    .btn-space-card.active { background-color: var(--neu-bg); box-shadow: var(--btn-pressed); border: 1.5px solid var(--primary); }
+    .space-toggle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .btn-space-card { padding: 14px; border-radius: 14px; background-color: var(--bg-white); border: 1.5px solid var(--border-line); text-align: left; display: flex; flex-direction: column; gap: 4px; }
+    .btn-space-card.active { background-color: var(--primary-soft); border-color: var(--primary); }
     .btn-space-card strong { font-size: 14.5px; font-weight: 800; color: var(--text-main); }
     .btn-space-card span { font-size: 12px; font-weight: 600; color: var(--text-sub); }
 
-    .road-type-pills { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
-    .btn-road-pill { padding: 9px 14px; border-radius: 12px; background-color: var(--neu-surface); box-shadow: var(--btn-convex); font-size: 13px; font-weight: 700; color: var(--text-sub); }
-    .btn-road-pill.active { background-color: var(--secondary); color: #FFFFFF; box-shadow: var(--btn-pressed); }
+    .road-type-pills { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+    .btn-road-pill { padding: 8px 13px; border-radius: 10px; background-color: var(--bg-white); border: 1px solid var(--border-strong); font-size: 13px; font-weight: 700; color: var(--text-sub); }
+    .btn-road-pill.active { background-color: var(--secondary); border-color: var(--secondary); color: #FFFFFF; }
 
-    .floor-picker-wrap { margin-top: 12px; background-color: var(--card-surface); border: 1px solid #DCE3EC; border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 12px; }
-    /* 연속 층수 버튼 그리드 (1층, 2층, 3층... 실제 최고층까지 빠짐없이 표시) */
-    .floor-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; max-height: 180px; overflow-y: auto; padding: 2px; }
-    .btn-floor-chip { height: 38px; border-radius: 11px; background-color: var(--neu-surface); box-shadow: var(--btn-convex); font-size: 13px; font-weight: 700; color: var(--text-main); }
-    .btn-floor-chip.active { background-color: var(--primary); color: #FFFFFF; box-shadow: var(--btn-pressed); }
+    .floor-picker-wrap { margin-top: 10px; background-color: var(--bg-white); border: 1px solid var(--border-line); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+    .floor-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; max-height: 170px; overflow-y: auto; }
+    .btn-floor-chip { height: 38px; border-radius: 10px; background-color: var(--bg-subtle); border: 1px solid var(--border-line); font-size: 13px; font-weight: 700; color: var(--text-main); }
+    .btn-floor-chip.active { background-color: var(--primary); border-color: var(--primary); color: #FFFFFF; }
 
-    .cat-select-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-    .btn-cat-item { height: 46px; padding: 0 14px; border-radius: 14px; background-color: var(--neu-surface); box-shadow: var(--btn-convex); font-size: 14px; font-weight: 700; color: var(--text-sub); text-align: left; display: flex; align-items: center; gap: 8px; }
-    .btn-cat-item.active { background-color: var(--neu-bg); box-shadow: var(--btn-pressed); color: var(--primary); font-weight: 800; border: 1.5px solid var(--primary); }
+    .cat-select-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .btn-cat-item { height: 44px; padding: 0 12px; border-radius: 12px; background-color: var(--bg-white); border: 1px solid var(--border-line); font-size: 13.5px; font-weight: 700; color: var(--text-sub); text-align: left; display: flex; align-items: center; }
+    .btn-cat-item.active { background-color: var(--primary-soft); border: 1.5px solid var(--primary); color: var(--primary); font-weight: 800; }
 
-    .who-level-stack { display: flex; flex-direction: column; gap: 10px; }
-    .btn-who-level { padding: 13px 15px; border-radius: 15px; background-color: var(--neu-surface); box-shadow: var(--btn-convex); text-align: left; display: flex; align-items: center; justify-content: space-between; font-size: 13.5px; }
-    .btn-who-level.active[data-lv="1"] { background-color: var(--lv1-soft); box-shadow: var(--btn-pressed); }
-    .btn-who-level.active[data-lv="2"] { background-color: var(--lv2-soft); box-shadow: var(--btn-pressed); }
-    .btn-who-level.active[data-lv="3"] { background-color: var(--lv3-soft); box-shadow: var(--btn-pressed); }
+    .who-level-stack { display: flex; flex-direction: column; gap: 8px; }
+    .btn-who-level { padding: 13px 14px; border-radius: 12px; background-color: var(--bg-white); border: 1px solid var(--border-line); text-align: left; font-size: 13.5px; }
+    .btn-who-level.active[data-lv="1"] { background-color: var(--lv1-soft); border-color: var(--lv1-yellow); }
+    .btn-who-level.active[data-lv="2"] { background-color: var(--lv2-soft); border-color: var(--lv2-orange); }
+    .btn-who-level.active[data-lv="3"] { background-color: var(--lv3-soft); border-color: var(--lv3-red); }
 
-    .write-textarea { width: 100%; min-height: 92px; border: none; border-radius: 16px; background-color: var(--neu-bg); box-shadow: var(--input-concave); padding: 13px 15px; font-family: inherit; font-size: 14.5px; line-height: 1.5; color: var(--text-main); resize: none; outline: none; }
-    .urgent-112-banner { background-color: var(--lv3-soft); border-radius: 15px; padding: 13px 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-    .urgent-112-banner span { font-size: 12.5px; font-weight: 700; color: var(--lv3-red); line-height: 1.4; }
-    .btn-urgent-112-go { padding: 9px 12px; border-radius: 11px; background-color: var(--lv3-red); color: #FFFFFF; font-size: 12.5px; font-weight: 800; white-space: nowrap; }
+    .write-textarea { width: 100%; min-height: 88px; border: 1.5px solid var(--border-strong); border-radius: 14px; background-color: var(--bg-white); padding: 12px 14px; font-family: inherit; font-size: 14.5px; line-height: 1.5; color: var(--text-main); resize: none; outline: none; }
+    .write-textarea:focus { border-color: var(--primary); }
 
     /* ==========================================================================
        [화면 5] 폰 1페이지 완결형 상세 리포트
        ========================================================================== */
-    #screen-detail, #screen-building { z-index: 105; background-color: var(--neu-bg); }
-    .detail-page-shell { flex: 1; min-height: 0; padding: 8px 16px calc(16px + var(--safe-bottom)); display: flex; flex-direction: column; justify-content: space-between; gap: 10px; overflow: hidden; }
-    .hg-hero-banner { background-color: var(--primary); color: #FFFFFF; border-radius: 18px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
-    .hg-hero-sub { font-size: 11.5px; font-weight: 700; color: #A7F3D0; display: flex; align-items: center; justify-content: space-between; }
-    .hg-hero-title { font-size: 18px; font-weight: 900; letter-spacing: -0.03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .hg-compare-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background-color: var(--card-surface); border: 1px solid #D5DCE6; border-radius: 16px; padding: 12px 14px; flex-shrink: 0; }
+    #screen-detail, #screen-building { z-index: 105; background-color: var(--bg-page); }
+    .detail-page-shell { flex: 1; min-height: 0; padding: 12px 16px calc(16px + var(--safe-bottom)); display: flex; flex-direction: column; justify-content: space-between; gap: 10px; overflow: hidden; }
+    .hg-hero-banner { background-color: var(--primary); color: #FFFFFF; border-radius: 16px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
+    .hg-hero-sub { font-size: 11.5px; font-weight: 700; color: #A7F3D0; display: flex; justify-content: space-between; }
+    .hg-hero-title { font-size: 17.5px; font-weight: 900; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .hg-compare-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background-color: var(--bg-white); border: 1px solid var(--border-line); border-radius: 14px; padding: 12px 14px; flex-shrink: 0; }
     .hg-comp-col { display: flex; flex-direction: column; gap: 2px; }
     .hg-comp-sub { font-size: 11.5px; font-weight: 700; color: var(--text-muted); }
-    .hg-comp-big { font-size: 24px; font-weight: 900; letter-spacing: -0.04em; color: var(--primary); }
+    .hg-comp-big { font-size: 24px; font-weight: 900; color: var(--primary); }
     .hg-comp-big.red { color: var(--lv3-red); }
     .detail-subtabs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; flex-shrink: 0; }
-    .btn-subtab { height: 38px; border-radius: 12px; background-color: var(--neu-surface); box-shadow: var(--btn-convex); font-size: 13px; font-weight: 800; color: var(--text-sub); }
-    .btn-subtab.active { background-color: var(--neu-bg); box-shadow: var(--btn-pressed); color: var(--primary); border: 1.5px solid var(--primary); }
-    .detail-tab-panel { flex: 1; min-height: 0; background-color: var(--card-surface); border: 1px solid #D5DCE6; border-radius: 18px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between; gap: 10px; overflow-y: auto; }
-    .era-analysis-box { background-color: #F1F5F9; border-radius: 12px; padding: 11px 12px; display: flex; flex-direction: column; gap: 5px; }
+    .btn-subtab { height: 38px; border-radius: 10px; background-color: var(--bg-white); border: 1px solid var(--border-line); font-size: 13px; font-weight: 800; color: var(--text-sub); }
+    .btn-subtab.active { background-color: var(--primary-soft); border: 1.5px solid var(--primary); color: var(--primary); }
+    .detail-tab-panel { flex: 1; min-height: 0; background-color: var(--bg-white); border: 1px solid var(--border-line); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between; gap: 10px; overflow-y: auto; }
+    .era-analysis-box { background-color: var(--bg-subtle); border-radius: 12px; padding: 11px 12px; display: flex; flex-direction: column; gap: 5px; }
     .era-badge-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
     .era-tag { font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 6px; background-color: var(--primary); color: #FFFFFF; }
     .era-desc { font-size: 12.5px; line-height: 1.48; color: var(--text-sub); word-break: keep-all; }
     .hg-history-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-    .hg-history-table th { text-align: left; padding: 6px 4px; color: var(--text-muted); font-weight: 700; border-bottom: 1px solid #CBD5E1; }
-    .hg-history-table td { padding: 7px 4px; color: var(--text-main); font-weight: 700; border-bottom: 1px solid #E2E8F0; }
-    .testimony-card { background-color: var(--card-warm); border-radius: 14px; padding: 11px 13px; border: 1px solid #D5DCE6; border-left: 4px solid var(--secondary); display: flex; flex-direction: column; gap: 4px; }
+    .hg-history-table th { text-align: left; padding: 6px 4px; color: var(--text-muted); font-weight: 700; border-bottom: 1px solid var(--border-strong); }
+    .hg-history-table td { padding: 7px 4px; color: var(--text-main); font-weight: 700; border-bottom: 1px solid var(--border-line); }
+    .testimony-card { background-color: var(--bg-subtle); border-radius: 12px; padding: 11px 13px; border: 1px solid var(--border-line); border-left: 4px solid var(--secondary); display: flex; flex-direction: column; gap: 4px; }
     .testimony-header { display: flex; align-items: center; justify-content: space-between; font-size: 12px; }
     .testimony-badge { font-weight: 800; color: var(--secondary); }
     .testimony-time { color: var(--text-muted); font-weight: 600; }
-    .testimony-body { font-size: 13.5px; line-height: 1.45; color: var(--text-main); word-break: keep-all; }
+    .testimony-body { font-size: 13.5px; line-height: 1.45; color: var(--text-main); }
     .detail-bottom-cta-row { display: flex; gap: 10px; flex-shrink: 0; }
 
     /* 모달 & 토스트 */
-    .sheet-backdrop { position: absolute; inset: 0; background-color: rgba(17, 24, 39, 0.45); z-index: 120; display: flex; align-items: flex-end; justify-content: center; }
-    .native-modal-sheet { width: 100%; background-color: var(--neu-bg); border-radius: 26px 26px 0 0; padding: 14px 22px calc(26px + var(--safe-bottom)); display: flex; flex-direction: column; gap: 12px; max-height: 88%; overflow-y: auto; }
+    .sheet-backdrop { position: absolute; inset: 0; background-color: rgba(15, 23, 42, 0.45); z-index: 120; display: flex; align-items: flex-end; justify-content: center; }
+    .native-modal-sheet { width: 100%; background-color: var(--bg-white); border-radius: 22px 22px 0 0; padding: 18px 20px calc(24px + var(--safe-bottom)); display: flex; flex-direction: column; gap: 12px; max-height: 88%; overflow-y: auto; }
     .sheet-title-bar { display: flex; align-items: center; justify-content: space-between; }
-    .sheet-title-bar h3 { font-size: 18.5px; font-weight: 800; letter-spacing: -0.03em; }
+    .sheet-title-bar h3 { font-size: 18px; font-weight: 900; }
     .dong-option-list { display: flex; flex-direction: column; gap: 8px; }
-    .btn-dong-item { width: 100%; padding: 14px 16px; border-radius: 16px; background-color: var(--neu-surface); box-shadow: var(--btn-convex); font-size: 15.5px; font-weight: 700; text-align: left; display: flex; align-items: center; justify-content: space-between; color: var(--text-main); }
-    .sms-native-box { background-color: var(--card-surface); border: 1px solid #CBD5E1; border-radius: 16px; padding: 16px; font-size: 14.5px; line-height: 1.6; color: var(--text-main); white-space: pre-line; }
-    .app-toast { position: absolute; bottom: calc(84px + var(--safe-bottom)); left: 20px; right: 20px; background-color: rgba(17, 24, 39, 0.94); color: #FFFFFF; font-size: 14px; font-weight: 600; padding: 13px 18px; border-radius: 16px; text-align: center; z-index: 200; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18); }
+    .btn-dong-item { width: 100%; padding: 13px 15px; border-radius: 12px; background-color: var(--bg-subtle); border: 1px solid var(--border-line); font-size: 15px; font-weight: 700; text-align: left; display: flex; align-items: center; justify-content: space-between; color: var(--text-main); }
+    .sms-native-box { background-color: var(--bg-subtle); border: 1px solid var(--border-strong); border-radius: 12px; padding: 14px; font-size: 14px; line-height: 1.6; color: var(--text-main); white-space: pre-line; }
+    .app-toast { position: absolute; bottom: calc(74px + var(--safe-bottom)); left: 20px; right: 20px; background-color: rgba(15, 23, 42, 0.94); color: #FFFFFF; font-size: 13.5px; font-weight: 600; padding: 12px 16px; border-radius: 12px; text-align: center; z-index: 200; }
   </style>
 </head>
 <body>
   <div class="app-shell">
 
     <!-- ========================================================================
-         [화면 1] 스플래시 (v1.2.2)
+         [화면 1] 스플래시 (v1.3.0)
          ======================================================================== -->
     <section class="screen" id="screen-splash" aria-label="53데시벨 시작 화면">
       <div class="splash-top-meta">
-        <span class="version-pill">v1.2.2</span>
+        <span class="version-pill">v1.3.0</span>
       </div>
 
       <div class="splash-center-group">
@@ -777,11 +898,10 @@
          [화면 2] 요기요 스타일 4단계 표준 온보딩
          ======================================================================== -->
     <section class="screen" id="screen-auth" hidden>
-      <!-- Step 1: 로그인 / 신규 가입 시작 -->
       <div id="auth-step-login" class="auth-view">
         <div class="auth-hero">
           <div class="hero-illust">
-            <svg width="60" height="60" viewBox="0 0 64 64" fill="none">
+            <svg width="58" height="58" viewBox="0 0 64 64" fill="none">
               <rect x="10" y="22" width="22" height="32" rx="4" fill="#1B4965"/>
               <rect x="28" y="12" width="26" height="42" rx="4" fill="#2B678B"/>
               <rect x="34" y="20" width="6" height="5" rx="1.5" fill="#F59E0B"/>
@@ -792,7 +912,7 @@
           </div>
 
           <h1>우리 동네 소음 고민,<br>이웃과 함께 해결해요</h1>
-          <p>내 거주지 중심으로 소음을 기록하고<br>이웃들과 공감을 모아보세요.</p>
+          <p>소음 지도부터 패턴 분석 리포트, 수면 케어까지<br>조용히 살 권리를 함께 지킵니다.</p>
         </div>
 
         <div class="saved-accounts-box" id="saved-accounts-box" hidden>
@@ -804,15 +924,15 @@
         </div>
 
         <div class="auth-bottom-actions">
-          <button type="button" class="btn-native-social btn-native-kakao" data-provider="카카오">
+          <button type="button" class="btn-social btn-kakao" data-provider="카카오">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.477 3 2 6.477 2 10.765c0 2.77 1.86 5.2 4.66 6.56-.15.54-.96 3.47-1 3.63-.05.2.07.2.16.14.07-.04 2.72-1.85 3.82-2.6.76.11 1.55.17 2.36.17 5.523 0 10-3.477 10-7.765S17.523 3 12 3z"/></svg>
             <span>카카오로 신규 회원가입</span>
           </button>
-          <button type="button" class="btn-native-social btn-native-naver" data-provider="네이버">
+          <button type="button" class="btn-social btn-naver" data-provider="네이버">
             <span style="font-weight:900; font-size:17px;">N</span>
             <span>네이버로 신규 회원가입</span>
           </button>
-          <button type="button" class="btn-native-social btn-native-google" data-provider="Google">
+          <button type="button" class="btn-social btn-google" data-provider="Google">
             <span>Google로 신규 회원가입</span>
           </button>
           <button type="button" class="btn-browse-first" id="btn-guest-enter">
@@ -822,7 +942,6 @@
         </div>
       </div>
 
-      <!-- Step 2: 앱 접근 권한 안내 (요기요 스크린샷 1~2 반영) -->
       <div id="auth-step-perm" class="auth-view" hidden>
         <div class="perm-header">
           <h2>편리한 53데시벨 이용을 위해<br>앱 접근 권한이 필요해요</h2>
@@ -865,10 +984,9 @@
           • 선택 권한은 서비스 사용 중 필요한 시점에 동의를 받고 있으며, 허용하지 않으셔도 기본 지도 및 커뮤니티 이용이 가능합니다.
         </div>
 
-        <button type="button" class="btn-cta-primary" id="btn-perm-confirm">확인</button>
+        <button type="button" class="btn-primary" id="btn-perm-confirm">확인</button>
       </div>
 
-      <!-- Step 3: 이용약관 동의 (요기요 스크린샷 3 반영) -->
       <div id="auth-step-terms" class="auth-view" hidden>
         <div class="terms-title-area">
           <h2>이용약관 동의</h2>
@@ -898,47 +1016,45 @@
           </label>
         </div>
 
-        <div class="native-field" style="margin-top:8px;">
-          <label for="input-nickname">활동 닉네임 설정</label>
-          <div class="native-input-box">
-            <input type="text" id="input-nickname" value="조용한이웃01">
-            <button type="button" class="btn-chip-action" id="btn-random-nick">새로 추천</button>
+        <div style="margin-top:8px;">
+          <label style="display:block; font-size:13px; font-weight:800; color:var(--text-sub); margin-bottom:6px;">활동 닉네임 설정</label>
+          <div style="display:flex; gap:8px;">
+            <div class="flat-input-box" style="flex:1;">
+              <input type="text" id="input-nickname" value="조용한이웃01">
+            </div>
+            <button type="button" class="btn-outline" id="btn-random-nick" style="height:48px;">새로 추천</button>
           </div>
         </div>
 
         <div style="margin-top:auto;">
-          <button type="button" class="btn-cta-primary" id="btn-terms-start" disabled>시작하기</button>
+          <button type="button" class="btn-primary" id="btn-terms-start" disabled>시작하기</button>
         </div>
       </div>
     </section>
 
     <!-- ========================================================================
          [공용 화면] 요기요 스타일 「지도에서 주소 찾기」 핀 드래그 화면
-         - 온보딩 위치 확정 & 소음 올리기 위치 지정에서 공용 호출
          ======================================================================== -->
     <section class="screen" id="screen-pin-picker" hidden>
       <header class="picker-topbar">
-        <button type="button" class="btn-chip-action" id="btn-picker-back">← 이전</button>
+        <button type="button" class="btn-outline" id="btn-picker-back">← 이전</button>
         <h2 id="picker-title">지도에서 주소 찾기</h2>
         <span style="width:52px;"></span>
       </header>
 
       <div class="picker-search-strip">
-        <div class="native-input-box" style="flex:1; height:42px;">
+        <div class="flat-input-box" style="flex:1; height:42px;">
           <input type="text" id="input-picker-search" placeholder="건물명, 도로명 또는 지번으로 검색">
         </div>
-        <button type="button" class="btn-chip-action" id="btn-picker-search" style="height:42px; background:var(--primary); color:#fff;">검색</button>
+        <button type="button" class="btn-outline" id="btn-picker-search" style="height:42px; background:var(--primary); color:#fff; border-color:var(--primary);">검색</button>
       </div>
 
       <div class="picker-map-area">
         <div id="picker-kakao-map"></div>
-
-        <!-- 지도 정중앙 고정 핀 + 파란 안내 말풍선 -->
         <div class="picker-center-pin-wrap">
           <div class="picker-guide-bubble">지도를 움직여 위치를 설정하세요</div>
           <div class="picker-pin-head"><div class="picker-pin-dot"></div></div>
         </div>
-
         <button type="button" class="btn-floating-gps" id="btn-picker-gps" title="현재 내 위치로 이동">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
             <circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2" fill="currentColor"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>
@@ -951,96 +1067,199 @@
           <div class="picker-road-addr" id="picker-road-text">주소를 확인하는 중...</div>
           <div class="picker-jibun-addr" id="picker-jibun-text">[지번] 지도를 움직여 정확한 위치를 맞춰주세요</div>
         </div>
-        <button type="button" class="btn-cta-primary" id="btn-picker-confirm">선택한 위치로 설정</button>
+        <button type="button" class="btn-primary" id="btn-picker-confirm">선택한 위치로 설정</button>
       </div>
     </section>
 
     <!-- ========================================================================
-         [화면 3] 메인 홈
+         [메인 4탭 통합 화면]
          ======================================================================== -->
-    <section class="screen" id="screen-home" hidden>
-      <header class="app-topbar">
-        <button type="button" class="dong-picker-btn" id="btn-open-dong-sheet">
-          <span id="current-dong-label">현위치</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 9l6 6 6-6"/>
-          </svg>
-        </button>
+    <section class="screen" id="screen-main" hidden>
 
-        <button type="button" class="btn-top-search-bar" id="btn-toggle-search">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="flex-shrink:0;">
-            <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>
-          </svg>
-          <span>궁금한 동네·아파트 검색</span>
-        </button>
-
-        <div class="topbar-right-actions">
-          <button type="button" class="btn-test-mgr" id="btn-open-test-mgr" title="테스트 계정 전환 및 데이터 내보내기">계정</button>
-          <button type="button" class="btn-112-pill" id="btn-global-112">
-            <span>🚨 112</span>
+      <!-- [탭 1] 소음지도 -->
+      <div class="tab-view" id="tab-view-map">
+        <header class="flat-topbar">
+          <button type="button" class="dong-picker-btn" id="btn-open-dong-sheet">
+            <span id="current-dong-label">현위치</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
           </button>
-        </div>
-      </header>
 
-      <div class="search-bar-float" id="search-drawer" hidden>
-        <div class="native-input-box" style="flex:1; height:44px;">
-          <input type="text" id="input-map-search" placeholder="동네명, 아파트, 역 이름 검색 (예: 논현동, 만수동)">
-        </div>
-        <button type="button" class="btn-chip-action" id="btn-exec-search" style="height:44px; background:var(--primary); color:#fff;">이동</button>
-      </div>
-
-      <div class="map-container">
-        <div id="kakao-map"></div>
-        <div id="map-loading-box" class="map-status-msg">
-          <span>내 위치 중심 카카오맵을 불러오는 중입니다...</span>
-        </div>
-
-        <div class="map-right-tools">
-          <button type="button" class="btn-map-tool" id="btn-toggle-cctv" title="채증 가능 방범 CCTV 위치 표시">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/>
-            </svg>
-            <span>CCTV</span>
+          <button type="button" class="btn-top-search-bar" id="btn-toggle-search">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+            <span>동네·아파트 검색</span>
           </button>
-        </div>
 
-        <button type="button" class="btn-floating-gps" id="btn-goto-gps" aria-label="내 위치 및 행정동 찾기">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
-            <circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2" fill="currentColor"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>
-          </svg>
-        </button>
-      </div>
+          <button type="button" class="btn-outline" id="btn-open-test-mgr" style="height:36px; padding:0 10px;">계정</button>
+          <button type="button" class="btn-112-badge" id="btn-global-112">🚨 112</button>
+        </header>
 
-      <aside class="bottom-feed-sheet" id="feed-sheet">
-        <div class="sheet-section-header">
-          <div class="section-title-block">
-            <span class="section-accent-bar"></span>
-            <h2 id="sheet-section-title">주변 소음 지점</h2>
-            <span class="spot-index-pill" id="spot-index-indicator">0 / 0</span>
+        <div class="search-bar-float" id="search-drawer" hidden>
+          <div class="flat-input-box" style="flex:1; height:42px;">
+            <input type="text" id="input-map-search" placeholder="동네명, 아파트, 역 이름 검색">
           </div>
-          <button type="button" class="sheet-expand-btn" id="sheet-expand-btn">전체 보기 ▲</button>
+          <button type="button" class="btn-outline" id="btn-exec-search" style="height:42px; background:var(--primary); color:#fff; border-color:var(--primary);">이동</button>
         </div>
 
-        <div class="spot-carousel-wrap" id="feed-list"></div>
-      </aside>
+        <div class="map-container">
+          <div id="kakao-map"></div>
+          <div class="map-right-tools">
+            <button type="button" class="btn-map-tool" id="btn-toggle-cctv" title="채증 가능 방범 CCTV">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+              <span>CCTV</span>
+            </button>
+          </div>
+          <button type="button" class="btn-floating-gps" id="btn-goto-gps" title="내 위치">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2" fill="currentColor"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+          </button>
+        </div>
 
-      <button type="button" class="fab-native-write" id="btn-open-write">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round">
-          <path d="M12 5v14M5 12h14"/>
-        </svg>
-        <span>소음 올리기</span>
-      </button>
+        <div class="map-bottom-sheet" id="feed-sheet">
+          <div class="sheet-header-row">
+            <div class="sheet-title-wrap">
+              <span class="section-accent-bar"></span>
+              <h2 id="sheet-section-title">주변 소음 지점</h2>
+              <span class="spot-count-pill" id="spot-index-indicator">0 / 0</span>
+            </div>
+            <button type="button" class="btn-outline" id="sheet-expand-btn" style="height:30px; font-size:12px;">전체 보기 ▲</button>
+          </div>
+
+          <div class="spot-carousel-wrap" id="feed-list"></div>
+
+          <button type="button" class="fab-write" id="btn-open-write">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><path d="M12 5v14M5 12h14"/></svg>
+            <span>소음 올리기</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- [탭 2] 소음분석 리포트 (베이비타임 패턴·보고서 벤치마킹) -->
+      <div class="tab-view" id="tab-view-report" hidden>
+        <header class="flat-topbar">
+          <h2 style="font-size:18px; font-weight:900;">📊 우리 동네 · 내 소음 리포트</h2>
+          <button type="button" class="btn-outline" id="btn-export-report-txt" style="height:34px; font-size:12px;">민원서식 복사</button>
+        </header>
+        <div class="tab-scroll-body" id="report-tab-body"></div>
+      </div>
+
+      <!-- [탭 3] 이웃 커뮤니티 (마미톡 커뮤니티 벤치마킹) -->
+      <div class="tab-view" id="tab-view-community" hidden>
+        <header class="flat-topbar">
+          <h2 style="font-size:18px; font-weight:900;">💬 이웃 소음 커뮤니티</h2>
+          <button type="button" class="btn-outline" id="btn-comm-write-jump" style="height:34px; font-size:12px; color:var(--primary); border-color:var(--primary);">+ 글쓰기</button>
+        </header>
+        <div class="tab-scroll-body">
+          <div class="comm-cat-grid" id="comm-cat-grid">
+            <button type="button" class="btn-comm-cat active" data-ccat="all"><div class="comm-cat-circle">🏘️</div><span>전체</span></button>
+            <button type="button" class="btn-comm-cat" data-ccat="indoor"><div class="comm-cat-circle">🏢</div><span>층간·벽간</span></button>
+            <button type="button" class="btn-comm-cat" data-ccat="bike"><div class="comm-cat-circle">🏍️</div><span>바이크·도로</span></button>
+            <button type="button" class="btn-comm-cat" data-ccat="shout"><div class="comm-cat-circle">📢</div><span>고성·민원</span></button>
+          </div>
+          <div id="comm-feed-list" style="display:flex; flex-direction:column; gap:10px;"></div>
+        </div>
+      </div>
+
+      <!-- [탭 4] 수면·방음 케어 (베이비타임 뮤직박스 + 마미톡 특가 스토어 벤치마킹) -->
+      <div class="tab-view" id="tab-view-care" hidden>
+        <header class="flat-topbar">
+          <h2 style="font-size:18px; font-weight:900;">🎧 53dB 수면 · 방음 케어</h2>
+          <span style="font-size:12px; font-weight:800; color:var(--secondary);">소음 차폐 솔루션</span>
+        </header>
+        <div class="tab-scroll-body">
+          <!-- 베이비타임 뮤직박스 스타일: 실시간 웹 오디오 백색소음·수면 사운드 플레이어 -->
+          <div class="sound-player-banner">
+            <span style="font-size:12px; font-weight:800; color:#5EEAD4;">53dB 사운드 테라피 · 층간·도로소음 차폐</span>
+            <strong id="sound-track-title" style="font-size:17px; font-weight:800;">깊은 밤 빗소리 (White Noise)</strong>
+            <div class="sound-timer" id="sound-timer-display">15:00</div>
+            <div class="sound-controls">
+              <button type="button" id="btn-sound-prev" style="color:#fff; font-size:18px;">⏮</button>
+              <button type="button" class="btn-play-main" id="btn-sound-toggle">▶</button>
+              <button type="button" id="btn-sound-next" style="color:#fff; font-size:18px;">⏭</button>
+            </div>
+          </div>
+
+          <div class="white-card">
+            <div class="wc-header">
+              <span class="wc-title">재생 목록</span>
+              <span class="wc-sub">터치 시 즉시 사운드 재생</span>
+            </div>
+            <div id="sound-playlist">
+              <div class="sound-track-row playing" data-track="0">
+                <div><strong>🌧️ 깊은 밤 빗소리</strong><div style="font-size:12px; color:var(--text-muted);">외부 바이크·차량 고주파 상쇄</div></div>
+                <span style="font-size:12px; font-weight:800; color:var(--primary);">선택됨</span>
+              </div>
+              <div class="sound-track-row" data-track="1">
+                <div><strong>🌊 잔잔한 파도 소리</strong><div style="font-size:12px; color:var(--text-muted);">발망치·저주파 진동 심리 안정</div></div>
+                <span style="font-size:12px; color:var(--text-muted);">재생</span>
+              </div>
+              <div class="sound-track-row" data-track="2">
+                <div><strong>📻 딥 브라운 노이즈</strong><div style="font-size:12px; color:var(--text-muted);">수면 유도 전용 저음역 백색소음</div></div>
+                <span style="font-size:12px; color:var(--text-muted);">재생</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 마미톡 딜 스타일: 방음·수면 큐레이션 특가 -->
+          <div class="white-card">
+            <div class="wc-header">
+              <span class="wc-title">🛡️ 검증된 방음 · 수면 필수템</span>
+              <span class="wc-sub">이웃 추천 큐레이션</span>
+            </div>
+            <div class="deal-item-card" onclick="showToast('방음 솔루션 상세 페이지로 연결됩니다.')">
+              <div class="deal-thumb">🔇</div>
+              <div class="deal-info">
+                <strong>고밀도 현관·창문 틈새 방음 문풍지 세트</strong>
+                <div class="deal-price">32% <em>14,900원</em></div>
+                <div class="deal-tag">#외부소음차단 #복도고성방지</div>
+              </div>
+            </div>
+            <div class="deal-item-card" onclick="showToast('층간소음 매트 공동구매 페이지로 연결됩니다.')">
+              <div class="deal-thumb">🧘</div>
+              <div class="deal-info">
+                <strong>TPU 고탄성 층간소음 충격흡수 매트 (4cm)</strong>
+                <div class="deal-price">28% <em>49,000원</em></div>
+                <div class="deal-tag">#발망치예방 #아랫집배려</div>
+              </div>
+            </div>
+            <div class="deal-item-card" onclick="showToast('수면 이어플러그 상세 페이지로 연결됩니다.')">
+              <div class="deal-thumb">🎧</div>
+              <div class="deal-info">
+                <strong>실리콘 수면 전용 차음 이어플러그 (-32dB)</strong>
+                <div class="deal-price">25% <em>18,500원</em></div>
+                <div class="deal-tag">#옆으로누워도편안 #꿀잠보장</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 하단 4탭 네비게이션 바 -->
+      <nav class="bottom-tab-bar" aria-label="메인 메뉴">
+        <button type="button" class="btn-nav-tab active" data-tab="map">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+          <span>소음지도</span>
+        </button>
+        <button type="button" class="btn-nav-tab" data-tab="report">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span>소음분석</span>
+        </button>
+        <button type="button" class="btn-nav-tab" data-tab="community">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span>커뮤니티</span>
+        </button>
+        <button type="button" class="btn-nav-tab" data-tab="care">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+          <span>수면·방음</span>
+        </button>
+      </nav>
     </section>
 
     <!-- ========================================================================
-         [화면 4] 전면 개편된 「우리 동네 소음 올리기」
-         - 1단계: 최우선 '소음 발생 위치' (지도 핀찍기 + 도로명/지번 주소 확정)
-         - 2단계: 공간 구분 (실외 도로 / 건물 실내)
+         [화면 4] 우리 동네 소음 올리기 (위치 최우선 + 연속 층수 버튼)
          ======================================================================== -->
     <section class="screen" id="screen-write" hidden>
-      <header class="subscreen-topbar">
-        <button type="button" class="btn-chip-action" id="btn-close-write">닫기</button>
-        <h2>우리 동네 소음 올리기</h2>
+      <header class="flat-topbar">
+        <button type="button" class="btn-outline" id="btn-close-write">닫기</button>
+        <h2 style="font-size:17px; font-weight:900;">우리 동네 소음 올리기</h2>
         <span id="write-author-tag" style="font-size:12px; font-weight:800; color:var(--secondary);">✓ 회원인증</span>
       </header>
 
@@ -1054,11 +1273,11 @@
                 <strong id="write-road-addr">위치를 설정해 주세요</strong>
                 <span id="write-jibun-addr">[지번] 지도를 움직여 정확한 지점을 찍어주세요</span>
               </div>
-              <button type="button" class="btn-chip-action" id="btn-write-pick-map" style="background:var(--primary); color:#FFFFFF;">
+              <button type="button" class="btn-outline" id="btn-write-pick-map" style="background:var(--primary); color:#FFFFFF; border-color:var(--primary);">
                 📍 지도에서 핀찍기
               </button>
             </div>
-            <div class="native-input-box" style="height:44px;">
+            <div class="flat-input-box" style="height:44px;">
               <input type="text" id="input-write-detail-loc" placeholder="세부 위치 메모 (예: 정문 앞 편의점 골목, 102동 라인)">
             </div>
           </div>
@@ -1078,7 +1297,6 @@
             </button>
           </div>
 
-          <!-- 실외 도로 선택 시 -->
           <div id="write-outdoor-opts">
             <div class="road-type-pills">
               <button type="button" class="btn-road-pill active" data-roadtype="이면도로·골목">동네 이면도로·골목</button>
@@ -1087,13 +1305,12 @@
             </div>
           </div>
 
-          <!-- 건물 실내 선택 시: 건축물대장 실제 층수(1층, 2층, 3층... N층) 연속 표시 -->
           <div id="write-indoor-opts" class="floor-picker-wrap" hidden>
             <div style="display:flex; gap:6px;">
-              <div class="native-input-box" style="flex:1; height:44px;">
+              <div class="flat-input-box" style="flex:1; height:42px;">
                 <input type="text" id="input-bldg-query" placeholder="아파트·빌라·건물명 입력 후 조회">
               </div>
-              <button type="button" class="btn-chip-action" id="btn-lookup-bldg" style="height:44px; background:var(--primary); color:#fff;">건물 조회</button>
+              <button type="button" class="btn-outline" id="btn-lookup-bldg" style="height:42px; background:var(--primary); color:#fff; border-color:var(--primary);">건물 조회</button>
             </div>
             <div id="write-bldg-info" style="font-size:12.5px; font-weight:800; color:var(--primary);">
               건물명을 조회하면 건축물대장의 실제 지상 층수를 불러옵니다.
@@ -1129,61 +1346,57 @@
           <h3>5. 이웃과 나눌 한마디</h3>
           <textarea class="write-textarea" id="input-write-content" placeholder="예) 밤 11시 40분부터 골목에서 고함과 욕설이 15분째 이어지고 있습니다."></textarea>
 
-          <div class="urgent-112-banner" style="margin-top:14px;">
+          <div class="urgent-112-banner" style="margin-top:12px;">
             <span>지금도 소음이 계속되고 있나요?<br>작성 내용 그대로 바로 신고할 수 있어요.</span>
             <button type="button" class="btn-urgent-112-go" id="btn-write-to-112">🚨 112 문자 신고</button>
           </div>
         </div>
       </div>
 
-      <div style="padding:12px 20px calc(20px + var(--safe-bottom)); background:var(--neu-bg);">
-        <button type="button" class="btn-cta-primary" id="btn-submit-post">설정한 위치에 소음 올리기</button>
+      <div style="padding:12px 18px calc(18px + var(--safe-bottom)); background:var(--bg-white); border-top:1px solid var(--border-line);">
+        <button type="button" class="btn-primary" id="btn-submit-post">설정한 위치에 소음 올리기</button>
       </div>
     </section>
 
     <!-- ========================================================================
-         [화면 5-A] 폰 1페이지 완결형 실외 소음 지점 리포트
+         [화면 5-A & 5-B] 폰 1페이지 완결형 상세 리포트
          ======================================================================== -->
     <section class="screen" id="screen-detail" hidden>
-      <header class="subscreen-topbar">
-        <button type="button" class="btn-chip-action" id="btn-close-detail">← 지도</button>
-        <h2 id="detail-topbar-title">소음 지점 리포트</h2>
-        <button type="button" class="btn-112-pill" id="btn-detail-112">🚨 112</button>
+      <header class="flat-topbar">
+        <button type="button" class="btn-outline" id="btn-close-detail">← 지도</button>
+        <h2 id="detail-topbar-title" style="font-size:17px; font-weight:900;">소음 지점 리포트</h2>
+        <button type="button" class="btn-112-badge" id="btn-detail-112">🚨 112</button>
       </header>
       <div class="detail-page-shell" id="detail-body"></div>
     </section>
 
-    <!-- ========================================================================
-         [화면 5-B] 폰 1페이지 완결형 공동주택 방음 리포트
-         ======================================================================== -->
     <section class="screen" id="screen-building" hidden>
-      <header class="subscreen-topbar">
-        <button type="button" class="btn-chip-action" id="btn-close-bldg">← 지도</button>
-        <h2 id="bldg-detail-title">건물 방음 리포트</h2>
-        <button type="button" class="btn-112-pill" id="btn-bldg-112">🚨 112</button>
+      <header class="flat-topbar">
+        <button type="button" class="btn-outline" id="btn-close-bldg">← 지도</button>
+        <h2 id="bldg-detail-title" style="font-size:17px; font-weight:900;">건물 방음 리포트</h2>
+        <button type="button" class="btn-112-badge" id="btn-bldg-112">🚨 112</button>
       </header>
       <div class="detail-page-shell" id="bldg-detail-body"></div>
     </section>
 
-    <!-- 행정동 선택 바텀시트 -->
+    <!-- 지역 빠른 이동 모달 -->
     <div class="sheet-backdrop" id="modal-dong" hidden>
       <div class="native-modal-sheet">
-        <div class="grabber-bar" style="margin-bottom:4px;"></div>
         <div class="sheet-title-bar">
           <h3>지역 빠른 이동</h3>
-          <button type="button" class="btn-chip-action" id="btn-close-dong">닫기</button>
+          <button type="button" class="btn-outline" id="btn-close-dong">닫기</button>
         </div>
 
-        <button type="button" id="btn-detect-admin-dong" style="width:100%; height:48px; border-radius:14px; background:var(--neu-surface); box-shadow:var(--btn-convex); color:#0F766E; font-size:14px; font-weight:800; display:flex; align-items:center; justify-content:center; gap:6px;">
-          <span>📍 현재 내 위치(GPS) 중심으로 지도 이동</span>
+        <button type="button" id="btn-detect-admin-dong" class="btn-outline" style="width:100%; height:46px; color:var(--secondary); border-color:var(--secondary);">
+          📍 현재 내 위치(GPS) 중심으로 지도 이동
         </button>
 
         <div class="dong-option-list" id="dong-option-list">
-          <button type="button" class="btn-dong-item" data-lat="37.4556" data-lng="126.7282" data-label="만수5동"><span>인천 남동구 만수5동</span><span>이동</span></button>
-          <button type="button" class="btn-dong-item" data-lat="37.4632" data-lng="126.7335" data-label="만수2동"><span>인천 남동구 만수2동</span><span>이동</span></button>
-          <button type="button" class="btn-dong-item" data-lat="37.4028" data-lng="126.7235" data-label="논현1동"><span>인천 남동구 논현1동</span><span>이동</span></button>
-          <button type="button" class="btn-dong-item" data-lat="37.3965" data-lng="126.7315" data-label="논현고잔동"><span>인천 남동구 논현고잔동</span><span>이동</span></button>
-          <button type="button" class="btn-dong-item" data-lat="37.4485" data-lng="126.7052" data-label="구월1동"><span>인천 남동구 구월1동</span><span>이동</span></button>
+          <button type="button" class="btn-dong-item" data-lat="37.4556" data-lng="126.7282"><span>인천 남동구 만수5동</span><span>이동</span></button>
+          <button type="button" class="btn-dong-item" data-lat="37.4632" data-lng="126.7335"><span>인천 남동구 만수2동</span><span>이동</span></button>
+          <button type="button" class="btn-dong-item" data-lat="37.4028" data-lng="126.7235"><span>인천 남동구 논현1동</span><span>이동</span></button>
+          <button type="button" class="btn-dong-item" data-lat="37.3965" data-lng="126.7315"><span>인천 남동구 논현고잔동</span><span>이동</span></button>
+          <button type="button" class="btn-dong-item" data-lat="37.4485" data-lng="126.7052"><span>인천 남동구 구월1동</span><span>이동</span></button>
         </div>
       </div>
     </div>
@@ -1191,38 +1404,37 @@
     <!-- 테스트 계정 및 샌드박스 데이터 관리 모달 -->
     <div class="sheet-backdrop" id="modal-test-mgr" hidden>
       <div class="native-modal-sheet">
-        <div class="grabber-bar" style="margin-bottom:4px;"></div>
         <div class="sheet-title-bar">
           <h3>🧪 테스트 데이터 · 계정 관리</h3>
-          <button type="button" class="btn-chip-action" id="btn-close-test-mgr">닫기</button>
+          <button type="button" class="btn-outline" id="btn-close-test-mgr">닫기</button>
         </div>
 
-        <div style="background:var(--card-surface); border:1px solid #D5DCE6; border-radius:16px; padding:13px 15px; font-size:13.5px; line-height:1.55;">
+        <div style="background:var(--bg-subtle); border:1px solid var(--border-line); border-radius:14px; padding:13px 15px; font-size:13.5px; line-height:1.55;">
           <div>• 현재 계정: <strong id="mgr-cur-user" style="color:var(--primary);">비로그인 (게스트)</strong></div>
           <div>• 누적 테스트 계정: <strong id="mgr-account-cnt">0명</strong> · 소음 지점: <strong id="mgr-post-cnt" style="color:var(--lv3-red);">0건</strong></div>
         </div>
 
-        <button type="button" class="btn-cta-primary" id="btn-switch-new-signup" style="height:48px; font-size:15px;">
+        <button type="button" class="btn-primary" id="btn-switch-new-signup" style="height:48px; font-size:15px;">
           + 로그아웃 및 새 테스트 계정 회원가입
         </button>
 
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-          <button type="button" class="btn-chip-action" id="btn-export-json" style="height:46px; background:var(--secondary); color:#FFFFFF;">
+          <button type="button" class="btn-outline" id="btn-export-json" style="height:46px; background:var(--secondary); color:#FFFFFF; border-color:var(--secondary);">
             📋 데이터 복사 (전달용)
           </button>
-          <button type="button" class="btn-chip-action" id="btn-toggle-import" style="height:46px;">
+          <button type="button" class="btn-outline" id="btn-toggle-import" style="height:46px;">
             📥 데이터 붙여넣기 복원
           </button>
         </div>
 
         <div id="import-json-box" hidden style="display:flex; flex-direction:column; gap:8px;">
           <textarea class="write-textarea" id="textarea-import-json" style="min-height:80px; font-size:12px;" placeholder="복사해 둔 JSON 테스트 데이터를 여기에 붙여넣으세요"></textarea>
-          <button type="button" class="btn-cta-primary" id="btn-exec-import" style="height:44px; font-size:14px; background:var(--primary);">
+          <button type="button" class="btn-primary" id="btn-exec-import" style="height:44px; font-size:14px;">
             붙여넣은 데이터로 즉시 복원하기
           </button>
         </div>
 
-        <button type="button" class="btn-chip-action" id="btn-reset-all-test" style="width:100%; height:42px; color:var(--lv3-red);">
+        <button type="button" class="btn-outline" id="btn-reset-all-test" style="width:100%; height:42px; color:var(--lv3-red); border-color:var(--lv3-soft);">
           🗑️ 모든 테스트 제보 데이터 초기화 (0건으로 비우기)
         </button>
       </div>
@@ -1231,32 +1443,31 @@
     <!-- 112 문자 신고 대행 시트 -->
     <div class="sheet-backdrop" id="modal-112" hidden>
       <div class="native-modal-sheet">
-        <div class="grabber-bar" style="margin-bottom:4px;"></div>
         <div class="sheet-title-bar">
           <h3>🚨 112 문자 신고</h3>
-          <button type="button" class="btn-chip-action" id="btn-close-112">닫기</button>
+          <button type="button" class="btn-outline" id="btn-close-112">닫기</button>
         </div>
 
         <div id="step-112-verify">
-          <p style="font-size:15px; line-height:1.55; color:var(--text-sub); margin-bottom:16px;">
+          <p style="font-size:14.5px; line-height:1.55; color:var(--text-sub); margin-bottom:14px;">
             허위 신고 방지 및 정확한 경찰 접수 연계를 위해 <strong>최초 1회 휴대폰 본인인증</strong>이 필요해요.
           </p>
-          <div class="native-input-box" style="margin-bottom:16px;">
+          <div class="flat-input-box" style="margin-bottom:14px;">
             <input type="tel" id="input-phone-verify" value="010-5300-1120" placeholder="휴대폰 번호">
           </div>
-          <button type="button" class="btn-cta-primary" id="btn-confirm-verify" style="background:var(--secondary);">
+          <button type="button" class="btn-primary" id="btn-confirm-verify" style="background:var(--secondary);">
             인증 완료하고 신고문 보기
           </button>
         </div>
 
         <div id="step-112-sms" hidden>
-          <p style="font-size:14px; font-weight:700; color:var(--lv3-red); margin-bottom:10px;">
+          <p style="font-size:13.5px; font-weight:700; color:var(--lv3-red); margin-bottom:10px;">
             아래 내용이 스마트폰 문자 앱(받는 사람 112)에 자동 입력됩니다.
           </p>
           <div class="sms-native-box" id="sms-preview-text"></div>
-          <div style="display:flex; gap:10px; margin-top:16px;">
-            <button type="button" class="btn-chip-action" id="btn-copy-112" style="flex:1; height:52px; font-size:15px;">문구 복사</button>
-            <a id="link-sms-112" href="sms:112" class="btn-cta-primary" style="flex:2; height:52px; font-size:16px; text-decoration:none; background:var(--lv3-red);">
+          <div style="display:flex; gap:10px; margin-top:14px;">
+            <button type="button" class="btn-outline" id="btn-copy-112" style="flex:1; height:48px;">문구 복사</button>
+            <a id="link-sms-112" href="sms:112" class="btn-primary" style="flex:2; height:48px; text-decoration:none; background:var(--lv3-red);">
               112 문자 앱 열기
             </a>
           </div>
@@ -1269,10 +1480,10 @@
 
   <script>
     const STORAGE_KEYS = {
-      TEST_ACCOUNTS: '53db_sandbox_accounts_v122',
-      TEST_POSTS:    '53db_sandbox_posts_v122',
-      TEST_BLDGS:    '53db_sandbox_bldgs_v122',
-      SESSION_USER:  '53db_sandbox_session_v122'
+      TEST_ACCOUNTS: '53db_sandbox_accounts_v130',
+      TEST_POSTS:    '53db_sandbox_posts_v130',
+      TEST_BLDGS:    '53db_sandbox_bldgs_v130',
+      SESSION_USER:  '53db_sandbox_session_v130'
     };
 
     const CONFIG = {
@@ -1342,24 +1553,13 @@
       if (hasPiloti) baseVuln += 9;
       if (households >= 100) baseVuln += 5;
 
-      return {
-        eraTitle,
-        slabSpec,
-        reason,
-        score: Math.min(97, Math.max(32, baseVuln))
-      };
+      return { eraTitle, slabSpec, reason, score: Math.min(97, Math.max(32, baseVuln)) };
     }
 
     function profileBuildingStructure(ledger, reports = []) {
-      const era = analyzeBuildingRegulationEra(
-        ledger.builtYear,
-        ledger.mainStructure,
-        ledger.hasPiloti,
-        ledger.households || 60
-      );
+      const era = analyzeBuildingRegulationEra(ledger.builtYear, ledger.mainStructure, ledger.hasPiloti, ledger.households || 60);
       const reportBonus = Math.min(10, reports.length * 4);
       const finalScore = Math.min(98, era.score + reportBonus);
-
       return {
         ...ledger,
         vulnerability: finalScore,
@@ -1370,10 +1570,6 @@
       };
     }
 
-    /* ==========================================================================
-       국토교통부 건축물대장 API + 지번 본번/부번(bun/ji) 정밀 매칭 조회
-       - 자연노인전문요양원 같은 일반 상가·의료건물이 18층으로 잘못 나오는 문제 해결
-       ========================================================================== */
     async function fetchBuildingLedgerFromAPI(placeName, lat, lng, sigunguCd = '28200', bjdongCd = '10300', bun = '', ji = '') {
       const baseUrl = 'https://apis.data.go.kr/1613000/BldRgstHubService';
       const params = new URLSearchParams({
@@ -1419,7 +1615,6 @@
         }
       } catch (e) {}
 
-      /* API 미매칭 시 건물 용도 키워드에 따른 합리적 기본 층수 (요양원/상가/빌라 = 5~7층, 아파트 = 15층) */
       const isHighApt = placeName.includes('아파트') || placeName.includes('주공') || placeName.includes('에코') || placeName.includes('래미안') || placeName.includes('힐스테이트') || placeName.includes('아이파크');
       const isMidBldg = placeName.includes('요양원') || placeName.includes('병원') || placeName.includes('프라자') || placeName.includes('타워') || placeName.includes('오피스텔');
       const estimatedFloors = isHighApt ? 15 : (isMidBldg ? 7 : 5);
@@ -1453,24 +1648,15 @@
       accounts: [],
       buildings: [],
       posts: [],
+      activeMainTab: 'map',
+      commFilter: 'all',
       centerLat: 37.4556,
       centerLng: 126.7282,
       viewportRegionLabel: '만수5동',
       viewportFullAddress: '인천 남동구 만수5동',
-
-      /* 현재 확정된 소음 발생 위치(핀 좌표 + 도로명 + 지번 + 건물명) */
-      draftLocation: {
-        lat: 37.4556,
-        lng: 126.7282,
-        roadAddr: '',
-        jibunAddr: '',
-        bldgName: '',
-        bun: '',
-        ji: ''
-      },
-      pickerMode: 'onboard', // 'onboard' | 'write'
+      draftLocation: { lat: 37.4556, lng: 126.7282, roadAddr: '', jibunAddr: '', bldgName: '', bun: '', ji: '' },
+      pickerMode: 'onboard',
       pickerMap: null,
-
       selectedPostId: null,
       detailTab: 'analysis',
       showCCTV: false,
@@ -1518,7 +1704,7 @@
     }
 
     /* ==========================================================================
-       요기요 스타일 4단계 온보딩 흐름 제어
+       화면 전환 & 4탭 내비게이션
        ========================================================================== */
     function renderSavedAccountsUI() {
       const box = document.getElementById('saved-accounts-box');
@@ -1541,25 +1727,47 @@
           if (acc.lat && acc.lng) { state.centerLat = acc.lat; state.centerLng = acc.lng; }
           saveSandboxData();
           showToast(`[${acc.nickname}] 계정으로 로그인되었습니다.`);
-          goScreen('screen-home');
+          goScreen('screen-main');
         };
       });
     }
 
     let splashFinished = false;
     function goScreen(id) {
-      ['screen-splash', 'screen-auth', 'screen-pin-picker', 'screen-home', 'screen-write', 'screen-detail', 'screen-building'].forEach(s => {
+      ['screen-splash', 'screen-auth', 'screen-pin-picker', 'screen-main', 'screen-write', 'screen-detail', 'screen-building'].forEach(s => {
         document.getElementById(s).hidden = (s !== id);
       });
       if (id === 'screen-auth') {
         showAuthStep('auth-step-login');
         renderSavedAccountsUI();
       }
-      if (id === 'screen-home') {
-        renderHome();
-        requestAnimationFrame(() => initMap());
+      if (id === 'screen-main') {
+        switchMainTab(state.activeMainTab || 'map');
       }
     }
+
+    function switchMainTab(tabKey) {
+      state.activeMainTab = tabKey;
+      ['map', 'report', 'community', 'care'].forEach(k => {
+        document.getElementById(`tab-view-${k}`).hidden = (k !== tabKey);
+      });
+      document.querySelectorAll('.btn-nav-tab').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.tab === tabKey);
+      });
+
+      if (tabKey === 'map') {
+        renderHome();
+        requestAnimationFrame(() => initMap());
+      } else if (tabKey === 'report') {
+        renderReportTab();
+      } else if (tabKey === 'community') {
+        renderCommunityTab();
+      }
+    }
+
+    document.querySelectorAll('.btn-nav-tab').forEach(btn => {
+      btn.onclick = () => switchMainTab(btn.dataset.tab);
+    });
 
     function showAuthStep(stepId) {
       ['auth-step-login', 'auth-step-perm', 'auth-step-terms'].forEach(st => {
@@ -1570,14 +1778,13 @@
     function exitSplash() {
       if (splashFinished) return;
       splashFinished = true;
-      goScreen(state.user.loggedIn ? 'screen-home' : 'screen-auth');
+      goScreen(state.user.loggedIn ? 'screen-main' : 'screen-auth');
     }
 
     document.getElementById('screen-splash').addEventListener('pointerdown', exitSplash);
     setTimeout(exitSplash, 2400);
 
-    /* Step 1: 소셜 버튼 클릭 → Step 2: 접근 권한 안내 화면으로 이동 */
-    document.querySelectorAll('.btn-native-social').forEach(btn => {
+    document.querySelectorAll('.btn-social').forEach(btn => {
       btn.addEventListener('click', () => {
         state.user.provider = btn.dataset.provider;
         const nextNum = String(state.accounts.length + 1).padStart(2, '0');
@@ -1591,7 +1798,6 @@
       openPinPicker('onboard');
     });
 
-    /* Step 2: 접근 권한 [확인] 클릭 → 브라우저 위치 권한 요청 후 Step 3: 이용약관 동의 화면으로 이동 */
     document.getElementById('btn-perm-confirm').addEventListener('click', () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(pos => {
@@ -1602,7 +1808,6 @@
       showAuthStep('auth-step-terms');
     });
 
-    /* Step 3: 이용약관 전체동의 / 필수동의 체크 로직 */
     const chkAll = document.getElementById('chk-terms-all');
     const chkReq = document.getElementById('chk-terms-req');
     const chkOpt = document.getElementById('chk-terms-opt');
@@ -1626,15 +1831,13 @@
       document.getElementById('input-nickname').value = NICKS[Math.floor(Math.random() * NICKS.length)] + Math.floor(10 + Math.random() * 89);
     });
 
-    /* Step 3 [시작하기] 클릭 → Step 4: 요기요 스타일 '지도에서 주소 찾기' 핀 설정 화면으로 이동 */
     btnTermsStart.addEventListener('click', () => {
       if (!chkReq.checked) return;
       openPinPicker('onboard');
     });
 
     /* ==========================================================================
-       [공용 풀스크린 지도 핀 피커] (요기요 '지도에서 주소 찾기' 구현)
-       - 지도를 움직일 때마다 중앙 핀 아래의 도로명 주소 + [지번] 주소 실시간 갱신
+       [공용 풀스크린 지도 핀 피커]
        ========================================================================== */
     function updatePickerAddressAtCenter(lat, lng) {
       state.draftLocation.lat = lat;
@@ -1737,7 +1940,6 @@
       });
     };
 
-    /* [선택한 위치로 설정] 확정 버튼 */
     document.getElementById('btn-picker-confirm').onclick = async () => {
       const loc = state.draftLocation;
 
@@ -1764,9 +1966,8 @@
           saveSandboxData();
           showToast(`[${nick}] 회원가입 완료! (${homeDong})`);
         }
-        goScreen('screen-home');
+        goScreen('screen-main');
       } else {
-        /* 소음 올리기 화면으로 확정된 위치 전달 */
         document.getElementById('write-road-addr').textContent = loc.roadAddr;
         document.getElementById('write-jibun-addr').textContent = loc.jibunAddr;
         if (loc.bldgName) {
@@ -1780,7 +1981,7 @@
     };
 
     /* ==========================================================================
-       메인 지도 & 행정구역 동기화
+       [탭 1] 메인 지도 & 행정구역 동기화
        ========================================================================== */
     function locateUserGPS(silent = false) {
       if (!navigator.geolocation) {
@@ -1826,9 +2027,7 @@
     }
 
     function initMap() {
-      const msgBox = document.getElementById('map-loading-box');
       if (state.map) {
-        if (msgBox) msgBox.hidden = true;
         state.map.relayout();
         state.map.setCenter(new kakao.maps.LatLng(state.centerLat, state.centerLng));
         renderHome();
@@ -1843,7 +2042,6 @@
           center: new kakao.maps.LatLng(state.centerLat, state.centerLng),
           level: 4
         });
-        if (msgBox) msgBox.hidden = true;
 
         kakao.maps.event.addListener(state.map, 'idle', () => {
           syncRegionByMapViewport();
@@ -1998,9 +2196,9 @@
         idxPill.textContent = '0 / 0';
         listEl.innerHTML = `
           <div class="spot-slide">
-            <div class="spot-card" style="justify-content:center; align-items:center; text-align:center; gap:8px; cursor:default;">
-              <strong style="font-size:15.5px; color:var(--primary);">아직 등록된 소음 지점이 없어요</strong>
-              <p style="font-size:13.5px; color:var(--text-muted); line-height:1.5;">
+            <div class="spot-card" style="justify-content:center; align-items:center; text-align:center; gap:6px; cursor:default;">
+              <strong style="font-size:15px; color:var(--primary);">아직 등록된 소음 지점이 없어요</strong>
+              <p style="font-size:13px; color:var(--text-muted); line-height:1.45;">
                 우측 하단 <strong>[+ 소음 올리기]</strong>를 눌러<br>지도 핀으로 위치를 찍고 첫 제보를 등록해 보세요!
               </p>
             </div>
@@ -2025,20 +2223,19 @@
           <div class="spot-slide" id="spot-slide-${post.id}" data-id="${post.id}">
             <article class="spot-card">
               <div class="sc-top-row">
-                <span class="sc-main-pill lv-${post.whoLevel}">${who.shortDb} · ${post.category}</span>
-                <span class="sc-trust-txt">신뢰도 ${cis.cisScore}%</span>
+                <span class="sc-badge lv-${post.whoLevel}">${who.shortDb} · ${post.category}</span>
+                <span class="sc-trust">신뢰도 ${cis.cisScore}%</span>
               </div>
 
-              <div class="sc-title-loc">📍 ${loc}</div>
+              <div class="sc-loc">📍 ${loc}</div>
+              <p class="sc-desc">${post.content}</p>
 
-              <p class="sc-summary-line">${post.content}</p>
-
-              <div class="sc-footer-actions">
-                <button type="button" class="btn-fc-empathy ${post.empathizedByMe ? 'active' : ''}" data-emp="${post.id}">
+              <div class="sc-actions">
+                <button type="button" class="btn-card-act ${post.empathizedByMe ? 'active' : ''}" data-emp="${post.id}">
                   <span>🙌 저도 들었어요</span>
                   <strong>${post.empathyCount}</strong>
                 </button>
-                <button type="button" class="btn-fc-comment" data-cmt="${post.id}">
+                <button type="button" class="btn-card-act" data-cmt="${post.id}">
                   <span>💬 증언</span>
                   <strong>${(post.comments || []).length}</strong>
                 </button>
@@ -2089,10 +2286,7 @@
         slides.forEach(s => {
           const sCenter = s.offsetLeft + s.offsetWidth / 2;
           const dist = Math.abs(center - sCenter);
-          if (dist < minDist) {
-            minDist = dist;
-            closest = s;
-          }
+          if (dist < minDist) { minDist = dist; closest = s; }
         });
         if (closest && closest.dataset.id && closest.dataset.id !== state.selectedPostId) {
           focusSpotOnMapAndCard(closest.dataset.id, false);
@@ -2100,32 +2294,216 @@
       }, 90);
     });
 
-    document.getElementById('btn-toggle-search').onclick = () => {
-      const d = document.getElementById('search-drawer');
-      d.hidden = !d.hidden;
-      if (!d.hidden) document.getElementById('input-map-search').focus();
+    /* ==========================================================================
+       [탭 2] 소음분석 리포트 렌더링 (베이비타임 주간 패턴·건강 보고서 벤치마킹)
+       ========================================================================== */
+    function renderReportTab() {
+      const total = state.posts.length;
+      const highCnt = state.posts.filter(p => p.whoLevel >= 2).length;
+      const totalEmp = state.posts.reduce((s, p) => s + (p.empathyCount || 0), 0);
+
+      document.getElementById('report-tab-body').innerHTML = `
+        <div class="white-card">
+          <div class="wc-header">
+            <span class="wc-title">우리 구역 소음 누적 현황</span>
+            <span class="wc-sub">WHO 기준 53dB 초과 분석</span>
+          </div>
+          <div class="kpi-3-row">
+            <div class="kpi-box"><span>누적 제보</span><strong>${total}건</strong></div>
+            <div class="kpi-box"><span>고통·심각(80dB+)</span><strong class="red">${highCnt}건</strong></div>
+            <div class="kpi-box"><span>이웃 공감수</span><strong>${totalEmp}명</strong></div>
+          </div>
+        </div>
+
+        <div class="white-card">
+          <div class="wc-header">
+            <span class="wc-title">시간대별 소음 발생 패턴</span>
+            <span class="wc-sub" style="color:var(--lv3-red); font-weight:800;">심야 22:00~01:00 집중</span>
+          </div>
+          <svg width="100%" height="120" viewBox="0 0 320 120" fill="none">
+            <line x1="16" y1="20" x2="304" y2="20" stroke="#E2E8F0" stroke-dasharray="3 3"/>
+            <line x1="16" y1="55" x2="304" y2="55" stroke="#E2E8F0" stroke-dasharray="3 3"/>
+            <line x1="16" y1="90" x2="304" y2="90" stroke="#CBD5E1"/>
+            <path d="M24 82 L80 76 L136 62 L192 26 L248 34 L296 74" stroke="#1B4965" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="192" cy="26" r="5" fill="#E11D48" stroke="#FFFFFF" stroke-width="2"/>
+            <rect x="164" y="4" width="56" height="16" rx="4" fill="#E11D48"/>
+            <text x="192" y="15" text-anchor="middle" fill="#FFFFFF" font-size="9.5" font-weight="800">23시 최고치</text>
+            <text x="24" y="108" fill="#64748B" font-size="10" font-weight="700">18시</text>
+            <text x="80" y="108" fill="#64748B" font-size="10" font-weight="700">20시</text>
+            <text x="136" y="108" fill="#64748B" font-size="10" font-weight="700">22시</text>
+            <text x="192" y="108" fill="#E11D48" font-size="10" font-weight="800">23시</text>
+            <text x="248" y="108" fill="#64748B" font-size="10" font-weight="700">01시</text>
+            <text x="292" y="108" fill="#64748B" font-size="10" font-weight="700">03시</text>
+          </svg>
+        </div>
+
+        <div class="white-card">
+          <div class="wc-header">
+            <span class="wc-title">최근 기록된 소음 일지</span>
+            <span class="wc-sub">최신순</span>
+          </div>
+          ${state.posts.slice(0, 6).map(p => `
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border-line); font-size:13px;">
+              <div>
+                <strong style="color:var(--text-main);">${p.category}</strong>
+                <div style="font-size:11.5px; color:var(--text-muted);">${p.roadName}</div>
+              </div>
+              <span style="font-weight:900; color:var(--lv3-red);">${(WHO_LEVELS[p.whoLevel] || WHO_LEVELS[2]).shortDb}</span>
+            </div>
+          `).join('') || '<div style="font-size:13px; color:var(--text-muted); text-align:center; padding:16px 0;">소음지도에서 제보를 등록하면 자동 분석됩니다.</div>'}
+        </div>
+      `;
+    }
+
+    document.getElementById('btn-export-report-txt').onclick = () => {
+      const txt = `[53데시벨 시민 소음 누적 통계 리포트]
+• 분석지역: ${state.viewportFullAddress}
+• 누적제보: ${state.posts.length}건 (총 공감 ${state.posts.reduce((s, p) => s + (p.empathyCount || 0), 0)}명)
+• 주요발생시간: 심야 22:00 ~ 01:00 (WHO 권고 기준 53dB 초과)`;
+      navigator.clipboard.writeText(txt).then(() => showToast('관공서·신문고 제출용 통계 서식이 복사되었습니다.'));
     };
 
-    document.getElementById('btn-exec-search').onclick = async () => {
-      const q = document.getElementById('input-map-search').value.trim();
-      if (!q || typeof kakao === 'undefined') return;
-      const ps = new kakao.maps.services.Places();
-      ps.keywordSearch(q, (data, status) => {
-        if (status === kakao.maps.services.Status.OK && data[0]) {
-          const place = data[0];
-          state.centerLat = Number(place.y);
-          state.centerLng = Number(place.x);
-          document.getElementById('search-drawer').hidden = true;
-          if (state.map) {
-            state.map.setLevel(4);
-            state.map.setCenter(new kakao.maps.LatLng(state.centerLat, state.centerLng));
-          }
-          showToast(`[${place.place_name}] 주변 지도로 이동했어요.`);
-        } else {
-          showToast('검색 결과를 찾지 못했어요.');
-        }
-      });
+    /* ==========================================================================
+       [탭 3] 이웃 커뮤니티 렌더링 (마미톡 커뮤니티 벤치마킹)
+       ========================================================================== */
+    function renderCommunityTab() {
+      const filtered = state.commFilter === 'all'
+        ? state.posts
+        : state.posts.filter(p => p.filterGroup === state.commFilter);
+
+      const listEl = document.getElementById('comm-feed-list');
+      if (!filtered.length) {
+        listEl.innerHTML = `
+          <div class="white-card" style="text-align:center; padding:32px 16px;">
+            <strong style="font-size:15px; color:var(--text-main);">아직 등록된 이웃 이야기가 없어요</strong>
+            <span style="font-size:13px; color:var(--text-muted);">우측 상단 [+ 글쓰기]를 눌러 첫 번째 소음 경험을 공유해 보세요.</span>
+          </div>
+        `;
+        return;
+      }
+
+      listEl.innerHTML = filtered.map(p => `
+        <article class="comm-post-card" onclick="openPostDetail('${p.id}')">
+          <span class="comm-tag">${p.category} · ${(WHO_LEVELS[p.whoLevel] || WHO_LEVELS[2]).shortDb}</span>
+          <div class="comm-title">${formatBackroadAnchor(p.roadName, p.anchorBuilding, p.roadType)}</div>
+          <p class="comm-body">${p.content}</p>
+          <div class="comm-meta">
+            <span>✓ ${p.nickname} · ${relTime(p.timestamp)}</span>
+            <span>🙌 공감 ${p.empathyCount} · 💬 증언 ${(p.comments || []).length}</span>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    document.querySelectorAll('.btn-comm-cat').forEach(btn => {
+      btn.onclick = () => {
+        state.commFilter = btn.dataset.ccat;
+        document.querySelectorAll('.btn-comm-cat').forEach(b => b.classList.toggle('active', b === btn));
+        renderCommunityTab();
+      };
+    });
+
+    document.getElementById('btn-comm-write-jump').onclick = () => {
+      document.getElementById('btn-open-write').click();
     };
+
+    /* ==========================================================================
+       [탭 4] 53dB 수면·방음 케어 (웹 오디오 API 실시간 백색소음/파도소리 생성기)
+       ========================================================================== */
+    const SOUND_TRACKS = [
+      { title: '깊은 밤 빗소리 (White Noise)', type: 'rain' },
+      { title: '잔잔한 파도 소리 (Ocean Wave)', type: 'wave' },
+      { title: '딥 브라운 노이즈 (Deep Brown)', type: 'brown' }
+    ];
+    let currentTrackIdx = 0;
+    let isPlayingSound = false;
+    let audioCtx = null;
+    let noiseNode = null;
+    let soundSeconds = 900;
+    let soundTimerInt = null;
+
+    function stopWebAudio() {
+      if (noiseNode) { try { noiseNode.disconnect(); } catch (e) {} noiseNode = null; }
+      if (audioCtx) { try { audioCtx.close(); } catch (e) {} audioCtx = null; }
+      clearInterval(soundTimerInt);
+      isPlayingSound = false;
+      document.getElementById('btn-sound-toggle').textContent = '▶';
+    }
+
+    function startWebAudio() {
+      stopWebAudio();
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+        const bufferSize = 2 * audioCtx.sampleRate;
+        const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const output = noiseBuffer.getChannelData(0);
+        let lastOut = 0.0;
+        const trackType = SOUND_TRACKS[currentTrackIdx].type;
+
+        for (let i = 0; i < bufferSize; i++) {
+          const white = Math.random() * 2 - 1;
+          if (trackType === 'brown') {
+            output[i] = (lastOut + (0.02 * white)) / 1.02;
+            lastOut = output[i];
+            output[i] *= 2.8;
+          } else if (trackType === 'wave') {
+            const mod = 0.5 + 0.5 * Math.sin(i / (audioCtx.sampleRate * 0.4));
+            output[i] = white * 0.15 * mod;
+          } else {
+            output[i] = white * 0.12;
+          }
+        }
+
+        const whiteNoise = audioCtx.createBufferSource();
+        whiteNoise.buffer = noiseBuffer;
+        whiteNoise.loop = true;
+        whiteNoise.connect(audioCtx.destination);
+        whiteNoise.start(0);
+        noiseNode = whiteNoise;
+
+        isPlayingSound = true;
+        document.getElementById('btn-sound-toggle').textContent = '⏸';
+        soundTimerInt = setInterval(() => {
+          if (soundSeconds > 0) {
+            soundSeconds--;
+            const m = String(Math.floor(soundSeconds / 60)).padStart(2, '0');
+            const s = String(soundSeconds % 60).padStart(2, '0');
+            document.getElementById('sound-timer-display').textContent = `${m}:${s}`;
+          } else {
+            stopWebAudio();
+          }
+        }, 1000);
+      } catch (e) {
+        showToast('사운드 재생을 시작했습니다.');
+      }
+    }
+
+    function selectSoundTrack(idx) {
+      currentTrackIdx = (idx + SOUND_TRACKS.length) % SOUND_TRACKS.length;
+      document.getElementById('sound-track-title').textContent = SOUND_TRACKS[currentTrackIdx].title;
+      document.querySelectorAll('.sound-track-row').forEach((row, i) => {
+        const active = (i === currentTrackIdx);
+        row.classList.toggle('playing', active);
+        row.lastElementChild.textContent = active ? '선택됨' : '재생';
+        row.lastElementChild.style.color = active ? 'var(--primary)' : 'var(--text-muted)';
+        row.lastElementChild.style.fontWeight = active ? '800' : '600';
+      });
+      if (isPlayingSound) startWebAudio();
+    }
+
+    document.getElementById('btn-sound-toggle').onclick = () => {
+      if (isPlayingSound) stopWebAudio();
+      else startWebAudio();
+    };
+    document.getElementById('btn-sound-prev').onclick = () => selectSoundTrack(currentTrackIdx - 1);
+    document.getElementById('btn-sound-next').onclick = () => selectSoundTrack(currentTrackIdx + 1);
+    document.querySelectorAll('.sound-track-row').forEach(row => {
+      row.onclick = () => {
+        selectSoundTrack(Number(row.dataset.track));
+        startWebAudio();
+      };
+    });
 
     /* ==========================================================================
        [소음 올리기] 실제 건물 층수 조회 및 연속 층수(1층, 2층, 3층... N층) 버튼 생성
@@ -2233,11 +2611,8 @@
       goScreen('screen-write');
     };
 
-    document.getElementById('btn-write-pick-map').onclick = () => {
-      openPinPicker('write');
-    };
-
-    document.getElementById('btn-close-write').onclick = () => goScreen('screen-home');
+    document.getElementById('btn-write-pick-map').onclick = () => openPinPicker('write');
+    document.getElementById('btn-close-write').onclick = () => goScreen('screen-main');
 
     document.querySelectorAll('.btn-space-card').forEach(btn => {
       btn.onclick = async () => {
@@ -2330,7 +2705,7 @@
       saveSandboxData();
       document.getElementById('input-write-content').value = '';
       document.getElementById('input-write-detail-loc').value = '';
-      goScreen('screen-home');
+      goScreen('screen-main');
       showToast(`설정한 위치에 등록 완료! (누적 ${state.posts.length}건)`);
     };
 
@@ -2379,10 +2754,10 @@
         `
         : `
           <div style="display:flex; gap:6px;">
-            <div class="native-input-box" style="flex:1; height:42px;">
+            <div class="flat-input-box" style="flex:1; height:40px;">
               <input type="text" id="input-detail-comment" placeholder="겪으신 시간대와 상황을 증언해 주세요">
             </div>
-            <button type="button" class="btn-chip-action" id="btn-add-comment" style="height:42px; background:var(--primary); color:#fff;">등록</button>
+            <button type="button" class="btn-outline" id="btn-add-comment" style="height:40px; background:var(--primary); color:#fff; border-color:var(--primary);">등록</button>
           </div>
           <div style="flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:8px;">
             ${cmts.map(c => `
@@ -2399,9 +2774,7 @@
 
       document.getElementById('detail-body').innerHTML = `
         <div class="hg-hero-banner">
-          <div class="hg-hero-sub">
-            <span>${post.jibunAddress || post.roadType}</span>
-          </div>
+          <div class="hg-hero-sub"><span>${post.jibunAddress || post.roadType}</span></div>
           <div class="hg-hero-title">📍 ${loc}</div>
         </div>
 
@@ -2421,13 +2794,11 @@
           <button type="button" class="btn-subtab ${state.detailTab === 'testimony' ? 'active' : ''}" id="tab-btn-testimony">💬 이웃 증언 (${cmts.length})</button>
         </div>
 
-        <div class="detail-tab-panel">
-          ${tabContent}
-        </div>
+        <div class="detail-tab-panel">${tabContent}</div>
 
         <div class="detail-bottom-cta-row">
-          <button type="button" class="btn-chip-action" id="btn-copy-gov" style="height:48px; padding:0 14px;">🏛️ 민원복사</button>
-          <button type="button" class="btn-cta-primary" id="btn-detail-empathy" style="flex:1; height:48px; font-size:15px; background:${post.empathizedByMe ? 'var(--secondary)' : 'var(--primary)'};">
+          <button type="button" class="btn-outline" id="btn-copy-gov" style="height:48px;">🏛️ 민원복사</button>
+          <button type="button" class="btn-primary" id="btn-detail-empathy" style="flex:1; height:48px; font-size:15px; background:${post.empathizedByMe ? 'var(--secondary)' : 'var(--primary)'};">
             🙌 저도 들었어요 (${post.empathyCount}명)
           </button>
         </div>
@@ -2468,7 +2839,7 @@
       goScreen('screen-detail');
     }
 
-    document.getElementById('btn-close-detail').onclick = () => goScreen('screen-home');
+    document.getElementById('btn-close-detail').onclick = () => goScreen('screen-main');
 
     function openBuildingView(bldgId) {
       const bldg = state.buildings.find(b => b.id === bldgId);
@@ -2492,9 +2863,7 @@
           <div>
             <div style="font-size:12.5px; font-weight:800; color:var(--text-main); margin-bottom:4px;">층별 소음 접수 현황 (호수 비공개)</div>
             <table class="hg-history-table">
-              <thead>
-                <tr><th>시점</th><th>강도</th><th>소음유형</th><th>층수</th></tr>
-              </thead>
+              <thead><tr><th>시점</th><th>강도</th><th>소음유형</th><th>층수</th></tr></thead>
               <tbody>
                 ${bReports.map(r => `
                   <tr>
@@ -2510,10 +2879,10 @@
         `
         : `
           <div style="display:flex; gap:6px;">
-            <div class="native-input-box" style="flex:1; height:42px;">
+            <div class="flat-input-box" style="flex:1; height:40px;">
               <input type="text" id="input-bldg-comment" placeholder="입주민 소음 경험이나 질문을 남겨주세요">
             </div>
-            <button type="button" class="btn-chip-action" id="btn-add-bldg-comment" style="height:42px; background:var(--primary); color:#fff;">등록</button>
+            <button type="button" class="btn-outline" id="btn-add-bldg-comment" style="height:40px; background:var(--primary); color:#fff; border-color:var(--primary);">등록</button>
           </div>
           <div style="flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:8px;">
             ${bReports.map(r => `
@@ -2562,13 +2931,11 @@
           <button type="button" class="btn-subtab ${state.detailTab === 'testimony' ? 'active' : ''}" id="bldg-tab-testimony">💬 입주민 증언 (${bReports.length + allComments.length})</button>
         </div>
 
-        <div class="detail-tab-panel">
-          ${tabContent}
-        </div>
+        <div class="detail-tab-panel">${tabContent}</div>
 
         <div class="detail-bottom-cta-row">
-          <button type="button" class="btn-chip-action" onclick="showToast('인증 입주민에게 익명 질문 알림을 보낼 수 있습니다.')" style="height:48px; padding:0 14px;">❓ 입주민 질문</button>
-          <button type="button" class="btn-cta-primary" id="btn-bldg-empathy" style="flex:1; height:48px; font-size:15px;">
+          <button type="button" class="btn-outline" onclick="showToast('인증 입주민에게 익명 질문 알림을 보낼 수 있습니다.')" style="height:48px;">❓ 입주민 질문</button>
+          <button type="button" class="btn-primary" id="btn-bldg-empathy" style="flex:1; height:48px; font-size:15px;">
             🙌 저도 겪고 있어요 (${totalEmp}명)
           </button>
         </div>
@@ -2602,10 +2969,10 @@
       goScreen('screen-building');
     }
 
-    document.getElementById('btn-close-bldg').onclick = () => goScreen('screen-home');
+    document.getElementById('btn-close-bldg').onclick = () => goScreen('screen-main');
 
     /* ==========================================================================
-       테스트 계정 & 샌드박스 데이터 내보내기(JSON 복사) / 불러오기(복원)
+       테스트 계정 & 샌드박스 데이터 관리 모달
        ========================================================================== */
     document.getElementById('btn-open-test-mgr').onclick = () => {
       document.getElementById('mgr-cur-user').textContent = state.user.loggedIn
