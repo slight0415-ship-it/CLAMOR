@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨 (v1.3.9)</title>
+  <title>53데시벨 (v1.4.0)</title>
 
   <!-- 인라인 Web App Manifest (standalone 전체 화면 설치 지원) -->
   <link id="pwa-manifest-link" rel="manifest">
@@ -43,13 +43,13 @@
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='42' fill='%231E3A8A'/%3E%3Ctext x='96' y='112' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='78' font-weight='900'%3E53%3C/text%3E%3Ctext x='96' y='152' text-anchor='middle' fill='%2338BDF8' font-family='sans-serif' font-size='30' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='42' fill='%231E3A8A'/%3E%3Ctext x='96' y='112' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='78' font-weight='900'%3E53%3C/text%3E%3Ctext x='96' y='152' text-anchor='middle' fill='%2338BDF8' font-family='sans-serif' font-size='30' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
   <!-- Pretendard Variable -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.4.0/dist/web/variable/pretendardvariable.min.css">
   <!-- 카카오맵 SDK -->
   <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=20b24a9df15474b70785b099967431b3&libraries=services,clusterer&autoload=false"></script>
 
   <style>
     /* ==========================================================================
-       [v1.3.9 디자인 시스템]
+       [v1.4.0 디자인 시스템]
        - 딥 로얄 블루(#1E3A8A) + 스카이 시안(#0284C7) + 경고 코랄 레드(#E11D48)
        - 순백색(#FFFFFF) 플랫 카드 & 명확한 버튼 배치
        ========================================================================== */
@@ -188,7 +188,7 @@
     }
 
     /* ==========================================================================
-       [화면 1] 스플래시 (v1.3.9)
+       [화면 1] 스플래시 (v1.4.0)
        ========================================================================== */
     #screen-splash {
       z-index: 100;
@@ -333,10 +333,12 @@
     .hg-live-bubble { align-self: center; background-color: #0F172A; color: #FFFFFF; font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 6px; margin-bottom: 3px; white-space: nowrap; }
     .hg-marker-box { min-width: 74px; border-radius: 8px 8px 8px 2px; overflow: hidden; border: 1.5px solid #FFFFFF; background-color: var(--primary); color: #FFFFFF; text-align: center; }
     .hg-marker-wrap.is-bldg .hg-marker-box { border-top: 3px solid #38BDF8; background-color: #172554; }
-    .hg-m-top { font-size: 10px; font-weight: 800; padding: 2px 7px; background-color: rgba(255, 255, 255, 0.16); color: #FFFFFF; white-space: nowrap; }
-    .hg-marker-wrap.lv-3 .hg-m-top { background-color: var(--lv3-red); }
+    .hg-m-top { font-size: 10px; font-weight: 800; padding: 2px 7px; background-color: #D97706; color: #FFFFFF; white-space: nowrap; }
+    .hg-marker-wrap.lv-1 .hg-m-top { background-color: #D97706; }
     .hg-marker-wrap.lv-2 .hg-m-top { background-color: #EA580C; }
+    .hg-marker-wrap.lv-3 .hg-m-top { background-color: var(--lv3-red); }
     .hg-marker-wrap.is-bldg .hg-m-top { background-color: var(--secondary); }
+    .my-loc-pulse { width: 16px; height: 16px; border-radius: 50%; background-color: #2563EB; border: 3px solid #FFFFFF; box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.28); pointer-events: none; }
     .hg-m-main { font-size: 13px; font-weight: 900; padding: 3px 8px; color: #FFFFFF; white-space: nowrap; }
     .hg-m-pointer { width: 0; height: 0; border-top: 7px solid var(--primary); border-right: 8px solid transparent; margin-left: 1px; }
     .hg-marker-wrap.is-bldg .hg-m-pointer { border-top-color: #172554; }
@@ -481,7 +483,7 @@
     .dong-option-list { display: flex; flex-direction: column; gap: 7px; }
     .btn-dong-item { width: 100%; padding: 12px 14px; border-radius: 11px; background-color: var(--bg-subtle); border: 1px solid var(--border-line); font-size: 14.5px; font-weight: 700; text-align: left; display: flex; align-items: center; justify-content: space-between; }
     .sms-native-box { background-color: var(--bg-subtle); border: 1px solid var(--border-strong); border-radius: 12px; padding: 13px; font-size: 13.5px; line-height: 1.55; white-space: pre-line; }
-    .app-toast { position: absolute; bottom: calc(70px + var(--safe-bottom)); left: 18px; right: 18px; background-color: rgba(15, 23, 42, 0.94); color: #FFFFFF; font-size: 13px; font-weight: 600; padding: 12px 16px; border-radius: 12px; text-align: center; z-index: 200; }
+    .app-toast { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: calc(100% - 48px); max-width: 340px; background-color: rgba(255, 255, 255, 0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); color: var(--primary); border: 2px solid var(--primary); box-shadow: 0 12px 32px rgba(30, 58, 138, 0.22); font-size: 15.5px; font-weight: 800; line-height: 1.45; padding: 18px 20px; border-radius: 18px; text-align: center; z-index: 300; pointer-events: none; }
   </style>
 </head>
 <body>
@@ -489,7 +491,7 @@
 
     <!-- [화면 1] 스플래시 -->
     <section class="screen" id="screen-splash" aria-label="53데시벨 시작 화면">
-      <div class="splash-top-meta"><span class="version-pill">v1.3.9</span></div>
+      <div class="splash-top-meta"><span class="version-pill">v1.4.0</span></div>
       <div class="splash-center-group">
         <div class="brand-logo-lockup" role="img" aria-label="53데시벨">
           <span class="logo-num-box">53</span>
@@ -889,11 +891,13 @@
 
   <script>
     const STORAGE_KEYS = {
-      TEST_ACCOUNTS: '53db_sandbox_accounts_v139',
-      TEST_POSTS:    '53db_sandbox_posts_v139',
-      TEST_BLDGS:    '53db_sandbox_bldgs_v139',
-      SESSION_USER:  '53db_sandbox_session_v139'
+      TEST_ACCOUNTS: '53db_sandbox_accounts_v140',
+      TEST_POSTS:    '53db_sandbox_posts_v140',
+      TEST_BLDGS:    '53db_sandbox_bldgs_v140',
+      SESSION_USER:  '53db_sandbox_session_v140'
     };
+
+    const DEFAULT_SEED_DATA = {"accounts": [{"nickname": "우리동네주민15", "provider": "Google", "homeDong": "만수동", "lat": 37.460453346011874, "lng": 126.72834811311921, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민14", "provider": "Google", "homeDong": "만수동", "lat": 37.46016559877591, "lng": 126.7345488099685, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민13", "provider": "Google", "homeDong": "만수동", "lat": 37.46204001012452, "lng": 126.73268845723453, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민12", "provider": "네이버", "homeDong": "만수동", "lat": 37.45982850166342, "lng": 126.73091047504407, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민11", "provider": "네이버", "homeDong": "만수동", "lat": 37.4621970733927, "lng": 126.73441446711225, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민10", "provider": "카카오", "homeDong": "만수동", "lat": 37.460473036697266, "lng": 126.73503657685615, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민09", "provider": "Google", "homeDong": "만수동", "lat": 37.45733412842549, "lng": 126.73253001915549, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민08", "provider": "Google", "homeDong": "만수동", "lat": 37.45869275933317, "lng": 126.7316944313929, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민07", "provider": "네이버", "homeDong": "만수동", "lat": 37.460252369361925, "lng": 126.73009514444132, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민06", "provider": "Google", "homeDong": "만수동", "lat": 37.459192800481546, "lng": 126.7297090067443, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민05", "provider": "카카오", "homeDong": "만수동", "lat": 37.4599332540781, "lng": 126.72943507220153, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민04", "provider": "카카오", "homeDong": "만수동", "lat": 37.45982624915765, "lng": 126.73091048311554, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민03", "provider": "Google", "homeDong": "만수동", "lat": 37.4577152164535, "lng": 126.73072731656704, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민02", "provider": "네이버", "homeDong": "만수동", "lat": 37.4591104651414, "lng": 126.73015011106664, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민01", "provider": "카카오", "homeDong": "만수동", "lat": 37.45869507454895, "lng": 126.73023778683529, "loggedIn": true, "phoneVerifiedFor112": false}], "buildings": [{"id": "bldg-1795486748996", "name": "엑설런트보금자리", "lat": 37.458690563086684, "lng": 126.73023497736472, "groundFloors": 8, "households": 28, "hasPiloti": false, "mainStructure": "철근콘크리트구조", "builtYear": 2011, "source": "국토교통부 건축물대장 실측 데이터"}, {"id": "bldg-1795487287938", "name": "삼성빌라", "lat": 37.45918941849147, "lng": 126.72970760606937, "groundFloors": 4, "households": 10, "hasPiloti": true, "mainStructure": "철근콘크리트구조", "builtYear": 1994, "source": "국토교통부 건축물대장 실측 데이터"}, {"id": "bldg-1795487384020", "name": "향촌휴먼시아2단지", "lat": 37.460248987376886, "lng": 126.7300937437295, "groundFloors": 23, "households": 438, "hasPiloti": false, "mainStructure": "철근콘크리트구조", "builtYear": 2012, "source": "국토교통부 건축물대장 실측 데이터"}, {"id": "bldg-1795487487178", "name": "만수주공아파트", "lat": 37.45868937736602, "lng": 126.73169303063757, "groundFloors": 15, "households": 120, "hasPiloti": false, "mainStructure": "철근콘크리트구조", "builtYear": 1987, "source": "국토교통부 건축물대장 실측 데이터"}, {"id": "bldg-1795487655816", "name": "포레시안(Foresian)", "lat": 37.462195937613764, "lng": 126.73441023241662, "groundFloors": 18, "households": 94, "hasPiloti": false, "mainStructure": "철근콘크리트구조", "builtYear": 2011, "source": "국토교통부 건축물대장 실측 데이터"}, {"id": "bldg-1795487709417", "name": "인평스페스힐햇님마을아파트", "lat": 37.459827359324876, "lng": 126.73090341483945, "groundFloors": 15, "households": 85, "hasPiloti": false, "mainStructure": "철근콘크리트구조", "builtYear": 2005, "source": "국토교통부 건축물대장 실측 데이터"}, {"id": "bldg-1795487848407", "name": "리더스힐", "lat": 37.46045221651158, "lng": 126.72834670433394, "groundFloors": 12, "households": 48, "hasPiloti": false, "mainStructure": "철근콘크리트구조", "builtYear": 2015, "source": "국토교통부 건축물대장 실측 데이터"}], "posts": [{"id": "post-1795487861753", "dong": "만수3동", "fullAddress": "인천광역시 남동구 만수서로 17 리더스힐", "jibunAddress": "[지번] 만수동 866-20 리더스힐", "spaceType": "indoor", "buildingId": "bldg-1795487848407", "floor": 8, "filterGroup": "indoor", "category": "반려동물짖음", "shortTag": "반려동물", "whoLevel": 3, "lat": 37.46045221651158, "lng": 126.72834670433394, "roadName": "인천광역시 남동구 만수서로 17 리더스힐", "anchorBuilding": "리더스힐 (8층)", "roadType": "건물 실내", "nickname": "우리동네주민15", "gpsVerified": true, "timestamp": 1795487861753, "content": "반려동물짖음 소음이 발생해 이웃들과 공유합니다.", "empathyCount": 4, "empathizedByMe": false, "comments": []}, {"id": "post-1795487840903", "dong": "만수3동", "fullAddress": "인천광역시 남동구 만수서로 17 리더스힐", "jibunAddress": "[지번] 만수동 866-20 리더스힐", "spaceType": "outdoor", "buildingId": null, "floor": null, "filterGroup": "bike", "category": "바이크·차량 굉음", "shortTag": "바이크·굉음", "whoLevel": 3, "lat": 37.46045221651158, "lng": 126.72834670433394, "roadName": "인천광역시 남동구 만수서로 17 리더스힐", "anchorBuilding": "리더스힐", "roadType": "큰 도로변·대로", "nickname": "우리동네주민15", "gpsVerified": true, "timestamp": 1795487840903, "content": "바이크·차량 굉음 소음이 발생해 이웃들과 공유합니다.", "empathyCount": 6, "empathizedByMe": false, "comments": []}, {"id": "post-1795487794726", "dong": "만수4동", "fullAddress": "인천광역시 남동구 만수로50번길 19 만수주공6단지아파트 602동", "jibunAddress": "[지번] 만수동 20 만수주공6단지아파트 602동", "spaceType": "indoor", "buildingId": "bldg-1795487487178", "floor": 5, "filterGroup": "indoor", "category": "기계음", "shortTag": "기계소음", "whoLevel": 2, "lat": 37.46015995164186, "lng": 126.73454176560085, "roadName": "인천광역시 남동구 만수로50번길 19 만수주공6단지아파트 602동", "anchorBuilding": "만수주공6단지 (5층)", "roadType": "건물 실내", "nickname": "우리동네주민14", "gpsVerified": true, "timestamp": 1795487794726, "content": "기계음 소음이 발생해 이웃들과 공유합니다.", "empathyCount": 3, "empathizedByMe": false, "comments": []}, {"id": "post-1795487755438", "dong": "만수2동", "fullAddress": "인천광역시 남동구 만수서로 55 포레시안(Foresian) 104동", "jibunAddress": "[지번] 만수동 1115-1 포레시안(Foresian) 104동", "spaceType": "indoor", "buildingId": "bldg-1795487655816", "floor": 7, "filterGroup": "indoor", "category": "고성·싸움·노래", "shortTag": "실내·고성", "whoLevel": 2, "lat": 37.462038867891714, "lng": 126.73268139679449, "roadName": "인천광역시 남동구 만수서로 55 포레시안(Foresian) 104동", "anchorBuilding": "포레시안(Foresian) (7층)", "roadType": "건물 실내", "nickname": "우리동네주민13", "gpsVerified": true, "timestamp": 1795487755438, "content": "고성·싸움·노래 소음이 발생해 이웃들과 공유합니다.", "empathyCount": 2, "empathizedByMe": false, "comments": []}, {"id": "post-1795487722532", "dong": "만수2동", "fullAddress": "인천광역시 남동구 만수로27번길 15 인평스페스힐햇님마을아파트", "jibunAddress": "[지번] 만수동 869 인평스페스힐햇님마을아파트", "spaceType": "indoor", "buildingId": "bldg-1795487709417", "floor": 6, "filterGroup": "indoor", "category": "화장실·배관·가전음", "shortTag": "배관·가전", "whoLevel": 2, "lat": 37.459827359324876, "lng": 126.73090341483945, "roadName": "인천광역시 남동구 만수로27번길 15 인평스페스힐햇님마을아파트", "anchorBuilding": "인평스페스힐햇님마을아파트 (6층)", "roadType": "건물 실내", "nickname": "우리동네주민12", "gpsVerified": true, "timestamp": 1795487722532, "content": "화장실·배관·가전음 소음이 발생해 이웃들과 공유합니다.", "empathyCount": 5, "empathizedByMe": false, "comments": []}, {"id": "post-1795487672776", "dong": "만수2동", "fullAddress": "인천광역시 남동구 만수서로 55 포레시안(Foresian) 101동", "jibunAddress": "[지번] 만수동 1115-1 포레시안(Foresian) 101동", "spaceType": "indoor", "buildingId": "bldg-1795487655816", "floor": 17, "filterGroup": "indoor", "category": "가구끄는소리", "shortTag": "가구끄는음", "whoLevel": 2, "lat": 37.462195937613764, "lng": 126.73441023241662, "roadName": "인천광역시 남동구 만수서로 55 포레시안(Foresian) 101동", "anchorBuilding": "포레시안(Foresian) (17층)", "roadType": "건물 실내", "nickname": "우리동네주민11", "gpsVerified": true, "timestamp": 1795487672776, "content": "가구끄는소리 소음이 발생해 이웃들과 공유합니다.", "empathyCount": 3, "empathizedByMe": false, "comments": []}, {"id": "post-1795487648824", "dong": "만수2동", "fullAddress": "인천광역시 남동구 만수서로 55 포레시안(Foresian) 101동", "jibunAddress": "[지번] 만수동 1115-1 포레시안(Foresian) 101동", "spaceType": "outdoor", "buildingId": null, "floor": null, "filterGroup": "bike", "category": "바이크·차량 굉음", "shortTag": "바이크·굉음", "whoLevel": 3, "lat": 37.462195937613764, "lng": 126.73441023241662, "roadName": "인천광역시 남동구 만수서로 55 포레시안(Foresian) 101동", "anchorBuilding": "포레시안(Foresian) 101동", "roadType": "동네 작은 도로", "nickname": "우리동네주민11", "gpsVerified": true, "timestamp": 1795487648824, "content": "바이크·차량 굉음 소음이 발생해 이웃들과 공유합니다.", "empathyCount": 7, "empathizedByMe": false, "comments": []}, {"id": "post-1795487615507", "dong": "만수4동", "fullAddress": "인천광역시 남동구 만수로50번길 19 만수주공6단지아파트 605동", "jibunAddress": "[지번] 만수동 20 만수주공6단지아파트 605동", "spaceType": "indoor", "buildingId": "bldg-1795487487178", "floor": 9, "filterGroup": "indoor", "category": "발망치·뛰는소리", "shortTag": "층간·발망치", "whoLevel": 2, "lat": 37.460467383256514, "lng": 126.73502670670175, "roadName": "인천광역시 남동구 만수로50번길 19 만수주공6단지아파트 605동", "anchorBuilding": "만수주공6단지 (9층)", "roadType": "건물 실내", "nickname": "우리동네주민10", "gpsVerified": true, "timestamp": 1795487615507, "content": "발망치·뛰는소리 소음이 발생해 이웃들과 공유합니다.", "empathyCount": 4, "empathizedByMe": false, "comments": []}, {"id": "post-1795487583637", "dong": "만수4동", "fullAddress": "인천광역시 남동구 백범로124번길 43 만수주공2단지아파트 204동", "jibunAddress": "[지번] 만수동 29 만수주공2단지아파트 204동", "spaceType": "indoor", "buildingId": "bldg-1795487487178", "floor": 9, "filterGroup": "indoor", "category": "발망치·뛰는소리", "shortTag": "층간·발망치", "whoLevel": 2, "lat": 37.457326241453394, "lng": 126.7325286344319, "roadName": "인천광역시 남동구 백범로124번길 43 만수주공2단지아파트 204동", "anchorBuilding": "만수주공2단지 (9층)", "roadType": "건물 실내", "nickname": "우리동네주민09", "gpsVerified": true, "timestamp": 1795487583637, "content": "발망치·뛰는소리 소음이 발생해 이웃들과 공유합니다.", "empathyCount": 5, "empathizedByMe": false, "comments": []}, {"id": "post-1795487538659", "dong": "만수2동", "fullAddress": "인천광역시 남동구 만수로 14-25 만수주공1단지아파트 115동", "jibunAddress": "[지번] 만수동 29 만수주공1단지아파트 115동", "spaceType": "indoor", "buildingId": "bldg-1795487487178", "floor": 9, "filterGroup": "indoor", "category": "발망치·뛰는소리", "shortTag": "층간·발망치", "whoLevel": 2, "lat": 37.45868937736602, "lng": 126.73169303063757, "roadName": "인천광역시 남동구 만수로 14-25 만수주공1단지아파트 115동", "anchorBuilding": "만수주공1단지 (9층)", "roadType": "건물 실내", "nickname": "우리동네주민08", "gpsVerified": true, "timestamp": 1795487538659, "content": "새벽에 동물이 뛰는건지 애들이 뛰는건지 잠을 못자겠어요", "empathyCount": 8, "empathizedByMe": false, "comments": []}, {"id": "post-1795487460787", "dong": "만수3동", "fullAddress": "인천광역시 남동구 만수서로 36 향촌휴먼시아2단지 203동", "jibunAddress": "[지번] 만수동 1116-1 향촌휴먼시아2단지 203동", "spaceType": "indoor", "buildingId": "bldg-1795487384020", "floor": 11, "filterGroup": "indoor", "category": "반려동물짖음", "shortTag": "반려동물", "whoLevel": 3, "lat": 37.460248987376886, "lng": 126.7300937437295, "roadName": "인천광역시 남동구 만수서로 36 향촌휴먼시아2단지 203동", "anchorBuilding": "향촌휴먼시아2단지 (11층)", "roadType": "건물 실내", "nickname": "우리동네주민07", "gpsVerified": true, "timestamp": 1795487460787, "content": "어느집인지 모르겠는데 한밤중에 개를 짖게 놔두면 어쩌자는 겁니까 주민들이 강력히 대책을 만들어야 합니다", "empathyCount": 9, "empathizedByMe": false, "comments": []}, {"id": "post-1795487351306", "dong": "만수2동", "fullAddress": "인천광역시 남동구 만수로15번길 23 삼성빌라 3동", "jibunAddress": "[지번] 만수동 871 삼성빌라 3동", "spaceType": "indoor", "buildingId": "bldg-1795487287938", "floor": 4, "filterGroup": "indoor", "category": "반려동물짖음", "shortTag": "반려동물", "whoLevel": 3, "lat": 37.45918941849147, "lng": 126.72970760606937, "roadName": "인천광역시 남동구 만수로15번길 23 삼성빌라 3동", "anchorBuilding": "삼성빌라 (4층)", "roadType": "건물 실내", "nickname": "우리동네주민06", "gpsVerified": true, "timestamp": 1795487351306, "content": "새벽에 2시간 넘게 짖고있어요 경찰 출동 요청할까봐요", "empathyCount": 6, "empathizedByMe": false, "comments": []}, {"id": "post-1795487253035", "dong": "만수3동", "fullAddress": "인천광역시 남동구 백범로180번길 37-11 플로리체", "jibunAddress": "[지번] 만수동 867-12 플로리체", "spaceType": "outdoor", "buildingId": null, "floor": null, "filterGroup": "bike", "category": "바이크·차량 굉음", "shortTag": "바이크·굉음", "whoLevel": 3, "lat": 37.45993212459063, "lng": 126.72943366340954, "roadName": "인천광역시 남동구 백범로180번길 37-11 플로리체", "anchorBuilding": "플로리체", "roadType": "동네 작은 도로", "nickname": "우리동네주민05", "gpsVerified": true, "timestamp": 1795487253035, "content": "밤마다 바이크 굉음 배달같은데 정말 심각합니다 대책이 필요해요", "empathyCount": 11, "empathizedByMe": false, "comments": []}, {"id": "post-1795487178920", "dong": "만수2동", "fullAddress": "인천광역시 남동구 만수로27번길 15 인평스페스힐햇님마을아파트", "jibunAddress": "[지번] 만수동 869 인평스페스힐햇님마을아파트", "spaceType": "outdoor", "buildingId": null, "floor": null, "filterGroup": "shout", "category": "고성 및 욕설", "shortTag": "고성·욕설", "whoLevel": 2, "lat": 37.45982286718191, "lng": 126.73090908237478, "roadName": "인천광역시 남동구 만수로27번길 15 인평스페스힐햇님마을아파트", "anchorBuilding": "인평스페스힐햇님마을아파트", "roadType": "동네 작은 도로", "nickname": "우리동네주민04", "gpsVerified": true, "timestamp": 1795487178920, "content": "여러명 남성들이 큰소리로 떠들고 웃고 담배피고 있어요 다들 잠자야 하는 시간인데 너무하네요", "empathyCount": 7, "empathizedByMe": false, "comments": []}, {"id": "post-1795487056461", "dong": "만수2동", "fullAddress": "인천광역시 남동구 백범로164번길 18-2 대승아트빌", "jibunAddress": "[지번] 만수동 102-37 대승아트빌", "spaceType": "outdoor", "buildingId": null, "floor": null, "filterGroup": "shout", "category": "노래·음악소리", "shortTag": "노래·음악", "whoLevel": 2, "lat": 37.45771408376196, "lng": 126.73072449498862, "roadName": "인천광역시 남동구 백범로164번길 18-2 대승아트빌", "anchorBuilding": "대승아트빌", "roadType": "동네 작은 도로", "nickname": "우리동네주민03", "gpsVerified": true, "timestamp": 1795487056461, "content": "밤시간인데 젊은 사람들이 음악 크게 켜놓고 시끄럽게 떠듭니다", "empathyCount": 4, "empathizedByMe": false, "comments": []}, {"id": "post-1795486951965", "dong": "만수3동", "fullAddress": "인천광역시 남동구 만수로15번길 16 가온빌리지", "jibunAddress": "[지번] 만수동 870-27 가온빌리지", "spaceType": "outdoor", "buildingId": null, "floor": null, "filterGroup": "bike", "category": "바이크·차량 굉음", "shortTag": "바이크·굉음", "whoLevel": 3, "lat": 37.45910029337644, "lng": 126.7301346063126, "roadName": "인천광역시 남동구 만수로15번길 16 가온빌리지", "anchorBuilding": "가온빌리지", "roadType": "동네 작은 도로", "nickname": "우리동네주민02", "gpsVerified": true, "timestamp": 1795486951965, "content": "밤중에 아이들 잠들었는데 귀를 찢는 바이크 소리에 애들이 놀라서 깹니다 대책이 필요해요", "empathyCount": 12, "empathizedByMe": false, "comments": []}, {"id": "post-1795486859528", "dong": "만수3동", "fullAddress": "인천 남동구 만수동 989-9", "jibunAddress": "[지번] 만수동 989-9", "spaceType": "outdoor", "buildingId": null, "floor": null, "filterGroup": "shout", "category": "고성 및 욕설", "shortTag": "고성·욕설", "whoLevel": 2, "lat": 37.458788911427774, "lng": 126.73039427500407, "roadName": "인천 남동구 만수동 989-9", "anchorBuilding": "주택가 골목", "roadType": "주택가 골목", "nickname": "우리동네주민01", "gpsVerified": true, "timestamp": 1795486859528, "content": "여자가 악을쓰면서 욕을하고 혼잣말하고 있어요", "empathyCount": 5, "empathizedByMe": false, "comments": []}, {"id": "post-1795486797572", "dong": "만수3동", "fullAddress": "인천광역시 남동구 만수로15번길 7 엑설런트", "jibunAddress": "[지번] 만수동 871-26 엑설런트", "spaceType": "indoor", "buildingId": "bldg-1795486748996", "floor": 2, "filterGroup": "indoor", "category": "물건충격음", "shortTag": "층간·충격", "whoLevel": 3, "lat": 37.458690563086684, "lng": 126.73023497736472, "roadName": "인천광역시 남동구 만수로15번길 7 엑설런트", "anchorBuilding": "엑설런트보금자리 (2층)", "roadType": "건물 실내", "nickname": "우리동네주민01", "gpsVerified": true, "timestamp": 1795486797572, "content": "간헐적으로 쇳덩이같은거 떨어뜨리는 소리가 나는데 가슴이 철렁합니다", "empathyCount": 8, "empathizedByMe": false, "comments": []}]};
 
     /* 이전 버전(v1.2.x ~ v1.3.8) 잔여 가짜 데이터 완전 삭제 */
     try {
@@ -960,7 +964,7 @@
       const params = new URLSearchParams({
         serviceKey: CONFIG.BLDG_API_KEY, sigunguCd, bjdongCd, platGbCd: '0',
         bun: bun ? String(bun).padStart(4, '0') : '', ji: ji ? String(ji).padStart(4, '0') : '',
-        numOfRows: '15', pageNo: '1', _type: 'json'
+        numOfRows: '50', pageNo: '1', _type: 'json'
       });
       try {
         const res = await fetch(`${baseUrl}/getBrTitleInfo?${params.toString()}`);
@@ -968,17 +972,38 @@
         const data = await res.json();
         const items = data?.response?.body?.items?.item;
         const list = Array.isArray(items) ? items : (items ? [items] : []);
-        const matched = list.find(it => it.bldNm && placeName && it.bldNm.includes(placeName.split(' ')[0])) || list[0];
+
+        /* 1층 경비실·관리실·노인정 등 부속건물 제외하고 실제 주거 본동 우선 선별 */
+        const dongMatch = (placeName || '').match(/(\d+동)/);
+        const targetDong = dongMatch ? dongMatch[1] : '';
+        const residential = list.filter(it => {
+          const flr = Number(it.grndFlrCnt) || 0;
+          const purp = String(it.mainPurpsCdNm || '') + String(it.etcPurps || '');
+          if (flr <= 1 && (placeName.includes('아파트') || placeName.includes('단지') || placeName.includes('빌라'))) return false;
+          if (purp.includes('경비') || purp.includes('노인정') || purp.includes('관리')) return false;
+          return flr > 0;
+        });
+        const candidates = residential.length ? residential : list.filter(it => Number(it.grndFlrCnt) > 0);
+        let matched = null;
+        if (targetDong) {
+          matched = candidates.find(it => String(it.dongNm || '').includes(targetDong));
+        }
+        if (!matched && candidates.length) {
+          candidates.sort((a, b) => (Number(b.grndFlrCnt) || 0) - (Number(a.grndFlrCnt) || 0));
+          matched = candidates[0];
+        }
+
         if (matched && Number(matched.grndFlrCnt) > 0) {
           const groundFloors = Number(matched.grndFlrCnt);
           const builtYear = matched.useAprDay ? Number(String(matched.useAprDay).slice(0, 4)) : 2008;
           const mainStructure = matched.strctCdNm || '철근콘크리트구조';
           const households = Number(matched.hhldCnt) || (groundFloors * 3);
-          const hasPiloti = String(matched.etcPurps || '').includes('주차') || String(matched.etcPurps || '').includes('필로티') || groundFloors <= 6;
-          return { id: 'bldg-' + Date.now(), name: matched.bldNm || placeName, lat: Number(lat), lng: Number(lng), groundFloors, households, hasPiloti, mainStructure, builtYear, source: '국토교통부 건축물대장 실측 데이터' };
+          const hasPiloti = String(matched.etcPurps || '').includes('주차') || String(matched.etcPurps || '').includes('필로티') || groundFloors <= 5;
+          const cleanName = String(matched.bldNm || '').trim() || placeName;
+          return { id: 'bldg-' + Date.now(), name: cleanName, lat: Number(lat), lng: Number(lng), groundFloors, households, hasPiloti, mainStructure, builtYear, source: '국토교통부 건축물대장 실측 데이터' };
         }
       } catch (e) {}
-      const isHighApt = placeName.includes('아파트') || placeName.includes('주공') || placeName.includes('에코') || placeName.includes('래미안') || placeName.includes('힐스테이트') || placeName.includes('아이파크');
+      const isHighApt = placeName.includes('아파트') || placeName.includes('주공') || placeName.includes('단지') || placeName.includes('휴먼시아') || placeName.includes('래미안') || placeName.includes('포레시안');
       const isMidBldg = placeName.includes('요양원') || placeName.includes('병원') || placeName.includes('프라자') || placeName.includes('타워') || placeName.includes('오피스텔');
       const estimatedFloors = isHighApt ? 15 : (isMidBldg ? 7 : 5);
       return { id: 'bldg-' + Date.now(), name: placeName, lat: Number(lat), lng: Number(lng), groundFloors: estimatedFloors, households: isHighApt ? 180 : estimatedFloors * 3, hasPiloti: !isHighApt, mainStructure: '철근콘크리트 구조', builtYear: isHighApt ? 2005 : 2014, source: '건축물 용도·규제시대 프로파일' };
@@ -1003,17 +1028,25 @@
       draftLocation: { lat: 37.4556, lng: 126.7282, roadAddr: '', jibunAddr: '', bldgName: '', bun: '', ji: '' },
       pickerMode: 'onboard', pickerMap: null,
       selectedPostId: null, detailTab: 'analysis', showCCTV: false,
-      map: null, overlays: [], selectedBuildingId: null,
+      map: null, overlays: [], myLocOverlay: null, myLat: 37.4587, myLng: 126.7302, selectedBuildingId: null,
       writeDraft: { space: null, roadType: '동네 작은 도로', floor: 1, category: '바이크·차량 굉음', shortTag: '바이크·굉음', group: 'bike', whoLevel: 2 }
     };
 
     function loadSandboxData() {
       try {
-        const accs = JSON.parse(localStorage.getItem(STORAGE_KEYS.TEST_ACCOUNTS)); if (Array.isArray(accs)) state.accounts = accs;
-        const bldgs = JSON.parse(localStorage.getItem(STORAGE_KEYS.TEST_BLDGS)); if (Array.isArray(bldgs)) state.buildings = bldgs;
-        const posts = JSON.parse(localStorage.getItem(STORAGE_KEYS.TEST_POSTS)); if (Array.isArray(posts)) state.posts = posts;
-        const sess = JSON.parse(localStorage.getItem(STORAGE_KEYS.SESSION_USER)); if (sess && sess.nickname) state.user = { ...state.user, ...sess };
-      } catch (e) {}
+        const accs = JSON.parse(localStorage.getItem(STORAGE_KEYS.TEST_ACCOUNTS));
+        const bldgs = JSON.parse(localStorage.getItem(STORAGE_KEYS.TEST_BLDGS));
+        const posts = JSON.parse(localStorage.getItem(STORAGE_KEYS.TEST_POSTS));
+        state.accounts = (Array.isArray(accs) && accs.length) ? accs : JSON.parse(JSON.stringify(DEFAULT_SEED_DATA.accounts));
+        state.buildings = (Array.isArray(bldgs) && bldgs.length) ? bldgs : JSON.parse(JSON.stringify(DEFAULT_SEED_DATA.buildings));
+        state.posts = (Array.isArray(posts) && posts.length) ? posts : JSON.parse(JSON.stringify(DEFAULT_SEED_DATA.posts));
+        const sess = JSON.parse(localStorage.getItem(STORAGE_KEYS.SESSION_USER));
+        if (sess && sess.nickname) state.user = { ...state.user, ...sess };
+      } catch (e) {
+        state.accounts = JSON.parse(JSON.stringify(DEFAULT_SEED_DATA.accounts));
+        state.buildings = JSON.parse(JSON.stringify(DEFAULT_SEED_DATA.buildings));
+        state.posts = JSON.parse(JSON.stringify(DEFAULT_SEED_DATA.posts));
+      }
     }
 
     function saveSandboxData() {
@@ -1069,7 +1102,7 @@
       const el = document.getElementById('toast-bar');
       el.textContent = msg; el.hidden = false;
       clearTimeout(showToast._t);
-      showToast._t = setTimeout(() => { el.hidden = true; }, 2400);
+      showToast._t = setTimeout(() => { el.hidden = true; }, 1350);
     }
 
     function relTime(ts) {
@@ -1288,6 +1321,7 @@
     function locateUserGPS(silent = false) {
       if (!silent) showToast('현재 내 위치로 지도를 맞추고 있어요...');
       requestDeviceLocation((lat, lng) => {
+        state.myLat = lat; state.myLng = lng;
         state.centerLat = lat;
         state.centerLng = lng;
         if (state.map && typeof kakao !== 'undefined') {
@@ -1369,6 +1403,13 @@
     function renderPins() {
       if (!state.map || typeof kakao === 'undefined') return;
       state.overlays.forEach(o => o.setMap(null)); state.overlays = [];
+      if (state.myLocOverlay) { state.myLocOverlay.setMap(null); }
+      if (state.myLat && state.myLng) {
+        const dotEl = document.createElement('div');
+        dotEl.className = 'my-loc-pulse';
+        state.myLocOverlay = new kakao.maps.CustomOverlay({ position: new kakao.maps.LatLng(state.myLat, state.myLng), content: dotEl, zIndex: 15 });
+        state.myLocOverlay.setMap(state.map);
+      }
       const visiblePosts = getVisiblePostsInMap();
       visiblePosts.filter(p => p.spaceType === 'outdoor' || !p.buildingId).forEach(post => {
         const isSelected = (post.id === state.selectedPostId), who = WHO_LEVELS[post.whoLevel] || WHO_LEVELS[2];
