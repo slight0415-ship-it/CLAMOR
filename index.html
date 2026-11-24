@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨 (v1.4.0)</title>
+  <title>53데시벨 (v1.4.1)</title>
 
   <!-- 인라인 Web App Manifest (standalone 전체 화면 설치 지원) -->
   <link id="pwa-manifest-link" rel="manifest">
@@ -43,13 +43,13 @@
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='42' fill='%231E3A8A'/%3E%3Ctext x='96' y='112' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='78' font-weight='900'%3E53%3C/text%3E%3Ctext x='96' y='152' text-anchor='middle' fill='%2338BDF8' font-family='sans-serif' font-size='30' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='42' fill='%231E3A8A'/%3E%3Ctext x='96' y='112' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='78' font-weight='900'%3E53%3C/text%3E%3Ctext x='96' y='152' text-anchor='middle' fill='%2338BDF8' font-family='sans-serif' font-size='30' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
   <!-- Pretendard Variable -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.4.0/dist/web/variable/pretendardvariable.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.4.1/dist/web/variable/pretendardvariable.min.css">
   <!-- 카카오맵 SDK -->
   <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=20b24a9df15474b70785b099967431b3&libraries=services,clusterer&autoload=false"></script>
 
   <style>
     /* ==========================================================================
-       [v1.4.0 디자인 시스템]
+       [v1.4.1 디자인 시스템]
        - 딥 로얄 블루(#1E3A8A) + 스카이 시안(#0284C7) + 경고 코랄 레드(#E11D48)
        - 순백색(#FFFFFF) 플랫 카드 & 명확한 버튼 배치
        ========================================================================== */
@@ -188,7 +188,7 @@
     }
 
     /* ==========================================================================
-       [화면 1] 스플래시 (v1.4.0)
+       [화면 1] 스플래시 (v1.4.1)
        ========================================================================== */
     #screen-splash {
       z-index: 100;
@@ -328,21 +328,68 @@
     .btn-map-tool.active { background-color: var(--primary); color: #FFFFFF; border-color: var(--primary); }
     .btn-floating-gps { position: absolute; right: 12px; bottom: 14px; z-index: 25; width: 40px; height: 40px; border-radius: 11px; background-color: var(--bg-white); border: 1px solid var(--border-strong); display: grid; place-items: center; color: var(--primary); }
 
-    .hg-marker-wrap { position: relative; display: flex; flex-direction: column; align-items: flex-start; cursor: pointer; }
-    .hg-marker-wrap.selected { transform: scale(1.08); z-index: 100; }
-    .hg-live-bubble { align-self: center; background-color: #0F172A; color: #FFFFFF; font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 6px; margin-bottom: 3px; white-space: nowrap; }
-    .hg-marker-box { min-width: 74px; border-radius: 8px 8px 8px 2px; overflow: hidden; border: 1.5px solid #FFFFFF; background-color: var(--primary); color: #FFFFFF; text-align: center; }
-    .hg-marker-wrap.is-bldg .hg-marker-box { border-top: 3px solid #38BDF8; background-color: #172554; }
-    .hg-m-top { font-size: 10px; font-weight: 800; padding: 2px 7px; background-color: #D97706; color: #FFFFFF; white-space: nowrap; }
-    .hg-marker-wrap.lv-1 .hg-m-top { background-color: #D97706; }
-    .hg-marker-wrap.lv-2 .hg-m-top { background-color: #EA580C; }
-    .hg-marker-wrap.lv-3 .hg-m-top { background-color: var(--lv3-red); }
-    .hg-marker-wrap.is-bldg .hg-m-top { background-color: var(--secondary); }
+    /* [v1.4.1 초간결 투명 라벨 + 작은 위치 핀 마커] */
+    .nm-wrap {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      transition: transform 0.14s ease;
+    }
+    .nm-wrap.selected { transform: scale(1.18); z-index: 120; }
+    .nm-label {
+      background: transparent;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      white-space: nowrap;
+      margin-bottom: 3px;
+      color: #D97706;
+      text-shadow:
+        -1.5px -1.5px 0 #FFFFFF,
+         1.5px -1.5px 0 #FFFFFF,
+        -1.5px  1.5px 0 #FFFFFF,
+         1.5px  1.5px 0 #FFFFFF,
+         0px   -1.5px 0 #FFFFFF,
+         0px    1.5px 0 #FFFFFF,
+        -1.5px  0px   0 #FFFFFF,
+         1.5px  0px   0 #FFFFFF,
+         0px    2px   4px rgba(15, 23, 42, 0.22);
+    }
+    .nm-wrap.lv-1 .nm-label { color: #B45309; }
+    .nm-wrap.lv-2 .nm-label { color: #EA580C; }
+    .nm-wrap.lv-3 .nm-label { color: #E11D48; }
+    .nm-wrap.is-bldg .nm-label { color: #1E3A8A; }
+    .nm-wrap.selected .nm-label { font-size: 13px; }
+
+    .nm-pin {
+      width: 13px;
+      height: 13px;
+      border-radius: 50% 50% 50% 2px;
+      transform: rotate(-45deg);
+      border: 2.2px solid #FFFFFF;
+      box-shadow: 0 2px 5px rgba(15, 23, 42, 0.35);
+      background-color: #D97706;
+    }
+    .nm-wrap.lv-1 .nm-pin { background-color: #D97706; }
+    .nm-wrap.lv-2 .nm-pin { background-color: #EA580C; }
+    .nm-wrap.lv-3 .nm-pin { background-color: #E11D48; }
+    .nm-wrap.is-bldg .nm-pin { background-color: #1E3A8A; }
+    .nm-wrap.selected .nm-pin {
+      width: 16px;
+      height: 16px;
+      box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.25), 0 3px 8px rgba(15, 23, 42, 0.4);
+    }
+
+    /* 지도 축소(level >= 5) 시 초콤팩트 모드 */
+    .nm-wrap.zoom-compact .nm-label { font-size: 10.5px; margin-bottom: 2px; }
+    .nm-wrap.zoom-compact .nm-pin { width: 10px; height: 10px; border-width: 1.8px; }
+    .nm-wrap.zoom-far:not(.selected) .nm-label { display: none; }
+    .nm-wrap.zoom-far:not(.selected) .nm-pin { width: 9px; height: 9px; border-radius: 50%; transform: none; border-width: 1.5px; }
+
     .my-loc-pulse { width: 16px; height: 16px; border-radius: 50%; background-color: #2563EB; border: 3px solid #FFFFFF; box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.28); pointer-events: none; }
-    .hg-m-main { font-size: 13px; font-weight: 900; padding: 3px 8px; color: #FFFFFF; white-space: nowrap; }
-    .hg-m-pointer { width: 0; height: 0; border-top: 7px solid var(--primary); border-right: 8px solid transparent; margin-left: 1px; }
-    .hg-marker-wrap.is-bldg .hg-m-pointer { border-top-color: #172554; }
-    .hg-m-dot { width: 7px; height: 7px; border-radius: 50%; background-color: var(--lv3-red); border: 1.5px solid #FFFFFF; margin-left: -2px; margin-top: -1px; }
 
     .map-bottom-sheet { flex: 1; min-height: 0; background-color: var(--bg-page); border-top: 1px solid var(--border-line); display: flex; flex-direction: column; position: relative; }
     .map-bottom-sheet.expanded { position: absolute; inset: calc(54px + var(--safe-top)) 0 0 0; z-index: 40; }
@@ -491,7 +538,7 @@
 
     <!-- [화면 1] 스플래시 -->
     <section class="screen" id="screen-splash" aria-label="53데시벨 시작 화면">
-      <div class="splash-top-meta"><span class="version-pill">v1.4.0</span></div>
+      <div class="splash-top-meta"><span class="version-pill">v1.4.1</span></div>
       <div class="splash-center-group">
         <div class="brand-logo-lockup" role="img" aria-label="53데시벨">
           <span class="logo-num-box">53</span>
@@ -542,7 +589,7 @@
             <span>Google로 신규 회원가입</span>
           </button>
           <button type="button" class="btn-browse-first" id="btn-guest-enter">
-            <span>로그인 없이 지도에서 위치 설정 후 둘러보기</span>
+            <span>로그인 없이 원하는 지역 둘러보기</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg>
           </button>
         </div>
@@ -609,7 +656,7 @@
       <div class="picker-map-area">
         <div id="picker-kakao-map"></div>
         <div class="picker-center-pin-wrap">
-          <div class="picker-guide-bubble">지도를 움직여 위치를 설정하세요</div>
+          <div class="picker-guide-bubble" id="picker-guide-bubble">지도를 움직여 위치를 설정하세요</div>
           <div class="picker-pin-head"><div class="picker-pin-dot"></div></div>
         </div>
         <button type="button" class="btn-floating-gps" id="btn-picker-gps" title="현재 내 위치">
@@ -1175,7 +1222,7 @@
       });
     });
 
-    document.getElementById('btn-guest-enter').addEventListener('click', () => { state.user.loggedIn = false; openPinPicker('onboard'); });
+    document.getElementById('btn-guest-enter').addEventListener('click', () => { state.user.loggedIn = false; state.user.provider = ''; openPinPicker('guest'); });
     document.getElementById('btn-perm-confirm').addEventListener('click', () => {
       if (navigator.geolocation) navigator.geolocation.getCurrentPosition(pos => { state.centerLat = pos.coords.latitude; state.centerLng = pos.coords.longitude; }, () => {});
       showAuthStep('auth-step-terms');
@@ -1215,7 +1262,22 @@
     function openPinPicker(mode) {
       state.pickerMode = mode;
       pickerUserDragged = false;
-      document.getElementById('picker-title').textContent = mode === 'onboard' ? '거주지 주소 설정' : '소음 발생 위치 지정';
+      const titleEl = document.getElementById('picker-title');
+      const bubbleEl = document.getElementById('picker-guide-bubble');
+      const confirmEl = document.getElementById('btn-picker-confirm');
+      if (mode === 'guest') {
+        titleEl.textContent = '둘러볼 지역 선택';
+        bubbleEl.textContent = '보고 싶은 동네로 지도를 움직여 주세요';
+        confirmEl.textContent = '이 지역 소음 둘러보기';
+      } else if (mode === 'onboard') {
+        titleEl.textContent = '거주지 주소 설정';
+        bubbleEl.textContent = '내 거주지 위치로 지도를 맞춰주세요';
+        confirmEl.textContent = '선택한 위치로 설정';
+      } else {
+        titleEl.textContent = '소음 발생 위치 지정';
+        bubbleEl.textContent = '소음이 발생한 지점에 핀을 맞춰주세요';
+        confirmEl.textContent = '이 위치로 확정';
+      }
       goScreen('screen-pin-picker');
       setTimeout(() => {
         if (typeof kakao === 'undefined' || !kakao.maps) return;
@@ -1243,8 +1305,8 @@
           }
           updatePickerAddressAtCenter(startLat, startLng);
 
-          if (mode === 'onboard') {
-            showToast('현재 실제 위치를 확인하고 있어요...');
+          if (mode === 'onboard' || mode === 'guest') {
+            showToast(mode === 'guest' ? '현재 위치로 이동했어요. 보고 싶은 지역으로 움직여 보세요!' : '현재 실제 위치를 확인하고 있어요...');
             requestDeviceLocation((gpsLat, gpsLng) => {
               if (pickerUserDragged) return;
               state.centerLat = gpsLat;
@@ -1262,7 +1324,7 @@
       }, 80);
     }
 
-    document.getElementById('btn-picker-back').onclick = () => goScreen(state.pickerMode === 'onboard' ? 'screen-auth' : 'screen-write');
+    document.getElementById('btn-picker-back').onclick = () => goScreen((state.pickerMode === 'onboard' || state.pickerMode === 'guest') ? 'screen-auth' : 'screen-write');
     document.getElementById('btn-picker-gps').onclick = () => {
       pickerUserDragged = false;
       showToast('현재 위치로 이동 중...');
@@ -1291,7 +1353,7 @@
         state.draftLocation.lng = c.getLng();
       }
       const loc = state.draftLocation;
-      if (state.pickerMode === 'onboard') {
+      if (state.pickerMode === 'onboard' || state.pickerMode === 'guest') {
         state.centerLat = loc.lat; state.centerLng = loc.lng;
         try { localStorage.setItem('53db_last_gps', JSON.stringify({ lat: loc.lat, lng: loc.lng, ts: Date.now() })); } catch (e) {}
         const dongMatch = loc.jibunAddr.match(/\[지번\]\s*([^\s]+)/);
@@ -1410,28 +1472,52 @@
         state.myLocOverlay = new kakao.maps.CustomOverlay({ position: new kakao.maps.LatLng(state.myLat, state.myLng), content: dotEl, zIndex: 15 });
         state.myLocOverlay.setMap(state.map);
       }
+      const mapLevel = state.map.getLevel();
+      const zoomCls = mapLevel >= 6 ? 'zoom-far' : (mapLevel >= 5 ? 'zoom-compact' : '');
+
+      function getCompactLabel(cat) {
+        const map = {
+          '바이크·차량 굉음': '바이크굉음',
+          '고성 및 욕설': '고성·욕설',
+          '노래·음악소리': '노래·음악',
+          '공사소음': '공사소음',
+          '기계음': '기계소음',
+          '발망치·뛰는소리': '층간소음',
+          '물건충격음': '층간충격',
+          '가구끄는소리': '가구끄는음',
+          '반려동물짖음': '반려동물짖음',
+          '고성·싸움·노래': '실내고성',
+          '화장실·배관·가전음': '배관소음',
+          '기타': '생활소음'
+        };
+        const res = map[cat] || String(cat || '소음').replace(/[·\s]/g, '');
+        return res.slice(0, 6);
+      }
+
       const visiblePosts = getVisiblePostsInMap();
       visiblePosts.filter(p => p.spaceType === 'outdoor' || !p.buildingId).forEach(post => {
-        const isSelected = (post.id === state.selectedPostId), who = WHO_LEVELS[post.whoLevel] || WHO_LEVELS[2];
+        const isSelected = (post.id === state.selectedPostId);
+        const labelTxt = getCompactLabel(post.category);
         const el = document.createElement('div');
-        el.className = `hg-marker-wrap lv-${post.whoLevel} ${isSelected ? 'selected' : ''}`;
-        el.innerHTML = `<div class="hg-live-bubble">${post.empathyCount}명 공감중</div><div class="hg-marker-box"><div class="hg-m-top">${post.shortTag || '생활소음'}</div><div class="hg-m-main">${who.shortDb}</div></div><div class="hg-m-pointer"></div><div class="hg-m-dot"></div>`;
+        el.className = `nm-wrap lv-${post.whoLevel} ${zoomCls} ${isSelected ? 'selected' : ''}`;
+        el.innerHTML = `<span class="nm-label">${labelTxt}</span><span class="nm-pin"></span>`;
         el.onclick = () => { if (state.selectedPostId === post.id) openPostDetail(post.id); else focusSpotOnMapAndCard(post.id, true); };
-        const ov = new kakao.maps.CustomOverlay({ position: new kakao.maps.LatLng(post.lat, post.lng), content: el, xAnchor: 0.12, yAnchor: 1.0, zIndex: isSelected ? 80 : (20 + post.whoLevel) });
+        const ov = new kakao.maps.CustomOverlay({ position: new kakao.maps.LatLng(post.lat, post.lng), content: el, xAnchor: 0.5, yAnchor: 1.0, zIndex: isSelected ? 90 : (20 + post.whoLevel) });
         ov.setMap(state.map); state.overlays.push(ov);
       });
+
       const bounds = state.map.getBounds();
       state.buildings.forEach(bldg => {
         if (bounds && !bounds.contain(new kakao.maps.LatLng(bldg.lat, bldg.lng))) return;
         const bReports = state.posts.filter(p => p.buildingId === bldg.id);
         if (bReports.length === 0) return;
-        const isSelected = bReports.some(r => r.id === state.selectedPostId), prof = profileBuildingStructure(bldg, bReports);
-        const totalEmp = bReports.reduce((acc, r) => acc + (r.empathyCount || 0), 0);
+        const isSelected = bReports.some(r => r.id === state.selectedPostId);
+        const labelTxt = getCompactLabel(bReports[0].category);
         const el = document.createElement('div');
-        el.className = `hg-marker-wrap is-bldg ${isSelected ? 'selected' : ''}`;
-        el.innerHTML = `<div class="hg-live-bubble">${totalEmp}명 공감중</div><div class="hg-marker-box"><div class="hg-m-top">${prof.builtYear}년 · 방음취약 ${prof.vulnerability}점</div><div class="hg-m-main">${prof.name.replace('아파트', '')}</div></div><div class="hg-m-pointer"></div><div class="hg-m-dot"></div>`;
+        el.className = `nm-wrap is-bldg ${zoomCls} ${isSelected ? 'selected' : ''}`;
+        el.innerHTML = `<span class="nm-label">${labelTxt}</span><span class="nm-pin"></span>`;
         el.onclick = () => { if (isSelected) openBuildingView(bldg.id); else focusSpotOnMapAndCard(bReports[0].id, true); };
-        const ov = new kakao.maps.CustomOverlay({ position: new kakao.maps.LatLng(bldg.lat, bldg.lng), content: el, xAnchor: 0.12, yAnchor: 1.0, zIndex: isSelected ? 85 : 35 });
+        const ov = new kakao.maps.CustomOverlay({ position: new kakao.maps.LatLng(bldg.lat, bldg.lng), content: el, xAnchor: 0.5, yAnchor: 1.0, zIndex: isSelected ? 95 : 35 });
         ov.setMap(state.map); state.overlays.push(ov);
       });
     }
