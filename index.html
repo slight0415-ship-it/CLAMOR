@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨 (v1.3.8)</title>
+  <title>53데시벨 (v1.3.9)</title>
 
   <!-- 인라인 Web App Manifest (standalone 전체 화면 설치 지원) -->
   <link id="pwa-manifest-link" rel="manifest">
@@ -49,7 +49,7 @@
 
   <style>
     /* ==========================================================================
-       [v1.3.8 디자인 시스템]
+       [v1.3.9 디자인 시스템]
        - 딥 로얄 블루(#1E3A8A) + 스카이 시안(#0284C7) + 경고 코랄 레드(#E11D48)
        - 순백색(#FFFFFF) 플랫 카드 & 명확한 버튼 배치
        ========================================================================== */
@@ -96,8 +96,11 @@
     [hidden] { display: none !important; }
 
     html, body {
+      position: fixed;
+      inset: 0;
       width: 100%;
       height: 100%;
+      overscroll-behavior: none;
       background-color: var(--bg-white);
       color: var(--text-main);
       font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -108,7 +111,7 @@
     .app-shell {
       position: relative;
       width: 100%;
-      height: 100dvh;
+      height: 100%;
       margin: 0 auto;
       background-color: var(--bg-page);
       display: flex;
@@ -185,7 +188,7 @@
     }
 
     /* ==========================================================================
-       [화면 1] 스플래시 (v1.3.8)
+       [화면 1] 스플래시 (v1.3.9)
        ========================================================================== */
     #screen-splash {
       z-index: 100;
@@ -261,8 +264,8 @@
     .picker-topbar { height: calc(52px + var(--safe-top)); padding: var(--safe-top) 14px 0; background-color: var(--bg-white); display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-line); flex-shrink: 0; }
     .picker-topbar h2 { font-size: 16.5px; font-weight: 800; }
     .picker-search-strip { padding: 8px 14px; background-color: var(--bg-white); display: flex; gap: 8px; border-bottom: 1px solid var(--border-line); flex-shrink: 0; }
-    .picker-map-area { position: relative; flex: 1; width: 100%; background-color: #E2E8F0; overflow: hidden; }
-    #picker-kakao-map { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .picker-map-area { position: relative; flex: 1; width: 100%; background-color: #E2E8F0; overflow: hidden; touch-action: none; }
+    #picker-kakao-map { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; }
     .picker-center-pin-wrap { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -100%); z-index: 30; display: flex; flex-direction: column; align-items: center; pointer-events: none; }
     .picker-guide-bubble { background-color: var(--secondary); color: #FFFFFF; font-size: 12px; font-weight: 800; padding: 6px 12px; border-radius: 8px; white-space: nowrap; margin-bottom: 8px; position: relative; }
     .picker-guide-bubble::after { content: ''; position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%); border-top: 6px solid var(--secondary); border-left: 6px solid transparent; border-right: 6px solid transparent; }
@@ -318,8 +321,8 @@
     .btn-nav-tab svg { width: 20px; height: 20px; }
 
     /* [탭 1] 소음지도 */
-    .map-container { position: relative; height: 55%; width: 100%; flex-shrink: 0; background-color: #E2E8F0; overflow: hidden; }
-    #kakao-map { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .map-container { position: relative; height: 55%; width: 100%; flex-shrink: 0; background-color: #E2E8F0; overflow: hidden; touch-action: none; }
+    #kakao-map { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; }
     .map-right-tools { position: absolute; right: 12px; top: 12px; z-index: 25; display: flex; flex-direction: column; gap: 8px; }
     .btn-map-tool { width: 42px; height: 42px; border-radius: 11px; background-color: var(--bg-white); border: 1px solid var(--border-strong); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 10px; font-weight: 800; color: var(--text-sub); }
     .btn-map-tool.active { background-color: var(--primary); color: #FFFFFF; border-color: var(--primary); }
@@ -486,7 +489,7 @@
 
     <!-- [화면 1] 스플래시 -->
     <section class="screen" id="screen-splash" aria-label="53데시벨 시작 화면">
-      <div class="splash-top-meta"><span class="version-pill">v1.3.8</span></div>
+      <div class="splash-top-meta"><span class="version-pill">v1.3.9</span></div>
       <div class="splash-center-group">
         <div class="brand-logo-lockup" role="img" aria-label="53데시벨">
           <span class="logo-num-box">53</span>
@@ -886,11 +889,21 @@
 
   <script>
     const STORAGE_KEYS = {
-      TEST_ACCOUNTS: '53db_sandbox_accounts_v131',
-      TEST_POSTS:    '53db_sandbox_posts_v131',
-      TEST_BLDGS:    '53db_sandbox_bldgs_v131',
-      SESSION_USER:  '53db_sandbox_session_v131'
+      TEST_ACCOUNTS: '53db_sandbox_accounts_v139',
+      TEST_POSTS:    '53db_sandbox_posts_v139',
+      TEST_BLDGS:    '53db_sandbox_bldgs_v139',
+      SESSION_USER:  '53db_sandbox_session_v139'
     };
+
+    /* 이전 버전(v1.2.x ~ v1.3.8) 잔여 가짜 데이터 완전 삭제 */
+    try {
+      ['v120', 'v122', 'v130', 'v131'].forEach(v => {
+        localStorage.removeItem('53db_sandbox_accounts_' + v);
+        localStorage.removeItem('53db_sandbox_posts_' + v);
+        localStorage.removeItem('53db_sandbox_bldgs_' + v);
+        localStorage.removeItem('53db_sandbox_session_' + v);
+      });
+    } catch (e) {}
 
     const CONFIG = {
       BLDG_API_KEY: '738a1e3eb24afc48a06e3871c47d057b54f27cfde63e91a4e2b5a2baf27cbae5'
@@ -1177,17 +1190,19 @@
           const container = document.getElementById('picker-kakao-map');
           const startLat = mode === 'write' ? state.draftLocation.lat : state.centerLat;
           const startLng = mode === 'write' ? state.draftLocation.lng : state.centerLng;
+          const syncPickerCenter = () => {
+            clearTimeout(pickerIdleTimer);
+            pickerIdleTimer = setTimeout(() => {
+              if (!state.pickerMap) return;
+              const c = state.pickerMap.getCenter();
+              updatePickerAddressAtCenter(c.getLat(), c.getLng());
+            }, 180);
+          };
           if (!state.pickerMap) {
             state.pickerMap = new kakao.maps.Map(container, { center: new kakao.maps.LatLng(startLat, startLng), level: 3 });
             kakao.maps.event.addListener(state.pickerMap, 'dragstart', () => { pickerUserDragged = true; });
-            kakao.maps.event.addListener(state.pickerMap, 'idle', () => {
-              clearTimeout(pickerIdleTimer);
-              pickerIdleTimer = setTimeout(() => {
-                if (!state.pickerMap) return;
-                const c = state.pickerMap.getCenter();
-                updatePickerAddressAtCenter(c.getLat(), c.getLng());
-              }, 120);
-            });
+            kakao.maps.event.addListener(state.pickerMap, 'dragend', syncPickerCenter);
+            kakao.maps.event.addListener(state.pickerMap, 'zoom_changed', syncPickerCenter);
           } else {
             state.pickerMap.relayout();
             state.pickerMap.setLevel(3);
@@ -1307,7 +1322,11 @@
       if (typeof kakao === 'undefined' || !kakao.maps) return;
       kakao.maps.load(() => {
         state.map = new kakao.maps.Map(document.getElementById('kakao-map'), { center: new kakao.maps.LatLng(state.centerLat, state.centerLng), level: 4 });
-        kakao.maps.event.addListener(state.map, 'idle', () => syncRegionByMapViewport());
+        let mainIdleTimer = null;
+        kakao.maps.event.addListener(state.map, 'idle', () => {
+          clearTimeout(mainIdleTimer);
+          mainIdleTimer = setTimeout(() => syncRegionByMapViewport(), 220);
+        });
         setTimeout(() => {
           state.map.relayout();
           state.map.setCenter(new kakao.maps.LatLng(state.centerLat, state.centerLng));
