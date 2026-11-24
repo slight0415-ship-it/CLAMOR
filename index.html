@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨 (v1.4.1)</title>
+  <title>53데시벨 (v1.4.2)</title>
 
   <!-- 인라인 Web App Manifest (standalone 전체 화면 설치 지원) -->
   <link id="pwa-manifest-link" rel="manifest">
@@ -43,13 +43,13 @@
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='42' fill='%231E3A8A'/%3E%3Ctext x='96' y='112' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='78' font-weight='900'%3E53%3C/text%3E%3Ctext x='96' y='152' text-anchor='middle' fill='%2338BDF8' font-family='sans-serif' font-size='30' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='42' fill='%231E3A8A'/%3E%3Ctext x='96' y='112' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='78' font-weight='900'%3E53%3C/text%3E%3Ctext x='96' y='152' text-anchor='middle' fill='%2338BDF8' font-family='sans-serif' font-size='30' font-weight='800'%3E%EB%8D%B0%EC%8B%9C%EB%B2%A8%3C/text%3E%3C/svg%3E">
   <!-- Pretendard Variable -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.4.1/dist/web/variable/pretendardvariable.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.4.2/dist/web/variable/pretendardvariable.min.css">
   <!-- 카카오맵 SDK -->
   <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=20b24a9df15474b70785b099967431b3&libraries=services,clusterer&autoload=false"></script>
 
   <style>
     /* ==========================================================================
-       [v1.4.1 디자인 시스템]
+       [v1.4.2 디자인 시스템]
        - 딥 로얄 블루(#1E3A8A) + 스카이 시안(#0284C7) + 경고 코랄 레드(#E11D48)
        - 순백색(#FFFFFF) 플랫 카드 & 명확한 버튼 배치
        ========================================================================== */
@@ -188,7 +188,7 @@
     }
 
     /* ==========================================================================
-       [화면 1] 스플래시 (v1.4.1)
+       [화면 1] 스플래시 (v1.4.2)
        ========================================================================== */
     #screen-splash {
       z-index: 100;
@@ -328,66 +328,73 @@
     .btn-map-tool.active { background-color: var(--primary); color: #FFFFFF; border-color: var(--primary); }
     .btn-floating-gps { position: absolute; right: 12px; bottom: 14px; z-index: 25; width: 40px; height: 40px; border-radius: 11px; background-color: var(--bg-white); border: 1px solid var(--border-strong); display: grid; place-items: center; color: var(--primary); }
 
-    /* [v1.4.1 초간결 투명 라벨 + 작은 위치 핀 마커] */
+    /* [v1.4.2 균일 크기 · 고대비 투명 라벨 + 뚜렷한 위치 핀] */
     .nm-wrap {
       position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
       cursor: pointer;
-      transition: transform 0.14s ease;
     }
-    .nm-wrap.selected { transform: scale(1.18); z-index: 120; }
+    .nm-wrap.selected { z-index: 120; }
     .nm-label {
       background: transparent;
       font-size: 12px;
       font-weight: 900;
       letter-spacing: -0.04em;
-      line-height: 1.1;
+      line-height: 1.15;
       white-space: nowrap;
       margin-bottom: 3px;
-      color: #D97706;
       text-shadow:
-        -1.5px -1.5px 0 #FFFFFF,
-         1.5px -1.5px 0 #FFFFFF,
-        -1.5px  1.5px 0 #FFFFFF,
-         1.5px  1.5px 0 #FFFFFF,
-         0px   -1.5px 0 #FFFFFF,
-         0px    1.5px 0 #FFFFFF,
-        -1.5px  0px   0 #FFFFFF,
-         1.5px  0px   0 #FFFFFF,
-         0px    2px   4px rgba(15, 23, 42, 0.22);
+        -2px -2px 0 #FFFFFF,
+         2px -2px 0 #FFFFFF,
+        -2px  2px 0 #FFFFFF,
+         2px  2px 0 #FFFFFF,
+         0px -2px 0 #FFFFFF,
+         0px  2px 0 #FFFFFF,
+        -2px  0px 0 #FFFFFF,
+         2px  0px 0px #FFFFFF,
+         0px  2px 5px rgba(15, 23, 42, 0.28);
     }
-    .nm-wrap.lv-1 .nm-label { color: #B45309; }
-    .nm-wrap.lv-2 .nm-label { color: #EA580C; }
-    .nm-wrap.lv-3 .nm-label { color: #E11D48; }
-    .nm-wrap.is-bldg .nm-label { color: #1E3A8A; }
-    .nm-wrap.selected .nm-label { font-size: 13px; }
+    /* 카카오맵 난색(베이지/주황/분홍) 배경과 확실히 구별되는 고대비 2원화 컬러 */
+    .nm-wrap.type-indoor .nm-label { color: #0F172A; }
+    .nm-wrap.type-outdoor .nm-label { color: #9D174D; }
 
     .nm-pin {
-      width: 13px;
-      height: 13px;
-      border-radius: 50% 50% 50% 2px;
-      transform: rotate(-45deg);
-      border: 2.2px solid #FFFFFF;
-      box-shadow: 0 2px 5px rgba(15, 23, 42, 0.35);
-      background-color: #D97706;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2.5px solid #FFFFFF;
+      box-shadow: 0 0 0 1.5px rgba(15, 23, 42, 0.35), 0 2px 5px rgba(15, 23, 42, 0.35);
+      position: relative;
     }
-    .nm-wrap.lv-1 .nm-pin { background-color: #D97706; }
-    .nm-wrap.lv-2 .nm-pin { background-color: #EA580C; }
-    .nm-wrap.lv-3 .nm-pin { background-color: #E11D48; }
-    .nm-wrap.is-bldg .nm-pin { background-color: #1E3A8A; }
+    .nm-pin::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background-color: #FFFFFF;
+      transform: translate(-50%, -50%);
+    }
+    .nm-wrap.type-indoor .nm-pin { background-color: #1E3A8A; }
+    .nm-wrap.type-outdoor .nm-pin { background-color: #BE123C; }
+
+    /* 선택 시 크기는 동일하게 유지하고 선명한 포커스 링만 표시 */
     .nm-wrap.selected .nm-pin {
-      width: 16px;
-      height: 16px;
-      box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.25), 0 3px 8px rgba(15, 23, 42, 0.4);
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.45), 0 2px 6px rgba(15, 23, 42, 0.45);
+    }
+    .nm-wrap.selected .nm-label {
+      text-decoration: underline;
+      text-underline-offset: 2px;
     }
 
-    /* 지도 축소(level >= 5) 시 초콤팩트 모드 */
-    .nm-wrap.zoom-compact .nm-label { font-size: 10.5px; margin-bottom: 2px; }
-    .nm-wrap.zoom-compact .nm-pin { width: 10px; height: 10px; border-width: 1.8px; }
+    /* 지도 아주 크게 축소(level >= 6) 시 점만 표시 */
     .nm-wrap.zoom-far:not(.selected) .nm-label { display: none; }
-    .nm-wrap.zoom-far:not(.selected) .nm-pin { width: 9px; height: 9px; border-radius: 50%; transform: none; border-width: 1.5px; }
+    .nm-wrap.zoom-far:not(.selected) .nm-pin { width: 10px; height: 10px; border-width: 2px; }
+    .nm-wrap.zoom-far:not(.selected) .nm-pin::after { display: none; }
 
     .my-loc-pulse { width: 16px; height: 16px; border-radius: 50%; background-color: #2563EB; border: 3px solid #FFFFFF; box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.28); pointer-events: none; }
 
@@ -431,11 +438,17 @@
     .kpi-box strong { display: block; font-size: 17px; font-weight: 900; color: var(--primary); margin-top: 2px; }
     .kpi-box strong.red { color: var(--lv3-red); }
 
-    .comm-cat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; background-color: var(--bg-white); border: 1px solid var(--border-line); border-radius: 14px; padding: 12px 8px; }
-    .btn-comm-cat { display: flex; flex-direction: column; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 700; color: var(--text-sub); }
-    .btn-comm-cat.active { color: var(--primary); font-weight: 900; }
-    .comm-cat-circle { width: 42px; height: 42px; border-radius: 12px; background-color: var(--bg-subtle); display: grid; place-items: center; font-size: 19px; }
-    .btn-comm-cat.active .comm-cat-circle { background-color: var(--primary-soft); border: 1.5px solid var(--primary); }
+    .comm-scope-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; background-color: var(--bg-white); border: 1px solid var(--border-line); border-radius: 14px; padding: 6px; }
+    .btn-comm-scope { height: 38px; border-radius: 10px; font-size: 13px; font-weight: 800; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 4px; }
+    .btn-comm-scope.active { background-color: var(--primary); color: #FFFFFF; }
+    .comm-loc-banner { background-color: var(--primary-soft); border: 1px solid #BFDBFE; border-radius: 12px; padding: 10px 13px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .comm-loc-banner strong { font-size: 13.5px; font-weight: 900; color: var(--primary); }
+    .comm-loc-banner span { font-size: 11.5px; font-weight: 700; color: var(--secondary); }
+    .comm-bldg-chips { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
+    .comm-bldg-chips::-webkit-scrollbar { display: none; }
+    .btn-bldg-chip { padding: 7px 12px; border-radius: 999px; background-color: var(--bg-white); border: 1px solid var(--border-strong); font-size: 12.5px; font-weight: 700; color: var(--text-sub); white-space: nowrap; flex-shrink: 0; }
+    .btn-bldg-chip.active { background-color: var(--secondary); border-color: var(--secondary); color: #FFFFFF; font-weight: 800; }
+    .comm-dist-badge { font-size: 11px; font-weight: 800; padding: 2px 7px; border-radius: 6px; background-color: #E0F2FE; color: #0369A1; }
 
     .comm-post-card { background-color: var(--bg-white); border: 1px solid var(--border-line); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 7px; }
     .comm-tag { align-self: flex-start; font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 6px; background-color: var(--primary-soft); color: var(--primary); }
@@ -538,7 +551,7 @@
 
     <!-- [화면 1] 스플래시 -->
     <section class="screen" id="screen-splash" aria-label="53데시벨 시작 화면">
-      <div class="splash-top-meta"><span class="version-pill">v1.4.1</span></div>
+      <div class="splash-top-meta"><span class="version-pill">v1.4.2</span></div>
       <div class="splash-center-group">
         <div class="brand-logo-lockup" role="img" aria-label="53데시벨">
           <span class="logo-num-box">53</span>
@@ -727,16 +740,20 @@
 
       <div class="tab-view" id="tab-view-community" hidden>
         <header class="flat-topbar">
-          <h2 style="font-size:17.5px; font-weight:900;">💬 이웃 소음 커뮤니티</h2>
-          <button type="button" class="btn-outline" id="btn-comm-write-jump" style="height:32px; font-size:12px; color:var(--primary); border-color:var(--primary);">+ 글쓰기</button>
+          <h2 style="font-size:17.5px; font-weight:900;">💬 우리 동네 · 건물 커뮤니티</h2>
+          <button type="button" class="btn-outline" id="btn-comm-write-jump" style="height:32px; font-size:12px; color:var(--primary); border-color:var(--primary);">+ 소음 공유</button>
         </header>
         <div class="tab-scroll-body">
-          <div class="comm-cat-grid" id="comm-cat-grid">
-            <button type="button" class="btn-comm-cat active" data-ccat="all"><div class="comm-cat-circle">🏘️</div><span>전체</span></button>
-            <button type="button" class="btn-comm-cat" data-ccat="indoor"><div class="comm-cat-circle">🏢</div><span>층간·벽간</span></button>
-            <button type="button" class="btn-comm-cat" data-ccat="bike"><div class="comm-cat-circle">🏍️</div><span>바이크·도로</span></button>
-            <button type="button" class="btn-comm-cat" data-ccat="shout"><div class="comm-cat-circle">📢</div><span>고성·민원</span></button>
+          <div class="comm-scope-tabs" id="comm-scope-tabs">
+            <button type="button" class="btn-comm-scope" data-scope="mybldg">🏢 내 건물</button>
+            <button type="button" class="btn-comm-scope active" data-scope="near">📍 반경 300m</button>
+            <button type="button" class="btn-comm-scope" data-scope="dong">🏘️ 우리 동네</button>
           </div>
+          <div class="comm-loc-banner">
+            <strong id="comm-loc-title">📍 만수동 내 위치 기준</strong>
+            <span id="comm-loc-count">가까운 순</span>
+          </div>
+          <div class="comm-bldg-chips" id="comm-bldg-chips"></div>
           <div id="comm-feed-list" style="display:flex; flex-direction:column; gap:10px;"></div>
         </div>
       </div>
@@ -1069,7 +1086,7 @@
     const state = {
       user: { loggedIn: false, nickname: '', provider: '', homeDong: '만수5동', phoneVerifiedFor112: false },
       accounts: [], buildings: [], posts: [],
-      activeMainTab: 'map', commFilter: 'all',
+      activeMainTab: 'map', commScope: 'near', commBldgFilter: 'all',
       centerLat: 37.4556, centerLng: 126.7282,
       viewportRegionLabel: '만수5동', viewportFullAddress: '인천 남동구 만수5동',
       draftLocation: { lat: 37.4556, lng: 126.7282, roadAddr: '', jibunAddr: '', bldgName: '', bun: '', ji: '' },
@@ -1473,11 +1490,12 @@
         state.myLocOverlay.setMap(state.map);
       }
       const mapLevel = state.map.getLevel();
-      const zoomCls = mapLevel >= 6 ? 'zoom-far' : (mapLevel >= 5 ? 'zoom-compact' : '');
+      const isDetailedZoom = (mapLevel <= 2); // 20m~30m 확대 시 상세 소음명 표시
+      const zoomCls = mapLevel >= 6 ? 'zoom-far' : '';
 
       function getCompactLabel(cat) {
         const map = {
-          '바이크·차량 굉음': '바이크굉음',
+          '바이크·차량 굉음': '바이크',
           '고성 및 욕설': '고성·욕설',
           '노래·음악소리': '노래·음악',
           '공사소음': '공사소음',
@@ -1485,25 +1503,28 @@
           '발망치·뛰는소리': '층간소음',
           '물건충격음': '층간충격',
           '가구끄는소리': '가구끄는음',
-          '반려동물짖음': '반려동물짖음',
+          '반려동물짖음': '동물짖음',
           '고성·싸움·노래': '실내고성',
           '화장실·배관·가전음': '배관소음',
           '기타': '생활소음'
         };
-        const res = map[cat] || String(cat || '소음').replace(/[·\s]/g, '');
-        return res.slice(0, 6);
+        return (map[cat] || String(cat || '소음').replace(/[·\s]/g, '')).slice(0, 6);
       }
 
+      /* 1) 표시할 마커 목록 수집 */
+      const renderItems = [];
       const visiblePosts = getVisiblePostsInMap();
       visiblePosts.filter(p => p.spaceType === 'outdoor' || !p.buildingId).forEach(post => {
-        const isSelected = (post.id === state.selectedPostId);
-        const labelTxt = getCompactLabel(post.category);
-        const el = document.createElement('div');
-        el.className = `nm-wrap lv-${post.whoLevel} ${zoomCls} ${isSelected ? 'selected' : ''}`;
-        el.innerHTML = `<span class="nm-label">${labelTxt}</span><span class="nm-pin"></span>`;
-        el.onclick = () => { if (state.selectedPostId === post.id) openPostDetail(post.id); else focusSpotOnMapAndCard(post.id, true); };
-        const ov = new kakao.maps.CustomOverlay({ position: new kakao.maps.LatLng(post.lat, post.lng), content: el, xAnchor: 0.5, yAnchor: 1.0, zIndex: isSelected ? 90 : (20 + post.whoLevel) });
-        ov.setMap(state.map); state.overlays.push(ov);
+        const isIndoor = (post.spaceType === 'indoor');
+        renderItems.push({
+          lat: post.lat,
+          lng: post.lng,
+          typeCls: isIndoor ? 'type-indoor' : 'type-outdoor',
+          labelTxt: isDetailedZoom ? getCompactLabel(post.category) : (isIndoor ? '실내' : '실외'),
+          isSelected: (post.id === state.selectedPostId),
+          zIndex: (post.id === state.selectedPostId) ? 90 : 30,
+          onClick: () => { if (state.selectedPostId === post.id) openPostDetail(post.id); else focusSpotOnMapAndCard(post.id, true); }
+        });
       });
 
       const bounds = state.map.getBounds();
@@ -1512,13 +1533,47 @@
         const bReports = state.posts.filter(p => p.buildingId === bldg.id);
         if (bReports.length === 0) return;
         const isSelected = bReports.some(r => r.id === state.selectedPostId);
-        const labelTxt = getCompactLabel(bReports[0].category);
+        renderItems.push({
+          lat: bldg.lat,
+          lng: bldg.lng,
+          typeCls: 'type-indoor',
+          labelTxt: isDetailedZoom ? getCompactLabel(bReports[0].category) : '실내',
+          isSelected,
+          zIndex: isSelected ? 95 : 35,
+          onClick: () => { if (isSelected) openBuildingView(bldg.id); else focusSpotOnMapAndCard(bReports[0].id, true); }
+        });
+      });
+
+      /* 2) 동일/인접 좌표 마커 겹침 자동 분산 (실내+실외 동시 등록 시 겹치지 않게 좌우 오프셋) */
+      const coordBuckets = {};
+      renderItems.forEach(item => {
+        const key = `${item.lat.toFixed(4)}_${item.lng.toFixed(4)}`;
+        if (!coordBuckets[key]) coordBuckets[key] = [];
+        coordBuckets[key].push(item);
+      });
+
+      const spreadStep = isDetailedZoom ? 0.00011 : 0.00022;
+      Object.values(coordBuckets).forEach(group => {
+        if (group.length > 1) {
+          group.forEach((item, idx) => {
+            const offsetIdx = idx - (group.length - 1) / 2;
+            item.lng = item.lng + (offsetIdx * spreadStep);
+          });
+        }
+      });
+
+      /* 3) 마커 렌더링 */
+      renderItems.forEach(item => {
         const el = document.createElement('div');
-        el.className = `nm-wrap is-bldg ${zoomCls} ${isSelected ? 'selected' : ''}`;
-        el.innerHTML = `<span class="nm-label">${labelTxt}</span><span class="nm-pin"></span>`;
-        el.onclick = () => { if (isSelected) openBuildingView(bldg.id); else focusSpotOnMapAndCard(bReports[0].id, true); };
-        const ov = new kakao.maps.CustomOverlay({ position: new kakao.maps.LatLng(bldg.lat, bldg.lng), content: el, xAnchor: 0.5, yAnchor: 1.0, zIndex: isSelected ? 95 : 35 });
-        ov.setMap(state.map); state.overlays.push(ov);
+        el.className = `nm-wrap ${item.typeCls} ${zoomCls} ${item.isSelected ? 'selected' : ''}`;
+        el.innerHTML = `<span class="nm-label">${item.labelTxt}</span><span class="nm-pin"></span>`;
+        el.onclick = item.onClick;
+        const ov = new kakao.maps.CustomOverlay({
+          position: new kakao.maps.LatLng(item.lat, item.lng),
+          content: el, xAnchor: 0.5, yAnchor: 1.0, zIndex: item.zIndex
+        });
+        ov.setMap(state.map);
+        state.overlays.push(ov);
       });
     }
 
@@ -1575,14 +1630,95 @@
       navigator.clipboard.writeText(txt).then(() => showToast('관공서·신문고 제출용 통계 서식이 복사되었습니다.'));
     };
 
-    function renderCommunityTab() {
-      const filtered = state.commFilter === 'all' ? state.posts : state.posts.filter(p => p.filterGroup === state.commFilter);
-      const listEl = document.getElementById('comm-feed-list');
-      if (!filtered.length) { listEl.innerHTML = `<div class="white-card" style="text-align:center; padding:32px 16px;"><strong style="font-size:15px;">아직 등록된 이웃 이야기가 없어요</strong><span style="font-size:13px; color:var(--text-muted);">우측 상단 [+ 글쓰기]를 눌러 첫 번째 소음 경험을 공유해 보세요.</span></div>`; return; }
-      listEl.innerHTML = filtered.map(p => `<article class="comm-post-card" onclick="openPostDetail('${p.id}')"><span class="comm-tag">${p.category} · ${(WHO_LEVELS[p.whoLevel] || WHO_LEVELS[2]).shortDb}</span><div class="comm-title">${formatBackroadAnchor(p.roadName, p.anchorBuilding, p.roadType)}</div><p class="comm-body">${p.content}</p><div class="comm-meta"><span>✓ ${p.nickname} · ${relTime(p.timestamp)}</span><span>🙌 공감 ${p.empathyCount} · 💬 증언 ${(p.comments || []).length}</span></div></article>`).join('');
+    function calcDistanceMeters(lat1, lng1, lat2, lng2) {
+      const R = 6371000;
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLng = (lng2 - lng1) * Math.PI / 180;
+      const a = Math.sin(dLat / 2) ** 2 + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLng / 2) ** 2;
+      return Math.round(R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
     }
 
-    document.querySelectorAll('.btn-comm-cat').forEach(btn => { btn.onclick = () => { state.commFilter = btn.dataset.ccat; document.querySelectorAll('.btn-comm-cat').forEach(b => b.classList.toggle('active', b === btn)); renderCommunityTab(); }; });
+    function renderCommunityTab() {
+      const refLat = (state.user && state.user.lat) ? state.user.lat : (state.myLat || state.centerLat);
+      const refLng = (state.user && state.user.lng) ? state.user.lng : (state.myLng || state.centerLng);
+
+      const withDist = state.posts.map(p => ({
+        ...p,
+        distM: calcDistanceMeters(refLat, refLng, p.lat, p.lng)
+      })).sort((a, b) => a.distM - b.distM);
+
+      /* 건물별 빠른 필터 칩 생성 */
+      const bldgCounts = {};
+      withDist.forEach(p => {
+        const bName = (p.anchorBuilding || '').replace(/\s*\(\d+층\)/, '').trim();
+        if (bName && bName !== '주택가 골목') {
+          bldgCounts[bName] = (bldgCounts[bName] || 0) + 1;
+        }
+      });
+      const chipsEl = document.getElementById('comm-bldg-chips');
+      const bldgNames = Object.keys(bldgCounts);
+      chipsEl.innerHTML = `<button type="button" class="btn-bldg-chip ${state.commBldgFilter === 'all' ? 'active' : ''}" data-bldg="all">전체 건물·구역</button>` +
+        bldgNames.map(bn => `<button type="button" class="btn-bldg-chip ${state.commBldgFilter === bn ? 'active' : ''}" data-bldg="${bn}">${bn} (${bldgCounts[bn]})</button>`).join('');
+
+      chipsEl.querySelectorAll('.btn-bldg-chip').forEach(btn => {
+        btn.onclick = () => {
+          state.commBldgFilter = btn.dataset.bldg;
+          renderCommunityTab();
+        };
+      });
+
+      /* 범위별 필터링 */
+      let filtered = withDist;
+      const locTitle = document.getElementById('comm-loc-title');
+      if (state.commScope === 'mybldg') {
+        filtered = withDist.filter(p => p.distM <= 65);
+        locTitle.textContent = '🏢 내 거주 건물 · 바로 옆 이웃';
+      } else if (state.commScope === 'near') {
+        filtered = withDist.filter(p => p.distM <= 300);
+        locTitle.textContent = `📍 ${state.viewportRegionLabel} 반경 300m 이내`;
+      } else {
+        locTitle.textContent = `🏘️ ${state.viewportRegionLabel} 전체 소음 이야기`;
+      }
+
+      if (state.commBldgFilter !== 'all') {
+        filtered = withDist.filter(p => (p.anchorBuilding || '').includes(state.commBldgFilter));
+        locTitle.textContent = `🏢 ${state.commBldgFilter} 입주민 커뮤니티`;
+      }
+
+      document.getElementById('comm-loc-count').textContent = `총 ${filtered.length}건 · 가까운 순`;
+
+      const listEl = document.getElementById('comm-feed-list');
+      if (!filtered.length) {
+        listEl.innerHTML = `<div class="white-card" style="text-align:center; padding:32px 16px;"><strong style="font-size:15px;">이 범위에는 아직 등록된 이웃 이야기가 없어요</strong><span style="font-size:13px; color:var(--text-muted);">[반경 300m]나 [우리 동네] 탭을 확인하거나 직접 첫 소음을 공유해 보세요.</span></div>`;
+        return;
+      }
+
+      listEl.innerHTML = filtered.map(p => {
+        const distLabel = p.distM <= 50 ? '바로 여기 (내 건물)' : `${p.distM}m 거리`;
+        const spaceTag = p.spaceType === 'indoor' ? '🏢 실내' : '🏙️ 실외';
+        return `<article class="comm-post-card" onclick="openPostDetail('${p.id}')">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:6px;">
+            <span class="comm-dist-badge">📍 ${distLabel}</span>
+            <span class="comm-tag">${spaceTag} · ${p.category}</span>
+          </div>
+          <div class="comm-title">${formatBackroadAnchor(p.roadName, p.anchorBuilding, p.roadType)}</div>
+          <p class="comm-body">${p.content}</p>
+          <div class="comm-meta">
+            <span>✓ ${p.nickname} · ${relTime(p.timestamp)}</span>
+            <span>🙌 공감 ${p.empathyCount} · 💬 증언 ${(p.comments || []).length}</span>
+          </div>
+        </article>`;
+      }).join('');
+    }
+
+    document.querySelectorAll('.btn-comm-scope').forEach(btn => {
+      btn.onclick = () => {
+        state.commScope = btn.dataset.scope;
+        state.commBldgFilter = 'all';
+        document.querySelectorAll('.btn-comm-scope').forEach(b => b.classList.toggle('active', b === btn));
+        renderCommunityTab();
+      };
+    });
     document.getElementById('btn-comm-write-jump').onclick = () => document.getElementById('btn-open-write').click();
 
     const SOUND_TRACKS = [{ title: '깊은 밤 빗소리 (White Noise)', type: 'rain' }, { title: '잔잔한 파도 소리 (Ocean Wave)', type: 'wave' }, { title: '딥 브라운 노이즈 (Deep Brown)', type: 'brown' }];
