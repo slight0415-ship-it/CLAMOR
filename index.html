@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨 (v1.4.3)</title>
+  <title>53데시벨 (v1.4.4)</title>
 
   <!-- 인라인 Web App Manifest (standalone 전체 화면 설치 지원) -->
   <link id="pwa-manifest-link" rel="manifest">
@@ -49,7 +49,7 @@
 
   <style>
     /* ==========================================================================
-       [v1.4.3 디자인 시스템]
+       [v1.4.4 디자인 시스템]
        - 딥 로얄 블루(#1E3A8A) + 스카이 시안(#0284C7) + 경고 코랄 레드(#E11D48)
        - 순백색(#FFFFFF) 플랫 카드 & 명확한 버튼 배치
        ========================================================================== */
@@ -188,7 +188,7 @@
     }
 
     /* ==========================================================================
-       [화면 1] 스플래시 (v1.4.3)
+       [화면 1] 스플래시 (v1.4.4)
        ========================================================================== */
     #screen-splash {
       z-index: 100;
@@ -333,7 +333,7 @@
       filter: saturate(32%) brightness(1.04) contrast(0.98);
     }
 
-    /* [v1.4.3 입체 미니 핀 + 상태별 컬러(레드/그린/블랙)] */
+    /* [v1.4.4 입체 미니 핀 + 상태별 컬러(레드/그린/블랙)] */
     .nm-wrap {
       position: relative;
       display: flex;
@@ -384,18 +384,10 @@
       transform: translate(-50%, -50%);
     }
 
-    /* 상태별 컬러: 레드(진행중 강도별) / 그린(해결됨) / 블랙(출동 후 반복) */
-    .nm-wrap.st-red-1 .nm-pin { background-color: #F87171; }
-    .nm-wrap.st-red-1 .nm-label { color: #DC2626; }
-    .nm-wrap.st-red-2 .nm-pin { background-color: #EF4444; }
-    .nm-wrap.st-red-2 .nm-label { color: #B91C1C; }
-    .nm-wrap.st-red-3 .nm-pin { background-color: #991B1B; }
-    .nm-wrap.st-red-3 .nm-label { color: #7F1D1D; }
-
-    .nm-wrap.st-green .nm-pin { background-color: #16A34A; }
+    /* 핀은 우리 테마컬러(#1E3A8A)로 통일, 텍스트 컬러로만 상태(레드:소음 / 그린:해결 / 블랙:재발) 명확 구분 */
+    .nm-wrap .nm-pin { background-color: var(--primary); }
+    .nm-wrap.st-red .nm-label { color: #DC2626; }
     .nm-wrap.st-green .nm-label { color: #15803D; }
-
-    .nm-wrap.st-black .nm-pin { background-color: #0F172A; }
     .nm-wrap.st-black .nm-label { color: #0F172A; }
 
     .nm-wrap.selected .nm-pin {
@@ -452,7 +444,7 @@
     .kpi-box strong { display: block; font-size: 17px; font-weight: 900; color: var(--primary); margin-top: 2px; }
     .kpi-box strong.red { color: var(--lv3-red); }
 
-    /* [v1.4.3 네이버 댓글형 순수 의견 커뮤니티 UI] */
+    /* [v1.4.4 네이버 댓글형 순수 의견 커뮤니티 UI] */
     #tab-view-community { background-color: var(--bg-white); }
     .comm-wrap { flex: 1; overflow-y: auto; background-color: var(--bg-white); display: flex; flex-direction: column; }
     .comm-top-zone { padding: 12px 16px 10px; border-bottom: 8px solid var(--bg-page); display: flex; flex-direction: column; gap: 10px; }
@@ -562,7 +554,7 @@
     .detail-subtabs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; flex-shrink: 0; }
     .btn-subtab { height: 36px; border-radius: 10px; background-color: var(--bg-white); border: 1px solid var(--border-line); font-size: 12.5px; font-weight: 800; color: var(--text-sub); }
     .btn-subtab.active { background-color: var(--primary-soft); border: 1.5px solid var(--primary); color: var(--primary); }
-    .detail-tab-panel { flex: 1; min-height: 0; background-color: var(--bg-white); border: 1px solid var(--border-line); border-radius: 14px; padding: 12px; display: flex; flex-direction: column; justify-content: space-between; gap: 8px; overflow-y: auto; }
+    .detail-tab-panel { flex: 1; min-height: 0; background-color: var(--bg-white); border: 1px solid var(--border-line); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; justify-content: flex-start; gap: 14px; overflow-y: auto; }
     .era-analysis-box { background-color: var(--bg-subtle); border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; gap: 4px; }
     .era-badge-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
     .era-tag { font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 6px; background-color: var(--primary); color: #FFFFFF; }
@@ -592,7 +584,7 @@
 
     <!-- [화면 1] 스플래시 -->
     <section class="screen" id="screen-splash" aria-label="53데시벨 시작 화면">
-      <div class="splash-top-meta"><span class="version-pill">v1.4.3</span></div>
+      <div class="splash-top-meta"><span class="version-pill">v1.4.4</span></div>
       <div class="splash-center-group">
         <div class="brand-logo-lockup" role="img" aria-label="53데시벨">
           <span class="logo-num-box">53</span>
@@ -1542,7 +1534,6 @@
         state.myLocOverlay.setMap(state.map);
       }
       const mapLevel = state.map.getLevel();
-      const isDetailedZoom = (mapLevel <= 2); // 20m~30m 확대 시 상세 소음명 표시
       const zoomCls = mapLevel >= 6 ? 'zoom-far' : '';
 
       function getCompactLabel(cat) {
@@ -1566,61 +1557,45 @@
       function getStatusColorClass(post) {
         if (post.status === 'resolved') return 'st-green';
         if (post.status === 'chronic') return 'st-black';
-        return `st-red-${post.whoLevel || 2}`;
+        return 'st-red';
       }
 
-      /* 1) 표시할 마커 목록 수집 */
-      const renderItems = [];
+      /* 1) 동일/인접 좌표의 모든 제보를 무조건 1개의 위치 핀으로 통합 */
       const visiblePosts = getVisiblePostsInMap();
-      visiblePosts.filter(p => p.spaceType === 'outdoor' || !p.buildingId).forEach(post => {
-        const isIndoor = (post.spaceType === 'indoor');
-        renderItems.push({
-          lat: post.lat,
-          lng: post.lng,
-          typeCls: getStatusColorClass(post),
-          labelTxt: isDetailedZoom ? getCompactLabel(post.category) : (isIndoor ? '실내' : '실외'),
-          isSelected: (post.id === state.selectedPostId),
-          zIndex: (post.id === state.selectedPostId) ? 90 : (25 + (post.whoLevel || 2)),
-          onClick: () => { if (state.selectedPostId === post.id) openPostDetail(post.id); else focusSpotOnMapAndCard(post.id, true); }
-        });
+      const locGroups = {};
+      visiblePosts.forEach(post => {
+        const key = `${post.lat.toFixed(4)}_${post.lng.toFixed(4)}`;
+        if (!locGroups[key]) locGroups[key] = [];
+        locGroups[key].push(post);
       });
 
-      const bounds = state.map.getBounds();
-      state.buildings.forEach(bldg => {
-        if (bounds && !bounds.contain(new kakao.maps.LatLng(bldg.lat, bldg.lng))) return;
-        const bReports = state.posts.filter(p => p.buildingId === bldg.id);
-        if (bReports.length === 0) return;
-        const isSelected = bReports.some(r => r.id === state.selectedPostId);
+      const renderItems = [];
+      Object.values(locGroups).forEach(group => {
+        /* 해당 위치에 처음 등록된 소음(timestamp가 가장 빠른 것)을 대표 기준으로 설정 */
+        const sortedByFirst = [...group].sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
+        const firstPost = sortedByFirst[0];
+        const isSelected = group.some(p => p.id === state.selectedPostId);
+        const hasBldg = group.find(p => p.buildingId);
+
         renderItems.push({
-          lat: bldg.lat,
-          lng: bldg.lng,
-          typeCls: getStatusColorClass(bReports[0]),
-          labelTxt: isDetailedZoom ? getCompactLabel(bReports[0].category) : '실내',
+          lat: firstPost.lat,
+          lng: firstPost.lng,
+          typeCls: getStatusColorClass(firstPost),
+          labelTxt: getCompactLabel(firstPost.category),
           isSelected,
           zIndex: isSelected ? 95 : 35,
-          onClick: () => { if (isSelected) openBuildingView(bldg.id); else focusSpotOnMapAndCard(bReports[0].id, true); }
+          onClick: () => {
+            if (isSelected) {
+              if (hasBldg) openBuildingView(hasBldg.buildingId);
+              else openPostDetail(firstPost.id);
+            } else {
+              focusSpotOnMapAndCard(firstPost.id, true);
+            }
+          }
         });
       });
 
-      /* 2) 동일/인접 좌표 마커 겹침 자동 분산 (실내+실외 동시 등록 시 겹치지 않게 좌우 오프셋) */
-      const coordBuckets = {};
-      renderItems.forEach(item => {
-        const key = `${item.lat.toFixed(4)}_${item.lng.toFixed(4)}`;
-        if (!coordBuckets[key]) coordBuckets[key] = [];
-        coordBuckets[key].push(item);
-      });
-
-      const spreadStep = isDetailedZoom ? 0.00011 : 0.00022;
-      Object.values(coordBuckets).forEach(group => {
-        if (group.length > 1) {
-          group.forEach((item, idx) => {
-            const offsetIdx = idx - (group.length - 1) / 2;
-            item.lng = item.lng + (offsetIdx * spreadStep);
-          });
-        }
-      });
-
-      /* 3) 마커 렌더링 */
+            /* 3) 마커 렌더링 */
       renderItems.forEach(item => {
         const el = document.createElement('div');
         el.className = `nm-wrap ${item.typeCls} ${zoomCls} ${item.isSelected ? 'selected' : ''}`;
@@ -2042,12 +2017,80 @@
 
     function openBuildingView(bldgId) {
       const bldg = state.buildings.find(b => b.id === bldgId); if (!bldg) return;
-      const bReports = state.posts.filter(p => p.buildingId === bldg.id), prof = profileBuildingStructure(bldg, bReports), totalEmp = bReports.reduce((s, r) => s + (r.empathyCount || 0), 0), allComments = bReports.flatMap(r => r.comments || []);
+      const bReports = state.posts.filter(p => p.buildingId === bldg.id);
+      const prof = profileBuildingStructure(bldg, bReports);
+      const totalEmp = bReports.reduce((s, r) => s + (r.empathyCount || 0), 0);
+      const allComments = bReports.flatMap(r => r.comments || []);
+      const mainAddr = (bReports[0] && (bReports[0].fullAddress || bReports[0].roadName)) || prof.name;
+      const vulnLabel = prof.vulnerability >= 75 ? '매우 취약' : (prof.vulnerability >= 60 ? '주의 필요' : '보통');
+
       document.getElementById('bldg-detail-title').textContent = prof.name;
+
       const tabContent = state.detailTab === 'analysis'
-        ? `<div class="era-analysis-box"><div class="era-badge-row"><span class="era-tag">${prof.eraTitle}</span><span style="font-size:11px; font-weight:800; color:var(--primary);">${prof.slabSpec}</span></div><p class="era-desc">${prof.eraReason}</p></div><div><div style="font-size:12px; font-weight:800; margin-bottom:4px;">층별 소음 접수 현황 (호수 비공개)</div><table class="hg-history-table"><thead><tr><th>시점</th><th>강도</th><th>유형</th><th>층수</th></tr></thead><tbody>${bReports.map(r => `<tr><td>${relTime(r.timestamp)}</td><td style="color:var(--lv3-red); font-weight:900;">${(WHO_LEVELS[r.whoLevel] || WHO_LEVELS[2]).shortDb}</td><td>${r.category}</td><td>${r.floor}층</td></tr>`).join('')}</tbody></table></div>`
-        : `<div style="display:flex; gap:6px;"><div class="flat-input-box" style="flex:1; height:38px;"><input type="text" id="input-bldg-comment" placeholder="입주민 소음 경험이나 질문을 남겨주세요"></div><button type="button" class="btn-outline" id="btn-add-bldg-comment" style="height:38px; background:var(--primary); color:#fff; border-color:var(--primary);">등록</button></div><div style="flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:7px;">${bReports.map(r => `<div class="testimony-card"><div class="testimony-header"><span class="testimony-badge">✓ ${r.floor}층 · ${r.nickname}</span><span class="testimony-time">${relTime(r.timestamp)}</span></div><div class="testimony-body">${r.content}</div></div>`).join('')}${allComments.map(c => `<div class="testimony-card"><div class="testimony-header"><span class="testimony-badge">✓ ${c.nick}</span><span class="testimony-time">${c.time}</span></div><div class="testimony-body">${c.text}</div></div>`).join('')}</div>`;
-      document.getElementById('bldg-detail-body').innerHTML = `<div class="hg-hero-banner"><div class="hg-hero-sub"><span>${prof.source}</span><span>지상 ${prof.groundFloors}층 · ${prof.builtYear}년</span></div><div class="hg-hero-title">🏢 ${prof.name}</div></div><div class="hg-compare-row"><div class="hg-comp-col"><span class="hg-comp-sub">규제시대 방음취약도</span><span class="hg-comp-big red">${prof.vulnerability}점</span></div><div class="hg-comp-col"><span class="hg-comp-sub">입주민 누적 공감</span><span class="hg-comp-big">${totalEmp}명</span></div></div><div class="detail-subtabs"><button type="button" class="btn-subtab ${state.detailTab === 'analysis' ? 'active' : ''}" id="bldg-tab-analysis">🏛️ 규제시대 · 층별이력</button><button type="button" class="btn-subtab ${state.detailTab === 'testimony' ? 'active' : ''}" id="bldg-tab-testimony">💬 입주민 증언 (${bReports.length + allComments.length})</button></div><div class="detail-tab-panel">${tabContent}</div><div class="detail-bottom-cta-row"><button type="button" class="btn-outline" onclick="showToast('인증 입주민에게 익명 질문을 보낼 수 있습니다.')" style="height:46px;">❓ 질문</button><button type="button" class="btn-primary" id="btn-bldg-empathy" style="flex:1; height:46px; font-size:14.5px;">🙌 저도 겪고 있어요 (${totalEmp}명)</button></div>`;
+        ? `
+          <div>
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+              <strong style="font-size:15px; font-weight:900; color:var(--text-main);">층별 소음 접수 현황</strong>
+              <span style="font-size:11.5px; color:var(--text-muted);">호수 비공개 · ${bReports.length}건</span>
+            </div>
+            <table class="hg-history-table" style="font-size:13px;">
+              <thead>
+                <tr><th>시점</th><th>강도</th><th>소음 유형</th><th>층수</th></tr>
+              </thead>
+              <tbody>
+                ${bReports.map(r => `
+                  <tr>
+                    <td style="padding:10px 4px; color:var(--text-muted); font-weight:600;">${relTime(r.timestamp)}</td>
+                    <td style="padding:10px 4px; color:var(--lv3-red); font-weight:900;">${(WHO_LEVELS[r.whoLevel] || WHO_LEVELS[2]).shortDb}</td>
+                    <td style="padding:10px 4px; color:var(--text-main); font-weight:800;">${r.category}</td>
+                    <td style="padding:10px 4px; color:var(--primary); font-weight:900;">${r.floor}층</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+          <div style="margin-top:auto; padding:10px 12px; background-color:var(--bg-subtle); border-radius:10px; border:1px solid var(--border-line);">
+            <div style="font-size:11.5px; font-weight:800; color:var(--text-muted); margin-bottom:4px;">참고 · 건물 방음 구조 안내 (${prof.builtYear}년 준공 · 지상 ${prof.groundFloors}층)</div>
+            <p style="font-size:12px; line-height:1.48; color:var(--text-sub); word-break:keep-all;">${prof.eraReason}</p>
+          </div>
+        `
+        : `
+          <div style="display:flex; gap:6px;">
+            <div class="flat-input-box" style="flex:1; height:38px;"><input type="text" id="input-bldg-comment" placeholder="입주민 소음 경험이나 의견을 남겨주세요"></div>
+            <button type="button" class="btn-outline" id="btn-add-bldg-comment" style="height:38px; background:var(--primary); color:#fff; border-color:var(--primary);">등록</button>
+          </div>
+          <div style="flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:8px;">
+            ${bReports.map(r => `<div class="testimony-card"><div class="testimony-header"><span class="testimony-badge">✓ ${r.floor}층 · ${r.nickname}</span><span class="testimony-time">${relTime(r.timestamp)}</span></div><div class="testimony-body">${r.content}</div></div>`).join('')}
+            ${allComments.map(c => `<div class="testimony-card"><div class="testimony-header"><span class="testimony-badge">✓ ${c.nick}</span><span class="testimony-time">${c.time}</span></div><div class="testimony-body">${c.text}</div></div>`).join('')}
+          </div>
+        `;
+
+      document.getElementById('bldg-detail-body').innerHTML = `
+        <div style="background:var(--bg-white); border:1px solid var(--border-line); border-radius:12px; padding:12px 14px; flex-shrink:0;">
+          <div style="font-size:14.5px; font-weight:900; color:var(--text-main); line-height:1.35;">📍 ${mainAddr}</div>
+          <div style="font-size:12px; color:var(--text-muted); margin-top:4px;">지상 ${prof.groundFloors}층 · ${prof.builtYear}년 준공</div>
+        </div>
+        <div class="hg-compare-row">
+          <div class="hg-comp-col">
+            <span class="hg-comp-sub">예상 방음 수준</span>
+            <span class="hg-comp-big red" style="font-size:19px;">${vulnLabel} (${prof.vulnerability}점)</span>
+          </div>
+          <div class="hg-comp-col">
+            <span class="hg-comp-sub">함께 공감한 이웃</span>
+            <span class="hg-comp-big" style="font-size:19px;">${totalEmp}명</span>
+          </div>
+        </div>
+        <div class="detail-subtabs">
+          <button type="button" class="btn-subtab ${state.detailTab === 'analysis' ? 'active' : ''}" id="bldg-tab-analysis">📋 층별 소음 현황</button>
+          <button type="button" class="btn-subtab ${state.detailTab === 'testimony' ? 'active' : ''}" id="bldg-tab-testimony">💬 입주민 증언 (${bReports.length + allComments.length})</button>
+        </div>
+        <div class="detail-tab-panel">${tabContent}</div>
+        <div class="detail-bottom-cta-row">
+          <button type="button" class="btn-outline" onclick="showToast('인증 입주민에게 익명 질문을 보낼 수 있습니다.')" style="height:46px;">❓ 질문</button>
+          <button type="button" class="btn-primary" id="btn-bldg-empathy" style="flex:1; height:46px; font-size:14.5px;">🙌 저도 겪고 있어요 (${totalEmp}명)</button>
+        </div>
+      `;
+
       document.getElementById('bldg-tab-analysis').onclick = () => { state.detailTab = 'analysis'; openBuildingView(bldgId); };
       document.getElementById('bldg-tab-testimony').onclick = () => { state.detailTab = 'testimony'; openBuildingView(bldgId); };
       document.getElementById('btn-bldg-empathy').onclick = () => { if (bReports[0]) { bReports[0].empathyCount += 1; saveSandboxData(); openBuildingView(bldgId); showToast('공감이 반영되었습니다.'); } };
