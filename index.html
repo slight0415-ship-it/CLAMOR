@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨 (v1.4.6)</title>
+  <title>53데시벨 (v1.4.7)</title>
 
   <!-- 인라인 Web App Manifest (standalone 전체 화면 설치 지원) -->
   <link id="pwa-manifest-link" rel="manifest">
@@ -49,7 +49,7 @@
 
   <style>
     /* ==========================================================================
-       [v1.4.6 디자인 시스템]
+       [v1.4.7 디자인 시스템]
        - 딥 로얄 블루(#1E3A8A) + 스카이 시안(#0284C7) + 경고 코랄 레드(#E11D48)
        - 순백색(#FFFFFF) 플랫 카드 & 명확한 버튼 배치
        ========================================================================== */
@@ -188,7 +188,7 @@
     }
 
     /* ==========================================================================
-       [화면 1] 스플래시 (v1.4.6)
+       [화면 1] 스플래시 (v1.4.7)
        ========================================================================== */
     #screen-splash {
       z-index: 100;
@@ -333,7 +333,7 @@
       filter: saturate(32%) brightness(1.04) contrast(0.98);
     }
 
-    /* [v1.4.6 입체 미니 핀 + 상태별 컬러(레드/그린/블랙)] */
+    /* [v1.4.7 입체 미니 핀 + 상태별 컬러(레드/그린/블랙)] */
     .nm-wrap {
       position: relative;
       display: flex;
@@ -444,7 +444,7 @@
     .kpi-box strong { display: block; font-size: 17px; font-weight: 900; color: var(--primary); margin-top: 2px; }
     .kpi-box strong.red { color: var(--lv3-red); }
 
-    /* [v1.4.6 네이버 댓글형 순수 의견 커뮤니티 UI] */
+    /* [v1.4.7 네이버 댓글형 순수 의견 커뮤니티 UI] */
     #tab-view-community { background-color: var(--bg-white); }
     .comm-wrap { flex: 1; overflow-y: auto; background-color: var(--bg-white); display: flex; flex-direction: column; }
     .comm-top-zone { padding: 12px 16px 10px; border-bottom: 8px solid var(--bg-page); display: flex; flex-direction: column; gap: 10px; }
@@ -606,7 +606,7 @@
 
     <!-- [화면 1] 스플래시 -->
     <section class="screen" id="screen-splash" aria-label="53데시벨 시작 화면">
-      <div class="splash-top-meta"><span class="version-pill">v1.4.6</span></div>
+      <div class="splash-top-meta"><span class="version-pill">v1.4.7</span></div>
       <div class="splash-center-group">
         <div class="brand-logo-lockup" role="img" aria-label="53데시벨">
           <span class="logo-num-box">53</span>
@@ -1170,7 +1170,7 @@
       user: { loggedIn: false, nickname: '', provider: '', homeDong: '만수5동', phoneVerifiedFor112: false },
       accounts: [], buildings: [], posts: [],
       activeMainTab: 'map', commScope: 'near', commSort: 'popular', openReplyPostId: null,
-      centerLat: 37.4556, centerLng: 126.7282,
+      centerLat: 37.4556, centerLng: 126.7282, mapLevel: 3,
       viewportRegionLabel: '만수5동', viewportFullAddress: '인천 남동구 만수5동',
       draftLocation: { lat: 37.4556, lng: 126.7282, roadAddr: '', jibunAddr: '', bldgName: '', bun: '', ji: '' },
       pickerMode: 'onboard', pickerMap: null,
@@ -1453,6 +1453,7 @@
         const c = state.pickerMap.getCenter();
         state.draftLocation.lat = c.getLat();
         state.draftLocation.lng = c.getLng();
+        state.mapLevel = state.pickerMap.getLevel();
       }
       const loc = state.draftLocation;
       if (state.pickerMode === 'onboard' || state.pickerMode === 'guest') {
@@ -1518,10 +1519,17 @@
     }
 
     function initMap() {
-      if (state.map) { state.map.relayout(); state.map.setCenter(new kakao.maps.LatLng(state.centerLat, state.centerLng)); renderHome(); return; }
+      const targetLevel = state.mapLevel || 3;
+      if (state.map) {
+        state.map.relayout();
+        state.map.setLevel(targetLevel);
+        state.map.setCenter(new kakao.maps.LatLng(state.centerLat, state.centerLng));
+        syncRegionByMapViewport();
+        return;
+      }
       if (typeof kakao === 'undefined' || !kakao.maps) return;
       kakao.maps.load(() => {
-        state.map = new kakao.maps.Map(document.getElementById('kakao-map'), { center: new kakao.maps.LatLng(state.centerLat, state.centerLng), level: 4 });
+        state.map = new kakao.maps.Map(document.getElementById('kakao-map'), { center: new kakao.maps.LatLng(state.centerLat, state.centerLng), level: targetLevel });
         let mainIdleTimer = null;
         kakao.maps.event.addListener(state.map, 'idle', () => {
           if (suppressIdleRender) return;
@@ -1532,6 +1540,7 @@
         });
         setTimeout(() => {
           state.map.relayout();
+          state.map.setLevel(targetLevel);
           state.map.setCenter(new kakao.maps.LatLng(state.centerLat, state.centerLng));
           syncRegionByMapViewport();
           if (!hasAutoLocatedOnMain) {
@@ -1546,12 +1555,11 @@
       if (!state.map || typeof kakao === 'undefined') return state.posts;
       const bounds = state.map.getBounds(); if (!bounds) return state.posts;
       const sw = bounds.getSouthWest(), ne = bounds.getNorthEast();
-      const latPad = (ne.getLat() - sw.getLat()) * 0.08, lngPad = (ne.getLng() - sw.getLng()) * 0.08;
       const center = state.map.getCenter();
       const cLat = center ? center.getLat() : state.centerLat;
       const cLng = center ? center.getLng() : state.centerLng;
       return state.posts
-        .filter(p => p.lat >= (sw.getLat() - latPad) && p.lat <= (ne.getLat() + latPad) && p.lng >= (sw.getLng() - lngPad) && p.lng <= (ne.getLng() + lngPad))
+        .filter(p => p.lat >= sw.getLat() && p.lat <= ne.getLat() && p.lng >= sw.getLng() && p.lng <= ne.getLng())
         .sort((a, b) => {
           const dA = (a.lat - cLat) ** 2 + (a.lng - cLng) ** 2;
           const dB = (b.lat - cLat) ** 2 + (b.lng - cLng) ** 2;
@@ -1645,25 +1653,26 @@
 
       const renderItems = [];
       Object.values(locGroups).forEach(group => {
-        /* 해당 위치에 처음 등록된 소음(timestamp가 가장 빠른 것)을 대표 기준으로 설정 */
         const sortedByFirst = [...group].sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
         const firstPost = sortedByFirst[0];
-        const isSelected = group.some(p => p.id === state.selectedPostId);
+        const selectedInGroup = group.find(p => p.id === state.selectedPostId);
+        const isSelected = Boolean(selectedInGroup);
+        const displayPost = selectedInGroup || firstPost;
         const hasBldg = group.find(p => p.buildingId);
 
         renderItems.push({
           lat: firstPost.lat,
           lng: firstPost.lng,
-          typeCls: getStatusColorClass(firstPost),
-          labelTxt: getCompactLabel(firstPost.category),
+          typeCls: getStatusColorClass(displayPost),
+          labelTxt: getCompactLabel(displayPost.category),
           isSelected,
           zIndex: isSelected ? 95 : 35,
           onClick: () => {
             if (isSelected) {
               if (hasBldg) openBuildingView(hasBldg.buildingId);
-              else openPostDetail(firstPost.id);
+              else openPostDetail(displayPost.id);
             } else {
-              focusSpotOnMapAndCard(firstPost.id, true);
+              focusSpotOnMapAndCard(displayPost.id, true);
             }
           }
         });
@@ -1690,12 +1699,14 @@
       const listEl = document.getElementById('feed-list'), idxPill = document.getElementById('spot-index-indicator');
       if (!visiblePosts.length) {
         idxPill.textContent = '0 / 0';
-        listEl.innerHTML = `<div class="spot-slide"><div class="spot-card" style="justify-content:center; align-items:center; text-align:center; gap:6px; cursor:default;"><strong style="font-size:15px; color:var(--primary);">아직 등록된 소음 지점이 없어요</strong><p style="font-size:13px; color:var(--text-muted); line-height:1.45;">우측 하단 <strong>[+ 소음 올리기]</strong>를 눌러<br>지도 핀으로 위치를 찍고 첫 제보를 등록해 보세요!</p></div></div>`;
+        listEl.innerHTML = `<div class="spot-slide"><div class="spot-card" style="justify-content:center; align-items:center; text-align:center; gap:6px; cursor:default;"><strong style="font-size:15px; color:var(--primary);">현재 지도 범위 내 등록된 소음이 없습니다</strong><p style="font-size:13px; color:var(--text-muted); line-height:1.45;">우측 하단 <strong>[+ 소음 올리기]</strong>를 눌러<br>지도 핀으로 위치를 찍고 첫 제보를 등록해 보세요!</p></div></div>`;
         renderPins(); return;
       }
-      if (!visiblePosts.some(p => p.id === state.selectedPostId)) state.selectedPostId = visiblePosts[0].id;
-      const curIdx = visiblePosts.findIndex(p => p.id === state.selectedPostId);
-      idxPill.textContent = `${curIdx + 1} / ${visiblePosts.length}`;
+      if (state.selectedPostId && !visiblePosts.some(p => p.id === state.selectedPostId)) {
+        state.selectedPostId = null;
+      }
+      const curIdx = state.selectedPostId ? visiblePosts.findIndex(p => p.id === state.selectedPostId) : 0;
+      idxPill.textContent = state.selectedPostId ? `${curIdx + 1} / ${visiblePosts.length}` : `총 ${visiblePosts.length}건`;
       listEl.innerHTML = visiblePosts.map(post => {
         const cis = calculateCIS(post), who = WHO_LEVELS[post.whoLevel] || WHO_LEVELS[2], loc = formatBackroadAnchor(post.roadName, post.anchorBuilding, post.roadType);
         return `<div class="spot-slide" id="spot-slide-${post.id}" data-id="${post.id}"><article class="spot-card"><div class="sc-top-row"><span class="sc-badge lv-${post.whoLevel}">${who.shortDb} · ${post.category}</span><span class="sc-trust">신뢰도 ${cis.cisScore}%</span></div><div class="sc-loc">📍 ${loc}</div><p class="sc-desc">${post.content}</p><div class="sc-actions"><button type="button" class="btn-card-act ${post.empathizedByMe ? 'active' : ''}" data-emp="${post.id}"><span>🙌 저도 들었어요</span><strong>${post.empathyCount}</strong></button><button type="button" class="btn-card-act" data-cmt="${post.id}"><span>💬 증언</span><strong>${(post.comments || []).length}</strong></button></div></article></div>`;
