@@ -1,0 +1,25 @@
+name: Keep Supabase Alive
+
+on:
+  schedule:
+    # 3일마다 한국시간 오전 9시(UTC 00:00) 자동 실행
+    - cron: '0 0 */3 * *'
+  workflow_dispatch: # 수동 테스트 실행 버튼 활성화
+
+jobs:
+  ping-supabase:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase REST API
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
+            "https://ihzkifnpmdvlqkjhkuey.supabase.co/rest/v1/")
+          echo "HTTP Status: $STATUS"
+          if [ "$STATUS" -ge 200 ] && [ "$STATUS" -lt 400 ]; then
+            echo "Supabase ping succeeded."
+          else
+            echo "Supabase ping failed."
+            exit 1
+          fi
