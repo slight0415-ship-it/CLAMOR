@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨 (v1.4.5)</title>
+  <title>53데시벨 (v1.4.6)</title>
 
   <!-- 인라인 Web App Manifest (standalone 전체 화면 설치 지원) -->
   <link id="pwa-manifest-link" rel="manifest">
@@ -49,7 +49,7 @@
 
   <style>
     /* ==========================================================================
-       [v1.4.5 디자인 시스템]
+       [v1.4.6 디자인 시스템]
        - 딥 로얄 블루(#1E3A8A) + 스카이 시안(#0284C7) + 경고 코랄 레드(#E11D48)
        - 순백색(#FFFFFF) 플랫 카드 & 명확한 버튼 배치
        ========================================================================== */
@@ -188,7 +188,7 @@
     }
 
     /* ==========================================================================
-       [화면 1] 스플래시 (v1.4.5)
+       [화면 1] 스플래시 (v1.4.6)
        ========================================================================== */
     #screen-splash {
       z-index: 100;
@@ -333,7 +333,7 @@
       filter: saturate(32%) brightness(1.04) contrast(0.98);
     }
 
-    /* [v1.4.5 입체 미니 핀 + 상태별 컬러(레드/그린/블랙)] */
+    /* [v1.4.6 입체 미니 핀 + 상태별 컬러(레드/그린/블랙)] */
     .nm-wrap {
       position: relative;
       display: flex;
@@ -444,7 +444,7 @@
     .kpi-box strong { display: block; font-size: 17px; font-weight: 900; color: var(--primary); margin-top: 2px; }
     .kpi-box strong.red { color: var(--lv3-red); }
 
-    /* [v1.4.5 네이버 댓글형 순수 의견 커뮤니티 UI] */
+    /* [v1.4.6 네이버 댓글형 순수 의견 커뮤니티 UI] */
     #tab-view-community { background-color: var(--bg-white); }
     .comm-wrap { flex: 1; overflow-y: auto; background-color: var(--bg-white); display: flex; flex-direction: column; }
     .comm-top-zone { padding: 12px 16px 10px; border-bottom: 8px solid var(--bg-page); display: flex; flex-direction: column; gap: 10px; }
@@ -535,6 +535,22 @@
     .badge-warn-high { display: inline-block; padding: 4px 10px; border-radius: 8px; background-color: #991B1B; color: #FFFFFF; font-size: 14px; font-weight: 900; }
     .badge-warn-mid { display: inline-block; padding: 4px 10px; border-radius: 8px; background-color: #B45309; color: #FFFFFF; font-size: 14px; font-weight: 900; }
     .badge-warn-ok { display: inline-block; padding: 4px 10px; border-radius: 8px; background-color: #15803D; color: #FFFFFF; font-size: 14px; font-weight: 900; }
+    .soundproof-card { display: flex; align-items: center; justify-content: space-between; gap: 12px; background-color: var(--bg-white); border: 1px solid var(--border-line); border-radius: 12px; padding: 12px 14px; flex-shrink: 0; }
+    .sp-bar-area { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 7px; }
+    .sp-title-line { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 800; color: var(--text-sub); }
+    .sp-title-line strong { font-size: 14.5px; font-weight: 900; }
+    .sp-bar-track { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3px; width: 100%; }
+    .sp-seg { height: 9px; border-radius: 4px; background-color: #E2E8F0; position: relative; }
+    .sp-seg.active-0 { background-color: #991B1B; box-shadow: 0 0 0 2px rgba(153, 27, 27, 0.25); }
+    .sp-seg.active-1 { background-color: #DC2626; box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.25); }
+    .sp-seg.active-2 { background-color: #D97706; box-shadow: 0 0 0 2px rgba(217, 119, 6, 0.25); }
+    .sp-seg.active-3 { background-color: #0284C7; box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.25); }
+    .sp-seg.active-4 { background-color: #15803D; box-shadow: 0 0 0 2px rgba(21, 128, 61, 0.25); }
+    .sp-labels { display: grid; grid-template-columns: repeat(5, 1fr); text-align: center; font-size: 10px; font-weight: 700; color: var(--text-muted); letter-spacing: -0.04em; }
+    .sp-labels span.on { color: var(--text-main); font-weight: 900; }
+    .sp-empathy-side { flex-shrink: 0; padding-left: 12px; border-left: 1px solid var(--border-line); text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+    .sp-empathy-side span { font-size: 10.5px; font-weight: 700; color: var(--text-muted); white-space: nowrap; }
+    .sp-empathy-side strong { font-size: 19px; font-weight: 900; color: var(--primary); white-space: nowrap; }
     .time-chip-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
     .btn-time-chip { height: 40px; border-radius: 10px; background-color: var(--bg-white); border: 1.5px solid var(--border-strong); box-shadow: 0 1px 2px rgba(15,23,42,0.05); font-size: 13px; font-weight: 700; color: var(--text-sub); display: flex; align-items: center; justify-content: center; }
     .btn-time-chip.active { background-color: var(--primary); border-color: var(--primary); color: #FFFFFF; font-weight: 800; }
@@ -590,7 +606,7 @@
 
     <!-- [화면 1] 스플래시 -->
     <section class="screen" id="screen-splash" aria-label="53데시벨 시작 화면">
-      <div class="splash-top-meta"><span class="version-pill">v1.4.5</span></div>
+      <div class="splash-top-meta"><span class="version-pill">v1.4.6</span></div>
       <div class="splash-center-group">
         <div class="brand-logo-lockup" role="img" aria-label="53데시벨">
           <span class="logo-num-box">53</span>
@@ -1442,6 +1458,7 @@
       if (state.pickerMode === 'onboard' || state.pickerMode === 'guest') {
         state.centerLat = loc.lat; state.centerLng = loc.lng;
         state.selectedPostId = null;
+        hasAutoLocatedOnMain = true; // 사용자가 직접 지정한 위치를 GPS로 덮어쓰지 않도록 고정
         try { localStorage.setItem('53db_last_gps', JSON.stringify({ lat: loc.lat, lng: loc.lng, ts: Date.now() })); } catch (e) {}
         const dongMatch = loc.jibunAddr.match(/\[지번\]\s*([^\s]+)/);
         const homeDong = dongMatch ? dongMatch[1] : '내 동네';
@@ -1507,8 +1524,11 @@
         state.map = new kakao.maps.Map(document.getElementById('kakao-map'), { center: new kakao.maps.LatLng(state.centerLat, state.centerLng), level: 4 });
         let mainIdleTimer = null;
         kakao.maps.event.addListener(state.map, 'idle', () => {
+          if (suppressIdleRender) return;
           clearTimeout(mainIdleTimer);
-          mainIdleTimer = setTimeout(() => syncRegionByMapViewport(), 220);
+          mainIdleTimer = setTimeout(() => {
+            if (!suppressIdleRender) syncRegionByMapViewport();
+          }, 220);
         });
         setTimeout(() => {
           state.map.relayout();
@@ -1539,16 +1559,35 @@
         });
     }
 
+    let suppressIdleRender = false;
+    let suppressCarouselScroll = false;
+
     function focusSpotOnMapAndCard(postId, scrollCard = true) {
-      const posts = getVisiblePostsInMap(), idx = posts.findIndex(p => p.id === postId);
-      if (idx === -1) return;
+      const listEl = document.getElementById('feed-list');
+      const slides = Array.from(listEl.querySelectorAll('.spot-slide'));
+      const idx = slides.findIndex(s => s.dataset.id === postId);
+      const post = state.posts.find(p => p.id === postId);
+      if (!post) return;
+
       state.selectedPostId = postId;
-      document.getElementById('spot-index-indicator').textContent = `${idx + 1} / ${posts.length}`;
-      if (state.map && typeof kakao !== 'undefined') state.map.panTo(new kakao.maps.LatLng(posts[idx].lat, posts[idx].lng));
+      if (idx !== -1) {
+        document.getElementById('spot-index-indicator').textContent = `${idx + 1} / ${slides.length}`;
+      }
+
+      if (state.map && typeof kakao !== 'undefined') {
+        suppressIdleRender = true;
+        state.map.panTo(new kakao.maps.LatLng(post.lat, post.lng));
+        setTimeout(() => { suppressIdleRender = false; }, 650);
+      }
       renderPins();
+
       if (scrollCard) {
-        const slideEl = document.getElementById(`spot-slide-${postId}`), wrapEl = document.getElementById('feed-list');
-        if (slideEl && wrapEl && !document.getElementById('feed-sheet').classList.contains('expanded')) wrapEl.scrollTo({ left: slideEl.offsetLeft, behavior: 'smooth' });
+        const slideEl = document.getElementById(`spot-slide-${postId}`);
+        if (slideEl && listEl && !document.getElementById('feed-sheet').classList.contains('expanded')) {
+          suppressCarouselScroll = true;
+          listEl.scrollTo({ left: slideEl.offsetLeft, behavior: 'smooth' });
+          setTimeout(() => { suppressCarouselScroll = false; }, 450);
+        }
       }
     }
 
@@ -1667,12 +1706,18 @@
       listEl.querySelectorAll('.spot-slide').forEach(slide => {
         slide.onclick = () => { const p = state.posts.find(x => x.id === slide.dataset.id); state.detailTab = 'analysis'; if (p && p.spaceType === 'indoor' && p.buildingId) openBuildingView(p.buildingId); else openPostDetail(slide.dataset.id); };
       });
+      const activeSlide = document.getElementById(`spot-slide-${state.selectedPostId}`);
+      if (activeSlide && !document.getElementById('feed-sheet').classList.contains('expanded')) {
+        suppressCarouselScroll = true;
+        listEl.scrollLeft = activeSlide.offsetLeft;
+        setTimeout(() => { suppressCarouselScroll = false; }, 120);
+      }
       renderPins();
     }
 
     let scrollSyncTimer = null;
     document.getElementById('feed-list').addEventListener('scroll', () => {
-      if (document.getElementById('feed-sheet').classList.contains('expanded')) return;
+      if (suppressCarouselScroll || document.getElementById('feed-sheet').classList.contains('expanded')) return;
       clearTimeout(scrollSyncTimer);
       scrollSyncTimer = setTimeout(() => {
         const wrap = document.getElementById('feed-list'), slides = Array.from(wrap.querySelectorAll('.spot-slide'));
@@ -2063,12 +2108,15 @@
       const dongMatch = fullAddr.match(/([가-힣0-9A-Za-z]+(?:아파트|단지|빌라|타워|오피스텔|힐|보금자리)?\s*\d+동)/);
       const primaryBldgTitle = dongMatch ? dongMatch[1] : prof.name;
 
-      /* 점수 제거 -> 직관적인 방음 4등급 + 경고 배지(어두운 레드 바탕 + 흰 글씨) */
-      let gradeText = '보통', gradeCls = 'badge-warn-ok';
-      if (prof.vulnerability >= 80) { gradeText = '매우 약함'; gradeCls = 'badge-warn-high'; }
-      else if (prof.vulnerability >= 68) { gradeText = '약함'; gradeCls = 'badge-warn-high'; }
-      else if (prof.vulnerability >= 52) { gradeText = '보통'; gradeCls = 'badge-warn-mid'; }
-      else { gradeText = '강함'; gradeCls = 'badge-warn-ok'; }
+      /* 5단계 방음 바(Bar): 매우 약함(0) - 약함(1) - 보통(2) - 강함(3) - 매우 강함(4) */
+      const SP_STEPS = ['매우 약함', '약함', '보통', '강함', '매우 강함'];
+      const SP_COLORS = ['#991B1B', '#DC2626', '#B45309', '#0284C7', '#15803D'];
+      let spIdx = 2;
+      if (prof.vulnerability >= 80) spIdx = 0;
+      else if (prof.vulnerability >= 68) spIdx = 1;
+      else if (prof.vulnerability >= 54) spIdx = 2;
+      else if (prof.vulnerability >= 42) spIdx = 3;
+      else spIdx = 4;
 
       document.getElementById('bldg-detail-title').textContent = prof.name;
 
@@ -2116,14 +2164,22 @@
           <div style="font-size:17px; font-weight:900; color:var(--text-main); line-height:1.3;">🏢 ${primaryBldgTitle}</div>
           <div style="font-size:12px; color:var(--text-muted); margin-top:4px;">${fullAddr} · 지상 ${prof.groundFloors}층 (${prof.builtYear}년)</div>
         </div>
-        <div class="hg-compare-row">
-          <div class="hg-comp-col">
-            <span class="hg-comp-sub">예상 방음 수준</span>
-            <div style="margin-top:4px;"><span class="${gradeCls}">${gradeText}</span></div>
+        <div class="soundproof-card">
+          <div class="sp-bar-area">
+            <div class="sp-title-line">
+              <span>여기는 방음에</span>
+              <strong style="color:${SP_COLORS[spIdx]};">${SP_STEPS[spIdx]}</strong>
+            </div>
+            <div class="sp-bar-track">
+              ${SP_STEPS.map((_, i) => `<div class="sp-seg ${i === spIdx ? 'active-' + i : ''}"></div>`).join('')}
+            </div>
+            <div class="sp-labels">
+              ${SP_STEPS.map((lbl, i) => `<span class="${i === spIdx ? 'on' : ''}">${lbl}</span>`).join('')}
+            </div>
           </div>
-          <div class="hg-comp-col">
-            <span class="hg-comp-sub">함께 공감한 이웃</span>
-            <span class="hg-comp-big" style="font-size:20px;">${totalEmp}명</span>
+          <div class="sp-empathy-side">
+            <span>공감 이웃</span>
+            <strong>${totalEmp}명</strong>
           </div>
         </div>
         <div class="detail-subtabs">
