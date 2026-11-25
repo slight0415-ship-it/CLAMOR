@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨 (v1.4.4)</title>
+  <title>53데시벨 (v1.4.5)</title>
 
   <!-- 인라인 Web App Manifest (standalone 전체 화면 설치 지원) -->
   <link id="pwa-manifest-link" rel="manifest">
@@ -49,7 +49,7 @@
 
   <style>
     /* ==========================================================================
-       [v1.4.4 디자인 시스템]
+       [v1.4.5 디자인 시스템]
        - 딥 로얄 블루(#1E3A8A) + 스카이 시안(#0284C7) + 경고 코랄 레드(#E11D48)
        - 순백색(#FFFFFF) 플랫 카드 & 명확한 버튼 배치
        ========================================================================== */
@@ -188,7 +188,7 @@
     }
 
     /* ==========================================================================
-       [화면 1] 스플래시 (v1.4.4)
+       [화면 1] 스플래시 (v1.4.5)
        ========================================================================== */
     #screen-splash {
       z-index: 100;
@@ -333,7 +333,7 @@
       filter: saturate(32%) brightness(1.04) contrast(0.98);
     }
 
-    /* [v1.4.4 입체 미니 핀 + 상태별 컬러(레드/그린/블랙)] */
+    /* [v1.4.5 입체 미니 핀 + 상태별 컬러(레드/그린/블랙)] */
     .nm-wrap {
       position: relative;
       display: flex;
@@ -444,7 +444,7 @@
     .kpi-box strong { display: block; font-size: 17px; font-weight: 900; color: var(--primary); margin-top: 2px; }
     .kpi-box strong.red { color: var(--lv3-red); }
 
-    /* [v1.4.4 네이버 댓글형 순수 의견 커뮤니티 UI] */
+    /* [v1.4.5 네이버 댓글형 순수 의견 커뮤니티 UI] */
     #tab-view-community { background-color: var(--bg-white); }
     .comm-wrap { flex: 1; overflow-y: auto; background-color: var(--bg-white); display: flex; flex-direction: column; }
     .comm-top-zone { padding: 12px 16px 10px; border-bottom: 8px solid var(--bg-page); display: flex; flex-direction: column; gap: 10px; }
@@ -514,7 +514,7 @@
     .wlb-addrs strong { display: block; font-size: 14.5px; font-weight: 900; line-height: 1.35; }
     .wlb-addrs span { display: block; font-size: 12px; color: var(--text-muted); margin-top: 2px; }
     .space-toggle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .btn-space-card { padding: 16px 10px; border-radius: 14px; background-color: var(--bg-white); border: 1.5px solid var(--border-strong); text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+    .btn-space-card { padding: 16px 10px; border-radius: 14px; background-color: var(--bg-white); border: 1.5px solid var(--border-strong); box-shadow: 0 2px 4px rgba(15,23,42,0.06); text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
     .btn-space-card.active { background-color: var(--primary-soft); border: 2px solid var(--primary); }
     .btn-space-card strong { font-size: 15px; font-weight: 900; color: var(--text-main); }
     .btn-space-card.active strong { color: var(--primary); }
@@ -528,10 +528,16 @@
     .btn-floor-chip { height: 36px; border-radius: 9px; background-color: var(--bg-subtle); border: 1px solid var(--border-line); font-size: 12.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
     .btn-floor-chip.active { background-color: var(--primary); border-color: var(--primary); color: #FFFFFF; }
     .cat-select-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
-    .btn-cat-item { height: 44px; padding: 0 10px; border-radius: 10px; background-color: var(--bg-white); border: 1px solid var(--border-strong); font-size: 13.5px; font-weight: 700; color: var(--text-sub); text-align: center; display: flex; align-items: center; justify-content: center; }
+    .btn-cat-item { height: 44px; padding: 0 10px; border-radius: 10px; background-color: var(--bg-white); border: 1.5px solid var(--border-strong); box-shadow: 0 1px 2px rgba(15,23,42,0.05); font-size: 13.5px; font-weight: 700; color: var(--text-sub); text-align: center; display: flex; align-items: center; justify-content: center; }
     .btn-cat-item.active { background-color: var(--primary-soft); border: 1.5px solid var(--primary); color: var(--primary); font-weight: 800; }
     .who-level-stack { display: flex; flex-direction: column; gap: 8px; }
-    .btn-who-level { padding: 13px 12px; border-radius: 11px; background-color: var(--bg-white); border: 1px solid var(--border-strong); text-align: center; display: flex; align-items: center; justify-content: center; font-size: 13px; }
+    .btn-who-level { padding: 13px 12px; border-radius: 11px; background-color: var(--bg-white); border: 1.5px solid var(--border-strong); box-shadow: 0 1px 2px rgba(15,23,42,0.06); text-align: center; display: flex; align-items: center; justify-content: center; font-size: 13px; }
+    .badge-warn-high { display: inline-block; padding: 4px 10px; border-radius: 8px; background-color: #991B1B; color: #FFFFFF; font-size: 14px; font-weight: 900; }
+    .badge-warn-mid { display: inline-block; padding: 4px 10px; border-radius: 8px; background-color: #B45309; color: #FFFFFF; font-size: 14px; font-weight: 900; }
+    .badge-warn-ok { display: inline-block; padding: 4px 10px; border-radius: 8px; background-color: #15803D; color: #FFFFFF; font-size: 14px; font-weight: 900; }
+    .time-chip-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .btn-time-chip { height: 40px; border-radius: 10px; background-color: var(--bg-white); border: 1.5px solid var(--border-strong); box-shadow: 0 1px 2px rgba(15,23,42,0.05); font-size: 13px; font-weight: 700; color: var(--text-sub); display: flex; align-items: center; justify-content: center; }
+    .btn-time-chip.active { background-color: var(--primary); border-color: var(--primary); color: #FFFFFF; font-weight: 800; }
     .btn-who-level.active[data-lv="1"] { background-color: var(--lv1-soft); border-color: var(--lv1-yellow); }
     .btn-who-level.active[data-lv="2"] { background-color: var(--lv2-soft); border-color: var(--lv2-orange); }
     .btn-who-level.active[data-lv="3"] { background-color: var(--lv3-soft); border-color: var(--lv3-red); }
@@ -584,7 +590,7 @@
 
     <!-- [화면 1] 스플래시 -->
     <section class="screen" id="screen-splash" aria-label="53데시벨 시작 화면">
-      <div class="splash-top-meta"><span class="version-pill">v1.4.4</span></div>
+      <div class="splash-top-meta"><span class="version-pill">v1.4.5</span></div>
       <div class="splash-center-group">
         <div class="brand-logo-lockup" role="img" aria-label="53데시벨">
           <span class="logo-num-box">53</span>
@@ -602,6 +608,9 @@
     <!-- [화면 2] 요기요 스타일 4단계 표준 온보딩 -->
     <section class="screen" id="screen-auth" hidden>
       <div id="auth-step-login" class="auth-view">
+        <div style="display:flex; justify-content:flex-end; width:100%; margin-bottom:4px;">
+          <button type="button" id="btn-guest-top-skip" style="font-size:14.5px; font-weight:800; color:var(--text-sub); padding:6px 10px; border-radius:8px; background:var(--bg-subtle);">둘러보기</button>
+        </div>
         <div class="auth-hero">
           <div class="hero-illust">
             <svg width="56" height="56" viewBox="0 0 64 64" fill="none">
@@ -854,23 +863,27 @@
       </header>
       <div class="write-scroll-body">
         <div class="write-step-block">
-          <h3>소음 발생 위치를 정해주세요</h3>
+          <h3>소음 유형을 선택해 주세요</h3>
+          <div class="space-toggle-grid">
+            <button type="button" class="btn-space-card" data-space="indoor"><strong>🏢 건물 내 소음</strong><span>층간·벽간·배관 (호수 비공개)</span></button>
+            <button type="button" class="btn-space-card" data-space="outdoor"><strong>🏙️ 실외 소음</strong><span>도로·골목·상가·공원·공사</span></button>
+          </div>
+          <div id="write-space-prompt" class="space-prompt-box">
+            위에서 <strong>[건물 내 소음]</strong> 또는 <strong>[실외 소음]</strong>을 선택하면<br>상세 소음 유형과 장소 입력이 나타납니다.
+          </div>
+          <div id="write-cat-section" hidden style="margin-top:12px;">
+            <div class="cat-select-grid" id="write-cat-grid"></div>
+          </div>
+        </div>
+
+        <div class="write-step-block">
+          <h3>발생 위치를 정해 주세요</h3>
           <div class="write-location-box">
             <div class="wlb-top">
               <div class="wlb-addrs"><strong id="write-road-addr">위치를 설정해 주세요</strong><span id="write-jibun-addr">[지번] 지도를 움직여 정확한 지점을 찍어주세요</span></div>
               <button type="button" class="btn-outline" id="btn-write-pick-map" style="background:var(--primary); color:#FFFFFF; border-color:var(--primary);">📍 지도에서 핀찍기</button>
             </div>
             <div class="flat-input-box" style="height:42px;"><input type="text" id="input-write-detail-loc" placeholder="세부 위치 메모 (예: 정문 앞 편의점 골목, 102동 라인)"></div>
-          </div>
-        </div>
-        <div class="write-step-block">
-          <h3>소음 발생 공간 선택</h3>
-          <div class="space-toggle-grid">
-            <button type="button" class="btn-space-card" data-space="indoor"><strong>🏢 건물 내 소음</strong><span>층간·벽간·배관 (호수 비공개)</span></button>
-            <button type="button" class="btn-space-card" data-space="outdoor"><strong>🏙️ 실외 소음</strong><span>도로·골목·상가·공원·공사</span></button>
-          </div>
-          <div id="write-space-prompt" class="space-prompt-box">
-            위에서 <strong>[건물 내 소음]</strong> 또는 <strong>[실외 소음]</strong>을 선택하면<br>맞춤 상세 장소와 소음 유형이 나타납니다.
           </div>
           <div id="write-outdoor-opts" hidden>
             <div class="road-type-pills">
@@ -893,10 +906,19 @@
             <div class="floor-grid" id="write-floor-grid"></div>
           </div>
         </div>
-        <div class="write-step-block" id="write-cat-section" hidden>
-          <h3>어떤 소음인가요?</h3>
-          <div class="cat-select-grid" id="write-cat-grid"></div>
+
+        <div class="write-step-block">
+          <h3>발생 일시를 선택해 주세요</h3>
+          <div class="time-chip-grid" id="write-time-chips">
+            <button type="button" class="btn-time-chip active" data-time="방금 전">방금 전</button>
+            <button type="button" class="btn-time-chip" data-time="오늘 새벽">오늘 새벽</button>
+            <button type="button" class="btn-time-chip" data-time="오늘 낮">오늘 낮</button>
+            <button type="button" class="btn-time-chip" data-time="오늘 밤">오늘 밤</button>
+            <button type="button" class="btn-time-chip" data-time="어제 밤">어제 밤</button>
+            <button type="button" class="btn-time-chip" data-time="매일 반복">매일 반복</button>
+          </div>
         </div>
+
         <div class="write-step-block">
           <h3>체감 소음 강도 (WHO 기준)</h3>
           <div class="who-level-stack">
@@ -905,9 +927,10 @@
             <button type="button" class="btn-who-level" data-lv="3"><span><strong>🔴 고통/공포 (100dB급)</strong> · 바이크 굉음·쇳덩이 충격</span></button>
           </div>
         </div>
+
         <div class="write-step-block">
           <h3>이웃과 나눌 한마디</h3>
-          <textarea class="write-textarea" id="input-write-content" placeholder="예) 밤 11시 40분부터 골목에서 고함과 욕설이 15분째 이어지고 있습니다."></textarea>
+          <textarea class="write-textarea" id="input-write-content" placeholder="소음 상황이나 이웃들과 나누고 싶은 이야기를 남겨주세요."></textarea>
           <div class="urgent-112-banner" style="margin-top:12px;">
             <span>지금도 소음이 계속되고 있나요?<br>작성 내용 그대로 바로 신고할 수 있어요.</span>
             <button type="button" class="btn-urgent-112-go" id="btn-write-to-112">🚨 112 문자 신고</button>
@@ -1137,7 +1160,7 @@
       pickerMode: 'onboard', pickerMap: null,
       selectedPostId: null, detailTab: 'analysis', showCCTV: false,
       map: null, overlays: [], myLocOverlay: null, myLat: 37.4587, myLng: 126.7302, selectedBuildingId: null,
-      writeDraft: { space: null, roadType: '동네 작은 도로', floor: 1, category: '바이크·차량 굉음', shortTag: '바이크·굉음', group: 'bike', whoLevel: 2 }
+      writeDraft: { space: null, roadType: '동네 작은 도로', floor: 1, category: '바이크·차량 굉음', shortTag: '바이크·굉음', group: 'bike', whoLevel: 2, occurredTime: '방금 전' }
     };
 
     function loadSandboxData() {
@@ -1283,7 +1306,9 @@
       });
     });
 
-    document.getElementById('btn-guest-enter').addEventListener('click', () => { state.user.loggedIn = false; state.user.provider = ''; openPinPicker('guest'); });
+    const enterGuestPicker = () => { state.user.loggedIn = false; state.user.provider = ''; openPinPicker('guest'); };
+    document.getElementById('btn-guest-enter').addEventListener('click', enterGuestPicker);
+    document.getElementById('btn-guest-top-skip').addEventListener('click', enterGuestPicker);
     document.getElementById('btn-perm-confirm').addEventListener('click', () => {
       if (navigator.geolocation) navigator.geolocation.getCurrentPosition(pos => { state.centerLat = pos.coords.latitude; state.centerLng = pos.coords.longitude; }, () => {});
       showAuthStep('auth-step-terms');
@@ -1416,6 +1441,7 @@
       const loc = state.draftLocation;
       if (state.pickerMode === 'onboard' || state.pickerMode === 'guest') {
         state.centerLat = loc.lat; state.centerLng = loc.lng;
+        state.selectedPostId = null;
         try { localStorage.setItem('53db_last_gps', JSON.stringify({ lat: loc.lat, lng: loc.lng, ts: Date.now() })); } catch (e) {}
         const dongMatch = loc.jibunAddr.match(/\[지번\]\s*([^\s]+)/);
         const homeDong = dongMatch ? dongMatch[1] : '내 동네';
@@ -1501,7 +1527,16 @@
       const bounds = state.map.getBounds(); if (!bounds) return state.posts;
       const sw = bounds.getSouthWest(), ne = bounds.getNorthEast();
       const latPad = (ne.getLat() - sw.getLat()) * 0.08, lngPad = (ne.getLng() - sw.getLng()) * 0.08;
-      return state.posts.filter(p => p.lat >= (sw.getLat() - latPad) && p.lat <= (ne.getLat() + latPad) && p.lng >= (sw.getLng() - lngPad) && p.lng <= (ne.getLng() + lngPad));
+      const center = state.map.getCenter();
+      const cLat = center ? center.getLat() : state.centerLat;
+      const cLng = center ? center.getLng() : state.centerLng;
+      return state.posts
+        .filter(p => p.lat >= (sw.getLat() - latPad) && p.lat <= (ne.getLat() + latPad) && p.lng >= (sw.getLng() - lngPad) && p.lng <= (ne.getLng() + lngPad))
+        .sort((a, b) => {
+          const dA = (a.lat - cLat) ** 2 + (a.lng - cLng) ** 2;
+          const dB = (b.lat - cLat) ** 2 + (b.lng - cLng) ** 2;
+          return dA - dB;
+        });
     }
 
     function focusSpotOnMapAndCard(postId, scrollCard = true) {
@@ -1722,7 +1757,7 @@
               <button type="button" class="btn-nc-reply" data-reply-toggle="${p.id}">답글 ${cmts.length}</button>
               <div class="nc-vote-group">
                 <button type="button" class="btn-nc-vote ${p.empathizedByMe ? 'active-up' : ''}" data-nc-up="${p.id}">👍 ${p.empathyCount || 0}</button>
-                <button type="button" class="btn-nc-vote ${p.dislikedByMe ? 'active-dn' : ''}" data-nc-dn="${p.id}">👎 ${dislikes}</button>
+                <button type="button" class="btn-nc-vote ${p.dislikedByMe ? 'active-dn' : ''}" data-nc-dn="${p.id}">👎 ${dislikes}</button><button type="button" class="btn-nc-vote" onclick="showToast('부적절한 의견으로 신고 접수되었습니다.')" style="color:var(--text-muted);">신고</button>
               </div>
             </div>
             ${isReplyOpen ? `
@@ -1976,6 +2011,7 @@
     });
 
     document.querySelectorAll('.btn-road-pill').forEach(btn => { btn.onclick = () => { state.writeDraft.roadType = btn.dataset.roadtype; document.querySelectorAll('.btn-road-pill').forEach(b => b.classList.toggle('active', b === btn)); }; });
+    document.querySelectorAll('.btn-time-chip').forEach(btn => { btn.onclick = () => { state.writeDraft.occurredTime = btn.dataset.time; document.querySelectorAll('.btn-time-chip').forEach(b => b.classList.toggle('active', b === btn)); }; });
     document.querySelectorAll('.btn-who-level').forEach(btn => { btn.onclick = () => { state.writeDraft.whoLevel = Number(btn.dataset.lv); document.querySelectorAll('.btn-who-level').forEach(b => b.classList.toggle('active', b === btn)); }; });
 
     document.getElementById('btn-write-to-112').onclick = () => {
@@ -1987,7 +2023,7 @@
       const loc = state.draftLocation, isIndoor = state.writeDraft.space === 'indoor', targetBldg = state.selectedBuildingId ? state.buildings.find(b => b.id === state.selectedBuildingId) : null, detailMemo = document.getElementById('input-write-detail-loc').value.trim();
       const anchor = isIndoor ? `${targetBldg ? targetBldg.name : (document.getElementById('input-bldg-query').value.trim() || '공동주택')} (${state.writeDraft.floor}층)` : (detailMemo || loc.bldgName || state.writeDraft.roadType);
       const content = document.getElementById('input-write-content').value.trim() || `${state.writeDraft.category} 소음이 발생해 이웃들과 공유합니다.`;
-      const newPost = { id: 'post-' + Date.now(), dong: state.viewportRegionLabel, fullAddress: loc.roadAddr || state.viewportFullAddress, jibunAddress: loc.jibunAddr, spaceType: state.writeDraft.space, buildingId: (isIndoor && targetBldg) ? targetBldg.id : null, floor: isIndoor ? state.writeDraft.floor : null, filterGroup: state.writeDraft.group, category: state.writeDraft.category, shortTag: state.writeDraft.shortTag, whoLevel: state.writeDraft.whoLevel, lat: loc.lat, lng: loc.lng, roadName: loc.roadAddr || state.viewportFullAddress, anchorBuilding: anchor, roadType: isIndoor ? '건물 실내' : state.writeDraft.roadType, nickname: state.user.nickname || '익명이웃', gpsVerified: true, timestamp: Date.now(), content, empathyCount: 1, empathizedByMe: true, comments: [] };
+      const newPost = { id: 'post-' + Date.now(), dong: state.viewportRegionLabel, fullAddress: loc.roadAddr || state.viewportFullAddress, jibunAddress: loc.jibunAddr, spaceType: state.writeDraft.space, buildingId: (isIndoor && targetBldg) ? targetBldg.id : null, floor: isIndoor ? state.writeDraft.floor : null, filterGroup: state.writeDraft.group, category: state.writeDraft.category, shortTag: state.writeDraft.shortTag, whoLevel: state.writeDraft.whoLevel, lat: loc.lat, lng: loc.lng, roadName: loc.roadAddr || state.viewportFullAddress, anchorBuilding: anchor, roadType: isIndoor ? '건물 실내' : state.writeDraft.roadType, nickname: state.user.nickname || '익명이웃', gpsVerified: true, timestamp: Date.now(), occurredTime: state.writeDraft.occurredTime || '방금 전', content, empathyCount: 1, empathizedByMe: true, comments: [] };
       state.posts.unshift(newPost); state.selectedPostId = newPost.id;
       state.centerLat = newPost.lat; state.centerLng = newPost.lng;
       saveSandboxData();
@@ -2021,8 +2057,18 @@
       const prof = profileBuildingStructure(bldg, bReports);
       const totalEmp = bReports.reduce((s, r) => s + (r.empathyCount || 0), 0);
       const allComments = bReports.flatMap(r => r.comments || []);
-      const mainAddr = (bReports[0] && (bReports[0].fullAddress || bReports[0].roadName)) || prof.name;
-      const vulnLabel = prof.vulnerability >= 75 ? '매우 취약' : (prof.vulnerability >= 60 ? '주의 필요' : '보통');
+
+      const firstReport = bReports[0];
+      const fullAddr = (firstReport && (firstReport.fullAddress || firstReport.roadName)) || '';
+      const dongMatch = fullAddr.match(/([가-힣0-9A-Za-z]+(?:아파트|단지|빌라|타워|오피스텔|힐|보금자리)?\s*\d+동)/);
+      const primaryBldgTitle = dongMatch ? dongMatch[1] : prof.name;
+
+      /* 점수 제거 -> 직관적인 방음 4등급 + 경고 배지(어두운 레드 바탕 + 흰 글씨) */
+      let gradeText = '보통', gradeCls = 'badge-warn-ok';
+      if (prof.vulnerability >= 80) { gradeText = '매우 약함'; gradeCls = 'badge-warn-high'; }
+      else if (prof.vulnerability >= 68) { gradeText = '약함'; gradeCls = 'badge-warn-high'; }
+      else if (prof.vulnerability >= 52) { gradeText = '보통'; gradeCls = 'badge-warn-mid'; }
+      else { gradeText = '강함'; gradeCls = 'badge-warn-ok'; }
 
       document.getElementById('bldg-detail-title').textContent = prof.name;
 
@@ -2035,15 +2081,15 @@
             </div>
             <table class="hg-history-table" style="font-size:13px;">
               <thead>
-                <tr><th>시점</th><th>강도</th><th>소음 유형</th><th>층수</th></tr>
+                <tr><th>소음 유형</th><th>층수</th><th>체감 강도</th><th>발생 시각</th></tr>
               </thead>
               <tbody>
                 ${bReports.map(r => `
                   <tr>
-                    <td style="padding:10px 4px; color:var(--text-muted); font-weight:600;">${relTime(r.timestamp)}</td>
-                    <td style="padding:10px 4px; color:var(--lv3-red); font-weight:900;">${(WHO_LEVELS[r.whoLevel] || WHO_LEVELS[2]).shortDb}</td>
                     <td style="padding:10px 4px; color:var(--text-main); font-weight:800;">${r.category}</td>
                     <td style="padding:10px 4px; color:var(--primary); font-weight:900;">${r.floor}층</td>
+                    <td style="padding:10px 4px;"><span style="background:#991B1B; color:#FFFFFF; font-size:11.5px; font-weight:800; padding:2px 6px; border-radius:5px;">${(WHO_LEVELS[r.whoLevel] || WHO_LEVELS[2]).shortDb}</span></td>
+                    <td style="padding:10px 4px; color:var(--text-muted); font-weight:600; font-size:12px;">${r.occurredTime || relTime(r.timestamp)}</td>
                   </tr>
                 `).join('')}
               </tbody>
@@ -2060,24 +2106,24 @@
             <button type="button" class="btn-outline" id="btn-add-bldg-comment" style="height:38px; background:var(--primary); color:#fff; border-color:var(--primary);">등록</button>
           </div>
           <div style="flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:8px;">
-            ${bReports.map(r => `<div class="testimony-card"><div class="testimony-header"><span class="testimony-badge">✓ ${r.floor}층 · ${r.nickname}</span><span class="testimony-time">${relTime(r.timestamp)}</span></div><div class="testimony-body">${r.content}</div></div>`).join('')}
+            ${bReports.map(r => `<div class="testimony-card"><div class="testimony-header"><span class="testimony-badge">✓ ${r.floor}층 · ${r.nickname}</span><span class="testimony-time">${r.occurredTime || relTime(r.timestamp)}</span></div><div class="testimony-body">${r.content}</div></div>`).join('')}
             ${allComments.map(c => `<div class="testimony-card"><div class="testimony-header"><span class="testimony-badge">✓ ${c.nick}</span><span class="testimony-time">${c.time}</span></div><div class="testimony-body">${c.text}</div></div>`).join('')}
           </div>
         `;
 
       document.getElementById('bldg-detail-body').innerHTML = `
         <div style="background:var(--bg-white); border:1px solid var(--border-line); border-radius:12px; padding:12px 14px; flex-shrink:0;">
-          <div style="font-size:14.5px; font-weight:900; color:var(--text-main); line-height:1.35;">📍 ${mainAddr}</div>
-          <div style="font-size:12px; color:var(--text-muted); margin-top:4px;">지상 ${prof.groundFloors}층 · ${prof.builtYear}년 준공</div>
+          <div style="font-size:17px; font-weight:900; color:var(--text-main); line-height:1.3;">🏢 ${primaryBldgTitle}</div>
+          <div style="font-size:12px; color:var(--text-muted); margin-top:4px;">${fullAddr} · 지상 ${prof.groundFloors}층 (${prof.builtYear}년)</div>
         </div>
         <div class="hg-compare-row">
           <div class="hg-comp-col">
             <span class="hg-comp-sub">예상 방음 수준</span>
-            <span class="hg-comp-big red" style="font-size:19px;">${vulnLabel} (${prof.vulnerability}점)</span>
+            <div style="margin-top:4px;"><span class="${gradeCls}">${gradeText}</span></div>
           </div>
           <div class="hg-comp-col">
             <span class="hg-comp-sub">함께 공감한 이웃</span>
-            <span class="hg-comp-big" style="font-size:19px;">${totalEmp}명</span>
+            <span class="hg-comp-big" style="font-size:20px;">${totalEmp}명</span>
           </div>
         </div>
         <div class="detail-subtabs">
