@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨 (v1.4.9)</title>
+  <title>53데시벨 (v1.4.10)</title>
 
   <!-- 인라인 Web App Manifest (standalone 전체 화면 설치 지원) -->
   <link id="pwa-manifest-link" rel="manifest">
@@ -49,7 +49,7 @@
 
   <style>
     /* ==========================================================================
-       [v1.4.9 디자인 시스템]
+       [v1.4.10 디자인 시스템]
        - 딥 로얄 블루(#1E3A8A) + 스카이 시안(#0284C7) + 경고 코랄 레드(#E11D48)
        - 순백색(#FFFFFF) 플랫 카드 & 명확한 버튼 배치
        ========================================================================== */
@@ -188,7 +188,7 @@
     }
 
     /* ==========================================================================
-       [화면 1] 스플래시 (v1.4.9)
+       [화면 1] 스플래시 (v1.4.10)
        ========================================================================== */
     #screen-splash {
       z-index: 100;
@@ -333,7 +333,7 @@
       filter: saturate(32%) brightness(1.04) contrast(0.98);
     }
 
-    /* [v1.4.9 입체 미니 핀 + 상태별 컬러(레드/그린/블랙)] */
+    /* [v1.4.10 입체 미니 핀 + 상태별 컬러(레드/그린/블랙)] */
     .nm-wrap {
       position: relative;
       display: flex;
@@ -459,7 +459,7 @@
     .kpi-box strong { display: block; font-size: 17px; font-weight: 900; color: var(--primary); margin-top: 2px; }
     .kpi-box strong.red { color: var(--lv3-red); }
 
-    /* [v1.4.9 네이버 댓글형 순수 의견 커뮤니티 UI] */
+    /* [v1.4.10 네이버 댓글형 순수 의견 커뮤니티 UI] */
     #tab-view-community { background-color: var(--bg-white); }
     .comm-wrap { flex: 1; overflow-y: auto; background-color: var(--bg-white); display: flex; flex-direction: column; }
     .comm-top-zone { padding: 12px 16px 10px; border-bottom: 8px solid var(--bg-page); display: flex; flex-direction: column; gap: 10px; }
@@ -621,7 +621,7 @@
 
     <!-- [화면 1] 스플래시 -->
     <section class="screen" id="screen-splash" aria-label="53데시벨 시작 화면">
-      <div class="splash-top-meta"><span class="version-pill">v1.4.9</span></div>
+      <div class="splash-top-meta"><span class="version-pill">v1.4.10</span></div>
       <div class="splash-center-group">
         <div class="brand-logo-lockup" role="img" aria-label="53데시벨">
           <span class="logo-num-box">53</span>
@@ -2215,9 +2215,7 @@
 
       document.getElementById('detail-topbar-title').textContent = post.shortTag || post.category;
 
-      const tabContent = state.detailTab === 'pattern'
-        ? renderNoiseAnalysisHTML(bReports)
-        : (state.detailTab === 'analysis'
+      const tabContent = state.detailTab === 'analysis'
         ? `
           ${renderNoiseAnalysisHTML(post)}
           <div class="era-analysis-box">
@@ -2297,7 +2295,9 @@
 
       document.getElementById('bldg-detail-title').textContent = prof.name;
 
-      const tabContent = state.detailTab === 'analysis'
+      const tabContent = state.detailTab === 'pattern'
+        ? renderNoiseAnalysisHTML(bReports)
+        : (state.detailTab === 'analysis'
         ? `
           <div>
             <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
