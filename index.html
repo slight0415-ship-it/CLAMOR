@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨 (v1.4.12)</title>
+  <title>53데시벨 (v1.4.13)</title>
 
   <!-- 인라인 Web App Manifest (standalone 전체 화면 설치 지원) -->
   <link id="pwa-manifest-link" rel="manifest">
@@ -49,7 +49,7 @@
 
   <style>
     /* ==========================================================================
-       [v1.4.12 디자인 시스템]
+       [v1.4.13 디자인 시스템]
        - 딥 로얄 블루(#1E3A8A) + 스카이 시안(#0284C7) + 경고 코랄 레드(#E11D48)
        - 순백색(#FFFFFF) 플랫 카드 & 명확한 버튼 배치
        ========================================================================== */
@@ -188,7 +188,7 @@
     }
 
     /* ==========================================================================
-       [화면 1] 스플래시 (v1.4.12)
+       [화면 1] 스플래시 (v1.4.13)
        ========================================================================== */
     #screen-splash {
       z-index: 100;
@@ -333,7 +333,7 @@
       filter: saturate(32%) brightness(1.04) contrast(0.98);
     }
 
-    /* [v1.4.12 입체 미니 핀 + 상태별 컬러(레드/그린/블랙)] */
+    /* [v1.4.13 입체 미니 핀 + 상태별 컬러(레드/그린/블랙)] */
     .nm-wrap {
       position: relative;
       display: flex;
@@ -459,7 +459,7 @@
     .kpi-box strong { display: block; font-size: 17px; font-weight: 900; color: var(--primary); margin-top: 2px; }
     .kpi-box strong.red { color: var(--lv3-red); }
 
-    /* [v1.4.12 네이버 댓글형 순수 의견 커뮤니티 UI] */
+    /* [v1.4.13 네이버 댓글형 순수 의견 커뮤니티 UI] */
     #tab-view-community { background-color: var(--bg-white); }
     .comm-wrap { flex: 1; overflow-y: auto; background-color: var(--bg-white); display: flex; flex-direction: column; }
     .comm-top-zone { padding: 12px 16px 10px; border-bottom: 8px solid var(--bg-page); display: flex; flex-direction: column; gap: 10px; }
@@ -579,8 +579,8 @@
 
     /* [화면 5] 상세 */
     #screen-detail, #screen-building { z-index: 105; background-color: var(--bg-page); }
-    .detail-page-shell { flex: 1; min-height: 0; padding: 12px 14px calc(24px + var(--safe-bottom)); display: flex; flex-direction: column; gap: 12px; overflow-y: auto; }
-    .nd-summary-card { background: var(--bg-white); border: 1px solid var(--border-line); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+    .detail-page-shell { flex: 1; min-height: 0; padding: 12px 14px calc(32px + var(--safe-bottom)); display: flex; flex-direction: column; gap: 12px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+    .nd-summary-card { flex-shrink: 0; background: var(--bg-white); border: 1px solid var(--border-line); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
     .nd-row-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-bottom: 12px; border-bottom: 1px solid var(--border-line); }
     .nd-field-lbl { font-size: 11px; font-weight: 800; color: var(--text-muted); margin-bottom: 3px; letter-spacing: -0.02em; }
     .nd-cat-val { font-size: 18px; font-weight: 900; color: var(--text-main); }
@@ -591,7 +591,7 @@
     .nd-loc-main { font-size: 16px; font-weight: 900; color: var(--text-main); }
     .nd-loc-sub { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
 
-    .nd-trust-card { background: var(--bg-white); border: 1px solid var(--border-line); border-radius: 16px; padding: 16px; display: grid; grid-template-columns: 108px 1fr; gap: 14px; align-items: center; }
+    .nd-trust-card { flex-shrink: 0; background: var(--bg-white); border: 1px solid var(--border-line); border-radius: 16px; padding: 16px; display: grid; grid-template-columns: 108px 1fr; gap: 14px; align-items: center; }
     .nd-trust-left { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 10px 6px; background: var(--primary-soft); border-radius: 14px; }
     .nd-trust-left span { font-size: 11px; font-weight: 800; color: var(--primary); }
     .nd-trust-left strong { font-size: 28px; font-weight: 900; color: var(--primary); line-height: 1.15; margin-top: 2px; }
@@ -599,7 +599,7 @@
     .nd-trust-row { display: flex; align-items: center; justify-content: space-between; font-size: 12.5px; color: var(--text-sub); }
     .nd-trust-row strong { font-weight: 800; color: var(--primary); }
 
-    .nd-chart-card { background: var(--bg-white); border: 1px solid var(--border-line); border-radius: 16px; padding: 16px 14px 14px; display: flex; flex-direction: column; gap: 12px; }
+    .nd-chart-card { flex-shrink: 0; background: var(--bg-white); border: 1px solid var(--border-line); border-radius: 16px; padding: 16px 14px 14px; display: flex; flex-direction: column; gap: 12px; }
     .nd-chart-title { font-size: 15px; font-weight: 900; color: var(--text-main); }
     .nd-24h-grid { display: grid; grid-template-columns: repeat(24, 1fr); gap: 2px; align-items: end; height: 84px; padding-top: 8px; border-bottom: 1.5px solid var(--border-strong); }
     .nd-24h-col { display: flex; flex-direction: column-reverse; align-items: center; gap: 2px; height: 100%; justify-content: flex-start; }
@@ -607,7 +607,17 @@
     .nd-24h-block.peak { background-color: #991B1B; }
     .nd-24h-axis { display: flex; justify-content: space-between; font-size: 10.5px; font-weight: 700; color: var(--text-muted); padding: 0 2px; }
 
-    .nd-comm-section { background: var(--bg-white); border: 1px solid var(--border-line); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; }
+    .nd-comm-section { flex-shrink: 0; background: var(--bg-white); border: 1px solid var(--border-line); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; }
+    .nd-trust-badge { font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 6px; white-space: nowrap; }
+    .nd-trust-badge.ok { background: var(--primary-soft); color: var(--primary); }
+    .nd-trust-badge.high { background: #DCFCE7; color: #15803D; }
+    .nd-trust-badge.mid { background: var(--bg-subtle); color: var(--text-sub); border: 1px solid var(--border-line); }
+    .nd-chart-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+    .nd-chart-legend { display: flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 700; color: var(--text-muted); }
+    .nd-leg-item { display: inline-flex; align-items: center; gap: 4px; }
+    .nd-leg-dot { width: 9px; height: 9px; border-radius: 2px; display: inline-block; }
+    .nd-leg-dot.peak { background-color: #991B1B; }
+    .nd-leg-dot.norm { background-color: var(--primary); }
     .hg-hero-banner { background-color: var(--primary); color: #FFFFFF; border-radius: 14px; padding: 12px 14px; display: flex; flex-direction: column; gap: 3px; flex-shrink: 0; }
     .hg-hero-sub { font-size: 11px; font-weight: 700; color: #BAE6FD; display: flex; justify-content: space-between; }
     .hg-hero-title { font-size: 16.5px; font-weight: 900; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -649,7 +659,7 @@
 
     <!-- [화면 1] 스플래시 -->
     <section class="screen" id="screen-splash" aria-label="53데시벨 시작 화면">
-      <div class="splash-top-meta"><span class="version-pill">v1.4.12</span></div>
+      <div class="splash-top-meta"><span class="version-pill">v1.4.13</span></div>
       <div class="splash-center-group">
         <div class="brand-logo-lockup" role="img" aria-label="53데시벨">
           <span class="logo-num-box">53</span>
@@ -2261,21 +2271,32 @@
         return `<div class="nd-24h-col" title="${hr}시: ${cnt}건">${blocks.join('')}</div>`;
       }).join('');
 
+      const empGrade = an.totalEmpathy >= 6 ? '매우 높음' : (an.totalEmpathy >= 3 ? '높음' : '보통');
+      const empCls = an.totalEmpathy >= 3 ? 'high' : 'mid';
+      const cmtGrade = an.totalComments >= 3 ? '패턴 일치' : (an.totalComments >= 1 ? '증언 확인' : '수집 중');
+      const cmtCls = an.totalComments >= 3 ? 'high' : 'mid';
+
       return `
         <div class="nd-trust-card">
           <div class="nd-trust-left">
-            <span>정보 신뢰도</span>
+            <span>53dB 신뢰지수</span>
             <strong>${an.cisScore}%</strong>
           </div>
           <div class="nd-trust-right">
-            <div class="nd-trust-row"><span>현장 GPS 위치 인증</span><strong>+${an.gpsBonus}%</strong></div>
-            <div class="nd-trust-row"><span>이웃 공감 (${an.totalEmpathy}명 참여)</span><strong>+${an.empBonus}%</strong></div>
-            <div class="nd-trust-row"><span>시간대 증언 (${an.totalComments}건 일치)</span><strong>+${an.cmtBonus}%</strong></div>
+            <div class="nd-trust-row"><span>현장 GPS 교차인증</span><span class="nd-trust-badge ok">인증 완료</span></div>
+            <div class="nd-trust-row"><span>이웃 공감 밀집도 (${an.totalEmpathy}명)</span><span class="nd-trust-badge ${empCls}">${empGrade}</span></div>
+            <div class="nd-trust-row"><span>시간대 증언 분석 (${an.totalComments}건)</span><span class="nd-trust-badge ${cmtCls}">${cmtGrade}</span></div>
           </div>
         </div>
 
         <div class="nd-chart-card">
-          <div class="nd-chart-title">시간대별 소음 발생 패턴 (1시간 단위)</div>
+          <div class="nd-chart-head">
+            <div class="nd-chart-title">시간대별 소음 발생 패턴</div>
+            <div class="nd-chart-legend">
+              <span class="nd-leg-item"><i class="nd-leg-dot peak"></i>집중 발생</span>
+              <span class="nd-leg-item"><i class="nd-leg-dot norm"></i>일반 제보 (1블록=1건)</span>
+            </div>
+          </div>
           <div class="nd-24h-grid">${colsHtml}</div>
           <div class="nd-24h-axis">
             <span>0시</span><span>3시</span><span>6시</span><span>9시</span><span>12시</span><span>15시</span><span>18시</span><span>21시</span><span>23시</span>
