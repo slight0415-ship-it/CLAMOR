@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨 (v1.4.10)</title>
+  <title>53데시벨 (v1.4.11)</title>
 
   <!-- 인라인 Web App Manifest (standalone 전체 화면 설치 지원) -->
   <link id="pwa-manifest-link" rel="manifest">
@@ -49,7 +49,7 @@
 
   <style>
     /* ==========================================================================
-       [v1.4.10 디자인 시스템]
+       [v1.4.11 디자인 시스템]
        - 딥 로얄 블루(#1E3A8A) + 스카이 시안(#0284C7) + 경고 코랄 레드(#E11D48)
        - 순백색(#FFFFFF) 플랫 카드 & 명확한 버튼 배치
        ========================================================================== */
@@ -188,7 +188,7 @@
     }
 
     /* ==========================================================================
-       [화면 1] 스플래시 (v1.4.10)
+       [화면 1] 스플래시 (v1.4.11)
        ========================================================================== */
     #screen-splash {
       z-index: 100;
@@ -333,7 +333,7 @@
       filter: saturate(32%) brightness(1.04) contrast(0.98);
     }
 
-    /* [v1.4.10 입체 미니 핀 + 상태별 컬러(레드/그린/블랙)] */
+    /* [v1.4.11 입체 미니 핀 + 상태별 컬러(레드/그린/블랙)] */
     .nm-wrap {
       position: relative;
       display: flex;
@@ -459,7 +459,7 @@
     .kpi-box strong { display: block; font-size: 17px; font-weight: 900; color: var(--primary); margin-top: 2px; }
     .kpi-box strong.red { color: var(--lv3-red); }
 
-    /* [v1.4.10 네이버 댓글형 순수 의견 커뮤니티 UI] */
+    /* [v1.4.11 네이버 댓글형 순수 의견 커뮤니티 UI] */
     #tab-view-community { background-color: var(--bg-white); }
     .comm-wrap { flex: 1; overflow-y: auto; background-color: var(--bg-white); display: flex; flex-direction: column; }
     .comm-top-zone { padding: 12px 16px 10px; border-bottom: 8px solid var(--bg-page); display: flex; flex-direction: column; gap: 10px; }
@@ -579,7 +579,35 @@
 
     /* [화면 5] 상세 */
     #screen-detail, #screen-building { z-index: 105; background-color: var(--bg-page); }
-    .detail-page-shell { flex: 1; min-height: 0; padding: 10px 14px calc(14px + var(--safe-bottom)); display: flex; flex-direction: column; justify-content: space-between; gap: 8px; overflow: hidden; }
+    .detail-page-shell { flex: 1; min-height: 0; padding: 12px 14px calc(24px + var(--safe-bottom)); display: flex; flex-direction: column; gap: 12px; overflow-y: auto; }
+    .nd-summary-card { background: var(--bg-white); border: 1px solid var(--border-line); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+    .nd-row-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-bottom: 12px; border-bottom: 1px solid var(--border-line); }
+    .nd-field-lbl { font-size: 11px; font-weight: 800; color: var(--text-muted); margin-bottom: 3px; letter-spacing: -0.02em; }
+    .nd-cat-val { font-size: 18px; font-weight: 900; color: var(--text-main); }
+    .nd-db-pill { display: inline-flex; align-items: center; justify-content: center; padding: 6px 12px; border-radius: 10px; font-size: 15px; font-weight: 900; color: #FFFFFF; }
+    .nd-db-pill.lv-3 { background-color: #991B1B; }
+    .nd-db-pill.lv-2 { background-color: #C2410C; }
+    .nd-db-pill.lv-1 { background-color: #B45309; }
+    .nd-loc-main { font-size: 16px; font-weight: 900; color: var(--text-main); }
+    .nd-loc-sub { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
+
+    .nd-trust-card { background: var(--bg-white); border: 1px solid var(--border-line); border-radius: 16px; padding: 16px; display: grid; grid-template-columns: 108px 1fr; gap: 14px; align-items: center; }
+    .nd-trust-left { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 10px 6px; background: var(--primary-soft); border-radius: 14px; }
+    .nd-trust-left span { font-size: 11px; font-weight: 800; color: var(--primary); }
+    .nd-trust-left strong { font-size: 28px; font-weight: 900; color: var(--primary); line-height: 1.15; margin-top: 2px; }
+    .nd-trust-right { display: flex; flex-direction: column; gap: 6px; }
+    .nd-trust-row { display: flex; align-items: center; justify-content: space-between; font-size: 12.5px; color: var(--text-sub); }
+    .nd-trust-row strong { font-weight: 800; color: var(--primary); }
+
+    .nd-chart-card { background: var(--bg-white); border: 1px solid var(--border-line); border-radius: 16px; padding: 16px 14px 14px; display: flex; flex-direction: column; gap: 12px; }
+    .nd-chart-title { font-size: 15px; font-weight: 900; color: var(--text-main); }
+    .nd-24h-grid { display: grid; grid-template-columns: repeat(24, 1fr); gap: 2px; align-items: end; height: 84px; padding-top: 8px; border-bottom: 1.5px solid var(--border-strong); }
+    .nd-24h-col { display: flex; flex-direction: column-reverse; align-items: center; gap: 2px; height: 100%; justify-content: flex-start; }
+    .nd-24h-block { width: 100%; height: 12px; border-radius: 2px; background-color: var(--primary); }
+    .nd-24h-block.peak { background-color: #991B1B; }
+    .nd-24h-axis { display: flex; justify-content: space-between; font-size: 10.5px; font-weight: 700; color: var(--text-muted); padding: 0 2px; }
+
+    .nd-comm-section { background: var(--bg-white); border: 1px solid var(--border-line); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; }
     .hg-hero-banner { background-color: var(--primary); color: #FFFFFF; border-radius: 14px; padding: 12px 14px; display: flex; flex-direction: column; gap: 3px; flex-shrink: 0; }
     .hg-hero-sub { font-size: 11px; font-weight: 700; color: #BAE6FD; display: flex; justify-content: space-between; }
     .hg-hero-title { font-size: 16.5px; font-weight: 900; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -621,7 +649,7 @@
 
     <!-- [화면 1] 스플래시 -->
     <section class="screen" id="screen-splash" aria-label="53데시벨 시작 화면">
-      <div class="splash-top-meta"><span class="version-pill">v1.4.10</span></div>
+      <div class="splash-top-meta"><span class="version-pill">v1.4.11</span></div>
       <div class="splash-center-group">
         <div class="brand-logo-lockup" role="img" aria-label="53데시벨">
           <span class="logo-num-box">53</span>
@@ -1043,13 +1071,13 @@
 
   <script>
     const STORAGE_KEYS = {
-      TEST_ACCOUNTS: '53db_sandbox_accounts_v149',
-      TEST_POSTS:    '53db_sandbox_posts_v149',
-      TEST_BLDGS:    '53db_sandbox_bldgs_v149',
-      SESSION_USER:  '53db_sandbox_session_v149'
+      TEST_ACCOUNTS: '53db_sandbox_accounts_v1411',
+      TEST_POSTS:    '53db_sandbox_posts_v1411',
+      TEST_BLDGS:    '53db_sandbox_bldgs_v1411',
+      SESSION_USER:  '53db_sandbox_session_v1411'
     };
 
-    const DEFAULT_SEED_DATA = {"accounts": [{"nickname": "우리동네주민15", "provider": "Google", "homeDong": "만수동", "lat": 37.460453346011874, "lng": 126.72834811311921, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민14", "provider": "Google", "homeDong": "만수동", "lat": 37.46016559877591, "lng": 126.7345488099685, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민13", "provider": "Google", "homeDong": "만수동", "lat": 37.46204001012452, "lng": 126.73268845723453, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민12", "provider": "네이버", "homeDong": "만수동", "lat": 37.45982850166342, "lng": 126.73091047504407, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민11", "provider": "네이버", "homeDong": "만수동", "lat": 37.4621970733927, "lng": 126.73441446711225, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민10", "provider": "카카오", "homeDong": "만수동", "lat": 37.460473036697266, "lng": 126.73503657685615, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민09", "provider": "Google", "homeDong": "만수동", "lat": 37.45733412842549, "lng": 126.73253001915549, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민08", "provider": "Google", "homeDong": "만수동", "lat": 37.45869275933317, "lng": 126.7316944313929, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민07", "provider": "네이버", "homeDong": "만수동", "lat": 37.460252369361925, "lng": 126.73009514444132, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민06", "provider": "Google", "homeDong": "만수동", "lat": 37.459192800481546, "lng": 126.7297090067443, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민05", "provider": "카카오", "homeDong": "만수동", "lat": 37.4599332540781, "lng": 126.72943507220153, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민04", "provider": "카카오", "homeDong": "만수동", "lat": 37.45982624915765, "lng": 126.73091048311554, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민03", "provider": "Google", "homeDong": "만수동", "lat": 37.4577152164535, "lng": 126.73072731656704, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민02", "provider": "네이버", "homeDong": "만수동", "lat": 37.4591104651414, "lng": 126.73015011106664, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민01", "provider": "카카오", "homeDong": "만수동", "lat": 37.45869507454895, "lng": 126.73023778683529, "loggedIn": true, "phoneVerifiedFor112": false}], "buildings": [{"id": "bldg-1795486748996", "name": "엑설런트보금자리", "lat": 37.458690563086684, "lng": 126.73023497736472, "groundFloors": 8, "households": 28, "hasPiloti": false, "mainStructure": "철근콘크리트구조", "builtYear": 2011, "source": "국토교통부 건축물대장 실측 데이터"}, {"id": "bldg-1795487287938", "name": "삼성빌라", "lat": 37.45918941849147, "lng": 126.72970760606937, "groundFloors": 4, "households": 10, "hasPiloti": true, "mainStructure": "철근콘크리트구조", "builtYear": 1994, "source": "국토교통부 건축물대장 실측 데이터"}, {"id": "bldg-1795487384020", "name": "향촌휴먼시아2단지", "lat": 37.460248987376886, "lng": 126.7300937437295, "groundFloors": 23, "households": 438, "hasPiloti": false, "mainStructure": "철근콘크리트구조", "builtYear": 2012, "source": "국토교통부 건축물대장 실측 데이터"}, {"id": "bldg-1795487487178", "name": "만수주공아파트", "lat": 37.45868937736602, "lng": 126.73169303063757, "groundFloors": 15, "households": 120, "hasPiloti": false, "mainStructure": "철근콘크리트구조", "builtYear": 1987, "source": "국토교통부 건축물대장 실측 데이터"}, {"id": "bldg-1795487655816", "name": "포레시안(Foresian)", "lat": 37.462195937613764, "lng": 126.73441023241662, "groundFloors": 18, "households": 94, "hasPiloti": false, "mainStructure": "철근콘크리트구조", "builtYear": 2011, "source": "국토교통부 건축물대장 실측 데이터"}, {"id": "bldg-1795487709417", "name": "인평스페스힐햇님마을아파트", "lat": 37.459827359324876, "lng": 126.73090341483945, "groundFloors": 15, "households": 85, "hasPiloti": false, "mainStructure": "철근콘크리트구조", "builtYear": 2005, "source": "국토교통부 건축물대장 실측 데이터"}, {"id": "bldg-1795487848407", "name": "리더스힐", "lat": 37.46045221651158, "lng": 126.72834670433394, "groundFloors": 12, "households": 48, "hasPiloti": false, "mainStructure": "철근콘크리트구조", "builtYear": 2015, "source": "국토교통부 건축물대장 실측 데이터"}], "posts": [{"id": "post-1795487861753", "dong": "만수3동", "fullAddress": "인천광역시 남동구 만수서로 17 리더스힐", "jibunAddress": "[지번] 만수동 866-20 리더스힐", "spaceType": "indoor", "buildingId": "bldg-1795487848407", "floor": 8, "filterGroup": "indoor", "category": "반려동물짖음", "shortTag": "반려동물", "whoLevel": 3, "lat": 37.46045221651158, "lng": 126.72834670433394, "roadName": "인천광역시 남동구 만수서로 17 리더스힐", "anchorBuilding": "리더스힐 (8층)", "roadType": "건물 실내", "nickname": "우리동네주민15", "gpsVerified": true, "timestamp": 1795487861753, "content": "반려동물짖음 소음이 발생해 이웃들과 공유합니다.", "empathyCount": 4, "empathizedByMe": false, "comments": [{"nick": "8층근처주민", "text": "저녁 7시~9시 사이에 퇴근 시간마다 짖는 소리가 커요.", "time": "2시간 전"}, {"nick": "리더스힐6층", "text": "밤 11시 넘어서도 가끔 짖어서 잠설칠 때가 있습니다.", "time": "어제"}], "occurredTime": "오늘 밤"}, {"id": "post-1795487840903", "dong": "만수3동", "fullAddress": "인천광역시 남동구 만수서로 17 리더스힐", "jibunAddress": "[지번] 만수동 866-20 리더스힐", "spaceType": "outdoor", "buildingId": null, "floor": null, "filterGroup": "bike", "category": "바이크·차량 굉음", "shortTag": "바이크·굉음", "whoLevel": 3, "lat": 37.46045221651158, "lng": 126.72834670433394, "roadName": "인천광역시 남동구 만수서로 17 리더스힐", "anchorBuilding": "리더스힐", "roadType": "큰 도로변·대로", "nickname": "우리동네주민15", "gpsVerified": true, "timestamp": 1795487840903, "content": "바이크·차량 굉음 소음이 발생해 이웃들과 공유합니다.", "empathyCount": 6, "empathizedByMe": false, "comments": [{"nick": "리더스힐주민", "text": "큰 도로변이라 밤 11시~새벽 2시에 바이크 소리가 그대로 들어와요.", "time": "1시간 전"}, {"nick": "만수서로이웃", "text": "저녁 9시 이후부터 심야에 특히 심합니다.", "time": "4시간 전"}], "occurredTime": "오늘 밤"}, {"id": "post-1795487794726", "status": "resolved", "dong": "만수4동", "fullAddress": "인천광역시 남동구 만수로50번길 19 만수주공6단지아파트 602동", "jibunAddress": "[지번] 만수동 20 만수주공6단지아파트 602동", "spaceType": "indoor", "buildingId": "bldg-1795487487178", "floor": 5, "filterGroup": "indoor", "category": "기계음", "shortTag": "기계소음", "whoLevel": 2, "lat": 37.46015995164186, "lng": 126.73454176560085, "roadName": "인천광역시 남동구 만수로50번길 19 만수주공6단지아파트 602동", "anchorBuilding": "만수주공6단지 (5층)", "roadType": "건물 실내", "nickname": "우리동네주민14", "gpsVerified": true, "timestamp": 1795487794726, "content": "기계음 소음이 발생해 이웃들과 공유합니다.", "empathyCount": 3, "empathizedByMe": false, "comments": [], "occurredTime": "오늘 밤"}, {"id": "post-1795487755438", "dong": "만수2동", "fullAddress": "인천광역시 남동구 만수서로 55 포레시안(Foresian) 104동", "jibunAddress": "[지번] 만수동 1115-1 포레시안(Foresian) 104동", "spaceType": "indoor", "buildingId": "bldg-1795487655816", "floor": 7, "filterGroup": "indoor", "category": "고성·싸움·노래", "shortTag": "실내·고성", "whoLevel": 2, "lat": 37.462038867891714, "lng": 126.73268139679449, "roadName": "인천광역시 남동구 만수서로 55 포레시안(Foresian) 104동", "anchorBuilding": "포레시안(Foresian) (7층)", "roadType": "건물 실내", "nickname": "우리동네주민13", "gpsVerified": true, "timestamp": 1795487755438, "content": "고성·싸움·노래 소음이 발생해 이웃들과 공유합니다.", "empathyCount": 2, "empathizedByMe": false, "comments": [], "occurredTime": "오늘 밤"}, {"id": "post-1795487722532", "dong": "만수2동", "fullAddress": "인천광역시 남동구 만수로27번길 15 인평스페스힐햇님마을아파트", "jibunAddress": "[지번] 만수동 869 인평스페스힐햇님마을아파트", "spaceType": "indoor", "buildingId": "bldg-1795487709417", "floor": 6, "filterGroup": "indoor", "category": "화장실·배관·가전음", "shortTag": "배관·가전", "whoLevel": 2, "lat": 37.459827359324876, "lng": 126.73090341483945, "roadName": "인천광역시 남동구 만수로27번길 15 인평스페스힐햇님마을아파트", "anchorBuilding": "인평스페스힐햇님마을아파트 (6층)", "roadType": "건물 실내", "nickname": "우리동네주민12", "gpsVerified": true, "timestamp": 1795487722532, "content": "화장실·배관·가전음 소음이 발생해 이웃들과 공유합니다.", "empathyCount": 5, "empathizedByMe": false, "comments": [], "occurredTime": "오늘 밤"}, {"id": "post-1795487672776", "dong": "만수2동", "fullAddress": "인천광역시 남동구 만수서로 55 포레시안(Foresian) 101동", "jibunAddress": "[지번] 만수동 1115-1 포레시안(Foresian) 101동", "spaceType": "indoor", "buildingId": "bldg-1795487655816", "floor": 17, "filterGroup": "indoor", "category": "가구끄는소리", "shortTag": "가구끄는음", "whoLevel": 2, "lat": 37.462195937613764, "lng": 126.73441023241662, "roadName": "인천광역시 남동구 만수서로 55 포레시안(Foresian) 101동", "anchorBuilding": "포레시안(Foresian) (17층)", "roadType": "건물 실내", "nickname": "우리동네주민11", "gpsVerified": true, "timestamp": 1795487672776, "content": "가구끄는소리 소음이 발생해 이웃들과 공유합니다.", "empathyCount": 3, "empathizedByMe": false, "comments": [], "occurredTime": "오늘 밤"}, {"id": "post-1795487648824", "status": "chronic", "dong": "만수2동", "fullAddress": "인천광역시 남동구 만수서로 55 포레시안(Foresian) 101동", "jibunAddress": "[지번] 만수동 1115-1 포레시안(Foresian) 101동", "spaceType": "outdoor", "buildingId": null, "floor": null, "filterGroup": "bike", "category": "바이크·차량 굉음", "shortTag": "바이크·굉음", "whoLevel": 3, "lat": 37.462195937613764, "lng": 126.73441023241662, "roadName": "인천광역시 남동구 만수서로 55 포레시안(Foresian) 101동", "anchorBuilding": "포레시안(Foresian) 101동", "roadType": "동네 작은 도로", "nickname": "우리동네주민11", "gpsVerified": true, "timestamp": 1795487648824, "content": "바이크·차량 굉음 소음이 발생해 이웃들과 공유합니다.", "empathyCount": 7, "empathizedByMe": false, "comments": [], "occurredTime": "오늘 밤"}, {"id": "post-1795487615507", "dong": "만수4동", "fullAddress": "인천광역시 남동구 만수로50번길 19 만수주공6단지아파트 605동", "jibunAddress": "[지번] 만수동 20 만수주공6단지아파트 605동", "spaceType": "indoor", "buildingId": "bldg-1795487487178", "floor": 9, "filterGroup": "indoor", "category": "발망치·뛰는소리", "shortTag": "층간·발망치", "whoLevel": 2, "lat": 37.460467383256514, "lng": 126.73502670670175, "roadName": "인천광역시 남동구 만수로50번길 19 만수주공6단지아파트 605동", "anchorBuilding": "만수주공6단지 (9층)", "roadType": "건물 실내", "nickname": "우리동네주민10", "gpsVerified": true, "timestamp": 1795487615507, "content": "발망치·뛰는소리 소음이 발생해 이웃들과 공유합니다.", "empathyCount": 4, "empathizedByMe": false, "comments": [], "occurredTime": "오늘 밤"}, {"id": "post-1795487583637", "dong": "만수4동", "fullAddress": "인천광역시 남동구 백범로124번길 43 만수주공2단지아파트 204동", "jibunAddress": "[지번] 만수동 29 만수주공2단지아파트 204동", "spaceType": "indoor", "buildingId": "bldg-1795487487178", "floor": 9, "filterGroup": "indoor", "category": "발망치·뛰는소리", "shortTag": "층간·발망치", "whoLevel": 2, "lat": 37.457326241453394, "lng": 126.7325286344319, "roadName": "인천광역시 남동구 백범로124번길 43 만수주공2단지아파트 204동", "anchorBuilding": "만수주공2단지 (9층)", "roadType": "건물 실내", "nickname": "우리동네주민09", "gpsVerified": true, "timestamp": 1795487583637, "content": "발망치·뛰는소리 소음이 발생해 이웃들과 공유합니다.", "empathyCount": 5, "empathizedByMe": false, "comments": [], "occurredTime": "오늘 밤"}, {"id": "post-1795487538659", "dong": "만수2동", "fullAddress": "인천광역시 남동구 만수로 14-25 만수주공1단지아파트 115동", "jibunAddress": "[지번] 만수동 29 만수주공1단지아파트 115동", "spaceType": "indoor", "buildingId": "bldg-1795487487178", "floor": 9, "filterGroup": "indoor", "category": "발망치·뛰는소리", "shortTag": "층간·발망치", "whoLevel": 2, "lat": 37.45868937736602, "lng": 126.73169303063757, "roadName": "인천광역시 남동구 만수로 14-25 만수주공1단지아파트 115동", "anchorBuilding": "만수주공1단지 (9층)", "roadType": "건물 실내", "nickname": "우리동네주민08", "gpsVerified": true, "timestamp": 1795487538659, "content": "새벽에 동물이 뛰는건지 애들이 뛰는건지 잠을 못자겠어요", "empathyCount": 8, "empathizedByMe": false, "comments": [{"nick": "115동아랫집", "text": "저녁 8시부터 밤 11시까지 쿵쾅거리는 소리가 계속 납니다.", "time": "3시간 전"}, {"nick": "주공거주10년", "text": "새벽 1시에도 발뒤꿈치 소리가 울려요. 구축이라 방음이 너무 약하네요.", "time": "어제"}], "occurredTime": "오늘 밤"}, {"id": "post-1795487460787", "dong": "만수3동", "fullAddress": "인천광역시 남동구 만수서로 36 향촌휴먼시아2단지 203동", "jibunAddress": "[지번] 만수동 1116-1 향촌휴먼시아2단지 203동", "spaceType": "indoor", "buildingId": "bldg-1795487384020", "floor": 11, "filterGroup": "indoor", "category": "반려동물짖음", "shortTag": "반려동물", "whoLevel": 3, "lat": 37.460248987376886, "lng": 126.7300937437295, "roadName": "인천광역시 남동구 만수서로 36 향촌휴먼시아2단지 203동", "anchorBuilding": "향촌휴먼시아2단지 (11층)", "roadType": "건물 실내", "nickname": "우리동네주민07", "gpsVerified": true, "timestamp": 1795487460787, "content": "어느집인지 모르겠는데 한밤중에 개를 짖게 놔두면 어쩌자는 겁니까 주민들이 강력히 대책을 만들어야 합니다", "empathyCount": 9, "empathizedByMe": false, "comments": [{"nick": "203동이웃", "text": "밤 10시 넘어서부터 자정까지 계속 짖어요. 창문 닫아도 다 들립니다.", "time": "1시간 전"}, {"nick": "휴먼시아거주", "text": "주말 낮 2시에도 혼자 남겨두는지 1시간 넘게 짖더라고요.", "time": "4시간 전"}, {"nick": "잠좀자자203", "text": "어제 밤 11시 40분에도 심했어요. 경비실에 민원 넣었습니다.", "time": "어제"}, {"nick": "만수2동주민", "text": "밤 10시~11시 사이가 제일 심한 것 같아요. 공감합니다.", "time": "2일 전"}], "occurredTime": "오늘 밤"}, {"id": "post-1795487351306", "dong": "만수2동", "fullAddress": "인천광역시 남동구 만수로15번길 23 삼성빌라 3동", "jibunAddress": "[지번] 만수동 871 삼성빌라 3동", "spaceType": "indoor", "buildingId": "bldg-1795487287938", "floor": 4, "filterGroup": "indoor", "category": "반려동물짖음", "shortTag": "반려동물", "whoLevel": 3, "lat": 37.45918941849147, "lng": 126.72970760606937, "roadName": "인천광역시 남동구 만수로15번길 23 삼성빌라 3동", "anchorBuilding": "삼성빌라 (4층)", "roadType": "건물 실내", "nickname": "우리동네주민06", "gpsVerified": true, "timestamp": 1795487351306, "content": "새벽에 2시간 넘게 짖고있어요 경찰 출동 요청할까봐요", "empathyCount": 6, "empathizedByMe": false, "comments": [], "occurredTime": "오늘 밤"}, {"id": "post-1795487253035", "dong": "만수3동", "fullAddress": "인천광역시 남동구 백범로180번길 37-11 플로리체", "jibunAddress": "[지번] 만수동 867-12 플로리체", "spaceType": "outdoor", "buildingId": null, "floor": null, "filterGroup": "bike", "category": "바이크·차량 굉음", "shortTag": "바이크·굉음", "whoLevel": 3, "lat": 37.45993212459063, "lng": 126.72943366340954, "roadName": "인천광역시 남동구 백범로180번길 37-11 플로리체", "anchorBuilding": "플로리체", "roadType": "동네 작은 도로", "nickname": "우리동네주민05", "gpsVerified": true, "timestamp": 1795487253035, "content": "밤마다 바이크 굉음 배달같은데 정말 심각합니다 대책이 필요해요", "empathyCount": 11, "empathizedByMe": false, "comments": [{"nick": "플로리체입주민", "text": "밤 10시 반 넘으면 골목 코너 돌면서 굉음이 울려 퍼집니다.", "time": "2시간 전"}, {"nick": "백범로이웃", "text": "새벽 1시 반에도 한 번씩 찢어지는 소리 나요.", "time": "6시간 전"}, {"nick": "만수3동주민", "text": "밤 11시쯤 제일 심하게 지나다닙니다.", "time": "어제"}], "occurredTime": "오늘 밤"}, {"id": "post-1795487178920", "dong": "만수2동", "fullAddress": "인천광역시 남동구 만수로27번길 15 인평스페스힐햇님마을아파트", "jibunAddress": "[지번] 만수동 869 인평스페스힐햇님마을아파트", "spaceType": "outdoor", "buildingId": null, "floor": null, "filterGroup": "shout", "category": "고성 및 욕설", "shortTag": "고성·욕설", "whoLevel": 2, "lat": 37.45982286718191, "lng": 126.73090908237478, "roadName": "인천광역시 남동구 만수로27번길 15 인평스페스힐햇님마을아파트", "anchorBuilding": "인평스페스힐햇님마을아파트", "roadType": "동네 작은 도로", "nickname": "우리동네주민04", "gpsVerified": true, "timestamp": 1795487178920, "content": "여러명 남성들이 큰소리로 떠들고 웃고 담배피고 있어요 다들 잠자야 하는 시간인데 너무하네요", "empathyCount": 7, "empathizedByMe": false, "comments": [], "occurredTime": "오늘 밤"}, {"id": "post-1795487056461", "dong": "만수2동", "fullAddress": "인천광역시 남동구 백범로164번길 18-2 대승아트빌", "jibunAddress": "[지번] 만수동 102-37 대승아트빌", "spaceType": "outdoor", "buildingId": null, "floor": null, "filterGroup": "shout", "category": "노래·음악소리", "shortTag": "노래·음악", "whoLevel": 2, "lat": 37.45771408376196, "lng": 126.73072449498862, "roadName": "인천광역시 남동구 백범로164번길 18-2 대승아트빌", "anchorBuilding": "대승아트빌", "roadType": "동네 작은 도로", "nickname": "우리동네주민03", "gpsVerified": true, "timestamp": 1795487056461, "content": "밤시간인데 젊은 사람들이 음악 크게 켜놓고 시끄럽게 떠듭니다", "empathyCount": 4, "empathizedByMe": false, "comments": [], "occurredTime": "오늘 밤"}, {"id": "post-1795486951965", "dong": "만수3동", "fullAddress": "인천광역시 남동구 만수로15번길 16 가온빌리지", "jibunAddress": "[지번] 만수동 870-27 가온빌리지", "spaceType": "outdoor", "buildingId": null, "floor": null, "filterGroup": "bike", "category": "바이크·차량 굉음", "shortTag": "바이크·굉음", "whoLevel": 3, "lat": 37.45910029337644, "lng": 126.7301346063126, "roadName": "인천광역시 남동구 만수로15번길 16 가온빌리지", "anchorBuilding": "가온빌리지", "roadType": "동네 작은 도로", "nickname": "우리동네주민02", "gpsVerified": true, "timestamp": 1795486951965, "content": "밤중에 아이들 잠들었는데 귀를 찢는 바이크 소리에 애들이 놀라서 깹니다 대책이 필요해요", "empathyCount": 12, "empathizedByMe": false, "comments": [{"nick": "골목끝집", "text": "밤 11시에서 새벽 1시 사이에 배달 오토바이 마후라 튜닝한 소리가 너무 심합니다.", "time": "30분 전"}, {"nick": "아이엄마", "text": "저녁 9시 반쯤부터 새벽 2시까지 수시로 지나가서 애가 자꾸 깨요.", "time": "3시간 전"}, {"nick": "만수로주민", "text": "어제 새벽 1시에도 굉음 내며 지나갔어요. 단속이 시급합니다.", "time": "어제"}, {"nick": "수면권지킴이", "text": "밤 11시~12시 피크입니다. 저도 112에 신고한 적 있어요.", "time": "2일 전"}], "occurredTime": "오늘 밤"}, {"id": "post-1795486859528", "dong": "만수3동", "fullAddress": "인천 남동구 만수동 989-9", "jibunAddress": "[지번] 만수동 989-9", "spaceType": "outdoor", "buildingId": null, "floor": null, "filterGroup": "shout", "category": "고성 및 욕설", "shortTag": "고성·욕설", "whoLevel": 2, "lat": 37.458788911427774, "lng": 126.73039427500407, "roadName": "인천 남동구 만수동 989-9", "anchorBuilding": "주택가 골목", "roadType": "주택가 골목", "nickname": "우리동네주민01", "gpsVerified": true, "timestamp": 1795486859528, "content": "여자가 악을쓰면서 욕을하고 혼잣말하고 있어요", "empathyCount": 5, "empathizedByMe": false, "comments": [{"nick": "골목주민A", "text": "밤 12시 넘어서 새벽 1시 사이에 자주 소리 지르시더라고요.", "time": "1시간 전"}, {"nick": "만수동토박이", "text": "어제 밤 11시 50분쯤에도 들렸습니다. 무서워서 창문을 못 열겠어요.", "time": "5시간 전"}], "occurredTime": "오늘 밤"}, {"id": "post-1795486797572", "dong": "만수3동", "fullAddress": "인천광역시 남동구 만수로15번길 7 엑설런트", "jibunAddress": "[지번] 만수동 871-26 엑설런트", "spaceType": "indoor", "buildingId": "bldg-1795486748996", "floor": 2, "filterGroup": "indoor", "category": "물건충격음", "shortTag": "층간·충격", "whoLevel": 3, "lat": 37.458690563086684, "lng": 126.73023497736472, "roadName": "인천광역시 남동구 만수로15번길 7 엑설런트", "anchorBuilding": "엑설런트보금자리 (2층)", "roadType": "건물 실내", "nickname": "우리동네주민01", "gpsVerified": true, "timestamp": 1795486797572, "content": "간헐적으로 쇳덩이같은거 떨어뜨리는 소리가 나는데 가슴이 철렁합니다", "empathyCount": 8, "empathizedByMe": false, "comments": [{"nick": "엑설런트3층주민", "text": "어제 밤 11시 반쯤에도 묵직한 거 떨어뜨리는 소리 들렸어요. 진짜 깜짝 놀랐습니다.", "time": "2시간 전"}, {"nick": "만수동밤잠", "text": "저도 밤 11시~새벽 1시 사이에 자주 들어요. 매번 같은 시간대라 스트레스네요.", "time": "5시간 전"}, {"nick": "조용한저녁", "text": "오늘 새벽 1시 20분쯤 또 쿵 소리가 나서 깼습니다. 관리실에 같이 얘기해봐야겠어요.", "time": "어제"}], "occurredTime": "오늘 밤"}]};
+    const DEFAULT_SEED_DATA = {"accounts": [{"nickname": "우리동네주민15", "provider": "Google", "homeDong": "만수동", "lat": 37.460453346011874, "lng": 126.72834811311921, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민14", "provider": "Google", "homeDong": "만수동", "lat": 37.46016559877591, "lng": 126.7345488099685, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민13", "provider": "Google", "homeDong": "만수동", "lat": 37.46204001012452, "lng": 126.73268845723453, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민12", "provider": "네이버", "homeDong": "만수동", "lat": 37.45982850166342, "lng": 126.73091047504407, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민11", "provider": "네이버", "homeDong": "만수동", "lat": 37.4621970733927, "lng": 126.73441446711225, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민10", "provider": "카카오", "homeDong": "만수동", "lat": 37.460473036697266, "lng": 126.73503657685615, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민09", "provider": "Google", "homeDong": "만수동", "lat": 37.45733412842549, "lng": 126.73253001915549, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민08", "provider": "Google", "homeDong": "만수동", "lat": 37.45869275933317, "lng": 126.7316944313929, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민07", "provider": "네이버", "homeDong": "만수동", "lat": 37.460252369361925, "lng": 126.73009514444132, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민06", "provider": "Google", "homeDong": "만수동", "lat": 37.459192800481546, "lng": 126.7297090067443, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민05", "provider": "카카오", "homeDong": "만수동", "lat": 37.4599332540781, "lng": 126.72943507220153, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민04", "provider": "카카오", "homeDong": "만수동", "lat": 37.45982624915765, "lng": 126.73091048311554, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민03", "provider": "Google", "homeDong": "만수동", "lat": 37.4577152164535, "lng": 126.73072731656704, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민02", "provider": "네이버", "homeDong": "만수동", "lat": 37.4591104651414, "lng": 126.73015011106664, "loggedIn": true, "phoneVerifiedFor112": false}, {"nickname": "우리동네주민01", "provider": "카카오", "homeDong": "만수동", "lat": 37.45869507454895, "lng": 126.73023778683529, "loggedIn": true, "phoneVerifiedFor112": false}], "buildings": [{"id": "bldg-1795486748996", "name": "엑설런트보금자리", "lat": 37.458690563086684, "lng": 126.73023497736472, "groundFloors": 8, "households": 28, "hasPiloti": false, "mainStructure": "철근콘크리트구조", "builtYear": 2011, "source": "국토교통부 건축물대장 실측 데이터"}, {"id": "bldg-1795487287938", "name": "삼성빌라", "lat": 37.45918941849147, "lng": 126.72970760606937, "groundFloors": 4, "households": 10, "hasPiloti": true, "mainStructure": "철근콘크리트구조", "builtYear": 1994, "source": "국토교통부 건축물대장 실측 데이터"}, {"id": "bldg-1795487384020", "name": "향촌휴먼시아2단지", "lat": 37.460248987376886, "lng": 126.7300937437295, "groundFloors": 23, "households": 438, "hasPiloti": false, "mainStructure": "철근콘크리트구조", "builtYear": 2012, "source": "국토교통부 건축물대장 실측 데이터"}, {"id": "bldg-1795487487178", "name": "만수주공아파트", "lat": 37.45868937736602, "lng": 126.73169303063757, "groundFloors": 15, "households": 120, "hasPiloti": false, "mainStructure": "철근콘크리트구조", "builtYear": 1987, "source": "국토교통부 건축물대장 실측 데이터"}, {"id": "bldg-1795487655816", "name": "포레시안(Foresian)", "lat": 37.462195937613764, "lng": 126.73441023241662, "groundFloors": 18, "households": 94, "hasPiloti": false, "mainStructure": "철근콘크리트구조", "builtYear": 2011, "source": "국토교통부 건축물대장 실측 데이터"}, {"id": "bldg-1795487709417", "name": "인평스페스힐햇님마을아파트", "lat": 37.459827359324876, "lng": 126.73090341483945, "groundFloors": 15, "households": 85, "hasPiloti": false, "mainStructure": "철근콘크리트구조", "builtYear": 2005, "source": "국토교통부 건축물대장 실측 데이터"}, {"id": "bldg-1795487848407", "name": "리더스힐", "lat": 37.46045221651158, "lng": 126.72834670433394, "groundFloors": 12, "households": 48, "hasPiloti": false, "mainStructure": "철근콘크리트구조", "builtYear": 2015, "source": "국토교통부 건축물대장 실측 데이터"}], "posts": [{"id": "post-1795487861753", "dong": "만수3동", "fullAddress": "인천광역시 남동구 만수서로 17 리더스힐", "jibunAddress": "[지번] 만수동 866-20 리더스힐", "spaceType": "indoor", "buildingId": "bldg-1795487848407", "floor": 8, "filterGroup": "indoor", "category": "반려동물짖음", "shortTag": "반려동물", "whoLevel": 3, "lat": 37.46045221651158, "lng": 126.72834670433394, "roadName": "인천광역시 남동구 만수서로 17 리더스힐", "anchorBuilding": "리더스힐 (8층)", "roadType": "건물 실내", "nickname": "우리동네주민15", "gpsVerified": true, "timestamp": 1795487861753, "content": "반려동물짖음 소음이 발생해 이웃들과 공유합니다.", "empathyCount": 4, "empathizedByMe": false, "comments": [{"nick": "인근주민A", "text": "어제 밤 22시쯤부터 소리가 꽤 크게 들렸어요.", "time": "1시간 전", "hour": 22, "likes": 5, "dislikes": 0}, {"nick": "만수동이웃", "text": "23시 넘어서 제일 심했습니다. 창문 닫아도 울려요.", "time": "3시간 전", "hour": 23, "likes": 8, "dislikes": 0}, {"nick": "밤잠소중해", "text": "오늘 23시 30분에도 똑같이 들려서 깼어요.", "time": "5시간 전", "hour": 23, "likes": 6, "dislikes": 0}, {"nick": "조용한밤", "text": "새벽 0시 20분쯤까지 이어지다가 잠잠해졌습니다.", "time": "어제", "hour": 0, "likes": 4, "dislikes": 0}], "occurredTime": "오늘 밤"}, {"id": "post-1795487840903", "dong": "만수3동", "fullAddress": "인천광역시 남동구 만수서로 17 리더스힐", "jibunAddress": "[지번] 만수동 866-20 리더스힐", "spaceType": "outdoor", "buildingId": null, "floor": null, "filterGroup": "bike", "category": "바이크·차량 굉음", "shortTag": "바이크·굉음", "whoLevel": 3, "lat": 37.46045221651158, "lng": 126.72834670433394, "roadName": "인천광역시 남동구 만수서로 17 리더스힐", "anchorBuilding": "리더스힐", "roadType": "큰 도로변·대로", "nickname": "우리동네주민15", "gpsVerified": true, "timestamp": 1795487840903, "content": "바이크·차량 굉음 소음이 발생해 이웃들과 공유합니다.", "empathyCount": 6, "empathizedByMe": false, "comments": [{"nick": "골목끝집", "text": "저녁 20시쯤에도 한 번씩 소음이 심하게 올라옵니다.", "time": "2시간 전", "hour": 20, "likes": 3, "dislikes": 0}, {"nick": "아이엄마", "text": "밤 22시~23시 사이에 애가 자꾸 깨서 너무 힘드네요.", "time": "4시간 전", "hour": 22, "likes": 9, "dislikes": 0}, {"nick": "수면권지킴이", "text": "새벽 1시에도 굉음이 들렸습니다. 반복적이에요.", "time": "어제", "hour": 1, "likes": 7, "dislikes": 0}, {"nick": "동네주민B", "text": "23시 전후로 거의 매일 반복되는 것 같습니다.", "time": "2일 전", "hour": 23, "likes": 5, "dislikes": 0}], "occurredTime": "오늘 밤"}, {"id": "post-1795487794726", "status": "resolved", "dong": "만수4동", "fullAddress": "인천광역시 남동구 만수로50번길 19 만수주공6단지아파트 602동", "jibunAddress": "[지번] 만수동 20 만수주공6단지아파트 602동", "spaceType": "indoor", "buildingId": "bldg-1795487487178", "floor": 5, "filterGroup": "indoor", "category": "기계음", "shortTag": "기계소음", "whoLevel": 2, "lat": 37.46015995164186, "lng": 126.73454176560085, "roadName": "인천광역시 남동구 만수로50번길 19 만수주공6단지아파트 602동", "anchorBuilding": "만수주공6단지 (5층)", "roadType": "건물 실내", "nickname": "우리동네주민14", "gpsVerified": true, "timestamp": 1795487794726, "content": "기계음 소음이 발생해 이웃들과 공유합니다.", "empathyCount": 3, "empathizedByMe": false, "comments": [{"nick": "인근주민A", "text": "어제 밤 22시쯤부터 소리가 꽤 크게 들렸어요.", "time": "1시간 전", "hour": 22, "likes": 5, "dislikes": 0}, {"nick": "만수동이웃", "text": "23시 넘어서 제일 심했습니다. 창문 닫아도 울려요.", "time": "3시간 전", "hour": 23, "likes": 8, "dislikes": 0}, {"nick": "밤잠소중해", "text": "오늘 23시 30분에도 똑같이 들려서 깼어요.", "time": "5시간 전", "hour": 23, "likes": 6, "dislikes": 0}, {"nick": "조용한밤", "text": "새벽 0시 20분쯤까지 이어지다가 잠잠해졌습니다.", "time": "어제", "hour": 0, "likes": 4, "dislikes": 0}], "occurredTime": "오늘 밤"}, {"id": "post-1795487755438", "dong": "만수2동", "fullAddress": "인천광역시 남동구 만수서로 55 포레시안(Foresian) 104동", "jibunAddress": "[지번] 만수동 1115-1 포레시안(Foresian) 104동", "spaceType": "indoor", "buildingId": "bldg-1795487655816", "floor": 7, "filterGroup": "indoor", "category": "고성·싸움·노래", "shortTag": "실내·고성", "whoLevel": 2, "lat": 37.462038867891714, "lng": 126.73268139679449, "roadName": "인천광역시 남동구 만수서로 55 포레시안(Foresian) 104동", "anchorBuilding": "포레시안(Foresian) (7층)", "roadType": "건물 실내", "nickname": "우리동네주민13", "gpsVerified": true, "timestamp": 1795487755438, "content": "고성·싸움·노래 소음이 발생해 이웃들과 공유합니다.", "empathyCount": 2, "empathizedByMe": false, "comments": [{"nick": "골목끝집", "text": "저녁 20시쯤에도 한 번씩 소음이 심하게 올라옵니다.", "time": "2시간 전", "hour": 20, "likes": 3, "dislikes": 0}, {"nick": "아이엄마", "text": "밤 22시~23시 사이에 애가 자꾸 깨서 너무 힘드네요.", "time": "4시간 전", "hour": 22, "likes": 9, "dislikes": 0}, {"nick": "수면권지킴이", "text": "새벽 1시에도 굉음이 들렸습니다. 반복적이에요.", "time": "어제", "hour": 1, "likes": 7, "dislikes": 0}, {"nick": "동네주민B", "text": "23시 전후로 거의 매일 반복되는 것 같습니다.", "time": "2일 전", "hour": 23, "likes": 5, "dislikes": 0}], "occurredTime": "오늘 밤"}, {"id": "post-1795487722532", "dong": "만수2동", "fullAddress": "인천광역시 남동구 만수로27번길 15 인평스페스힐햇님마을아파트", "jibunAddress": "[지번] 만수동 869 인평스페스힐햇님마을아파트", "spaceType": "indoor", "buildingId": "bldg-1795487709417", "floor": 6, "filterGroup": "indoor", "category": "화장실·배관·가전음", "shortTag": "배관·가전", "whoLevel": 2, "lat": 37.459827359324876, "lng": 126.73090341483945, "roadName": "인천광역시 남동구 만수로27번길 15 인평스페스힐햇님마을아파트", "anchorBuilding": "인평스페스힐햇님마을아파트 (6층)", "roadType": "건물 실내", "nickname": "우리동네주민12", "gpsVerified": true, "timestamp": 1795487722532, "content": "화장실·배관·가전음 소음이 발생해 이웃들과 공유합니다.", "empathyCount": 5, "empathizedByMe": false, "comments": [{"nick": "인근주민A", "text": "어제 밤 22시쯤부터 소리가 꽤 크게 들렸어요.", "time": "1시간 전", "hour": 22, "likes": 5, "dislikes": 0}, {"nick": "만수동이웃", "text": "23시 넘어서 제일 심했습니다. 창문 닫아도 울려요.", "time": "3시간 전", "hour": 23, "likes": 8, "dislikes": 0}, {"nick": "밤잠소중해", "text": "오늘 23시 30분에도 똑같이 들려서 깼어요.", "time": "5시간 전", "hour": 23, "likes": 6, "dislikes": 0}, {"nick": "조용한밤", "text": "새벽 0시 20분쯤까지 이어지다가 잠잠해졌습니다.", "time": "어제", "hour": 0, "likes": 4, "dislikes": 0}], "occurredTime": "오늘 밤"}, {"id": "post-1795487672776", "dong": "만수2동", "fullAddress": "인천광역시 남동구 만수서로 55 포레시안(Foresian) 101동", "jibunAddress": "[지번] 만수동 1115-1 포레시안(Foresian) 101동", "spaceType": "indoor", "buildingId": "bldg-1795487655816", "floor": 17, "filterGroup": "indoor", "category": "가구끄는소리", "shortTag": "가구끄는음", "whoLevel": 2, "lat": 37.462195937613764, "lng": 126.73441023241662, "roadName": "인천광역시 남동구 만수서로 55 포레시안(Foresian) 101동", "anchorBuilding": "포레시안(Foresian) (17층)", "roadType": "건물 실내", "nickname": "우리동네주민11", "gpsVerified": true, "timestamp": 1795487672776, "content": "가구끄는소리 소음이 발생해 이웃들과 공유합니다.", "empathyCount": 3, "empathizedByMe": false, "comments": [{"nick": "골목끝집", "text": "저녁 20시쯤에도 한 번씩 소음이 심하게 올라옵니다.", "time": "2시간 전", "hour": 20, "likes": 3, "dislikes": 0}, {"nick": "아이엄마", "text": "밤 22시~23시 사이에 애가 자꾸 깨서 너무 힘드네요.", "time": "4시간 전", "hour": 22, "likes": 9, "dislikes": 0}, {"nick": "수면권지킴이", "text": "새벽 1시에도 굉음이 들렸습니다. 반복적이에요.", "time": "어제", "hour": 1, "likes": 7, "dislikes": 0}, {"nick": "동네주민B", "text": "23시 전후로 거의 매일 반복되는 것 같습니다.", "time": "2일 전", "hour": 23, "likes": 5, "dislikes": 0}], "occurredTime": "오늘 밤"}, {"id": "post-1795487648824", "status": "chronic", "dong": "만수2동", "fullAddress": "인천광역시 남동구 만수서로 55 포레시안(Foresian) 101동", "jibunAddress": "[지번] 만수동 1115-1 포레시안(Foresian) 101동", "spaceType": "outdoor", "buildingId": null, "floor": null, "filterGroup": "bike", "category": "바이크·차량 굉음", "shortTag": "바이크·굉음", "whoLevel": 3, "lat": 37.462195937613764, "lng": 126.73441023241662, "roadName": "인천광역시 남동구 만수서로 55 포레시안(Foresian) 101동", "anchorBuilding": "포레시안(Foresian) 101동", "roadType": "동네 작은 도로", "nickname": "우리동네주민11", "gpsVerified": true, "timestamp": 1795487648824, "content": "바이크·차량 굉음 소음이 발생해 이웃들과 공유합니다.", "empathyCount": 7, "empathizedByMe": false, "comments": [{"nick": "인근주민A", "text": "어제 밤 22시쯤부터 소리가 꽤 크게 들렸어요.", "time": "1시간 전", "hour": 22, "likes": 5, "dislikes": 0}, {"nick": "만수동이웃", "text": "23시 넘어서 제일 심했습니다. 창문 닫아도 울려요.", "time": "3시간 전", "hour": 23, "likes": 8, "dislikes": 0}, {"nick": "밤잠소중해", "text": "오늘 23시 30분에도 똑같이 들려서 깼어요.", "time": "5시간 전", "hour": 23, "likes": 6, "dislikes": 0}, {"nick": "조용한밤", "text": "새벽 0시 20분쯤까지 이어지다가 잠잠해졌습니다.", "time": "어제", "hour": 0, "likes": 4, "dislikes": 0}], "occurredTime": "오늘 밤"}, {"id": "post-1795487615507", "dong": "만수4동", "fullAddress": "인천광역시 남동구 만수로50번길 19 만수주공6단지아파트 605동", "jibunAddress": "[지번] 만수동 20 만수주공6단지아파트 605동", "spaceType": "indoor", "buildingId": "bldg-1795487487178", "floor": 9, "filterGroup": "indoor", "category": "발망치·뛰는소리", "shortTag": "층간·발망치", "whoLevel": 2, "lat": 37.460467383256514, "lng": 126.73502670670175, "roadName": "인천광역시 남동구 만수로50번길 19 만수주공6단지아파트 605동", "anchorBuilding": "만수주공6단지 (9층)", "roadType": "건물 실내", "nickname": "우리동네주민10", "gpsVerified": true, "timestamp": 1795487615507, "content": "발망치·뛰는소리 소음이 발생해 이웃들과 공유합니다.", "empathyCount": 4, "empathizedByMe": false, "comments": [{"nick": "골목끝집", "text": "저녁 20시쯤에도 한 번씩 소음이 심하게 올라옵니다.", "time": "2시간 전", "hour": 20, "likes": 3, "dislikes": 0}, {"nick": "아이엄마", "text": "밤 22시~23시 사이에 애가 자꾸 깨서 너무 힘드네요.", "time": "4시간 전", "hour": 22, "likes": 9, "dislikes": 0}, {"nick": "수면권지킴이", "text": "새벽 1시에도 굉음이 들렸습니다. 반복적이에요.", "time": "어제", "hour": 1, "likes": 7, "dislikes": 0}, {"nick": "동네주민B", "text": "23시 전후로 거의 매일 반복되는 것 같습니다.", "time": "2일 전", "hour": 23, "likes": 5, "dislikes": 0}], "occurredTime": "오늘 밤"}, {"id": "post-1795487583637", "dong": "만수4동", "fullAddress": "인천광역시 남동구 백범로124번길 43 만수주공2단지아파트 204동", "jibunAddress": "[지번] 만수동 29 만수주공2단지아파트 204동", "spaceType": "indoor", "buildingId": "bldg-1795487487178", "floor": 9, "filterGroup": "indoor", "category": "발망치·뛰는소리", "shortTag": "층간·발망치", "whoLevel": 2, "lat": 37.457326241453394, "lng": 126.7325286344319, "roadName": "인천광역시 남동구 백범로124번길 43 만수주공2단지아파트 204동", "anchorBuilding": "만수주공2단지 (9층)", "roadType": "건물 실내", "nickname": "우리동네주민09", "gpsVerified": true, "timestamp": 1795487583637, "content": "발망치·뛰는소리 소음이 발생해 이웃들과 공유합니다.", "empathyCount": 5, "empathizedByMe": false, "comments": [{"nick": "인근주민A", "text": "어제 밤 22시쯤부터 소리가 꽤 크게 들렸어요.", "time": "1시간 전", "hour": 22, "likes": 5, "dislikes": 0}, {"nick": "만수동이웃", "text": "23시 넘어서 제일 심했습니다. 창문 닫아도 울려요.", "time": "3시간 전", "hour": 23, "likes": 8, "dislikes": 0}, {"nick": "밤잠소중해", "text": "오늘 23시 30분에도 똑같이 들려서 깼어요.", "time": "5시간 전", "hour": 23, "likes": 6, "dislikes": 0}, {"nick": "조용한밤", "text": "새벽 0시 20분쯤까지 이어지다가 잠잠해졌습니다.", "time": "어제", "hour": 0, "likes": 4, "dislikes": 0}], "occurredTime": "오늘 밤"}, {"id": "post-1795487538659", "dong": "만수2동", "fullAddress": "인천광역시 남동구 만수로 14-25 만수주공1단지아파트 115동", "jibunAddress": "[지번] 만수동 29 만수주공1단지아파트 115동", "spaceType": "indoor", "buildingId": "bldg-1795487487178", "floor": 9, "filterGroup": "indoor", "category": "발망치·뛰는소리", "shortTag": "층간·발망치", "whoLevel": 2, "lat": 37.45868937736602, "lng": 126.73169303063757, "roadName": "인천광역시 남동구 만수로 14-25 만수주공1단지아파트 115동", "anchorBuilding": "만수주공1단지 (9층)", "roadType": "건물 실내", "nickname": "우리동네주민08", "gpsVerified": true, "timestamp": 1795487538659, "content": "새벽에 동물이 뛰는건지 애들이 뛰는건지 잠을 못자겠어요", "empathyCount": 8, "empathizedByMe": false, "comments": [{"nick": "골목끝집", "text": "저녁 20시쯤에도 한 번씩 소음이 심하게 올라옵니다.", "time": "2시간 전", "hour": 20, "likes": 3, "dislikes": 0}, {"nick": "아이엄마", "text": "밤 22시~23시 사이에 애가 자꾸 깨서 너무 힘드네요.", "time": "4시간 전", "hour": 22, "likes": 9, "dislikes": 0}, {"nick": "수면권지킴이", "text": "새벽 1시에도 굉음이 들렸습니다. 반복적이에요.", "time": "어제", "hour": 1, "likes": 7, "dislikes": 0}, {"nick": "동네주민B", "text": "23시 전후로 거의 매일 반복되는 것 같습니다.", "time": "2일 전", "hour": 23, "likes": 5, "dislikes": 0}], "occurredTime": "오늘 밤"}, {"id": "post-1795487460787", "dong": "만수3동", "fullAddress": "인천광역시 남동구 만수서로 36 향촌휴먼시아2단지 203동", "jibunAddress": "[지번] 만수동 1116-1 향촌휴먼시아2단지 203동", "spaceType": "indoor", "buildingId": "bldg-1795487384020", "floor": 11, "filterGroup": "indoor", "category": "반려동물짖음", "shortTag": "반려동물", "whoLevel": 3, "lat": 37.460248987376886, "lng": 126.7300937437295, "roadName": "인천광역시 남동구 만수서로 36 향촌휴먼시아2단지 203동", "anchorBuilding": "향촌휴먼시아2단지 (11층)", "roadType": "건물 실내", "nickname": "우리동네주민07", "gpsVerified": true, "timestamp": 1795487460787, "content": "어느집인지 모르겠는데 한밤중에 개를 짖게 놔두면 어쩌자는 겁니까 주민들이 강력히 대책을 만들어야 합니다", "empathyCount": 9, "empathizedByMe": false, "comments": [{"nick": "203동이웃", "text": "밤 10시 넘어서부터 자정까지 계속 짖어요. 창문 닫아도 다 들립니다.", "time": "1시간 전", "likes": 3, "dislikes": 0}, {"nick": "휴먼시아거주", "text": "주말 낮 2시에도 혼자 남겨두는지 1시간 넘게 짖더라고요.", "time": "4시간 전", "likes": 3, "dislikes": 0}, {"nick": "잠좀자자203", "text": "어제 밤 11시 40분에도 심했어요. 경비실에 민원 넣었습니다.", "time": "어제", "likes": 3, "dislikes": 0}, {"nick": "만수2동주민", "text": "밤 10시~11시 사이가 제일 심한 것 같아요. 공감합니다.", "time": "2일 전", "likes": 3, "dislikes": 0}], "occurredTime": "오늘 밤"}, {"id": "post-1795487351306", "dong": "만수2동", "fullAddress": "인천광역시 남동구 만수로15번길 23 삼성빌라 3동", "jibunAddress": "[지번] 만수동 871 삼성빌라 3동", "spaceType": "indoor", "buildingId": "bldg-1795487287938", "floor": 4, "filterGroup": "indoor", "category": "반려동물짖음", "shortTag": "반려동물", "whoLevel": 3, "lat": 37.45918941849147, "lng": 126.72970760606937, "roadName": "인천광역시 남동구 만수로15번길 23 삼성빌라 3동", "anchorBuilding": "삼성빌라 (4층)", "roadType": "건물 실내", "nickname": "우리동네주민06", "gpsVerified": true, "timestamp": 1795487351306, "content": "새벽에 2시간 넘게 짖고있어요 경찰 출동 요청할까봐요", "empathyCount": 6, "empathizedByMe": false, "comments": [{"nick": "골목끝집", "text": "저녁 20시쯤에도 한 번씩 소음이 심하게 올라옵니다.", "time": "2시간 전", "hour": 20, "likes": 3, "dislikes": 0}, {"nick": "아이엄마", "text": "밤 22시~23시 사이에 애가 자꾸 깨서 너무 힘드네요.", "time": "4시간 전", "hour": 22, "likes": 9, "dislikes": 0}, {"nick": "수면권지킴이", "text": "새벽 1시에도 굉음이 들렸습니다. 반복적이에요.", "time": "어제", "hour": 1, "likes": 7, "dislikes": 0}, {"nick": "동네주민B", "text": "23시 전후로 거의 매일 반복되는 것 같습니다.", "time": "2일 전", "hour": 23, "likes": 5, "dislikes": 0}], "occurredTime": "오늘 밤"}, {"id": "post-1795487253035", "dong": "만수3동", "fullAddress": "인천광역시 남동구 백범로180번길 37-11 플로리체", "jibunAddress": "[지번] 만수동 867-12 플로리체", "spaceType": "outdoor", "buildingId": null, "floor": null, "filterGroup": "bike", "category": "바이크·차량 굉음", "shortTag": "바이크·굉음", "whoLevel": 3, "lat": 37.45993212459063, "lng": 126.72943366340954, "roadName": "인천광역시 남동구 백범로180번길 37-11 플로리체", "anchorBuilding": "플로리체", "roadType": "동네 작은 도로", "nickname": "우리동네주민05", "gpsVerified": true, "timestamp": 1795487253035, "content": "밤마다 바이크 굉음 배달같은데 정말 심각합니다 대책이 필요해요", "empathyCount": 11, "empathizedByMe": false, "comments": [{"nick": "플로리체입주민", "text": "밤 10시 반 넘으면 골목 코너 돌면서 굉음이 울려 퍼집니다.", "time": "2시간 전", "likes": 3, "dislikes": 0}, {"nick": "백범로이웃", "text": "새벽 1시 반에도 한 번씩 찢어지는 소리 나요.", "time": "6시간 전", "likes": 3, "dislikes": 0}, {"nick": "만수3동주민", "text": "밤 11시쯤 제일 심하게 지나다닙니다.", "time": "어제", "likes": 3, "dislikes": 0}], "occurredTime": "오늘 밤"}, {"id": "post-1795487178920", "dong": "만수2동", "fullAddress": "인천광역시 남동구 만수로27번길 15 인평스페스힐햇님마을아파트", "jibunAddress": "[지번] 만수동 869 인평스페스힐햇님마을아파트", "spaceType": "outdoor", "buildingId": null, "floor": null, "filterGroup": "shout", "category": "고성 및 욕설", "shortTag": "고성·욕설", "whoLevel": 2, "lat": 37.45982286718191, "lng": 126.73090908237478, "roadName": "인천광역시 남동구 만수로27번길 15 인평스페스힐햇님마을아파트", "anchorBuilding": "인평스페스힐햇님마을아파트", "roadType": "동네 작은 도로", "nickname": "우리동네주민04", "gpsVerified": true, "timestamp": 1795487178920, "content": "여러명 남성들이 큰소리로 떠들고 웃고 담배피고 있어요 다들 잠자야 하는 시간인데 너무하네요", "empathyCount": 7, "empathizedByMe": false, "comments": [{"nick": "골목끝집", "text": "저녁 20시쯤에도 한 번씩 소음이 심하게 올라옵니다.", "time": "2시간 전", "hour": 20, "likes": 3, "dislikes": 0}, {"nick": "아이엄마", "text": "밤 22시~23시 사이에 애가 자꾸 깨서 너무 힘드네요.", "time": "4시간 전", "hour": 22, "likes": 9, "dislikes": 0}, {"nick": "수면권지킴이", "text": "새벽 1시에도 굉음이 들렸습니다. 반복적이에요.", "time": "어제", "hour": 1, "likes": 7, "dislikes": 0}, {"nick": "동네주민B", "text": "23시 전후로 거의 매일 반복되는 것 같습니다.", "time": "2일 전", "hour": 23, "likes": 5, "dislikes": 0}], "occurredTime": "오늘 밤"}, {"id": "post-1795487056461", "dong": "만수2동", "fullAddress": "인천광역시 남동구 백범로164번길 18-2 대승아트빌", "jibunAddress": "[지번] 만수동 102-37 대승아트빌", "spaceType": "outdoor", "buildingId": null, "floor": null, "filterGroup": "shout", "category": "노래·음악소리", "shortTag": "노래·음악", "whoLevel": 2, "lat": 37.45771408376196, "lng": 126.73072449498862, "roadName": "인천광역시 남동구 백범로164번길 18-2 대승아트빌", "anchorBuilding": "대승아트빌", "roadType": "동네 작은 도로", "nickname": "우리동네주민03", "gpsVerified": true, "timestamp": 1795487056461, "content": "밤시간인데 젊은 사람들이 음악 크게 켜놓고 시끄럽게 떠듭니다", "empathyCount": 4, "empathizedByMe": false, "comments": [{"nick": "인근주민A", "text": "어제 밤 22시쯤부터 소리가 꽤 크게 들렸어요.", "time": "1시간 전", "hour": 22, "likes": 5, "dislikes": 0}, {"nick": "만수동이웃", "text": "23시 넘어서 제일 심했습니다. 창문 닫아도 울려요.", "time": "3시간 전", "hour": 23, "likes": 8, "dislikes": 0}, {"nick": "밤잠소중해", "text": "오늘 23시 30분에도 똑같이 들려서 깼어요.", "time": "5시간 전", "hour": 23, "likes": 6, "dislikes": 0}, {"nick": "조용한밤", "text": "새벽 0시 20분쯤까지 이어지다가 잠잠해졌습니다.", "time": "어제", "hour": 0, "likes": 4, "dislikes": 0}], "occurredTime": "오늘 밤"}, {"id": "post-1795486951965", "dong": "만수3동", "fullAddress": "인천광역시 남동구 만수로15번길 16 가온빌리지", "jibunAddress": "[지번] 만수동 870-27 가온빌리지", "spaceType": "outdoor", "buildingId": null, "floor": null, "filterGroup": "bike", "category": "바이크·차량 굉음", "shortTag": "바이크·굉음", "whoLevel": 3, "lat": 37.45910029337644, "lng": 126.7301346063126, "roadName": "인천광역시 남동구 만수로15번길 16 가온빌리지", "anchorBuilding": "가온빌리지", "roadType": "동네 작은 도로", "nickname": "우리동네주민02", "gpsVerified": true, "timestamp": 1795486951965, "content": "밤중에 아이들 잠들었는데 귀를 찢는 바이크 소리에 애들이 놀라서 깹니다 대책이 필요해요", "empathyCount": 12, "empathizedByMe": false, "comments": [{"nick": "골목끝집", "text": "밤 11시에서 새벽 1시 사이에 배달 오토바이 마후라 튜닝한 소리가 너무 심합니다.", "time": "30분 전", "likes": 3, "dislikes": 0}, {"nick": "아이엄마", "text": "저녁 9시 반쯤부터 새벽 2시까지 수시로 지나가서 애가 자꾸 깨요.", "time": "3시간 전", "likes": 3, "dislikes": 0}, {"nick": "만수로주민", "text": "어제 새벽 1시에도 굉음 내며 지나갔어요. 단속이 시급합니다.", "time": "어제", "likes": 3, "dislikes": 0}, {"nick": "수면권지킴이", "text": "밤 11시~12시 피크입니다. 저도 112에 신고한 적 있어요.", "time": "2일 전", "likes": 3, "dislikes": 0}], "occurredTime": "오늘 밤"}, {"id": "post-1795486859528", "dong": "만수3동", "fullAddress": "인천 남동구 만수동 989-9", "jibunAddress": "[지번] 만수동 989-9", "spaceType": "outdoor", "buildingId": null, "floor": null, "filterGroup": "shout", "category": "고성 및 욕설", "shortTag": "고성·욕설", "whoLevel": 2, "lat": 37.458788911427774, "lng": 126.73039427500407, "roadName": "인천 남동구 만수동 989-9", "anchorBuilding": "주택가 골목", "roadType": "주택가 골목", "nickname": "우리동네주민01", "gpsVerified": true, "timestamp": 1795486859528, "content": "여자가 악을쓰면서 욕을하고 혼잣말하고 있어요", "empathyCount": 5, "empathizedByMe": false, "comments": [{"nick": "인근주민A", "text": "어제 밤 22시쯤부터 소리가 꽤 크게 들렸어요.", "time": "1시간 전", "hour": 22, "likes": 5, "dislikes": 0}, {"nick": "만수동이웃", "text": "23시 넘어서 제일 심했습니다. 창문 닫아도 울려요.", "time": "3시간 전", "hour": 23, "likes": 8, "dislikes": 0}, {"nick": "밤잠소중해", "text": "오늘 23시 30분에도 똑같이 들려서 깼어요.", "time": "5시간 전", "hour": 23, "likes": 6, "dislikes": 0}, {"nick": "조용한밤", "text": "새벽 0시 20분쯤까지 이어지다가 잠잠해졌습니다.", "time": "어제", "hour": 0, "likes": 4, "dislikes": 0}], "occurredTime": "오늘 밤"}, {"id": "post-1795486797572", "dong": "만수3동", "fullAddress": "인천광역시 남동구 만수로15번길 7 엑설런트", "jibunAddress": "[지번] 만수동 871-26 엑설런트", "spaceType": "indoor", "buildingId": "bldg-1795486748996", "floor": 2, "filterGroup": "indoor", "category": "물건충격음", "shortTag": "층간·충격", "whoLevel": 3, "lat": 37.458690563086684, "lng": 126.73023497736472, "roadName": "인천광역시 남동구 만수로15번길 7 엑설런트", "anchorBuilding": "엑설런트보금자리 (2층)", "roadType": "건물 실내", "nickname": "우리동네주민01", "gpsVerified": true, "timestamp": 1795486797572, "content": "간헐적으로 쇳덩이같은거 떨어뜨리는 소리가 나는데 가슴이 철렁합니다", "empathyCount": 8, "empathizedByMe": false, "comments": [{"nick": "엑설런트3층주민", "text": "어제 밤 11시 반쯤에도 묵직한 거 떨어뜨리는 소리 들렸어요. 진짜 깜짝 놀랐습니다.", "time": "2시간 전", "likes": 3, "dislikes": 0}, {"nick": "만수동밤잠", "text": "저도 밤 11시~새벽 1시 사이에 자주 들어요. 매번 같은 시간대라 스트레스네요.", "time": "5시간 전", "likes": 3, "dislikes": 0}, {"nick": "조용한저녁", "text": "오늘 새벽 1시 20분쯤 또 쿵 소리가 나서 깼습니다. 관리실에 같이 얘기해봐야겠어요.", "time": "어제", "likes": 3, "dislikes": 0}], "occurredTime": "오늘 밤"}]};
 
     /* 이전 버전(v1.2.x ~ v1.3.8) 잔여 가짜 데이터 완전 삭제 */
     try {
@@ -2114,93 +2142,80 @@
       goScreen('screen-main'); showToast(`설정한 위치에 등록 완료! (누적 ${state.posts.length}건)`);
     };
 
-    /* 개별 소음(및 댓글 증언)에서 시간대별 발생 패턴 추출 */
+    /* 24시간(1시간 단위) 소음 발생 패턴 및 신뢰도 산출 근거 분석 */
+    function extractHourFromText(txt, fallbackHour = 23) {
+      const t = String(txt || '');
+      const m24 = t.match(/(\d{1,2})\s*시/);
+      if (m24) {
+        let h = Number(m24[1]);
+        if (/(밤|저녁|오후)/.test(t) && h >= 1 && h <= 11) h += 12;
+        if (/(새벽)/.test(t) && h === 12) h = 0;
+        if (h >= 0 && h <= 23) return h;
+      }
+      if (/자정|한밤/.test(t)) return 0;
+      if (/새벽/.test(t)) return 1;
+      if (/저녁|퇴근/.test(t)) return 19;
+      if (/낮|점심/.test(t)) return 14;
+      if (/아침|출근/.test(t)) return 7;
+      return fallbackHour;
+    }
+
     function analyzePostNoisePattern(postsList) {
       const list = Array.isArray(postsList) ? postsList : [postsList];
-      const buckets = [
-        { label: '낮(09~17)', count: 0 },
-        { label: '저녁(18~20)', count: 0 },
-        { label: '밤(21~22)', count: 0 },
-        { label: '심야(23~24)', count: 0 },
-        { label: '새벽(01~03)', count: 0 },
-        { label: '이른아침', count: 0 }
-      ];
-
-      function parseTextToBuckets(txt) {
-        const t = String(txt || '');
-        let matched = false;
-        if (/(낮|오후|2시|3시|4시|점심)/.test(t)) { buckets[0].count++; matched = true; }
-        if (/(저녁|퇴근|7시|8시|9시|18시|19시|20시)/.test(t)) { buckets[1].count++; matched = true; }
-        if (/(10시|21시|22시|밤\s*10)/.test(t)) { buckets[2].count++; matched = true; }
-        if (/(11시|12시|자정|한밤|23시|24시|오늘 밤|어제 밤|밤마다|밤중)/.test(t)) { buckets[3].count++; matched = true; }
-        if (/(새벽|1시|2시|3시|01시|02시)/.test(t)) { buckets[4].count++; matched = true; }
-        if (/(아침|출근|6시|5시)/.test(t)) { buckets[5].count++; matched = true; }
-        return matched;
-      }
-
+      const hours = new Array(24).fill(0);
       let totalComments = 0;
       let totalEmpathy = 0;
+
       list.forEach(p => {
         totalEmpathy += (p.empathyCount || 0);
-        const m1 = parseTextToBuckets((p.content || '') + ' ' + (p.occurredTime || ''));
-        if (!m1) buckets[3].count++; // 기본 심야 가중
+        const h1 = extractHourFromText((p.content || '') + ' ' + (p.occurredTime || ''), 23);
+        hours[h1]++;
         (p.comments || []).forEach(c => {
           totalComments++;
-          const m2 = parseTextToBuckets(c.text || '');
-          if (!m2) buckets[3].count++;
+          const h2 = (typeof c.hour === 'number') ? c.hour : extractHourFromText(c.text || '', 23);
+          if (h2 >= 0 && h2 <= 23) hours[h2]++;
         });
       });
 
-      const maxVal = Math.max(1, ...buckets.map(b => b.count));
-      let peakIdx = 0;
-      buckets.forEach((b, i) => { if (b.count > buckets[peakIdx].count) peakIdx = i; });
+      const maxCount = Math.max(1, ...hours);
+      const gpsBonus = 22;
+      const empBonus = Math.min(20, Math.round(Math.log2(1 + totalEmpathy) * 6));
+      const cmtBonus = Math.min(12, totalComments * 3);
+      const cisScore = Math.min(99, 45 + gpsBonus + empBonus + cmtBonus);
 
-      const baseCis = list[0] ? calculateCIS(list[0]).cisScore : 75;
-      const cisScore = Math.min(99, baseCis + Math.min(8, totalComments * 2));
-
-      return { buckets, maxVal, peakLabel: buckets[peakIdx].label, totalComments, totalEmpathy, cisScore };
+      return { hours, maxCount, totalComments, totalEmpathy, gpsBonus, empBonus, cmtBonus, cisScore };
     }
 
     function renderNoiseAnalysisHTML(postsList) {
       const an = analyzePostNoisePattern(postsList);
-      const barsHtml = an.buckets.map((b, i) => {
-        const pct = Math.max(12, Math.round((b.count / an.maxVal) * 100));
-        const isPeak = (b.label === an.peakLabel && b.count > 0);
-        return `
-          <div style="display:flex; flex-direction:column; align-items:center; gap:5px; flex:1;">
-            <span style="font-size:11px; font-weight:900; color:${isPeak ? '#991B1B' : 'var(--text-muted)'};">${b.count}건</span>
-            <div style="width:100%; max-width:26px; height:76px; background:var(--bg-subtle); border-radius:6px; display:flex; align-items:flex-end; overflow:hidden;">
-              <div style="width:100%; height:${b.count > 0 ? pct : 6}%; background:${isPeak ? '#991B1B' : 'var(--primary)'}; border-radius:6px 6px 0 0; transition:height 0.25s ease;"></div>
-            </div>
-            <span style="font-size:10px; font-weight:${isPeak ? '900' : '700'}; color:${isPeak ? '#991B1B' : 'var(--text-muted)'}; white-space:nowrap; letter-spacing:-0.04em;">${b.label.split('(')[0]}</span>
-          </div>
-        `;
+      const colsHtml = an.hours.map((cnt, hr) => {
+        const blocks = [];
+        const drawCnt = Math.min(5, cnt);
+        const isPeak = (cnt > 0 && cnt === an.maxCount);
+        for (let i = 0; i < drawCnt; i++) {
+          blocks.push(`<div class="nd-24h-block ${isPeak ? 'peak' : ''}"></div>`);
+        }
+        return `<div class="nd-24h-col" title="${hr}시: ${cnt}건">${blocks.join('')}</div>`;
       }).join('');
 
       return `
-        <div style="display:flex; flex-direction:column; gap:12px;">
-          <div style="background:var(--bg-subtle); border:1px solid var(--border-line); border-radius:12px; padding:12px 14px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
-            <div>
-              <div style="font-size:11.5px; font-weight:800; color:var(--text-muted);">이 소음 정보의 신뢰도</div>
-              <div style="font-size:22px; font-weight:900; color:var(--primary); margin-top:2px;">${an.cisScore}%</div>
-            </div>
-            <div style="text-align:right; font-size:12px; color:var(--text-sub); line-height:1.55;">
-              <div>✓ 현장 위치 인증 완료</div>
-              <div>🙌 이웃 공감 <strong>${an.totalEmpathy}명</strong> · 💬 증언 <strong>${an.totalComments}건</strong></div>
-            </div>
+        <div class="nd-trust-card">
+          <div class="nd-trust-left">
+            <span>정보 신뢰도</span>
+            <strong>${an.cisScore}%</strong>
           </div>
+          <div class="nd-trust-right">
+            <div class="nd-trust-row"><span>현장 GPS 위치 인증</span><strong>+${an.gpsBonus}%</strong></div>
+            <div class="nd-trust-row"><span>이웃 공감 (${an.totalEmpathy}명 참여)</span><strong>+${an.empBonus}%</strong></div>
+            <div class="nd-trust-row"><span>시간대 증언 (${an.totalComments}건 일치)</span><strong>+${an.cmtBonus}%</strong></div>
+          </div>
+        </div>
 
-          <div style="border:1px solid var(--border-line); border-radius:12px; padding:13px 12px;">
-            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
-              <strong style="font-size:14px; font-weight:900; color:var(--text-main);">댓글 기반 시간대별 발생 패턴</strong>
-              <span style="background:#991B1B; color:#FFFFFF; font-size:11px; font-weight:800; padding:2px 8px; border-radius:6px;">${an.peakLabel} 집중</span>
-            </div>
-            <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:4px; padding-top:4px;">
-              ${barsHtml}
-            </div>
-            <div style="margin-top:10px; font-size:11.5px; color:var(--text-muted); text-align:center;">
-              이웃들이 남긴 증언 댓글과 발생 시각을 실시간으로 집계한 결과입니다.
-            </div>
+        <div class="nd-chart-card">
+          <div class="nd-chart-title">시간대별 소음 발생 패턴 (1시간 단위)</div>
+          <div class="nd-24h-grid">${colsHtml}</div>
+          <div class="nd-24h-axis">
+            <span>0시</span><span>3시</span><span>6시</span><span>9시</span><span>12시</span><span>15시</span><span>18시</span><span>21시</span><span>23시</span>
           </div>
         </div>
       `;
@@ -2215,56 +2230,128 @@
 
       document.getElementById('detail-topbar-title').textContent = post.shortTag || post.category;
 
-      const tabContent = state.detailTab === 'analysis'
-        ? `
-          ${renderNoiseAnalysisHTML(post)}
-          <div class="era-analysis-box">
-            <div class="era-badge-row">
-              <span class="era-tag">최초 제보 · ${post.nickname}</span>
-              <span style="font-size:11px; color:var(--text-muted);">${post.occurredTime || relTime(post.timestamp)}</span>
-            </div>
-            <p class="era-desc" style="color:var(--text-main); font-weight:600; margin-top:4px;">"${post.content}"</p>
-          </div>
-        `
-        : `
-          <div style="display:flex; gap:6px;">
-            <div class="flat-input-box" style="flex:1; height:38px;"><input type="text" id="input-detail-comment" placeholder="겪으신 시간대(예: 밤 11시)와 상황을 증언해 주세요"></div>
-            <button type="button" class="btn-outline" id="btn-add-comment" style="height:38px; background:var(--primary); color:#fff; border-color:var(--primary);">등록</button>
-          </div>
-          <div style="flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:8px;">
-            ${cmts.map(c => `<div class="testimony-card"><div class="testimony-header"><span class="testimony-badge">✓ ${c.nick}</span><span class="testimony-time">${c.time}</span></div><div class="testimony-body">${c.text}</div></div>`).join('') || '<div style="font-size:12.5px; color:var(--text-muted); text-align:center; padding:24px 0;">첫 번째 이웃 공동 증언을 남겨주세요.<br>댓글에 시간대를 적으면 소음 분석 그래프에 즉시 반영됩니다.</div>'}
-          </div>
-        `;
-
       document.getElementById('detail-body').innerHTML = `
-        <div style="background:var(--bg-white); border:1px solid var(--border-line); border-radius:12px; padding:12px 14px; flex-shrink:0;">
-          <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:6px;">
-            <span style="font-size:16px; font-weight:900; color:var(--text-main);">${post.category}</span>
-            <span class="sc-db-badge lv-${post.whoLevel}" style="font-size:13px;">${who.shortDb}</span>
+        <div class="nd-summary-card">
+          <div class="nd-row-top">
+            <div>
+              <div class="nd-field-lbl">소음 종류</div>
+              <div class="nd-cat-val">${post.category}</div>
+            </div>
+            <div style="text-align:right;">
+              <div class="nd-field-lbl">체감 강도</div>
+              <span class="nd-db-pill lv-${post.whoLevel}">${who.shortDb}</span>
+            </div>
           </div>
-          <div style="font-size:15px; font-weight:900; color:var(--text-main);">${mainLoc}</div>
-          <div style="font-size:12px; color:var(--text-muted); margin-top:2px;">${subAddr}</div>
+          <div>
+            <div class="nd-field-lbl">발생 위치</div>
+            <div class="nd-loc-main">${mainLoc}</div>
+            <div class="nd-loc-sub">${subAddr}</div>
+          </div>
         </div>
-        <div class="detail-subtabs">
-          <button type="button" class="btn-subtab ${state.detailTab === 'analysis' ? 'active' : ''}" id="tab-btn-analysis">📊 소음 분석</button>
-          <button type="button" class="btn-subtab ${state.detailTab === 'testimony' ? 'active' : ''}" id="tab-btn-testimony">💬 이웃 증언 (${cmts.length})</button>
-        </div>
-        <div class="detail-tab-panel">${tabContent}</div>
-        <div class="detail-bottom-cta-row">
-          <button type="button" class="btn-outline" id="btn-copy-gov" style="height:46px;">🏛️ 민원복사</button>
-          <button type="button" class="btn-primary" id="btn-detail-empathy" style="flex:1; height:46px; font-size:14.5px; background:${post.empathizedByMe ? 'var(--secondary)' : 'var(--primary)'};">🙌 저도 들었어요 (${post.empathyCount}명)</button>
+
+        ${renderNoiseAnalysisHTML(post)}
+
+        <div class="nd-comm-section">
+          <div style="padding:14px 16px 12px; border-bottom:1px solid var(--border-line);">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+              <strong style="font-size:15px; font-weight:900; color:var(--text-main);">이웃 증언 · 커뮤니티</strong>
+              <span style="font-size:12px; font-weight:700; color:var(--text-muted);">댓글 ${cmts.length + 1}</span>
+            </div>
+            <div class="comm-composer">
+              <textarea id="input-detail-comment" maxlength="300" placeholder="겪으신 시간대(예: 밤 11시)와 상황을 댓글로 남겨주세요."></textarea>
+              <div class="comm-composer-foot">
+                <span class="comm-char-cnt">시간대를 적으면 위 그래프에 즉시 반영됩니다</span>
+                <button type="button" class="btn-comm-submit" id="btn-add-comment">등록</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="comm-list-flat">
+            <div class="nc-item" style="background:var(--bg-subtle);">
+              <div class="nc-head">
+                <div class="nc-author-row">
+                  <span class="nc-nick">${post.nickname || '최초제보자'}</span>
+                  <span class="nc-loc-tag">최초 제보</span>
+                </div>
+                <span class="nc-time">${post.occurredTime || relTime(post.timestamp)}</span>
+              </div>
+              <div class="nc-body">${post.content}</div>
+              <div class="nc-foot">
+                <span style="font-size:11.5px; color:var(--text-muted);">현장 인증됨</span>
+                <div class="nc-vote-group">
+                  <button type="button" class="btn-nc-vote ${post.empathizedByMe ? 'active-up' : ''}" id="btn-detail-up">👍 ${post.empathyCount || 0}</button>
+                  <button type="button" class="btn-nc-vote ${post.dislikedByMe ? 'active-dn' : ''}" id="btn-detail-dn">👎 ${post.dislikeCount || 0}</button>
+                </div>
+              </div>
+            </div>
+
+            ${cmts.map((c, idx) => `
+              <div class="nc-item">
+                <div class="nc-head">
+                  <div class="nc-author-row">
+                    <span class="nc-nick">${c.nick}</span>
+                  </div>
+                  <span class="nc-time">${c.time}</span>
+                </div>
+                <div class="nc-body">${c.text}</div>
+                <div class="nc-foot">
+                  <span style="font-size:11.5px; color:var(--text-muted);">이웃 증언</span>
+                  <div class="nc-vote-group">
+                    <button type="button" class="btn-nc-vote ${c.likedByMe ? 'active-up' : ''}" data-cmt-up="${idx}">👍 ${c.likes || 0}</button>
+                    <button type="button" class="btn-nc-vote ${c.dislikedByMe ? 'active-dn' : ''}" data-cmt-dn="${idx}">👎 ${c.dislikes || 0}</button>
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
         </div>
       `;
 
-      document.getElementById('tab-btn-analysis').onclick = () => { state.detailTab = 'analysis'; openPostDetail(postId); };
-      document.getElementById('tab-btn-testimony').onclick = () => { state.detailTab = 'testimony'; openPostDetail(postId); };
-      document.getElementById('btn-detail-empathy').onclick = () => { post.empathizedByMe = !post.empathizedByMe; post.empathyCount += post.empathizedByMe ? 1 : -1; saveSandboxData(); openPostDetail(postId); };
-      document.getElementById('btn-copy-gov').onclick = () => {
-        const an = analyzePostNoisePattern(post);
-        navigator.clipboard.writeText(`[53데시벨 소음 분석 리포트]\n• 위치: ${mainLoc} (${subAddr})\n• 유형: ${post.category} (${who.badge})\n• 신뢰도: ${an.cisScore}% (공감 ${an.totalEmpathy}명 · 증언 ${an.totalComments}건)\n• 집중 시간대: ${an.peakLabel}\n• 내용: ${post.content}`).then(() => showToast('민원 리포트가 복사되었어요.'));
+      document.getElementById('btn-detail-up').onclick = () => {
+        post.empathizedByMe = !post.empathizedByMe;
+        post.empathyCount = (post.empathyCount || 0) + (post.empathizedByMe ? 1 : -1);
+        saveSandboxData();
+        openPostDetail(postId);
       };
-      const addBtn = document.getElementById('btn-add-comment');
-      if (addBtn) addBtn.onclick = () => { const val = document.getElementById('input-detail-comment').value.trim(); if (!val) return; post.comments = post.comments || []; post.comments.push({ nick: state.user.nickname || '익명이웃', text: val, time: '방금 전' }); saveSandboxData(); openPostDetail(postId); };
+      document.getElementById('btn-detail-dn').onclick = () => {
+        post.dislikedByMe = !post.dislikedByMe;
+        post.dislikeCount = (post.dislikeCount || 0) + (post.dislikedByMe ? 1 : -1);
+        saveSandboxData();
+        openPostDetail(postId);
+      };
+
+      document.querySelectorAll('[data-cmt-up]').forEach(btn => {
+        btn.onclick = () => {
+          const c = post.comments[Number(btn.dataset.cmtUp)];
+          if (!c) return;
+          c.likedByMe = !c.likedByMe;
+          c.likes = (c.likes || 0) + (c.likedByMe ? 1 : -1);
+          saveSandboxData();
+          openPostDetail(postId);
+        };
+      });
+      document.querySelectorAll('[data-cmt-dn]').forEach(btn => {
+        btn.onclick = () => {
+          const c = post.comments[Number(btn.dataset.cmtDn)];
+          if (!c) return;
+          c.dislikedByMe = !c.dislikedByMe;
+          c.dislikes = (c.dislikes || 0) + (c.dislikedByMe ? 1 : -1);
+          saveSandboxData();
+          openPostDetail(postId);
+        };
+      });
+
+      document.getElementById('btn-add-comment').onclick = () => {
+        const inp = document.getElementById('input-detail-comment');
+        const val = inp ? inp.value.trim() : '';
+        if (!val) { showToast('댓글 내용을 입력해 주세요.'); return; }
+        post.comments = post.comments || [];
+        post.comments.unshift({ nick: state.user.nickname || '익명이웃', text: val, time: '방금 전', likes: 0, dislikes: 0 });
+        saveSandboxData();
+        openPostDetail(postId);
+        showToast('증언 댓글이 등록되었습니다.');
+      };
+
       document.getElementById('btn-detail-112').onclick = () => open112Modal(post);
       goScreen('screen-detail');
     }
