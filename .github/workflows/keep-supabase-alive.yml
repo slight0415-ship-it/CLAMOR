@@ -9,11 +9,10 @@ jobs:
   ping-supabase:
     runs-on: ubuntu-latest
     steps:
-      - name: Ping Supabase REST API
+      - name: Ping Supabase Auth Health
         run: |
           STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
-            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
-            "https://ihzkifnpmdvlqkjhkuey.supabase.co/rest/v1/")
+            "https://ihzkifnpmdvlqkjhkuey.supabase.co/auth/v1/health")
           echo "HTTP Status: $STATUS"
           if [ "$STATUS" -ge 200 ] && [ "$STATUS" -lt 400 ]; then
             echo "Supabase ping succeeded."
