@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨 (v1.4.7)</title>
+  <title>53데시벨 (v1.4.8)</title>
 
   <!-- 인라인 Web App Manifest (standalone 전체 화면 설치 지원) -->
   <link id="pwa-manifest-link" rel="manifest">
@@ -49,7 +49,7 @@
 
   <style>
     /* ==========================================================================
-       [v1.4.7 디자인 시스템]
+       [v1.4.8 디자인 시스템]
        - 딥 로얄 블루(#1E3A8A) + 스카이 시안(#0284C7) + 경고 코랄 레드(#E11D48)
        - 순백색(#FFFFFF) 플랫 카드 & 명확한 버튼 배치
        ========================================================================== */
@@ -188,7 +188,7 @@
     }
 
     /* ==========================================================================
-       [화면 1] 스플래시 (v1.4.7)
+       [화면 1] 스플래시 (v1.4.8)
        ========================================================================== */
     #screen-splash {
       z-index: 100;
@@ -333,7 +333,7 @@
       filter: saturate(32%) brightness(1.04) contrast(0.98);
     }
 
-    /* [v1.4.7 입체 미니 핀 + 상태별 컬러(레드/그린/블랙)] */
+    /* [v1.4.8 입체 미니 핀 + 상태별 컬러(레드/그린/블랙)] */
     .nm-wrap {
       position: relative;
       display: flex;
@@ -417,20 +417,35 @@
     .map-bottom-sheet.expanded .spot-carousel-wrap { flex-direction: column; overflow-x: hidden; overflow-y: auto; scroll-snap-type: none; gap: 10px; padding: 6px 14px 76px; }
     .map-bottom-sheet.expanded .spot-slide { flex: none; padding: 0; }
 
-    .spot-card { width: 100%; background-color: var(--bg-white); border: 1px solid var(--border-line); border-radius: 14px; padding: 12px 14px; display: flex; flex-direction: column; justify-content: space-between; gap: 5px; cursor: pointer; }
-    .sc-top-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
-    .sc-badge { font-size: 11.5px; font-weight: 800; padding: 2px 8px; border-radius: 6px; white-space: nowrap; }
-    .sc-badge.lv-3 { background-color: var(--lv3-soft); color: var(--lv3-red); }
-    .sc-badge.lv-2 { background-color: var(--lv2-soft); color: var(--lv2-orange); }
-    .sc-badge.lv-1 { background-color: var(--lv1-soft); color: var(--lv1-yellow); }
-    .sc-trust { font-size: 12px; font-weight: 800; color: var(--primary); }
-    .sc-loc { font-size: 15px; font-weight: 900; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .sc-desc { font-size: 13px; color: var(--text-sub); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
-    .sc-actions { display: flex; align-items: center; gap: 8px; padding-top: 4px; }
-    .btn-card-act { height: 32px; padding: 0 11px; border-radius: 8px; background-color: var(--bg-subtle); border: 1px solid var(--border-line); font-size: 12px; font-weight: 800; color: var(--text-sub); display: inline-flex; align-items: center; gap: 4px; }
+    .picked-loc-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background-color: #0284C7;
+      border: 3px solid #FFFFFF;
+      box-shadow: 0 0 0 5px rgba(2, 132, 199, 0.30), 0 2px 6px rgba(15, 23, 42, 0.35);
+      pointer-events: none;
+    }
+
+    .spot-card { width: 100%; background-color: var(--bg-white); border: 1px solid var(--border-line); border-radius: 14px; padding: 13px 15px; display: flex; flex-direction: column; justify-content: space-between; gap: 7px; cursor: pointer; }
+    .sc-meta-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: nowrap; }
+    .sc-cat-db { display: flex; align-items: center; gap: 7px; min-width: 0; }
+    .sc-cat-txt { font-size: 15px; font-weight: 900; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sc-db-badge { font-size: 15px; font-weight: 900; padding: 2px 8px; border-radius: 7px; white-space: nowrap; flex-shrink: 0; }
+    .sc-db-badge.lv-3 { background-color: #991B1B; color: #FFFFFF; }
+    .sc-db-badge.lv-2 { background-color: #C2410C; color: #FFFFFF; }
+    .sc-db-badge.lv-1 { background-color: #B45309; color: #FFFFFF; }
+    .sc-trust { font-size: 15px; font-weight: 900; color: var(--primary); white-space: nowrap; flex-shrink: 0; }
+    .sc-loc-block { display: flex; flex-direction: column; gap: 2px; }
+    .sc-loc-main { font-size: 15px; font-weight: 900; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sc-loc-sub { font-size: 11.5px; font-weight: 600; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sc-desc { font-size: 14px; color: var(--text-sub); line-height: 1.42; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .sc-actions { display: flex; align-items: center; gap: 8px; padding-top: 2px; }
+    .btn-card-act { height: 32px; padding: 0 11px; border-radius: 8px; background-color: var(--bg-subtle); border: 1px solid var(--border-line); font-size: 12.5px; font-weight: 800; color: var(--text-sub); display: inline-flex; align-items: center; gap: 4px; }
     .btn-card-act.active { background-color: var(--primary-soft); border-color: var(--primary); color: var(--primary); }
 
-    .fab-write { position: absolute; right: 14px; bottom: 12px; z-index: 42; height: 42px; padding: 0 15px; border-radius: 999px; background-color: var(--primary); color: #FFFFFF; font-size: 13.5px; font-weight: 800; display: flex; align-items: center; gap: 5px; }
+    .sheet-header-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+    .btn-header-write { height: 30px; padding: 0 10px; border-radius: 9px; background-color: var(--primary); color: #FFFFFF; font-size: 12px; font-weight: 800; display: inline-flex; align-items: center; gap: 3px; white-space: nowrap; }
 
     /* [탭 2~4] */
     .tab-scroll-body { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 12px; }
@@ -444,7 +459,7 @@
     .kpi-box strong { display: block; font-size: 17px; font-weight: 900; color: var(--primary); margin-top: 2px; }
     .kpi-box strong.red { color: var(--lv3-red); }
 
-    /* [v1.4.7 네이버 댓글형 순수 의견 커뮤니티 UI] */
+    /* [v1.4.8 네이버 댓글형 순수 의견 커뮤니티 UI] */
     #tab-view-community { background-color: var(--bg-white); }
     .comm-wrap { flex: 1; overflow-y: auto; background-color: var(--bg-white); display: flex; flex-direction: column; }
     .comm-top-zone { padding: 12px 16px 10px; border-bottom: 8px solid var(--bg-page); display: flex; flex-direction: column; gap: 10px; }
@@ -606,7 +621,7 @@
 
     <!-- [화면 1] 스플래시 -->
     <section class="screen" id="screen-splash" aria-label="53데시벨 시작 화면">
-      <div class="splash-top-meta"><span class="version-pill">v1.4.7</span></div>
+      <div class="splash-top-meta"><span class="version-pill">v1.4.8</span></div>
       <div class="splash-center-group">
         <div class="brand-logo-lockup" role="img" aria-label="53데시벨">
           <span class="logo-num-box">53</span>
@@ -775,16 +790,15 @@
         <div class="map-bottom-sheet" id="feed-sheet">
           <div class="sheet-header-row">
             <div class="sheet-title-wrap">
-              <h2 id="sheet-section-title">주변 소음 지점</h2>
+              <h2 id="sheet-section-title">주변 소음 정보</h2>
               <span class="spot-count-pill" id="spot-index-indicator">0 / 0</span>
             </div>
-            <button type="button" class="btn-outline" id="sheet-expand-btn" style="height:30px; font-size:12px;">전체 보기 ▲</button>
+            <div class="sheet-header-actions">
+              <button type="button" class="btn-header-write" id="btn-open-write">+ 소음 올리기</button>
+              <button type="button" class="btn-outline" id="sheet-expand-btn" style="height:30px; font-size:12px; padding:0 9px; border-radius:9px;">전체 보기 ▲</button>
+            </div>
           </div>
           <div class="spot-carousel-wrap" id="feed-list"></div>
-          <button type="button" class="fab-write" id="btn-open-write">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><path d="M12 5v14M5 12h14"/></svg>
-            <span>소음 올리기</span>
-          </button>
         </div>
       </div>
 
@@ -1175,7 +1189,7 @@
       draftLocation: { lat: 37.4556, lng: 126.7282, roadAddr: '', jibunAddr: '', bldgName: '', bun: '', ji: '' },
       pickerMode: 'onboard', pickerMap: null,
       selectedPostId: null, detailTab: 'analysis', showCCTV: false,
-      map: null, overlays: [], myLocOverlay: null, myLat: 37.4587, myLng: 126.7302, selectedBuildingId: null,
+      map: null, overlays: [], myLocOverlay: null, myLat: 37.4587, myLng: 126.7302, pickedLocOverlay: null, pickedLat: null, pickedLng: null, selectedBuildingId: null,
       writeDraft: { space: null, roadType: '동네 작은 도로', floor: 1, category: '바이크·차량 굉음', shortTag: '바이크·굉음', group: 'bike', whoLevel: 2, occurredTime: '방금 전' }
     };
 
@@ -1458,6 +1472,7 @@
       const loc = state.draftLocation;
       if (state.pickerMode === 'onboard' || state.pickerMode === 'guest') {
         state.centerLat = loc.lat; state.centerLng = loc.lng;
+        state.pickedLat = loc.lat; state.pickedLng = loc.lng;
         state.selectedPostId = null;
         hasAutoLocatedOnMain = true; // 사용자가 직접 지정한 위치를 GPS로 덮어쓰지 않도록 고정
         try { localStorage.setItem('53db_last_gps', JSON.stringify({ lat: loc.lat, lng: loc.lng, ts: Date.now() })); } catch (e) {}
@@ -1612,8 +1627,16 @@
       if (state.myLat && state.myLng) {
         const dotEl = document.createElement('div');
         dotEl.className = 'my-loc-pulse';
-        state.myLocOverlay = new kakao.maps.CustomOverlay({ position: new kakao.maps.LatLng(state.myLat, state.myLng), content: dotEl, zIndex: 15 });
+        state.myLocOverlay = new kakao.maps.CustomOverlay({ position: new kakao.maps.LatLng(state.myLat, state.myLng), content: dotEl, zIndex: 12 });
         state.myLocOverlay.setMap(state.map);
+      }
+      if (state.pickedLocOverlay) { state.pickedLocOverlay.setMap(null); }
+      if (state.pickedLat && state.pickedLng) {
+        const pDot = document.createElement('div');
+        pDot.className = 'picked-loc-dot';
+        pDot.title = '내가 지정한 위치';
+        state.pickedLocOverlay = new kakao.maps.CustomOverlay({ position: new kakao.maps.LatLng(state.pickedLat, state.pickedLng), content: pDot, zIndex: 18 });
+        state.pickedLocOverlay.setMap(state.map);
       }
       const mapLevel = state.map.getLevel();
       const zoomCls = mapLevel >= 6 ? 'zoom-far' : '';
@@ -1695,7 +1718,7 @@
 
     function renderHome() {
       const visiblePosts = getVisiblePostsInMap();
-      document.getElementById('sheet-section-title').textContent = `${state.viewportRegionLabel} 소음 지점`;
+      document.getElementById('sheet-section-title').textContent = '주변 소음 정보';
       const listEl = document.getElementById('feed-list'), idxPill = document.getElementById('spot-index-indicator');
       if (!visiblePosts.length) {
         idxPill.textContent = '0 / 0';
@@ -1708,8 +1731,29 @@
       const curIdx = state.selectedPostId ? visiblePosts.findIndex(p => p.id === state.selectedPostId) : 0;
       idxPill.textContent = state.selectedPostId ? `${curIdx + 1} / ${visiblePosts.length}` : `총 ${visiblePosts.length}건`;
       listEl.innerHTML = visiblePosts.map(post => {
-        const cis = calculateCIS(post), who = WHO_LEVELS[post.whoLevel] || WHO_LEVELS[2], loc = formatBackroadAnchor(post.roadName, post.anchorBuilding, post.roadType);
-        return `<div class="spot-slide" id="spot-slide-${post.id}" data-id="${post.id}"><article class="spot-card"><div class="sc-top-row"><span class="sc-badge lv-${post.whoLevel}">${who.shortDb} · ${post.category}</span><span class="sc-trust">신뢰도 ${cis.cisScore}%</span></div><div class="sc-loc">📍 ${loc}</div><p class="sc-desc">${post.content}</p><div class="sc-actions"><button type="button" class="btn-card-act ${post.empathizedByMe ? 'active' : ''}" data-emp="${post.id}"><span>🙌 저도 들었어요</span><strong>${post.empathyCount}</strong></button><button type="button" class="btn-card-act" data-cmt="${post.id}"><span>💬 증언</span><strong>${(post.comments || []).length}</strong></button></div></article></div>`;
+        const cis = calculateCIS(post), who = WHO_LEVELS[post.whoLevel] || WHO_LEVELS[2];
+        const mainLoc = (post.anchorBuilding || '').replace(/\d+\s*호/g, '').trim() || post.roadType || post.dong;
+        const subAddr = post.roadName || post.fullAddress || '';
+        return `<div class="spot-slide" id="spot-slide-${post.id}" data-id="${post.id}">
+          <article class="spot-card">
+            <div class="sc-meta-row">
+              <div class="sc-cat-db">
+                <span class="sc-cat-txt">${post.category}</span>
+                <span class="sc-db-badge lv-${post.whoLevel}">${who.shortDb}</span>
+              </div>
+              <span class="sc-trust">신뢰도 ${cis.cisScore}%</span>
+            </div>
+            <div class="sc-loc-block">
+              <div class="sc-loc-main">${mainLoc}</div>
+              <div class="sc-loc-sub">${subAddr}</div>
+            </div>
+            <p class="sc-desc">${post.content}</p>
+            <div class="sc-actions">
+              <button type="button" class="btn-card-act ${post.empathizedByMe ? 'active' : ''}" data-emp="${post.id}"><span>🙌 저도 들었어요</span><strong>${post.empathyCount}</strong></button>
+              <button type="button" class="btn-card-act" data-cmt="${post.id}"><span>💬 증언</span><strong>${(post.comments || []).length}</strong></button>
+            </div>
+          </article>
+        </div>`;
       }).join('');
       listEl.querySelectorAll('[data-emp]').forEach(btn => {
         btn.onclick = e => { e.stopPropagation(); const p = state.posts.find(x => x.id === btn.dataset.emp); if (!p) return; p.empathizedByMe = !p.empathizedByMe; p.empathyCount += p.empathizedByMe ? 1 : -1; saveSandboxData(); renderHome(); };
