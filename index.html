@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨 (v1.4.11)</title>
+  <title>53데시벨 (v1.4.12)</title>
 
   <!-- 인라인 Web App Manifest (standalone 전체 화면 설치 지원) -->
   <link id="pwa-manifest-link" rel="manifest">
@@ -49,7 +49,7 @@
 
   <style>
     /* ==========================================================================
-       [v1.4.11 디자인 시스템]
+       [v1.4.12 디자인 시스템]
        - 딥 로얄 블루(#1E3A8A) + 스카이 시안(#0284C7) + 경고 코랄 레드(#E11D48)
        - 순백색(#FFFFFF) 플랫 카드 & 명확한 버튼 배치
        ========================================================================== */
@@ -188,7 +188,7 @@
     }
 
     /* ==========================================================================
-       [화면 1] 스플래시 (v1.4.11)
+       [화면 1] 스플래시 (v1.4.12)
        ========================================================================== */
     #screen-splash {
       z-index: 100;
@@ -333,7 +333,7 @@
       filter: saturate(32%) brightness(1.04) contrast(0.98);
     }
 
-    /* [v1.4.11 입체 미니 핀 + 상태별 컬러(레드/그린/블랙)] */
+    /* [v1.4.12 입체 미니 핀 + 상태별 컬러(레드/그린/블랙)] */
     .nm-wrap {
       position: relative;
       display: flex;
@@ -431,7 +431,7 @@
     .sc-meta-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: nowrap; }
     .sc-cat-db { display: flex; align-items: center; gap: 7px; min-width: 0; }
     .sc-cat-txt { font-size: 15px; font-weight: 900; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .sc-db-badge { font-size: 15px; font-weight: 900; padding: 2px 8px; border-radius: 7px; white-space: nowrap; flex-shrink: 0; }
+    .sc-db-badge { font-size: 12.5px; font-weight: 900; padding: 3px 8px; border-radius: 7px; white-space: nowrap; flex-shrink: 0; }
     .sc-db-badge.lv-3 { background-color: #991B1B; color: #FFFFFF; }
     .sc-db-badge.lv-2 { background-color: #C2410C; color: #FFFFFF; }
     .sc-db-badge.lv-1 { background-color: #B45309; color: #FFFFFF; }
@@ -459,7 +459,7 @@
     .kpi-box strong { display: block; font-size: 17px; font-weight: 900; color: var(--primary); margin-top: 2px; }
     .kpi-box strong.red { color: var(--lv3-red); }
 
-    /* [v1.4.11 네이버 댓글형 순수 의견 커뮤니티 UI] */
+    /* [v1.4.12 네이버 댓글형 순수 의견 커뮤니티 UI] */
     #tab-view-community { background-color: var(--bg-white); }
     .comm-wrap { flex: 1; overflow-y: auto; background-color: var(--bg-white); display: flex; flex-direction: column; }
     .comm-top-zone { padding: 12px 16px 10px; border-bottom: 8px solid var(--bg-page); display: flex; flex-direction: column; gap: 10px; }
@@ -649,7 +649,7 @@
 
     <!-- [화면 1] 스플래시 -->
     <section class="screen" id="screen-splash" aria-label="53데시벨 시작 화면">
-      <div class="splash-top-meta"><span class="version-pill">v1.4.11</span></div>
+      <div class="splash-top-meta"><span class="version-pill">v1.4.12</span></div>
       <div class="splash-center-group">
         <div class="brand-logo-lockup" role="img" aria-label="53데시벨">
           <span class="logo-num-box">53</span>
@@ -745,12 +745,12 @@
             <div class="terms-sub-text"><strong>우리 동네 소음 알림 수신 동의 (선택)</strong><span>이웃 공감 및 심야 소음 주의 안내를 전달합니다.</span></div>
           </label>
         </div>
-        <div style="margin-top:6px;">
-          <label style="display:block; font-size:13px; font-weight:800; color:var(--text-sub); margin-bottom:6px;">활동 닉네임 설정</label>
-          <div style="display:flex; gap:8px;">
-            <div class="flat-input-box" style="flex:1;"><input type="text" id="input-nickname" value="조용한이웃01"></div>
-            <button type="button" class="btn-outline" id="btn-random-nick" style="height:46px;">새로 추천</button>
-          </div>
+        <div style="margin-top:10px; padding:14px 16px; background:var(--bg-subtle); border:1px solid var(--border-line); border-radius:12px;">
+          <div style="font-size:13.5px; font-weight:900; color:var(--primary); margin-bottom:4px;">✓ 활동 닉네임 자동 설정 안내</div>
+          <p style="font-size:12.5px; line-height:1.5; color:var(--text-sub); word-break:keep-all;">
+            53데시벨은 실거주민 신뢰를 위해 닉네임을 직접 입력하지 않습니다.<br>
+            다음 단계에서 거주지를 설정하면 <strong>지역과 가입 순서에 따라 자동 부여</strong>됩니다. (예: 만수2동 주민1, 만수2동 주민2)
+          </p>
         </div>
         <div style="margin-top:auto;"><button type="button" class="btn-primary" id="btn-terms-start" disabled>시작하기</button></div>
       </div>
@@ -958,22 +958,25 @@
 
         <div class="write-step-block">
           <h3>발생 일시를 선택해 주세요</h3>
-          <div class="time-chip-grid" id="write-time-chips">
-            <button type="button" class="btn-time-chip active" data-time="방금 전">방금 전</button>
-            <button type="button" class="btn-time-chip" data-time="오늘 새벽">오늘 새벽</button>
-            <button type="button" class="btn-time-chip" data-time="오늘 낮">오늘 낮</button>
-            <button type="button" class="btn-time-chip" data-time="오늘 밤">오늘 밤</button>
-            <button type="button" class="btn-time-chip" data-time="어제 밤">어제 밤</button>
-            <button type="button" class="btn-time-chip" data-time="매일 반복">매일 반복</button>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <div class="time-chip-grid" id="write-day-chips">
+              <button type="button" class="btn-time-chip active" data-day="오늘">오늘</button>
+              <button type="button" class="btn-time-chip" data-day="어제">어제</button>
+              <button type="button" class="btn-time-chip" data-day="매일 반복">매일 반복</button>
+            </div>
+            <button type="button" id="btn-open-hour-picker" style="width:100%; height:46px; border-radius:12px; background:var(--bg-white); border:1.5px solid var(--primary); padding:0 14px; display:flex; align-items:center; justify-content:space-between; font-size:14.5px; font-weight:800; color:var(--primary);">
+              <span id="write-hour-display">🕐 발생 시각: 23시 (밤 11시)</span>
+              <span style="font-size:12px; font-weight:700; color:var(--text-muted);">변경 ▾</span>
+            </button>
           </div>
         </div>
 
         <div class="write-step-block">
           <h3>체감 소음 강도 (WHO 기준)</h3>
           <div class="who-level-stack">
-            <button type="button" class="btn-who-level" data-lv="1"><span><strong>🟡 거슬림 (53~60dB급)</strong> · 집중·휴식 방해</span></button>
-            <button type="button" class="btn-who-level active" data-lv="2"><span><strong>🟠 매우 시끄러움 (80dB급)</strong> · 청소기 수준, 대화 불가</span></button>
-            <button type="button" class="btn-who-level" data-lv="3"><span><strong>🔴 고통/공포 (100dB급)</strong> · 바이크 굉음·쇳덩이 충격</span></button>
+            <button type="button" class="btn-who-level" data-lv="1"><span><strong>🟡 거슬림 · 58dB (대화 수준)</strong> · 집중·휴식 방해</span></button>
+            <button type="button" class="btn-who-level active" data-lv="2"><span><strong>🟠 매우 시끄러움 · 82dB (청소기 수준)</strong> · 청소기 수준, 대화 불가</span></button>
+            <button type="button" class="btn-who-level" data-lv="3"><span><strong>🔴 고통/공포 · 102dB (열차 통과 수준)</strong> · 바이크 굉음·쇳덩이 충격</span></button>
           </div>
         </div>
 
@@ -1046,6 +1049,14 @@
       </div>
     </div>
 
+    <!-- 1시간 단위 발생 시각 선택 모달 -->
+    <div class="sheet-backdrop" id="modal-hour-picker" hidden>
+      <div class="native-modal-sheet">
+        <div class="sheet-title-bar"><h3>🕐 소음 발생 시각 선택 (1시간 단위)</h3><button type="button" class="btn-outline" id="btn-close-hour-picker">닫기</button></div>
+        <div id="hour-picker-grid" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; padding-top:4px;"></div>
+      </div>
+    </div>
+
     <!-- 112 문자 신고 모달 -->
     <div class="sheet-backdrop" id="modal-112" hidden>
       <div class="native-modal-sheet">
@@ -1094,9 +1105,9 @@
     };
 
     const WHO_LEVELS = {
-      1: { label: '거슬림 53dB+', shortDb: '58dB급', weight: 1.0, badge: '거슬림 53dB+' },
-      2: { label: '매우 시끄러움 80dB급', shortDb: '82dB급', weight: 1.8, badge: '시끄러움 80dB급' },
-      3: { label: '고통/공포 100dB급', shortDb: '102dB급', weight: 2.7, badge: '고통/공포 100dB급' }
+      1: { label: '거슬림 58dB (대화 수준)', shortDb: '58dB (대화 수준)', weight: 1.0, badge: '58dB (대화 수준)' },
+      2: { label: '매우 시끄러움 82dB (청소기 수준)', shortDb: '82dB (청소기 수준)', weight: 1.8, badge: '82dB (청소기 수준)' },
+      3: { label: '고통/공포 102dB (열차 통과 수준)', shortDb: '102dB (열차 통과 수준)', weight: 2.7, badge: '102dB (열차 통과 수준)' }
     };
 
     const CAT_OUTDOOR = [
@@ -1209,7 +1220,7 @@
       pickerMode: 'onboard', pickerMap: null,
       selectedPostId: null, detailTab: 'analysis', showCCTV: false,
       map: null, overlays: [], myLocOverlay: null, myLat: 37.4587, myLng: 126.7302, pickedLocOverlay: null, pickedLat: null, pickedLng: null, selectedBuildingId: null,
-      writeDraft: { space: null, roadType: '동네 작은 도로', floor: 1, category: '바이크·차량 굉음', shortTag: '바이크·굉음', group: 'bike', whoLevel: 2, occurredTime: '방금 전' }
+      writeDraft: { space: null, roadType: '동네 작은 도로', floor: 1, category: '바이크·차량 굉음', shortTag: '바이크·굉음', group: 'bike', whoLevel: 2, occurredDay: '오늘', occurredHour: new Date().getHours(), occurredTime: `오늘 ${new Date().getHours()}시` }
     };
 
     function loadSandboxData() {
@@ -1349,7 +1360,7 @@
     document.querySelectorAll('.btn-social').forEach(btn => {
       btn.addEventListener('click', () => {
         state.user.provider = btn.dataset.provider;
-        document.getElementById('input-nickname').value = `우리동네주민${String(state.accounts.length + 1).padStart(2, '0')}`;
+        // 닉네임은 거주지 설정 시 지역+가입순서로 자동 부여
         showAuthStep('auth-step-perm');
       });
     });
@@ -1368,8 +1379,7 @@
     chkReq.addEventListener('change', updateTermsButtonState);
     chkOpt.addEventListener('change', updateTermsButtonState);
 
-    const NICKS = ['조용한이웃', '수면권지킴이', '밤잠소중해', '53데시벨시민', '평화로운동네'];
-    document.getElementById('btn-random-nick').addEventListener('click', () => { document.getElementById('input-nickname').value = NICKS[Math.floor(Math.random() * NICKS.length)] + Math.floor(10 + Math.random() * 89); });
+    // 닉네임 자동 부여 정책 적용
     btnTermsStart.addEventListener('click', () => { if (!chkReq.checked) return; openPinPicker('onboard'); });
 
     function updatePickerAddressAtCenter(lat, lng) {
@@ -1417,8 +1427,16 @@
         if (typeof kakao === 'undefined' || !kakao.maps) return;
         kakao.maps.load(() => {
           const container = document.getElementById('picker-kakao-map');
-          const startLat = mode === 'write' ? state.draftLocation.lat : state.centerLat;
-          const startLng = mode === 'write' ? state.draftLocation.lng : state.centerLng;
+          let gpsStartLat = state.centerLat, gpsStartLng = state.centerLng;
+          try {
+            const savedGps = JSON.parse(localStorage.getItem('53db_last_gps'));
+            if (savedGps && savedGps.lat && savedGps.lng) {
+              gpsStartLat = savedGps.lat;
+              gpsStartLng = savedGps.lng;
+            }
+          } catch (e) {}
+          const startLat = mode === 'write' ? state.draftLocation.lat : gpsStartLat;
+          const startLng = mode === 'write' ? state.draftLocation.lng : gpsStartLng;
           const syncPickerCenter = () => {
             clearTimeout(pickerIdleTimer);
             pickerIdleTimer = setTimeout(() => {
@@ -1500,12 +1518,12 @@
         state.pickedLat = loc.lat; state.pickedLng = loc.lng;
         state.selectedPostId = null;
         hasAutoLocatedOnMain = true; // 사용자가 직접 지정한 위치를 GPS로 덮어쓰지 않도록 고정
-        try { localStorage.setItem('53db_last_gps', JSON.stringify({ lat: loc.lat, lng: loc.lng, ts: Date.now() })); } catch (e) {}
         const dongMatch = loc.jibunAddr.match(/\[지번\]\s*([^\s]+)/);
         const homeDong = dongMatch ? dongMatch[1] : '내 동네';
         state.viewportRegionLabel = homeDong;
         if (state.user.provider) {
-          const nick = document.getElementById('input-nickname').value.trim() || `우리동네주민${state.accounts.length + 1}`;
+          const sameDongCnt = state.accounts.filter(a => a.homeDong === homeDong).length;
+          const nick = `${homeDong} 주민${sameDongCnt + 1}`;
           const newAcc = { nickname: nick, provider: state.user.provider, homeDong, lat: loc.lat, lng: loc.lng, loggedIn: true, phoneVerifiedFor112: false };
           state.accounts.unshift(newAcc); state.user = { ...newAcc };
           saveSandboxData();
@@ -2077,6 +2095,8 @@
 
     document.getElementById('btn-open-write').onclick = () => {
       state.writeDraft.space = null;
+      state.writeDraft.occurredHour = new Date().getHours();
+      syncWriteTimeDisplay();
       state.selectedBuildingId = null;
       document.querySelectorAll('.btn-space-card').forEach(b => b.classList.remove('active'));
       document.getElementById('write-space-prompt').hidden = false;
@@ -2122,7 +2142,50 @@
     });
 
     document.querySelectorAll('.btn-road-pill').forEach(btn => { btn.onclick = () => { state.writeDraft.roadType = btn.dataset.roadtype; document.querySelectorAll('.btn-road-pill').forEach(b => b.classList.toggle('active', b === btn)); }; });
-    document.querySelectorAll('.btn-time-chip').forEach(btn => { btn.onclick = () => { state.writeDraft.occurredTime = btn.dataset.time; document.querySelectorAll('.btn-time-chip').forEach(b => b.classList.toggle('active', b === btn)); }; });
+    function formatHourLabel(h) {
+      const hr = Number(h);
+      if (hr === 0) return '0시 (자정)';
+      if (hr < 12) return `${hr}시 (오전 ${hr}시)`;
+      if (hr === 12) return '12시 (정오)';
+      return `${hr}시 (오후 ${hr - 12}시)`;
+    }
+    function syncWriteTimeDisplay() {
+      const d = state.writeDraft.occurredDay || '오늘';
+      const h = (typeof state.writeDraft.occurredHour === 'number') ? state.writeDraft.occurredHour : new Date().getHours();
+      state.writeDraft.occurredTime = `${d} ${h}시`;
+      const el = document.getElementById('write-hour-display');
+      if (el) el.textContent = `🕐 발생 시각: ${formatHourLabel(h)}`;
+    }
+    syncWriteTimeDisplay();
+
+    document.querySelectorAll('#write-day-chips .btn-time-chip').forEach(btn => {
+      btn.onclick = () => {
+        state.writeDraft.occurredDay = btn.dataset.day;
+        document.querySelectorAll('#write-day-chips .btn-time-chip').forEach(b => b.classList.toggle('active', b === btn));
+        syncWriteTimeDisplay();
+      };
+    });
+
+    document.getElementById('btn-open-hour-picker').onclick = () => {
+      const grid = document.getElementById('hour-picker-grid');
+      let html = '';
+      for (let h = 0; h < 24; h++) {
+        const isAct = (h === state.writeDraft.occurredHour);
+        html += `<button type="button" class="btn-floor-chip ${isAct ? 'active' : ''}" data-pick-hr="${h}" style="height:40px; font-size:13px;">${h}시</button>`;
+      }
+      grid.innerHTML = html;
+      grid.querySelectorAll('[data-pick-hr]').forEach(b => {
+        b.onclick = () => {
+          state.writeDraft.occurredHour = Number(b.dataset.pickHr);
+          syncWriteTimeDisplay();
+          document.getElementById('modal-hour-picker').hidden = true;
+        };
+      });
+      document.getElementById('modal-hour-picker').hidden = false;
+    };
+    document.getElementById('btn-close-hour-picker').onclick = () => {
+      document.getElementById('modal-hour-picker').hidden = true;
+    };
     document.querySelectorAll('.btn-who-level').forEach(btn => { btn.onclick = () => { state.writeDraft.whoLevel = Number(btn.dataset.lv); document.querySelectorAll('.btn-who-level').forEach(b => b.classList.toggle('active', b === btn)); }; });
 
     document.getElementById('btn-write-to-112').onclick = () => {
