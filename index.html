@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨 (v1.4.13)</title>
+  <title>53데시벨 (v1.4.14)</title>
 
   <!-- 인라인 Web App Manifest (standalone 전체 화면 설치 지원) -->
   <link id="pwa-manifest-link" rel="manifest">
@@ -49,7 +49,7 @@
 
   <style>
     /* ==========================================================================
-       [v1.4.13 디자인 시스템]
+       [v1.4.14 디자인 시스템]
        - 딥 로얄 블루(#1E3A8A) + 스카이 시안(#0284C7) + 경고 코랄 레드(#E11D48)
        - 순백색(#FFFFFF) 플랫 카드 & 명확한 버튼 배치
        ========================================================================== */
@@ -188,7 +188,7 @@
     }
 
     /* ==========================================================================
-       [화면 1] 스플래시 (v1.4.13)
+       [화면 1] 스플래시 (v1.4.14)
        ========================================================================== */
     #screen-splash {
       z-index: 100;
@@ -314,7 +314,7 @@
     .bottom-tab-bar {
       height: calc(58px + var(--safe-bottom)); padding-bottom: var(--safe-bottom);
       background-color: var(--bg-white); border-top: 1px solid var(--border-line);
-      display: grid; grid-template-columns: repeat(3, 1fr); flex-shrink: 0; z-index: 45;
+      display: grid; grid-template-columns: repeat(4, 1fr); flex-shrink: 0; z-index: 45;
     }
     .btn-nav-tab { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: var(--text-muted); font-size: 11px; font-weight: 700; }
     .btn-nav-tab.active { color: var(--primary); font-weight: 900; }
@@ -333,7 +333,7 @@
       filter: saturate(32%) brightness(1.04) contrast(0.98);
     }
 
-    /* [v1.4.13 입체 미니 핀 + 상태별 컬러(레드/그린/블랙)] */
+    /* [v1.4.14 입체 미니 핀 + 상태별 컬러(레드/그린/블랙)] */
     .nm-wrap {
       position: relative;
       display: flex;
@@ -459,7 +459,7 @@
     .kpi-box strong { display: block; font-size: 17px; font-weight: 900; color: var(--primary); margin-top: 2px; }
     .kpi-box strong.red { color: var(--lv3-red); }
 
-    /* [v1.4.13 네이버 댓글형 순수 의견 커뮤니티 UI] */
+    /* [v1.4.14 네이버 댓글형 순수 의견 커뮤니티 UI] */
     #tab-view-community { background-color: var(--bg-white); }
     .comm-wrap { flex: 1; overflow-y: auto; background-color: var(--bg-white); display: flex; flex-direction: column; }
     .comm-top-zone { padding: 12px 16px 10px; border-bottom: 8px solid var(--bg-page); display: flex; flex-direction: column; gap: 10px; }
@@ -504,20 +504,63 @@
     .nc-reply-form input { flex: 1; height: 34px; border: 1px solid var(--border-strong); border-radius: 7px; padding: 0 10px; font-size: 13px; background: var(--bg-white); outline: none; }
     .nc-reply-form button { height: 34px; padding: 0 12px; border-radius: 7px; background: var(--primary); color: #FFFFFF; font-size: 12px; font-weight: 800; }
 
-    .sound-player-banner { background: linear-gradient(135deg, #1E3A8A 0%, #0284C7 100%); color: #FFFFFF; border-radius: 16px; padding: 18px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-    .sound-timer { font-size: 30px; font-weight: 900; font-variant-numeric: tabular-nums; }
-    .sound-controls { display: flex; align-items: center; gap: 18px; }
-    .btn-play-main { width: 48px; height: 48px; border-radius: 50%; background-color: #FFFFFF; color: var(--primary); font-size: 18px; font-weight: 900; display: grid; place-items: center; }
-    .sound-track-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px; border-bottom: 1px solid var(--border-line); cursor: pointer; }
-    .sound-track-row:last-child { border-bottom: none; }
+    /* [v1.4.14 커뮤니티 미니맵 · 검색 · 반투명 플로팅 글쓰기] */
+    .comm-search-strip { padding: 8px 14px; background: var(--bg-white); border-bottom: 1px solid var(--border-line); display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
+    .comm-minimap-wrap { position: relative; width: 100%; height: 172px; flex-shrink: 0; background: #E2E8F0; border-bottom: 1px solid var(--border-line); overflow: hidden; }
+    #comm-kakao-map { position: absolute; inset: 0; width: 100%; height: 100%; }
+    #comm-kakao-map img { filter: saturate(32%) brightness(1.04) contrast(0.98); }
+    .comm-map-badge { position: absolute; left: 10px; bottom: 10px; z-index: 20; background: rgba(15, 23, 42, 0.78); color: #FFFFFF; font-size: 11px; font-weight: 800; padding: 5px 10px; border-radius: 999px; backdrop-filter: blur(4px); pointer-events: none; }
+    .btn-comm-gps { position: absolute; right: 10px; bottom: 10px; z-index: 20; width: 34px; height: 34px; border-radius: 9px; background: var(--bg-white); border: 1px solid var(--border-strong); display: grid; place-items: center; color: var(--primary); }
+    .comm-mini-dot { width: 11px; height: 11px; border-radius: 50%; background: var(--primary); border: 2px solid #FFFFFF; box-shadow: 0 1px 4px rgba(15,23,42,0.45); cursor: pointer; }
+    .comm-mini-dot.hot { background: #DC2626; width: 13px; height: 13px; }
+    .btn-comm-fab {
+      position: absolute; right: 14px; bottom: calc(70px + var(--safe-bottom)); z-index: 42;
+      height: 44px; padding: 0 16px; border-radius: 999px;
+      background: rgba(30, 58, 138, 0.84); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      color: #FFFFFF; font-size: 13.5px; font-weight: 800;
+      box-shadow: 0 6px 18px rgba(30, 58, 138, 0.32);
+      display: inline-flex; align-items: center; gap: 6px; border: 1px solid rgba(255,255,255,0.28);
+    }
+    .nc-loc-tag { cursor: pointer; }
+    .nc-4btn-group { display: flex; align-items: center; gap: 4px; flex-wrap: nowrap; }
+    .btn-nc-4 { height: 27px; padding: 0 7px; border-radius: 6px; border: 1px solid var(--border-line); background-color: var(--bg-subtle); font-size: 11.5px; font-weight: 700; color: var(--text-sub); display: inline-flex; align-items: center; gap: 3px; white-space: nowrap; }
+    .btn-nc-4.act-emp { border-color: var(--primary); background: var(--primary-soft); color: var(--primary); }
+    .btn-nc-4.act-law { border-color: #7C3AED; background: #F3E8FF; color: #6D28D9; }
+    .btn-nc-4.act-bld { border-color: #0284C7; background: #E0F2FE; color: #0369A1; }
 
-    .deal-item-card { display: flex; gap: 12px; padding: 11px; background-color: var(--bg-white); border: 1px solid var(--border-line); border-radius: 12px; align-items: center; }
-    .deal-thumb { width: 62px; height: 62px; border-radius: 10px; background-color: var(--primary-soft); display: grid; place-items: center; font-size: 26px; flex-shrink: 0; }
-    .deal-info { flex: 1; display: flex; flex-direction: column; gap: 2px; }
-    .deal-info strong { font-size: 14px; font-weight: 800; }
-    .deal-price { font-size: 14.5px; font-weight: 900; color: var(--lv3-red); }
-    .deal-price em { font-style: normal; color: var(--text-main); margin-left: 4px; }
-    .deal-tag { font-size: 11px; color: var(--text-muted); }
+    /* [v1.4.14 법률 · 건축시공 전문가 마켓 UI (로톡·숨고 벤치마킹)] */
+    .pro-hero-banner { border-radius: 16px; padding: 16px; color: #FFFFFF; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
+    .pro-hero-banner.legal { background: linear-gradient(135deg, #1E3A8A 0%, #3730A3 100%); }
+    .pro-hero-banner.build { background: linear-gradient(135deg, #0F172A 0%, #0284C7 100%); }
+    .pro-hero-eyebrow { font-size: 11px; font-weight: 800; color: #BAE6FD; letter-spacing: -0.02em; }
+    .pro-hero-title { font-size: 17px; font-weight: 900; line-height: 1.35; word-break: keep-all; }
+    .pro-hero-desc { font-size: 12.5px; line-height: 1.45; color: rgba(255,255,255,0.88); word-break: keep-all; }
+    .btn-pro-joint { margin-top: 4px; height: 42px; border-radius: 10px; background: #FFFFFF; color: var(--primary); font-size: 13.5px; font-weight: 900; display: flex; align-items: center; justify-content: center; gap: 6px; }
+    .pro-filter-row { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; flex-shrink: 0; }
+    .pro-filter-row::-webkit-scrollbar { display: none; }
+    .btn-pro-chip { height: 33px; padding: 0 12px; border-radius: 999px; background: var(--bg-white); border: 1px solid var(--border-strong); font-size: 12.5px; font-weight: 700; color: var(--text-sub); white-space: nowrap; flex-shrink: 0; }
+    .btn-pro-chip.active { background: var(--primary); border-color: var(--primary); color: #FFFFFF; font-weight: 800; }
+    .pro-card { background: var(--bg-white); border: 1px solid var(--border-line); border-radius: 16px; padding: 15px; display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
+    .pro-card-top { display: flex; align-items: flex-start; gap: 12px; }
+    .pro-avatar { width: 52px; height: 52px; border-radius: 14px; background: var(--primary-soft); color: var(--primary); display: grid; place-items: center; font-size: 24px; flex-shrink: 0; font-weight: 900; }
+    .pro-meta { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+    .pro-badge-line { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+    .pro-verified { font-size: 10.5px; font-weight: 800; padding: 2px 6px; border-radius: 5px; background: var(--primary-soft); color: var(--primary); }
+    .pro-verified.build { background: #E0F2FE; color: #0369A1; }
+    .pro-name-row { display: flex; align-items: baseline; gap: 6px; }
+    .pro-name-row strong { font-size: 16px; font-weight: 900; color: var(--text-main); }
+    .pro-name-row span { font-size: 12px; font-weight: 600; color: var(--text-muted); }
+    .pro-rating { font-size: 12px; font-weight: 800; color: #B45309; }
+    .pro-rating em { font-style: normal; color: var(--text-muted); font-weight: 600; margin-left: 4px; }
+    .pro-tags { display: flex; gap: 5px; flex-wrap: wrap; }
+    .pro-tag { font-size: 11px; font-weight: 700; color: var(--text-sub); background: var(--bg-subtle); border: 1px solid var(--border-line); padding: 3px 7px; border-radius: 6px; }
+    .pro-pkg-box { background: var(--bg-subtle); border-radius: 10px; padding: 10px 12px; border-left: 3.5px solid var(--secondary); display: flex; flex-direction: column; gap: 3px; }
+    .pro-pkg-title { font-size: 13px; font-weight: 800; color: var(--text-main); }
+    .pro-pkg-sub { font-size: 12px; color: var(--text-sub); line-height: 1.4; }
+    .pro-review-line { font-size: 12px; color: var(--text-sub); background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 9px; padding: 8px 10px; line-height: 1.42; }
+    .pro-card-btns { display: grid; grid-template-columns: 1fr 1.25fr; gap: 8px; }
+    .btn-pro-sub { height: 39px; border-radius: 10px; background: var(--bg-subtle); border: 1px solid var(--border-strong); font-size: 13px; font-weight: 800; color: var(--text-main); }
+    .btn-pro-main { height: 39px; border-radius: 10px; background: var(--primary); color: #FFFFFF; font-size: 13px; font-weight: 800; }
 
     /* [화면 4] 소음 올리기 */
     #screen-write { z-index: 110; background-color: var(--bg-page); }
@@ -659,7 +702,7 @@
 
     <!-- [화면 1] 스플래시 -->
     <section class="screen" id="screen-splash" aria-label="53데시벨 시작 화면">
-      <div class="splash-top-meta"><span class="version-pill">v1.4.13</span></div>
+      <div class="splash-top-meta"><span class="version-pill">v1.4.14</span></div>
       <div class="splash-center-group">
         <div class="brand-logo-lockup" role="img" aria-label="53데시벨">
           <span class="logo-num-box">53</span>
@@ -840,76 +883,89 @@
         </div>
       </div>
 
-      <div class="tab-view" id="tab-view-community" hidden>
+      <div class="tab-view" id="tab-view-community" hidden style="position:relative;">
         <header class="flat-topbar">
-          <h2 style="font-size:17.5px; font-weight:900;">💬 이웃 소음 댓글방</h2>
-          <span id="comm-header-dong" style="font-size:12.5px; font-weight:800; color:var(--primary);">만수동</span>
+          <h2 style="font-size:17px; font-weight:900;">소음피해 주민 커뮤니티</h2>
+          <span id="comm-header-dong" style="font-size:12.5px; font-weight:800; color:var(--primary);">만수2동</span>
         </header>
-        <div class="comm-wrap">
-          <div class="comm-top-zone">
-            <div class="comm-scope-bar">
-              <button type="button" class="btn-comm-scope" data-scope="mybldg">🏢 내 건물</button>
-              <button type="button" class="btn-comm-scope active" data-scope="near">📍 반경 300m</button>
-              <button type="button" class="btn-comm-scope" data-scope="dong">🏘️ 우리 동네</button>
-            </div>
-            <div class="comm-composer">
-              <textarea id="comm-input-text" maxlength="300" placeholder="우리 동네나 건물 소음에 대한 의견을 자유롭게 남겨주세요."></textarea>
-              <div class="comm-composer-foot">
-                <span class="comm-char-cnt" id="comm-char-cnt">0 / 300</span>
-                <button type="button" class="btn-comm-submit" id="btn-comm-submit">등록</button>
-              </div>
-            </div>
+        <div class="comm-search-strip">
+          <div class="flat-input-box" style="flex:1; height:38px;">
+            <input type="text" id="comm-search-input" placeholder="건물명(예: 9단지, 가온빌리지) 또는 소음 검색">
+            <button type="button" id="btn-comm-search-clear" hidden style="font-size:13px; color:var(--text-muted); padding:0 4px;">✕</button>
           </div>
-          <div class="comm-sort-bar">
-            <div class="comm-sort-btns">
-              <button type="button" class="btn-comm-sort active" data-sort="popular">인기 의견</button>
-              <button type="button" class="btn-comm-sort" data-sort="latest">최신 의견</button>
-            </div>
-            <span class="comm-total-cnt" id="comm-total-cnt">의견 0</span>
+          <button type="button" class="btn-outline" id="btn-comm-search-go" style="height:38px; background:var(--primary); color:#fff; border-color:var(--primary);">검색</button>
+        </div>
+        <div class="comm-minimap-wrap">
+          <div id="comm-kakao-map"></div>
+          <div class="comm-map-badge" id="comm-map-badge">지도 범위 내 의견 확인 중...</div>
+          <button type="button" class="btn-comm-gps" id="btn-comm-gps" title="내 위치로 이동">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2" fill="currentColor"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+          </button>
+        </div>
+        <div class="comm-sort-bar" style="flex-shrink:0;">
+          <div class="comm-sort-btns">
+            <button type="button" class="btn-comm-sort active" data-sort="popular">인기 의견</button>
+            <button type="button" class="btn-comm-sort" data-sort="latest">최신 의견</button>
           </div>
+          <span class="comm-total-cnt" id="comm-total-cnt">의견 0</span>
+        </div>
+        <div class="comm-wrap" style="padding-bottom:72px;">
           <div class="comm-list-flat" id="comm-feed-list"></div>
+        </div>
+        <button type="button" class="btn-comm-fab" id="btn-comm-fab">✍️ 의견 쓰기</button>
+      </div>
+
+      <div class="tab-view" id="tab-view-legal" hidden>
+        <header class="flat-topbar">
+          <h2 style="font-size:17px; font-weight:900;">⚖️ 소음 법률 해결</h2>
+          <span style="font-size:11.5px; font-weight:800; color:var(--primary); background:var(--primary-soft); padding:4px 8px; border-radius:8px;">변호사·시공 합동</span>
+        </header>
+        <div class="tab-scroll-body" style="padding-bottom:24px;">
+          <div class="pro-hero-banner legal">
+            <span class="pro-hero-eyebrow">53데시벨 소음데이터 · 이웃증언 연계</span>
+            <div class="pro-hero-title">내용증명·합의부터 원인세대 방음시공 유도까지</div>
+            <div class="pro-hero-desc">커뮤니티에 쌓인 이웃 공감과 24시간 발생 패턴을 근거로 소음 전문 변호사가 직접 개입해 실질적인 해결을 돕습니다.</div>
+            <button type="button" class="btn-pro-joint" id="btn-legal-joint-cta">🤝 법률 · 건축시공 합동 해결 요청하기</button>
+          </div>
+          <div class="pro-filter-row" id="legal-filter-row">
+            <button type="button" class="btn-pro-chip active" data-lcat="all">전체</button>
+            <button type="button" class="btn-pro-chip" data-lcat="층간소음">층간소음·합의</button>
+            <button type="button" class="btn-pro-chip" data-lcat="반려동물">반려동물·임대차</button>
+            <button type="button" class="btn-pro-chip" data-lcat="외부소음">바이크·공사분쟁</button>
+            <button type="button" class="btn-pro-chip" data-lcat="공동대응">주민 공동대응</button>
+          </div>
+          <div id="legal-expert-list" style="display:flex; flex-direction:column; gap:12px;"></div>
         </div>
       </div>
 
-      <div class="tab-view" id="tab-view-care" hidden>
+      <div class="tab-view" id="tab-view-build" hidden>
         <header class="flat-topbar">
-          <h2 style="font-size:17.5px; font-weight:900;">🎧 53dB 수면 · 방음 케어</h2>
-          <span style="font-size:12px; font-weight:800; color:var(--secondary);">소음 차폐 솔루션</span>
+          <h2 style="font-size:17px; font-weight:900;">🛠️ 방음 · 건축시공</h2>
+          <span style="font-size:11.5px; font-weight:800; color:#0369A1; background:#E0F2FE; padding:4px 8px; border-radius:8px;">전문 설비 직결</span>
         </header>
-        <div class="tab-scroll-body">
-          <div class="sound-player-banner">
-            <span style="font-size:12px; font-weight:800; color:#BAE6FD;">53dB 사운드 테라피 · 층간·도로소음 차폐</span>
-            <strong id="sound-track-title" style="font-size:16.5px; font-weight:800;">깊은 밤 빗소리 (White Noise)</strong>
-            <div class="sound-timer" id="sound-timer-display">15:00</div>
-            <div class="sound-controls">
-              <button type="button" id="btn-sound-prev" style="color:#fff; font-size:18px;">⏮</button>
-              <button type="button" class="btn-play-main" id="btn-sound-toggle">▶</button>
-              <button type="button" id="btn-sound-next" style="color:#fff; font-size:18px;">⏭</button>
-            </div>
+        <div class="tab-scroll-body" style="padding-bottom:24px;">
+          <div class="pro-hero-banner build">
+            <span class="pro-hero-eyebrow">소음원인 차단 · 주거 기밀 보수 특화</span>
+            <div class="pro-hero-title">원인세대 방음설비 유도 & 우리 집 창틀·현관문 보수</div>
+            <div class="pro-hero-desc">법률가와 세트로 움직여 소음 유발세대의 방음 시공을 이끌어내며, 우풍·소음이 새는 노후 창틀과 현관문도 전문가가 진단·보수합니다.</div>
+            <button type="button" class="btn-pro-joint" id="btn-build-joint-cta">📋 법률 동행 · 현장 방음진단 신청하기</button>
           </div>
-
-          <div class="white-card">
-            <div class="wc-header"><span class="wc-title">재생 목록</span><span class="wc-sub">터치 시 즉시 재생</span></div>
-            <div id="sound-playlist">
-              <div class="sound-track-row playing" data-track="0"><div><strong>🌧️ 깊은 밤 빗소리</strong><div style="font-size:12px; color:var(--text-muted);">외부 바이크·차량 고주파 상쇄</div></div><span style="font-size:12px; font-weight:800; color:var(--primary);">선택됨</span></div>
-              <div class="sound-track-row" data-track="1"><div><strong>🌊 잔잔한 파도 소리</strong><div style="font-size:12px; color:var(--text-muted);">발망치·저주파 진동 심리 안정</div></div><span style="font-size:12px; color:var(--text-muted);">재생</span></div>
-              <div class="sound-track-row" data-track="2"><div><strong>📻 딥 브라운 노이즈</strong><div style="font-size:12px; color:var(--text-muted);">수면 유도 전용 저음역 백색소음</div></div><span style="font-size:12px; color:var(--text-muted);">재생</span></div>
-            </div>
+          <div class="pro-filter-row" id="build-filter-row">
+            <button type="button" class="btn-pro-chip active" data-bcat="all">전체</button>
+            <button type="button" class="btn-pro-chip" data-bcat="원인세대">원인세대 방음설비</button>
+            <button type="button" class="btn-pro-chip" data-bcat="창틀보수">창틀·샷시 보수</button>
+            <button type="button" class="btn-pro-chip" data-bcat="현관문">현관문 차음·기밀</button>
+            <button type="button" class="btn-pro-chip" data-bcat="충격저감">층간 충격저감</button>
           </div>
-
-          <div class="white-card">
-            <div class="wc-header"><span class="wc-title">🛡️ 검증된 방음 · 수면 필수템</span><span class="wc-sub">이웃 추천 큐레이션</span></div>
-            <div class="deal-item-card" onclick="showToast('방음 문풍지 상세 페이지로 연결됩니다.')"><div class="deal-thumb">🔇</div><div class="deal-info"><strong>고밀도 현관·창문 틈새 방음 문풍지 세트</strong><div class="deal-price">32% <em>14,900원</em></div><div class="deal-tag">#외부소음차단 #복도고성방지</div></div></div>
-            <div class="deal-item-card" onclick="showToast('층간소음 매트 페이지로 연결됩니다.')"><div class="deal-thumb">🧘</div><div class="deal-info"><strong>TPU 고탄성 층간소음 충격흡수 매트 (4cm)</strong><div class="deal-price">28% <em>49,000원</em></div><div class="deal-tag">#발망치예방 #아랫집배려</div></div></div>
-            <div class="deal-item-card" onclick="showToast('수면 이어플러그 페이지로 연결됩니다.')"><div class="deal-thumb">🎧</div><div class="deal-info"><strong>실리콘 수면 전용 차음 이어플러그 (-32dB)</strong><div class="deal-price">25% <em>18,500원</em></div><div class="deal-tag">#옆으로누워도편안 #꿀잠보장</div></div></div>
-          </div>
+          <div id="build-expert-list" style="display:flex; flex-direction:column; gap:12px;"></div>
         </div>
       </div>
 
       <nav class="bottom-tab-bar" aria-label="메인 메뉴">
         <button type="button" class="btn-nav-tab active" data-tab="map"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg><span>소음지도</span></button>
         <button type="button" class="btn-nav-tab" data-tab="community"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>커뮤니티</span></button>
-        <button type="button" class="btn-nav-tab" data-tab="care"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg><span>수면·방음</span></button>
+        <button type="button" class="btn-nav-tab" data-tab="legal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v18"/><path d="M5 7h14"/><path d="M5 7l-2 6h4l-2-6z"/><path d="M19 7l-2 6h4l-2-6z"/><path d="M8 21h8"/></svg><span>법률</span></button>
+        <button type="button" class="btn-nav-tab" data-tab="build"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span>건축시공</span></button>
       </nav>
     </section>
 
@@ -1064,6 +1120,38 @@
       <div class="native-modal-sheet">
         <div class="sheet-title-bar"><h3>🕐 소음 발생 시각 선택 (1시간 단위)</h3><button type="button" class="btn-outline" id="btn-close-hour-picker">닫기</button></div>
         <div id="hour-picker-grid" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; padding-top:4px;"></div>
+      </div>
+    </div>
+
+    <!-- 커뮤니티 의견 작성 모달 (플로팅 버튼) -->
+    <div class="sheet-backdrop" id="modal-comm-write" hidden>
+      <div class="native-modal-sheet">
+        <div class="sheet-title-bar"><h3>✍️ 주민 커뮤니티 의견 쓰기</h3><button type="button" class="btn-outline" id="btn-close-comm-write">닫기</button></div>
+        <div class="flat-input-box" style="height:42px;">
+          <input type="text" id="comm-write-bldg" placeholder="건물명 또는 위치 (예: 만수주공 9단지, 가온빌리지)">
+        </div>
+        <textarea class="write-textarea" id="comm-input-text" maxlength="300" style="min-height:110px;" placeholder="소음 피해 상황이나 이웃들과 나누고 싶은 의견을 자유롭게 남겨주세요."></textarea>
+        <div style="display:flex; align-items:center; justify-content:space-between;">
+          <span class="comm-char-cnt" id="comm-char-cnt">0 / 300</span>
+          <button type="button" class="btn-primary" id="btn-comm-submit" style="width:auto; height:42px; padding:0 22px; font-size:14px;">의견 등록</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 전문가 상담 / 법률·시공 합동 해결 요청 모달 -->
+    <div class="sheet-backdrop" id="modal-expert-req" hidden>
+      <div class="native-modal-sheet">
+        <div class="sheet-title-bar"><h3 id="expert-req-title">법률 · 시공 해결 요청</h3><button type="button" class="btn-outline" id="btn-close-expert-req">닫기</button></div>
+        <div id="expert-req-target" style="padding:10px 12px; background:var(--primary-soft); color:var(--primary); border-radius:10px; font-size:13px; font-weight:800;"></div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+          <button type="button" class="btn-time-chip active" id="req-mode-joint" data-reqmode="합동 해결 (법률+시공)">🤝 법률+시공 합동</button>
+          <button type="button" class="btn-time-chip" id="req-mode-single" data-reqmode="단독 상담·진단">📌 단독 상담·진단</button>
+        </div>
+        <div class="flat-input-box" style="height:42px;">
+          <input type="text" id="expert-req-loc" placeholder="발생 건물명/동네 (예: 만수2동 가온빌리지)">
+        </div>
+        <textarea class="write-textarea" id="expert-req-memo" style="min-height:88px;" placeholder="소음 유형, 발생 시간대, 원하는 해결 방향(원인세대 방음유도, 창틀·현관문 보수, 내용증명 등)을 간단히 적어주세요."></textarea>
+        <button type="button" class="btn-primary" id="btn-submit-expert-req" style="height:48px; font-size:15px;">무료 접수하고 답변 받기</button>
       </div>
     </div>
 
@@ -1223,7 +1311,7 @@
     const state = {
       user: { loggedIn: false, nickname: '', provider: '', homeDong: '만수5동', phoneVerifiedFor112: false },
       accounts: [], buildings: [], posts: [],
-      activeMainTab: 'map', commScope: 'near', commSort: 'popular', openReplyPostId: null,
+      activeMainTab: 'map', commSearch: '', commSort: 'popular', openReplyPostId: null, commMap: null, commOverlays: [], legalCat: 'all', buildCat: 'all',
       centerLat: 37.4556, centerLng: 126.7282, mapLevel: 3,
       viewportRegionLabel: '만수5동', viewportFullAddress: '인천 남동구 만수5동',
       draftLocation: { lat: 37.4556, lng: 126.7282, roadAddr: '', jibunAddr: '', bldgName: '', bun: '', ji: '' },
@@ -1344,13 +1432,15 @@
 
     function switchMainTab(tabKey) {
       state.activeMainTab = tabKey;
-      ['map', 'community', 'care'].forEach(k => {
+      ['map', 'community', 'legal', 'build'].forEach(k => {
         const el = document.getElementById(`tab-view-${k}`);
         if (el) el.hidden = (k !== tabKey);
       });
       document.querySelectorAll('.btn-nav-tab').forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tabKey));
       if (tabKey === 'map') { renderHome(); requestAnimationFrame(() => initMap()); }
-      else if (tabKey === 'community') { renderCommunityTab(); }
+      else if (tabKey === 'community') { requestAnimationFrame(() => initCommMiniMap()); renderCommunityTab(); }
+      else if (tabKey === 'legal') { renderLegalTab(); }
+      else if (tabKey === 'build') { renderBuildTab(); }
     }
 
     document.querySelectorAll('.btn-nav-tab').forEach(btn => { btn.onclick = () => switchMainTab(btn.dataset.tab); });
@@ -1845,21 +1935,96 @@
       return Math.round(R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
     }
 
+    /* ==========================================================================
+       [v1.4.14 소음피해 주민 커뮤니티: 미니맵 연동 + 건물/키워드 검색 + 4버튼 + FAB]
+       ========================================================================== */
+    function initCommMiniMap() {
+      if (typeof kakao === 'undefined' || !kakao.maps) return;
+      kakao.maps.load(() => {
+        const container = document.getElementById('comm-kakao-map');
+        if (!container) return;
+        const cLat = state.map ? state.map.getCenter().getLat() : state.centerLat;
+        const cLng = state.map ? state.map.getCenter().getLng() : state.centerLng;
+        if (!state.commMap) {
+          state.commMap = new kakao.maps.Map(container, { center: new kakao.maps.LatLng(cLat, cLng), level: 4 });
+          let commIdleTimer = null;
+          kakao.maps.event.addListener(state.commMap, 'idle', () => {
+            clearTimeout(commIdleTimer);
+            commIdleTimer = setTimeout(() => {
+              if (!state.commMap) return;
+              const center = state.commMap.getCenter();
+              if (kakao.maps.services) {
+                new kakao.maps.services.Geocoder().coord2RegionCode(center.getLng(), center.getLat(), (res, st) => {
+                  if (st === kakao.maps.services.Status.OK && res && res.length) {
+                    const admin = res.find(r => r.region_type === 'H') || res[0];
+                    document.getElementById('comm-header-dong').textContent = admin.region_3depth_name || state.viewportRegionLabel;
+                  }
+                });
+              }
+              if (!state.commSearch) renderCommunityTab();
+            }, 180);
+          });
+        } else {
+          state.commMap.relayout();
+          if (!state.commSearch) {
+            state.commMap.setCenter(new kakao.maps.LatLng(cLat, cLng));
+          }
+        }
+        renderCommMiniPins();
+        renderCommunityTab();
+      });
+    }
+
+    function renderCommMiniPins() {
+      if (!state.commMap || typeof kakao === 'undefined') return;
+      (state.commOverlays || []).forEach(o => o.setMap(null));
+      state.commOverlays = [];
+      state.posts.forEach(p => {
+        const dot = document.createElement('div');
+        dot.className = 'comm-mini-dot' + ((p.empathyCount || 0) >= 8 ? ' hot' : '');
+        dot.title = (p.anchorBuilding || p.dong || '') + ' · ' + p.category;
+        dot.onclick = () => {
+          const bName = (p.anchorBuilding || '').replace(/\s*\(\d+층\)/, '').trim();
+          if (bName) {
+            state.commSearch = bName;
+            document.getElementById('comm-search-input').value = bName;
+            document.getElementById('btn-comm-search-clear').hidden = false;
+            renderCommunityTab();
+          }
+        };
+        const ov = new kakao.maps.CustomOverlay({
+          position: new kakao.maps.LatLng(p.lat, p.lng),
+          content: dot,
+          zIndex: (p.empathyCount || 0) >= 8 ? 15 : 10
+        });
+        ov.setMap(state.commMap);
+        state.commOverlays.push(ov);
+      });
+    }
+
     function renderCommunityTab() {
-      const refLat = (state.user && state.user.lat) ? state.user.lat : (state.myLat || state.centerLat);
-      const refLng = (state.user && state.user.lng) ? state.user.lng : (state.myLng || state.centerLng);
-      document.getElementById('comm-header-dong').textContent = state.viewportRegionLabel || '우리 동네';
+      const q = (state.commSearch || '').trim().toLowerCase();
+      let filtered = [...state.posts];
+      const badgeEl = document.getElementById('comm-map-badge');
 
-      const withDist = state.posts.map(p => ({
-        ...p,
-        distM: calcDistanceMeters(refLat, refLng, p.lat, p.lng)
-      }));
-
-      let filtered = withDist;
-      if (state.commScope === 'mybldg') {
-        filtered = withDist.filter(p => p.distM <= 70);
-      } else if (state.commScope === 'near') {
-        filtered = withDist.filter(p => p.distM <= 350);
+      if (q) {
+        filtered = filtered.filter(p => {
+          const hay = [p.anchorBuilding, p.fullAddress, p.roadName, p.dong, p.category, p.content, p.nickname].join(' ').toLowerCase();
+          return hay.includes(q);
+        });
+        if (badgeEl) badgeEl.textContent = `🔍 '${state.commSearch}' 검색 결과 ${filtered.length}건`;
+        if (filtered.length && state.commMap && typeof kakao !== 'undefined') {
+          state.commMap.panTo(new kakao.maps.LatLng(filtered[0].lat, filtered[0].lng));
+        }
+      } else if (state.commMap && typeof kakao !== 'undefined') {
+        const bounds = state.commMap.getBounds();
+        if (bounds) {
+          const sw = bounds.getSouthWest(), ne = bounds.getNorthEast();
+          filtered = filtered.filter(p => p.lat >= sw.getLat() && p.lat <= ne.getLat() && p.lng >= sw.getLng() && p.lng <= ne.getLng());
+        }
+        if (badgeEl) badgeEl.textContent = `📍 현재 지도 범위 내 의견 ${filtered.length}건`;
+      } else {
+        if (badgeEl) badgeEl.textContent = `📍 우리 동네 의견 ${filtered.length}건`;
       }
 
       if (state.commSort === 'popular') {
@@ -1872,7 +2037,7 @@
       const listEl = document.getElementById('comm-feed-list');
 
       if (!filtered.length) {
-        listEl.innerHTML = `<div style="padding:40px 16px; text-align:center; color:var(--text-muted); font-size:13.5px;">이 구역에는 아직 등록된 의견이 없습니다.<br>위 입력창에서 첫 의견을 남겨보세요.</div>`;
+        listEl.innerHTML = `<div style="padding:44px 16px; text-align:center; color:var(--text-muted); font-size:13.5px; line-height:1.5;">${q ? `'<strong>${state.commSearch}</strong>'에 해당하는 의견이 없습니다.` : '현재 지도 범위에 등록된 의견이 없습니다.'}<br>지도를 움직이거나 우측 하단 <strong>[의견 쓰기]</strong>로 첫 글을 남겨보세요.</div>`;
         return;
       }
 
@@ -1880,23 +2045,26 @@
         const cmts = p.comments || [];
         const isReplyOpen = (state.openReplyPostId === p.id);
         const locShort = (p.anchorBuilding || p.dong || '').replace(/\s*\(\d+층\)/, '').trim();
-        const dislikes = p.dislikeCount || 0;
+        const lawCnt = typeof p.legalNeedCount === 'number' ? p.legalNeedCount : Math.max(1, Math.floor((p.empathyCount || 2) / 3));
+        const bldCnt = typeof p.buildNeedCount === 'number' ? p.buildNeedCount : Math.max(1, Math.floor((p.empathyCount || 2) / 4));
 
         return `
           <div class="nc-item">
             <div class="nc-head">
               <div class="nc-author-row">
                 <span class="nc-nick">${p.nickname || '익명이웃'}</span>
-                ${locShort ? `<span class="nc-loc-tag">${locShort}</span>` : ''}
+                ${locShort ? `<span class="nc-loc-tag" data-loc-filter="${locShort}">${locShort}</span>` : ''}
               </div>
               <span class="nc-time">${relTime(p.timestamp)}</span>
             </div>
             <div class="nc-body">${p.content}</div>
             <div class="nc-foot">
               <button type="button" class="btn-nc-reply" data-reply-toggle="${p.id}">답글 ${cmts.length}</button>
-              <div class="nc-vote-group">
-                <button type="button" class="btn-nc-vote ${p.empathizedByMe ? 'active-up' : ''}" data-nc-up="${p.id}">👍 ${p.empathyCount || 0}</button>
-                <button type="button" class="btn-nc-vote ${p.dislikedByMe ? 'active-dn' : ''}" data-nc-dn="${p.id}">👎 ${dislikes}</button><button type="button" class="btn-nc-vote" onclick="showToast('부적절한 의견으로 신고 접수되었습니다.')" style="color:var(--text-muted);">신고</button>
+              <div class="nc-4btn-group">
+                <button type="button" class="btn-nc-4 ${p.empathizedByMe ? 'act-emp' : ''}" data-nc-emp="${p.id}">공감 ${p.empathyCount || 0}</button>
+                <button type="button" class="btn-nc-4 ${p.legalByMe ? 'act-law' : ''}" data-nc-law="${p.id}">법률 ${lawCnt}</button>
+                <button type="button" class="btn-nc-4 ${p.buildByMe ? 'act-bld' : ''}" data-nc-bld="${p.id}">시공 ${bldCnt}</button>
+                <button type="button" class="btn-nc-4" onclick="showToast('부적절한 의견으로 신고 접수되었습니다.')" style="color:var(--text-muted);">신고</button>
               </div>
             </div>
             ${isReplyOpen ? `
@@ -1912,6 +2080,16 @@
         `;
       }).join('');
 
+      listEl.querySelectorAll('[data-loc-filter]').forEach(tag => {
+        tag.onclick = () => {
+          const kw = tag.dataset.locFilter;
+          state.commSearch = kw;
+          document.getElementById('comm-search-input').value = kw;
+          document.getElementById('btn-comm-search-clear').hidden = false;
+          renderCommunityTab();
+        };
+      });
+
       listEl.querySelectorAll('[data-reply-toggle]').forEach(btn => {
         btn.onclick = () => {
           const pid = btn.dataset.replyToggle;
@@ -1920,9 +2098,9 @@
         };
       });
 
-      listEl.querySelectorAll('[data-nc-up]').forEach(btn => {
+      listEl.querySelectorAll('[data-nc-emp]').forEach(btn => {
         btn.onclick = () => {
-          const p = state.posts.find(x => x.id === btn.dataset.ncUp);
+          const p = state.posts.find(x => x.id === btn.dataset.ncEmp);
           if (!p) return;
           p.empathizedByMe = !p.empathizedByMe;
           p.empathyCount = (p.empathyCount || 0) + (p.empathizedByMe ? 1 : -1);
@@ -1931,14 +2109,29 @@
         };
       });
 
-      listEl.querySelectorAll('[data-nc-dn]').forEach(btn => {
+      listEl.querySelectorAll('[data-nc-law]').forEach(btn => {
         btn.onclick = () => {
-          const p = state.posts.find(x => x.id === btn.dataset.ncDn);
+          const p = state.posts.find(x => x.id === btn.dataset.ncLaw);
           if (!p) return;
-          p.dislikedByMe = !p.dislikedByMe;
-          p.dislikeCount = (p.dislikeCount || 0) + (p.dislikedByMe ? 1 : -1);
+          if (typeof p.legalNeedCount !== 'number') p.legalNeedCount = Math.max(1, Math.floor((p.empathyCount || 2) / 3));
+          p.legalByMe = !p.legalByMe;
+          p.legalNeedCount += p.legalByMe ? 1 : -1;
           saveSandboxData();
           renderCommunityTab();
+          if (p.legalByMe) showToast('법률 해결 필요에 동의했습니다. [법률] 탭에서 전문가를 확인하세요.');
+        };
+      });
+
+      listEl.querySelectorAll('[data-nc-bld]').forEach(btn => {
+        btn.onclick = () => {
+          const p = state.posts.find(x => x.id === btn.dataset.ncBld);
+          if (!p) return;
+          if (typeof p.buildNeedCount !== 'number') p.buildNeedCount = Math.max(1, Math.floor((p.empathyCount || 2) / 4));
+          p.buildByMe = !p.buildByMe;
+          p.buildNeedCount += p.buildByMe ? 1 : -1;
+          saveSandboxData();
+          renderCommunityTab();
+          if (p.buildByMe) showToast('방음·설비 시공 필요에 동의했습니다. [건축시공] 탭에서 전문업체를 확인하세요.');
         };
       });
 
@@ -1958,13 +2151,35 @@
       });
     }
 
-    document.querySelectorAll('.btn-comm-scope').forEach(btn => {
-      btn.onclick = () => {
-        state.commScope = btn.dataset.scope;
-        document.querySelectorAll('.btn-comm-scope').forEach(b => b.classList.toggle('active', b === btn));
-        renderCommunityTab();
-      };
-    });
+    const commSearchInput = document.getElementById('comm-search-input');
+    const commSearchClear = document.getElementById('btn-comm-search-clear');
+    function applyCommSearch() {
+      state.commSearch = commSearchInput.value.trim();
+      commSearchClear.hidden = !state.commSearch;
+      renderCommunityTab();
+    }
+    commSearchInput.addEventListener('input', applyCommSearch);
+    document.getElementById('btn-comm-search-go').onclick = applyCommSearch;
+    commSearchClear.onclick = () => {
+      commSearchInput.value = '';
+      state.commSearch = '';
+      commSearchClear.hidden = true;
+      renderCommunityTab();
+    };
+
+    document.getElementById('btn-comm-gps').onclick = () => {
+      showToast('현재 내 위치로 미니맵을 이동합니다...');
+      requestDeviceLocation((lat, lng) => {
+        state.myLat = lat; state.myLng = lng;
+        if (state.commMap && typeof kakao !== 'undefined') {
+          state.commMap.setCenter(new kakao.maps.LatLng(lat, lng));
+          state.commSearch = '';
+          commSearchInput.value = '';
+          commSearchClear.hidden = true;
+          renderCommunityTab();
+        }
+      }, (msg) => showToast(msg));
+    };
 
     document.querySelectorAll('.btn-comm-sort').forEach(btn => {
       btn.onclick = () => {
@@ -1974,6 +2189,14 @@
       };
     });
 
+    document.getElementById('btn-comm-fab').onclick = () => {
+      document.getElementById('comm-write-bldg').value = state.commSearch || '';
+      document.getElementById('modal-comm-write').hidden = false;
+    };
+    document.getElementById('btn-close-comm-write').onclick = () => {
+      document.getElementById('modal-comm-write').hidden = true;
+    };
+
     const commInput = document.getElementById('comm-input-text');
     commInput.addEventListener('input', () => {
       document.getElementById('comm-char-cnt').textContent = `${commInput.value.length} / 300`;
@@ -1982,12 +2205,14 @@
     document.getElementById('btn-comm-submit').onclick = () => {
       const text = commInput.value.trim();
       if (!text) { showToast('의견 내용을 입력해 주세요.'); return; }
-      const refLat = (state.user && state.user.lat) ? state.user.lat : (state.myLat || state.centerLat);
-      const refLng = (state.user && state.user.lng) ? state.user.lng : (state.myLng || state.centerLng);
+      const bldgVal = document.getElementById('comm-write-bldg').value.trim();
+      const c = state.commMap ? state.commMap.getCenter() : null;
+      const refLat = c ? c.getLat() : ((state.user && state.user.lat) ? state.user.lat : state.centerLat);
+      const refLng = c ? c.getLng() : ((state.user && state.user.lng) ? state.user.lng : state.centerLng);
       const newPost = {
         id: 'post-' + Date.now(),
         dong: state.viewportRegionLabel,
-        fullAddress: state.viewportFullAddress,
+        fullAddress: bldgVal ? `${state.viewportRegionLabel} ${bldgVal}` : state.viewportFullAddress,
         jibunAddress: '',
         spaceType: 'outdoor',
         buildingId: null,
@@ -1999,72 +2224,234 @@
         lat: refLat,
         lng: refLng,
         roadName: state.viewportRegionLabel,
-        anchorBuilding: state.user.homeDong || state.viewportRegionLabel,
-        roadType: '이웃 의견',
+        anchorBuilding: bldgVal || state.user.homeDong || state.viewportRegionLabel,
+        roadType: '주민 커뮤니티',
         nickname: state.user.nickname || '익명이웃',
         gpsVerified: true,
         timestamp: Date.now(),
         content: text,
         empathyCount: 1,
         empathizedByMe: true,
-        dislikeCount: 0,
+        legalNeedCount: 0,
+        buildNeedCount: 0,
         comments: []
       };
       state.posts.unshift(newPost);
       saveSandboxData();
       commInput.value = '';
       document.getElementById('comm-char-cnt').textContent = '0 / 300';
+      document.getElementById('modal-comm-write').hidden = true;
       state.commSort = 'latest';
       document.querySelectorAll('.btn-comm-sort').forEach(b => b.classList.toggle('active', b.dataset.sort === 'latest'));
+      renderCommMiniPins();
       renderCommunityTab();
       showToast('의견이 등록되었습니다.');
     };
 
-    const SOUND_TRACKS = [{ title: '깊은 밤 빗소리 (White Noise)', type: 'rain' }, { title: '잔잔한 파도 소리 (Ocean Wave)', type: 'wave' }, { title: '딥 브라운 노이즈 (Deep Brown)', type: 'brown' }];
-    let currentTrackIdx = 0, isPlayingSound = false, audioCtx = null, noiseNode = null, soundSeconds = 900, soundTimerInt = null;
+    /* ==========================================================================
+       [v1.4.14 법률 · 건축시공 전문가 입점 탭 (로톡 · 숨고 벤치마킹)]
+       ========================================================================== */
+    const LEGAL_EXPERTS = [
+      {
+        id: 'law-1', name: '김도현 변호사', firm: '법무법인 평온 (인천·수도권)', cat: '층간소음',
+        rating: '4.9', reviews: 42, cases: 118,
+        tags: ['#층간소음 내용증명', '#원인세대 방음합의', '#손해배상'],
+        pkgTitle: '53dB 데이터 기반 내용증명 + 방음시공 합의 패키지',
+        pkgSub: '이웃 증언·시간대 그래프를 증거로 정리해 위층 방음매트·충격저감 시공 합의를 이끌어냅니다.',
+        review: '"변호사님 내용증명과 시공업체 견적을 같이 전달했더니 1년 넘게 안 되던 윗집 방음매트 시공이 2주 만에 합의됐습니다." — 만수2동 주민14'
+      },
+      {
+        id: 'law-2', name: '박서연 변호사', firm: '법률사무소 정담', cat: '반려동물',
+        rating: '4.9', reviews: 31, cases: 87,
+        tags: ['#반려동물 짖음', '#임대차 해지·보증금', '#관리규약 대응'],
+        pkgTitle: '심야 반려동물 소음 · 임대차 분쟁 원스톱 대응',
+        pkgSub: '반복적인 개 짖음 민원, 집주인 하자보수·방음시공 요구 및 위약금 없는 중도해지 법률 대리.',
+        review: '"새벽마다 짖는 개 소음 때문에 이사까지 고민했는데 관리규약 경고와 방음문 보수 비용 지원으로 잘 해결됐어요." — 향촌휴먼시아 입주민'
+      },
+      {
+        id: 'law-3', name: '이준호 변호사', firm: '법무법인 다온 공동주택팀', cat: '공동대응',
+        rating: '4.8', reviews: 56, cases: 140,
+        tags: ['#단지 공동대응', '#환경분쟁조정', '#시공하자 손배'],
+        pkgTitle: '아파트·빌라 입주민 공동 환경분쟁조정 대리',
+        pkgSub: '같은 동·라인 피해 주민들의 53dB 데이터를 취합해 환경분쟁조정위원회 및 시공사 하자 소송을 대리합니다.',
+        review: '"혼자 싸울 땐 막막했는데 같은 동 9세대가 모여 공동 대응하니 관리사무소와 지자체가 바로 움직였습니다." — 만수주공 주민08'
+      },
+      {
+        id: 'law-4', name: '최민지 변호사', firm: '법률사무소 청명', cat: '외부소음',
+        rating: '4.8', reviews: 24, cases: 63,
+        tags: ['#바이크 굉음', '#공사장 소음중지', '#상가 확성기'],
+        pkgTitle: '야간 바이크·공사장·상가 소음 가처분 및 행정민원',
+        pkgSub: '지자체 소음측정 요청, 공사중지 가처분 및 상가·업소 방음설비 보강 합의를 진행합니다.',
+        review: '"골목 바이크와 상가 실외기 소음 문제로 행정명령까지 받아내서 밤에 창문 열고 잡니다." — 만수3동 주민05'
+      }
+    ];
 
-    function stopWebAudio() {
-      if (noiseNode) { try { noiseNode.disconnect(); } catch (e) {} noiseNode = null; }
-      if (audioCtx) { try { audioCtx.close(); } catch (e) {} audioCtx = null; }
-      clearInterval(soundTimerInt); isPlayingSound = false; document.getElementById('btn-sound-toggle').textContent = '▶';
+    const BUILD_EXPERTS = [
+      {
+        id: 'bld-1', name: '조용한집 방음설비', area: '인천 · 경기 서부 전문', cat: '원인세대',
+        rating: '4.9', reviews: 64, cases: 310, asYears: '3년 무상 A/S',
+        tags: ['#원인세대 방음시공', '#법률가 동행협의', '#바닥충격 저감'],
+        pkgTitle: '소음 유발세대 맞춤형 방음·충격흡수 시공 (법률 연계)',
+        pkgSub: '변호사 합의 과정에 동행해 원인세대 바닥·벽면 소음원을 계측하고 최소 비용으로 확실한 차음 설비를 시공합니다.',
+        review: '"윗집과 합의 후 업체가 직접 방문해 거실·복도 충격저감 시공을 해주니 발망치 소리가 체감상 70% 이상 줄었습니다." — 만수2동 주민09'
+      },
+      {
+        id: 'bld-2', name: '바른창호 기밀·방음센터', area: '인천 남동구 · 부평 · 송도', cat: '창틀보수',
+        rating: '4.9', reviews: 88, cases: 520, asYears: '2년 무상 A/S',
+        tags: ['#창틀 틈새보수', '#방음·방풍 샷시', '#바이크소음 차단'],
+        pkgTitle: '노후 창틀 기밀 복원 · 이중창 방음 샷시 교체',
+        pkgSub: '우풍과 외부 바이크·도로 소음이 새어 들어오는 창틀 모헤어·풍지판·가스켓 정밀 보수 및 방음 샷시 부분 교체.',
+        review: '"샷시 통교체할 돈은 없었는데 창틀 틈새 기밀 보수만 받고도 바이크 굉음과 겨울 우풍이 확 잡혔어요." — 가온빌리지 주민02'
+      },
+      {
+        id: 'bld-3', name: '도어쉴드 현관방음', area: '수도권 전지역 출장', cat: '현관문',
+        rating: '4.8', reviews: 51, cases: 290, asYears: '2년 무상 A/S',
+        tags: ['#현관문 차음보수', '#복도 고성차단', '#개짖음 방음'],
+        pkgTitle: '현관문 4면 기밀 가스켓 + 하부 자동드롭실 시공',
+        pkgSub: '복도 발소리·고성·반려동물 짖음이 그대로 새는 현관문 틈새를 전문 차음 패킹과 유압 도어클로저로 밀폐합니다.',
+        review: '"복도에서 개 짖는 소리와 옆집 말소리가 안방까지 들렸는데 현관문 기밀 시공 2시간 만에 조용해졌습니다." — 엑설런트 주민01'
+      },
+      {
+        id: 'bld-4', name: '사운드제로 건축음향', area: '인천 · 서울 · 경기', cat: '충격저감',
+        rating: '4.9', reviews: 39, cases: 145, asYears: '5년 무상 A/S',
+        tags: ['#천장 흡음·차음', '#배관 소음차단', '#구축빌라 특화'],
+        pkgTitle: '구축 아파트·빌라 배관·천장 저주파 소음 저감 시공',
+        pkgSub: '1990~2000년대 구축 건물의 화장실 배관 물소리 및 천장 공명음을 전문 흡음재·차음시트로 보강합니다.',
+        review: '"밤마다 울리던 배관 물소리와 쿵쿵 울림이 천장 보강 후 훨씬 부드러워져 잠들기 편해졌습니다." — 삼성빌라 주민06'
+      }
+    ];
+
+    let selectedExpertReqMode = '합동 해결 (법률+시공)';
+    let selectedExpertTarget = '';
+
+    function openExpertRequestModal(title, targetText, defaultJoint = true) {
+      selectedExpertTarget = targetText;
+      document.getElementById('expert-req-title').textContent = title;
+      document.getElementById('expert-req-target').textContent = `📌 요청 대상: ${targetText}`;
+      selectedExpertReqMode = defaultJoint ? '합동 해결 (법률+시공)' : '단독 상담·진단';
+      document.getElementById('req-mode-joint').classList.toggle('active', defaultJoint);
+      document.getElementById('req-mode-single').classList.toggle('active', !defaultJoint);
+      document.getElementById('expert-req-loc').value = state.viewportRegionLabel || '';
+      document.getElementById('expert-req-memo').value = '';
+      document.getElementById('modal-expert-req').hidden = false;
     }
 
-    function startWebAudio() {
-      stopWebAudio();
-      try {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        audioCtx = new AudioContext();
-        const bufferSize = 2 * audioCtx.sampleRate, noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate), output = noiseBuffer.getChannelData(0);
-        let lastOut = 0.0; const trackType = SOUND_TRACKS[currentTrackIdx].type;
-        for (let i = 0; i < bufferSize; i++) {
-          const white = Math.random() * 2 - 1;
-          if (trackType === 'brown') { output[i] = (lastOut + (0.02 * white)) / 1.02; lastOut = output[i]; output[i] *= 2.8; }
-          else if (trackType === 'wave') { output[i] = white * 0.15 * (0.5 + 0.5 * Math.sin(i / (audioCtx.sampleRate * 0.4))); }
-          else output[i] = white * 0.12;
-        }
-        const whiteNoise = audioCtx.createBufferSource(); whiteNoise.buffer = noiseBuffer; whiteNoise.loop = true; whiteNoise.connect(audioCtx.destination); whiteNoise.start(0); noiseNode = whiteNoise;
-        isPlayingSound = true; document.getElementById('btn-sound-toggle').textContent = '⏸';
-        soundTimerInt = setInterval(() => {
-          if (soundSeconds > 0) { soundSeconds--; document.getElementById('sound-timer-display').textContent = `${String(Math.floor(soundSeconds / 60)).padStart(2, '0')}:${String(soundSeconds % 60).padStart(2, '0')}`; }
-          else stopWebAudio();
-        }, 1000);
-      } catch (e) { showToast('사운드 재생을 시작했습니다.'); }
-    }
+    document.getElementById('req-mode-joint').onclick = () => {
+      selectedExpertReqMode = '합동 해결 (법률+시공)';
+      document.getElementById('req-mode-joint').classList.add('active');
+      document.getElementById('req-mode-single').classList.remove('active');
+    };
+    document.getElementById('req-mode-single').onclick = () => {
+      selectedExpertReqMode = '단독 상담·진단';
+      document.getElementById('req-mode-single').classList.add('active');
+      document.getElementById('req-mode-joint').classList.remove('active');
+    };
+    document.getElementById('btn-close-expert-req').onclick = () => {
+      document.getElementById('modal-expert-req').hidden = true;
+    };
+    document.getElementById('btn-submit-expert-req').onclick = () => {
+      document.getElementById('modal-expert-req').hidden = true;
+      showToast(`[${selectedExpertReqMode}] 접수가 완료되었습니다! 담당 전문가가 확인 후 연락드립니다.`);
+    };
 
-    function selectSoundTrack(idx) {
-      currentTrackIdx = (idx + SOUND_TRACKS.length) % SOUND_TRACKS.length;
-      document.getElementById('sound-track-title').textContent = SOUND_TRACKS[currentTrackIdx].title;
-      document.querySelectorAll('.sound-track-row').forEach((row, i) => {
-        const active = (i === currentTrackIdx); row.classList.toggle('playing', active);
-        row.lastElementChild.textContent = active ? '선택됨' : '재생'; row.lastElementChild.style.color = active ? 'var(--primary)' : 'var(--text-muted)'; row.lastElementChild.style.fontWeight = active ? '800' : '600';
+    document.getElementById('btn-legal-joint-cta').onclick = () => openExpertRequestModal('법률 · 건축시공 합동 해결 요청', '53데시벨 전담 변호사 + 방음시공 합동팀', true);
+    document.getElementById('btn-build-joint-cta').onclick = () => openExpertRequestModal('법률 동행 · 현장 방음진단 신청', '53데시벨 검증 방음시공 + 법률 연계팀', true);
+
+    function renderLegalTab() {
+      const list = state.legalCat === 'all' ? LEGAL_EXPERTS : LEGAL_EXPERTS.filter(x => x.cat === state.legalCat);
+      const wrap = document.getElementById('legal-expert-list');
+      wrap.innerHTML = list.map(ex => `
+        <article class="pro-card">
+          <div class="pro-card-top">
+            <div class="pro-avatar">⚖️</div>
+            <div class="pro-meta">
+              <div class="pro-badge-line"><span class="pro-verified">✓ 53dB 파트너 변호사</span></div>
+              <div class="pro-name-row"><strong>${ex.name}</strong><span>${ex.firm}</span></div>
+              <div class="pro-rating">★ ${ex.rating} <em>후기 ${ex.reviews}건 · 해결사례 ${ex.cases}건</em></div>
+            </div>
+          </div>
+          <div class="pro-tags">${ex.tags.map(t => `<span class="pro-tag">${t}</span>`).join('')}</div>
+          <div class="pro-pkg-box">
+            <div class="pro-pkg-title">${ex.pkgTitle}</div>
+            <div class="pro-pkg-sub">${ex.pkgSub}</div>
+          </div>
+          <div class="pro-review-line">${ex.review}</div>
+          <div class="pro-card-btns">
+            <button type="button" class="btn-pro-sub" data-law-single="${ex.id}">법률 상담</button>
+            <button type="button" class="btn-pro-main" data-law-joint="${ex.id}">🤝 시공 합동 요청</button>
+          </div>
+        </article>
+      `).join('');
+
+      wrap.querySelectorAll('[data-law-single]').forEach(b => {
+        b.onclick = () => {
+          const ex = LEGAL_EXPERTS.find(x => x.id === b.dataset.lawSingle);
+          if (ex) openExpertRequestModal('소음 법률 상담 신청', `${ex.name} (${ex.firm})`, false);
+        };
       });
-      if (isPlayingSound) startWebAudio();
+      wrap.querySelectorAll('[data-law-joint]').forEach(b => {
+        b.onclick = () => {
+          const ex = LEGAL_EXPERTS.find(x => x.id === b.dataset.lawJoint);
+          if (ex) openExpertRequestModal('법률 · 시공 합동 해결 요청', `${ex.name} + 협력 방음시공팀`, true);
+        };
+      });
     }
 
-    document.getElementById('btn-sound-toggle').onclick = () => { if (isPlayingSound) stopWebAudio(); else startWebAudio(); };
-    document.getElementById('btn-sound-prev').onclick = () => selectSoundTrack(currentTrackIdx - 1);
-    document.getElementById('btn-sound-next').onclick = () => selectSoundTrack(currentTrackIdx + 1);
-    document.querySelectorAll('.sound-track-row').forEach(row => { row.onclick = () => { selectSoundTrack(Number(row.dataset.track)); startWebAudio(); }; });
+    function renderBuildTab() {
+      const list = state.buildCat === 'all' ? BUILD_EXPERTS : BUILD_EXPERTS.filter(x => x.cat === state.buildCat);
+      const wrap = document.getElementById('build-expert-list');
+      wrap.innerHTML = list.map(ex => `
+        <article class="pro-card">
+          <div class="pro-card-top">
+            <div class="pro-avatar" style="background:#E0F2FE; color:#0369A1;">🛠️</div>
+            <div class="pro-meta">
+              <div class="pro-badge-line"><span class="pro-verified build">✓ 53dB 검증 시공</span><span class="pro-verified" style="background:#F1F5F9; color:var(--text-sub);">${ex.asYears}</span></div>
+              <div class="pro-name-row"><strong>${ex.name}</strong><span>${ex.area}</span></div>
+              <div class="pro-rating">★ ${ex.rating} <em>시공후기 ${ex.reviews}건 · 완료 ${ex.cases}건</em></div>
+            </div>
+          </div>
+          <div class="pro-tags">${ex.tags.map(t => `<span class="pro-tag">${t}</span>`).join('')}</div>
+          <div class="pro-pkg-box">
+            <div class="pro-pkg-title">${ex.pkgTitle}</div>
+            <div class="pro-pkg-sub">${ex.pkgSub}</div>
+          </div>
+          <div class="pro-review-line">${ex.review}</div>
+          <div class="pro-card-btns">
+            <button type="button" class="btn-pro-sub" data-bld-single="${ex.id}">방음 진단·견적</button>
+            <button type="button" class="btn-pro-main" data-bld-joint="${ex.id}">🤝 법률 동행 요청</button>
+          </div>
+        </article>
+      `).join('');
+
+      wrap.querySelectorAll('[data-bld-single]').forEach(b => {
+        b.onclick = () => {
+          const ex = BUILD_EXPERTS.find(x => x.id === b.dataset.bldSingle);
+          if (ex) openExpertRequestModal('방음 · 기밀 보수 진단 신청', `${ex.name} (${ex.area})`, false);
+        };
+      });
+      wrap.querySelectorAll('[data-bld-joint]').forEach(b => {
+        b.onclick = () => {
+          const ex = BUILD_EXPERTS.find(x => x.id === b.dataset.bldJoint);
+          if (ex) openExpertRequestModal('법률 동행 · 원인세대 시공 요청', `${ex.name} + 파트너 변호사 합동팀`, true);
+        };
+      });
+    }
+
+    document.querySelectorAll('#legal-filter-row .btn-pro-chip').forEach(btn => {
+      btn.onclick = () => {
+        state.legalCat = btn.dataset.lcat;
+        document.querySelectorAll('#legal-filter-row .btn-pro-chip').forEach(b => b.classList.toggle('active', b === btn));
+        renderLegalTab();
+      };
+    });
+
+    document.querySelectorAll('#build-filter-row .btn-pro-chip').forEach(btn => {
+      btn.onclick = () => {
+        state.buildCat = btn.dataset.bcat;
+        document.querySelectorAll('#build-filter-row .btn-pro-chip').forEach(b => b.classList.toggle('active', b === btn));
+        renderBuildTab();
+      };
+    });
 
     function renderContinuousFloorButtons(maxFloors) {
       const total = Math.max(1, Math.min(40, Number(maxFloors) || 5));
