@@ -12,7 +12,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <title>53데시벨 (v0.4.50)</title>
+  <title>53데시벨 (v0.4.51)</title>
 
   <link id="pwa-manifest-link" rel="manifest">
   <script>
@@ -288,7 +288,7 @@
     .btn-card-act.active { background: var(--primary-soft); border-color: var(--primary); color: var(--primary); }
 
     /* ==========================================================================
-       소음 상세 화면 (즉시 참여·금융치료 결집형)
+       소음 상세 화면 (즉시 참여·법적 대응 결집형)
        ========================================================================== */
     #screen-detail { z-index: 105; background: var(--bg-page); }
     .v2-detail-scroll {
@@ -301,11 +301,7 @@
       background: #E2E8F0; border-bottom: 1px solid var(--border-line); overflow: hidden;
     }
     #detail-mini-map { position: absolute; inset: 0; width: 100%; height: 100%; }
-    .v2-minimap-tag {
-      position: absolute; left: 10px; top: 8px; z-index: 15;
-      background: rgba(15, 23, 42, 0.78); color: #FFF; font-size: 11.5px; font-weight: 700;
-      padding: 4px 9px; border-radius: 999px; pointer-events: none;
-    }
+
 
     .v2-oneline-bar {
       background: #FFF; padding: 11px 14px; border-bottom: 1px solid var(--border-line);
@@ -392,13 +388,13 @@
       padding: 10px 12px calc(10px + var(--safe-bottom)); display: flex; gap: 8px; align-items: center;
     }
     .v2-comment-composer input {
-      flex: 1; height: 42px; border-radius: 999px; border: 1px solid var(--border-strong);
-      background: #F8FAFC; padding: 0 14px; font-size: 15.5px; outline: none;
+      flex: 1; min-width: 0; width: 100%; height: 42px; border-radius: 999px; border: 1px solid var(--border-strong);
+      background: #F8FAFC; padding: 0 14px; font-size: 15px; outline: none;
     }
     .v2-comment-composer input:focus { border-color: var(--primary); background: #FFF; }
     .v2-comment-composer button {
       height: 42px; padding: 0 16px; border-radius: 999px; background: var(--primary);
-      color: #FFF; font-size: 14px; font-weight: 800; white-space: nowrap;
+      color: #FFF; font-size: 14.5px; font-weight: 800; white-space: nowrap; flex-shrink: 0;
     }
 
     /* 반투명 소음 정보 & 분석 오버레이 (항상 화면 정가운데) */
@@ -557,10 +553,14 @@
     .pill-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
     .pill-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
     .btn-sel {
-      min-height: 40px; padding: 8px 10px; border-radius: 10px; background: #FFF;
+      min-height: 42px; padding: 8px 10px; border-radius: 10px; background: #FFF;
       border: 1.5px solid var(--border-strong); font-size: 14.5px; font-weight: 800; color: var(--text-main);
+      word-break: keep-all; line-height: 1.3;
     }
     .btn-sel.active { background: var(--primary); border-color: var(--primary); color: #FFF; }
+    .btn-sel-col { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 54px; }
+    .btn-sel-col strong { font-size: 15px; font-weight: 900; }
+    .btn-sel-col span { font-size: 12px; font-weight: 600; opacity: 0.78; }
     .write-textarea {
       width: 100%; min-height: 86px; border: 1px solid var(--border-strong); border-radius: 10px;
       background: #F8FAFC; padding: 10px 12px; font-size: 15.5px; line-height: 1.5; resize: none; outline: none;
@@ -595,8 +595,56 @@
     /* 커뮤니티 & 변호사 탭 */
     .tab-scroll { flex: 1; overflow-y: auto; padding: 12px 14px 24px; display: flex; flex-direction: column; gap: 10px; }
     .comm-card { background: #FFF; border: 1px solid var(--border-line); border-radius: 14px; padding: 13px 14px; display: flex; flex-direction: column; gap: 7px; cursor: pointer; }
-    .pro-banner { background: linear-gradient(135deg, #1E3A8A, #3730A3); color: #FFF; border-radius: 14px; padding: 15px; display: flex; flex-direction: column; gap: 6px; }
-    .pro-item { background: #FFF; border: 1px solid var(--border-line); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 8px; }
+    /* [v0.4.51] 기존 v1.4.44 스타일 변호사 전용 탭 (시공 항목 완전 배제) */
+    #tab-view-legal { background: #FFF; }
+    .pro-top-cta-strip {
+      padding: 16px; background: #F8FAFC; border-bottom: 1px solid var(--border-line);
+      display: flex; flex-direction: column; gap: 9px; flex-shrink: 0;
+    }
+    .pro-top-cta-eyebrow { font-size: 12.5px; font-weight: 800; color: var(--primary); }
+    .pro-top-cta-title { font-size: 17.5px; font-weight: 900; color: var(--text-main); line-height: 1.38; word-break: keep-all; }
+    .btn-pro-strip-cta {
+      height: 44px; border-radius: 10px; background: #FFF; border: 1.5px solid var(--primary);
+      color: var(--primary); font-size: 15px; font-weight: 800;
+      display: flex; align-items: center; justify-content: space-between; padding: 0 14px;
+    }
+    .pro-underline-tabs {
+      display: flex; align-items: center; gap: 18px; padding: 0 16px;
+      border-bottom: 1px solid var(--border-line); background: #FFF; flex-shrink: 0;
+    }
+    .btn-ul-tab {
+      position: relative; height: 44px; padding: 0 2px; font-size: 15px; font-weight: 700;
+      color: var(--text-muted); background: transparent; white-space: nowrap;
+    }
+    .btn-ul-tab.active { color: var(--text-main); font-weight: 900; }
+    .btn-ul-tab.active::after {
+      content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 2.5px;
+      background: var(--primary); border-radius: 2px 2px 0 0;
+    }
+    .pro-flat-list { display: flex; flex-direction: column; background: #FFF; }
+    .pro-row-item {
+      padding: 16px; border-bottom: 1px solid var(--border-line);
+      display: flex; flex-direction: column; gap: 9px; background: #FFF;
+    }
+    .pro-row-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+    .pro-row-name-line { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+    .pro-row-name-line strong { font-size: 17.5px; font-weight: 900; color: var(--text-main); }
+    .pro-row-name-line span { font-size: 13.5px; font-weight: 600; color: var(--text-muted); }
+    .pro-row-desc { font-size: 15px; font-weight: 500; color: var(--text-sub); line-height: 1.48; word-break: keep-all; }
+    .pro-row-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .pro-row-tag {
+      font-size: 12.5px; font-weight: 700; color: var(--text-muted);
+      background: #F8FAFC; border: 1px solid var(--border-line); padding: 3px 8px; border-radius: 6px;
+    }
+    .pro-row-actions { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 2px; }
+    .btn-pro-cta {
+      height: 38px; padding: 0 16px; border-radius: 9px; background: var(--primary);
+      color: #FFF; font-size: 14px; font-weight: 800; white-space: nowrap;
+    }
+    .btn-lawyer-map-open {
+      height: 34px; padding: 0 10px; border-radius: 9px; background: #EFF6FF;
+      border: 1px solid #BFDBFE; color: var(--primary); font-size: 13px; font-weight: 800; white-space: nowrap;
+    }
 
     .sms-box { background: #F8FAFC; border: 1px solid var(--border-strong); border-radius: 12px; padding: 12px; font-size: 14px; line-height: 1.5; white-space: pre-line; }
     .app-toast {
@@ -609,21 +657,21 @@
 </head>
 <body>
   <div class="app-shell">
-    <div class="boot-version-banner" id="boot-version-banner">53데시벨 v0.4.50 구동</div>
+    <div class="boot-version-banner" id="boot-version-banner">53데시벨 v0.4.51 구동</div>
 
     <!-- [화면 1] 로그인 / QA 진입 -->
     <section class="screen" id="screen-auth">
       <div style="display:flex; justify-content:space-between; align-items:center;">
-        <button type="button" class="btn-outline" id="btn-auth-expert-join" style="color:var(--primary); border-color:var(--primary);">전문가 입점</button>
-        <span style="font-size:12px; font-weight:800; color:var(--primary); background:var(--primary-soft); padding:4px 9px; border-radius:999px;">v0.4.50</span>
+        <button type="button" class="btn-outline" id="btn-auth-expert-join" style="color:var(--primary); border-color:var(--primary);">변호사 입점</button>
+        <span style="font-size:12px; font-weight:800; color:var(--primary); background:var(--primary-soft); padding:4px 9px; border-radius:999px;">v0.4.51</span>
       </div>
 
       <div class="auth-hero">
         <div class="brand-badge-big">53</div>
-        <h1 style="font-size:23px; font-weight:900; line-height:1.35;">참지 말고 기록하고,<br>이웃과 함께 금융치료해요</h1>
+        <h1 style="font-size:23px; font-weight:900; line-height:1.35;">참지 말고 기록하고,<br>이웃과 함께 법적 대응해요</h1>
         <p style="font-size:14.5px; color:var(--text-sub); line-height:1.5;">112 신고로 끝나지 않는 소음 피해.<br>이웃 공감과 댓글을 모아 변호사 의뢰까지 연결합니다.</p>
         <div class="who-box">
-          <strong style="color:var(--lv3);">WHO 환경소음 가이드라인:</strong> 53dB 초과 소음은 심혈관 질환·만성스트레스·수면장애를 유발합니다.
+          <strong style="color:var(--lv3);">WHO 환경소음 가이드라인:</strong> 생활 소음 기준치를 초과하는 지속적 소음은 심혈관 질환·만성스트레스·수면장애를 유발합니다.
         </div>
       </div>
 
@@ -683,7 +731,7 @@
             <div class="sheet-title-wrap">
               <h2>주변 소음 정보</h2>
               <span class="spot-count-pill" id="spot-index-indicator">0 / 0</span>
-              <span class="ver-mini-tag">v0.4.50</span>
+              <span class="ver-mini-tag">v0.4.51</span>
             </div>
             <button type="button" class="btn-header-write" id="btn-open-write">+ 소음 올리기</button>
           </div>
@@ -700,35 +748,30 @@
         <div class="tab-scroll" id="comm-feed-list"></div>
       </div>
 
-      <!-- 탭 3: 변호사 · 방음시공 -->
+      <!-- 탭 3: 소음 변호사 해결 (기존 v1.4.44 구조 계승 · 시공 항목 배제) -->
       <div class="tab-view" id="tab-view-legal" hidden>
         <header class="flat-topbar">
-          <h2 style="font-size:17.5px; font-weight:900;">금융치료 · 방음 해결</h2>
-          <button type="button" class="btn-outline" id="btn-legal-expert-join">+ 전문가 입점</button>
+          <h2 style="font-size:18px; font-weight:900;">소음 변호사 해결</h2>
+          <div style="display:flex; align-items:center; gap:6px;">
+            <button type="button" class="btn-lawyer-map-open" id="btn-open-lawyer-cases">변호사 전용 맵</button>
+            <button type="button" class="btn-outline" id="btn-legal-expert-join">+ 변호사 입점</button>
+          </div>
         </header>
-        <div class="tab-scroll">
-          <div class="pro-banner">
-            <span style="font-size:12px; font-weight:800; color:#BAE6FD;">53dB 증거 · 이웃 공감 연계</span>
-            <strong style="font-size:17.5px; font-weight:900; line-height:1.35;">소음유발자 손해배상·합의 및<br>원인세대 방음시공 유도</strong>
-            <span style="font-size:13px; opacity:0.9;">이웃 공감 5명 이상 모이면 변호사 검토 우선 대상이 됩니다.</span>
+        <div class="tab-scroll" style="padding:0 0 24px 0; gap:0; background:#FFF;">
+          <div class="pro-top-cta-strip">
+            <span class="pro-top-cta-eyebrow">소음 증거 · 이웃 증언 연계</span>
+            <div class="pro-top-cta-title">소음유발자 손해배상 청구 · 내용증명 및 합의 대행</div>
+            <button type="button" class="btn-pro-strip-cta" id="btn-legal-joint-cta">
+              <span>이웃 공동 법적 대응 일괄 상담 요청</span>
+              <span>›</span>
+            </button>
           </div>
-          <div class="pro-item">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <strong style="font-size:16px;">법무법인 평온 · 소음전담팀</strong>
-              <span style="font-size:12px; font-weight:800; color:var(--primary); background:var(--primary-soft); padding:3px 7px; border-radius:6px;">변호사</span>
-            </div>
-            <p style="font-size:13.5px; color:var(--text-sub); line-height:1.45;">내용증명 발송, 손해배상 청구, 소송 전 원인세대 방음시공 유도 합의 전담</p>
-            <button type="button" class="btn-outline" style="width:100%; height:38px; color:var(--primary); border-color:var(--primary);" onclick="showToast('법률 상담 요청이 접수되었습니다. (QA 테스트)')">법률 대응 상담 요청</button>
+          <div class="pro-underline-tabs" id="legal-tier-tabs">
+            <button type="button" class="btn-ul-tab active" data-ltier="all">전체</button>
+            <button type="button" class="btn-ul-tab" data-ltier="vet">경력 · 사례</button>
+            <button type="button" class="btn-ul-tab" data-ltier="rookie">신진 · 밀착</button>
           </div>
-          <div class="pro-item">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <strong style="font-size:16px;">사일런트홈 방음설비</strong>
-              <span style="font-size:12px; font-weight:800; color:#0369A1; background:#E0F2FE; padding:3px 7px; border-radius:6px;">방음시공</span>
-            </div>
-            <p style="font-size:13.5px; color:var(--text-sub); line-height:1.45;">창틀·현관문 기밀 보수, 배관 차음, 변호사 동행 원인세대 바닥 방음 시공</p>
-            <button type="button" class="btn-outline" style="width:100%; height:38px; color:#0369A1; border-color:#0369A1;" onclick="showToast('방음 시공 진단 요청이 접수되었습니다. (QA 테스트)')">방음 진단 · 시공 요청</button>
-          </div>
-          <div id="registered-experts-list" style="display:flex; flex-direction:column; gap:10px;"></div>
+          <div id="registered-experts-list" class="pro-flat-list"></div>
         </div>
       </div>
 
@@ -743,12 +786,12 @@
         </button>
         <button type="button" class="btn-nav-tab" data-tab="legal">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v18"/><path d="M5 7h14"/><path d="M8 21h8"/></svg>
-          <span>변호사·시공</span>
+          <span>변호사</span>
         </button>
       </nav>
     </section>
 
-    <!-- [화면 3] 소음 상세 화면 (즉시 참여·금융치료 결집형) -->
+    <!-- [화면 3] 소음 상세 화면 (즉시 참여·법적 대응 결집형) -->
     <section class="screen" id="screen-detail" hidden>
       <header class="flat-topbar">
         <button type="button" class="btn-outline" id="btn-close-detail">← 지도</button>
@@ -760,7 +803,6 @@
         <!-- 1) 확대된 미니맵 -->
         <div class="v2-minimap-box">
           <div id="detail-mini-map"></div>
-          <div class="v2-minimap-tag" id="detail-minimap-tag">현장 확대 위치 (호수 비공개)</div>
         </div>
 
         <!-- 2) 한 줄 요약 바 -->
@@ -773,7 +815,7 @@
           <span class="v2-ol-loc" id="v2-ol-loc">휴먼시101동</span>
         </div>
 
-        <!-- 금융치료 결집 게이지 -->
+        <!-- 법적 대응 결집 게이지 -->
         <div class="v2-gauge-strip" id="v2-gauge-strip">
           <div class="v2-gauge-top">
             <span id="v2-gauge-text">변호사 검토 조건까지 이웃 공감 5명 남음</span>
@@ -790,7 +832,7 @@
         <!-- 4) 공감 & 댓글 -->
         <div class="v2-engage-bar">
           <button type="button" class="btn-v2-empathy" id="btn-v2-empathy">저도 들었어요 <span id="v2-emp-cnt">0</span></button>
-          <button type="button" class="btn-v2-lawyer" id="btn-v2-lawyer">금융치료 찬성 <span id="v2-law-cnt">0</span></button>
+          <button type="button" class="btn-v2-lawyer" id="btn-v2-lawyer">법적 대응 찬성 <span id="v2-law-cnt">0</span></button>
         </div>
 
         <div class="v2-comments-wrap">
@@ -830,8 +872,8 @@
         <div class="w-card">
           <div class="w-title">1. 공간 구분</div>
           <div class="pill-grid-2">
-            <button type="button" class="btn-sel active" data-space="indoor">건물 내 소음 (층간·벽간)</button>
-            <button type="button" class="btn-sel" data-space="outdoor">실외 소음 (도로·바이크)</button>
+            <button type="button" class="btn-sel btn-sel-col active" data-space="indoor"><strong>건물 내 소음</strong><span>층간·벽간·배관</span></button>
+            <button type="button" class="btn-sel btn-sel-col" data-space="outdoor"><strong>실외 소음</strong><span>도로·바이크·공사</span></button>
           </div>
         </div>
 
@@ -840,9 +882,9 @@
           <div style="background:var(--bg-subtle); border:1px solid var(--border-line); border-radius:10px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; gap:8px;">
             <div style="min-width:0; flex:1;">
               <strong id="write-road-addr" style="display:block; font-size:14.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">현재 위치 확인 중...</strong>
-              <span id="write-jibun-addr" style="display:block; font-size:12px; color:var(--text-muted); margin-top:2px;">핀 찍기로 정확한 건물을 맞춰주세요</span>
+              <span id="write-jibun-addr" style="display:block; font-size:12px; color:var(--text-muted); margin-top:2px;">지도에서 정확한 위치를 선택해 주세요</span>
             </div>
-            <button type="button" class="btn-outline" id="btn-write-pick-map" style="background:var(--primary); color:#FFF; border-color:var(--primary);">핀 찍기</button>
+            <button type="button" class="btn-outline" id="btn-write-pick-map" style="background:var(--primary); color:#FFF; border-color:var(--primary);">위치 선택</button>
           </div>
           <div id="write-indoor-floor-box" style="display:flex; flex-direction:column; gap:8px;">
             <div style="font-size:12.5px; font-weight:700; color:var(--primary);" id="write-bldg-status">건물 내 소음은 동·층수만 기록합니다 (호수 비공개).</div>
@@ -898,7 +940,7 @@
     <section class="screen" id="screen-pin-picker" hidden>
       <header class="flat-topbar">
         <button type="button" class="btn-outline" id="btn-picker-back">← 이전</button>
-        <h2 style="font-size:16.5px; font-weight:900;">소음 위치 핀 찍기</h2>
+        <h2 style="font-size:16.5px; font-weight:900;">소음 위치 선택</h2>
         <span style="width:48px;"></span>
       </header>
       <div style="background:#FFF; padding:8px 12px; border-bottom:1px solid var(--border-line); display:flex; gap:6px;">
@@ -945,11 +987,11 @@
     <div class="sheet-backdrop" id="modal-qa" hidden>
       <div class="native-modal-sheet">
         <div class="sheet-title-bar">
-          <h3>QA 테스트 · 데이터 관리 (v0.4.50)</h3>
+          <h3>QA 테스트 · 데이터 관리 (v0.4.51)</h3>
           <button type="button" class="btn-outline" id="btn-close-qa">닫기</button>
         </div>
         <div style="background:var(--bg-subtle); border:1px solid var(--border-line); border-radius:12px; padding:12px; font-size:13.5px; line-height:1.6;">
-          <div>• 현재 버전: <strong style="color:var(--primary);">v0.4.50</strong> · 계정: <strong id="qa-user-label" style="color:var(--primary);">마스터QA</strong></div>
+          <div>• 현재 버전: <strong style="color:var(--primary);">v0.4.51</strong> · 계정: <strong id="qa-user-label" style="color:var(--primary);">마스터QA</strong></div>
           <div>• 등록 소음: <strong id="qa-post-cnt">0건</strong> · 다음 가상주민 번호: <strong id="qa-seq-cnt">01</strong></div>
         </div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
@@ -980,21 +1022,33 @@
       </div>
     </div>
 
-    <!-- 모달: 전국 17개 시·도 전문가 입점 신청 -->
+    <!-- 모달: 전국 17개 시·도 변호사 입점 신청 -->
     <div class="sheet-backdrop" id="modal-expert-join" hidden>
       <div class="native-modal-sheet">
         <div class="sheet-title-bar">
-          <h3>전문가 입점 신청 (전국 17개 시·도)</h3>
+          <h3>변호사 입점 신청 (전국 17개 시·도)</h3>
           <button type="button" class="btn-outline" id="btn-close-expert-join">닫기</button>
         </div>
         <div class="pill-grid-2">
-          <button type="button" class="btn-sel active" data-jrole="변호사">변호사 · 법무법인</button>
-          <button type="button" class="btn-sel" data-jrole="방음시공">방음 · 건축시공</button>
+          <button type="button" class="btn-sel active" data-jtier="vet">경력 · 사례 중심</button>
+          <button type="button" class="btn-sel" data-jtier="rookie">신진 · 밀착 대응</button>
         </div>
-        <div class="flat-input-box"><input type="text" id="input-join-name" placeholder="사무소/업체명 및 담당자 성함"></div>
-        <select id="select-join-region" style="height:42px; border-radius:10px; border:1px solid var(--border-strong); padding:0 10px; font-size:14.5px; font-weight:700; background:#FFF;"></select>
-        <div class="flat-input-box"><input type="text" id="input-join-desc" placeholder="주요 전문 분야 (예: 층간소음 손해배상·합의)"></div>
-        <button type="button" class="btn-primary" id="btn-submit-expert-join">입점 신청 등록</button>
+        <div class="flat-input-box"><input type="text" id="input-join-name" placeholder="변호사 성함 · 법무법인명"></div>
+        <select id="select-join-region" style="height:42px; border-radius:10px; border:1px solid var(--border-strong); padding:0 10px; font-size:15px; font-weight:700; background:#FFF;"></select>
+        <div class="flat-input-box"><input type="text" id="input-join-desc" placeholder="전문 분야 (예: 층간소음 손해배상·내용증명·합의)"></div>
+        <button type="button" class="btn-primary" id="btn-submit-expert-join">변호사 입점 등록</button>
+      </div>
+    </div>
+
+    <!-- 모달: 변호사 전용 선별 사건 리스트 -->
+    <div class="sheet-backdrop" id="modal-lawyer-cases" hidden>
+      <div class="native-modal-sheet">
+        <div class="sheet-title-bar">
+          <h3>변호사 전용 · AI 선별 사건</h3>
+          <button type="button" class="btn-outline" id="btn-close-lawyer-cases">닫기</button>
+        </div>
+        <p style="font-size:13.5px; color:var(--text-sub); line-height:1.45;">신뢰지수 75% 이상 또는 이웃 공감이 누적된 사건이 우선 선별됩니다.</p>
+        <div id="lawyer-cases-list" style="display:flex; flex-direction:column; gap:8px;"></div>
       </div>
     </div>
 
@@ -1015,7 +1069,7 @@
   </div>
 
   <script>
-    const APP_VERSION = 'v0.4.50';
+    const APP_VERSION = 'v0.4.51';
 
     const CONFIG = {
       BLDG_API_KEY: '738a1e3eb24afc48a06e3871c47d057b54f27cfde63e91a4e2b5a2baf27cbae5',
@@ -1604,7 +1658,6 @@
       const shortLoc = smartShortenLocation(rawLoc, post.space === 'indoor' ? post.floor : null);
 
       document.getElementById('detail-topbar-title').textContent = `${kw} 현장`;
-      document.getElementById('detail-minimap-tag').textContent = post.space === 'indoor' ? `${shortLoc} (호수 비공개)` : shortLoc;
 
       document.getElementById('v2-ol-cat').textContent = kw;
       const dbBtn = document.getElementById('btn-open-analysis-overlay');
@@ -1618,7 +1671,7 @@
       const gaugeStrip = document.getElementById('v2-gauge-strip');
       gaugeStrip.classList.toggle('ready', remain === 0);
       document.getElementById('v2-gauge-text').textContent = remain === 0
-        ? '변호사 검토 조건 달성! 법적 조치(금융치료) 의뢰 가능'
+        ? '변호사 검토 조건 달성! 정식 법적 대응 의뢰 가능'
         : `변호사 검토 조건까지 이웃 공감 ${remain}명 남음`;
       document.getElementById('v2-gauge-pct').textContent = `${emp} / ${CONFIG.LAWYER_GOAL}명`;
       document.getElementById('v2-gauge-fill').style.width = `${pct}%`;
@@ -1750,7 +1803,7 @@
         <div class="v2-trust-hero">
           <div class="v2-trust-top">
             <div class="v2-trust-score-box">
-              <span>53dB 신뢰지수</span>
+              <span>신뢰지수</span>
               <strong>${cis}%</strong>
             </div>
             <div style="flex:1; min-width:0;">
@@ -1768,7 +1821,7 @@
             <span class="v2-trust-chip ok">✓ 좌표인증 (${post.adminDong})</span>
             <span class="v2-trust-chip">이웃 공감 ${empCount}명</span>
             <span class="v2-trust-chip">증언 댓글 ${comments.length}건</span>
-            <span class="v2-trust-chip warn">${post.bldgSummary || '주거 방음 주의'}</span>
+            <span class="v2-trust-chip warn">${post.bldgSummary || '주거 건물 구조'}</span>
           </div>
         </div>
 
@@ -1825,7 +1878,7 @@
       post.userLawyerVoted = true;
       saveData();
       renderDetailV2Content(post);
-      showToast('금융치료(변호사 의뢰) 찬성이 반영되었습니다.');
+      showToast('법적 대응(변호사 의뢰) 찬성이 반영되었습니다.');
     };
 
     document.getElementById('btn-v2-comment-submit').onclick = () => {
@@ -1872,7 +1925,7 @@
           <p style="font-size:14.5px; color:var(--text-sub); line-height:1.45;">${p.content}</p>
           <div style="display:flex; justify-content:space-between; font-size:12.5px; font-weight:700; color:var(--primary);">
             <span>${p.author}</span>
-            <span>공감 ${p.empathyCount || 0} · 금융치료 ${p.lawyerVotes || 0} · 댓글 ${(p.comments || []).length}</span>
+            <span>공감 ${p.empathyCount || 0} · 법적대응 ${p.lawyerVotes || 0} · 댓글 ${(p.comments || []).length}</span>
           </div>
         </div>`;
       }).join('');
@@ -1944,7 +1997,7 @@
       }
       state.draftLoc = { lat: startLat, lng: startLng, roadAddr: '위치 확인 중...', jibunAddr: '', bldgName: '', adminDong: state.viewportDong || '만수2동', bun: '', ji: '' };
       document.getElementById('write-road-addr').textContent = '현재 위치 주소를 확인 중...';
-      document.getElementById('write-jibun-addr').textContent = '핀 찍기로 정확한 건물을 선택할 수 있어요';
+      document.getElementById('write-jibun-addr').textContent = '지도에서 정확한 위치를 선택할 수 있어요';
       document.getElementById('input-write-bldg').value = '';
       renderWriteCategories();
       goScreen('screen-write');
@@ -2106,15 +2159,52 @@
       document.getElementById('modal-112').hidden = false;
     }
 
+    const DEFAULT_LAWYERS = [
+      {
+        tier: 'vet', name: '김도현 변호사', firm: '법무법인 평온', region: '인천·수도권',
+        desc: '층간소음·반려동물 소음 손해배상 청구 및 소송 전 내용증명·방문 합의 전담',
+        tags: ['손해배상 청구', '내용증명 발송', '이웃 공동대응']
+      },
+      {
+        tier: 'rookie', name: '박서연 변호사', firm: '법률사무소 정음', region: '전국 비대면',
+        desc: '증거 수집 가이드부터 분쟁조정·가처분 신청까지 밀착 법률 대리 진행',
+        tags: ['증거화 코칭', '분쟁조정 대리', '합의서 작성']
+      }
+    ];
+
+    state.legalTier = 'all';
+    state.joinTier = 'vet';
+
     function renderExpertsList() {
       const el = document.getElementById('registered-experts-list');
-      el.innerHTML = state.experts.map(ex => `
-        <div class="pro-item">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <strong style="font-size:15.5px;">${ex.name}</strong>
-            <span style="font-size:12px; font-weight:800; color:var(--primary); background:var(--primary-soft); padding:2px 7px; border-radius:6px;">${ex.role} · ${ex.region}</span>
+      const userLawyers = (state.experts || [])
+        .filter(ex => !ex.role || ex.role === '변호사')
+        .map(ex => ({
+          tier: ex.tier || 'vet',
+          name: ex.name,
+          firm: ex.firm || '입점 파트너',
+          region: ex.region || '전국',
+          desc: ex.desc || '소음 분쟁·손해배상 전문',
+          tags: ['소음 분쟁 전문', ex.region || '전국']
+        }));
+      const merged = [...userLawyers, ...DEFAULT_LAWYERS].filter(l => state.legalTier === 'all' || l.tier === state.legalTier);
+      el.innerHTML = merged.map(l => `
+        <div class="pro-row-item">
+          <div class="pro-row-head">
+            <div>
+              <div style="font-size:12.5px; font-weight:700; color:var(--primary); margin-bottom:2px;">${l.tier === 'vet' ? '경력 · 사례' : '신진 · 밀착'} · ${l.region}</div>
+              <div class="pro-row-name-line">
+                <strong>${l.name}</strong>
+                <span>${l.firm}</span>
+              </div>
+            </div>
           </div>
-          <p style="font-size:13.5px; color:var(--text-sub);">${ex.desc}</p>
+          <div class="pro-row-desc">${l.desc}</div>
+          <div class="pro-row-tags">${l.tags.map(t => `<span class="pro-row-tag">${t}</span>`).join('')}</div>
+          <div class="pro-row-actions">
+            <button type="button" class="btn-outline" onclick="showToast('${l.name} 상세 이력 확인 (QA)')">이력 보기</button>
+            <button type="button" class="btn-pro-cta" onclick="showToast('${l.name}에게 법률 대응 상담이 요청되었습니다.')">법률 대응 요청</button>
+          </div>
         </div>
       `).join('');
     }
@@ -2292,30 +2382,64 @@
       showToast('모든 테스트 데이터가 초기화되었습니다.');
     };
 
-    /* 전문가 입점 */
+    /* 변호사 입점 · 필터 · 변호사 전용 선별 사건 */
     const openJoinModal = () => { document.getElementById('modal-expert-join').hidden = false; };
     document.getElementById('btn-auth-expert-join').onclick = openJoinModal;
     document.getElementById('btn-legal-expert-join').onclick = openJoinModal;
     document.getElementById('btn-close-expert-join').onclick = () => { document.getElementById('modal-expert-join').hidden = true; };
-    document.querySelectorAll('#modal-expert-join [data-jrole]').forEach(b => {
+    document.getElementById('btn-legal-joint-cta').onclick = () => showToast('이웃 공동 법적 대응 상담 요청이 접수되었습니다.');
+
+    document.querySelectorAll('#legal-tier-tabs .btn-ul-tab').forEach(b => {
       b.onclick = () => {
-        state.joinRole = b.dataset.jrole;
-        document.querySelectorAll('#modal-expert-join [data-jrole]').forEach(x => x.classList.toggle('active', x === b));
+        state.legalTier = b.dataset.ltier;
+        document.querySelectorAll('#legal-tier-tabs .btn-ul-tab').forEach(x => x.classList.toggle('active', x === b));
+        renderExpertsList();
       };
     });
+
+    document.querySelectorAll('#modal-expert-join [data-jtier]').forEach(b => {
+      b.onclick = () => {
+        state.joinTier = b.dataset.jtier;
+        document.querySelectorAll('#modal-expert-join [data-jtier]').forEach(x => x.classList.toggle('active', x === b));
+      };
+    });
+
     document.getElementById('btn-submit-expert-join').onclick = () => {
       const name = document.getElementById('input-join-name').value.trim();
       const region = document.getElementById('select-join-region').value;
-      const desc = document.getElementById('input-join-desc').value.trim() || '소음 분쟁·방음 전문';
-      if (!name) return showToast('사무소/업체명을 입력해 주세요.');
-      state.experts.unshift({ role: state.joinRole, name, region, desc });
+      const desc = document.getElementById('input-join-desc').value.trim() || '층간소음 손해배상·내용증명·합의 전문';
+      if (!name) return showToast('변호사 성함 또는 법무법인명을 입력해 주세요.');
+      state.experts.unshift({ role: '변호사', tier: state.joinTier, name, region, desc });
       saveData();
       document.getElementById('input-join-name').value = '';
       document.getElementById('input-join-desc').value = '';
       document.getElementById('modal-expert-join').hidden = true;
       renderExpertsList();
-      showToast(`[${region}] ${name} 입점 신청이 등록되었습니다.`);
+      showToast(`[${region}] ${name} 입점이 등록되었습니다.`);
     };
+
+    document.getElementById('btn-open-lawyer-cases').onclick = () => {
+      const box = document.getElementById('lawyer-cases-list');
+      const ranked = [...state.posts].sort((a, b) => ((b.empathyCount || 0) + (b.comments || []).length) - ((a.empathyCount || 0) + (a.comments || []).length));
+      if (!ranked.length) {
+        box.innerHTML = `<div style="padding:20px; text-align:center; color:var(--text-muted); font-size:14px;">아직 선별된 소음 사건이 없습니다.</div>`;
+      } else {
+        box.innerHTML = ranked.map(p => {
+          const cis = Math.min(99, 68 + Math.min(24, (p.empathyCount || 0) * 5) + Math.min(7, (p.comments || []).length * 2));
+          const kw = extractAutoPinKeyword(p);
+          const loc = smartShortenLocation(p.space === 'indoor' ? `${p.bldgName || p.roadAddr} ${p.floor}층` : p.roadAddr, p.floor);
+          return `<div style="border:1px solid var(--border-line); border-radius:12px; padding:12px; display:flex; flex-direction:column; gap:5px; cursor:pointer;" onclick="document.getElementById('modal-lawyer-cases').hidden=true; openDetailV2('${p.id}');">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <strong style="font-size:15.5px;">${kw} · ${loc}</strong>
+              <span style="font-size:12.5px; font-weight:800; color:#BE123C; background:#FFF1F2; padding:2px 7px; border-radius:6px;">신뢰지수 ${cis}%</span>
+            </div>
+            <div style="font-size:13.5px; color:var(--text-sub);">공감 ${p.empathyCount || 0}명 · 법적대응 찬성 ${p.lawyerVotes || 0}명 · 댓글 ${(p.comments || []).length}건</div>
+          </div>`;
+        }).join('');
+      }
+      document.getElementById('modal-lawyer-cases').hidden = false;
+    };
+    document.getElementById('btn-close-lawyer-cases').onclick = () => { document.getElementById('modal-lawyer-cases').hidden = true; };
 
     /* 소음 올리기 옵션 바인딩 */
     document.querySelectorAll('#screen-write [data-space]').forEach(b => {
