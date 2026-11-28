@@ -12,7 +12,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <title>53데시벨 (v0.4.49)</title>
+  <title>53데시벨 (v0.4.50)</title>
 
   <link id="pwa-manifest-link" rel="manifest">
   <script>
@@ -115,12 +115,12 @@
     .btn-primary {
       width: 100%; min-height: 50px; height: 50px; flex-shrink: 0;
       border-radius: 12px; background: var(--primary); color: #FFF;
-      font-size: 16px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 6px;
+      font-size: 17px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 6px;
     }
     .btn-primary:disabled { background: #CBD5E1; cursor: not-allowed; }
     .btn-outline {
       height: 34px; padding: 0 11px; border-radius: 9px; background: var(--bg-white);
-      border: 1px solid var(--border-strong); color: var(--text-main); font-size: 13.5px; font-weight: 700;
+      border: 1px solid var(--border-strong); color: var(--text-main); font-size: 14.5px; font-weight: 700;
       display: inline-flex; align-items: center; justify-content: center; gap: 4px; white-space: nowrap; flex-shrink: 0;
     }
 
@@ -131,7 +131,7 @@
     .flat-input-box:focus-within { border: 1.5px solid var(--primary); background: #FFF; }
     .flat-input-box input {
       flex: 1; min-width: 0; width: 100%; border: none; background: transparent;
-      font-size: 15px; font-weight: 600; color: var(--text-main); outline: none;
+      font-size: 16px; font-weight: 600; color: var(--text-main); outline: none;
     }
 
     /* 구동 시작 버전 배너 (자동으로 2.2초 표시 후 페이드아웃) */
@@ -151,17 +151,17 @@
       display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-shrink: 0; z-index: 30;
     }
     .dong-picker-btn {
-      display: flex; align-items: center; gap: 4px; font-size: 16.5px; font-weight: 900;
+      display: flex; align-items: center; gap: 4px; font-size: 17.5px; font-weight: 900;
       color: var(--primary); padding: 6px 8px; border-radius: 9px; background: var(--primary-soft); white-space: nowrap;
     }
     .btn-top-search-bar {
       flex: 1; height: 34px; padding: 0 10px; border-radius: 9px; background: #F1F5F9;
-      display: flex; align-items: center; gap: 5px; color: var(--text-muted); font-size: 13.5px; font-weight: 600;
+      display: flex; align-items: center; gap: 5px; color: var(--text-muted); font-size: 14.5px; font-weight: 600;
       white-space: nowrap; overflow: hidden;
     }
     .btn-112-badge {
       height: 34px; padding: 0 9px; border-radius: 9px; background: #FFF1F2; border: 1px solid #FECDD3;
-      color: var(--lv3); font-size: 13px; font-weight: 800; display: inline-flex; align-items: center; gap: 3px; white-space: nowrap;
+      color: var(--lv3); font-size: 13.5px; font-weight: 800; display: inline-flex; align-items: center; gap: 3px; white-space: nowrap;
     }
 
     /* 로그인 화면 */
@@ -190,7 +190,7 @@
       background: #FFF; border-top: 1px solid var(--border-line);
       display: grid; grid-template-columns: repeat(3, 1fr); flex-shrink: 0; z-index: 40;
     }
-    .btn-nav-tab { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: var(--text-muted); font-size: 12px; font-weight: 700; }
+    .btn-nav-tab { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: var(--text-muted); font-size: 12.5px; font-weight: 700; }
     .btn-nav-tab.active { color: var(--primary); font-weight: 900; }
     .btn-nav-tab svg { width: 20px; height: 20px; }
 
@@ -204,7 +204,7 @@
     .map-filter-strip::-webkit-scrollbar { display: none; }
     .btn-map-chip {
       height: 30px; padding: 0 11px; border-radius: 999px; background: rgba(255,255,255,0.95);
-      border: 1px solid var(--border-strong); color: var(--text-sub); font-size: 13px; font-weight: 800;
+      border: 1px solid var(--border-strong); color: var(--text-sub); font-size: 14px; font-weight: 800;
       white-space: nowrap; flex-shrink: 0; box-shadow: 0 2px 6px rgba(15,23,42,0.1);
     }
     .btn-map-chip.active { background: var(--primary); border-color: var(--primary); color: #FFF; }
@@ -256,10 +256,10 @@
     .map-bottom-sheet { flex: 1; min-height: 0; background: #FFF; border-top: 1px solid var(--border-line); display: flex; flex-direction: column; }
     .sheet-header-row { padding: 10px 14px 6px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #F1F5F9; flex-shrink: 0; }
     .sheet-title-wrap { display: flex; align-items: center; gap: 6px; }
-    .sheet-title-wrap h2 { font-size: 16px; font-weight: 900; }
+    .sheet-title-wrap h2 { font-size: 17.5px; font-weight: 900; }
     .spot-count-pill { font-size: 12px; font-weight: 800; color: var(--primary); background: var(--primary-soft); padding: 2px 8px; border-radius: 999px; }
     .ver-mini-tag { font-size: 11px; font-weight: 800; color: var(--text-muted); background: #F1F5F9; padding: 2px 6px; border-radius: 6px; }
-    .btn-header-write { height: 32px; padding: 0 11px; border-radius: 8px; background: var(--primary); color: #FFF; font-size: 13px; font-weight: 800; }
+    .btn-header-write { height: 34px; padding: 0 12px; border-radius: 9px; background: var(--primary); color: #FFF; font-size: 14px; font-weight: 800; white-space: nowrap; }
 
     .spot-carousel-wrap {
       flex: 1; min-height: 0; display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
@@ -272,17 +272,18 @@
       padding: 13px 14px; display: flex; flex-direction: column; justify-content: space-between; gap: 6px; cursor: pointer;
     }
     .sc-meta-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
-    .sc-cat-txt { font-size: 16px; font-weight: 900; color: var(--text-main); }
-    .sc-db-badge { font-size: 12px; font-weight: 800; padding: 3px 7px; border-radius: 6px; color: #FFF; }
+    .sc-cat-txt { font-size: 18px; font-weight: 900; color: var(--text-main); }
+    .sc-db-badge { font-size: 13px; font-weight: 800; padding: 3px 8px; border-radius: 7px; color: #FFF; white-space: nowrap; }
     .sc-db-badge.lv-1 { background: var(--lv1); }
     .sc-db-badge.lv-2 { background: var(--lv2); }
     .sc-db-badge.lv-3 { background: var(--lv3); }
-    .sc-loc-main { font-size: 15px; font-weight: 800; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .sc-desc { font-size: 14px; color: var(--text-sub); line-height: 1.42; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .sc-loc-main { font-size: 16.5px; font-weight: 800; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sc-desc { font-size: 15.5px; color: var(--text-sub); line-height: 1.46; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
     .sc-actions { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
     .btn-card-act {
-      height: 30px; padding: 0 10px; border-radius: 8px; background: var(--bg-subtle);
-      border: 1px solid var(--border-strong); font-size: 13px; font-weight: 800; color: var(--text-sub);
+      height: 32px; padding: 0 11px; border-radius: 8px; background: var(--bg-subtle);
+      border: 1px solid var(--border-strong); font-size: 13.5px; font-weight: 800; color: var(--text-sub);
+      display: inline-flex; align-items: center; justify-content: center; line-height: 1; white-space: nowrap;
     }
     .btn-card-act.active { background: var(--primary-soft); border-color: var(--primary); color: var(--primary); }
 
@@ -310,8 +311,8 @@
       background: #FFF; padding: 11px 14px; border-bottom: 1px solid var(--border-line);
       display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-shrink: 0;
     }
-    .v2-ol-cat { font-size: 15.5px; font-weight: 900; color: var(--text-main); white-space: nowrap; flex-shrink: 0; }
-    .v2-ol-loc { font-size: 14px; font-weight: 800; color: var(--text-sub); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: right; flex: 1; min-width: 0; }
+    .v2-ol-cat { font-size: 17.5px; font-weight: 900; color: var(--text-main); white-space: nowrap; flex-shrink: 0; }
+    .v2-ol-loc { font-size: 15.5px; font-weight: 800; color: var(--text-sub); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: right; flex: 1; min-width: 0; }
 
     @keyframes dbPulseLv1 {
       0%, 100% { box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.65); transform: scale(1); }
@@ -327,7 +328,7 @@
     }
     .v2-db-flash-btn {
       display: inline-flex; align-items: center; gap: 4px; padding: 5px 10px; border-radius: 999px;
-      color: #FFF; font-size: 13.5px; font-weight: 900; white-space: nowrap; flex-shrink: 0;
+      color: #FFF; font-size: 14.5px; font-weight: 900; white-space: nowrap; flex-shrink: 0;
       letter-spacing: -0.02em; position: relative;
     }
     .v2-db-flash-btn.lv-1 { background: linear-gradient(135deg, #F59E0B, #B45309); animation: dbPulseLv1 1.4s infinite ease-in-out; }
@@ -340,7 +341,7 @@
       display: flex; flex-direction: column; gap: 5px; flex-shrink: 0;
     }
     .v2-gauge-strip.ready { background: #EFF6FF; border-bottom-color: #BFDBFE; }
-    .v2-gauge-top { display: flex; align-items: center; justify-content: space-between; font-size: 12.5px; font-weight: 800; color: #BE123C; }
+    .v2-gauge-top { display: flex; align-items: center; justify-content: space-between; font-size: 14px; font-weight: 800; color: #BE123C; gap: 8px; }
     .v2-gauge-strip.ready .v2-gauge-top { color: var(--primary); }
     .v2-gauge-track { width: 100%; height: 6px; border-radius: 999px; background: rgba(15,23,42,0.1); overflow: hidden; }
     .v2-gauge-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, #F43F5E, #BE123C); transition: width 0.25s ease; }
@@ -351,21 +352,21 @@
       border-radius: 14px; padding: 13px 14px; display: flex; flex-direction: column; gap: 8px;
     }
     .v2-origin-head { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
-    .v2-author-pill { display: inline-flex; align-items: center; gap: 5px; font-size: 13.5px; font-weight: 800; color: var(--text-main); }
-    .v2-first-tag { font-size: 11px; font-weight: 800; color: var(--primary); background: var(--primary-soft); padding: 2px 6px; border-radius: 5px; }
-    .v2-origin-body { font-size: 15px; line-height: 1.52; color: var(--text-main); word-break: keep-all; }
-    .v2-origin-foot { display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: var(--text-muted); }
+    .v2-author-pill { display: inline-flex; align-items: center; gap: 6px; font-size: 15px; font-weight: 800; color: var(--text-main); }
+    .v2-first-tag { font-size: 12px; font-weight: 800; color: var(--primary); background: var(--primary-soft); padding: 3px 7px; border-radius: 6px; white-space: nowrap; }
+    .v2-origin-body { font-size: 16.5px; line-height: 1.55; color: var(--text-main); word-break: keep-all; }
+    .v2-origin-foot { display: flex; align-items: center; justify-content: space-between; font-size: 13.5px; color: var(--text-muted); gap: 8px; }
 
     .v2-engage-bar { margin: 10px 12px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .btn-v2-empathy {
       height: 44px; border-radius: 12px; background: #FFF; border: 1.5px solid var(--border-strong);
-      color: var(--text-main); font-size: 14px; font-weight: 800;
+      color: var(--text-main); font-size: 15px; font-weight: 800;
       display: flex; align-items: center; justify-content: center; gap: 5px;
     }
     .btn-v2-empathy.active { background: var(--primary); border-color: var(--primary); color: #FFF; }
     .btn-v2-lawyer {
       height: 44px; border-radius: 12px; background: #FFF; border: 1.5px solid #FDA4AF;
-      color: #BE123C; font-size: 14px; font-weight: 800;
+      color: #BE123C; font-size: 15px; font-weight: 800;
       display: flex; align-items: center; justify-content: center; gap: 5px;
     }
     .btn-v2-lawyer.active { background: #BE123C; border-color: #BE123C; color: #FFF; }
@@ -376,14 +377,14 @@
     }
     .v2-comments-head {
       padding: 11px 14px; border-bottom: 1px solid #F1F5F9;
-      display: flex; align-items: center; justify-content: space-between; font-size: 14px; font-weight: 900;
+      display: flex; align-items: center; justify-content: space-between; font-size: 15.5px; font-weight: 900;
     }
     .v2-comment-item { padding: 12px 14px; border-bottom: 1px solid #F1F5F9; display: flex; flex-direction: column; gap: 5px; }
     .v2-comment-item:last-child { border-bottom: none; }
-    .v2-c-meta { display: flex; align-items: center; justify-content: space-between; font-size: 12.5px; color: var(--text-muted); }
-    .v2-c-meta strong { color: var(--text-main); font-size: 13.5px; }
-    .v2-c-body { font-size: 14.5px; line-height: 1.48; color: #1E293B; word-break: keep-all; }
-    .v2-empty-comments { padding: 24px 16px; text-align: center; color: var(--text-muted); font-size: 13.5px; line-height: 1.5; }
+    .v2-c-meta { display: flex; align-items: center; justify-content: space-between; font-size: 13.5px; color: var(--text-muted); }
+    .v2-c-meta strong { color: var(--text-main); font-size: 15px; }
+    .v2-c-body { font-size: 15.5px; line-height: 1.52; color: #1E293B; word-break: keep-all; }
+    .v2-empty-comments { padding: 24px 16px; text-align: center; color: var(--text-muted); font-size: 14.5px; line-height: 1.55; }
 
     .v2-comment-composer {
       position: absolute; left: 0; right: 0; bottom: 0; z-index: 25;
@@ -392,7 +393,7 @@
     }
     .v2-comment-composer input {
       flex: 1; height: 42px; border-radius: 999px; border: 1px solid var(--border-strong);
-      background: #F8FAFC; padding: 0 14px; font-size: 14.5px; outline: none;
+      background: #F8FAFC; padding: 0 14px; font-size: 15.5px; outline: none;
     }
     .v2-comment-composer input:focus { border-color: var(--primary); background: #FFF; }
     .v2-comment-composer button {
@@ -427,14 +428,16 @@
     .onair-lamp.lit-active { background: #DC2626; border-color: #B91C1C; color: #FFF; }
     .onair-lamp.lit-resolved { background: #15803D; border-color: #166534; color: #FFF; }
     .onair-lamp.lit-chronic { background: #0F172A; border-color: #0F172A; color: #FFF; }
-    /* [v0.4.49] 소음 정보 모노톤 + 신뢰도 컬러 집중 + 스택형 24시간 블록 차트 */
+    /* [v0.4.50] 소음 정보 모노톤 + 신뢰도 컬러 집중 + 자동확장 24시간(0~23) 스택 차트 */
     .v2-an-card.mono { background: #FAFAFA; border: 1px solid #E2E8F0; }
-    .v2-an-mono-title { font-size: 15.5px; font-weight: 800; color: #0F172A; }
-    .v2-an-mono-sub { font-size: 13.5px; font-weight: 600; color: #334155; line-height: 1.48; }
-    .v2-an-mono-meta { font-size: 12px; font-weight: 600; color: #64748B; }
+    .v2-an-head h3 { font-size: 18.5px; font-weight: 900; color: var(--text-main); }
+    .v2-an-lbl { font-size: 13.5px; font-weight: 800; color: var(--text-muted); }
+    .v2-an-mono-title { font-size: 17px; font-weight: 900; color: #0F172A; line-height: 1.35; word-break: keep-all; }
+    .v2-an-mono-sub { font-size: 15px; font-weight: 600; color: #334155; line-height: 1.5; word-break: keep-all; }
+    .v2-an-mono-meta { font-size: 13.5px; font-weight: 600; color: #64748B; line-height: 1.45; }
     .v2-an-status-readonly {
-      display: inline-flex; align-items: center; gap: 4px;
-      font-size: 11.5px; font-weight: 800; padding: 2px 8px; border-radius: 999px;
+      display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; flex-shrink: 0;
+      font-size: 12.5px; font-weight: 800; padding: 3px 9px; border-radius: 999px;
       background: #F1F5F9; color: #334155; border: 1px solid #CBD5E1;
     }
 
@@ -470,21 +473,43 @@
     .v2-trust-chip.warn { background: rgba(244, 63, 94, 0.88); border-color: rgba(255,255,255,0.45); }
     .v2-trust-chip.ok { background: rgba(16, 185, 129, 0.85); border-color: rgba(255,255,255,0.4); }
 
+    .nd-24h-head-block {
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .nd-24h-peak-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 6px;
+      background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 9px; padding: 7px 10px;
+      font-size: 13.5px; font-weight: 800; color: #0F172A;
+    }
     .nd-24h-stack-grid {
-      display: grid; grid-template-columns: repeat(24, 1fr); gap: 2px;
-      align-items: end; min-height: 72px; padding-top: 8px;
+      display: grid; grid-template-columns: repeat(24, minmax(0, 1fr)); gap: 1.5px;
+      align-items: end; min-height: 76px; height: auto; padding-top: 16px; padding-bottom: 3px;
       border-bottom: 1.5px solid #94A3B8;
     }
     .nd-24h-col {
       display: flex; flex-direction: column-reverse; align-items: center; gap: 2px;
-      height: 100%; justify-content: flex-start;
+      justify-content: flex-start; min-width: 0;
+    }
+    .nd-24h-cnt {
+      font-size: 9px; font-weight: 900; color: #0F172A; line-height: 1; margin-bottom: 2px;
     }
     .nd-24h-cell {
-      width: 100%; height: 9px; border-radius: 2px;
+      width: 100%; height: 8px; border-radius: 1.5px; flex-shrink: 0;
     }
     .nd-24h-cell.lv-1 { background: #D97706; }
     .nd-24h-cell.lv-2 { background: #EA580C; }
     .nd-24h-cell.lv-3 { background: #E11D48; }
+    .nd-24h-axis-24 {
+      display: grid; grid-template-columns: repeat(24, minmax(0, 1fr)); gap: 1.5px;
+      padding-top: 4px;
+    }
+    .nd-24h-tick {
+      text-align: center; font-size: 8.5px; font-weight: 700; color: #64748B;
+      letter-spacing: -0.06em; line-height: 1;
+    }
+    .nd-24h-tick.major {
+      color: #0F172A; font-weight: 900;
+    }
 
     /* 소음 올리기 완료 안내 모달 */
     .submit-done-backdrop {
@@ -528,17 +553,17 @@
       display: flex; flex-direction: column; gap: 12px;
     }
     .w-card { background: #FFF; border: 1px solid var(--border-line); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
-    .w-title { font-size: 15px; font-weight: 900; color: var(--text-main); }
+    .w-title { font-size: 16.5px; font-weight: 900; color: var(--text-main); }
     .pill-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
     .pill-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
     .btn-sel {
       min-height: 40px; padding: 8px 10px; border-radius: 10px; background: #FFF;
-      border: 1.5px solid var(--border-strong); font-size: 13.5px; font-weight: 800; color: var(--text-main);
+      border: 1.5px solid var(--border-strong); font-size: 14.5px; font-weight: 800; color: var(--text-main);
     }
     .btn-sel.active { background: var(--primary); border-color: var(--primary); color: #FFF; }
     .write-textarea {
       width: 100%; min-height: 86px; border: 1px solid var(--border-strong); border-radius: 10px;
-      background: #F8FAFC; padding: 10px 12px; font-size: 14.5px; line-height: 1.45; resize: none; outline: none;
+      background: #F8FAFC; padding: 10px 12px; font-size: 15.5px; line-height: 1.5; resize: none; outline: none;
     }
     .write-textarea:focus { border-color: var(--primary); background: #FFF; }
     .write-submit-wrap { padding-top: 4px; flex-shrink: 0; }
@@ -584,13 +609,13 @@
 </head>
 <body>
   <div class="app-shell">
-    <div class="boot-version-banner" id="boot-version-banner">53데시벨 v0.4.49 구동</div>
+    <div class="boot-version-banner" id="boot-version-banner">53데시벨 v0.4.50 구동</div>
 
     <!-- [화면 1] 로그인 / QA 진입 -->
     <section class="screen" id="screen-auth">
       <div style="display:flex; justify-content:space-between; align-items:center;">
         <button type="button" class="btn-outline" id="btn-auth-expert-join" style="color:var(--primary); border-color:var(--primary);">전문가 입점</button>
-        <span style="font-size:12px; font-weight:800; color:var(--primary); background:var(--primary-soft); padding:4px 9px; border-radius:999px;">v0.4.49</span>
+        <span style="font-size:12px; font-weight:800; color:var(--primary); background:var(--primary-soft); padding:4px 9px; border-radius:999px;">v0.4.50</span>
       </div>
 
       <div class="auth-hero">
@@ -658,7 +683,7 @@
             <div class="sheet-title-wrap">
               <h2>주변 소음 정보</h2>
               <span class="spot-count-pill" id="spot-index-indicator">0 / 0</span>
-              <span class="ver-mini-tag">v0.4.49</span>
+              <span class="ver-mini-tag">v0.4.50</span>
             </div>
             <button type="button" class="btn-header-write" id="btn-open-write">+ 소음 올리기</button>
           </div>
@@ -920,11 +945,11 @@
     <div class="sheet-backdrop" id="modal-qa" hidden>
       <div class="native-modal-sheet">
         <div class="sheet-title-bar">
-          <h3>QA 테스트 · 데이터 관리 (v0.4.49)</h3>
+          <h3>QA 테스트 · 데이터 관리 (v0.4.50)</h3>
           <button type="button" class="btn-outline" id="btn-close-qa">닫기</button>
         </div>
         <div style="background:var(--bg-subtle); border:1px solid var(--border-line); border-radius:12px; padding:12px; font-size:13.5px; line-height:1.6;">
-          <div>• 현재 버전: <strong style="color:var(--primary);">v0.4.49</strong> · 계정: <strong id="qa-user-label" style="color:var(--primary);">마스터QA</strong></div>
+          <div>• 현재 버전: <strong style="color:var(--primary);">v0.4.50</strong> · 계정: <strong id="qa-user-label" style="color:var(--primary);">마스터QA</strong></div>
           <div>• 등록 소음: <strong id="qa-post-cnt">0건</strong> · 다음 가상주민 번호: <strong id="qa-seq-cnt">01</strong></div>
         </div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
@@ -990,7 +1015,7 @@
   </div>
 
   <script>
-    const APP_VERSION = 'v0.4.49';
+    const APP_VERSION = 'v0.4.50';
 
     const CONFIG = {
       BLDG_API_KEY: '738a1e3eb24afc48a06e3871c47d057b54f27cfde63e91a4e2b5a2baf27cbae5',
@@ -1514,12 +1539,12 @@
                 <span class="sc-cat-txt">${kw}</span>
                 <span class="sc-db-badge lv-${p.whoLevel}">${who.db}</span>
               </div>
-              <span style="font-size:12.5px; font-weight:800; color:var(--primary);">터치해 참여 ›</span>
+              <span style="font-size:14px; font-weight:800; color:var(--primary); white-space:nowrap;">터치해 참여 ›</span>
             </div>
             <div class="sc-loc-main">${locTitle}</div>
             <div class="sc-desc">${p.content}</div>
             <div class="sc-actions">
-              <span style="font-size:12px; font-weight:700; color:var(--text-muted);">${p.author} · ${relTime(p.timestamp)}</span>
+              <span style="font-size:13.5px; font-weight:700; color:var(--text-muted); white-space:nowrap;">${p.author} · ${relTime(p.timestamp)}</span>
               <div style="display:flex; gap:6px;">
                 <span class="btn-card-act ${p.empathyCount > 0 ? 'active' : ''}">공감 ${p.empathyCount || 0}</span>
                 <span class="btn-card-act">댓글 ${(p.comments || []).length}</span>
@@ -1678,12 +1703,16 @@
       });
 
       const stackColsHtml = hourCounts.map((cnt, h) => {
-        const visualBlocks = Math.min(cnt, 7);
-        const cells = Array.from({ length: visualBlocks }, () =>
+        if (cnt <= 0) return `<div class="nd-24h-col" title="${formatKoreanHour(h)}: 0건"></div>`;
+        const cells = Array.from({ length: cnt }, () =>
           `<div class="nd-24h-cell lv-${post.whoLevel}"></div>`
         ).join('');
-        return `<div class="nd-24h-col" title="${formatKoreanHour(h)}: ${cnt}건">${cells}</div>`;
+        return `<div class="nd-24h-col" title="${formatKoreanHour(h)}: ${cnt}건">${cells}<span class="nd-24h-cnt">${cnt}</span></div>`;
       }).join('');
+
+      const axis24Html = Array.from({ length: 24 }, (_, h) =>
+        `<span class="nd-24h-tick ${h % 6 === 0 ? 'major' : ''}">${h}</span>`
+      ).join('');
 
       /* 제보 본인(비마스터)일 때만 3가지 상태 변경 버튼 노출 */
       const statusEditorHtml = canEditPostStatus(post) ? `
@@ -1726,9 +1755,9 @@
             </div>
             <div style="flex:1; min-width:0;">
               <span class="v2-trust-grade-pill">${trustGrade}</span>
-              <div style="font-size:13px; font-weight:700; color:#F8FAFC; line-height:1.45;">
+              <div style="font-size:14px; font-weight:700; color:#F8FAFC; line-height:1.45; word-break:keep-all;">
                 변호사 법률 검토용 객관 지표<br>
-                누적 증언·공감 총 ${totalSignals}건 반영
+                누적 제보·공감·증언 총 ${totalSignals}건
               </div>
             </div>
           </div>
@@ -1743,20 +1772,21 @@
           </div>
         </div>
 
-        <!-- 4) 24시간 소음 발생 패턴 (1건=1칸 스택, 0건은 빈칸, dB별 컬러) -->
+        <!-- 4) 24시간 소음 발생 패턴 (1건=1칸 자동확장 스택, 0~23시 1시간 단위 가로축) -->
         <div class="v2-an-card">
-          <div style="display:flex; justify-content:space-between; align-items:center; gap:6px;">
-            <span class="v2-an-lbl">4. 24시간 소음 발생 패턴 (1건 = 1칸)</span>
-            <span style="font-size:12px; font-weight:900; color:${who.color};">집중: ${post.day} ${formatKoreanHour(peakHour)} (${peakVal}건)</span>
+          <div class="nd-24h-head-block">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:6px;">
+              <span class="v2-an-lbl">4. 24시간 소음 발생 패턴</span>
+              <span style="font-size:12.5px; font-weight:700; color:var(--text-muted); white-space:nowrap;">1건 = 1칸 · 총 ${totalSignals}건</span>
+            </div>
+            <div class="nd-24h-peak-row">
+              <span>최다 집중 시간대</span>
+              <span style="color:${who.color}; white-space:nowrap;">${post.day} · ${formatKoreanHour(peakHour)} (${peakVal}건)</span>
+            </div>
           </div>
           <div class="nd-24h-stack-grid">${stackColsHtml}</div>
-          <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-muted); font-weight:700;">
-            <span>00시(새벽)</span><span>06시(아침)</span><span>12시(낮)</span><span>18시(저녁)</span><span>23시(밤)</span>
-          </div>
-          <div style="font-size:11.5px; color:var(--text-muted); display:flex; justify-content:space-between;">
-            <span>제보·공감·댓글 합산 총 ${totalSignals}칸</span>
-            <span style="color:${who.color}; font-weight:800;">● ${who.db} 강도 컬러</span>
-          </div>
+          <div class="nd-24h-axis-24">${axis24Html}</div>
+          <div style="text-align:right; font-size:11px; font-weight:600; color:var(--text-muted);">(단위: 시 · 0시~23시)</div>
         </div>
 
         ${statusEditorHtml}
