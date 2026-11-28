@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨 (v0.4.45)</title>
+  <title>53데시벨 (v0.4.46)</title>
 
   <link id="pwa-manifest-link" rel="manifest">
   <script>
@@ -109,6 +109,16 @@
       font-size: 15px; font-weight: 600; color: var(--text-main); outline: none;
     }
 
+    /* 구동 시작 버전 배너 (자동으로 2.2초 표시 후 페이드아웃) */
+    .boot-version-banner {
+      position: absolute; top: calc(62px + var(--safe-top)); left: 50%; transform: translateX(-50%);
+      z-index: 350; background: rgba(30, 58, 138, 0.94); color: #FFF;
+      padding: 7px 15px; border-radius: 999px; font-size: 13px; font-weight: 800;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.25); pointer-events: none;
+      white-space: nowrap; transition: opacity 0.35s ease;
+    }
+    .boot-version-banner.fade-out { opacity: 0; }
+
     /* 상단바 */
     .flat-topbar {
       height: calc(54px + var(--safe-top)); padding: var(--safe-top) 12px 0;
@@ -196,22 +206,23 @@
       box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.28); pointer-events: none;
     }
 
-    /* [v0.4.45 신규] 입체 구멍 핀 + 바닥 링 SVG 디자인 */
+    /* [v0.4.46] 지도 확대·축소 레벨 연동 입체 구멍 핀 + 바닥 링 */
     .nm-wrap { position: relative; display: flex; flex-direction: column; align-items: center; cursor: pointer; }
     .nm-label {
-      font-size: 12.5px; font-weight: 900; letter-spacing: -0.03em; white-space: nowrap; margin-bottom: 1px;
+      font-weight: 900; letter-spacing: -0.03em; white-space: nowrap; margin-bottom: 1px;
       text-shadow: -2px -2px 0 #FFF, 2px -2px 0 #FFF, -2px 2px 0 #FFF, 2px 2px 0 #FFF, 0 2px 4px rgba(15,23,42,0.22);
+      transition: font-size 0.12s ease;
     }
     .nm-wrap.st-red .nm-label { color: #E11D48; }
     .nm-wrap.st-green .nm-label { color: #16A34A; }
     .nm-wrap.st-black .nm-label { color: #1E293B; }
     .nm-pin-svg {
-      width: 28px; height: 35px; display: block;
+      display: block;
       filter: drop-shadow(0 2px 3px rgba(15, 23, 42, 0.28));
-      transition: transform 0.12s ease;
+      transition: width 0.12s ease, height 0.12s ease, transform 0.12s ease;
     }
     .nm-wrap.selected .nm-pin-svg {
-      transform: scale(1.18);
+      transform: scale(1.16);
       filter: drop-shadow(0 4px 6px rgba(15, 23, 42, 0.42));
     }
     .nm-wrap.selected .nm-label { text-decoration: underline; text-underline-offset: 2px; }
@@ -222,6 +233,7 @@
     .sheet-title-wrap { display: flex; align-items: center; gap: 6px; }
     .sheet-title-wrap h2 { font-size: 16px; font-weight: 900; }
     .spot-count-pill { font-size: 12px; font-weight: 800; color: var(--primary); background: var(--primary-soft); padding: 2px 8px; border-radius: 999px; }
+    .ver-mini-tag { font-size: 11px; font-weight: 800; color: var(--text-muted); background: #F1F5F9; padding: 2px 6px; border-radius: 6px; }
     .btn-header-write { height: 32px; padding: 0 11px; border-radius: 8px; background: var(--primary); color: #FFF; font-size: 13px; font-weight: 800; }
 
     .spot-carousel-wrap {
@@ -363,9 +375,7 @@
       color: #FFF; font-size: 14px; font-weight: 800; white-space: nowrap;
     }
 
-    /* ==========================================================================
-       [v0.4.45 수정] 반투명 소음 정보 & 분석 오버레이 -> 항상 화면 정가운데 정렬
-       ========================================================================== */
+    /* 반투명 소음 정보 & 분석 오버레이 (항상 화면 정가운데) */
     .v2-analysis-backdrop {
       position: absolute; inset: 0; z-index: 200;
       background: rgba(15, 23, 42, 0.72); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
@@ -466,12 +476,13 @@
 </head>
 <body>
   <div class="app-shell">
+    <div class="boot-version-banner" id="boot-version-banner">53데시벨 v0.4.46 구동</div>
 
     <!-- [화면 1] 로그인 / QA 진입 -->
     <section class="screen" id="screen-auth">
       <div style="display:flex; justify-content:space-between; align-items:center;">
         <button type="button" class="btn-outline" id="btn-auth-expert-join" style="color:var(--primary); border-color:var(--primary);">전문가 입점</button>
-        <span style="font-size:12px; font-weight:800; color:var(--primary); background:var(--primary-soft); padding:4px 9px; border-radius:999px;">v0.4.45</span>
+        <span style="font-size:12px; font-weight:800; color:var(--primary); background:var(--primary-soft); padding:4px 9px; border-radius:999px;">v0.4.46</span>
       </div>
 
       <div class="auth-hero">
@@ -539,6 +550,7 @@
             <div class="sheet-title-wrap">
               <h2>주변 소음 정보</h2>
               <span class="spot-count-pill" id="spot-index-indicator">0 / 0</span>
+              <span class="ver-mini-tag">v0.4.46</span>
             </div>
             <button type="button" class="btn-header-write" id="btn-open-write">+ 소음 올리기</button>
           </div>
@@ -740,7 +752,7 @@
 
         <div class="w-card">
           <div class="w-title">6. 이웃과 나눌 한마디</div>
-          <textarea class="write-textarea" id="input-write-content" placeholder="예: 학생인 것 같은데 밤마다 일부러 발망치 하는 것 같아요. 같이 대응하실 분 계신가요?"></textarea>
+          <textarea class="write-textarea" id="input-write-content" placeholder="예: 새벽마다 쇳덩이 떨어뜨리는 소리가 납니다. 같이 대응하실 분 계신가요?"></textarea>
         </div>
 
         <div class="write-submit-wrap">
@@ -749,7 +761,7 @@
       </div>
     </section>
 
-    <!-- [화면 5] 지도 핀 피커 (입체 구멍 핀 + 바닥 링) -->
+    <!-- [화면 5] 지도 핀 피커 -->
     <section class="screen" id="screen-pin-picker" hidden>
       <header class="flat-topbar">
         <button type="button" class="btn-outline" id="btn-picker-back">← 이전</button>
@@ -799,11 +811,11 @@
     <div class="sheet-backdrop" id="modal-qa" hidden>
       <div class="native-modal-sheet">
         <div class="sheet-title-bar">
-          <h3>QA 테스트 · 데이터 관리</h3>
+          <h3>QA 테스트 · 데이터 관리 (v0.4.46)</h3>
           <button type="button" class="btn-outline" id="btn-close-qa">닫기</button>
         </div>
         <div style="background:var(--bg-subtle); border:1px solid var(--border-line); border-radius:12px; padding:12px; font-size:13.5px; line-height:1.6;">
-          <div>• 현재 계정: <strong id="qa-user-label" style="color:var(--primary);">마스터QA</strong></div>
+          <div>• 현재 버전: <strong style="color:var(--primary);">v0.4.46</strong> · 계정: <strong id="qa-user-label" style="color:var(--primary);">마스터QA</strong></div>
           <div>• 등록 소음: <strong id="qa-post-cnt">0건</strong> · 다음 가상주민 번호: <strong id="qa-seq-cnt">01</strong></div>
         </div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
@@ -855,6 +867,8 @@
   </div>
 
   <script>
+    const APP_VERSION = 'v0.4.46';
+
     const CONFIG = {
       BLDG_API_KEY: '738a1e3eb24afc48a06e3871c47d057b54f27cfde63e91a4e2b5a2baf27cbae5',
       LAWYER_GOAL: 5
@@ -865,8 +879,28 @@
       EXPERTS: '53db_v2_experts',
       QA_SEQ: '53db_v2_qa_seq',
       SESSION: '53db_v2_session',
-      LAST_GPS: '53db_v2_last_gps'
+      LAST_GPS: '53db_v2_last_gps',
+      WIPE_FLAG: '53db_wiped_v0446'
     };
+
+    /* [v0.4.46] 이전 버전 잔여 데이터 1회 완전 초기화 */
+    try {
+      if (!localStorage.getItem(STORAGE_KEYS.WIPE_FLAG)) {
+        localStorage.removeItem(STORAGE_KEYS.POSTS);
+        localStorage.removeItem(STORAGE_KEYS.QA_SEQ);
+        localStorage.removeItem(STORAGE_KEYS.LAST_GPS);
+        localStorage.setItem(STORAGE_KEYS.WIPE_FLAG, '1');
+      }
+    } catch (e) {}
+
+    /* 구동 시작 시 버전 배너 2.4초 표시 */
+    (function showBootVersion() {
+      const b = document.getElementById('boot-version-banner');
+      if (!b) return;
+      b.textContent = `53데시벨 ${APP_VERSION} 시작`;
+      setTimeout(() => b.classList.add('fade-out'), 2100);
+      setTimeout(() => { b.hidden = true; }, 2500);
+    })();
 
     const WHO_LEVELS = {
       1: { db: '58dB', full: '58dB (대화 수준)', desc: '집중·휴식 방해 수준' },
@@ -896,8 +930,18 @@
       '경기도','강원특별자치도','충청북도','충청남도','전북특별자치도','전라남도','경상북도','경상남도','제주특별자치도'
     ];
 
-    /* [v0.4.45] 첨부 레퍼런스 스타일 입체 구멍 핀 + 바닥 링 SVG 생성기 */
-    function buildRingPinSvg(theme, clsName = 'nm-pin-svg') {
+    /* [v0.4.46] 지도 레벨별 핀/라벨 크기 계산 (확대하면 커지고 축소하면 작아짐) */
+    function getPinSizeByLevel(level) {
+      const lv = Number(level) || 3;
+      if (lv <= 1) return { w: 36, h: 45, font: 14, hideLabel: false };
+      if (lv === 2) return { w: 30, h: 38, font: 13, hideLabel: false };
+      if (lv === 3) return { w: 24, h: 30, font: 12, hideLabel: false };
+      if (lv === 4) return { w: 19, h: 24, font: 11, hideLabel: false };
+      if (lv === 5) return { w: 15, h: 19, font: 10, hideLabel: false };
+      return { w: 12, h: 15, font: 10, hideLabel: true };
+    }
+
+    function buildRingPinSvg(theme, clsName = 'nm-pin-svg', w = 28, h = 35) {
       const palettes = {
         red:   { top: '#FF4B5C', bot: '#D91B3A', ring: '#F43F5E', inner: '#BE123C' },
         blue:  { top: '#3B9EFF', bot: '#1D64E8', ring: '#2563EB', inner: '#1E40AF' },
@@ -906,7 +950,7 @@
       };
       const c = palettes[theme] || palettes.red;
       const gid = 'g_' + theme + '_' + Math.random().toString(36).slice(2, 7);
-      return `<svg class="${clsName}" viewBox="0 0 64 82" fill="none" xmlns="http://www.w3.org/2000/svg">
+      return `<svg class="${clsName}" style="width:${w}px; height:${h}px;" viewBox="0 0 64 82" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="${gid}" x1="32" y1="4" x2="32" y2="70" gradientUnits="userSpaceOnUse">
             <stop offset="0%" stop-color="${c.top}"/>
@@ -917,6 +961,87 @@
         <path d="M32 4C17.64 4 6 15.64 6 30C6 46.8 25.4 63.6 31.1 71.2C31.55 71.8 32.45 71.8 32.9 71.2C38.6 63.6 58 46.8 58 30C58 15.64 46.36 4 32 4Z" fill="url(#${gid})" stroke="#FFFFFF" stroke-width="2.2"/>
         <circle cx="32" cy="29.5" r="14.2" fill="#FFFFFF" stroke="${c.inner}" stroke-opacity="0.28" stroke-width="2.2"/>
       </svg>`;
+    }
+
+    /* ========================================================================
+       [v0.4.46 핵심] 소음제보 텍스트(+댓글) 분석 기반 핵심 키워드 자동 추출
+       카테고리 고정 라벨을 쓰지 않고 실제 제보 내용에서 생생한 키워드를 추출
+       예: "새벽시간에 주로 쇳덩이 떨어뜨리는 소리가 납니다..." -> "쇳덩이떨어"
+       예: "학생인거같은데 일부러 발망치하는듯요" -> "발망치"
+       예: "개를 방치하고 부재중인가봅니다..." -> "개방치"
+       ======================================================================== */
+    function extractAutoPinKeyword(post) {
+      const rawText = [
+        post.content || '',
+        ...(post.comments || []).map(c => c.text || '')
+      ].join(' ').trim();
+
+      // 기본 자동 문구이거나 비어있을 때만 카테고리 폴백
+      if (!rawText || /소음이 심해 고통스럽습니다\.?$/.test(rawText)) {
+        return String(post.category || '소음').split(/[·\s]/)[0].slice(0, 5);
+      }
+
+      const cleaned = rawText
+        .replace(/[^\uAC00-\uD7A3a-zA-Z0-9\s]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+
+      const words = cleaned.split(' ').filter(Boolean);
+
+      // 조사/어미/불용어 정리
+      const stopRe = /^(새벽|새벽시간|새벽마다|밤|밤마다|저녁|저녁마다|오전|오후|낮|낮에|매일|맨날|항상|자주|주로|계속|정말|진짜|너무|엄청|완전|갑자기|일부러|혹시|아마|그냥|도대체|미치겠|미칠|죽겠|스트레스|정신병자|살고있는|대책|필요|주민|이웃|혼을|내줘야|부재중|소리|소음|납니다|나요|들려요|들립니다|합니다|해요|같아요|같은데|하는듯|있어요|없어요|윗집|아랫집|옆집|위층|아래층|요즘|오늘|어제|지금|방금|여기|거기|저기|우리|사람|학생|누가|누군가|때문|심해|심해요|시끄러|고통)$/;
+
+      const stripParticle = (w) => {
+        if (w.length <= 1) return w;
+        return w
+          .replace(/(에서|에게|부터|까지|처럼|만큼|하고|이랑|으로|이라|인데|인가|하는듯요|하는듯|하는거|하는|같은데|인거|들이|들은|들을|께서)$/, '')
+          .replace(/(은|는|이|가|을|를|에|도|로|와|과|의|만|요)$/, '') || w;
+      };
+
+      // 1) 구체적 소음 원인어(명사/의성어) 탐색
+      const causeRe = /(쇳덩이|쇠구슬|아령|덤벨|망치|발망치|뒤꿈치|볼링공|런닝머신|트레드밀|안마의자|세탁기|건조기|청소기|드릴|그라인더|해머|오토바이|바이크|배기음|마후라|클락션|경적|강아지|반려견|애완견|고양이|개짖|멍멍|의자|책상|식탁|가구|피아노|드럼|기타|우퍼|스피커|노래방|노래|음악|욕설|고성|부부싸움|싸움|소리지|변기|배관|하수구|물소리|실외기|에어컨|공사|인테리어|리모델링|쿵쿵|쿠웅|드르륵|윙윙|웅웅|개)/;
+
+      const actionClean = (w) => {
+        if (!w) return '';
+        let s = w.replace(/(소리가|소리를|소리|납니다|나요|합니다|해요|하고|하는|해서|되는|됩니다|인가봅니다|입니다|듯요|같아요)$/g, '');
+        if (!s || stopRe.test(s)) return '';
+        return s;
+      };
+
+      for (let i = 0; i < words.length; i++) {
+        const w = words[i];
+        const m = w.match(causeRe);
+        if (m) {
+          const core = m[1];
+          // 같은 어절 내 남은 동작 (예: 발망치하는 -> 발망치)
+          const nextWord = words[i + 1] ? actionClean(words[i + 1]) : '';
+          // '개' 단독일 때는 바로 뒤 동작어(방치, 짖음 등)를 꼭 결합
+          if (core === '개' && nextWord) {
+            return (core + nextWord).slice(0, 5);
+          }
+          if (core.length >= 4) return core.slice(0, 5);
+          if (nextWord && !causeRe.test(nextWord)) {
+            const combined = core + nextWord;
+            return combined.slice(0, 5);
+          }
+          return core.slice(0, 5);
+        }
+      }
+
+      // 2) 사전에 없는 새로운 소음 표현: 불용어 제외 후 앞 1~2개 의미 어절 결합 (최대 5자)
+      const meaningful = [];
+      for (const w of words) {
+        const base = stripParticle(w);
+        if (base.length >= 2 && !stopRe.test(base) && !stopRe.test(w)) {
+          meaningful.push(base);
+          if (meaningful.length >= 2) break;
+        }
+      }
+      if (meaningful.length) {
+        return meaningful.join('').slice(0, 5);
+      }
+
+      return String(post.category || '소음').split(/[·\s]/)[0].slice(0, 5);
     }
 
     const state = {
@@ -945,7 +1070,6 @@
       joinRole: '변호사'
     };
 
-    /* 2단계 안정형 GPS 위치 획득 (실내/실외 대응) */
     function requestDeviceLocation(onSuccess, onFail) {
       if (!navigator.geolocation) {
         if (onFail) onFail('위치 서비스를 지원하지 않는 브라우저입니다.');
@@ -972,30 +1096,6 @@
         },
         { enableHighAccuracy: true, timeout: 5000, maximumAge: 10000 }
       );
-    }
-
-    function extractAutoPinKeyword(post) {
-      const combined = [
-        post.category || '',
-        post.content || '',
-        ...(post.comments || []).map(c => c.text || '')
-      ].join(' ');
-      const rules = [
-        { kw: '발망치', re: /발망치|뒤꿈치|쿵쿵|뛰는|뜀박질/ },
-        { kw: '개짖음', re: /개|강아지|멍멍|짖음|짖어|반려동물/ },
-        { kw: '바이크', re: /바이크|오토바이|배기음|굉음|폭주/ },
-        { kw: '고성방가', re: /욕설|고성|소리\s*지르|싸움|부부싸움|소리지/ },
-        { kw: '가구끌기', re: /가구|의자|드르륵|끄는/ },
-        { kw: '드럼세탁', re: /세탁기|탈수|가전|청소기/ },
-        { kw: '배관소음', re: /배관|화장실|물내리는|하수구/ },
-        { kw: '노래·음악', re: /노래|음악|스피커|우퍼|피아노/ },
-        { kw: '공사소음', re: /공사|드릴|망치질|인테리어/ },
-        { kw: '층간충격', re: /충격|떨어뜨|던지|쇳덩이|쿠웅/ }
-      ];
-      for (const r of rules) {
-        if (r.re.test(combined)) return r.kw;
-      }
-      return String(post.category || '소음').split(/[·\s]/)[0].slice(0, 5);
     }
 
     function smartShortenLocation(rawLoc, floor) {
@@ -1135,6 +1235,10 @@
           center: new kakao.maps.LatLng(state.centerLat, state.centerLng),
           level: state.mapLevel
         });
+        kakao.maps.event.addListener(state.map, 'zoom_changed', () => {
+          state.mapLevel = state.map.getLevel();
+          renderPins();
+        });
         kakao.maps.event.addListener(state.map, 'idle', () => {
           const c = state.map.getCenter();
           state.centerLat = c.getLat(); state.centerLng = c.getLng();
@@ -1145,7 +1249,6 @@
         syncDongLabel(state.centerLat, state.centerLng);
         renderHome();
 
-        /* 진입 직후 자동으로 실제 내 GPS 위치로 이동 */
         if (!state.hasAutoLocated) {
           state.hasAutoLocated = true;
           moveMainMapToMyGPS(true);
@@ -1176,6 +1279,9 @@
         state.myLocOverlay.setMap(state.map);
       }
 
+      const curLevel = state.map.getLevel();
+      const sz = getPinSizeByLevel(curLevel);
+
       const list = getFilteredPosts();
       const asc = [...list].sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
       asc.forEach((post, idx) => {
@@ -1186,7 +1292,10 @@
 
         const el = document.createElement('div');
         el.className = `nm-wrap ${stCls}${isSel ? ' selected' : ''}`;
-        el.innerHTML = `<div class="nm-label">${kw}</div>${buildRingPinSvg(theme, 'nm-pin-svg')}`;
+        const labelHtml = (!sz.hideLabel || isSel)
+          ? `<div class="nm-label" style="font-size:${sz.font}px;">${kw}</div>`
+          : '';
+        el.innerHTML = `${labelHtml}${buildRingPinSvg(theme, 'nm-pin-svg', sz.w, sz.h)}`;
         el.onclick = () => {
           state.selectedPostId = post.id;
           state.map.panTo(new kakao.maps.LatLng(post.lat, post.lng));
@@ -1270,21 +1379,27 @@
       kakao.maps.load(() => {
         const box = document.getElementById('detail-mini-map');
         const pos = new kakao.maps.LatLng(post.lat, post.lng);
+        const renderMiniPin = () => {
+          if (state.detailMiniOverlay) state.detailMiniOverlay.setMap(null);
+          const lv = state.detailMiniMap ? state.detailMiniMap.getLevel() : 1;
+          const sz = getPinSizeByLevel(lv);
+          const kw = extractAutoPinKeyword(post);
+          const theme = post.status === 'resolved' ? 'green' : (post.status === 'chronic' ? 'black' : 'red');
+          const pinEl = document.createElement('div');
+          pinEl.className = `nm-wrap st-${theme} selected`;
+          pinEl.innerHTML = `<div class="nm-label" style="font-size:${sz.font}px;">${kw}</div>${buildRingPinSvg(theme, 'nm-pin-svg', sz.w, sz.h)}`;
+          state.detailMiniOverlay = new kakao.maps.CustomOverlay({ position: pos, content: pinEl, yAnchor: 0.9, zIndex: 50 });
+          state.detailMiniOverlay.setMap(state.detailMiniMap);
+        };
         if (!state.detailMiniMap) {
           state.detailMiniMap = new kakao.maps.Map(box, { center: pos, level: 1 });
+          kakao.maps.event.addListener(state.detailMiniMap, 'zoom_changed', renderMiniPin);
         } else {
           state.detailMiniMap.relayout();
           state.detailMiniMap.setLevel(1);
           state.detailMiniMap.setCenter(pos);
         }
-        if (state.detailMiniOverlay) state.detailMiniOverlay.setMap(null);
-        const kw = extractAutoPinKeyword(post);
-        const theme = post.status === 'resolved' ? 'green' : (post.status === 'chronic' ? 'black' : 'red');
-        const pinEl = document.createElement('div');
-        pinEl.className = `nm-wrap st-${theme} selected`;
-        pinEl.innerHTML = `<div class="nm-label">${kw}</div>${buildRingPinSvg(theme, 'nm-pin-svg')}`;
-        state.detailMiniOverlay = new kakao.maps.CustomOverlay({ position: pos, content: pinEl, yAnchor: 0.9, zIndex: 50 });
-        state.detailMiniOverlay.setMap(state.detailMiniMap);
+        renderMiniPin();
       });
     }
 
@@ -1491,9 +1606,6 @@
       }).join('');
     }
 
-    /* ========================================================================
-       [v0.4.45 수정] 좌표-주소 100% 일치 역지오코딩 함수 (소음 올리기 / 핀 피커 공용)
-       ======================================================================== */
     let geocodeReqSeq = 0;
     function resolveCoordToDraft(lat, lng, updateWriteUI = false) {
       const mySeq = ++geocodeReqSeq;
@@ -1548,7 +1660,6 @@
     }
 
     function openWriteScreen() {
-      /* 현재 보고 있는 지도 중심(또는 실제 내 GPS) 좌표를 정확히 동기화 */
       let startLat = state.centerLat;
       let startLng = state.centerLng;
       if (state.map) {
@@ -1635,9 +1746,8 @@
       openDetailV2(newPost.id);
     };
 
-    /* 핀 피커 지도 */
     function openPinPicker() {
-      document.getElementById('picker-pin-svg-holder').innerHTML = buildRingPinSvg('blue', 'picker-pin-svg');
+      document.getElementById('picker-pin-svg-holder').innerHTML = buildRingPinSvg('blue', 'picker-pin-svg', 38, 48);
       goScreen('screen-pin-picker');
       setTimeout(() => {
         if (typeof kakao === 'undefined' || !kakao.maps) return;
@@ -1688,7 +1798,7 @@
     document.getElementById('btn-kakao-master').onclick = () => {
       state.user = { loggedIn: true, isMaster: true, nickname: '마스터QA', homeDong: '만수2동' };
       saveData();
-      showToast('마스터QA 진입! 내 실제 위치로 지도를 맞춥니다.');
+      showToast(`마스터QA (${APP_VERSION}) 진입! 내 실제 위치로 이동합니다.`);
       goScreen('screen-main');
     };
     document.getElementById('btn-guest-start').onclick = () => {
