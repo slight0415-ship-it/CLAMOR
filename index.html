@@ -9,12 +9,37 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨 (v0.4.47)</title>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>53데시벨 (v0.4.48)</title>
 
   <link id="pwa-manifest-link" rel="manifest">
   <script>
     (function() {
-      const iconSvg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='40' fill='%231E3A8A'/%3E%3Ctext x='96' y='118' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='76' font-weight='900'%3E53%3C/text%3E%3C/svg%3E";
+      function makePngIcon(size) {
+        try {
+          const c = document.createElement('canvas');
+          c.width = size; c.height = size;
+          const ctx = c.getContext('2d');
+          const r = size * 0.22;
+          ctx.fillStyle = '#1E3A8A';
+          ctx.beginPath();
+          ctx.moveTo(r, 0); ctx.lineTo(size - r, 0); ctx.quadraticCurveTo(size, 0, size, r);
+          ctx.lineTo(size, size - r); ctx.quadraticCurveTo(size, size, size - r, size);
+          ctx.lineTo(r, size); ctx.quadraticCurveTo(0, size, 0, size - r);
+          ctx.lineTo(0, r); ctx.quadraticCurveTo(0, 0, r, 0); ctx.closePath(); ctx.fill();
+          ctx.fillStyle = '#FFFFFF';
+          ctx.font = '900 ' + Math.round(size * 0.42) + 'px sans-serif';
+          ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+          ctx.fillText('53', size / 2, size * 0.53);
+          return c.toDataURL('image/png');
+        } catch (e) {
+          return "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='40' fill='%231E3A8A'/%3E%3Ctext x='96' y='118' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-size='76' font-weight='900'%3E53%3C/text%3E%3C/svg%3E";
+        }
+      }
+      const icon192 = makePngIcon(192);
+      const icon512 = makePngIcon(512);
       const pageUrl = window.location.href.split('#')[0].split('?')[0];
       const baseScope = pageUrl.substring(0, pageUrl.lastIndexOf('/') + 1);
       const manifestObj = {
@@ -22,8 +47,8 @@
         start_url: pageUrl, scope: baseScope, display: "standalone",
         background_color: "#FFFFFF", theme_color: "#1E3A8A", orientation: "portrait",
         icons: [
-          { src: iconSvg, sizes: "192x192", type: "image/png", purpose: "any" },
-          { src: iconSvg, sizes: "512x512", type: "image/png", purpose: "any maskable" }
+          { src: icon192, sizes: "192x192", type: "image/png", purpose: "any" },
+          { src: icon512, sizes: "512x512", type: "image/png", purpose: "any maskable" }
         ]
       };
       try {
@@ -445,12 +470,13 @@
     .picker-map-area { position: relative; flex: 1; width: 100%; background: #E2E8F0; overflow: hidden; touch-action: none; }
     #picker-kakao-map { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; }
     .picker-center-pin-wrap {
-      position: absolute; left: 50%; top: 50%; transform: translate(-50%, -92%);
+      position: absolute; left: 50%; top: 50%; transform: translate(-50%, -90%);
       z-index: 30; display: flex; flex-direction: column; align-items: center; pointer-events: none;
     }
     .picker-guide-bubble {
-      background: var(--secondary); color: #FFF; font-size: 13px; font-weight: 800;
-      padding: 5px 11px; border-radius: 8px; margin-bottom: 4px; white-space: nowrap;
+      position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+      background: var(--secondary); color: #FFF; font-size: 12.5px; font-weight: 800;
+      padding: 5px 11px; border-radius: 8px; white-space: nowrap;
       box-shadow: 0 3px 8px rgba(15, 23, 42, 0.22);
     }
     .picker-pin-svg {
@@ -482,13 +508,13 @@
 </head>
 <body>
   <div class="app-shell">
-    <div class="boot-version-banner" id="boot-version-banner">53데시벨 v0.4.47 구동</div>
+    <div class="boot-version-banner" id="boot-version-banner">53데시벨 v0.4.48 구동</div>
 
     <!-- [화면 1] 로그인 / QA 진입 -->
     <section class="screen" id="screen-auth">
       <div style="display:flex; justify-content:space-between; align-items:center;">
         <button type="button" class="btn-outline" id="btn-auth-expert-join" style="color:var(--primary); border-color:var(--primary);">전문가 입점</button>
-        <span style="font-size:12px; font-weight:800; color:var(--primary); background:var(--primary-soft); padding:4px 9px; border-radius:999px;">v0.4.47</span>
+        <span style="font-size:12px; font-weight:800; color:var(--primary); background:var(--primary-soft); padding:4px 9px; border-radius:999px;">v0.4.48</span>
       </div>
 
       <div class="auth-hero">
@@ -556,7 +582,7 @@
             <div class="sheet-title-wrap">
               <h2>주변 소음 정보</h2>
               <span class="spot-count-pill" id="spot-index-indicator">0 / 0</span>
-              <span class="ver-mini-tag">v0.4.47</span>
+              <span class="ver-mini-tag">v0.4.48</span>
             </div>
             <button type="button" class="btn-header-write" id="btn-open-write">+ 소음 올리기</button>
           </div>
@@ -818,11 +844,11 @@
     <div class="sheet-backdrop" id="modal-qa" hidden>
       <div class="native-modal-sheet">
         <div class="sheet-title-bar">
-          <h3>QA 테스트 · 데이터 관리 (v0.4.47)</h3>
+          <h3>QA 테스트 · 데이터 관리 (v0.4.48)</h3>
           <button type="button" class="btn-outline" id="btn-close-qa">닫기</button>
         </div>
         <div style="background:var(--bg-subtle); border:1px solid var(--border-line); border-radius:12px; padding:12px; font-size:13.5px; line-height:1.6;">
-          <div>• 현재 버전: <strong style="color:var(--primary);">v0.4.47</strong> · 계정: <strong id="qa-user-label" style="color:var(--primary);">마스터QA</strong></div>
+          <div>• 현재 버전: <strong style="color:var(--primary);">v0.4.48</strong> · 계정: <strong id="qa-user-label" style="color:var(--primary);">마스터QA</strong></div>
           <div>• 등록 소음: <strong id="qa-post-cnt">0건</strong> · 다음 가상주민 번호: <strong id="qa-seq-cnt">01</strong></div>
         </div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
@@ -833,6 +859,7 @@
           <textarea class="write-textarea" id="textarea-import-json" placeholder="백업한 JSON 데이터를 붙여넣으세요"></textarea>
           <button type="button" class="btn-primary" id="btn-exec-import" style="height:42px; min-height:42px;">복원 적용</button>
         </div>
+        <button type="button" class="btn-outline" id="btn-force-reload-pwa" style="width:100%; height:40px; color:var(--primary); border-color:var(--primary);">↻ 최신 버전 강제 새로고침 (PWA 캐시 갱신)</button>
         <button type="button" class="btn-outline" id="btn-reset-qa" style="width:100%; height:40px; color:var(--lv3); border-color:#FECDD3;">모든 테스트 데이터 초기화</button>
       </div>
     </div>
@@ -874,7 +901,7 @@
   </div>
 
   <script>
-    const APP_VERSION = 'v0.4.47';
+    const APP_VERSION = 'v0.4.48';
 
     const CONFIG = {
       BLDG_API_KEY: '738a1e3eb24afc48a06e3871c47d057b54f27cfde63e91a4e2b5a2baf27cbae5',
@@ -887,7 +914,7 @@
       QA_SEQ: '53db_v2_qa_seq',
       SESSION: '53db_v2_session',
       LAST_GPS: '53db_v2_last_gps',
-      WIPE_FLAG: '53db_wiped_v0446'
+      WIPE_FLAG: '53db_wiped_v0448'
     };
 
     /* [v0.4.46] 이전 버전 잔여 데이터 1회 완전 초기화 */
@@ -940,12 +967,12 @@
     /* [v0.4.46] 지도 레벨별 핀/라벨 크기 계산 (확대하면 커지고 축소하면 작아짐) */
     function getPinSizeByLevel(level) {
       const lv = Number(level) || 3;
-      if (lv <= 1) return { w: 40, h: 50, font: 14, hideLabel: false };
-      if (lv === 2) return { w: 32, h: 40, font: 13, hideLabel: false };
-      if (lv === 3) return { w: 25, h: 31, font: 12, hideLabel: false };
-      if (lv === 4) return { w: 19, h: 24, font: 11, hideLabel: false };
-      if (lv === 5) return { w: 15, h: 19, font: 10, hideLabel: false };
-      return { w: 12, h: 15, font: 10, hideLabel: true };
+      if (lv <= 1) return { w: 20, h: 25, font: 12.5, hideLabel: false };
+      if (lv === 2) return { w: 16, h: 20, font: 11.5, hideLabel: false };
+      if (lv === 3) return { w: 13, h: 16, font: 11, hideLabel: false };
+      if (lv === 4) return { w: 10, h: 13, font: 10, hideLabel: false };
+      if (lv === 5) return { w: 8, h: 10, font: 9.5, hideLabel: false };
+      return { w: 6, h: 8, font: 9, hideLabel: true };
     }
 
     function buildRingPinSvg(theme, clsName = 'nm-pin-svg', w = 28, h = 35) {
@@ -1243,10 +1270,14 @@
           level: state.mapLevel
         });
         kakao.maps.event.addListener(state.map, 'zoom_changed', () => {
+          const box = document.getElementById('kakao-map');
+          if (!box || box.offsetWidth === 0 || document.getElementById('screen-main').hidden) return;
           state.mapLevel = state.map.getLevel();
           renderPins();
         });
         kakao.maps.event.addListener(state.map, 'idle', () => {
+          const box = document.getElementById('kakao-map');
+          if (!box || box.offsetWidth === 0 || document.getElementById('screen-main').hidden) return;
           const c = state.map.getCenter();
           state.centerLat = c.getLat(); state.centerLng = c.getLng();
           state.mapLevel = state.map.getLevel();
@@ -1378,7 +1409,7 @@
       state.selectedPostId = postId;
       goScreen('screen-detail');
       renderDetailV2Content(post);
-      requestAnimationFrame(() => initDetailMiniMap(post));
+      setTimeout(() => initDetailMiniMap(post), 60);
     }
 
     function initDetailMiniMap(post) {
@@ -1786,9 +1817,13 @@
             state.pickerMap = new kakao.maps.Map(box, { center: pos, level: initLevel });
             state.pickerMap.setZoomable(true);
             kakao.maps.event.addListener(state.pickerMap, 'zoom_changed', () => {
+              const pBox = document.getElementById('picker-kakao-map');
+              if (!pBox || pBox.offsetWidth === 0 || document.getElementById('screen-pin-picker').hidden) return;
               updatePickerPinByZoom();
             });
             kakao.maps.event.addListener(state.pickerMap, 'idle', () => {
+              const pBox = document.getElementById('picker-kakao-map');
+              if (!pBox || pBox.offsetWidth === 0 || document.getElementById('screen-pin-picker').hidden) return;
               const c = state.pickerMap.getCenter();
               resolveCoordToDraft(c.getLat(), c.getLng(), false);
               updatePickerPinByZoom();
@@ -1860,16 +1895,21 @@
     document.getElementById('btn-write-pick-map').onclick = openPinPicker;
     document.getElementById('btn-picker-back').onclick = () => goScreen('screen-write');
     document.getElementById('btn-picker-confirm').onclick = () => {
-      if (state.pickerMap) {
+      let finalLat = state.draftLoc.lat;
+      let finalLng = state.draftLoc.lng;
+      const pBox = document.getElementById('picker-kakao-map');
+      if (state.pickerMap && pBox && pBox.offsetWidth > 0) {
         const c = state.pickerMap.getCenter();
-        state.draftLoc.lat = c.getLat();
-        state.draftLoc.lng = c.getLng();
+        finalLat = c.getLat();
+        finalLng = c.getLng();
       }
+      state.draftLoc.lat = finalLat;
+      state.draftLoc.lng = finalLng;
       document.getElementById('write-road-addr').textContent = state.draftLoc.roadAddr || '위치 확정됨';
       document.getElementById('write-jibun-addr').textContent = state.draftLoc.jibunAddr || '';
       document.getElementById('input-write-bldg').value = state.draftLoc.bldgName || '';
       goScreen('screen-write');
-      resolveCoordToDraft(state.draftLoc.lat, state.draftLoc.lng, true);
+      resolveCoordToDraft(finalLat, finalLng, true);
     };
     document.getElementById('btn-picker-zoom-in').onclick = () => {
       if (!state.pickerMap) return;
@@ -2055,6 +2095,37 @@
       opt.value = r; opt.textContent = r;
       regSel.appendChild(opt);
     });
+
+    /* PWA 홈화면 아이콘 진입 시 GitHub Pages 최신 버전 자동 감지 & 갱신 */
+    async function checkForNewerVersion(manual = false) {
+      try {
+        const cleanPath = window.location.href.split('#')[0].split('?')[0];
+        const res = await fetch(cleanPath + '?vcheck=' + Date.now(), { cache: 'no-store' });
+        if (!res.ok) return;
+        const text = await res.text();
+        const m = text.match(/const APP_VERSION = '(v[0-9.]+)'/);
+        if (m && m[1] && m[1] !== APP_VERSION) {
+          showToast(`새 버전(${m[1]}) 감지! 자동 업데이트합니다...`);
+          setTimeout(() => {
+            window.location.replace(cleanPath + '?v=' + encodeURIComponent(m[1]) + '&t=' + Date.now());
+          }, 600);
+        } else if (manual) {
+          showToast(`현재 최신 버전(${APP_VERSION})입니다.`);
+        }
+      } catch (e) {
+        if (manual) window.location.reload();
+      }
+    }
+
+    document.getElementById('btn-force-reload-pwa').onclick = () => {
+      const cleanPath = window.location.href.split('#')[0].split('?')[0];
+      window.location.replace(cleanPath + '?reload=' + Date.now());
+    };
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') checkForNewerVersion(false);
+    });
+    setTimeout(() => checkForNewerVersion(false), 1200);
 
     loadData();
     if (state.user.loggedIn) goScreen('screen-main');
