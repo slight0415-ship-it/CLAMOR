@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="53데시벨">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>53데시벨 (v2.0.0 — 참여·금융치료 결집형)</title>
+  <title>53데시벨 (v0.4.45)</title>
 
   <link id="pwa-manifest-link" rel="manifest">
   <script>
@@ -88,14 +88,15 @@
     button:active { opacity: 0.82; }
 
     .btn-primary {
-      width: 100%; height: 48px; border-radius: 12px; background: var(--primary); color: #FFF;
+      width: 100%; min-height: 50px; height: 50px; flex-shrink: 0;
+      border-radius: 12px; background: var(--primary); color: #FFF;
       font-size: 16px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 6px;
     }
     .btn-primary:disabled { background: #CBD5E1; cursor: not-allowed; }
     .btn-outline {
       height: 34px; padding: 0 11px; border-radius: 9px; background: var(--bg-white);
       border: 1px solid var(--border-strong); color: var(--text-main); font-size: 13.5px; font-weight: 700;
-      display: inline-flex; align-items: center; justify-content: center; gap: 4px; white-space: nowrap;
+      display: inline-flex; align-items: center; justify-content: center; gap: 4px; white-space: nowrap; flex-shrink: 0;
     }
 
     .flat-input-box {
@@ -189,24 +190,30 @@
       border-radius: 10px; background: #FFF; border: 1px solid var(--border-strong); display: grid; place-items: center; color: var(--primary);
     }
 
-    /* 지도 핀 */
+    /* 내 실제 위치 파란 점 */
+    .my-loc-pulse {
+      width: 15px; height: 15px; border-radius: 50%; background: #2563EB; border: 3px solid #FFF;
+      box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.28); pointer-events: none;
+    }
+
+    /* [v0.4.45 신규] 입체 구멍 핀 + 바닥 링 SVG 디자인 */
     .nm-wrap { position: relative; display: flex; flex-direction: column; align-items: center; cursor: pointer; }
     .nm-label {
-      font-size: 13px; font-weight: 900; letter-spacing: -0.03em; white-space: nowrap; margin-bottom: 3px;
-      text-shadow: -2px -2px 0 #FFF, 2px -2px 0 #FFF, -2px 2px 0 #FFF, 2px 2px 0 #FFF, 0 2px 4px rgba(15,23,42,0.25);
+      font-size: 12.5px; font-weight: 900; letter-spacing: -0.03em; white-space: nowrap; margin-bottom: 1px;
+      text-shadow: -2px -2px 0 #FFF, 2px -2px 0 #FFF, -2px 2px 0 #FFF, 2px 2px 0 #FFF, 0 2px 4px rgba(15,23,42,0.22);
     }
-    .nm-pin {
-      width: 15px; height: 15px; border-radius: 50% 50% 50% 1px; transform: rotate(-45deg);
-      background: var(--primary); border: 2px solid #FFF; box-shadow: -2px 2px 5px rgba(15,23,42,0.4); position: relative;
+    .nm-wrap.st-red .nm-label { color: #E11D48; }
+    .nm-wrap.st-green .nm-label { color: #16A34A; }
+    .nm-wrap.st-black .nm-label { color: #1E293B; }
+    .nm-pin-svg {
+      width: 28px; height: 35px; display: block;
+      filter: drop-shadow(0 2px 3px rgba(15, 23, 42, 0.28));
+      transition: transform 0.12s ease;
     }
-    .nm-pin::after {
-      content: ''; position: absolute; top: 50%; left: 50%; width: 4.5px; height: 4.5px;
-      border-radius: 50%; background: #FFF; transform: translate(-50%, -50%);
+    .nm-wrap.selected .nm-pin-svg {
+      transform: scale(1.18);
+      filter: drop-shadow(0 4px 6px rgba(15, 23, 42, 0.42));
     }
-    .nm-wrap.st-red .nm-label { color: #DC2626; }
-    .nm-wrap.st-green .nm-label { color: #15803D; }
-    .nm-wrap.st-black .nm-label { color: #0F172A; }
-    .nm-wrap.selected .nm-pin { box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.42), -2px 2px 6px rgba(15,23,42,0.5); }
     .nm-wrap.selected .nm-label { text-decoration: underline; text-underline-offset: 2px; }
 
     /* 하단 카드 시트 */
@@ -243,9 +250,7 @@
     .btn-card-act.active { background: var(--primary-soft); border-color: var(--primary); color: var(--primary); }
 
     /* ==========================================================================
-       [v2.0.0 핵심] 전면 개편된 소음 상세 화면 (즉시 참여·금융치료 결집형)
-       1) 확대 미니맵 -> 2) 한줄 요약 바(번쩍이는 체감강도) -> 3) 금융치료 게이지
-       -> 4) 최초 제보 카드 -> 5) 즉시 공감 & 댓글
+       소음 상세 화면 (즉시 참여·금융치료 결집형)
        ========================================================================== */
     #screen-detail { z-index: 105; background: var(--bg-page); }
     .v2-detail-scroll {
@@ -253,33 +258,24 @@
       padding-bottom: calc(74px + var(--safe-bottom));
     }
 
-    /* 1) 확대된 미니맵 */
     .v2-minimap-box {
-      position: relative; width: 100%; height: 156px; flex-shrink: 0;
+      position: relative; width: 100%; height: 160px; flex-shrink: 0;
       background: #E2E8F0; border-bottom: 1px solid var(--border-line); overflow: hidden;
     }
     #detail-mini-map { position: absolute; inset: 0; width: 100%; height: 100%; }
     .v2-minimap-tag {
-      position: absolute; left: 10px; bottom: 8px; z-index: 15;
+      position: absolute; left: 10px; top: 8px; z-index: 15;
       background: rgba(15, 23, 42, 0.78); color: #FFF; font-size: 11.5px; font-weight: 700;
       padding: 4px 9px; border-radius: 999px; pointer-events: none;
     }
 
-    /* 2) 한 줄 요약 바: 소음종류 · 번쩍이는 체감강도 · AI 축약 위치 */
     .v2-oneline-bar {
       background: #FFF; padding: 11px 14px; border-bottom: 1px solid var(--border-line);
       display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-shrink: 0;
     }
-    .v2-ol-cat {
-      font-size: 15.5px; font-weight: 900; color: var(--text-main);
-      white-space: nowrap; flex-shrink: 0;
-    }
-    .v2-ol-loc {
-      font-size: 14px; font-weight: 800; color: var(--text-sub);
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: right; flex: 1; min-width: 0;
-    }
+    .v2-ol-cat { font-size: 15.5px; font-weight: 900; color: var(--text-main); white-space: nowrap; flex-shrink: 0; }
+    .v2-ol-loc { font-size: 14px; font-weight: 800; color: var(--text-sub); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: right; flex: 1; min-width: 0; }
 
-    /* 번쩍번쩍 동적 체감강도 배지 (터치 시 반투명 분석 오버레이 오픈) */
     @keyframes dbPulseLv1 {
       0%, 100% { box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.65); transform: scale(1); }
       50% { box-shadow: 0 0 14px 4px rgba(217, 119, 6, 0.45); transform: scale(1.05); }
@@ -302,7 +298,6 @@
     .v2-db-flash-btn.lv-3 { background: linear-gradient(135deg, #F43F5E, #BE123C); animation: dbPulseLv3 0.9s infinite ease-in-out; }
     .v2-db-hint { font-size: 10.5px; font-weight: 700; opacity: 0.92; background: rgba(0,0,0,0.2); padding: 1px 5px; border-radius: 999px; }
 
-    /* 금융치료(변호사 의뢰) 결집 게이지 1줄 */
     .v2-gauge-strip {
       background: #FFF1F2; border-bottom: 1px solid #FECDD3; padding: 9px 14px;
       display: flex; flex-direction: column; gap: 5px; flex-shrink: 0;
@@ -314,7 +309,6 @@
     .v2-gauge-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, #F43F5E, #BE123C); transition: width 0.25s ease; }
     .v2-gauge-strip.ready .v2-gauge-fill { background: linear-gradient(90deg, #2563EB, #1E3A8A); }
 
-    /* 3) 최초 소음제보 카드 */
     .v2-origin-card {
       margin: 10px 12px 0; background: #FFF; border: 1px solid var(--border-line);
       border-radius: 14px; padding: 13px 14px; display: flex; flex-direction: column; gap: 8px;
@@ -325,10 +319,7 @@
     .v2-origin-body { font-size: 15px; line-height: 1.52; color: var(--text-main); word-break: keep-all; }
     .v2-origin-foot { display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: var(--text-muted); }
 
-    /* 4) 공감 & 댓글 섹션 */
-    .v2-engage-bar {
-      margin: 10px 12px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
-    }
+    .v2-engage-bar { margin: 10px 12px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .btn-v2-empathy {
       height: 44px; border-radius: 12px; background: #FFF; border: 1.5px solid var(--border-strong);
       color: var(--text-main); font-size: 14px; font-weight: 800;
@@ -350,18 +341,13 @@
       padding: 11px 14px; border-bottom: 1px solid #F1F5F9;
       display: flex; align-items: center; justify-content: space-between; font-size: 14px; font-weight: 900;
     }
-    .v2-comment-item {
-      padding: 12px 14px; border-bottom: 1px solid #F1F5F9; display: flex; flex-direction: column; gap: 5px;
-    }
+    .v2-comment-item { padding: 12px 14px; border-bottom: 1px solid #F1F5F9; display: flex; flex-direction: column; gap: 5px; }
     .v2-comment-item:last-child { border-bottom: none; }
     .v2-c-meta { display: flex; align-items: center; justify-content: space-between; font-size: 12.5px; color: var(--text-muted); }
     .v2-c-meta strong { color: var(--text-main); font-size: 13.5px; }
     .v2-c-body { font-size: 14.5px; line-height: 1.48; color: #1E293B; word-break: keep-all; }
-    .v2-empty-comments {
-      padding: 24px 16px; text-align: center; color: var(--text-muted); font-size: 13.5px; line-height: 1.5;
-    }
+    .v2-empty-comments { padding: 24px 16px; text-align: center; color: var(--text-muted); font-size: 13.5px; line-height: 1.5; }
 
-    /* 하단 고정 댓글 입력창 */
     .v2-comment-composer {
       position: absolute; left: 0; right: 0; bottom: 0; z-index: 25;
       background: #FFF; border-top: 1px solid var(--border-line);
@@ -378,24 +364,24 @@
     }
 
     /* ==========================================================================
-       [v2.0.0 핵심] 반투명 소음 정보 & 분석 오버레이 (체감강도 터치 시 오픈)
+       [v0.4.45 수정] 반투명 소음 정보 & 분석 오버레이 -> 항상 화면 정가운데 정렬
        ========================================================================== */
     .v2-analysis-backdrop {
       position: absolute; inset: 0; z-index: 200;
       background: rgba(15, 23, 42, 0.72); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-      display: flex; flex-direction: column; justify-content: flex-end; padding: 14px;
+      display: flex; align-items: center; justify-content: center; padding: 18px 14px;
     }
     .v2-analysis-panel {
-      width: 100%; max-height: 86%; overflow-y: auto;
-      background: rgba(255, 255, 255, 0.94); border: 1px solid rgba(255,255,255,0.6);
+      width: 100%; max-height: 82%; overflow-y: auto;
+      background: rgba(255, 255, 255, 0.95); border: 1px solid rgba(255,255,255,0.65);
       border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 12px;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.36);
     }
-    .v2-an-head { display: flex; align-items: center; justify-content: space-between; padding-bottom: 10px; border-bottom: 1px solid var(--border-line); }
+    .v2-an-head { display: flex; align-items: center; justify-content: space-between; padding-bottom: 10px; border-bottom: 1px solid var(--border-line); flex-shrink: 0; }
     .v2-an-head h3 { font-size: 17px; font-weight: 900; color: var(--text-main); }
     .v2-an-card {
       background: #FFF; border: 1px solid var(--border-line); border-radius: 13px; padding: 12px 13px;
-      display: flex; flex-direction: column; gap: 8px;
+      display: flex; flex-direction: column; gap: 8px; flex-shrink: 0;
     }
     .v2-an-lbl { font-size: 12px; font-weight: 800; color: var(--text-muted); }
     .onair-lamp-group { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
@@ -406,9 +392,6 @@
     .onair-lamp.lit-active { background: #DC2626; border-color: #B91C1C; color: #FFF; }
     .onair-lamp.lit-resolved { background: #15803D; border-color: #166534; color: #FFF; }
     .onair-lamp.lit-chronic { background: #0F172A; border-color: #0F172A; color: #FFF; }
-    .sp-bar-track { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3px; }
-    .sp-seg { height: 8px; border-radius: 4px; background: #E2E8F0; }
-    .sp-seg.on { background: #DC2626; }
     .nd-24h-grid { display: grid; grid-template-columns: repeat(24, 1fr); gap: 2px; align-items: end; height: 64px; border-bottom: 1px solid var(--border-strong); padding-top: 6px; }
     .nd-24h-bar { width: 100%; border-radius: 2px 2px 0 0; background: var(--primary); }
     .nd-24h-bar.peak { background: #BE123C; }
@@ -428,8 +411,12 @@
 
     /* 소음 올리기 & 핀 피커 */
     #screen-write, #screen-pin-picker { z-index: 120; background: var(--bg-page); }
-    .write-scroll { flex: 1; overflow-y: auto; padding: 12px 14px 28px; display: flex; flex-direction: column; gap: 12px; }
-    .w-card { background: #FFF; border: 1px solid var(--border-line); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+    .write-scroll {
+      flex: 1; min-height: 0; overflow-y: auto;
+      padding: 12px 14px calc(36px + var(--safe-bottom));
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .w-card { background: #FFF; border: 1px solid var(--border-line); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
     .w-title { font-size: 15px; font-weight: 900; color: var(--text-main); }
     .pill-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
     .pill-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
@@ -439,17 +426,28 @@
     }
     .btn-sel.active { background: var(--primary); border-color: var(--primary); color: #FFF; }
     .write-textarea {
-      width: 100%; min-height: 82px; border: 1px solid var(--border-strong); border-radius: 10px;
+      width: 100%; min-height: 86px; border: 1px solid var(--border-strong); border-radius: 10px;
       background: #F8FAFC; padding: 10px 12px; font-size: 14.5px; line-height: 1.45; resize: none; outline: none;
     }
     .write-textarea:focus { border-color: var(--primary); background: #FFF; }
+    .write-submit-wrap { padding-top: 4px; flex-shrink: 0; }
 
     .picker-map-area { position: relative; flex: 1; width: 100%; background: #E2E8F0; overflow: hidden; touch-action: none; }
     #picker-kakao-map { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; }
-    .picker-center-pin-wrap { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -100%); z-index: 30; display: flex; flex-direction: column; align-items: center; pointer-events: none; }
-    .picker-guide-bubble { background: var(--secondary); color: #FFF; font-size: 13px; font-weight: 800; padding: 5px 10px; border-radius: 8px; margin-bottom: 6px; white-space: nowrap; }
-    .picker-pin-head { width: 30px; height: 30px; border-radius: 50% 50% 50% 3px; transform: rotate(-45deg); background: var(--primary); border: 3px solid #FFF; }
-    .picker-footer { background: #FFF; padding: 14px 16px calc(18px + var(--safe-bottom)); border-top: 1px solid var(--border-line); display: flex; flex-direction: column; gap: 8px; }
+    .picker-center-pin-wrap {
+      position: absolute; left: 50%; top: 50%; transform: translate(-50%, -92%);
+      z-index: 30; display: flex; flex-direction: column; align-items: center; pointer-events: none;
+    }
+    .picker-guide-bubble {
+      background: var(--secondary); color: #FFF; font-size: 13px; font-weight: 800;
+      padding: 5px 11px; border-radius: 8px; margin-bottom: 4px; white-space: nowrap;
+      box-shadow: 0 3px 8px rgba(15, 23, 42, 0.22);
+    }
+    .picker-pin-svg {
+      width: 38px; height: 48px; display: block;
+      filter: drop-shadow(0 3px 5px rgba(15, 23, 42, 0.32));
+    }
+    .picker-footer { background: #FFF; padding: 14px 16px calc(18px + var(--safe-bottom)); border-top: 1px solid var(--border-line); display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
 
     /* 커뮤니티 & 변호사 탭 */
     .tab-scroll { flex: 1; overflow-y: auto; padding: 12px 14px 24px; display: flex; flex-direction: column; gap: 10px; }
@@ -473,7 +471,7 @@
     <section class="screen" id="screen-auth">
       <div style="display:flex; justify-content:space-between; align-items:center;">
         <button type="button" class="btn-outline" id="btn-auth-expert-join" style="color:var(--primary); border-color:var(--primary);">전문가 입점</button>
-        <span style="font-size:12px; font-weight:800; color:var(--primary); background:var(--primary-soft); padding:4px 9px; border-radius:999px;">v2.0.0 참여·결집형</span>
+        <span style="font-size:12px; font-weight:800; color:var(--primary); background:var(--primary-soft); padding:4px 9px; border-radius:999px;">v0.4.45</span>
       </div>
 
       <div class="auth-hero">
@@ -501,7 +499,7 @@
       <div class="tab-view" id="tab-view-map">
         <header class="flat-topbar">
           <button type="button" class="dong-picker-btn" id="btn-open-dong">
-            <span id="current-dong-label">만수2동</span> ▾
+            <span id="current-dong-label">현위치</span> ▾
           </button>
           <button type="button" class="btn-top-search-bar" id="btn-toggle-search">
             🔍 <span>동네·아파트 검색</span>
@@ -525,9 +523,9 @@
             <button type="button" class="btn-map-chip" data-mflt="const">공사·기계</button>
           </div>
           <div class="map-status-legend">
-            <span style="color:#DC2626;"><i class="msl-dot" style="background:#DC2626;"></i>발생 중</span>
-            <span style="color:#15803D;"><i class="msl-dot" style="background:#15803D;"></i>해결됨</span>
-            <span style="color:#0F172A;"><i class="msl-dot" style="background:#0F172A;"></i>만성·재발</span>
+            <span style="color:#E11D48;"><i class="msl-dot" style="background:#E11D48;"></i>발생 중</span>
+            <span style="color:#16A34A;"><i class="msl-dot" style="background:#16A34A;"></i>해결됨</span>
+            <span style="color:#1E293B;"><i class="msl-dot" style="background:#1E293B;"></i>만성·재발</span>
           </div>
           <div class="map-zoom-col">
             <button type="button" class="btn-zoom" id="btn-main-zoom-in">+</button>
@@ -548,7 +546,7 @@
         </div>
       </div>
 
-      <!-- 탭 2: 커뮤니티(공감·댓글 결집 피드) -->
+      <!-- 탭 2: 커뮤니티 -->
       <div class="tab-view" id="tab-view-community" hidden>
         <header class="flat-topbar">
           <h2 style="font-size:17.5px; font-weight:900;">이웃 공감 · 분노 피드</h2>
@@ -557,7 +555,7 @@
         <div class="tab-scroll" id="comm-feed-list"></div>
       </div>
 
-      <!-- 탭 3: 변호사 · 방음시공 해결 연결 -->
+      <!-- 탭 3: 변호사 · 방음시공 -->
       <div class="tab-view" id="tab-view-legal" hidden>
         <header class="flat-topbar">
           <h2 style="font-size:17.5px; font-weight:900;">금융치료 · 방음 해결</h2>
@@ -605,7 +603,7 @@
       </nav>
     </section>
 
-    <!-- [화면 3] v2.0.0 전면 개편 소음 상세 화면 (즉시 참여·금융치료 결집형) -->
+    <!-- [화면 3] 소음 상세 화면 (즉시 참여·금융치료 결집형) -->
     <section class="screen" id="screen-detail" hidden>
       <header class="flat-topbar">
         <button type="button" class="btn-outline" id="btn-close-detail">← 지도</button>
@@ -620,7 +618,7 @@
           <div class="v2-minimap-tag" id="detail-minimap-tag">현장 확대 위치 (호수 비공개)</div>
         </div>
 
-        <!-- 2) 한 줄 요약 바: 소음종류 · 번쩍이는 체감강도 · AI 축약 위치 -->
+        <!-- 2) 한 줄 요약 바 -->
         <div class="v2-oneline-bar">
           <span class="v2-ol-cat" id="v2-ol-cat">발망치</span>
           <button type="button" class="v2-db-flash-btn lv-2" id="btn-open-analysis-overlay" title="터치하여 소음 분석 리포트 보기">
@@ -630,10 +628,10 @@
           <span class="v2-ol-loc" id="v2-ol-loc">휴먼시101동</span>
         </div>
 
-        <!-- 금융치료(변호사 의뢰) 결집 게이지 1줄 -->
+        <!-- 금융치료 결집 게이지 -->
         <div class="v2-gauge-strip" id="v2-gauge-strip">
           <div class="v2-gauge-top">
-            <span id="v2-gauge-text">변호사 검토 조건까지 공감 5명 남음</span>
+            <span id="v2-gauge-text">변호사 검토 조건까지 이웃 공감 5명 남음</span>
             <span id="v2-gauge-pct">0 / 5명</span>
           </div>
           <div class="v2-gauge-track">
@@ -644,7 +642,7 @@
         <!-- 3) 최초 소음제보 카드 -->
         <div class="v2-origin-card" id="v2-origin-card"></div>
 
-        <!-- 4) 공감 & 댓글 영역 -->
+        <!-- 4) 공감 & 댓글 -->
         <div class="v2-engage-bar">
           <button type="button" class="btn-v2-empathy" id="btn-v2-empathy">저도 들었어요 <span id="v2-emp-cnt">0</span></button>
           <button type="button" class="btn-v2-lawyer" id="btn-v2-lawyer">금융치료 찬성 <span id="v2-law-cnt">0</span></button>
@@ -659,14 +657,13 @@
         </div>
       </div>
 
-      <!-- 하단 고정 댓글 입력창 -->
       <div class="v2-comment-composer">
         <input type="text" id="input-v2-comment" placeholder="피해 상황이나 이웃 공감을 남겨주세요..." maxlength="200">
         <button type="button" id="btn-v2-comment-submit">등록</button>
       </div>
     </section>
 
-    <!-- [오버레이] 체감강도 터치 시 뜨는 반투명 소음 정보 & 분석 모달 -->
+    <!-- [오버레이] 반투명 소음 정보 & 분석 모달 (항상 화면 정가운데) -->
     <div class="v2-analysis-backdrop" id="modal-analysis-overlay" hidden>
       <div class="v2-analysis-panel">
         <div class="v2-an-head">
@@ -697,8 +694,8 @@
           <div class="w-title">2. 소음 위치 지정</div>
           <div style="background:var(--bg-subtle); border:1px solid var(--border-line); border-radius:10px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; gap:8px;">
             <div style="min-width:0; flex:1;">
-              <strong id="write-road-addr" style="display:block; font-size:14.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">위치를 선택해 주세요</strong>
-              <span id="write-jibun-addr" style="display:block; font-size:12px; color:var(--text-muted); margin-top:2px;">지도에서 핀을 찍어주세요</span>
+              <strong id="write-road-addr" style="display:block; font-size:14.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">현재 위치 확인 중...</strong>
+              <span id="write-jibun-addr" style="display:block; font-size:12px; color:var(--text-muted); margin-top:2px;">핀 찍기로 정확한 건물을 맞춰주세요</span>
             </div>
             <button type="button" class="btn-outline" id="btn-write-pick-map" style="background:var(--primary); color:#FFF; border-color:var(--primary);">핀 찍기</button>
           </div>
@@ -746,11 +743,13 @@
           <textarea class="write-textarea" id="input-write-content" placeholder="예: 학생인 것 같은데 밤마다 일부러 발망치 하는 것 같아요. 같이 대응하실 분 계신가요?"></textarea>
         </div>
 
-        <button type="button" class="btn-primary" id="btn-submit-post">소음 등록하기</button>
+        <div class="write-submit-wrap">
+          <button type="button" class="btn-primary" id="btn-submit-post">소음 등록하기</button>
+        </div>
       </div>
     </section>
 
-    <!-- [화면 5] 지도 핀 피커 (레벨 1 최대 확대, CSS scale 절대 미사용) -->
+    <!-- [화면 5] 지도 핀 피커 (입체 구멍 핀 + 바닥 링) -->
     <section class="screen" id="screen-pin-picker" hidden>
       <header class="flat-topbar">
         <button type="button" class="btn-outline" id="btn-picker-back">← 이전</button>
@@ -764,14 +763,14 @@
       <div class="picker-map-area">
         <div id="picker-kakao-map"></div>
         <div class="picker-center-pin-wrap">
-          <div class="picker-guide-bubble">지도를 움직여 정확한 위치를 맞추세요</div>
-          <div class="picker-pin-head"></div>
+          <div class="picker-guide-bubble">지도를 움직여 바닥 링을 위치에 맞추세요</div>
+          <div id="picker-pin-svg-holder"></div>
         </div>
         <div class="map-zoom-col">
           <button type="button" class="btn-zoom" id="btn-picker-zoom-in">+</button>
           <button type="button" class="btn-zoom" id="btn-picker-zoom-out">−</button>
         </div>
-        <button type="button" class="btn-floating-gps" id="btn-picker-gps">◎</button>
+        <button type="button" class="btn-floating-gps" id="btn-picker-gps" title="내 위치">◎</button>
       </div>
       <div class="picker-footer">
         <div style="font-size:15px; font-weight:900; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" id="picker-road-text">주소를 확인하는 중...</div>
@@ -791,7 +790,7 @@
         <div class="sms-box" id="sms-preview-text"></div>
         <div style="display:flex; gap:8px;">
           <button type="button" class="btn-outline" id="btn-copy-112" style="flex:1; height:44px;">문구 복사</button>
-          <a id="link-sms-112" href="sms:112" class="btn-primary" style="flex:2; height:44px; text-decoration:none; background:var(--lv3);">112 문자 앱 열기</a>
+          <a id="link-sms-112" href="sms:112" class="btn-primary" style="flex:2; height:44px; min-height:44px; text-decoration:none; background:var(--lv3);">112 문자 앱 열기</a>
         </div>
       </div>
     </div>
@@ -813,7 +812,7 @@
         </div>
         <div id="import-json-box" hidden style="display:flex; flex-direction:column; gap:8px;">
           <textarea class="write-textarea" id="textarea-import-json" placeholder="백업한 JSON 데이터를 붙여넣으세요"></textarea>
-          <button type="button" class="btn-primary" id="btn-exec-import" style="height:42px;">복원 적용</button>
+          <button type="button" class="btn-primary" id="btn-exec-import" style="height:42px; min-height:42px;">복원 적용</button>
         </div>
         <button type="button" class="btn-outline" id="btn-reset-qa" style="width:100%; height:40px; color:var(--lv3); border-color:#FECDD3;">모든 테스트 데이터 초기화</button>
       </div>
@@ -826,6 +825,7 @@
           <h3>지역 빠른 이동</h3>
           <button type="button" class="btn-outline" id="btn-close-dong">닫기</button>
         </div>
+        <button type="button" class="btn-outline" id="btn-dong-my-gps" style="width:100%; height:42px; color:var(--secondary); border-color:var(--secondary);">◎ 현재 내 실제 위치(GPS)로 이동</button>
         <button type="button" class="btn-outline" data-lat="37.4632" data-lng="126.7335" style="width:100%; height:42px; justify-content:space-between;"><span>인천 남동구 만수2동</span><span>이동</span></button>
         <button type="button" class="btn-outline" data-lat="37.4556" data-lng="126.7282" style="width:100%; height:42px; justify-content:space-between;"><span>인천 남동구 만수5동</span><span>이동</span></button>
         <button type="button" class="btn-outline" data-lat="37.4485" data-lng="126.7052" style="width:100%; height:42px; justify-content:space-between;"><span>인천 남동구 구월1동</span><span>이동</span></button>
@@ -864,7 +864,8 @@
       POSTS: '53db_v2_posts',
       EXPERTS: '53db_v2_experts',
       QA_SEQ: '53db_v2_qa_seq',
-      SESSION: '53db_v2_session'
+      SESSION: '53db_v2_session',
+      LAST_GPS: '53db_v2_last_gps'
     };
 
     const WHO_LEVELS = {
@@ -895,6 +896,29 @@
       '경기도','강원특별자치도','충청북도','충청남도','전북특별자치도','전라남도','경상북도','경상남도','제주특별자치도'
     ];
 
+    /* [v0.4.45] 첨부 레퍼런스 스타일 입체 구멍 핀 + 바닥 링 SVG 생성기 */
+    function buildRingPinSvg(theme, clsName = 'nm-pin-svg') {
+      const palettes = {
+        red:   { top: '#FF4B5C', bot: '#D91B3A', ring: '#F43F5E', inner: '#BE123C' },
+        blue:  { top: '#3B9EFF', bot: '#1D64E8', ring: '#2563EB', inner: '#1E40AF' },
+        green: { top: '#6DD444', bot: '#2E9E3C', ring: '#22C55E', inner: '#15803D' },
+        black: { top: '#475569', bot: '#0F172A', ring: '#334155', inner: '#0F172A' }
+      };
+      const c = palettes[theme] || palettes.red;
+      const gid = 'g_' + theme + '_' + Math.random().toString(36).slice(2, 7);
+      return `<svg class="${clsName}" viewBox="0 0 64 82" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="${gid}" x1="32" y1="4" x2="32" y2="70" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="${c.top}"/>
+            <stop offset="100%" stop-color="${c.bot}"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="32" cy="73" rx="14" ry="4.8" stroke="${c.ring}" stroke-width="3.4" fill="rgba(255,255,255,0.45)"/>
+        <path d="M32 4C17.64 4 6 15.64 6 30C6 46.8 25.4 63.6 31.1 71.2C31.55 71.8 32.45 71.8 32.9 71.2C38.6 63.6 58 46.8 58 30C58 15.64 46.36 4 32 4Z" fill="url(#${gid})" stroke="#FFFFFF" stroke-width="2.2"/>
+        <circle cx="32" cy="29.5" r="14.2" fill="#FFFFFF" stroke="${c.inner}" stroke-opacity="0.28" stroke-width="2.2"/>
+      </svg>`;
+    }
+
     const state = {
       user: { loggedIn: false, isMaster: false, nickname: '게스트', homeDong: '만수2동' },
       posts: [],
@@ -902,31 +926,60 @@
       qaSeq: 1,
       activeTab: 'map',
       mapFilter: 'all',
-      centerLat: 37.4632,
-      centerLng: 126.7335,
+      centerLat: 37.4585,
+      centerLng: 126.7302,
+      myLat: null,
+      myLng: null,
+      hasAutoLocated: false,
       mapLevel: 3,
-      viewportDong: '만수2동',
+      viewportDong: '현위치',
       selectedPostId: null,
       map: null,
       overlays: [],
+      myLocOverlay: null,
       detailMiniMap: null,
       detailMiniOverlay: null,
       pickerMap: null,
-      draftLoc: { lat: 37.4632, lng: 126.7335, roadAddr: '인천 남동구 만수2동', jibunAddr: '[지번] 만수동', bldgName: '', adminDong: '만수2동' },
+      draftLoc: { lat: 37.4585, lng: 126.7302, roadAddr: '', jibunAddr: '', bldgName: '', adminDong: '만수2동', bun: '', ji: '' },
       writeDraft: { space: 'indoor', category: '발망치·뛰는소리', group: 'indoor', day: '오늘', hour: new Date().getHours(), whoLevel: 2 },
       joinRole: '변호사'
     };
 
-    /* ========================================================================
-       [AI 기능 1] 소음 카테고리 + 제보글 + 댓글 분석 -> 핀 자동 키워드 추출
-       ======================================================================== */
+    /* 2단계 안정형 GPS 위치 획득 (실내/실외 대응) */
+    function requestDeviceLocation(onSuccess, onFail) {
+      if (!navigator.geolocation) {
+        if (onFail) onFail('위치 서비스를 지원하지 않는 브라우저입니다.');
+        return;
+      }
+      const handleOk = (pos) => {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+        state.myLat = lat;
+        state.myLng = lng;
+        try { localStorage.setItem(STORAGE_KEYS.LAST_GPS, JSON.stringify({ lat, lng, ts: Date.now() })); } catch (e) {}
+        if (onSuccess) onSuccess(lat, lng);
+      };
+      navigator.geolocation.getCurrentPosition(
+        handleOk,
+        () => {
+          navigator.geolocation.getCurrentPosition(
+            handleOk,
+            (err) => {
+              if (onFail) onFail(err && err.code === 1 ? '브라우저 위치 권한을 허용해 주세요.' : '현재 위치를 가져올 수 없습니다.');
+            },
+            { enableHighAccuracy: false, timeout: 8000, maximumAge: 60000 }
+          );
+        },
+        { enableHighAccuracy: true, timeout: 5000, maximumAge: 10000 }
+      );
+    }
+
     function extractAutoPinKeyword(post) {
       const combined = [
         post.category || '',
         post.content || '',
         ...(post.comments || []).map(c => c.text || '')
       ].join(' ');
-
       const rules = [
         { kw: '발망치', re: /발망치|뒤꿈치|쿵쿵|뛰는|뜀박질/ },
         { kw: '개짖음', re: /개|강아지|멍멍|짖음|짖어|반려동물/ },
@@ -937,7 +990,7 @@
         { kw: '배관소음', re: /배관|화장실|물내리는|하수구/ },
         { kw: '노래·음악', re: /노래|음악|스피커|우퍼|피아노/ },
         { kw: '공사소음', re: /공사|드릴|망치질|인테리어/ },
-        { kw: '층간충격', re: /충격|떨어뜨|던지/ }
+        { kw: '층간충격', re: /충격|떨어뜨|던지|쇳덩이|쿠웅/ }
       ];
       for (const r of rules) {
         if (r.re.test(combined)) return r.kw;
@@ -945,11 +998,6 @@
       return String(post.category || '소음').split(/[·\s]/)[0].slice(0, 5);
     }
 
-    /* ========================================================================
-       [AI 기능 2] AI 센스 위치 축약 (호수 절대 비공개 + 긴 아파트명 스마트 축약)
-       예: "향촌휴먼시아 101동 1902호" -> "휴먼시101동"
-       예: "미래아트빌 (9층)" -> "미래아트 9층"
-       ======================================================================== */
     function smartShortenLocation(rawLoc, floor) {
       let s = String(rawLoc || '우리동네').replace(/\d+\s*호/g, '').trim();
       const dongMatch = s.match(/(\d+동)/);
@@ -957,7 +1005,6 @@
       const dongPart = dongMatch ? dongMatch[1] : '';
       const floorPart = (!dongPart && floorMatch) ? floorMatch[1] : '';
 
-      // 주소 앞부분(시/구/동/로/길) 제거하고 건물명 핵심만 남기기
       let name = s
         .replace(/(\d+동|\(?\d+층\)?)/g, '')
         .replace(/(인천광역시|서울특별시|경기도|남동구|만수\d*동|구월\d*동|논현\d*동)/g, '')
@@ -968,7 +1015,6 @@
 
       if (!name) name = s.replace(/\s+/g, '').slice(0, 5);
 
-      // 유명 브랜드/긴 아파트명 센스 축약
       const brandMap = [
         [/휴먼시아/, '휴먼시'], [/래미안/, '래미안'], [/힐스테이트/, '힐스테'],
         [/푸르지오/, '푸르지'], [/자이/, '자이'], [/롯데캐슬/, '롯데캐'],
@@ -979,9 +1025,7 @@
       for (const [re, abbr] of brandMap) {
         if (re.test(name)) { shortName = abbr; break; }
       }
-      if (!shortName) {
-        shortName = name.length > 4 ? name.slice(0, 4) : name;
-      }
+      if (!shortName) shortName = name.length > 4 ? name.slice(0, 4) : name;
 
       if (dongPart) return `${shortName}${dongPart}`;
       if (floorPart) return `${shortName} ${floorPart}`;
@@ -995,6 +1039,11 @@
         state.qaSeq = parseInt(localStorage.getItem(STORAGE_KEYS.QA_SEQ) || '1', 10) || 1;
         const sess = JSON.parse(localStorage.getItem(STORAGE_KEYS.SESSION));
         if (sess && sess.loggedIn) state.user = sess;
+        const lg = JSON.parse(localStorage.getItem(STORAGE_KEYS.LAST_GPS));
+        if (lg && lg.lat && lg.lng) {
+          state.centerLat = lg.lat; state.centerLng = lg.lng;
+          state.myLat = lg.lat; state.myLng = lg.lng;
+        }
       } catch (e) {}
     }
 
@@ -1021,7 +1070,7 @@
       const el = document.getElementById('toast-bar');
       el.textContent = msg; el.hidden = false;
       clearTimeout(showToast._t);
-      showToast._t = setTimeout(() => { el.hidden = true; }, 1600);
+      showToast._t = setTimeout(() => { el.hidden = true; }, 1650);
     }
 
     function relTime(ts) {
@@ -1049,7 +1098,31 @@
       else if (tab === 'legal') renderExpertsList();
     }
 
-    /* 카카오맵 메인 */
+    function syncDongLabel(lat, lng) {
+      if (typeof kakao === 'undefined' || !kakao.maps.services) return;
+      new kakao.maps.services.Geocoder().coord2RegionCode(lng, lat, (res, st) => {
+        if (st === kakao.maps.services.Status.OK && res.length) {
+          const h = res.find(r => r.region_type === 'H') || res[0];
+          state.viewportDong = h.region_3depth_name || '내 동네';
+          document.getElementById('current-dong-label').textContent = state.viewportDong;
+        }
+      });
+    }
+
+    function moveMainMapToMyGPS(silent = false) {
+      if (!silent) showToast('현재 내 위치로 이동 중...');
+      requestDeviceLocation((lat, lng) => {
+        state.centerLat = lat; state.centerLng = lng;
+        if (state.map && typeof kakao !== 'undefined') {
+          state.map.setCenter(new kakao.maps.LatLng(lat, lng));
+          syncDongLabel(lat, lng);
+          renderPins();
+        }
+      }, (msg) => {
+        if (!silent) showToast(msg);
+      });
+    }
+
     function initMainMap() {
       if (typeof kakao === 'undefined' || !kakao.maps) return;
       if (state.map) {
@@ -1066,18 +1139,17 @@
           const c = state.map.getCenter();
           state.centerLat = c.getLat(); state.centerLng = c.getLng();
           state.mapLevel = state.map.getLevel();
-          if (kakao.maps.services) {
-            new kakao.maps.services.Geocoder().coord2RegionCode(c.getLng(), c.getLat(), (res, st) => {
-              if (st === kakao.maps.services.Status.OK && res.length) {
-                const h = res.find(r => r.region_type === 'H') || res[0];
-                state.viewportDong = h.region_3depth_name || '내 동네';
-                document.getElementById('current-dong-label').textContent = state.viewportDong;
-              }
-            });
-          }
+          syncDongLabel(c.getLat(), c.getLng());
           renderHome();
         });
+        syncDongLabel(state.centerLat, state.centerLng);
         renderHome();
+
+        /* 진입 직후 자동으로 실제 내 GPS 위치로 이동 */
+        if (!state.hasAutoLocated) {
+          state.hasAutoLocated = true;
+          moveMainMapToMyGPS(true);
+        }
       });
     }
 
@@ -1092,17 +1164,29 @@
       state.overlays.forEach(o => o.setMap(null));
       state.overlays = [];
 
+      if (state.myLocOverlay) state.myLocOverlay.setMap(null);
+      if (state.myLat && state.myLng) {
+        const dot = document.createElement('div');
+        dot.className = 'my-loc-pulse';
+        state.myLocOverlay = new kakao.maps.CustomOverlay({
+          position: new kakao.maps.LatLng(state.myLat, state.myLng),
+          content: dot,
+          zIndex: 10
+        });
+        state.myLocOverlay.setMap(state.map);
+      }
+
       const list = getFilteredPosts();
-      // 최신 등록이 상위 zIndex로 올라오도록 timestamp 오름차순으로 그리며 zIndex 증가
       const asc = [...list].sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
       asc.forEach((post, idx) => {
         const kw = extractAutoPinKeyword(post);
-        const stCls = post.status === 'resolved' ? 'st-green' : (post.status === 'chronic' ? 'st-black' : 'st-red');
+        const theme = post.status === 'resolved' ? 'green' : (post.status === 'chronic' ? 'black' : 'red');
+        const stCls = `st-${theme}`;
         const isSel = post.id === state.selectedPostId;
 
         const el = document.createElement('div');
         el.className = `nm-wrap ${stCls}${isSel ? ' selected' : ''}`;
-        el.innerHTML = `<div class="nm-label">${kw}</div><div class="nm-pin"></div>`;
+        el.innerHTML = `<div class="nm-label">${kw}</div>${buildRingPinSvg(theme, 'nm-pin-svg')}`;
         el.onclick = () => {
           state.selectedPostId = post.id;
           state.map.panTo(new kakao.maps.LatLng(post.lat, post.lng));
@@ -1112,7 +1196,7 @@
         const ov = new kakao.maps.CustomOverlay({
           position: new kakao.maps.LatLng(post.lat, post.lng),
           content: el,
-          yAnchor: 1,
+          yAnchor: 0.9,
           zIndex: isSel ? 999 : (20 + idx)
         });
         ov.setMap(state.map);
@@ -1171,9 +1255,7 @@
       if (targetSlide) feedEl.scrollTo({ left: targetSlide.offsetLeft, behavior: 'smooth' });
     }
 
-    /* ========================================================================
-       [v2.0.0 핵심] 소음 상세 화면 렌더링
-       ======================================================================== */
+    /* 소음 상세 화면 */
     function openDetailV2(postId) {
       const post = state.posts.find(p => p.id === postId);
       if (!post) return;
@@ -1197,11 +1279,11 @@
         }
         if (state.detailMiniOverlay) state.detailMiniOverlay.setMap(null);
         const kw = extractAutoPinKeyword(post);
-        const stCls = post.status === 'resolved' ? 'st-green' : (post.status === 'chronic' ? 'st-black' : 'st-red');
+        const theme = post.status === 'resolved' ? 'green' : (post.status === 'chronic' ? 'black' : 'red');
         const pinEl = document.createElement('div');
-        pinEl.className = `nm-wrap ${stCls} selected`;
-        pinEl.innerHTML = `<div class="nm-label">${kw}</div><div class="nm-pin"></div>`;
-        state.detailMiniOverlay = new kakao.maps.CustomOverlay({ position: pos, content: pinEl, yAnchor: 1, zIndex: 50 });
+        pinEl.className = `nm-wrap st-${theme} selected`;
+        pinEl.innerHTML = `<div class="nm-label">${kw}</div>${buildRingPinSvg(theme, 'nm-pin-svg')}`;
+        state.detailMiniOverlay = new kakao.maps.CustomOverlay({ position: pos, content: pinEl, yAnchor: 0.9, zIndex: 50 });
         state.detailMiniOverlay.setMap(state.detailMiniMap);
       });
     }
@@ -1215,14 +1297,12 @@
       document.getElementById('detail-topbar-title').textContent = `${kw} 현장`;
       document.getElementById('detail-minimap-tag').textContent = post.space === 'indoor' ? `${shortLoc} (호수 비공개)` : shortLoc;
 
-      // 2) 한 줄 요약 바
       document.getElementById('v2-ol-cat').textContent = kw;
       const dbBtn = document.getElementById('btn-open-analysis-overlay');
       dbBtn.className = `v2-db-flash-btn lv-${post.whoLevel}`;
       document.getElementById('v2-ol-db').textContent = who.db;
       document.getElementById('v2-ol-loc').textContent = shortLoc;
 
-      // 금융치료 게이지
       const emp = post.empathyCount || 0;
       const remain = Math.max(0, CONFIG.LAWYER_GOAL - emp);
       const pct = Math.min(100, Math.round((emp / CONFIG.LAWYER_GOAL) * 100));
@@ -1234,9 +1314,8 @@
       document.getElementById('v2-gauge-pct').textContent = `${emp} / ${CONFIG.LAWYER_GOAL}명`;
       document.getElementById('v2-gauge-fill').style.width = `${pct}%`;
 
-      // 3) 최초 소음제보 카드
       const stLabel = post.status === 'resolved' ? '해결됨' : (post.status === 'chronic' ? '만성·재발' : '발생 중');
-      const stColor = post.status === 'resolved' ? '#15803D' : (post.status === 'chronic' ? '#0F172A' : '#DC2626');
+      const stColor = post.status === 'resolved' ? '#16A34A' : (post.status === 'chronic' ? '#1E293B' : '#E11D48');
       document.getElementById('v2-origin-card').innerHTML = `
         <div class="v2-origin-head">
           <div class="v2-author-pill">
@@ -1252,7 +1331,6 @@
         </div>
       `;
 
-      // 4) 공감 & 댓글
       document.getElementById('v2-emp-cnt').textContent = emp;
       document.getElementById('v2-law-cnt').textContent = post.lawyerVotes || 0;
       document.getElementById('btn-v2-empathy').classList.toggle('active', Boolean(post.userEmpathized));
@@ -1276,9 +1354,6 @@
       }
     }
 
-    /* ========================================================================
-       [v2.0.0 핵심] 체감강도 터치 -> 반투명 소음 정보 & 분석 오버레이
-       ======================================================================== */
     function openAnalysisOverlay() {
       const post = state.posts.find(p => p.id === state.selectedPostId);
       if (!post) return;
@@ -1286,7 +1361,6 @@
       const cis = Math.min(99, 68 + Math.min(25, (post.empathyCount || 0) * 5) + Math.min(6, (post.comments || []).length * 2));
       const fullLoc = post.space === 'indoor' ? `${post.bldgName || post.roadAddr} (${post.floor}층 · 호수 비공개)` : post.roadAddr;
 
-      // 24시간 패턴 막대 생성
       const barsHtml = Array.from({ length: 24 }, (_, h) => {
         const isPeak = h === Number(post.hour);
         const hPx = isPeak ? 52 : (Math.abs(h - Number(post.hour)) === 1 ? 22 : 8);
@@ -1343,11 +1417,11 @@
       saveData();
       openAnalysisOverlay();
       renderDetailV2Content(post);
+      initDetailMiniMap(post);
       renderPins();
       showToast('소음 상태가 변경되었습니다.');
     };
 
-    /* 공감 / 금융치료 찬성 / 댓글 등록 */
     document.getElementById('btn-v2-empathy').onclick = () => {
       const post = state.posts.find(p => p.id === state.selectedPostId);
       if (!post) return;
@@ -1388,7 +1462,6 @@
       showToast('이웃 증언이 등록되었습니다.');
     };
 
-    /* 커뮤니티 피드 */
     function renderCommunityFeed() {
       const el = document.getElementById('comm-feed-list');
       const list = [...state.posts].sort((a, b) => ((b.empathyCount || 0) + (b.comments || []).length) - ((a.empathyCount || 0) + (a.comments || []).length));
@@ -1418,7 +1491,45 @@
       }).join('');
     }
 
-    /* 소음 올리기 */
+    /* ========================================================================
+       [v0.4.45 수정] 좌표-주소 100% 일치 역지오코딩 함수 (소음 올리기 / 핀 피커 공용)
+       ======================================================================== */
+    let geocodeReqSeq = 0;
+    function resolveCoordToDraft(lat, lng, updateWriteUI = false) {
+      const mySeq = ++geocodeReqSeq;
+      state.draftLoc.lat = lat;
+      state.draftLoc.lng = lng;
+      if (typeof kakao === 'undefined' || !kakao.maps.services) return;
+      const geocoder = new kakao.maps.services.Geocoder();
+      geocoder.coord2RegionCode(lng, lat, (res, st) => {
+        if (mySeq !== geocodeReqSeq) return;
+        if (st === kakao.maps.services.Status.OK && res.length) {
+          const h = res.find(r => r.region_type === 'H') || res[0];
+          state.draftLoc.adminDong = h.region_3depth_name || '내 동네';
+        }
+      });
+      geocoder.coord2Address(lng, lat, (res, st) => {
+        if (mySeq !== geocodeReqSeq) return;
+        if (st === kakao.maps.services.Status.OK && res[0]) {
+          const r = res[0].road_address, j = res[0].address;
+          const bName = (r && r.building_name) ? r.building_name : '';
+          state.draftLoc.roadAddr = r ? `${r.address_name}${bName ? ' ' + bName : ''}` : j.address_name;
+          state.draftLoc.jibunAddr = `[지번] ${j.region_3depth_name} ${j.main_address_no}${j.sub_address_no ? '-' + j.sub_address_no : ''}`;
+          state.draftLoc.bldgName = bName;
+          state.draftLoc.bun = j.main_address_no || '';
+          state.draftLoc.ji = j.sub_address_no || '';
+
+          document.getElementById('picker-road-text').textContent = state.draftLoc.roadAddr;
+          document.getElementById('picker-jibun-text').textContent = state.draftLoc.jibunAddr;
+          if (updateWriteUI) {
+            document.getElementById('write-road-addr').textContent = state.draftLoc.roadAddr;
+            document.getElementById('write-jibun-addr').textContent = state.draftLoc.jibunAddr;
+            document.getElementById('input-write-bldg').value = bName || '';
+          }
+        }
+      });
+    }
+
     function renderWriteCategories() {
       const cats = state.writeDraft.space === 'indoor' ? CAT_INDOOR : CAT_OUTDOOR;
       state.writeDraft.category = cats[0].label;
@@ -1437,16 +1548,26 @@
     }
 
     function openWriteScreen() {
-      state.draftLoc.lat = state.centerLat;
-      state.draftLoc.lng = state.centerLng;
-      state.draftLoc.adminDong = state.viewportDong || '만수2동';
-      document.getElementById('write-road-addr').textContent = state.draftLoc.roadAddr || state.viewportDong;
-      document.getElementById('write-jibun-addr').textContent = state.draftLoc.jibunAddr || '핀 찍기로 정확한 위치를 지정하세요';
+      /* 현재 보고 있는 지도 중심(또는 실제 내 GPS) 좌표를 정확히 동기화 */
+      let startLat = state.centerLat;
+      let startLng = state.centerLng;
+      if (state.map) {
+        const c = state.map.getCenter();
+        startLat = c.getLat();
+        startLng = c.getLng();
+      } else if (state.myLat && state.myLng) {
+        startLat = state.myLat;
+        startLng = state.myLng;
+      }
+      state.draftLoc = { lat: startLat, lng: startLng, roadAddr: '위치 확인 중...', jibunAddr: '', bldgName: '', adminDong: state.viewportDong || '만수2동', bun: '', ji: '' };
+      document.getElementById('write-road-addr').textContent = '현재 위치 주소를 확인 중...';
+      document.getElementById('write-jibun-addr').textContent = '핀 찍기로 정확한 건물을 선택할 수 있어요';
+      document.getElementById('input-write-bldg').value = '';
       renderWriteCategories();
       goScreen('screen-write');
+      resolveCoordToDraft(startLat, startLng, true);
     }
 
-    /* 건축물대장 비동기 백그라운드 조회 (2.5초 타임아웃, UI 블로킹 절대 금지) */
     async function bgFetchBuildingInfo(postId, bldgName, bun, ji) {
       try {
         const ctrl = new AbortController();
@@ -1486,8 +1607,8 @@
         space: state.writeDraft.space,
         category: state.writeDraft.category,
         group: state.writeDraft.group,
-        lat: state.draftLoc.lat,
-        lng: state.draftLoc.lng,
+        lat: Number(state.draftLoc.lat),
+        lng: Number(state.draftLoc.lng),
         adminDong: dong,
         roadAddr: state.draftLoc.roadAddr || dong,
         jibunAddr: state.draftLoc.jibunAddr || '',
@@ -1515,32 +1636,8 @@
     };
 
     /* 핀 피커 지도 */
-    function updatePickerAddr(lat, lng) {
-      state.draftLoc.lat = lat; state.draftLoc.lng = lng;
-      if (typeof kakao === 'undefined' || !kakao.maps.services) return;
-      const geocoder = new kakao.maps.services.Geocoder();
-      geocoder.coord2RegionCode(lng, lat, (res, st) => {
-        if (st === kakao.maps.services.Status.OK && res.length) {
-          const h = res.find(r => r.region_type === 'H') || res[0];
-          state.draftLoc.adminDong = h.region_3depth_name || '내 동네';
-        }
-      });
-      geocoder.coord2Address(lng, lat, (res, st) => {
-        if (st === kakao.maps.services.Status.OK && res[0]) {
-          const r = res[0].road_address, j = res[0].address;
-          const bName = (r && r.building_name) ? r.building_name : '';
-          state.draftLoc.roadAddr = r ? `${r.address_name}${bName ? ' ' + bName : ''}` : j.address_name;
-          state.draftLoc.jibunAddr = `[지번] ${j.region_3depth_name} ${j.main_address_no}${j.sub_address_no ? '-' + j.sub_address_no : ''}`;
-          state.draftLoc.bldgName = bName;
-          state.draftLoc.bun = j.main_address_no || '';
-          state.draftLoc.ji = j.sub_address_no || '';
-          document.getElementById('picker-road-text').textContent = state.draftLoc.roadAddr;
-          document.getElementById('picker-jibun-text').textContent = state.draftLoc.jibunAddr;
-        }
-      });
-    }
-
     function openPinPicker() {
+      document.getElementById('picker-pin-svg-holder').innerHTML = buildRingPinSvg('blue', 'picker-pin-svg');
       goScreen('screen-pin-picker');
       setTimeout(() => {
         if (typeof kakao === 'undefined' || !kakao.maps) return;
@@ -1551,19 +1648,18 @@
             state.pickerMap = new kakao.maps.Map(box, { center: pos, level: 1 });
             kakao.maps.event.addListener(state.pickerMap, 'idle', () => {
               const c = state.pickerMap.getCenter();
-              updatePickerAddr(c.getLat(), c.getLng());
+              resolveCoordToDraft(c.getLat(), c.getLng(), false);
             });
           } else {
             state.pickerMap.relayout();
             state.pickerMap.setLevel(1);
             state.pickerMap.setCenter(pos);
           }
-          updatePickerAddr(state.draftLoc.lat, state.draftLoc.lng);
+          resolveCoordToDraft(state.draftLoc.lat, state.draftLoc.lng, false);
         });
       }, 60);
     }
 
-    /* 112 문자 신고 */
     function open112Modal(post) {
       const p = post || state.posts.find(x => x.id === state.selectedPostId);
       const loc = p ? (p.space === 'indoor' ? `${p.bldgName || p.roadAddr} (${p.floor}층)` : p.roadAddr) : `${state.viewportDong} 인근`;
@@ -1575,7 +1671,6 @@
       document.getElementById('modal-112').hidden = false;
     }
 
-    /* 전문가 입점 목록 */
     function renderExpertsList() {
       const el = document.getElementById('registered-experts-list');
       el.innerHTML = state.experts.map(ex => `
@@ -1593,7 +1688,7 @@
     document.getElementById('btn-kakao-master').onclick = () => {
       state.user = { loggedIn: true, isMaster: true, nickname: '마스터QA', homeDong: '만수2동' };
       saveData();
-      showToast('마스터QA 계정 진입! 입력마다 가상 주민 번호가 자동 누적됩니다.');
+      showToast('마스터QA 진입! 내 실제 위치로 지도를 맞춥니다.');
       goScreen('screen-main');
     };
     document.getElementById('btn-guest-start').onclick = () => {
@@ -1621,13 +1716,25 @@
     document.getElementById('btn-write-pick-map').onclick = openPinPicker;
     document.getElementById('btn-picker-back').onclick = () => goScreen('screen-write');
     document.getElementById('btn-picker-confirm').onclick = () => {
-      document.getElementById('write-road-addr').textContent = state.draftLoc.roadAddr;
-      document.getElementById('write-jibun-addr').textContent = state.draftLoc.jibunAddr;
-      if (state.draftLoc.bldgName) document.getElementById('input-write-bldg').value = state.draftLoc.bldgName;
+      if (state.pickerMap) {
+        const c = state.pickerMap.getCenter();
+        state.draftLoc.lat = c.getLat();
+        state.draftLoc.lng = c.getLng();
+      }
+      document.getElementById('write-road-addr').textContent = state.draftLoc.roadAddr || '위치 확정됨';
+      document.getElementById('write-jibun-addr').textContent = state.draftLoc.jibunAddr || '';
+      document.getElementById('input-write-bldg').value = state.draftLoc.bldgName || '';
       goScreen('screen-write');
+      resolveCoordToDraft(state.draftLoc.lat, state.draftLoc.lng, true);
     };
-    document.getElementById('btn-picker-zoom-in').onclick = () => { if (state.pickerMap && state.pickerMap.getLevel() > 1) state.pickerMap.setLevel(state.pickerMap.getLevel() - 1); };
-    document.getElementById('btn-picker-zoom-out').onclick = () => { if (state.pickerMap && state.pickerMap.getLevel() < 10) state.pickerMap.setLevel(state.pickerMap.getLevel() + 1); };
+    document.getElementById('btn-picker-zoom-in').onclick = () => {
+      if (!state.pickerMap) return;
+      if (state.pickerMap.getLevel() > 1) state.pickerMap.setLevel(state.pickerMap.getLevel() - 1);
+      else showToast('카카오맵 웹 최대 확대(축척 20m) 상태입니다.');
+    };
+    document.getElementById('btn-picker-zoom-out').onclick = () => {
+      if (state.pickerMap && state.pickerMap.getLevel() < 10) state.pickerMap.setLevel(state.pickerMap.getLevel() + 1);
+    };
     document.getElementById('btn-picker-search').onclick = () => {
       const q = document.getElementById('input-picker-search').value.trim();
       if (!q || typeof kakao === 'undefined') return;
@@ -1636,29 +1743,29 @@
           const lat = Number(data[0].y), lng = Number(data[0].x);
           state.pickerMap.setLevel(1);
           state.pickerMap.setCenter(new kakao.maps.LatLng(lat, lng));
-          updatePickerAddr(lat, lng);
+          resolveCoordToDraft(lat, lng, false);
         } else showToast('검색 결과가 없습니다.');
       });
     };
 
-    document.getElementById('btn-main-zoom-in').onclick = () => { if (state.map && state.map.getLevel() > 1) state.map.setLevel(state.map.getLevel() - 1); };
-    document.getElementById('btn-main-zoom-out').onclick = () => { if (state.map && state.map.getLevel() < 11) state.map.setLevel(state.map.getLevel() + 1); };
-    document.getElementById('btn-goto-gps').onclick = () => {
-      if (!navigator.geolocation) return showToast('GPS를 지원하지 않습니다.');
-      navigator.geolocation.getCurrentPosition(pos => {
-        state.centerLat = pos.coords.latitude; state.centerLng = pos.coords.longitude;
-        if (state.map) state.map.setCenter(new kakao.maps.LatLng(state.centerLat, state.centerLng));
-      }, () => showToast('현재 위치를 가져올 수 없습니다.'));
+    document.getElementById('btn-main-zoom-in').onclick = () => {
+      if (!state.map) return;
+      if (state.map.getLevel() > 1) state.map.setLevel(state.map.getLevel() - 1);
+      else showToast('카카오맵 웹 최대 확대(축척 20m) 상태입니다.');
     };
+    document.getElementById('btn-main-zoom-out').onclick = () => {
+      if (state.map && state.map.getLevel() < 11) state.map.setLevel(state.map.getLevel() + 1);
+    };
+    document.getElementById('btn-goto-gps').onclick = () => moveMainMapToMyGPS(false);
     document.getElementById('btn-picker-gps').onclick = () => {
-      if (!navigator.geolocation) return;
-      navigator.geolocation.getCurrentPosition(pos => {
+      showToast('내 위치로 이동 중...');
+      requestDeviceLocation((lat, lng) => {
         if (state.pickerMap) {
           state.pickerMap.setLevel(1);
-          state.pickerMap.setCenter(new kakao.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-          updatePickerAddr(pos.coords.latitude, pos.coords.longitude);
+          state.pickerMap.setCenter(new kakao.maps.LatLng(lat, lng));
+          resolveCoordToDraft(lat, lng, false);
         }
-      });
+      }, (msg) => showToast(msg));
     };
 
     document.getElementById('btn-toggle-search').onclick = () => {
@@ -1678,6 +1785,10 @@
 
     document.getElementById('btn-open-dong').onclick = () => { document.getElementById('modal-dong').hidden = false; };
     document.getElementById('btn-close-dong').onclick = () => { document.getElementById('modal-dong').hidden = true; };
+    document.getElementById('btn-dong-my-gps').onclick = () => {
+      document.getElementById('modal-dong').hidden = true;
+      moveMainMapToMyGPS(false);
+    };
     document.querySelectorAll('#modal-dong [data-lat]').forEach(b => {
       b.onclick = () => {
         state.centerLat = Number(b.dataset.lat); state.centerLng = Number(b.dataset.lng);
@@ -1777,7 +1888,6 @@
       };
     });
 
-    /* 초기 옵션 채우기 */
     const hourSel = document.getElementById('select-write-hour');
     for (let h = 0; h < 24; h++) {
       const opt = document.createElement('option');
