@@ -12,7 +12,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <title>53데시벨 (v0.4.48)</title>
+  <title>53데시벨 (v0.4.49)</title>
 
   <link id="pwa-manifest-link" rel="manifest">
   <script>
@@ -427,9 +427,85 @@
     .onair-lamp.lit-active { background: #DC2626; border-color: #B91C1C; color: #FFF; }
     .onair-lamp.lit-resolved { background: #15803D; border-color: #166534; color: #FFF; }
     .onair-lamp.lit-chronic { background: #0F172A; border-color: #0F172A; color: #FFF; }
-    .nd-24h-grid { display: grid; grid-template-columns: repeat(24, 1fr); gap: 2px; align-items: end; height: 64px; border-bottom: 1px solid var(--border-strong); padding-top: 6px; }
-    .nd-24h-bar { width: 100%; border-radius: 2px 2px 0 0; background: var(--primary); }
-    .nd-24h-bar.peak { background: #BE123C; }
+    /* [v0.4.49] 소음 정보 모노톤 + 신뢰도 컬러 집중 + 스택형 24시간 블록 차트 */
+    .v2-an-card.mono { background: #FAFAFA; border: 1px solid #E2E8F0; }
+    .v2-an-mono-title { font-size: 15.5px; font-weight: 800; color: #0F172A; }
+    .v2-an-mono-sub { font-size: 13.5px; font-weight: 600; color: #334155; line-height: 1.48; }
+    .v2-an-mono-meta { font-size: 12px; font-weight: 600; color: #64748B; }
+    .v2-an-status-readonly {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 11.5px; font-weight: 800; padding: 2px 8px; border-radius: 999px;
+      background: #F1F5F9; color: #334155; border: 1px solid #CBD5E1;
+    }
+
+    .v2-trust-hero {
+      background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 55%, #0284C7 100%);
+      border-radius: 15px; padding: 14px; color: #FFFFFF;
+      box-shadow: 0 8px 20px rgba(30, 58, 138, 0.24);
+      display: flex; flex-direction: column; gap: 10px; flex-shrink: 0;
+    }
+    .v2-trust-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .v2-trust-score-box {
+      background: rgba(255, 255, 255, 0.16); border: 1.5px solid rgba(255, 255, 255, 0.38);
+      border-radius: 13px; padding: 8px 12px; text-align: center; min-width: 92px;
+    }
+    .v2-trust-score-box span { display: block; font-size: 11px; font-weight: 800; color: #BAE6FD; }
+    .v2-trust-score-box strong { display: block; font-size: 28px; font-weight: 900; line-height: 1.1; color: #FFFFFF; }
+    .v2-trust-grade-pill {
+      display: inline-block; font-size: 11.5px; font-weight: 900; padding: 3px 9px;
+      border-radius: 999px; background: #FACC15; color: #0F172A; margin-bottom: 5px;
+    }
+    .v2-trust-bar-track {
+      width: 100%; height: 8px; border-radius: 999px; background: rgba(255,255,255,0.22); overflow: hidden;
+    }
+    .v2-trust-bar-fill {
+      height: 100%; border-radius: 999px;
+      background: linear-gradient(90deg, #38BDF8 0%, #4ADE80 60%, #FACC15 100%);
+    }
+    .v2-trust-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+    .v2-trust-chip {
+      font-size: 11.5px; font-weight: 800; padding: 4px 8px; border-radius: 7px;
+      background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.28); color: #FFFFFF;
+    }
+    .v2-trust-chip.warn { background: rgba(244, 63, 94, 0.88); border-color: rgba(255,255,255,0.45); }
+    .v2-trust-chip.ok { background: rgba(16, 185, 129, 0.85); border-color: rgba(255,255,255,0.4); }
+
+    .nd-24h-stack-grid {
+      display: grid; grid-template-columns: repeat(24, 1fr); gap: 2px;
+      align-items: end; min-height: 72px; padding-top: 8px;
+      border-bottom: 1.5px solid #94A3B8;
+    }
+    .nd-24h-col {
+      display: flex; flex-direction: column-reverse; align-items: center; gap: 2px;
+      height: 100%; justify-content: flex-start;
+    }
+    .nd-24h-cell {
+      width: 100%; height: 9px; border-radius: 2px;
+    }
+    .nd-24h-cell.lv-1 { background: #D97706; }
+    .nd-24h-cell.lv-2 { background: #EA580C; }
+    .nd-24h-cell.lv-3 { background: #E11D48; }
+
+    /* 소음 올리기 완료 안내 모달 */
+    .submit-done-backdrop {
+      position: absolute; inset: 0; z-index: 260;
+      background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center; padding: 20px;
+    }
+    .submit-done-card {
+      width: 100%; max-width: 340px; background: #FFF; border-radius: 20px;
+      padding: 20px 18px 16px; box-shadow: 0 20px 44px rgba(15, 23, 42, 0.3);
+      display: flex; flex-direction: column; gap: 12px; text-align: center;
+    }
+    .submit-done-badge {
+      width: 52px; height: 52px; margin: 0 auto; border-radius: 50%;
+      background: #DCFCE7; color: #15803D; font-size: 26px; font-weight: 900;
+      display: grid; place-items: center;
+    }
+    .submit-done-summary {
+      background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px;
+      padding: 11px 12px; text-align: left; font-size: 13px; color: #334155; line-height: 1.6;
+    }
 
     /* 공용 모달 시트 */
     .sheet-backdrop {
@@ -508,13 +584,13 @@
 </head>
 <body>
   <div class="app-shell">
-    <div class="boot-version-banner" id="boot-version-banner">53데시벨 v0.4.48 구동</div>
+    <div class="boot-version-banner" id="boot-version-banner">53데시벨 v0.4.49 구동</div>
 
     <!-- [화면 1] 로그인 / QA 진입 -->
     <section class="screen" id="screen-auth">
       <div style="display:flex; justify-content:space-between; align-items:center;">
         <button type="button" class="btn-outline" id="btn-auth-expert-join" style="color:var(--primary); border-color:var(--primary);">전문가 입점</button>
-        <span style="font-size:12px; font-weight:800; color:var(--primary); background:var(--primary-soft); padding:4px 9px; border-radius:999px;">v0.4.48</span>
+        <span style="font-size:12px; font-weight:800; color:var(--primary); background:var(--primary-soft); padding:4px 9px; border-radius:999px;">v0.4.49</span>
       </div>
 
       <div class="auth-hero">
@@ -582,7 +658,7 @@
             <div class="sheet-title-wrap">
               <h2>주변 소음 정보</h2>
               <span class="spot-count-pill" id="spot-index-indicator">0 / 0</span>
-              <span class="ver-mini-tag">v0.4.48</span>
+              <span class="ver-mini-tag">v0.4.49</span>
             </div>
             <button type="button" class="btn-header-write" id="btn-open-write">+ 소음 올리기</button>
           </div>
@@ -844,11 +920,11 @@
     <div class="sheet-backdrop" id="modal-qa" hidden>
       <div class="native-modal-sheet">
         <div class="sheet-title-bar">
-          <h3>QA 테스트 · 데이터 관리 (v0.4.48)</h3>
+          <h3>QA 테스트 · 데이터 관리 (v0.4.49)</h3>
           <button type="button" class="btn-outline" id="btn-close-qa">닫기</button>
         </div>
         <div style="background:var(--bg-subtle); border:1px solid var(--border-line); border-radius:12px; padding:12px; font-size:13.5px; line-height:1.6;">
-          <div>• 현재 버전: <strong style="color:var(--primary);">v0.4.48</strong> · 계정: <strong id="qa-user-label" style="color:var(--primary);">마스터QA</strong></div>
+          <div>• 현재 버전: <strong style="color:var(--primary);">v0.4.49</strong> · 계정: <strong id="qa-user-label" style="color:var(--primary);">마스터QA</strong></div>
           <div>• 등록 소음: <strong id="qa-post-cnt">0건</strong> · 다음 가상주민 번호: <strong id="qa-seq-cnt">01</strong></div>
         </div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
@@ -897,11 +973,24 @@
       </div>
     </div>
 
+    <!-- 소음 올리기 완료 안내 모달 -->
+    <div class="submit-done-backdrop" id="modal-submit-done" hidden>
+      <div class="submit-done-card" role="dialog" aria-modal="true">
+        <div class="submit-done-badge">✓</div>
+        <h3 style="font-size:18.5px; font-weight:900; color:var(--text-main);">소음 제보가 완료되었어요</h3>
+        <div class="submit-done-summary" id="submit-done-summary"></div>
+        <div style="display:grid; grid-template-columns:1fr 1.35fr; gap:8px; margin-top:2px;">
+          <button type="button" class="btn-outline" id="btn-done-go-map" style="height:44px; font-size:14px;">지도로 이동</button>
+          <button type="button" class="btn-primary" id="btn-done-go-detail" style="height:44px; min-height:44px; font-size:14.5px;">등록 현장 보기</button>
+        </div>
+      </div>
+    </div>
+
     <div class="app-toast" id="toast-bar" hidden></div>
   </div>
 
   <script>
-    const APP_VERSION = 'v0.4.48';
+    const APP_VERSION = 'v0.4.49';
 
     const CONFIG = {
       BLDG_API_KEY: '738a1e3eb24afc48a06e3871c47d057b54f27cfde63e91a4e2b5a2baf27cbae5',
@@ -937,10 +1026,52 @@
     })();
 
     const WHO_LEVELS = {
-      1: { db: '58dB', full: '58dB (대화 수준)', desc: '집중·휴식 방해 수준' },
-      2: { db: '82dB', full: '82dB (청소기 수준)', desc: '매우 시끄러움·스트레스' },
-      3: { db: '102dB', full: '102dB (열차 통과 수준)', desc: '즉각 고통·수면 불가' }
+      1: { db: '58dB', full: '58dB (대화 수준)', desc: '집중·휴식 방해 수준', color: '#D97706' },
+      2: { db: '82dB', full: '82dB (청소기 수준)', desc: '매우 시끄러움·스트레스', color: '#EA580C' },
+      3: { db: '102dB', full: '102dB (열차 통과 수준)', desc: '즉각 고통·수면 불가', color: '#E11D48' }
     };
+
+    function getTimePeriodLabel(h) {
+      const hr = ((Number(h) % 24) + 24) % 24;
+      if (hr <= 5) return '새벽';
+      if (hr <= 10) return '아침';
+      if (hr <= 16) return '낮';
+      if (hr <= 20) return '저녁';
+      return '밤';
+    }
+
+    function formatKoreanHour(h) {
+      const hr = ((Number(h) % 24) + 24) % 24;
+      return `${getTimePeriodLabel(hr)} ${String(hr).padStart(2, '0')}시`;
+    }
+
+    function getKoreanWeekday(ts) {
+      const days = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+      const d = new Date(ts || Date.now());
+      return `${d.getMonth() + 1}월 ${d.getDate()}일 (${days[d.getDay()]})`;
+    }
+
+    function extractHourFromComment(text, fallbackHour) {
+      const s = String(text || '');
+      const m = s.match(/(새벽|아침|오전|낮|오후|저녁|밤)?\s*(\d{1,2})\s*시/);
+      if (!m) return Number(fallbackHour);
+      let hr = parseInt(m[2], 10);
+      if (isNaN(hr) || hr > 23) return Number(fallbackHour);
+      const period = m[1] || '';
+      if ((period === '오후' || period === '저녁' || period === '밤') && hr >= 1 && hr <= 11) {
+        hr += 12;
+      } else if (period === '새벽' && hr === 12) {
+        hr = 0;
+      }
+      return ((hr % 24) + 24) % 24;
+    }
+
+    /* 제보 본인이면서 마스터QA(매 등록 시 새 가상주민)가 아닌 경우에만 상태 변경 허용 */
+    function canEditPostStatus(post) {
+      if (!post || !state.user || !state.user.loggedIn) return false;
+      if (state.user.isMaster) return false;
+      return Boolean(post.authorAccountId && state.user.accountId && post.authorAccountId === state.user.accountId);
+    }
 
     const CAT_INDOOR = [
       { label: '발망치·뛰는소리', group: 'indoor' },
@@ -1479,7 +1610,7 @@
         </div>
         <div class="v2-origin-body">${post.content}</div>
         <div class="v2-origin-foot">
-          <span>${post.day} ${post.hour}시 발생 · ${post.category}</span>
+          <span>${post.day} · ${formatKoreanHour(post.hour)} 발생 · ${post.category}</span>
           <span>${relTime(post.timestamp)}</span>
         </div>
       `;
@@ -1511,54 +1642,124 @@
       const post = state.posts.find(p => p.id === state.selectedPostId);
       if (!post) return;
       const who = WHO_LEVELS[post.whoLevel] || WHO_LEVELS[2];
-      const cis = Math.min(99, 68 + Math.min(25, (post.empathyCount || 0) * 5) + Math.min(6, (post.comments || []).length * 2));
+      const empCount = post.empathyCount || 0;
+      const comments = post.comments || [];
+      const cis = Math.min(99, 68 + Math.min(24, empCount * 5) + Math.min(7, comments.length * 2));
+      const trustGrade = cis >= 85 ? '법률 제출 권장 (매우 높음)' : (cis >= 75 ? '증거 유효 (높음)' : '초기 제보 (이웃 공감 필요)');
       const fullLoc = post.space === 'indoor' ? `${post.bldgName || post.roadAddr} (${post.floor}층 · 호수 비공개)` : post.roadAddr;
+      const stLabel = post.status === 'resolved' ? '해결됨' : (post.status === 'chronic' ? '만성·재발' : '발생 중');
 
-      const barsHtml = Array.from({ length: 24 }, (_, h) => {
-        const isPeak = h === Number(post.hour);
-        const hPx = isPeak ? 52 : (Math.abs(h - Number(post.hour)) === 1 ? 22 : 8);
-        return `<div class="nd-24h-bar ${isPeak ? 'peak' : ''}" style="height:${hPx}px;"></div>`;
+      /* 24시간 스택 블록 카운트: 최초 제보(1칸) + 공감(1건당 1칸) + 댓글(1건당 1칸)
+         데이터가 없는 시간대는 0칸(아무것도 쌓지 않음) */
+      const hourCounts = new Array(24).fill(0);
+      const baseHour = ((Number(post.hour) % 24) + 24) % 24;
+      hourCounts[baseHour] += 1; // 최초 제보 1칸
+
+      if (Array.isArray(post.empathyHours) && post.empathyHours.length) {
+        post.empathyHours.forEach(h => {
+          const idx = ((Number(h) % 24) + 24) % 24;
+          hourCounts[idx] += 1;
+        });
+      } else if (empCount > 0) {
+        hourCounts[baseHour] += empCount;
+      }
+
+      comments.forEach(c => {
+        const ch = (typeof c.hour === 'number') ? c.hour : extractHourFromComment(c.text, baseHour);
+        const idx = ((Number(ch) % 24) + 24) % 24;
+        hourCounts[idx] += 1;
+      });
+
+      const totalSignals = hourCounts.reduce((a, b) => a + b, 0);
+      let peakHour = baseHour;
+      let peakVal = 0;
+      hourCounts.forEach((cnt, h) => {
+        if (cnt > peakVal) { peakVal = cnt; peakHour = h; }
+      });
+
+      const stackColsHtml = hourCounts.map((cnt, h) => {
+        const visualBlocks = Math.min(cnt, 7);
+        const cells = Array.from({ length: visualBlocks }, () =>
+          `<div class="nd-24h-cell lv-${post.whoLevel}"></div>`
+        ).join('');
+        return `<div class="nd-24h-col" title="${formatKoreanHour(h)}: ${cnt}건">${cells}</div>`;
       }).join('');
 
-      document.getElementById('v2-analysis-content').innerHTML = `
-        <div class="v2-an-card">
-          <div class="v2-an-lbl">상세 위치 및 체감 강도</div>
-          <strong style="font-size:16px;">${post.category} · ${who.full}</strong>
-          <div style="font-size:13.5px; color:var(--text-sub);">${fullLoc}</div>
-          <div style="font-size:12.5px; color:var(--text-muted);">${post.jibunAddr || ''}</div>
-        </div>
-
-        <div class="v2-an-card">
-          <div class="v2-an-lbl">현재 소음 상태 변경 (발생 중 / 해결됨 / 만성·재발)</div>
+      /* 제보 본인(비마스터)일 때만 3가지 상태 변경 버튼 노출 */
+      const statusEditorHtml = canEditPostStatus(post) ? `
+        <div class="v2-an-card mono">
+          <div class="v2-an-lbl">현재 소음 상태 변경 (제보자 본인 전용)</div>
           <div class="onair-lamp-group">
             <button type="button" class="onair-lamp ${post.status === 'active' ? 'lit-active' : ''}" onclick="changePostStatus('${post.id}','active')">● 발생 중</button>
             <button type="button" class="onair-lamp ${post.status === 'resolved' ? 'lit-resolved' : ''}" onclick="changePostStatus('${post.id}','resolved')">● 해결됨</button>
             <button type="button" class="onair-lamp ${post.status === 'chronic' ? 'lit-chronic' : ''}" onclick="changePostStatus('${post.id}','chronic')">● 만성·재발</button>
           </div>
         </div>
+      ` : '';
 
-        <div class="v2-an-card" style="display:grid; grid-template-columns:88px 1fr; gap:12px; align-items:center;">
-          <div style="background:var(--primary-soft); border-radius:12px; padding:10px 6px; text-align:center;">
-            <div style="font-size:11.5px; font-weight:800; color:var(--primary);">신뢰지수</div>
-            <strong style="font-size:24px; font-weight:900; color:var(--primary);">${cis}%</strong>
-          </div>
-          <div style="font-size:13px; color:var(--text-sub); line-height:1.55;">
-            <div>• 현장 좌표 인증: <strong style="color:var(--primary);">완료 (${post.adminDong})</strong></div>
-            <div>• 이웃 공감: <strong>${post.empathyCount || 0}명</strong> · 증언 <strong>${(post.comments || []).length}건</strong></div>
-            <div>• 방음 추정: <strong style="color:#DC2626;">${post.bldgSummary || '일반 주거 구조 (방음 주의)'}</strong></div>
-          </div>
-        </div>
-
-        <div class="v2-an-card">
+      document.getElementById('v2-analysis-content').innerHTML = `
+        <!-- 1) 소음유형 · 체감강도 (모노톤 절제) -->
+        <div class="v2-an-card mono">
           <div style="display:flex; justify-content:space-between; align-items:center;">
-            <span class="v2-an-lbl">24시간 소음 발생 패턴</span>
-            <span style="font-size:12px; font-weight:800; color:#BE123C;">집중 시각: ${post.day} ${post.hour}시</span>
+            <span class="v2-an-lbl">1. 소음 유형 및 체감 강도</span>
+            <span class="v2-an-status-readonly">상태: ${stLabel}</span>
           </div>
-          <div class="nd-24h-grid">${barsHtml}</div>
-          <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-muted); font-weight:700;">
-            <span>0시</span><span>6시</span><span>12시</span><span>18시</span><span>23시</span>
+          <div class="v2-an-mono-title">${post.category} · ${who.full}</div>
+          <div class="v2-an-mono-meta">추출 키워드: ${extractAutoPinKeyword(post)} · ${who.desc}</div>
+        </div>
+
+        <!-- 2) 소음발생위치 · 발생일(요일/반복) · 시간대 (모노톤 절제) -->
+        <div class="v2-an-card mono">
+          <span class="v2-an-lbl">2. 발생 위치 · 일시 · 반복 패턴</span>
+          <div class="v2-an-mono-sub"><strong>위치:</strong> ${fullLoc}</div>
+          ${post.jibunAddr ? `<div class="v2-an-mono-meta">${post.jibunAddr}</div>` : ''}
+          <div class="v2-an-mono-sub"><strong>발생일:</strong> ${getKoreanWeekday(post.timestamp)} · ${post.day}</div>
+          <div class="v2-an-mono-sub"><strong>시간대:</strong> ${formatKoreanHour(post.hour)}</div>
+        </div>
+
+        <!-- 3) 신뢰도 (고시인성 컬러 집중) -->
+        <div class="v2-trust-hero">
+          <div class="v2-trust-top">
+            <div class="v2-trust-score-box">
+              <span>53dB 신뢰지수</span>
+              <strong>${cis}%</strong>
+            </div>
+            <div style="flex:1; min-width:0;">
+              <span class="v2-trust-grade-pill">${trustGrade}</span>
+              <div style="font-size:13px; font-weight:700; color:#F8FAFC; line-height:1.45;">
+                변호사 법률 검토용 객관 지표<br>
+                누적 증언·공감 총 ${totalSignals}건 반영
+              </div>
+            </div>
+          </div>
+          <div class="v2-trust-bar-track">
+            <div class="v2-trust-bar-fill" style="width:${cis}%;"></div>
+          </div>
+          <div class="v2-trust-chips">
+            <span class="v2-trust-chip ok">✓ 좌표인증 (${post.adminDong})</span>
+            <span class="v2-trust-chip">이웃 공감 ${empCount}명</span>
+            <span class="v2-trust-chip">증언 댓글 ${comments.length}건</span>
+            <span class="v2-trust-chip warn">${post.bldgSummary || '주거 방음 주의'}</span>
           </div>
         </div>
+
+        <!-- 4) 24시간 소음 발생 패턴 (1건=1칸 스택, 0건은 빈칸, dB별 컬러) -->
+        <div class="v2-an-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:6px;">
+            <span class="v2-an-lbl">4. 24시간 소음 발생 패턴 (1건 = 1칸)</span>
+            <span style="font-size:12px; font-weight:900; color:${who.color};">집중: ${post.day} ${formatKoreanHour(peakHour)} (${peakVal}건)</span>
+          </div>
+          <div class="nd-24h-stack-grid">${stackColsHtml}</div>
+          <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-muted); font-weight:700;">
+            <span>00시(새벽)</span><span>06시(아침)</span><span>12시(낮)</span><span>18시(저녁)</span><span>23시(밤)</span>
+          </div>
+          <div style="font-size:11.5px; color:var(--text-muted); display:flex; justify-content:space-between;">
+            <span>제보·공감·댓글 합산 총 ${totalSignals}칸</span>
+            <span style="color:${who.color}; font-weight:800;">● ${who.db} 강도 컬러</span>
+          </div>
+        </div>
+
+        ${statusEditorHtml}
       `;
       document.getElementById('modal-analysis-overlay').hidden = false;
     }
@@ -1579,6 +1780,8 @@
       const post = state.posts.find(p => p.id === state.selectedPostId);
       if (!post) return;
       post.empathyCount = (post.empathyCount || 0) + 1;
+      if (!Array.isArray(post.empathyHours)) post.empathyHours = [];
+      post.empathyHours.push(Number(post.hour));
       post.userEmpathized = true;
       saveData();
       renderDetailV2Content(post);
@@ -1605,6 +1808,7 @@
         id: 'c-' + Date.now(),
         author: nextVirtualNick(post.adminDong),
         text: txt,
+        hour: extractHourFromComment(txt, post.hour),
         timestamp: Date.now()
       });
       inp.value = '';
@@ -1775,13 +1979,35 @@
         timestamp: Date.now()
       };
 
+      newPost.empathyHours = [];
+      newPost.authorAccountId = state.user.isMaster ? ('qa-' + Date.now()) : (state.user.accountId || 'guest');
+
       state.posts.unshift(newPost);
       state.selectedPostId = newPost.id;
       saveData();
       document.getElementById('input-write-content').value = '';
       if (isIndoor) bgFetchBuildingInfo(newPost.id, newPost.bldgName, state.draftLoc.bun, state.draftLoc.ji);
-      showToast('소음이 등록되었습니다!');
-      openDetailV2(newPost.id);
+
+      const kw = extractAutoPinKeyword(newPost);
+      const locLabel = isIndoor ? `${newPost.bldgName} (${newPost.floor}층 · 호수 비공개)` : newPost.roadAddr;
+      document.getElementById('submit-done-summary').innerHTML = `
+        <div>• 부여된 실거주민: <strong style="color:var(--primary);">${newPost.author}</strong></div>
+        <div>• 추출 키워드: <strong>${kw}</strong> (${WHO_LEVELS[newPost.whoLevel].db})</div>
+        <div>• 발생 위치: <strong>${locLabel}</strong></div>
+        <div>• 발생 일시: <strong>${newPost.day} · ${formatKoreanHour(newPost.hour)}</strong></div>
+        ${state.user.isMaster ? '<div style="margin-top:6px; padding-top:6px; border-top:1px dashed #CBD5E1; color:#0284C7; font-weight:700;">※ 마스터QA: 새 가상 주민으로 등록 완료되었습니다. 이후 조회 시 타인(이웃) 시점으로 확인됩니다.</div>' : ''}
+      `;
+      document.getElementById('modal-submit-done').hidden = false;
+    };
+
+    document.getElementById('btn-done-go-map').onclick = () => {
+      document.getElementById('modal-submit-done').hidden = true;
+      goScreen('screen-main');
+    };
+    document.getElementById('btn-done-go-detail').onclick = () => {
+      document.getElementById('modal-submit-done').hidden = true;
+      if (state.selectedPostId) openDetailV2(state.selectedPostId);
+      else goScreen('screen-main');
     };
 
     function updatePickerPinByZoom() {
@@ -2085,7 +2311,7 @@
     const hourSel = document.getElementById('select-write-hour');
     for (let h = 0; h < 24; h++) {
       const opt = document.createElement('option');
-      opt.value = h; opt.textContent = `${String(h).padStart(2, '0')}시`;
+      opt.value = h; opt.textContent = formatKoreanHour(h);
       if (h === state.writeDraft.hour) opt.selected = true;
       hourSel.appendChild(opt);
     }
